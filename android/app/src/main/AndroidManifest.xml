@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="tez.hospital.siraha">
    <application
-        android:label="GoMedi"
+        android:label="Tez Helth Care"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
