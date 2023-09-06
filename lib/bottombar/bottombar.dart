@@ -98,7 +98,7 @@ class _BottomhomeState extends State<Bottomhome> {
     return {
       '/': (context) {
         return [
-          const Home(),
+          const HomePage(),
           const MyAppoiment(),
           const Chat(),
           const Profile(),
