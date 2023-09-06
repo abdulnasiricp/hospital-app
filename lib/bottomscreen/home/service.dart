@@ -9,7 +9,6 @@ import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:provider/provider.dart';
 
-import '../../stringfile/enstring.dart';
 
 class Service extends StatefulWidget {
   const Service({Key? key}) : super(key: key);

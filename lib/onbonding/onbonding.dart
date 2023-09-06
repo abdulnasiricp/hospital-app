@@ -245,7 +245,7 @@ class _OnbondingState extends State<Onbonding> {
                                 children: <Widget>[
                                   GestureDetector(
                                     onTap: () {
-                                      Get.to(const Bottomhome());
+                                      Get.to(()=> const Bottomhome());
                                     },
                                     child: Container(
                                       color: Colors.transparent,
@@ -352,7 +352,7 @@ class _OnbondingState extends State<Onbonding> {
                                   GestureDetector(
                                     onTap: () {
                                       Get.to(
-                                        const Login(),
+                                        const SignInScreen(),
                                       );
                                     },
                                     child: Container(

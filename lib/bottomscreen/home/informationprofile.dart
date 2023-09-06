@@ -115,7 +115,7 @@ class _InformationProfileState extends State<InformationProfile> {
               Padding(
                 padding: EdgeInsets.only(left: width / 14, right: width / 14),
                 child: Customtextfild.textField(
-                    EnString.enteremailorphonenumber,
+                    EnString.enterusername,
                     notifier.getgrey,
                     notifier.getgrey,
                     notifier.getblack,

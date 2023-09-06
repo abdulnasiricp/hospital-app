@@ -24,7 +24,7 @@ class EnString {
 
   static const String remeberme = "Remeber me";
 
-  static const String enteremailorphonenumber = "Enter email or phone number";
+  static const String enterusername = "Enter your Username ";
 
   static const String forgotpassword = "Forgot password?";
 
