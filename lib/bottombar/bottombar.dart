@@ -32,7 +32,7 @@ class _BottomhomeState extends State<Bottomhome> {
           currentIndex: _selectedIndex,
           items: [
             SalomonBottomBarItem(
-              icon: Image.asset("assets/home.png", height: height / 30),
+              icon: Image.asset("assets/home.png", height: height / 30,color: Colors.blue[300]),
               title: Text(
                 EnString.home,
                 style: TextStyle(
@@ -43,7 +43,7 @@ class _BottomhomeState extends State<Bottomhome> {
               selectedColor: notifier.getperple,
             ),
             SalomonBottomBarItem(
-              icon: Image.asset("assets/Schedule.png", height: height / 30),
+              icon: Image.asset("assets/Schedule.png", height: height / 30,color: Colors.blue[300],),
               title: Text(
                 EnString.sche,
                 style: TextStyle(
@@ -54,7 +54,7 @@ class _BottomhomeState extends State<Bottomhome> {
               selectedColor: notifier.getperple,
             ),
             SalomonBottomBarItem(
-              icon: Image.asset("assets/chat.png", height: height / 30),
+              icon: Image.asset("assets/chat.png", height: height / 30,color: Colors.blue[300]),
               title: Text(
                 EnString.chat,
                 style: TextStyle(
@@ -65,7 +65,7 @@ class _BottomhomeState extends State<Bottomhome> {
               selectedColor: notifier.getperple,
             ),
             SalomonBottomBarItem(
-              icon: Image.asset("assets/profile.png", height: height / 30),
+              icon: Image.asset("assets/profile.png", height: height / 30,color: Colors.blue[300]),
               title: Text(
                 EnString.profile,
                 style: TextStyle(

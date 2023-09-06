@@ -205,7 +205,10 @@
 
 // ignore_for_file: sized_box_for_whitespace
 
+import 'package:TezHealthCare/bottomscreen/home/search.dart';
+import 'package:TezHealthCare/screens/notification.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -226,27 +229,27 @@ class _HomePageState extends State<HomePage> {
             IconButton(
                 color: Colors.blue,
                 onPressed: () {
-                  // Get.to(() => const NotificationScreen());
+                  Get.to(() => const Notif());
                 },
                 icon: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.white,
                     ),
-                    width: 40,
+                    width: 50,
                     height: 40,
                     child: const Icon(Icons.notifications))),
             IconButton(
                 color: Colors.blue,
                 onPressed: () {
-                  // Get.to(()=>const MyProfile());
+                  Get.to(()=>const Search());
                 },
                 icon: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.white,
                     ),
-                    width: 40,
+                    width: 50,
                     height: 40,
                     child: const Icon(Icons.search))),
           ],
