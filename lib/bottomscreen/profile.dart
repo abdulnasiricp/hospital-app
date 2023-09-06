@@ -1,18 +1,12 @@
 // ignore_for_file: sized_box_for_whitespace
 
 import 'package:TezHealthCare/bottomscreen/home/address.dart';
+import 'package:TezHealthCare/bottomscreen/sehedule.dart';
 import 'package:TezHealthCare/utils/helper_class.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:TezHealthCare/bottomscreen/home/activityhistory.dart';
-import 'package:TezHealthCare/bottomscreen/home/informationprofile.dart';
-import 'package:TezHealthCare/bottomscreen/sehedule.dart';
-import 'package:TezHealthCare/loream.dart';
-import 'package:TezHealthCare/screens/auth/login.dart';
-import 'package:TezHealthCare/stringfile/enstring.dart';
-import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
