@@ -1,6 +1,7 @@
 // ignore_for_file: sized_box_for_whitespace
 
 import 'package:TezHealthCare/bottomscreen/home/address.dart';
+import 'package:TezHealthCare/bottomscreen/home/informationprofile.dart';
 import 'package:TezHealthCare/bottomscreen/sehedule.dart';
 import 'package:TezHealthCare/utils/helper_class.dart';
 import 'package:flutter/material.dart';
@@ -114,7 +115,11 @@ class _ProfileState extends State<Profile> {
                   child: Column(
                     children: [
                       ListTile(
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(()=> InformationProfile());
+
+
+                        },
                         leading: Container(
                           width: 20,
                           height: 20,

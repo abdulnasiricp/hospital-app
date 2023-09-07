@@ -351,8 +351,8 @@ class _OnbondingState extends State<Onbonding> {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      Get.to(
-                                        const SignInScreen(),
+                                      Get.off(
+                                        ()=>const SignInScreen(),
                                       );
                                     },
                                     child: Container(
