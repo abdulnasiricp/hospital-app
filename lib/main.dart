@@ -1,4 +1,4 @@
-import 'package:TezHealthCare/screens/auth/login.dart';
+import 'package:TezHealthCare/Controller/loginController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => ColorNotifier()),
+          ChangeNotifierProvider(create: (_) => LoginController()),
         ],
         child: const GetMaterialApp(
           debugShowCheckedModeBanner: false,

@@ -299,13 +299,15 @@
 // }
 
 
-// ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers
+// ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers, unused_local_variable, non_constant_identifier_names
 
+
+import 'package:TezHealthCare/Controller/loginController.dart';
 import 'package:TezHealthCare/utils/My_button.dart';
 import 'package:TezHealthCare/utils/helper_class.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:provider/provider.dart';
 import '../../bottomscreen/home/forgotpassword.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -317,12 +319,15 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  final formKey = GlobalKey<FormState>();
+  // TextEditingController emailController = TextEditingController();
+  // TextEditingController passwordController = TextEditingController();
+  // final formKey = GlobalKey<FormState>();
   var isloading = false;
+
+
   @override
   Widget build(BuildContext context) {
+    final loginProvider = Provider.of<LoginController>(context,listen: false);
     return SafeArea(
       child: Scaffold(
         backgroundColor: Utils.scaffoldBackgroundColor,
@@ -352,8 +357,9 @@ class _SignInScreenState extends State<SignInScreen> {
                     color: Utils.containerColor,
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: Form(
-                    key: formKey,
+                  child:Consumer<LoginController>(builder: (context, Loginvalues, child) {
+                    return Form(
+                    key: Loginvalues.loginFormKey,
                     child: Padding(
                       padding: const EdgeInsets.only(top:30.0,left: 20,right: 20),
                       child: Column(
@@ -362,14 +368,16 @@ class _SignInScreenState extends State<SignInScreen> {
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Please enter your email';
-                              } else if (!value.contains('@')) {
-                                return 'please enter valid email';
-                              } else {
+                              }
+                              //  else if (!value.contains('@')) {
+                              //   return 'please enter valid email';
+                              // } 
+                              else {
                                 return null;
                               }
                             },
                             keyboardType: TextInputType.emailAddress,
-                            controller: emailController,
+                            controller: Loginvalues.emailController,
                             onTapOutside: (event) =>
                                 FocusScope.of(context).unfocus(),
                             decoration: InputDecoration(
@@ -392,7 +400,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               }
                             },
                             obscureText: true,
-                            controller: passwordController,
+                            controller: Loginvalues.passwordController,
                             onTapOutside: (event) =>
                                 FocusScope.of(context).unfocus(),
                             decoration: InputDecoration(
@@ -422,17 +430,27 @@ class _SignInScreenState extends State<SignInScreen> {
                               width: double.infinity,
                               height: 50,
                               child: MyButton(
-                                title: isloading
+                                title: 
+                                isloading
                                     ? const CircularProgressIndicator()
-                                    : const Text('Sign In'),
+                                    :
+                                     const Text('Sign In'),
                                 onPressed: () {
-                                  if (formKey.currentState!.validate()) {}
+                                  if (Loginvalues.loginFormKey.currentState!.validate()) {
+                                    Loginvalues.patientLogin(
+                                      Loginvalues.emailController,
+                                      Loginvalues.passwordController
+                                    );
+                                  }
                                 },
                               )),
                         ],
                       ),
                     ),
-                  ),
+                  );
+                    
+                  })
+                   
                 ),
               ),
              
