@@ -31,14 +31,13 @@ class _MyAppoimentState extends State<MyAppoiment> {
           notifier.getblack,
           "assets/doctorlistbackarrow.png",
           // height: height / 15,
-          height: 15,
+          height: 60,
         ),
         body: SingleChildScrollView(
           child: Column(
             children: [
               SizedBox(
-                // height: height / 50),
-                height: 50),
+                height: 10),
               Padding(
                 padding: const EdgeInsets.only(left: 15, right: 15),
                 child: Container(
@@ -78,7 +77,7 @@ class _MyAppoimentState extends State<MyAppoiment> {
                                 //  width: width / 2.5,
                                 height: 50,
                                
-                                width:100,
+                                width:120,
                                 child: Center(
                                   child: Text(
                                     EnString.upcoming,
@@ -105,7 +104,7 @@ class _MyAppoimentState extends State<MyAppoiment> {
                                 // width: width / 2.5,
                                 height: 50,
                                
-                                width:100,
+                                width:130,
                                 child: Center(
                                   child: Text(
                                     EnString.past,
