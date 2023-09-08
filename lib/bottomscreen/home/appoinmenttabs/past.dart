@@ -37,7 +37,8 @@ class _PastState extends State<Past> {
                   Colors.transparent,
                   EnString.jung,
                   EnString.youLike,
-                  "12:35",width / 16),
+                  "12:35",
+                  width / 16),
               SizedBox(height: height / 150),
               Doctorratinglist(
                   "assets/drtwo.png",
