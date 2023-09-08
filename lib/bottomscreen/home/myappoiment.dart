@@ -30,16 +30,20 @@ class _MyAppoimentState extends State<MyAppoiment> {
           EnString.myAppointment,
           notifier.getblack,
           "assets/doctorlistbackarrow.png",
-          height: height / 15,
+          // height: height / 15,
+          height: 15,
         ),
         body: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: height / 50),
+              SizedBox(
+                // height: height / 50),
+                height: 50),
               Padding(
                 padding: const EdgeInsets.only(left: 15, right: 15),
                 child: Container(
-                  height: height / 1.125,
+                  // height: height / 1.125,
+                  height: MediaQuery.of(context).size.height,
                   width: width,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
@@ -70,8 +74,11 @@ class _MyAppoimentState extends State<MyAppoiment> {
                                   ),
                                   border: Border.all(color: notifier.getperple),
                                 ),
-                                height: height / 19,
-                                width: width / 2.5,
+                                // height: height / 19,
+                                //  width: width / 2.5,
+                                height: 50,
+                               
+                                width:100,
                                 child: Center(
                                   child: Text(
                                     EnString.upcoming,
@@ -94,8 +101,11 @@ class _MyAppoimentState extends State<MyAppoiment> {
                                   ),
                                   border: Border.all(color: notifier.getperple),
                                 ),
-                                height: height / 19,
-                                width: width / 2.5,
+                                // height: height / 19,
+                                // width: width / 2.5,
+                                height: 50,
+                               
+                                width:100,
                                 child: Center(
                                   child: Text(
                                     EnString.past,

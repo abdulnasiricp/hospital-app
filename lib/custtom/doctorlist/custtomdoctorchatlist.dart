@@ -37,55 +37,58 @@ class _CusttomdoctorchatState extends State<Custtomdoctorchat> {
                 Radius.circular(11.sp),
               ),
             ),
-            child: Container(
-              height: height / 6.5,
-              width: width / 1.1,
-              decoration: BoxDecoration(
-                border: Border.all(color: widget.bordercolor!, width: 2.sp),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(12.sp),
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Container(
+                height: 150,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  border: Border.all(color: widget.bordercolor!, width: 2.sp),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(12.sp),
+                  ),
                 ),
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      SizedBox(width: width / 80),
-                      ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child:
-                              Image.asset(widget.image!, height: height / 6.9)),
-                      SizedBox(width: width / 50),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                widget.drname!,
-                                style: TextStyle(
-                                    fontSize: 15.sp,
-                                    fontFamily: 'Gilroy_Bold',
-                                    color: notifier.getblack),
-                              ),
-                              SizedBox(width: width / 11),
-                              km(widget.kmr)
-                            ],
-                          ),
-                          SizedBox(height: height / 200),
-                          Text(
-                            widget.subname!,
-                            style: TextStyle(
-                                fontSize: 12.sp,
-                                fontFamily: 'Gilroy_Bold',
-                                color: notifier.getgrey),
-                          ),
-                          SizedBox(height: height / 70),
-                        ],
-                      )
-                    ],
-                  )
-                ],
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        // SizedBox(width: width / 80),
+                        ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child:
+                                Image.asset(widget.image!, height:140)),
+                        SizedBox(width: 10),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  widget.drname!,
+                                  style: TextStyle(
+                                      fontSize: 15.sp,
+                                      fontFamily: 'Gilroy_Bold',
+                                      color: notifier.getblack),
+                                ),
+                                SizedBox(width: 10),
+                                km(widget.kmr)
+                              ],
+                            ),
+                            SizedBox(height:20),
+                            Text(
+                              widget.subname!,
+                              style: TextStyle(
+                                  fontSize: 12.sp,
+                                  fontFamily: 'Gilroy_Bold',
+                                  color: notifier.getgrey),
+                            ),
+                            SizedBox(height: 10),
+                          ],
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
@@ -96,8 +99,8 @@ class _CusttomdoctorchatState extends State<Custtomdoctorchat> {
 
   Widget km(txt) {
     return Container(
-      height: height / 30,
-      width: width / 5,
+      height: 20,
+      width: 70,
       decoration: BoxDecoration(
         color: notifier.getkmcolor,
         borderRadius: BorderRadius.all(

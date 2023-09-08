@@ -20,7 +20,8 @@ class _UpcomingState extends State<Upcoming> {
   @override
   Widget build(BuildContext context) {
     notifier = Provider.of<ColorNotifier>(context, listen: true);
-    return Scaffold(backgroundColor: notifier.getwihitecolor,
+    return Scaffold(
+      backgroundColor: notifier.getwihitecolor,
       body: SingleChildScrollView(
         child: GestureDetector(
           onTap: () {
@@ -30,48 +31,64 @@ class _UpcomingState extends State<Upcoming> {
           },
           child: Column(
             children: [
+              SizedBox(
+                height: 4,
+              ),
+              Doctorratinglist(
+                "assets/drone.png",
+                Colors.transparent,
+                EnString.jung,
+                EnString.youLike,
+                "12:35",
+                 16,
+              ),
+              SizedBox(
+                height: height / 150,
+              ),
+              Doctorratinglist(
+                "assets/drtwo.png",
+                Colors.transparent,
+                EnString.push,
+                EnString.youLike,
+                "12:35",
+                width / 33,
+              ),
               SizedBox(height: height / 150),
               Doctorratinglist(
-                  "assets/drone.png",
-                  Colors.transparent,
-                  EnString.jung,
-                  EnString.youLike,
-                  "12:35",width / 16),
+                "assets/drone.png",
+                Colors.transparent,
+                EnString.jung,
+                EnString.youLike,
+                "12:35",
+                width / 16,
+              ),
               SizedBox(height: height / 150),
               Doctorratinglist(
-                  "assets/drtwo.png",
-                  Colors.transparent,
-                  EnString.push,
-                  EnString.youLike,
-                  "12:35",width / 33),
+                "assets/drone.png",
+                Colors.transparent,
+                EnString.jung,
+                EnString.youLike,
+                "12:35",
+                width / 16,
+              ),
               SizedBox(height: height / 150),
               Doctorratinglist(
-                  "assets/drone.png",
-                  Colors.transparent,
-                  EnString.jung,
-                  EnString.youLike,
-                  "12:35",width / 16),
+                "assets/drtwo.png",
+                Colors.transparent,
+                EnString.push,
+                EnString.youLike,
+                "12:35",
+                width / 35,
+              ),
               SizedBox(height: height / 150),
               Doctorratinglist(
-                  "assets/drone.png",
-                  Colors.transparent,
-                  EnString.jung,
-                  EnString.youLike,
-                  "12:35",width / 16),
-              SizedBox(height: height / 150),
-              Doctorratinglist(
-                  "assets/drtwo.png",
-                  Colors.transparent,
-                  EnString.push,
-                  EnString.youLike,
-                  "12:35",width / 35),
-              SizedBox(height: height / 150),
-              Doctorratinglist(
-                  "assets/drone.png",
-                  Colors.transparent,
-                  EnString.jung,
-                  EnString.youLike,
-                  "12:35",width / 18),
+                "assets/drone.png",
+                Colors.transparent,
+                EnString.jung,
+                EnString.youLike,
+                "12:35",
+                width / 18,
+              ),
               SizedBox(height: height / 150),
             ],
           ),

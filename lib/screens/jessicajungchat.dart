@@ -25,8 +25,8 @@ class _JessicaJungChatState extends State<JessicaJungChat> {
       builder: (_ , child)  => Scaffold(
         backgroundColor: notifier.getwihitecolor,
         floatingActionButton: Container(
-          height: height / 17,
-          width: width / 1.1,
+          height: 50,
+          width: double.infinity,
           decoration: BoxDecoration(
             color: const Color(0xfff8f8f8),
             borderRadius: BorderRadius.all(
@@ -35,7 +35,7 @@ class _JessicaJungChatState extends State<JessicaJungChat> {
           ),
           child: Row(
             children: [
-              SizedBox(width: width / 50),
+              SizedBox(width: 20),
               Icon(
                 Icons.camera_alt_outlined,
                 color: notifier.getgrey,
@@ -44,7 +44,7 @@ class _JessicaJungChatState extends State<JessicaJungChat> {
                 child: Container(
                   color: Colors.transparent,
                   child: Padding(
-                    padding: EdgeInsets.only(left: width / 40),
+                    padding: EdgeInsets.only(left: 10),
                     child: TextField(
                       style: TextStyle(color: notifier.getblack),
                       decoration: InputDecoration(
@@ -59,7 +59,7 @@ class _JessicaJungChatState extends State<JessicaJungChat> {
                 Icons.send,
                 color: notifier.getgrey,
               ),
-              SizedBox(width: width / 50),
+              SizedBox(width: 10),
             ],
           ),
         ),
@@ -77,27 +77,27 @@ class _JessicaJungChatState extends State<JessicaJungChat> {
               child: Image.asset("assets/about.png", scale: 3.5),
             ),
           ),
-          // "assets/about.png",
-          height: height / 15,
+          height: 60,
         ),
         body: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: height / 30),
+              SizedBox(height: 20),
+              // 
               Row(
                 children: [
-                  SizedBox(width: width / 100),
+                  SizedBox(width: 10),
                   Padding(
                     padding: EdgeInsets.only(
-                        top: height / 15, left: width / 40, right: width / 40),
+                        top:20, left: 10, right: 10),
                     child: Image.asset(
                       "assets/Avatar.png",
-                      height: height / 20,
+                      height: 40,
                     ),
                   ),
                   Container(
-                    height: height / 10,
-                    width: width / 2,
+                    height: 50,
+                    width: 250,
                     decoration: BoxDecoration(
                       color: notifier.getchatcolor,
                       borderRadius: BorderRadius.only(
@@ -118,13 +118,13 @@ class _JessicaJungChatState extends State<JessicaJungChat> {
                   )
                 ],
               ),
-              SizedBox(height: height / 50),
+              SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Container(
-                    height: height / 10,
-                    width: width / 2,
+                    height: 50,
+                    width: 250,
                     decoration: BoxDecoration(
                       color: notifier.getperple,
                       borderRadius: BorderRadius.only(
@@ -143,7 +143,9 @@ class _JessicaJungChatState extends State<JessicaJungChat> {
                       ),
                     ),
                   ),
-                  SizedBox(width: width / 25),
+                  SizedBox(width: 10),
+
+
                 ],
               ),
             ],
@@ -157,8 +159,8 @@ class _JessicaJungChatState extends State<JessicaJungChat> {
     return ScreenUtilInit(
       builder: (_ , child)  => Center(
         child: Container(
-          height: height / 17,
-          width: width / 1.1,
+          height: 20,
+          width: 300,
           decoration: BoxDecoration(
             color: const Color(0xfff8f8f8),
             borderRadius: BorderRadius.all(
@@ -169,10 +171,10 @@ class _JessicaJungChatState extends State<JessicaJungChat> {
             children: [
               Container(
                 color: Colors.transparent,
-                height: height / 15,
-                width: width / 1,
+                height: 20,
+                width: 500,
                 child: Padding(
-                  padding: EdgeInsets.only(left: width / 40),
+                  padding: EdgeInsets.only(left: 20),
                   child: TextField(
                     style: TextStyle(color: notifier.getblack),
                     decoration: InputDecoration(

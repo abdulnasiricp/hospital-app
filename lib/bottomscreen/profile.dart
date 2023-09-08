@@ -3,6 +3,7 @@
 import 'package:TezHealthCare/bottomscreen/home/address.dart';
 import 'package:TezHealthCare/bottomscreen/home/informationprofile.dart';
 import 'package:TezHealthCare/bottomscreen/sehedule.dart';
+import 'package:TezHealthCare/screens/auth/login.dart';
 import 'package:TezHealthCare/utils/helper_class.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,6 +21,15 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+Future<void> _logout(BuildContext context) async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.remove('username');
+    sharedPreferences.remove('password');
+
+    // Navigate to the login screen
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => SignInScreen()));
+  }
+
   late ColorNotifier notifier;
   bool selectedindex = false;
   bool selectedindex1 = false;
@@ -216,7 +226,9 @@ class _ProfileState extends State<Profile> {
                         title: const Text('DarkMode'),
                       ),
                       ListTile(
-                        onTap: () {},
+                        onTap: () {
+                          _logout(context);
+                        },
                         leading: Container(
                           width: 20,
                           height: 20,

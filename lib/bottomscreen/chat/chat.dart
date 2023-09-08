@@ -35,12 +35,11 @@ class _ChatState extends State<Chat> {
             padding: const EdgeInsets.only(right: 10),
             child: Image.asset("assets/chatperson.png", scale: 3.5),
           ),
-          height: height / 15,
+          height: 100,
         ),
         body: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: height / 30),
               serchfild(),
               GestureDetector(
                 onTap: () {
@@ -129,37 +128,41 @@ class _ChatState extends State<Chat> {
 
   Widget serchfild() {
     return Center(
-      child: Container(
-        height: height / 17,
-        width: width / 1.1,
-        decoration: BoxDecoration(
-          color: const Color(0xfff8f8f8),
-          borderRadius: BorderRadius.all(
-            Radius.circular(13.sp),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Container(
+          height: 50,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: const Color(0xfff8f8f8),
+            borderRadius: BorderRadius.all(
+              Radius.circular(13.sp),
+            ),
           ),
-        ),
-        child: Row(
-          children: [
-            Container(
-              color: Colors.transparent,
-              height: height / 8,
-              width: width / 1.3,
-              child: Padding(
-                padding: EdgeInsets.only(left: width / 40),
-                child: TextField(
-                  style: TextStyle(color: notifier.getblack),
-                  decoration: InputDecoration(
-                      hintStyle: TextStyle(color: notifier.getgrey),
-                      hintText: EnString.search,
-                      border: InputBorder.none),
+          child: Row(
+            children: [
+              Container(
+                color: Colors.transparent,
+               height: 50,
+          width:300,
+                child: Padding(
+                  // ignore: prefer_const_constructors
+                  padding: EdgeInsets.only(left: 10),
+                  child: TextField(
+                    style: TextStyle(color: notifier.getblack),
+                    decoration: InputDecoration(
+                        hintStyle: TextStyle(color: notifier.getgrey),
+                        hintText: EnString.search,
+                        border: InputBorder.none),
+                  ),
                 ),
               ),
-            ),
-            Icon(
-              Icons.search,
-              color: notifier.getperple,
-            )
-          ],
+              Icon(
+                Icons.search,
+                color: notifier.getperple,
+              )
+            ],
+          ),
         ),
       ),
     );

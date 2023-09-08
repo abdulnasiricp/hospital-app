@@ -4,7 +4,7 @@ import 'package:TezHealthCare/bottomscreen/chat/chat.dart';
 import 'package:TezHealthCare/bottomscreen/home/myappoiment.dart';
 import 'package:TezHealthCare/bottomscreen/profile.dart';
 import 'package:TezHealthCare/stringfile/enstring.dart';
-import 'package:TezHealthCare/utils/mediaqury.dart';
+// import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:provider/provider.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -32,7 +32,10 @@ class _BottomhomeState extends State<Bottomhome> {
           currentIndex: _selectedIndex,
           items: [
             SalomonBottomBarItem(
-              icon: Image.asset("assets/home.png", height: height / 30,color: Colors.blue[300]),
+              icon: Image.asset("assets/home.png",
+              //  height: height / 30,
+              height: 30,
+              color: Colors.blue[300]),
               title: Text(
                 EnString.home,
                 style: TextStyle(
@@ -43,7 +46,11 @@ class _BottomhomeState extends State<Bottomhome> {
               selectedColor: notifier.getperple,
             ),
             SalomonBottomBarItem(
-              icon: Image.asset("assets/Schedule.png", height: height / 30,color: Colors.blue[300],),
+              icon: Image.asset("assets/Schedule.png",
+              //  height: height / 30,
+              height: 30,
+
+               color: Colors.blue[300],),
               title: Text(
                 EnString.sche,
                 style: TextStyle(
@@ -54,7 +61,11 @@ class _BottomhomeState extends State<Bottomhome> {
               selectedColor: notifier.getperple,
             ),
             SalomonBottomBarItem(
-              icon: Image.asset("assets/chat.png", height: height / 30,color: Colors.blue[300]),
+              icon: Image.asset("assets/chat.png", 
+              // height: height / 30,
+              height: 30,
+
+              color: Colors.blue[300]),
               title: Text(
                 EnString.chat,
                 style: TextStyle(
@@ -65,7 +76,10 @@ class _BottomhomeState extends State<Bottomhome> {
               selectedColor: notifier.getperple,
             ),
             SalomonBottomBarItem(
-              icon: Image.asset("assets/profile.png", height: height / 30,color: Colors.blue[300]),
+              icon: Image.asset("assets/profile.png",
+              //  height: height / 30,
+              height: 30,
+               color: Colors.blue[300]),
               title: Text(
                 EnString.profile,
                 style: TextStyle(
