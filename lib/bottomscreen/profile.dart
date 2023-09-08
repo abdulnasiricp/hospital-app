@@ -27,7 +27,7 @@ Future<void> _logout(BuildContext context) async {
     sharedPreferences.remove('password');
 
     // Navigate to the login screen
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => SignInScreen()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const SignInScreen()));
   }
 
   late ColorNotifier notifier;
@@ -126,7 +126,7 @@ Future<void> _logout(BuildContext context) async {
                     children: [
                       ListTile(
                         onTap: () {
-                          Get.to(()=> InformationProfile());
+                          Get.to(()=> const InformationProfile());
 
 
                         },

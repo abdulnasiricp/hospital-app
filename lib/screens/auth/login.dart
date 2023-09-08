@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable, sized_box_for_whitespace, non_constant_identifier_names
+
 import 'dart:convert';
 
 import 'package:TezHealthCare/Controller/loginController.dart';
@@ -58,7 +60,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final loginProvider = Provider.of<LoginController>(context, listen: false);
+    // final loginProvider = Provider.of<LoginController>(context, listen: false);
     return SafeArea(
       child: Scaffold(
         backgroundColor: Utils.scaffoldBackgroundColor,

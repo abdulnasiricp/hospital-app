@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -9,6 +11,7 @@ import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 class InformationProfile extends StatefulWidget {
   const InformationProfile({Key? key}) : super(key: key);
@@ -18,6 +21,25 @@ class InformationProfile extends StatefulWidget {
 }
 
 class _InformationProfileState extends State<InformationProfile> {
+    Map<String, dynamic>? dataMap;
+    Map<String, dynamic>? DoneDataMap;
+Future hitAPI()async{
+  http.Response response;
+  response=await http.get(Uri.parse('uri'));
+  if (response.statusCode==200) {
+    setState(() {
+      dataMap = jsonDecode(response.body);
+      DoneDataMap=dataMap![''];
+    });
+    
+  }
+
+}
+
+
+
+
+
   late ColorNotifier notifier;
   String dropdownvalue = 'Female';
 
@@ -33,6 +55,7 @@ class _InformationProfileState extends State<InformationProfile> {
   @override
   void initState() {
     dateinput.text = ""; //set the initial value of text field
+
     super.initState();
   }
 

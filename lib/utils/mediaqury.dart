@@ -1,2 +1,2 @@
-dynamic height;
-dynamic width;
+late dynamic height;
+late dynamic width;

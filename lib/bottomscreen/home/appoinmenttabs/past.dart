@@ -31,14 +31,13 @@ class _PastState extends State<Past> {
           },
           child: Column(
             children: [
-              SizedBox(height: 20),
+              SizedBox(height: height / 150),
               Doctorratinglist(
                   "assets/drone.png",
                   Colors.transparent,
                   EnString.jung,
                   EnString.youLike,
-                  "12:35",
-                  width / 16),
+                  "12:35",width / 16),
               SizedBox(height: height / 150),
               Doctorratinglist(
                   "assets/drtwo.png",

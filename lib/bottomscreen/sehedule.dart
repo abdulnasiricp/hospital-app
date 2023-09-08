@@ -38,7 +38,7 @@ class _ScheduleState extends State<Schedule> {
               padding: const EdgeInsets.all(8.0),
               child: Image.asset("assets/schedulea.png"),
             ),
-            SizedBox(width: 20)
+            SizedBox(width: width / 40)
           ],
         ),
         body: Column(

@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:TezHealthCare/custtom/doctorlistappbar.dart';
 import 'package:TezHealthCare/screens/jessicajungchat.dart';
 import 'package:TezHealthCare/stringfile/enstring.dart';
-import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:provider/provider.dart';
 

@@ -52,12 +52,12 @@ class _CusttomdoctorchatState extends State<Custtomdoctorchat> {
                   children: [
                     Row(
                       children: [
-                        // SizedBox(width: width / 80),
+                        SizedBox(width: width / 80),
                         ClipRRect(
                             borderRadius: BorderRadius.circular(20),
                             child:
                                 Image.asset(widget.image!, height:140)),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -70,11 +70,11 @@ class _CusttomdoctorchatState extends State<Custtomdoctorchat> {
                                       fontFamily: 'Gilroy_Bold',
                                       color: notifier.getblack),
                                 ),
-                                SizedBox(width: 10),
+                                const SizedBox(width: 10),
                                 km(widget.kmr)
                               ],
                             ),
-                            SizedBox(height:20),
+                            const SizedBox(height:20),
                             Text(
                               widget.subname!,
                               style: TextStyle(
@@ -82,7 +82,7 @@ class _CusttomdoctorchatState extends State<Custtomdoctorchat> {
                                   fontFamily: 'Gilroy_Bold',
                                   color: notifier.getgrey),
                             ),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                           ],
                         )
                       ],
