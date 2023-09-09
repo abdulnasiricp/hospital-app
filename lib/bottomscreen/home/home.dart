@@ -1,3 +1,5 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:TezHealthCare/bottomscreen/home/search.dart';
 import 'package:TezHealthCare/screens/notification.dart';
 import 'package:flutter/material.dart';

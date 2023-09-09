@@ -1,3 +1,4 @@
+import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:TezHealthCare/bottomscreen/chat/chat.dart';
@@ -33,8 +34,7 @@ class _BottomhomeState extends State<Bottomhome> {
           items: [
             SalomonBottomBarItem(
               icon: Image.asset("assets/home.png",
-              //  height: height / 30,
-              height: 30,
+               height: height / 30,
               color: Colors.blue[300]),
               title: Text(
                 EnString.home,
@@ -47,8 +47,7 @@ class _BottomhomeState extends State<Bottomhome> {
             ),
             SalomonBottomBarItem(
               icon: Image.asset("assets/Schedule.png",
-              //  height: height / 30,
-              height: 30,
+               height: height / 30,
 
                color: Colors.blue[300],),
               title: Text(
@@ -62,8 +61,7 @@ class _BottomhomeState extends State<Bottomhome> {
             ),
             SalomonBottomBarItem(
               icon: Image.asset("assets/chat.png", 
-              // height: height / 30,
-              height: 30,
+              height: height / 30,
 
               color: Colors.blue[300]),
               title: Text(
@@ -77,8 +75,7 @@ class _BottomhomeState extends State<Bottomhome> {
             ),
             SalomonBottomBarItem(
               icon: Image.asset("assets/profile.png",
-              //  height: height / 30,
-              height: 30,
+               height: height / 30,
                color: Colors.blue[300]),
               title: Text(
                 EnString.profile,

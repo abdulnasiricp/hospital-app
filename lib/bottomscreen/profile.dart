@@ -14,7 +14,8 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key);
+
+  const Profile({Key? key,}) : super(key: key);
 
   @override
   State<Profile> createState() => _ProfileState();
@@ -27,7 +28,7 @@ Future<void> _logout(BuildContext context) async {
     sharedPreferences.remove('password');
 
     // Navigate to the login screen
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const SignInScreen()));
+    Get.off(()=>const SignInScreen());
   }
 
   late ColorNotifier notifier;
@@ -245,7 +246,6 @@ Future<void> _logout(BuildContext context) async {
               ],
             ),
           )
-          // backgroundColor: notifier.getwihitecolor,
           ),
     );
   }
