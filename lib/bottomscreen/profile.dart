@@ -127,8 +127,6 @@ Future<void> _logout(BuildContext context) async {
                     children: [
                       ListTile(
                         onTap: () {
-                          Get.to(()=> const InformationProfile());
-
 
                         },
                         leading: Container(

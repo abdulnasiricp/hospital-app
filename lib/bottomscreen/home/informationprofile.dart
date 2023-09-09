@@ -14,8 +14,8 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class InformationProfile extends StatefulWidget {
-
-   const InformationProfile({Key? key,   }) : super(key: key);
+  const InformationProfile({
+  });
 
   @override
   State<InformationProfile> createState() => _InformationProfileState();
