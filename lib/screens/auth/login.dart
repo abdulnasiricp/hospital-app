@@ -6,6 +6,7 @@ import 'package:TezHealthCare/Controller/loginController.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/utils/My_button.dart';
 import 'package:TezHealthCare/utils/helper_class.dart';
+import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -21,14 +22,12 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-String id = '';
+  String id = '';
 
   final formKey = GlobalKey<FormState>();
   var isloading = false;
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
-
 
   Future<void> _login() async {
     final String username = usernameController.text;
@@ -51,6 +50,12 @@ String id = '';
       final sharedPreferences = await SharedPreferences.getInstance();
       sharedPreferences.setString('username', username);
       sharedPreferences.setString('password', password);
+      sharedPreferences.setString('role', json['role']);
+      sharedPreferences.setString('imagerecord', json['record']['image']);
+      sharedPreferences.setString('genderrecord', json['record']['gender']);
+      sharedPreferences.setString(
+          'patientidrecord', json['record']['patient_id']);
+      sharedPreferences.setString('usernamerecord', json['record']['username']);
 
       // Navigate to the home screen or any other screen you need
       Get.off(() => const Bottomhome());
@@ -75,121 +80,147 @@ String id = '';
           foregroundColor: Utils.appbarForgroundColor,
         ),
         body: SingleChildScrollView(
-          child: Stack(
+          child: Column(
             children: [
-              Container(
-                height: 170,
-                decoration: BoxDecoration(
-                    color: Utils.bgColor,
-                    borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(30),
-                        bottomRight: Radius.circular(30))),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Container(
-                    height: 350,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Utils.containerColor,
+              Stack(children: [
+                Container(width:double.infinity,
+                height: 230,
+                        color: Utils.bgColor,
+
+                ),
+                Center(
+                  child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Consumer<LoginController>(
-                        builder: (context, Loginvalues, child) {
-                      return Form(
-                        // key: Loginvalues.loginFormKey,
-                        key: formKey,
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              top: 30.0, left: 20, right: 20),
-                          child: Column(
-                            children: [
-                              TextFormField(
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Please enter your email';
-                                  }
-                                  //  else if (!value.contains('@')) {
-                                  //   return 'please enter valid email';
-                                  // }
-                                  else {
-                                    return null;
-                                  }
-                                },
-                                keyboardType: TextInputType.emailAddress,
-                                // controller: Loginvalues.emailController,
-                                controller: usernameController,
-                                onTapOutside: (event) =>
-                                    FocusScope.of(context).unfocus(),
-                                decoration: InputDecoration(
-                                    prefixIcon: const Icon(Icons.phone),
-                                    prefixIconColor: Colors.blue,
-                                    hintText: 'Enter email and phone number',
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    )),
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              TextFormField(
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Please Enter your password';
-                                  } else {
-                                    return null;
-                                  }
-                                },
-                                obscureText: true,
-                                // controller: Loginvalues.passwordController,
-                                controller: passwordController,
-                                onTapOutside: (event) =>
-                                    FocusScope.of(context).unfocus(),
-                                decoration: InputDecoration(
-                                    hintText: 'Enter Password',
-                                    prefixIcon: const Icon(Icons.lock),
-                                    prefixIconColor: Colors.blue,
-                                    suffixIcon: const Icon(Icons.visibility),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    )),
-                              ),
-                              Container(
-                                  alignment: Alignment.bottomRight,
-                                  child: TextButton(
-                                    onPressed: () {
-                                      Get.to(() => const Forgotpassword());
-                                    },
-                                    child: const Text('Forgot Password'),
-                                  )),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Container(
-                                  width: double.infinity,
-                                  height: 50,
-                                  child: MyButton(
-                                    title: isloading
-                                        ? const CircularProgressIndicator()
-                                        : const Text('Sign In'),
-                                    onPressed: () {
-                                      if (formKey.currentState!.validate()) {
-                                        // Loginvalues.patientLogin(
-                                        //   Loginvalues.emailController,
-                                        //   Loginvalues.passwordController
-                                        // );
-                                        _login();
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Image(
+                            image: AssetImage('assets/logo.jpg'),
+                            height: height / 4),
+                      )),
+                ),
+              ]),
+              Stack(
+                children: [
+                  Container(
+                    height: 170,
+                    decoration: BoxDecoration(
+                        color: Utils.bgColor,
+                        borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(30),
+                            bottomRight: Radius.circular(30))),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Container(
+                        height: 350,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Utils.containerColor,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Consumer<LoginController>(
+                            builder: (context, Loginvalues, child) {
+                          return Form(
+                            // key: Loginvalues.loginFormKey,
+                            key: formKey,
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 30.0, left: 20, right: 20),
+                              child: Column(
+                                children: [
+                                  TextFormField(
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'Please enter your email';
+                                      }
+                                      //  else if (!value.contains('@')) {
+                                      //   return 'please enter valid email';
+                                      // }
+                                      else {
+                                        return null;
                                       }
                                     },
-                                  )),
-                            ],
-                          ),
-                        ),
-                      );
-                    })),
+                                    keyboardType: TextInputType.emailAddress,
+                                    // controller: Loginvalues.emailController,
+                                    controller: usernameController,
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
+                                    decoration: InputDecoration(
+                                        prefixIcon: const Icon(Icons.phone),
+                                        prefixIconColor: Colors.blue,
+                                        hintText:
+                                            'Enter email and phone number',
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        )),
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  TextFormField(
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'Please Enter your password';
+                                      } else {
+                                        return null;
+                                      }
+                                    },
+                                    obscureText: true,
+                                    // controller: Loginvalues.passwordController,
+                                    controller: passwordController,
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
+                                    decoration: InputDecoration(
+                                        hintText: 'Enter Password',
+                                        prefixIcon: const Icon(Icons.lock),
+                                        prefixIconColor: Colors.blue,
+                                        suffixIcon:
+                                            const Icon(Icons.visibility),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        )),
+                                  ),
+                                  Container(
+                                      alignment: Alignment.bottomRight,
+                                      child: TextButton(
+                                        onPressed: () {
+                                          Get.to(() => const Forgotpassword());
+                                        },
+                                        child: const Text('Forgot Password'),
+                                      )),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Container(
+                                      width: double.infinity,
+                                      height: 50,
+                                      child: MyButton(
+                                        title: isloading
+                                            ? const CircularProgressIndicator()
+                                            : const Text('Sign In'),
+                                        onPressed: () {
+                                          if (formKey.currentState!
+                                              .validate()) {
+                                            // Loginvalues.patientLogin(
+                                            //   Loginvalues.emailController,
+                                            //   Loginvalues.passwordController
+                                            // );
+                                            _login();
+                                          }
+                                        },
+                                      )),
+                                ],
+                              ),
+                            ),
+                          );
+                        })),
+                  ),
+                ],
               ),
             ],
           ),

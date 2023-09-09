@@ -1,9 +1,13 @@
 // ignore_for_file: sized_box_for_whitespace
 
 import 'package:TezHealthCare/bottomscreen/home/search.dart';
+import 'package:TezHealthCare/custtom/doctorlist/custtomdoctorlist.dart';
 import 'package:TezHealthCare/screens/notification.dart';
+import 'package:TezHealthCare/stringfile/enstring.dart';
+import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -14,6 +18,23 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String role = '', username = '';
+  String record = '', genderrecord = '';
+
+  @override
+  void initState() {
+    super.initState();
+    LoadData();
+  }
+
+  LoadData() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    role = sharedPreferences.getString('role') ?? '';
+    username = sharedPreferences.getString('username') ?? '';
+    record = sharedPreferences.getString('record') ?? '';
+    genderrecord = sharedPreferences.getString('genderrecord') ?? '';
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,8 +80,8 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text('Friday, 4 Sep'),
-                const Text(
-                  'Hi, Dr.Abdul Nasir',
+                 Text(username.toString(),
+                  // 'Hi, Dr.Abdul Nasir',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 const SizedBox(
@@ -93,24 +114,35 @@ class _HomePageState extends State<HomePage> {
                       Container(
                         width: 100,
                         height: 100,
-                        child: Card(
-                          child: Column(
-                            children: [
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Container(
-                                  width: 40,
-                                  height: 40,
-                                  child: Image.asset('assets/doctor.png')),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              const Text("Doctors",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ))
-                            ],
+                        child: InkWell(
+                          onTap: (){
+                            Get.to(()=>Doctorlist("assets/ucla.png",
+                    Colors.transparent,
+                    EnString.columbiaAsiaHospital,
+                    EnString.bangaloreKarnataka,
+                    "16 km",
+                    width / 7));
+                          },
+                          child: Card(
+                            
+                            child: Column(
+                              children: [
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Container(
+                                    width: 40,
+                                    height: 40,
+                                    child: Image.asset('assets/doctor.png')),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                const Text("Doctors",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ))
+                              ],
+                            ),
                           ),
                         ),
                       ),

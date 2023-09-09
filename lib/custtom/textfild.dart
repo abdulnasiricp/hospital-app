@@ -12,7 +12,6 @@ class Customtextfild {
         child: TextField(
           style: TextStyle(color: textcolor),
           onChanged: (value) {},
-          // obscureText: hidePassword, //show/hide password
           decoration: InputDecoration(
             prefixIcon: Icon(preicon, color: iconcolor),
             label: Text(labletext),

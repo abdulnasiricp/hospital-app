@@ -1,5 +1,6 @@
 // ignore_for_file: sized_box_for_whitespace
 
+
 import 'package:TezHealthCare/bottomscreen/home/address.dart';
 import 'package:TezHealthCare/bottomscreen/home/informationprofile.dart';
 import 'package:TezHealthCare/bottomscreen/sehedule.dart';
@@ -11,24 +12,26 @@ import 'package:get/get.dart';
 import 'package:TezHealthCare/bottomscreen/home/activityhistory.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:provider/provider.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
-
-  const Profile({Key? key,}) : super(key: key);
+  const Profile({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<Profile> createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
-Future<void> _logout(BuildContext context) async {
+  Future<void> _logout(BuildContext context) async {
     final sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.remove('username');
     sharedPreferences.remove('password');
 
     // Navigate to the login screen
-    Get.off(()=>const SignInScreen());
+    Get.off(() => const SignInScreen());
   }
 
   late ColorNotifier notifier;
@@ -77,8 +80,8 @@ Future<void> _logout(BuildContext context) async {
                               bottomRight: Radius.circular(30))),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(
-                          top: 50.0, left: 20, right: 20),
+                      padding:
+                          const EdgeInsets.only(top: 50.0, left: 20, right: 20),
                       child: Container(
                         height: 70,
                         width: double.infinity,
@@ -106,8 +109,7 @@ Future<void> _logout(BuildContext context) async {
                                 Padding(padding: EdgeInsets.only(top: 20)),
                                 Text(
                                   "Dr.Push Puttical",
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold),
+                                  style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 Text("0344-4343-3434"),
                               ],
@@ -127,7 +129,7 @@ Future<void> _logout(BuildContext context) async {
                     children: [
                       ListTile(
                         onTap: () {
-
+                          Get.to(()=>InformationProfile());
                         },
                         leading: Container(
                           width: 20,
@@ -138,9 +140,9 @@ Future<void> _logout(BuildContext context) async {
                         ),
                         title: const Text('Profile'),
                       ),
-                       ListTile(
+                      ListTile(
                         onTap: () {
-                          Get.to(()=>const ActivityHistory());
+                          Get.to(() => const ActivityHistory());
                         },
                         leading: Container(
                           width: 20,
@@ -151,10 +153,9 @@ Future<void> _logout(BuildContext context) async {
                         ),
                         title: const Text('Q & A History'),
                       ),
-                       ListTile(
+                      ListTile(
                         onTap: () {
-                          Get.to(()=>const Address());
-
+                          Get.to(() => const Address());
                         },
                         leading: Container(
                           width: 20,
@@ -165,7 +166,7 @@ Future<void> _logout(BuildContext context) async {
                         ),
                         title: const Text('Address'),
                       ),
-                       ListTile(
+                      ListTile(
                         onTap: () {},
                         leading: Container(
                           width: 20,
@@ -176,7 +177,7 @@ Future<void> _logout(BuildContext context) async {
                         ),
                         title: const Text('Help Center'),
                       ),
-                       ListTile(
+                      ListTile(
                         onTap: () {},
                         leading: Container(
                           width: 20,
@@ -187,7 +188,7 @@ Future<void> _logout(BuildContext context) async {
                         ),
                         title: const Text('Hotline'),
                       ),
-                       ListTile(
+                      ListTile(
                         onTap: () {},
                         leading: Container(
                           width: 20,
@@ -198,11 +199,9 @@ Future<void> _logout(BuildContext context) async {
                         ),
                         title: const Text('About Us'),
                       ),
-                       ListTile(
+                      ListTile(
                         onTap: () {
-                          Get.to(()=>const Schedule());
-
-                        
+                          Get.to(() => const Schedule());
                         },
                         leading: Container(
                           width: 20,
@@ -232,19 +231,20 @@ Future<void> _logout(BuildContext context) async {
                           width: 20,
                           height: 20,
                           child: ClipRRect(
-                            child: Image.asset('assets/exit.png',color: Colors.red,),
+                            child: Image.asset(
+                              'assets/exit.png',
+                              color: Colors.red,
+                            ),
                           ),
                         ),
                         title: const Text('Logout'),
                       ),
-                
                     ],
                   ),
                 )
               ],
             ),
-          )
-          ),
+          )),
     );
   }
 }

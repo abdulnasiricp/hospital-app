@@ -1,6 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -12,36 +11,37 @@ import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class InformationProfile extends StatefulWidget {
-  const InformationProfile({
-  });
+  const InformationProfile({Key? key}) : super(key: key);
 
   @override
   State<InformationProfile> createState() => _InformationProfileState();
 }
 
 class _InformationProfileState extends State<InformationProfile> {
+String role = '', username = '';
+  String record = '', genderrecord = '';
+  String imagerecord = '', mobile = '';
 
+  @override
+  void initState() {
+    super.initState();
+    LoadData();
+    dateinput.text = ""; //set the initial value of text field
 
-    // Map<String, dynamic>? dataMap;
-    // Map<String, dynamic>? DoneDataMap;
-// Future hitAPI()async{
-//   http.Response response;
-//   response=await http.get(Uri.parse('uri'));
-//   if (response.statusCode==200) {
-//     setState(() {
-//       dataMap = jsonDecode(response.body);
-//       DoneDataMap=dataMap![''];
-//     });
-    
-//   }
+  }
 
-// }
-
-
-
-
+  LoadData() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    role = sharedPreferences.getString('role') ?? '';
+    username = sharedPreferences.getString('username') ?? '';
+    record = sharedPreferences.getString('record') ?? '';
+    genderrecord = sharedPreferences.getString('genderrecord') ?? '';
+    imagerecord = sharedPreferences.getString('imagerecord') ?? '';
+    setState(() {});
+  }
 
   late ColorNotifier notifier;
   String dropdownvalue = 'Female';
@@ -53,20 +53,11 @@ class _InformationProfileState extends State<InformationProfile> {
   ];
   TextEditingController dateinput = TextEditingController();
 
-  //text editing controller for text field
-
-  @override
-  void initState() {
-    dateinput.text = ""; //set the initial value of text field
-
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     notifier = Provider.of<ColorNotifier>(context, listen: true);
     return ScreenUtilInit(
-      builder: (_ , child)  => Scaffold(
+      builder: (_, child) => Scaffold(
         backgroundColor: notifier.getwihitecolor,
         body: SingleChildScrollView(
           child: Column(
@@ -125,6 +116,8 @@ class _InformationProfileState extends State<InformationProfile> {
                 ],
               ),
               SizedBox(height: height / 50),
+              // Text(data['record']['username']),
+
               Row(
                 children: [
                   SizedBox(width: width / 14),
@@ -141,6 +134,7 @@ class _InformationProfileState extends State<InformationProfile> {
               Padding(
                 padding: EdgeInsets.only(left: width / 14, right: width / 14),
                 child: Customtextfild.textField(
+                  
                     EnString.enterusername,
                     notifier.getgrey,
                     notifier.getgrey,
@@ -426,3 +420,223 @@ class _InformationProfileState extends State<InformationProfile> {
   }
 }
 
+
+
+
+
+// import 'package:TezHealthCare/utils/helper_class.dart';
+// import 'package:TezHealthCare/utils/notifirecolors.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:provider/provider.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
+
+// class ProfileScreen extends StatefulWidget {
+//   const ProfileScreen({Key? key}) : super(key: key);
+
+//   @override
+//   State<ProfileScreen> createState() => _ProfileScreenState();
+// }
+
+// class _ProfileScreenState extends State<ProfileScreen> {
+//   late ColorNotifier notifier;
+//   bool selectedindex = false;
+//   bool selectedindex1 = false;
+//   bool selectedindex2 = false;
+//   bool selectedindex3 = false;
+//   getdarkmodepreviousstate() async {
+//     final prefs = await SharedPreferences.getInstance();
+//     bool? previusstate = prefs.getBool("setIsDark");
+//     if (previusstate == null) {
+//       notifier.setIsDark = false;
+//     } else {
+//       notifier.setIsDark = previusstate;
+//     }
+//   }
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     getdarkmodepreviousstate();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     notifier = Provider.of<ColorNotifier>(context, listen: true);
+//     return ScreenUtilInit(
+//         builder: (_, child) => Scaffold(
+//             appBar: AppBar(
+//               title: const Text('Profile'),
+//               centerTitle: true,
+//               backgroundColor: Utils.appbarColor,
+//               foregroundColor: Utils.appbarForgroundColor,
+//             ),
+//             body: ListView(
+//         children: <Widget>[
+//           Container(
+//             height: 250,
+//             decoration: BoxDecoration(color: Colors.blueGrey),
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.center,
+//               mainAxisAlignment: MainAxisAlignment.center,
+//               children: <Widget>[
+//                 Row(
+//                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+//                   children: <Widget>[
+//                     CircleAvatar(
+//                       backgroundColor: Colors.white70,
+//                       minRadius: 60.0,
+//                       child: CircleAvatar(
+//                         radius: 50.0,
+//                         backgroundImage: NetworkImage(
+//                             // map["_uImage"] ?? "",
+
+//                             'https://avatars0.githubusercontent.com/u/28812093?s=460&u=06471c90e03cfd8ce2855d217d157c93060da490&v=4'),
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//                 SizedBox(
+//                   height: 10,
+//                 ),
+//                 Text(
+//                   // map["_uName"] ?? "",
+//                   "",
+//                   style: TextStyle(
+//                     fontSize: 35,
+//                     fontWeight: FontWeight.bold,
+//                     color: Colors.white,
+//                   ),
+//                 ),
+//                 Text(
+//                   // map["_uWorkTitle"] ?? "",
+//                   "",
+//                   style: TextStyle(
+//                     color: Colors.white,
+//                     fontSize: 25,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//           Container(
+//             child: Column(
+//               children: <Widget>[
+//                 ListTile(
+//                   title: Text(
+//                     'Email',
+//                     style: TextStyle(
+//                       color: Colors.black,
+//                       fontSize: 20,
+//                       fontWeight: FontWeight.bold,
+//                     ),
+//                   ),
+//                   subtitle: Text(
+//                     // map["_uEmail"] ?? "",
+//                     "",
+//                     style: TextStyle(
+//                       fontSize: 18,
+//                     ),
+//                   ),
+//                 ),
+//                 Divider(),
+//                 ListTile(
+//                   title: Text(
+//                     'phone',
+//                     style: TextStyle(
+//                       color: Colors.black,
+//                       fontSize: 20,
+//                       fontWeight: FontWeight.bold,
+//                     ),
+//                   ),
+//                   subtitle: Text(
+//                     "ANsor",
+//                     // map["_uPhone"] ?? "",
+//                     style: TextStyle(
+//                       fontSize: 18,
+//                     ),
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           )
+//         ],
+//       ),
+//         )
+//     );
+//   }
+// }
+            
+            
+            
+            
+            
+// //             SingleChildScrollView(
+// //               child: Column(children: [
+// //                 Stack(
+// //                   children: [
+// //                     Container(
+// //                       height: 100,
+// //                       decoration: BoxDecoration(
+// //                           color: Utils.bgColor,
+// //                           borderRadius: const BorderRadius.only(
+// //                               bottomLeft: Radius.circular(30),
+// //                               bottomRight: Radius.circular(30))),
+// //                     ),
+// //                     Center(
+// //                       child: Column(
+// //                         mainAxisAlignment: MainAxisAlignment.center,
+// //                         children: <Widget>[
+// //                           const SizedBox(height: 20),
+
+// //                           const CircleAvatar(
+// //                             radius: 75,
+// //                             backgroundColor: Colors.grey,
+// //                             backgroundImage: NetworkImage(''
+// //                                ), // Replace with your image path
+// //                           ),
+// //                           const SizedBox(height: 20),
+// //                           const Text(
+// //                             'John Doe',
+// //                             style: TextStyle(
+// //                               fontSize: 24,
+// //                               fontWeight: FontWeight.bold,
+// //                             ),
+// //                           ),
+// //                           const SizedBox(height: 10),
+// //                           Container(
+// //                             width: double.infinity,
+// //                             child: Card(
+// //                               child: Column(
+// //                                 children: [
+// //                                   const Text('Gender: Male'),
+// //                           const SizedBox(height: 10),
+
+// //                                   const Text('Date of Birth: January 1, 1990'),
+// //                           const SizedBox(height: 10),
+
+// //                               const Text('Phone Number: +1234567890'),
+// //                           const SizedBox(height: 10),
+
+// //                               const Text('Email: johndoe@example.com'),
+// //                                 ],
+// //                               ),
+// //                             ),
+// //                           ),
+                          
+// //                           const SizedBox(height: 20),
+// //                           ElevatedButton(
+// //                             onPressed: () {
+// //                               // Add navigation to the profile edit screen or other actions here
+// //                             },
+// //                             child: const Text('Edit Profile'),
+// //                           ),
+// //                         ],
+// //                       ),
+// //                     ),
+// //                   ],
+// //                 )
+// //               ]),
+// //             )));
+// //   }
+// // }
