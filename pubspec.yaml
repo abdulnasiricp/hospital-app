@@ -47,6 +47,7 @@ dependencies:
   shimmer: ^2.0.0
   fluttertoast:
   http:
+  lottie:
 
 
 dev_dependencies:

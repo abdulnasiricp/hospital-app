@@ -4,7 +4,7 @@
 import 'package:TezHealthCare/bottomscreen/home/address.dart';
 import 'package:TezHealthCare/bottomscreen/home/informationprofile.dart';
 import 'package:TezHealthCare/bottomscreen/sehedule.dart';
-import 'package:TezHealthCare/screens/auth/login.dart';
+import 'package:TezHealthCare/screens/auth/Sigin_main_screen.dart';
 import 'package:TezHealthCare/utils/helper_class.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,7 +31,7 @@ class _ProfileState extends State<Profile> {
     sharedPreferences.remove('password');
 
     // Navigate to the login screen
-    Get.off(() => const SignInScreen());
+    Get.off(() => MainSiginScreen());
   }
 
   late ColorNotifier notifier;
@@ -129,7 +129,7 @@ class _ProfileState extends State<Profile> {
                     children: [
                       ListTile(
                         onTap: () {
-                          Get.to(()=>InformationProfile());
+                          Get.to(()=>const InformationProfile());
                         },
                         leading: Container(
                           width: 20,

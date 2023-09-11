@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable, sized_box_for_whitespace, non_constant_identifier_names
+// ignore_for_file: unused_local_variable, sized_box_for_whitespace, non_constant_identifier_names, file_names
 
 import 'dart:convert';
 
@@ -8,20 +8,22 @@ import 'package:TezHealthCare/utils/My_button.dart';
 import 'package:TezHealthCare/utils/helper_class.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../bottomscreen/home/forgotpassword.dart';
 import 'package:http/http.dart' as http;
 
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({Key? key}) : super(key: key);
+class PatientLoginScreen extends StatefulWidget {
+  const PatientLoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<SignInScreen> createState() => _SignInScreenState();
+  State<PatientLoginScreen> createState() => _PatientLoginScreenState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
+class _PatientLoginScreenState extends State<PatientLoginScreen> {
   String id = '';
 
   final formKey = GlobalKey<FormState>();
@@ -45,6 +47,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body.toString());
+      
 
       // Successful login, store user credentials
       final sharedPreferences = await SharedPreferences.getInstance();
@@ -59,50 +62,52 @@ class _SignInScreenState extends State<SignInScreen> {
 
       // Navigate to the home screen or any other screen you need
       Get.off(() => const Bottomhome());
+      setState(() {
+        Fluttertoast.showToast(msg: 'Login Successfully');
+      });
     } else {
       // Handle login failure
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Login failed. Please try again.'),
       ));
+      setState(() {
+      isloading=false;
+        
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
     // final loginProvider = Provider.of<LoginController>(context, listen: false);
-    return SafeArea(
+    return isloading? Center(child: Lottie.asset('assets/loading.json')):SafeArea(
       child: Scaffold(
         backgroundColor: Utils.scaffoldBackgroundColor,
-        appBar: AppBar(
-          title: const Text('Login'),
-          centerTitle: true,
-          backgroundColor: Utils.appbarColor,
-          foregroundColor: Utils.appbarForgroundColor,
-        ),
+       
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Stack(children: [
-                Container(width:double.infinity,
-                height: 230,
-                        color: Utils.bgColor,
+              // Stack(children: [
+              //   Container(width:double.infinity,
+              //   height: 230,
+              //           color: Utils.bgColor,
 
-                ),
-                Center(
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Image(
-                            image: AssetImage('assets/logo.jpg'),
-                            height: height / 4),
-                      )),
-                ),
-              ]),
+              //   ),
+              //   Center(
+              //     child: ClipRRect(
+              //         borderRadius: BorderRadius.circular(20),
+              //         child: Padding(
+              //           padding: const EdgeInsets.all(10.0),
+              //           child: Image(
+              //               image: AssetImage('assets/newlogo.png'),
+              //               height: height / 4),
+              //         )),
+              //   ),
+              // ]),
               Stack(
                 children: [
                   Container(
-                    height: 170,
+                    height: height/1.6,
                     decoration: BoxDecoration(
                         color: Utils.bgColor,
                         borderRadius: const BorderRadius.only(
@@ -186,7 +191,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                       alignment: Alignment.bottomRight,
                                       child: TextButton(
                                         onPressed: () {
-                                          Get.to(() => const Forgotpassword());
+                                          Get.to(() => Forgotpassword());
                                         },
                                         child: const Text('Forgot Password'),
                                       )),
@@ -200,9 +205,11 @@ class _SignInScreenState extends State<SignInScreen> {
                                       width: double.infinity,
                                       height: 50,
                                       child: MyButton(
-                                        title: isloading
-                                            ? const CircularProgressIndicator()
-                                            : const Text('Sign In'),
+                                        title:
+                                        //  isloading
+                                        //     ? const CircularProgressIndicator(color: Colors.white,)
+                                        //     : 
+                                            const Text('Sign In'),
                                         onPressed: () {
                                           if (formKey.currentState!
                                               .validate()) {
@@ -210,6 +217,9 @@ class _SignInScreenState extends State<SignInScreen> {
                                             //   Loginvalues.emailController,
                                             //   Loginvalues.passwordController
                                             // );
+                                            setState(() {
+                                              isloading=true;
+                                            });
                                             _login();
                                           }
                                         },

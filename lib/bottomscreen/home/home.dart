@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace
+// ignore_for_file: sized_box_for_whitespace, non_constant_identifier_names
 
 import 'package:TezHealthCare/bottomscreen/home/search.dart';
 import 'package:TezHealthCare/custtom/doctorlist/custtomdoctorlist.dart';
@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
   LoadData() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     role = sharedPreferences.getString('role') ?? '';
-    username = sharedPreferences.getString('username') ?? '';
+    username = sharedPreferences.getString('usernamerecord') ?? '';
     record = sharedPreferences.getString('record') ?? '';
     genderrecord = sharedPreferences.getString('genderrecord') ?? '';
     setState(() {});
@@ -79,10 +79,10 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Friday, 4 Sep'),
+                
                  Text(username.toString(),
                   // 'Hi, Dr.Abdul Nasir',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 const SizedBox(
                   height: 20,

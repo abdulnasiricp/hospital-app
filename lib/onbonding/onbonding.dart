@@ -1,9 +1,9 @@
+import 'package:TezHealthCare/screens/auth/Sigin_main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
-import 'package:TezHealthCare/screens/auth/login.dart';
 import 'package:TezHealthCare/stringfile/enstring.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
@@ -352,7 +352,7 @@ class _OnbondingState extends State<Onbonding> {
                                   GestureDetector(
                                     onTap: () {
                                       Get.off(
-                                        ()=>const SignInScreen(),
+                                        ()=>const MainSiginScreen(),
                                       );
                                     },
                                     child: Container(

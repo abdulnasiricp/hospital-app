@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 import 'package:TezHealthCare/Controller/loginController.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/onbonding/onbonding.dart';
@@ -34,7 +36,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => ColorNotifier()),
           ChangeNotifierProvider(create: (_) => LoginController()),
         ],
-        child:  GetMaterialApp(
+        child:   GetMaterialApp(
           debugShowCheckedModeBanner: false,
           home: 
           FutureBuilder<bool>(

@@ -1,10 +1,9 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, avoid_print
 
 import 'dart:convert';
 
 import 'package:TezHealthCare/bottomscreen/home/appoinmenttabs/upcoming.dart';
 import 'package:TezHealthCare/custtom/appbar.dart';
-import 'package:TezHealthCare/stringfile/enstring.dart';
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
