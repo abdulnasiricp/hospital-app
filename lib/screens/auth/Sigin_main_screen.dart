@@ -20,7 +20,7 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: darkYellow,
+        backgroundColor: yellow,
        
         body: DefaultTabController(
           length: 2,
@@ -30,7 +30,7 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
               child: ButtonsTabBar(
                   height: 50,
                   unselectedLabelStyle: const TextStyle(color: Colors.white),
-                  backgroundColor: yellow,
+                  backgroundColor: darkYellow,
                   unselectedBackgroundColor: Colors.white,
                   labelStyle: const TextStyle(
                       wordSpacing: 5,
