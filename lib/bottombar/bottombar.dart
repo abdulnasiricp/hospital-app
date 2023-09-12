@@ -5,7 +5,6 @@ import 'package:TezHealthCare/bottomscreen/chat/chat.dart';
 import 'package:TezHealthCare/bottomscreen/home/myappoiment.dart';
 import 'package:TezHealthCare/bottomscreen/profile.dart';
 import 'package:TezHealthCare/stringfile/enstring.dart';
-// import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:provider/provider.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -109,7 +108,7 @@ class _BottomhomeState extends State<Bottomhome> {
     return {
       '/': (context) {
         return [
-          const HomePage(),
+          const  HomePage(),
           const MyAppoiment(),
           const Chat(),
           const Profile(),

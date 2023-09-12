@@ -1,9 +1,10 @@
 
 
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:TezHealthCare/screens/auth/Doctor_Login.dart';
 import 'package:TezHealthCare/screens/auth/Patient_login.dart';
 import 'package:TezHealthCare/utils/colors.dart';
-import 'package:TezHealthCare/utils/helper_class.dart';
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: yellow,
+        backgroundColor: darkYellow,
        
         body: DefaultTabController(
           length: 2,
@@ -28,8 +29,8 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
               padding: const EdgeInsets.only(top: 20),
               child: ButtonsTabBar(
                   height: 50,
-                  unselectedLabelStyle: const TextStyle(color: Colors.black),
-                  backgroundColor: Utils.appbarColor,
+                  unselectedLabelStyle: const TextStyle(color: Colors.white),
+                  backgroundColor: yellow,
                   unselectedBackgroundColor: Colors.white,
                   labelStyle: const TextStyle(
                       wordSpacing: 5,
@@ -46,7 +47,7 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
                      child: const Center(
                        child: Text('Doctor Login',style: TextStyle(
                           wordSpacing: 5,
-                          color: Colors.black,
+                          color: Colors.blue,
                           fontWeight: FontWeight.bold),),
                      ),
                    ),
@@ -59,7 +60,7 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
                      child: const Center(
                        child: Text('Patient Login',style: TextStyle(
                           wordSpacing: 5,
-                          color: Colors.black,
+                          color: Colors.blue,
                           fontWeight: FontWeight.bold),),
                      ),
                    ),

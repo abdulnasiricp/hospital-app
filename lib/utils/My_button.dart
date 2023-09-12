@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class MyButton extends StatelessWidget {
@@ -21,7 +22,7 @@ class MyButton extends StatelessWidget {
       style: ButtonStyle(
         
         foregroundColor: MaterialStateProperty.all(Colors.white),
-          backgroundColor: MaterialStateProperty.all(Colors.blue[700]),
+          backgroundColor: MaterialStateProperty.all(yellow),
           ),
 
       child: title,

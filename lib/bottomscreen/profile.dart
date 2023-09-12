@@ -31,7 +31,7 @@ class _ProfileState extends State<Profile> {
     sharedPreferences.remove('password');
 
     // Navigate to the login screen
-    Get.off(() => MainSiginScreen());
+    Get.off(() => const MainSiginScreen());
   }
 
   late ColorNotifier notifier;

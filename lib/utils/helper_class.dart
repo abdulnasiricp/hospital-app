@@ -1,12 +1,13 @@
 // ignore_for_file: file_names
 
+import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class Utils {
   static Color? appbarColor = Colors.blue[700];
   static Color? appbarForgroundColor = Colors.white;
-  static Color? buttonColor = Colors.blue[700];
+  static Color? buttonColor = darkYellow;
   static Color? bgColor = Colors.blue[700];
   static Color? containerColor = Colors.white;
   static Color? scaffoldBackgroundColor = Colors.grey[100];
