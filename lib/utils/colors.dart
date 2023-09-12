@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 Color wihitecolor = Colors.white;
 Color darkwihitecolor = const Color(0xff2D2D3A);
 
-Color perple = const Color(0xff7065E4);
-Color darkperple = const Color(0xff7065E4);
+Color perple = const Color(0xfffabd0a);
+Color darkperple = const Color(0xff433c63);
 
 Color black =   Colors.white;
 Color darkblack =   const Color(0xff2D2D3A);
 
 Color yellow =   const Color(0xfffabd0a);
-Color drakYellow =   const Color(0xff433c63);
+Color darkblue =   const Color(0xff433c63);
 
 
 Color grey = Colors.grey;

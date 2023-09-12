@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:TezHealthCare/utils/colors.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:TezHealthCare/bottombar/bottombar.dart';
@@ -116,7 +117,7 @@ class _DoctorLoginState extends State<DoctorLogin> {
                   TextFormField(
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Please enter UserName';
+                        return 'Please Enter Username';
                       }
                       //  else if (!value.contains('@')) {
                       //   return 'please enter valid email';
@@ -132,8 +133,8 @@ class _DoctorLoginState extends State<DoctorLogin> {
                         fillColor: Colors.white,
                         filled: true,
                         prefixIcon: const Icon(Icons.person),
-                        prefixIconColor: Colors.blue,
-                        hintText: 'Enter User Name',
+                        prefixIconColor: yellow,
+                        hintText: 'Enter Username',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         )),
@@ -165,7 +166,7 @@ class _DoctorLoginState extends State<DoctorLogin> {
                         filled: true,
                         hintText: 'Enter Password',
                         prefixIcon: const Icon(Icons.lock),
-                        prefixIconColor: Colors.blue,
+                        prefixIconColor: yellow,
                         suffixIcon: const Icon(Icons.visibility),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),

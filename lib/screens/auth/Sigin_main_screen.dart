@@ -19,8 +19,7 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: yellow,
-       
+        backgroundColor: darkblue,
         body: DefaultTabController(
           length: 2,
           child: Column(children: [
@@ -29,30 +28,17 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
               child: ButtonsTabBar(
                   height: 50,
                   unselectedLabelStyle: const TextStyle(color: Colors.black),
-                  backgroundColor: Utils.appbarColor,
-                  unselectedBackgroundColor: Colors.white,
+                  backgroundColor: yellow,
+                  unselectedBackgroundColor: darkblue,
                   labelStyle: const TextStyle(
                       wordSpacing: 5,
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                   borderWidth: 1,
-    
+
                   //  elevation: 30,
-    
+
                   tabs:  [
-                    Tab(
-                   child: Container(
-                    width: 150,
-                     child: const Center(
-                       child: Text('Doctor Login',style: TextStyle(
-                          wordSpacing: 5,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold),),
-                     ),
-                   ),
-                    
-                   
-                    ),
                      Tab(
                    child: Container(
                     width: 150,
@@ -63,16 +49,30 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
                           fontWeight: FontWeight.bold),),
                      ),
                    ),
-                    
-                   
+
+
+                    ),
+                    Tab(
+                      child: Container(
+                        width: 150,
+                        child: const Center(
+                          child: Text('Doctor Login',style: TextStyle(
+                              wordSpacing: 5,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),),
+                        ),
+                      ),
+
+
                     ),
                   ]),
             ),
             const Expanded(
               child: TabBarView(
                 children: [
-                  DoctorLogin(),
                   PatientLogin(),
+                  DoctorLogin(),
+
                 ],
               ),
             ),
@@ -83,3 +83,12 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
     );
   }
 }
+
+
+
+
+
+
+
+
+

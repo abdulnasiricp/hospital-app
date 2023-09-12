@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:TezHealthCare/utils/colors.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:TezHealthCare/bottombar/bottombar.dart';
@@ -20,7 +21,7 @@ class PatientLogin extends StatefulWidget {
 
 class _PatientLoginState extends State<PatientLogin> {
   String id = '';
-
+  bool _isPasswordVisible = false;
   final formKey = GlobalKey<FormState>();
   var isloading = false;
   final TextEditingController usernameController = TextEditingController();
@@ -57,12 +58,16 @@ class _PatientLoginState extends State<PatientLogin> {
       // Navigate to the home screen or any other screen you need
       Get.off(() => const Bottomhome());
       setState(() {
-        Fluttertoast.showToast(msg: 'Login Successfully');
+        Fluttertoast.showToast(msg: 'Login Successfully',
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+        );
       });
     } else {
       // Handle login failure
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Login failed. Please try again.'),
+        backgroundColor: Colors.red,
       ));
       setState(() {
         isloading = false;
@@ -133,8 +138,8 @@ class _PatientLoginState extends State<PatientLogin> {
                               fillColor: Colors.white,
                               filled: true,
                               prefixIcon: const Icon(Icons.person),
-                              prefixIconColor: Colors.blue,
-                              hintText: 'Enter User Name',
+                              prefixIconColor: yellow,
+                              hintText: 'Enter Username',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                               )),
@@ -167,11 +172,21 @@ class _PatientLoginState extends State<PatientLogin> {
                               filled: true,
                               hintText: 'Enter Password',
                               prefixIcon: const Icon(Icons.lock),
-                              prefixIconColor: Colors.blue,
-                              suffixIcon: const Icon(Icons.visibility),
+                              prefixIconColor: yellow,
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _isPasswordVisible = !_isPasswordVisible;
+                                  });
+                                },
+                              ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                               )),
+
                         ),
                         Container(
                             alignment: Alignment.bottomRight,
