@@ -25,8 +25,15 @@ class _DoctorLoginState extends State<DoctorLogin> {
   final formKey = GlobalKey<FormState>();
 
   var isloading = false;
-
+  bool _isPasswordVisible = false;
+  void _togglePasswordVisibility() {
+    setState(() {
+      _isPasswordVisible = !_isPasswordVisible;
+    });
+  }
+  final TextEditingController _passwordController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
+
 
   final TextEditingController passwordController = TextEditingController();
 
@@ -150,28 +157,36 @@ class _DoctorLoginState extends State<DoctorLogin> {
                   const SizedBox(
                     height: 5,
                   ),
-                  TextFormField(
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please Enter your password';
-                      } else {
-                        return null;
-                      }
-                    },
-                    obscureText: true,
-                    controller: passwordController,
-                    onTapOutside: (event) => FocusScope.of(context).unfocus(),
-                    decoration: InputDecoration(
-                        fillColor: Colors.white,
-                        filled: true,
-                        hintText: 'Enter Password',
-                        prefixIcon: const Icon(Icons.lock),
-                        prefixIconColor: yellow,
-                        suffixIcon: const Icon(Icons.visibility),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        )),
+
+
+                TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please Enter your password';
+                    } else {
+                      return null;
+                    }
+                  },
+                  controller: _passwordController,
+                  obscureText: !_isPasswordVisible,
+                  onTapOutside: (event) => FocusScope.of(context).unfocus(),
+                  decoration: InputDecoration(
+                      fillColor: Colors.white,
+                      filled: true,
+                      prefixIcon: const Icon(Icons.lock,color: const Color(0xfffabd0a),),
+                    labelText: 'Enter Password',
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                      ),
+                      onPressed: _togglePasswordVisibility,
+                    ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      )
                   ),
+                ),
+
                   Container(
                       alignment: Alignment.bottomRight,
                       child: TextButton(

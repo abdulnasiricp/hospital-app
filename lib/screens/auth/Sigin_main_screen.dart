@@ -3,10 +3,8 @@ import 'package:TezHealthCare/screens/auth/Patient_login.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
-
 class MainSiginScreen extends StatefulWidget {
   const MainSiginScreen({Key? key}) : super(key: key);
-
   @override
   State<MainSiginScreen> createState() => _MainSiginScreenState();
 }

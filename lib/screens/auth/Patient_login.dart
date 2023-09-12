@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:http/http.dart' as http;
-
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/home/forgotpassword.dart';
 import 'package:TezHealthCare/utils/My_button.dart';
@@ -11,7 +10,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 class PatientLogin extends StatefulWidget {
   const PatientLogin({Key? key}) : super(key: key);
 
@@ -22,6 +20,12 @@ class PatientLogin extends StatefulWidget {
 class _PatientLoginState extends State<PatientLogin> {
   String id = '';
   bool _isPasswordVisible = false;
+  void _togglePasswordVisibility() {
+    setState(() {
+      _isPasswordVisible = !_isPasswordVisible;
+    });
+  }
+  final TextEditingController _passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   var isloading = false;
   final TextEditingController usernameController = TextEditingController();
@@ -163,31 +167,26 @@ class _PatientLoginState extends State<PatientLogin> {
                               return null;
                             }
                           },
-                          obscureText: true,
-                          controller: passwordController,
-                          onTapOutside: (event) =>
-                              FocusScope.of(context).unfocus(),
+                          controller: _passwordController,
+                          obscureText: !_isPasswordVisible,
+                          onTapOutside: (event) => FocusScope.of(context).unfocus(),
                           decoration: InputDecoration(
                               fillColor: Colors.white,
                               filled: true,
-                              hintText: 'Enter Password',
-                              prefixIcon: const Icon(Icons.lock),
-                              prefixIconColor: yellow,
+                              prefixIcon: const Icon(Icons.lock,color: const Color(0xfffabd0a),),
+                              labelText: 'Enter Password',
                               suffixIcon: IconButton(
                                 icon: Icon(
                                   _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
                                 ),
-                                onPressed: () {
-                                  setState(() {
-                                    _isPasswordVisible = !_isPasswordVisible;
-                                  });
-                                },
+                                onPressed: _togglePasswordVisibility,
                               ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                              )),
-
+                              )
+                          ),
                         ),
+
                         Container(
                             alignment: Alignment.bottomRight,
                             child: TextButton(
