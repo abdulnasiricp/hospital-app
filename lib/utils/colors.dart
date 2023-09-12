@@ -9,6 +9,10 @@ Color darkperple = const Color(0xff7065E4);
 Color black =   Colors.white;
 Color darkblack =   const Color(0xff2D2D3A);
 
+Color yellow =   const Color(0xfffabd0a);
+Color drakYellow =   const Color(0xff433c63);
+
+
 Color grey = Colors.grey;
 Color darkgrey = Colors.grey;
 

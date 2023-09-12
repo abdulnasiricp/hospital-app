@@ -1,29 +1,24 @@
-// ignore_for_file: unused_local_variable, sized_box_for_whitespace, non_constant_identifier_names, file_names
-
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 
-import 'package:TezHealthCare/Controller/loginController.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
+import 'package:TezHealthCare/bottomscreen/home/forgotpassword.dart';
 import 'package:TezHealthCare/utils/My_button.dart';
-import 'package:TezHealthCare/utils/helper_class.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../bottomscreen/home/forgotpassword.dart';
-import 'package:http/http.dart' as http;
 
-class PatientLoginScreen extends StatefulWidget {
-  const PatientLoginScreen({Key? key}) : super(key: key);
+class PatientLogin extends StatefulWidget {
+  const PatientLogin({Key? key}) : super(key: key);
 
   @override
-  State<PatientLoginScreen> createState() => _PatientLoginScreenState();
+  State<PatientLogin> createState() => _PatientLoginState();
 }
 
-class _PatientLoginScreenState extends State<PatientLoginScreen> {
+class _PatientLoginState extends State<PatientLogin> {
   String id = '';
 
   final formKey = GlobalKey<FormState>();
@@ -47,7 +42,6 @@ class _PatientLoginScreenState extends State<PatientLoginScreen> {
 
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body.toString());
-      
 
       // Successful login, store user credentials
       final sharedPreferences = await SharedPreferences.getInstance();
@@ -71,171 +65,159 @@ class _PatientLoginScreenState extends State<PatientLoginScreen> {
         content: Text('Login failed. Please try again.'),
       ));
       setState(() {
-      isloading=false;
-        
+        isloading = false;
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // final loginProvider = Provider.of<LoginController>(context, listen: false);
-    return isloading? Center(child: Lottie.asset('assets/loading.json')):SafeArea(
-      child: Scaffold(
-        backgroundColor: Utils.scaffoldBackgroundColor,
-       
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              // Stack(children: [
-              //   Container(width:double.infinity,
-              //   height: 230,
-              //           color: Utils.bgColor,
-
-              //   ),
-              //   Center(
-              //     child: ClipRRect(
-              //         borderRadius: BorderRadius.circular(20),
-              //         child: Padding(
-              //           padding: const EdgeInsets.all(10.0),
-              //           child: Image(
-              //               image: AssetImage('assets/newlogo.png'),
-              //               height: height / 4),
-              //         )),
-              //   ),
-              // ]),
-              Stack(
-                children: [
-                  Container(
-                    height: height/1.6,
-                    decoration: BoxDecoration(
-                        color: Utils.bgColor,
-                        borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(30),
-                            bottomRight: Radius.circular(30))),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Container(
-                        height: 350,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Utils.containerColor,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Consumer<LoginController>(
-                            builder: (context, Loginvalues, child) {
-                          return Form(
-                            // key: Loginvalues.loginFormKey,
-                            key: formKey,
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 30.0, left: 20, right: 20),
-                              child: Column(
-                                children: [
-                                  TextFormField(
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return 'Please enter your email';
-                                      }
-                                      //  else if (!value.contains('@')) {
-                                      //   return 'please enter valid email';
-                                      // }
-                                      else {
-                                        return null;
-                                      }
-                                    },
-                                    keyboardType: TextInputType.emailAddress,
-                                    // controller: Loginvalues.emailController,
-                                    controller: usernameController,
-                                    onTapOutside: (event) =>
-                                        FocusScope.of(context).unfocus(),
-                                    decoration: InputDecoration(
-                                        prefixIcon: const Icon(Icons.phone),
-                                        prefixIconColor: Colors.blue,
-                                        hintText:
-                                            'Enter email and phone number',
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        )),
-                                  ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  TextFormField(
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return 'Please Enter your password';
-                                      } else {
-                                        return null;
-                                      }
-                                    },
-                                    obscureText: true,
-                                    // controller: Loginvalues.passwordController,
-                                    controller: passwordController,
-                                    onTapOutside: (event) =>
-                                        FocusScope.of(context).unfocus(),
-                                    decoration: InputDecoration(
-                                        hintText: 'Enter Password',
-                                        prefixIcon: const Icon(Icons.lock),
-                                        prefixIconColor: Colors.blue,
-                                        suffixIcon:
-                                            const Icon(Icons.visibility),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        )),
-                                  ),
-                                  Container(
-                                      alignment: Alignment.bottomRight,
-                                      child: TextButton(
-                                        onPressed: () {
-                                          Get.to(() => Forgotpassword());
-                                        },
-                                        child: const Text('Forgot Password'),
-                                      )),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Container(
-                                      width: double.infinity,
-                                      height: 50,
-                                      child: MyButton(
-                                        title:
-                                        //  isloading
-                                        //     ? const CircularProgressIndicator(color: Colors.white,)
-                                        //     : 
-                                            const Text('Sign In'),
-                                        onPressed: () {
-                                          if (formKey.currentState!
-                                              .validate()) {
-                                            // Loginvalues.patientLogin(
-                                            //   Loginvalues.emailController,
-                                            //   Loginvalues.passwordController
-                                            // );
-                                            setState(() {
-                                              isloading=true;
-                                            });
-                                            _login();
-                                          }
-                                        },
-                                      )),
-                                ],
-                              ),
-                            ),
-                          );
-                        })),
+    return isloading
+        ? Center(
+            child: Lottie.asset('assets/loading.json'),
+          )
+        : SingleChildScrollView(
+            child: Container(
+              margin: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 146, 99, 227).withOpacity(0.2),
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    spreadRadius: 5,
+                    blurRadius: 5,
+                    offset: const Offset(0, 3),
                   ),
                 ],
               ),
-            ],
-          ),
-        ),
-      ),
-    );
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: height / 5,
+                    child: Lottie.asset('assets/login_animation.json'),
+                  ),
+                  Form(
+                    key: formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          '  Username',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.white),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter UserName';
+                            }
+                            //  else if (!value.contains('@')) {
+                            //   return 'please enter valid email';
+                            // }
+                            else {
+                              return null;
+                            }
+                          },
+                          keyboardType: TextInputType.emailAddress,
+                          controller: usernameController,
+                          onTapOutside: (event) =>
+                              FocusScope.of(context).unfocus(),
+                          decoration: InputDecoration(
+                              fillColor: Colors.white,
+                              filled: true,
+                              prefixIcon: const Icon(Icons.person),
+                              prefixIconColor: Colors.blue,
+                              hintText: 'Enter User Name',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              )),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        const Text(
+                          '  Password',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.white),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please Enter your password';
+                            } else {
+                              return null;
+                            }
+                          },
+                          obscureText: true,
+                          controller: passwordController,
+                          onTapOutside: (event) =>
+                              FocusScope.of(context).unfocus(),
+                          decoration: InputDecoration(
+                              fillColor: Colors.white,
+                              filled: true,
+                              hintText: 'Enter Password',
+                              prefixIcon: const Icon(Icons.lock),
+                              prefixIconColor: Colors.blue,
+                              suffixIcon: const Icon(Icons.visibility),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              )),
+                        ),
+                        Container(
+                            alignment: Alignment.bottomRight,
+                            child: TextButton(
+                              onPressed: () {
+                                Get.to(() => Forgotpassword());
+                              },
+                              child: const Text(
+                                'Forgot Password',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            )),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          width: double.infinity,
+                          height: 50,
+                          child: MyButton(
+                            title: const Text('Sign In'),
+                            onPressed: () {
+                              if (formKey.currentState!.validate()) {
+                                // Loginvalues.patientLogin(
+                                //   Loginvalues.emailController,
+                                //   Loginvalues.passwordController
+                                // );
+                                _login();
+                                setState(() {
+                                  isloading = true;
+                                });
+                              }
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: height / 10,
+                  )
+                ],
+              ),
+            ),
+          );
   }
 }

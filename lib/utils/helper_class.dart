@@ -11,6 +11,8 @@ class Utils {
   static Color? containerColor = Colors.white;
   static Color? scaffoldBackgroundColor = Colors.grey[100];
   static Color? bottomsheetColor = Colors.grey[100];
+static int colorValue = int.parse("#fabd0a", );
+// static Color? lightPink = Color.fromARGB(colorValue, 255, 255, 255);
 
 
   static TextStyle? headingtextStyle = const TextStyle(
