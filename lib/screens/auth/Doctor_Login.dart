@@ -31,7 +31,6 @@ class _DoctorLoginState extends State<DoctorLogin> {
       _isPasswordVisible = !_isPasswordVisible;
     });
   }
-  final TextEditingController _passwordController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
 
 
@@ -167,13 +166,13 @@ class _DoctorLoginState extends State<DoctorLogin> {
                       return null;
                     }
                   },
-                  controller: _passwordController,
+                  controller: passwordController,
                   obscureText: !_isPasswordVisible,
                   onTapOutside: (event) => FocusScope.of(context).unfocus(),
                   decoration: InputDecoration(
                       fillColor: Colors.white,
                       filled: true,
-                      prefixIcon: const Icon(Icons.lock,color: const Color(0xfffabd0a),),
+                      prefixIcon: const Icon(Icons.lock,color:  Color(0xfffabd0a),),
                     labelText: 'Enter Password',
                     suffixIcon: IconButton(
                       icon: Icon(

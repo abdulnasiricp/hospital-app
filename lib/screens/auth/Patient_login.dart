@@ -25,7 +25,6 @@ class _PatientLoginState extends State<PatientLogin> {
       _isPasswordVisible = !_isPasswordVisible;
     });
   }
-  final TextEditingController _passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   var isloading = false;
   final TextEditingController usernameController = TextEditingController();
@@ -167,7 +166,7 @@ class _PatientLoginState extends State<PatientLogin> {
                               return null;
                             }
                           },
-                          controller: _passwordController,
+                          controller: passwordController,
                           obscureText: !_isPasswordVisible,
                           onTapOutside: (event) => FocusScope.of(context).unfocus(),
                           decoration: InputDecoration(
