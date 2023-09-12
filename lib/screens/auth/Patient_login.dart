@@ -79,7 +79,7 @@ class _PatientLoginState extends State<PatientLogin> {
   Widget build(BuildContext context) {
     return isloading
         ? Center(
-            child: Lottie.asset('assets/loading.json'),
+            child: Lottie.asset('assets/log_load.json'),
           )
         : SingleChildScrollView(
             child: Container(
@@ -103,7 +103,7 @@ class _PatientLoginState extends State<PatientLogin> {
                   Container(
                     width: double.infinity,
                     height: height / 5,
-                    child: Lottie.asset('assets/login_animation.json'),
+                    child: Image.asset('assets/logo.png'),
                   ),
                   Form(
                     key: formKey,

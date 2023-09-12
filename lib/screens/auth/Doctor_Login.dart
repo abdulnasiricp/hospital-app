@@ -76,7 +76,7 @@ class _DoctorLoginState extends State<DoctorLogin> {
 
   @override
   Widget build(BuildContext context) {
-    return isloading? Center(child: Lottie.asset('assets/loading.json'),): SingleChildScrollView(
+    return isloading? Center(child: Lottie.asset('assets/log_load.json'),): SingleChildScrollView(
       child: Container(
         margin: const EdgeInsets.all(20),
         padding: const EdgeInsets.all(20),
@@ -99,7 +99,7 @@ class _DoctorLoginState extends State<DoctorLogin> {
             Container(
               width: double.infinity,
               height: height / 5,
-              child: Lottie.asset('assets/login_animation.json'),
+              child: Image.asset('assets/logo.png'),
             ),
             Form(
               key: formKey,

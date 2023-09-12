@@ -1,9 +1,6 @@
-
-
 import 'package:TezHealthCare/screens/auth/Doctor_Login.dart';
 import 'package:TezHealthCare/screens/auth/Patient_login.dart';
 import 'package:TezHealthCare/utils/colors.dart';
-import 'package:TezHealthCare/utils/helper_class.dart';
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
 
@@ -72,7 +69,6 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
                 children: [
                   PatientLogin(),
                   DoctorLogin(),
-
                 ],
               ),
             ),
