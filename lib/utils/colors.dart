@@ -10,11 +10,10 @@ Color black =   Colors.white;
 Color darkblack =   const Color(0xff2D2D3A);
 
 Color yellow =   const Color(0xfffabd0a);
-<<<<<<< HEAD
+
 Color darkYellow =   const Color(0xff433c63);
-=======
+
 Color darkblue =   const Color(0xff433c63);
->>>>>>> e6fcf120ce53a13a88e2258633ec34e3b26aa9eb
 
 
 Color grey = Colors.grey;

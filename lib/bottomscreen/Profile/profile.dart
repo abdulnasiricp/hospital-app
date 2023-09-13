@@ -1,6 +1,7 @@
 // ignore_for_file: sized_box_for_whitespace
 
 
+import 'package:TezHealthCare/bottomscreen/Profile/Opd_list.dart';
 import 'package:TezHealthCare/bottomscreen/home/address.dart';
 import 'package:TezHealthCare/bottomscreen/home/informationprofile.dart';
 import 'package:TezHealthCare/bottomscreen/sehedule.dart';
@@ -178,15 +179,21 @@ class _ProfileState extends State<Profile> {
                         title: const Text('Help Center'),
                       ),
                       ListTile(
-                        onTap: () {},
+                        onTap: () {
+                          
+                          Get.to(() => const OpdListScreen());
+                          
+
+
+                        },
                         leading: Container(
                           width: 20,
                           height: 20,
                           child: ClipRRect(
-                            child: Image.asset('assets/phone.png'),
+                            child: Image.asset('assets/care.png'),
                           ),
                         ),
-                        title: const Text('Hotline'),
+                        title: const Text('OPD List'),
                       ),
                       ListTile(
                         onTap: () {},

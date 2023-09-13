@@ -1,5 +1,6 @@
 // ignore_for_file: sized_box_for_whitespace, non_constant_identifier_names, file_names
 
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/All_doctors.dart';
 import 'package:TezHealthCare/bottomscreen/home/search.dart';
 import 'package:TezHealthCare/custtom/doctorlist/custtomdoctorlist.dart';
 import 'package:TezHealthCare/screens/notification.dart';
@@ -115,11 +116,11 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                 Container(
                                     width: 40,
                                     height: 40,
-                                    child: Image.asset('assets/doctor.png')),
+                                    child: Image.asset('assets/transation.png')),
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                const Text("Doctors",
+                                const Text("Transactions",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                     ))
@@ -140,11 +141,203 @@ class _PatientHomePageState extends State<PatientHomePage> {
                               Container(
                                   width: 40,
                                   height: 40,
-                                  child: Image.asset('assets/Dentist.png')),
+                                  child: Image.asset('assets/credit.png')),
                               const SizedBox(
                                 height: 10,
                               ),
-                              const Text("Dentist",
+                              const Text("Card",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ))
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 100,
+                        height: 100,
+                        child: Card(
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Container(
+                                  width: 40,
+                                  height: 40,
+                                  child: Image.asset('assets/inpatient.png')),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              const Text("IPD",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ))
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 100,
+                        height: 100,
+                        child: Card(
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Container(
+                                  width: 40,
+                                  height: 40,
+                                  child: Image.asset('assets/OPD_Icon.png')),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              const Text("OPD",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ))
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 100,
+                        height: 100,
+                        child: Card(
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Container(
+                                  width: 40,
+                                  height: 40,
+                                  child: Image.asset('assets/pathology.png')),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              const Text("Pathology",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ))
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 100,
+                        height: 100,
+                        child: Card(
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Container(
+                                  width: 40,
+                                  height: 40,
+                                  child: Image.asset('assets/radiology.png')),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              const Text("Radiology",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ))
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 100,
+                        height: 100,
+                        child: Card(
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Container(
+                                  width: 40,
+                                  height: 40,
+                                  child: Image.asset('assets/pharmacy.png')),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              const Text("Pharmacy",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ))
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 100,
+                        height: 100,
+                        child: Card(
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Container(
+                                  width: 40,
+                                  height: 40,
+                                  child: Image.asset('assets/USG.png')),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              const Text("USG",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ))
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 100,
+                        height: 100,
+                        child: Card(
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Container(
+                                  width: 40,
+                                  height: 40,
+                                  child: Image.asset('assets/surgery.png')),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              const Text("Surgery",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ))
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 100,
+                        height: 100,
+                        child: Card(
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Container(
+                                  width: 40,
+                                  height: 40,
+                                  child: Image.asset('assets/bloodbank.png')),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              const Text("Blood Bank",
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ))
@@ -188,11 +381,11 @@ class _PatientHomePageState extends State<PatientHomePage> {
                               Container(
                                   width: 40,
                                   height: 40,
-                                  child: Image.asset('assets/medisin.png')),
+                                  child: Image.asset('assets/physioTherpy.png')),
                               const SizedBox(
                                 height: 10,
                               ),
-                              const Text("Medicine",
+                              const Text("Physio Therapy",
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ))
@@ -212,11 +405,11 @@ class _PatientHomePageState extends State<PatientHomePage> {
                               Container(
                                   width: 40,
                                   height: 40,
-                                  child: Image.asset('assets/eye.png')),
+                                  child: Image.asset('assets/certificate.png')),
                               const SizedBox(
                                 height: 10,
                               ),
-                              const Text("Eye",
+                              const Text("Certificates",
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ))
@@ -236,28 +429,69 @@ class _PatientHomePageState extends State<PatientHomePage> {
                               Container(
                                   width: 40,
                                   height: 40,
-                                  child: Image.asset('assets/care.png')),
+                                  child: Image.asset('assets/bedHistory.png')),
                               const SizedBox(
                                 height: 10,
                               ),
-                              const Text("Care",
+                              const Text("Bed History",
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ))
                             ],
                           ),
                         ),
-                      )
+                      ),
+                      Container(
+                        width: 100,
+                        height: 100,
+                        child: Card(
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Container(
+                                  width: 40,
+                                  height: 40,
+                                  child: Image.asset('assets/liveConsulations.png')),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              const Text("      Live \nConsultations",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ))
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                const Text("Doctors",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    )),
+                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text("Doctors",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        )),
+
+                        InkWell(
+                           onTap: (){
+                            Get.to(()=>AllDoctorsList());
+
+                           },
+                          child: const Text("All Doctors",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue
+                          )),
+                        ),
+                  ],
+                ),
                 const SizedBox(
                   height: 20,
                 ),
