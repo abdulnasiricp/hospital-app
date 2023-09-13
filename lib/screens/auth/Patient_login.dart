@@ -90,7 +90,6 @@ class _PatientLoginState extends State<PatientLogin> {
             child: Lottie.asset('assets/log_load.json'),
           )
         : SingleChildScrollView(
-<<<<<<< HEAD
       child: Container(
         margin: const EdgeInsets.all(20),
         padding: const EdgeInsets.all(20),
@@ -116,136 +115,7 @@ class _PatientLoginState extends State<PatientLogin> {
             ),
             Form(
               key: formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    '  Username',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.white),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  TextFormField(
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter UserName';
-                      }
-                      //  else if (!value.contains('@')) {
-                      //   return 'please enter valid email';
-                      // }
-                      else {
-                        return null;
-                      }
-                    },
-                    keyboardType: TextInputType.emailAddress,
-                    controller: usernameController,
-                    onTapOutside: (event) =>
-                        FocusScope.of(context).unfocus(),
-                    decoration: InputDecoration(
-                        fillColor: Colors.white,
-                        filled: true,
-                        prefixIcon: const Icon(Icons.person),
-                        prefixIconColor: yellow,
-                        hintText: 'Enter Username',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        )),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Text(
-                    '  Password',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.white),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  TextFormField(
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please Enter your password';
-                      } else {
-                        return null;
-                      }
-                    },
-                    controller: _passwordController,
-                    obscureText: !_isPasswordVisible,
-                    onTapOutside: (event) => FocusScope.of(context).unfocus(),
-                    decoration: InputDecoration(
-                      focusColor: yellow,
-                        fillColor: Colors.white,
-                        filled: true,
-                        prefixIcon:  const Icon(Icons.lock,color: Color(0xfffabd0a),),
-                        hintText: 'Enter Password',
-                        suffixIconColor: yellow,
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                          ),
-                          onPressed: _togglePasswordVisibility,
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        )
-                    ),
-                  ),
-
-                  Container(
-                      alignment: Alignment.bottomRight,
-                      child: TextButton(
-                        onPressed: () {
-                          Get.to(() => const Forgotpassword());
-                        },
-                        child: const Text(
-                          'Forgot Password',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      )),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    width: double.infinity,
-                    height: 50,
-                    child: MyButton(
-                      title: const Text('Sign In'),
-                      onPressed: () {
-                        if (formKey.currentState!.validate()) {
-                          // Loginvalues.patientLogin(
-                          //   Loginvalues.emailController,
-                          //   Loginvalues.passwordController
-                          // );
-                          _login();
-                          setState(() {
-                            isloading = true;
-                          });
-                        }
-                      },
-                    ),
-=======
-            child: Container(
-              margin: const EdgeInsets.all(20),
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Color.fromARGB(255, 146, 99, 227).withOpacity(0.2),
-                borderRadius: BorderRadius.circular(15),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    spreadRadius: 5,
-                    blurRadius: 5,
-                    offset: const Offset(0, 3),
->>>>>>> 29370e9415c24bf5cedaf7d11139f70a146802d4
-                  ),
-                ],
-              ),
+              
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -408,6 +278,7 @@ class _PatientLoginState extends State<PatientLogin> {
                 ],
               ),
             ),
+          ]))
           );
   }
 }

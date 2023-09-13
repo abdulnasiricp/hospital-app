@@ -51,7 +51,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
             child:CircleAvatar(
               radius: 100,
                backgroundColor: Colors.white,
-              child: Image.asset('assets/logo.png'))
+              child: Image.asset('assets/hospital_logo.png'))
             
           ),
           actions: [
