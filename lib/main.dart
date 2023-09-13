@@ -21,35 +21,31 @@ class MyApp extends StatelessWidget {
     return sharedPreferences.containsKey('username') &&
         sharedPreferences.containsKey('password');
   }
-
   @override
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
 
     return ScreenUtilInit(
-      child: MultiProvider(
-        providers: [
+        child: MultiProvider(
+            providers: [
           ChangeNotifierProvider(create: (_) => ColorNotifier()),
           ChangeNotifierProvider(create: (_) => LoginController()),
         ],
-        child:  GetMaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: 
-          FutureBuilder<bool>(
-        future: _isLoggedIn(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            final bool isLoggedIn = snapshot.data ?? false;
-            return isLoggedIn ? const Bottomhome() : const Onbonding();
-          }
-           else {
-            return Container();
-          }
-        }
-        ),
-        
-
-      )));
+            child: GetMaterialApp(
+              debugShowCheckedModeBanner: false,
+              home: FutureBuilder<bool>(
+                  future: _isLoggedIn(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      final bool isLoggedIn = snapshot.data ?? false;
+                      return isLoggedIn
+                          ? const Bottomhome()
+                          : const Onbonding();
+                    } else {
+                      return Container();
+                    }
+                  }),
+            )));
   }
 }
