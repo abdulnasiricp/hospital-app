@@ -1,4 +1,3 @@
-// ignore_for_file: unused_element
 
 import 'package:TezHealthCare/Controller/loginController.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
