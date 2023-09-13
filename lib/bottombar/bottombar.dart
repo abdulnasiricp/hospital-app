@@ -10,7 +10,6 @@ import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:provider/provider.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
-import '../bottomscreen/home/home.dart';
 
 class Bottomhome extends StatefulWidget {
   const Bottomhome({Key? key}) : super(key: key);

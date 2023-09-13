@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'dart:convert';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:http/http.dart' as http;
@@ -84,7 +86,7 @@ class _DoctorLoginState extends State<DoctorLogin> {
         margin: const EdgeInsets.all(20),
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 146, 99, 227)
+          color: const Color.fromARGB(255, 146, 99, 227)
               .withOpacity(0.2),
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
@@ -99,7 +101,7 @@ class _DoctorLoginState extends State<DoctorLogin> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
+            SizedBox(
               width: double.infinity,
               height: height / 5,
               child: Image.asset('assets/logo.png'),
@@ -170,7 +172,7 @@ class _DoctorLoginState extends State<DoctorLogin> {
                         fillColor: Colors.white,
                         focusColor: yellow,
                         filled: true,
-                        prefixIcon:  Icon(Icons.lock,color:  Color(0xfffabd0a),),
+                        prefixIcon:  const Icon(Icons.lock,color:  Color(0xfffabd0a),),
                         hintText: 'Enter Password',
                         suffixIcon: IconButton(
                           icon: Icon(
@@ -188,7 +190,7 @@ class _DoctorLoginState extends State<DoctorLogin> {
                       alignment: Alignment.bottomRight,
                       child: TextButton(
                         onPressed: () {
-                          Get.to(() => Forgotpassword());
+                          Get.to(() => const Forgotpassword());
                         },
                         child: const Text(
                           'Forgot Password',
@@ -201,7 +203,7 @@ class _DoctorLoginState extends State<DoctorLogin> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Container(
+                  SizedBox(
                     width: double.infinity,
                     height: 50,
                     child: MyButton(

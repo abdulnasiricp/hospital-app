@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, file_names, avoid_print
 
 import 'package:flutter/material.dart';
 import 'dart:convert';
@@ -58,7 +58,7 @@ class _OpdListScreenState extends State<OpdListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('OPD List'),
+        title: const Text('OPD List'),
         centerTitle: true,
       ),
     );

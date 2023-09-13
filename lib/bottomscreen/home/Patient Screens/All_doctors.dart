@@ -1,5 +1,7 @@
-// ignore_for_file: avoid_unnecessary_containers
+// ignore_for_file: avoid_unnecessary_containers, file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace, prefer_const_constructors
 
+import 'package:TezHealthCare/utils/colors.dart';
+// ignore: duplicate_import
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
@@ -46,6 +48,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white.withOpacity(0.9),
         appBar: AppBar(
           title: const Text('Select a Doctor'),
           centerTitle: true,
@@ -59,46 +62,97 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                       children: [
                         Container(
                           height: 50,
-                          child: TextFormField(
+                          child: TextField(
                             decoration: const InputDecoration(
+                                fillColor: Colors.white,
+                                filled: true,
+                                hintText: 'Search your doctor',
                                 border: OutlineInputBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(20))),
                                 prefixIcon: Icon(Icons.search)),
                           ),
                         ),
-                        const SizedBox(height: 20,),
+                        const SizedBox(
+                          height: 20,
+                        ),
                         Expanded(
                           child: GridView.builder(
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2),
+                                      crossAxisCount: 2,
+                                      crossAxisSpacing: 2,
+                                      mainAxisSpacing: 0),
                               itemCount: DoneListData!.length,
                               itemBuilder: (context, index) {
-                                return  SingleChildScrollView(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        height: height/2,
-                                        width: width/2,
+                                return Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        width: width / 2,
                                         child: Card(
-
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(10.0),
-                                            child: Column(children: [
-                                              const CircleAvatar(
-                                                backgroundImage: AssetImage('assets/logo.png'),
-                                          
+                                            color:
+                                                Colors.white.withOpacity(0.9),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(10.0),
+                                              child: Column(
+                                                children: [
+                                                  CircleAvatar(
+                                                    backgroundImage: AssetImage(
+                                                        'assets/logo.png'),
+                                                    // NetworkImage(DoneListData![index]['image'])
+                                                  ),
+                                                  SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                  Text(
+                                                    'Dr. ${DoneListData![index]['name']}',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                  Text(
+                                                      '${DoneListData![index]['specialization']}'),
+                                                  SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                  Text(
+                                                      '${DoneListData![index]['qualification']} '),
+                                                  SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                  Container(
+                                                    height: 30,
+                                                    width: width,
+                                                    decoration: BoxDecoration(
+                                                      border: Border.all(),
+                                                      color: yellow,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                    ),
+                                                    child: Center(
+                                                      child: Text(
+                                                        'Book Appointment',
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              Text('Name:${DoneListData![index]['name']}'),
-                                              Text('specialization:${DoneListData![index]['specialization']}'),
-                                            ],),
-                                          )
-                                        ),
-                                      )
-                                    ],
-                                  ),
+                                            )),
+                                      ),
+                                    )
+                                  ],
                                 );
                               }),
                         ),
