@@ -1,4 +1,3 @@
-
 import 'package:TezHealthCare/Controller/loginController.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/onbonding/onbonding.dart';
@@ -10,7 +9,6 @@ import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 void main() {
   runApp(const MyApp());
 }
@@ -20,44 +18,34 @@ class MyApp extends StatelessWidget {
 
   Future<bool> _isLoggedIn() async {
     final sharedPreferences = await SharedPreferences.getInstance();
-    return sharedPreferences.containsKey('username') && sharedPreferences.containsKey('password');
+    return sharedPreferences.containsKey('username') &&
+        sharedPreferences.containsKey('password');
   }
-
- 
 
   @override
   Widget build(BuildContext context) {
-   
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
 
     return ScreenUtilInit(
-      child: MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => ColorNotifier()),
-          ChangeNotifierProvider(create: (_) => LoginController()),
-        ],
-        child: GetMaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: FutureBuilder<bool>(
-        future: _isLoggedIn(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            final bool isLoggedIn = snapshot.data ?? false;
-            return isLoggedIn ? const Bottomhome() : const Onbonding();
-          }
-           else {
-            return Container();
-          }
-        }
-        ),
-        
-
+        child: MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ColorNotifier()),
+        ChangeNotifierProvider(create: (_) => LoginController()),
+      ],
+      child: GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: FutureBuilder<bool>(
+            future: _isLoggedIn(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                final bool isLoggedIn = snapshot.data ?? false;
+                return isLoggedIn ? const Bottomhome() : const Onbonding();
+              } else {
+                return Container();
+              }
+            }),
       ),
-      
-      )
-      
-    );
-
+    ));
   }
 }
