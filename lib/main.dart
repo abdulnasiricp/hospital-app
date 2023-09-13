@@ -1,7 +1,8 @@
 // ignore_for_file: unused_element
 
 import 'package:TezHealthCare/Controller/loginController.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Patient_home.dart';
+import 'package:TezHealthCare/bottombar/bottombar.dart';
+import 'package:TezHealthCare/onbonding/onbonding.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -37,21 +38,20 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => ColorNotifier()),
           ChangeNotifierProvider(create: (_) => LoginController()),
         ],
-        child:   const GetMaterialApp(
+        child: GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          home: PatientHomePage()
-        //   FutureBuilder<bool>(
-        // future: _isLoggedIn(),
-        // builder: (context, snapshot) {
-        //   if (snapshot.connectionState == ConnectionState.done) {
-        //     final bool isLoggedIn = snapshot.data ?? false;
-        //     return isLoggedIn ? const Bottomhome() : const Onbonding();
-        //   }
-        //    else {
-        //     return Container();
-        //   }
-        // }
-        // ),
+          home: FutureBuilder<bool>(
+        future: _isLoggedIn(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            final bool isLoggedIn = snapshot.data ?? false;
+            return isLoggedIn ? const Bottomhome() : const Onbonding();
+          }
+           else {
+            return Container();
+          }
+        }
+        ),
         
 
       ),

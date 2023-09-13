@@ -14,7 +14,7 @@ class ColorNotifier with ChangeNotifier {
 
   get getwihitecolor => isDark ? darkwihitecolor : wihitecolor;
 
-  get getperple => isDark ? perple : darkperple;
+  get getperple => isDark ? yellow : darkYellow;
 
   get getblack => isDark ? black : darkblack;
 

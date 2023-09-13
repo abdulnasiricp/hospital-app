@@ -2,24 +2,13 @@ import 'package:flutter/material.dart';
 
 Color wihitecolor = Colors.white;
 Color darkwihitecolor = const Color(0xff2D2D3A);
-
-Color perple = const Color(0xfffabd0a);
-Color darkperple = const Color(0xff433c63);
-
 Color black =   Colors.white;
 Color darkblack =   const Color(0xff2D2D3A);
-
 Color yellow =   const Color(0xfffabd0a);
-<<<<<<< HEAD
 Color darkYellow =   const Color(0xff433c63);
-=======
 Color darkblue =   const Color(0xff433c63);
->>>>>>> e6fcf120ce53a13a88e2258633ec34e3b26aa9eb
-
-
 Color grey = Colors.grey;
 Color darkgrey = Colors.grey;
-
 Color darkchatcolor =  const Color(0xffF8F8F8);
 Color  chatcolor =     Colors.black;
 
