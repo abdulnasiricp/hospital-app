@@ -170,7 +170,7 @@ class _DoctorLoginState extends State<DoctorLogin> {
                         fillColor: Colors.white,
                         focusColor: yellow,
                         filled: true,
-                        prefixIcon: const Icon(Icons.lock,color: const Color(0xfffabd0a),),
+                        prefixIcon:  Icon(Icons.lock,color:  Color(0xfffabd0a),),
                         hintText: 'Enter Password',
                         suffixIcon: IconButton(
                           icon: Icon(

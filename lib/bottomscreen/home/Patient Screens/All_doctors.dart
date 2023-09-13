@@ -84,14 +84,17 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                         width: width/2,
                                         child: Card(
 
-                                          child: Column(children: [
-                                            const CircleAvatar(
-                                              backgroundImage: AssetImage('assets/logo.png'),
-
-                                            ),
-                                            Text('Name:${DoneListData![index]['name']}'),
-                                            Text('specialization:${DoneListData![index]['specialization']}'),
-                                          ],)
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(10.0),
+                                            child: Column(children: [
+                                              const CircleAvatar(
+                                                backgroundImage: AssetImage('assets/logo.png'),
+                                          
+                                              ),
+                                              Text('Name:${DoneListData![index]['name']}'),
+                                              Text('specialization:${DoneListData![index]['specialization']}'),
+                                            ],),
+                                          )
                                         ),
                                       )
                                     ],

@@ -1,9 +1,5 @@
 import 'package:TezHealthCare/Controller/loginController.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
-<<<<<<< HEAD
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Patient_home.dart';
-=======
->>>>>>> 198841dc9e1b5404aeb5dd687d5065f70daf60b7
 import 'package:TezHealthCare/onbonding/onbonding.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +28,6 @@ class MyApp extends StatelessWidget {
     width = MediaQuery.of(context).size.width;
 
     return ScreenUtilInit(
-<<<<<<< HEAD
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => ColorNotifier()),
@@ -55,26 +50,6 @@ class MyApp extends StatelessWidget {
         ),
         
 
-=======
-        child: MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => ColorNotifier()),
-        ChangeNotifierProvider(create: (_) => LoginController()),
-      ],
-      child: GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: FutureBuilder<bool>(
-            future: _isLoggedIn(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                final bool isLoggedIn = snapshot.data ?? false;
-                return isLoggedIn ? const Bottomhome() : const Onbonding();
-              } else {
-                return Container();
-              }
-            }),
->>>>>>> 198841dc9e1b5404aeb5dd687d5065f70daf60b7
-      ),
-    ));
+      )));
   }
 }
