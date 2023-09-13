@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:TezHealthCare/utils/colors.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:TezHealthCare/bottombar/bottombar.dart';
@@ -24,14 +25,17 @@ class _DoctorLoginState extends State<DoctorLogin> {
   final formKey = GlobalKey<FormState>();
 
   var isloading = false;
-
+  bool _isPasswordVisible = false;
+  void _togglePasswordVisibility() {
+    setState(() {
+      _isPasswordVisible = !_isPasswordVisible;
+    });
+  }
+  final TextEditingController _passwordController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
-
-  final TextEditingController passwordController = TextEditingController();
-
   Future<void> _login() async {
     final String username = usernameController.text;
-    final String password = passwordController.text;
+    final String password = _passwordController.text;
 
     // Perform API call to authenticate the user
     final response = await http.post(
@@ -75,13 +79,13 @@ class _DoctorLoginState extends State<DoctorLogin> {
 
   @override
   Widget build(BuildContext context) {
-    return isloading? Center(child: Lottie.asset('assets/loading_animation.json',),): SingleChildScrollView(
+    return isloading? Center(child: Lottie.asset('assets/log_load.json'),): SingleChildScrollView(
       child: Container(
         margin: const EdgeInsets.all(20),
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: Color.fromARGB(255, 146, 99, 227)
-              .withOpacity(0.2), 
+              .withOpacity(0.2),
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
@@ -98,7 +102,7 @@ class _DoctorLoginState extends State<DoctorLogin> {
             Container(
               width: double.infinity,
               height: height / 5,
-              child: Lottie.asset('assets/login_animation.json'),
+              child: Image.asset('assets/logo.png'),
             ),
             Form(
               key: formKey,
@@ -116,7 +120,7 @@ class _DoctorLoginState extends State<DoctorLogin> {
                   TextFormField(
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Please enter UserName';
+                        return 'Please Enter Username';
                       }
                       //  else if (!value.contains('@')) {
                       //   return 'please enter valid email';
@@ -132,8 +136,8 @@ class _DoctorLoginState extends State<DoctorLogin> {
                         fillColor: Colors.white,
                         filled: true,
                         prefixIcon: const Icon(Icons.person),
-                        prefixIconColor: Colors.blue,
-                        hintText: 'Enter User Name',
+                        prefixIconColor: yellow,
+                        hintText: 'Enter Username',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         )),
@@ -149,6 +153,8 @@ class _DoctorLoginState extends State<DoctorLogin> {
                   const SizedBox(
                     height: 5,
                   ),
+
+
                   TextFormField(
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -157,20 +163,27 @@ class _DoctorLoginState extends State<DoctorLogin> {
                         return null;
                       }
                     },
-                    obscureText: true,
-                    controller: passwordController,
+                    controller: _passwordController,
+                    obscureText: !_isPasswordVisible,
                     onTapOutside: (event) => FocusScope.of(context).unfocus(),
                     decoration: InputDecoration(
                         fillColor: Colors.white,
+                        focusColor: yellow,
                         filled: true,
+                        prefixIcon: const Icon(Icons.lock,color: const Color(0xfffabd0a),),
                         hintText: 'Enter Password',
-                        prefixIcon: const Icon(Icons.lock),
-                        prefixIconColor: Colors.blue,
-                        suffixIcon: const Icon(Icons.visibility),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                          ),
+                          onPressed: _togglePasswordVisibility,
+                        ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
-                        )),
+                        )
+                    ),
                   ),
+
                   Container(
                       alignment: Alignment.bottomRight,
                       child: TextButton(
@@ -193,10 +206,10 @@ class _DoctorLoginState extends State<DoctorLogin> {
                     height: 50,
                     child: MyButton(
                       title:
-                          //  isloading
-                          //     ? const CircularProgressIndicator(color: Colors.white,)
-                          // :
-                          const Text('Sign In'),
+                      //  isloading
+                      //     ? const CircularProgressIndicator(color: Colors.white,)
+                      // :
+                      const Text('Sign In'),
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
                           // Loginvalues.patientLogin(
