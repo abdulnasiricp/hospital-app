@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'dart:convert';
 import 'package:TezHealthCare/screens/auth/Forgot_Password.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -81,13 +79,16 @@ class _DoctorLoginState extends State<DoctorLogin> {
 
   @override
   Widget build(BuildContext context) {
-    return isloading? Center(child: Lottie.asset('assets/log_load.json'),): SingleChildScrollView(
+    return isloading
+        ? Center(
+      child: Lottie.asset('assets/log_load.json'),
+    )
+        : SingleChildScrollView(
       child: Container(
         margin: const EdgeInsets.all(20),
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 146, 99, 227)
-              .withOpacity(0.2),
+          color: Color.fromARGB(255, 146, 99, 227).withOpacity(0.2),
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
@@ -101,7 +102,7 @@ class _DoctorLoginState extends State<DoctorLogin> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
+            Container(
               width: double.infinity,
               height: height / 5,
               child: Image.asset('assets/logo.png'),
@@ -133,7 +134,8 @@ class _DoctorLoginState extends State<DoctorLogin> {
                     },
                     keyboardType: TextInputType.emailAddress,
                     controller: usernameController,
-                    onTapOutside: (event) => FocusScope.of(context).unfocus(),
+                    onTapOutside: (event) =>
+                        FocusScope.of(context).unfocus(),
                     decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
@@ -155,8 +157,6 @@ class _DoctorLoginState extends State<DoctorLogin> {
                   const SizedBox(
                     height: 5,
                   ),
-
-
                   TextFormField(
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -167,43 +167,73 @@ class _DoctorLoginState extends State<DoctorLogin> {
                     },
                     controller: _passwordController,
                     obscureText: !_isPasswordVisible,
-                    onTapOutside: (event) => FocusScope.of(context).unfocus(),
+                    onTapOutside: (event) =>
+                        FocusScope.of(context).unfocus(),
                     decoration: InputDecoration(
                         fillColor: Colors.white,
                         focusColor: yellow,
                         filled: true,
-                        prefixIcon:  const Icon(Icons.lock,color:  Color(0xfffabd0a),),
+                        prefixIcon: Icon(
+                          Icons.lock,
+                          color: Color(0xfffabd0a),
+                        ),
                         hintText: 'Enter Password',
                         suffixIcon: IconButton(
                           icon: Icon(
-                            _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                            _isPasswordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off,
                           ),
                           onPressed: _togglePasswordVisibility,
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
-                        )
-                    ),
+                        )),
                   ),
-
-                  Container(
-                      alignment: Alignment.bottomRight,
-                      child: TextButton(
-                        onPressed: () {
-                          Get.to(() => const Forgotpassword());
-                        },
-                        child: const Text(
-                          'Forgot Password',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      )),
                   const SizedBox(
                     height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+
+                      Row(
+                        children: [
+                          Checkbox(
+                            activeColor: yellow,
+                            focusColor: yellow,
+                            checkColor: darkblue,
+                            autofocus: false,
+                            value: _rememberMeFlag,
+                            onChanged: (value) => setState(() {
+                              _rememberMeFlag = !_rememberMeFlag;
+                            }),
+                          ),
+                          Text('Remember Me',style: TextStyle(color: Colors.white),),
+                        ],
+                      ),
+                      SizedBox(height: 20.0), // Spacer
+                      InkWell(
+                          onTap: () {
+                            // Add your Forgot Password functionality here
+                          },
+                          child: TextButton(
+                            onPressed: () {
+                              Get.to(() => Forgotpassword());
+                            },
+                            child: const Text(
+                              'Forgot Password',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          )),
+
+
+                    ],
                   ),
                   const SizedBox(
                     height: 10,
                   ),
-                  SizedBox(
+                  Container(
                     width: double.infinity,
                     height: 50,
                     child: MyButton(
@@ -224,9 +254,22 @@ class _DoctorLoginState extends State<DoctorLogin> {
                           });
                         }
                       },
-               ))]))])));
- 
+                    ),
+                  ),
+
+
+                ],
+              ),
+            ),
+            SizedBox(
+              height: height / 10,
+            )
+          ],
+
+
+        ),
+      ),
+    );
   }
 }
-
 

@@ -1,5 +1,3 @@
-// ignore_for_file: file_names, sized_box_for_whitespace
-
 import 'package:TezHealthCare/screens/auth/Doctor_Login.dart';
 import 'package:TezHealthCare/screens/auth/Patient_login.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -79,7 +77,6 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
     );
   }
 }
-
 
 
 

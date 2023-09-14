@@ -164,7 +164,7 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                                   borderRadius: BorderRadius.circular(10),
                                 )),
                           ),
-                         const SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           const Text(
