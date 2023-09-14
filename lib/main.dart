@@ -1,6 +1,5 @@
 import 'package:TezHealthCare/Controller/loginController.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
-import 'package:TezHealthCare/onbonding/onbonding.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,6 +7,8 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'Splash_Screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
                       final bool isLoggedIn = snapshot.data ?? false;
                       return isLoggedIn
                           ? const Bottomhome()
-                          : const Onbonding();
+                          :Splash_Screen();
                     } else {
                       return Container();
                     }

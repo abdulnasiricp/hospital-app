@@ -60,6 +60,7 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
 
 
                     ),
+
                   ]),
             ),
             const Expanded(
@@ -68,6 +69,17 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
                   PatientLogin(),
                   DoctorLogin(),
                 ],
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 60.0),
+                child: Text(
+                  '©2023 Tez Care. All Right Reserved',
+                  style: TextStyle(
+                      fontSize: 8, fontWeight: FontWeight.bold, color: yellow),
+                ),
               ),
             ),
           ]),
