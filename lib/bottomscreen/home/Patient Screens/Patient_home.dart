@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 // ignore_for_file: sized_box_for_whitespace, non_constant_identifier_names, file_names
 
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
-=======
->>>>>>> db4d6bf70833bbaf479161f8080155942e47a8b0
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/All_doctors.dart';
 import 'package:TezHealthCare/custtom/doctorlist/custtomdoctorlist.dart';
 import 'package:TezHealthCare/screens/notification.dart';
@@ -50,28 +46,12 @@ class _PatientHomePageState extends State<PatientHomePage> {
             maxLines: 1,
             overflow: TextOverflow.ellipsis, ),
           // centerTitle: true,
-<<<<<<< HEAD
-         
-          leading:  InkWell(
-            onTap: (){
-              Get.to(()=>const AboutUSScreen());
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child:CircleAvatar(
-                radius: 100,
-                 backgroundColor: Colors.white,
-                child: Image.asset('assets/hospital_logo.png'))
-              
-            ),
-=======
           leading:  Padding(
             padding: const EdgeInsets.all(8.0),
             child:Image.asset('assets/hospital_logo.png',
               width: 200,  height: 200,
             )
             
->>>>>>> db4d6bf70833bbaf479161f8080155942e47a8b0
           ),
           actions: [
             IconButton(
