@@ -1,5 +1,3 @@
-// ignore_for_file: file_names, sized_box_for_whitespace
-
 import 'package:TezHealthCare/screens/auth/Doctor_Login.dart';
 import 'package:TezHealthCare/screens/auth/Patient_login.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -62,6 +60,7 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
 
 
                     ),
+
                   ]),
             ),
             const Expanded(
@@ -72,6 +71,17 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
                 ],
               ),
             ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 60.0),
+                child: Text(
+                  '©2023 Tez Care. All Right Reserved',
+                  style: TextStyle(
+                      fontSize: 8, fontWeight: FontWeight.bold, color: yellow),
+                ),
+              ),
+            ),
           ]),
         ),
         // extendBodyBehindAppBar: true, // Extend the body behind the app bar
@@ -79,7 +89,6 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
     );
   }
 }
-
 
 
 

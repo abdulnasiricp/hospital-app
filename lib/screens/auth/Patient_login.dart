@@ -1,5 +1,3 @@
-// ignore_for_file: file_names, sized_box_for_whitespace
-
 import 'dart:convert';
 import 'package:TezHealthCare/screens/auth/Forgot_Password.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -90,32 +88,21 @@ class _PatientLoginState extends State<PatientLogin> {
             child: Lottie.asset('assets/log_load.json'),
           )
         : SingleChildScrollView(
-      child: Container(
-        margin: const EdgeInsets.all(20),
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 146, 99, 227).withOpacity(0.2),
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              spreadRadius: 5,
-              blurRadius: 5,
-              offset: const Offset(0, 3),
-            ),
-          ],
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: double.infinity,
-              height: height / 5,
-              child: Image.asset('assets/logo.png'),
-            ),
-            Form(
-              key: formKey,
-              
+            child: Container(
+              margin: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 146, 99, 227).withOpacity(0.2),
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    spreadRadius: 5,
+                    blurRadius: 5,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -264,7 +251,8 @@ class _PatientLoginState extends State<PatientLogin> {
                                 _login();
                                 setState(() {
                                   isloading = true;
-                                });
+                                }
+                                );
                               }
                             },
                           ),
@@ -278,7 +266,6 @@ class _PatientLoginState extends State<PatientLogin> {
                 ],
               ),
             ),
-          ]))
           );
   }
 }

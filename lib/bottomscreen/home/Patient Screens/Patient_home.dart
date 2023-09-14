@@ -1,8 +1,10 @@
+<<<<<<< HEAD
 // ignore_for_file: sized_box_for_whitespace, non_constant_identifier_names, file_names
 
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
+=======
+>>>>>>> db4d6bf70833bbaf479161f8080155942e47a8b0
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/All_doctors.dart';
-import 'package:TezHealthCare/bottomscreen/home/search.dart';
 import 'package:TezHealthCare/custtom/doctorlist/custtomdoctorlist.dart';
 import 'package:TezHealthCare/screens/notification.dart';
 import 'package:TezHealthCare/stringfile/enstring.dart';
@@ -43,9 +45,12 @@ class _PatientHomePageState extends State<PatientHomePage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          toolbarHeight: 100,
-          title: const Text("प्रादेशिक अस्पताल सिराहा \nसिरहा , नेपाल",),
+          // toolbarHeight: 100,
+          title: const Text("प्रादेशिक अस्पताल सिराहा, नेपाल",
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis, ),
           // centerTitle: true,
+<<<<<<< HEAD
          
           leading:  InkWell(
             onTap: (){
@@ -59,6 +64,14 @@ class _PatientHomePageState extends State<PatientHomePage> {
                 child: Image.asset('assets/hospital_logo.png'))
               
             ),
+=======
+          leading:  Padding(
+            padding: const EdgeInsets.all(8.0),
+            child:Image.asset('assets/hospital_logo.png',
+              width: 200,  height: 200,
+            )
+            
+>>>>>>> db4d6bf70833bbaf479161f8080155942e47a8b0
           ),
           actions: [
             IconButton(
@@ -69,16 +82,17 @@ class _PatientHomePageState extends State<PatientHomePage> {
                 icon: const Icon(
                   Icons.notifications,
                   color: Colors.white,
-                )),
-            IconButton(
-                color: Colors.blue,
-                onPressed: () {
-                  Get.to(() => const Search());
-                },
-                icon: const Icon(
-                  Icons.search,
-                  color: Colors.white,
-                )),
+                )
+            ),
+            // IconButton(
+            //     color: Colors.blue,
+            //     onPressed: () {
+            //       Get.to(() => const Search());
+            //     },
+            //     icon: const Icon(
+            //       Icons.search,
+            //       color: Colors.white,
+            //     )),
           ],
           backgroundColor: darkYellow,
           elevation: 0,
@@ -93,24 +107,13 @@ class _PatientHomePageState extends State<PatientHomePage> {
                Padding(
                     padding: const EdgeInsets.only(left: 20),
                     child: Text(
-                      'Welcome',
+                      'Welcome,\n $username',
                       style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 14,
                           fontWeight: FontWeight.bold,
                           color: darkYellow),
                     ),
                   ),
-                  Padding(
-                    padding:  const EdgeInsets.only(left: 40.0),
-                    child: Text(
-                      username.toString(),
-                      style:  TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 10,
-                          color: darkYellow),
-                    ),
-                  ),
-             
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Column(
@@ -119,14 +122,30 @@ class _PatientHomePageState extends State<PatientHomePage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    const Text(
-                      'Category',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text("Category",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            )),
+                        InkWell(
+                          onTap: () {
+                            Get.to(() => const AllDoctorsList());
+                          },
+                          child: const Text("View All",
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black)),
+                        ),
+                      ],
                     ),
                     const SizedBox(
-                      height: 10,
+                      height: 20,
                     ),
+
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
@@ -145,14 +164,15 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     width / 7));
                               },
                               child: Card(
+                                borderOnForeground: true,
                                 child: Column(
                                   children: [
                                     const SizedBox(
                                       height: 5,
                                     ),
                                     Container(
-                                        width: 40,
-                                        height: 40,
+                                        width: 50,
+                                        height: 50,
                                         child: Image.asset(
                                             'assets/transation.png')),
                                     const SizedBox(
@@ -531,10 +551,11 @@ class _PatientHomePageState extends State<PatientHomePage> {
                           onTap: () {
                             Get.to(() => const AllDoctorsList());
                           },
-                          child: const Text("All Doctors",
+                          child: const Text("View All",
                               style: TextStyle(
+                                fontSize: 12,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.blue)),
+                                  color: Colors.black)),
                         ),
                       ],
                     ),
