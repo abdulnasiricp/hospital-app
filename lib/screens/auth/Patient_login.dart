@@ -190,7 +190,7 @@ class _PatientLoginState extends State<PatientLogin> {
                               focusColor: yellow,
                               fillColor: Colors.white,
                               filled: true,
-                              prefixIcon: Icon(
+                              prefixIcon: const Icon(
                                 Icons.lock,
                                 color: Color(0xfffabd0a),
                               ),
@@ -225,20 +225,20 @@ class _PatientLoginState extends State<PatientLogin> {
                                     _rememberMeFlag = !_rememberMeFlag;
                                   }),
                                 ),
-                                Text(
+                                const Text(
                                   'Remember Me',
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ],
                             ),
-                            SizedBox(height: 20.0), // Spacer
+                            const SizedBox(height: 20.0), // Spacer
                             InkWell(
                                 onTap: () {
                                   // Add your Forgot Password functionality here
                                 },
                                 child: TextButton(
                                   onPressed: () {
-                                    Get.to(() => Forgotpassword());
+                                    Get.to(() => const Forgotpassword());
                                   },
                                   child: const Text(
                                     'Forgot Password',

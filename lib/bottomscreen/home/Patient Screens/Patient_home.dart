@@ -1,5 +1,6 @@
 // ignore_for_file: sized_box_for_whitespace, non_constant_identifier_names, file_names
 
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/All_doctors.dart';
 import 'package:TezHealthCare/bottomscreen/home/search.dart';
 import 'package:TezHealthCare/custtom/doctorlist/custtomdoctorlist.dart';
@@ -46,13 +47,18 @@ class _PatientHomePageState extends State<PatientHomePage> {
           title: const Text("प्रादेशिक अस्पताल सिराहा \nसिरहा , नेपाल",),
           // centerTitle: true,
          
-          leading:  Padding(
-            padding: const EdgeInsets.all(8.0),
-            child:CircleAvatar(
-              radius: 100,
-               backgroundColor: Colors.white,
-              child: Image.asset('assets/hospital_logo.png'))
-            
+          leading:  InkWell(
+            onTap: (){
+              Get.to(()=>const AboutUSScreen());
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child:CircleAvatar(
+                radius: 100,
+                 backgroundColor: Colors.white,
+                child: Image.asset('assets/hospital_logo.png'))
+              
+            ),
           ),
           actions: [
             IconButton(
@@ -76,9 +82,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
           ],
           backgroundColor: darkYellow,
           elevation: 0,
-
+      
           // foregroundColor: Utils.appbarForgroundColor,
         ),
+        
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

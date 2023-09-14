@@ -1,10 +1,12 @@
 // ignore_for_file: avoid_unnecessary_containers, file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace, prefer_const_constructors
 
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Select_date.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 // ignore: duplicate_import
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -19,7 +21,9 @@ class AllDoctorsList extends StatefulWidget {
 class _AllDoctorsListState extends State<AllDoctorsList> {
   Map<String, dynamic>? DataMap;
   Map<String, dynamic>? DoneDataMap;
-  List<dynamic>? DoneListData;
+  // List<dynamic>? DoneListData;
+  List<dynamic>? DoneListData = [];
+  String searchTerm = '';
 
   Future hitApi() async {
     final response = await http.post(
@@ -63,6 +67,13 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                         Container(
                           height: 50,
                           child: TextField(
+                            onTapOutside: (event) =>
+                                FocusScope.of(context).unfocus(),
+                            onChanged: (value) {
+                              setState(() {
+                                searchTerm = value;
+                              });
+                            },
                             decoration: const InputDecoration(
                                 fillColor: Colors.white,
                                 filled: true,
@@ -97,22 +108,24 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                                 Colors.white.withOpacity(0.9),
                                             child: Padding(
                                               padding:
-                                                  const EdgeInsets.all(10.0),
+                                                  const EdgeInsets.all(5.0),
                                               child: Column(
                                                 children: [
                                                   CircleAvatar(
-                                                    backgroundImage: AssetImage(
-                                                        'assets/logo.png'),
-                                                    // NetworkImage(DoneListData![index]['image'])
-                                                  ),
+                                                      backgroundImage:
+                                                         AssetImage( 'assets/logo.png')),
+                                                          // NetworkImage(
+                                                          //     DoneListData![
+                                                          //             index]
+                                                          //         ['image'])),
                                                   SizedBox(
                                                     height: 5,
                                                   ),
                                                   Text(
-                                                    'Dr. ${DoneListData![index]['name']}',
+                                                    '${DoneListData![index]['name']} ${DoneListData![index]['surname']}',
                                                     style: TextStyle(
                                                         fontWeight:
-                                                            FontWeight.bold),
+                                                            FontWeight.bold,fontSize: 13),
                                                   ),
                                                   SizedBox(
                                                     height: 5,
@@ -137,13 +150,18 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                                           BorderRadius.circular(
                                                               10),
                                                     ),
-                                                    child: Center(
-                                                      child: Text(
-                                                        'Book Appointment',
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                                                    child: InkWell(
+                                                      onTap: (){
+                                                        Get.to(()=>SelectDateScreen());
+                                                      },
+                                                      child: Center(
+                                                        child: Text(
+                                                          'Book Appointment',
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
                                                       ),
                                                     ),
                                                   ),

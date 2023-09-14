@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, prefer_final_fields, unused_field
 
 import 'dart:convert';
 import 'package:TezHealthCare/screens/auth/Forgot_Password.dart';

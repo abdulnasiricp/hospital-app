@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace
+// ignore_for_file: sized_box_for_whitespace, body_might_complete_normally_nullable, non_constant_identifier_names, file_names
 
 import 'dart:convert';
 
