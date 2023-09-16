@@ -1,5 +1,9 @@
 // ignore_for_file: sized_box_for_whitespace, non_constant_identifier_names, file_names
 
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/All_doctors.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Category_View_All.dart';
 import 'package:TezHealthCare/custtom/doctorlist/custtomdoctorlist.dart';
@@ -21,11 +25,48 @@ class PatientHomePage extends StatefulWidget {
 class _PatientHomePageState extends State<PatientHomePage> {
   String role = '', username = '';
   String record = '', genderrecord = '';
+  Map<String, dynamic>? DataMap;
+  Map<String, dynamic>? DoneDataMap;
+  List<dynamic>? DoneListData = [];
+  List<dynamic>? NewListData = [];
+
+  Future hitApi() async {
+    final response = await http.post(
+        Uri.parse('https://uat.tez.hospital/xzy/webservice/getAllDoctor'),
+        headers: {
+          'Soft-service': 'TezHealthCare',
+          'Auth-key': 'zbuks_ram859553467'
+        });
+    if (response.statusCode == 200) {
+      setState(() {
+        DataMap = jsonDecode(response.body);
+        DoneListData = DataMap!['doctors'];
+        print(DoneListData);
+      });
+    } else {
+      print('Error getting Products: ${response.statusCode}');
+    }
+    for (var i = 0; i < DoneListData!.length; i++) {
+      NewListData?.add({
+        "name": DoneListData?[i]["name"],
+        "id": DoneListData?[i]["id"],
+        "email": DoneListData?[i]["email"],
+      });
+    }
+    //TO SHOW ALL LIST AT INITIAL
+    setState(() {
+      NewListData = DoneListData;
+    });
+  }
+
 
   @override
   void initState() {
-    super.initState();
     LoadData();
+    hitApi();
+    super.initState();
+    
+
   }
 
   LoadData() async {
@@ -543,6 +584,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
                     const SizedBox(
                       height: 20,
                     ),
+
+
+                    
                     Container(
                       width: double.infinity,
                       height: 130,
