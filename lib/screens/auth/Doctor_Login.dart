@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-// ignore_for_file: file_names, prefer_final_fields, unused_field
+// ignore_for_file: file_names, sized_box_for_whitespace
 
-=======
->>>>>>> db4d6bf70833bbaf479161f8080155942e47a8b0
 import 'dart:convert';
 import 'package:TezHealthCare/screens/auth/Forgot_Password.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -93,7 +90,7 @@ class _DoctorLoginState extends State<DoctorLogin> {
               margin: const EdgeInsets.all(20),
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 146, 99, 227).withOpacity(0.2),
+                color: const Color.fromARGB(255, 146, 99, 227).withOpacity(0.2),
                 borderRadius: BorderRadius.circular(15),
                 boxShadow: [
                   BoxShadow(
@@ -178,7 +175,7 @@ class _DoctorLoginState extends State<DoctorLogin> {
                               fillColor: Colors.white,
                               focusColor: yellow,
                               filled: true,
-                              prefixIcon: Icon(
+                              prefixIcon: const Icon(
                                 Icons.lock,
                                 color: Color(0xfffabd0a),
                               ),
@@ -213,20 +210,20 @@ class _DoctorLoginState extends State<DoctorLogin> {
                                     _rememberMeFlag = !_rememberMeFlag;
                                   }),
                                 ),
-                                Text(
+                                const Text(
                                   'Remember Me',
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ],
                             ),
-                            SizedBox(height: 20.0), // Spacer
+                            const SizedBox(height: 20.0), // Spacer
                             InkWell(
                                 onTap: () {
                                   // Add your Forgot Password functionality here
                                 },
                                 child: TextButton(
                                   onPressed: () {
-                                    Get.to(() => Forgotpassword());
+                                    Get.to(() => const Forgotpassword());
                                   },
                                   child: const Text(
                                     'Forgot Password',

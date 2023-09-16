@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, sized_box_for_whitespace
+
 import 'dart:convert';
 import 'package:TezHealthCare/screens/auth/Forgot_Password.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -92,7 +94,7 @@ class _PatientLoginState extends State<PatientLogin> {
               margin: const EdgeInsets.all(20),
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 146, 99, 227).withOpacity(0.2),
+                color: const Color.fromARGB(255, 146, 99, 227).withOpacity(0.2),
                 borderRadius: BorderRadius.circular(15),
                 boxShadow: [
                   BoxShadow(

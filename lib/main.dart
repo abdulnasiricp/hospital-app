@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
                       final bool isLoggedIn = snapshot.data ?? false;
                       return isLoggedIn
                           ? const Bottomhome()
-                          :Splash_Screen();
+                          :const Splash_Screen();
                     } else {
                       return Container();
                     }
