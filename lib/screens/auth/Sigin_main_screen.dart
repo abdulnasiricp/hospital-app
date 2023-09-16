@@ -74,7 +74,7 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: const EdgeInsets.only(bottom: 60.0),
+                padding: const EdgeInsets.only(bottom: 5,),
                 child: Text(
                   '©2023 Tez Care. All Right Reserved',
                   style: TextStyle(

@@ -63,7 +63,7 @@ class _OnbondingState extends State<Onbonding> {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
     return ScreenUtilInit(
-      builder: (_ , child)  => Scaffold(
+      builder: (_, child) => Scaffold(
         backgroundColor: Colors.transparent,
         body: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.light,
@@ -245,7 +245,7 @@ class _OnbondingState extends State<Onbonding> {
                                 children: <Widget>[
                                   GestureDetector(
                                     onTap: () {
-                                      Get.to(()=> const Bottomhome());
+                                      Get.to(() => const Bottomhome());
                                     },
                                     child: Container(
                                       color: Colors.transparent,
@@ -352,7 +352,7 @@ class _OnbondingState extends State<Onbonding> {
                                   GestureDetector(
                                     onTap: () {
                                       Get.off(
-                                        ()=>const MainSiginScreen(),
+                                        () => const MainSiginScreen(),
                                       );
                                     },
                                     child: Container(

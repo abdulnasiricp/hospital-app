@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-// ignore_for_file: file_names, prefer_final_fields, unused_field
-
-=======
->>>>>>> db4d6bf70833bbaf479161f8080155942e47a8b0
 import 'dart:convert';
 import 'package:TezHealthCare/screens/auth/Forgot_Password.dart';
 import 'package:TezHealthCare/utils/colors.dart';
