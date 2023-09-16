@@ -2,8 +2,6 @@
 
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Select_date.dart';
 import 'package:TezHealthCare/utils/colors.dart';
-// ignore: duplicate_import
-import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,7 +21,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
   Map<String, dynamic>? DoneDataMap;
   // List<dynamic>? DoneListData;
   List<dynamic>? DoneListData = [];
-  String searchTerm = '';
+  List<dynamic>? NewListData = [];
 
   Future hitApi() async {
     final response = await http.post(
@@ -41,12 +39,37 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
     } else {
       print('Error getting Products: ${response.statusCode}');
     }
+    for (var i = 0; i < DoneListData!.length; i++) {
+      NewListData?.add({
+        "name": DoneListData?[i]["name"],
+        "id": DoneListData?[i]["id"],
+        "email": DoneListData?[i]["email"],
+      });
+    }
+    //TO SHOW ALL LIST AT INITIAL
+    setState(() {
+      NewListData = DoneListData;
+    });
   }
 
   @override
   void initState() {
     hitApi();
     super.initState();
+  }
+  void _searchlist(String value) {
+    setState(() {
+      if (value.isEmpty) {
+        NewListData = DoneListData;
+      } else {
+        NewListData = DoneListData
+            ?.where((element) => element['name']
+                .toString()
+                .toLowerCase()
+                .contains(value.toString().toLowerCase()))
+            .toList();
+      }
+    });
   }
 
   @override
@@ -59,7 +82,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
           backgroundColor: darkYellow,
         ),
         body: Center(
-            child: DoneListData != null
+            child: NewListData != null
                 ? Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Column(
@@ -67,13 +90,11 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                         Container(
                           height: 50,
                           child: TextField(
+                            onChanged: (value) {
+                              _searchlist(value);
+                            },
                             onTapOutside: (event) =>
                                 FocusScope.of(context).unfocus(),
-                            onChanged: (value) {
-                              setState(() {
-                                searchTerm = value;
-                              });
-                            },
                             decoration: const InputDecoration(
                                 fillColor: Colors.white,
                                 filled: true,
@@ -94,7 +115,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                       crossAxisCount: 2,
                                       crossAxisSpacing: 2,
                                       mainAxisSpacing: 0),
-                              itemCount: DoneListData!.length,
+                              itemCount: NewListData!.length,
                               itemBuilder: (context, index) {
                                 return Column(
                                   mainAxisAlignment:
@@ -112,31 +133,32 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                               child: Column(
                                                 children: [
                                                   CircleAvatar(
-                                                      backgroundImage:
-                                                         AssetImage( 'assets/logo.png')),
-                                                          // NetworkImage(
-                                                          //     DoneListData![
-                                                          //             index]
-                                                          //         ['image'])),
+                                                      backgroundImage: AssetImage(
+                                                          'assets/logo.png')),
+                                                  // NetworkImage(
+                                                  //     DoneListData![
+                                                  //             index]
+                                                  //         ['image'])),
                                                   SizedBox(
                                                     height: 5,
                                                   ),
                                                   Text(
-                                                    '${DoneListData![index]['name']} ${DoneListData![index]['surname']}',
+                                                    '${NewListData![index]['name']} ${NewListData![index]['surname']}',
                                                     style: TextStyle(
                                                         fontWeight:
-                                                            FontWeight.bold,fontSize: 13),
+                                                            FontWeight.bold,
+                                                        fontSize: 13),
                                                   ),
                                                   SizedBox(
                                                     height: 5,
                                                   ),
                                                   Text(
-                                                      '${DoneListData![index]['specialization']}'),
+                                                      '${NewListData![index]['specialization']}'),
                                                   SizedBox(
                                                     height: 5,
                                                   ),
                                                   Text(
-                                                      '${DoneListData![index]['qualification']} '),
+                                                      '${NewListData![index]['qualification']} '),
                                                   SizedBox(
                                                     height: 5,
                                                   ),
@@ -151,8 +173,9 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                                               10),
                                                     ),
                                                     child: InkWell(
-                                                      onTap: (){
-                                                        Get.to(()=>SelectDateScreen());
+                                                      onTap: () {
+                                                        Get.to(() =>
+                                                            SelectDateScreen());
                                                       },
                                                       child: Center(
                                                         child: Text(
@@ -177,6 +200,6 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                       ],
                     ),
                   )
-                : const CircularProgressIndicator()));
+                : Center(child:  CircularProgressIndicator(color: darkYellow,))));
   }
 }

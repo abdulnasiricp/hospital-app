@@ -113,7 +113,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                             )),
                         InkWell(
                           onTap: () {
-                            Get.to(() =>  Category_View_All());
+                            Get.to(() =>  const Category_View_All());
                           },
                           child: const Text("View All",
                               style: TextStyle(

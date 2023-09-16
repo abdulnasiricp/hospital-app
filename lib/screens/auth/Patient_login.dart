@@ -29,11 +29,10 @@ class _PatientLoginState extends State<PatientLogin> {
       _isPasswordVisible = !_isPasswordVisible;
     });
   }
-
+  final TextEditingController usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   var isloading = false;
-  final TextEditingController usernameController = TextEditingController();
   Future<void> _login() async {
     final String username = usernameController.text;
     final String password = _passwordController.text;
@@ -62,7 +61,7 @@ class _PatientLoginState extends State<PatientLogin> {
           'patientidrecord', json['record']['patient_id']);
       sharedPreferences.setString('usernamerecord', json['record']['username']);
 
-      // Navigate to the home screen or any other screen you need
+      // Navigate to the home screen ERTYU D
       Get.off(() => const Bottomhome());
       setState(() {
         Fluttertoast.showToast(

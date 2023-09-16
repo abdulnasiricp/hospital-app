@@ -1,8 +1,11 @@
+// ignore_for_file: file_names, camel_case_types, sized_box_for_whitespace
+
 import 'package:TezHealthCare/utils/colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Category_View_All extends StatefulWidget {
+  const Category_View_All({Key? key}) : super(key: key);
+
   @override
   State<Category_View_All> createState() => _Category_View_AllState();
 }
@@ -306,7 +309,7 @@ class _Category_View_AllState extends State<Category_View_All> {
                         height: 40,
                         child: Image.asset('assets/physioTherpy.png')),
                     const SizedBox(
-                      height: 10,
+                      height: 5,
                     ),
                     const Text("Physio Therapy",
                         style: TextStyle(
@@ -378,7 +381,7 @@ class _Category_View_AllState extends State<Category_View_All> {
                         height: 40,
                         child: Image.asset('assets/liveConsulations.png')),
                     const SizedBox(
-                      height: 10,
+                      height: 5,
                     ),
                     const Text("      Live \nConsultations",
                         style: TextStyle(
