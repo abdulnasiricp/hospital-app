@@ -7,13 +7,9 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'Splash_Screen.dart';
-
 void main() {
   runApp(const MyApp());
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -42,7 +38,7 @@ class MyApp extends StatelessWidget {
                       final bool isLoggedIn = snapshot.data ?? false;
                       return isLoggedIn
                           ? const Bottomhome()
-                          :const Splash_Screen();
+                          :Bottomhome();
                     } else {
                       return Container();
                     }

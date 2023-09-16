@@ -1,5 +1,3 @@
-// ignore_for_file: file_names, sized_box_for_whitespace
-
 import 'dart:convert';
 import 'package:TezHealthCare/screens/auth/Forgot_Password.dart';
 import 'package:TezHealthCare/utils/colors.dart';

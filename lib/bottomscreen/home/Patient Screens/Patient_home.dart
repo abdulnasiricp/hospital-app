@@ -1,6 +1,7 @@
 // ignore_for_file: sized_box_for_whitespace, non_constant_identifier_names, file_names
 
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/All_doctors.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Category_View_All.dart';
 import 'package:TezHealthCare/custtom/doctorlist/custtomdoctorlist.dart';
 import 'package:TezHealthCare/screens/notification.dart';
 import 'package:TezHealthCare/stringfile/enstring.dart';
@@ -112,7 +113,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                             )),
                         InkWell(
                           onTap: () {
-                            Get.to(() => const AllDoctorsList());
+                            Get.to(() =>  Category_View_All());
                           },
                           child: const Text("View All",
                               style: TextStyle(
