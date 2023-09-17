@@ -1,143 +1,6 @@
-// // ignore_for_file: file_names, sized_box_for_whitespace
 
-// import 'package:TezHealthCare/utils/colors.dart';
-// import 'package:TezHealthCare/utils/mediaqury.dart';
-// import 'package:flutter/material.dart';
+// ignore_for_file: sized_box_for_whitespace
 
-// class FacultyMembers extends StatefulWidget {
-//   const FacultyMembers({Key? key}) : super(key: key);
-
-//   @override
-//   State<FacultyMembers> createState() => _FacultyMembersState();
-// }
-
-// class _FacultyMembersState extends State<FacultyMembers> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.white.withOpacity(.8),
-//       appBar: AppBar(
-//         backgroundColor: darkYellow,
-//         title: const Text('Faculty Members'),
-//         centerTitle: true,
-//       ),
-//       body: Padding(
-//         padding: const EdgeInsets.all(10.0),
-//         child: Column(
-//           children: [
-//             const Text(
-//               "Members",
-//               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-//             ),
-//             Container(
-//               width: width,
-//               height: height / 3,
-//               child: Card(
-//                 child: Row(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     Padding(
-//                       padding: const EdgeInsets.all(10.0),
-//                       child: Container(
-//                         height: height/6,
-//                         width: width / 4,
-//                        decoration: BoxDecoration(
-//                               border: Border.all()
-//                             ),
-//                             child: Image.asset('assets/drtwo.png',fit: BoxFit.cover,),
-//                       ),
-//                     ),
-//                     Padding(
-//                       padding: const EdgeInsets.only(top:10.0),
-//                       child: Column(
-//                         children: [
-//                           Container(
-//                             width: width/2,
-//                             height: height/25,
-//                             decoration: BoxDecoration(
-//                               border: Border.all()
-//                             ),
-//                             child: Center(child: Text('Abdul Nasir')),
-//                           ),
-//                           SizedBox(height: 5,),
-//                            Container(
-//                             width: width/2,
-//                                                        height: height/25,
-
-//                             decoration: BoxDecoration(
-//                               border: Border.all()
-//                             ),
-//                             child: Center(child: Text('MBBS')),
-//                           ),
-//                           SizedBox(height: 5,),
-
-//                            Container(
-//                             width: width/2,
-//                             height: height/25,
-//                            decoration: BoxDecoration(
-//                               border: Border.all()
-//                             ),
-//                             child: Center(child: Text('+92 3429107173')),
-//                           ),
-//                            SizedBox(height: 5,),
-
-//                            Container(
-//                             width: width/2,
-//                             height: height/25,
-//                            decoration: BoxDecoration(
-//                               border: Border.all()
-//                             ),
-//                             child: Center(child: Text('abdulnasiricp@gmail.com')),
-//                           ),
-//                            SizedBox(height: 5,),
-
-//                           Row(children: [
-//                              Container(
-//                             width: width/6,
-//                             height: height/25,
-//                            decoration: BoxDecoration(
-//                               border: Border.all()
-//                             ),
-//                             child: Center(child: Text('MBBS')),
-//                           ),
-//                             Container(
-//                             width: width/6,
-//                             height: height/25,
-//                            decoration: BoxDecoration(
-//                               border: Border.all()
-//                             ),
-//                             child: Center(child: Text('16 years')),
-//                           ),
-//                             Container(
-//                             width: width/6,
-//                             height: height/25,
-//                            decoration: BoxDecoration(
-//                               border: Border.all()
-//                             ),
-//                             child: Center(child: Text('Doctor')),
-//                           ),
-
-//                           ],)
-//                         ],
-//                       ),
-//                     ),
-                    
-//                   ],
-//                 ),
-//               ),
-//             )
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-
-// ignore_for_file: avoid_unnecessary_containers, file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace, prefer_const_constructors
-
-import 'package:TezHealthCare/utils/colors.dart';
-// ignore: duplicate_import
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
@@ -244,42 +107,42 @@ class _FacultyMembersState extends State<FacultyMembers> {
                                                 Container(width: width/5,height: 100,
                                                 child: Image.asset('assets/drtwo.png',fit: BoxFit.cover,),
                                                 ),
-                                                SizedBox(width: 10,),
+                                                const SizedBox(width: 10,),
                                                 Column(
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                    
                                                     Text(
                                                       'Dr. ${DoneListData![index]['name']}',
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold),
                                                     ),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       height: 5,
                                                     ),
-                                                    Text(
+                                                    const Text(
                                                         // '${DoneListData![index]['specialization']}'),
                                                         'Surgery'),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       height: 5,
                                                     ),
-                                                    Text(
+                                                    const Text(
                                                         '97 234322 3242  '),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       height: 5,
                                                     ),
-                                                    Text(
+                                                    const Text(
                                                         'abdulnasiricp@gmail.com'),
-                                                    SizedBox(height: 10,),
+                                                    const SizedBox(height: 10,),
                                                     Row(children: [
                                                       // Text('${DoneListData![index]['qualification']},'),
-                                                      Text('Doctor'),
-                                                      SizedBox(width: 10,),
+                                                      const Text('Doctor'),
+                                                      const SizedBox(width: 10,),
 
                                                       // Text('${DoneListData![index]['work_exp']},'),
-                                                      Text('20 years Experince'),
-                                                      SizedBox(width: 10,),
+                                                      const Text('20 years Experince'),
+                                                      const SizedBox(width: 10,),
 
                                                       
                                                       Text('${DoneListData![index]['user_type']}'),
