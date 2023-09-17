@@ -17,6 +17,7 @@ class AllDoctorsList extends StatefulWidget {
 }
 
 class _AllDoctorsListState extends State<AllDoctorsList> {
+  
   Map<String, dynamic>? DataMap;
   Map<String, dynamic>? DoneDataMap;
   List<dynamic>? DoneListData = [];
@@ -46,30 +47,30 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
       });
     }
     //TO SHOW ALL LIST AT INITIAL
-    setState(() {
+    
       NewListData = DoneListData;
-    });
+  
   }
 
+  
+
+  void _searchlist(String value) {
+    if (value.isEmpty) {
+      NewListData = DoneListData;
+    } else {
+      NewListData = DoneListData?.where((element) => element['name']
+          .toString()
+          .toLowerCase()
+          .contains(value.toString().toLowerCase())).toList();
+    }
+   
+  }
   @override
   void initState() {
     hitApi();
     super.initState();
   }
-  void _searchlist(String value) {
-    setState(() {
-      if (value.isEmpty) {
-        NewListData = DoneListData;
-      } else {
-        NewListData = DoneListData
-            ?.where((element) => element['name']
-                .toString()
-                .toLowerCase()
-                .contains(value.toString().toLowerCase()))
-            .toList();
-      }
-    });
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -199,6 +200,9 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                       ],
                     ),
                   )
-                : Center(child:  CircularProgressIndicator(color: darkYellow,))));
+                : Center(
+                    child: CircularProgressIndicator(
+                    color: darkYellow,
+                  ))));
   }
 }

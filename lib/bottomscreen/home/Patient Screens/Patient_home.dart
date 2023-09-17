@@ -4,13 +4,16 @@ import 'dart:convert';
 
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/All_doctors.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Card/Card.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Category_View_All.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Transaction_main_screen.dart';
 import 'package:TezHealthCare/custtom/doctorlist/custtomdoctorlist.dart';
 import 'package:TezHealthCare/screens/notification.dart';
 import 'package:TezHealthCare/stringfile/enstring.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -25,6 +28,8 @@ class PatientHomePage extends StatefulWidget {
 class _PatientHomePageState extends State<PatientHomePage> {
   String role = '', username = '';
   String record = '', genderrecord = '';
+  double progress = 0;
+  late InAppWebViewController inAppWebViewController;
 
   Map<String, dynamic>? DataMap;
   Map<String, dynamic>? DoneDataMap;
@@ -41,7 +46,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
       setState(() {
         DataMap = jsonDecode(response.body);
         DoneListData = DataMap!['doctors'];
-        print(DoneListData?.where((element) =>element ['department']=='EMR'));
+        print(DoneListData?.where((element) => element['department'] == 'EMR'));
       });
     } else {
       print('Error getting Products: ${response.statusCode}');
@@ -156,13 +161,14 @@ class _PatientHomePageState extends State<PatientHomePage> {
                           height: 100,
                           child: InkWell(
                             onTap: () {
-                              Get.to(() => Doctorlist(
-                                  "assets/ucla.png",
-                                  Colors.transparent,
-                                  EnString.columbiaAsiaHospital,
-                                  EnString.bangaloreKarnataka,
-                                  "16 km",
-                                  width / 7));
+                              Get.to(()=>const MainTransactionScreen());
+                              // Get.to(() => Doctorlist(
+                              //     "assets/ucla.png",
+                              //     Colors.transparent,
+                              //     EnString.columbiaAsiaHospital,
+                              //     EnString.bangaloreKarnataka,
+                              //     "16 km",
+                              //     width / 7));
                             },
                             child: Card(
                               borderOnForeground: true,
@@ -188,51 +194,72 @@ class _PatientHomePageState extends State<PatientHomePage> {
                             ),
                           ),
                         ),
-                        Container(
-                          width: 100,
-                          height: 100,
-                          child: Card(
-                            child: Column(
-                              children: [
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Container(
-                                    width: 40,
-                                    height: 40,
-                                    child: Image.asset('assets/credit.png')),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                const Text("Card",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ))
-                              ],
+                        InkWell(
+                          onTap: () {
+                            InAppWebView(
+                              initialUrlRequest: URLRequest(
+                                  url: Uri.parse(
+                                      'https://uat.tez.hospital/xzy/webservice/generateIdcard')),
+                              onWebViewCreated:
+                                  (InAppWebViewController controller) {
+                                inAppWebViewController = controller;
+                              },
+                            );
+
+                            // Get.to(()=>const PdfListScreen());
+                          },
+                          child: Container(
+                            width: 100,
+                            height: 100,
+                            child: Card(
+                              child: Column(
+                                children: [
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Container(
+                                      width: 40,
+                                      height: 40,
+                                      child: Image.asset('assets/credit.png')),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  const Text("Card",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ))
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                        Container(
-                          width: 100,
-                          height: 100,
-                          child: Card(
-                            child: Column(
-                              children: [
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Container(
-                                    width: 40,
-                                    height: 40,
-                                    child: Image.asset('assets/inpatient.png')),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                const Text("IPD",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ))
-                              ],
+                        InkWell(
+                          onTap: () {
+                            Get.to(() => const MainTransactionScreen());
+                          },
+                          child: Container(
+                            width: 100,
+                            height: 100,
+                            child: Card(
+                              child: Column(
+                                children: [
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Container(
+                                      width: 40,
+                                      height: 40,
+                                      child:
+                                          Image.asset('assets/inpatient.png')),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  const Text("IPD",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ))
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -564,9 +591,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                         child: ListView.builder(
                             itemCount: DoneListData!.length,
                             itemBuilder: (context, index) {
-                             
                               return Container(
-
                                 width: width,
                                 child: Card(
                                     color: Colors.white70.withOpacity(0.7),
@@ -602,8 +627,11 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                 height: 5,
                                               ),
                                               const Text(
-                                                  // '${DoneListData![index]['specialization']}'),
-                                                  'Surgery',style: TextStyle(color: Colors.blue),),
+                                                // '${DoneListData![index]['specialization']}'),
+                                                'Surgery',
+                                                style: TextStyle(
+                                                    color: Colors.blue),
+                                              ),
                                               const SizedBox(
                                                 height: 5,
                                               ),
@@ -637,65 +665,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     )),
                               );
 
-                              // Container(
-                              //   width: double.infinity,
-                              //   height: 130,
-                              //   child: Card(
-                              //     color: Colors.white70,
-                              //     child: Row(children: [
-                              //       Container(
-                              //           width: 130,
-                              //           child: Image.network(
-                              //               DoneListData?[index]['image'])),
-                              //       const SizedBox(
-                              //         width: 10,
-                              //       ),
-                              //       Column(
-                              //         crossAxisAlignment:
-                              //             CrossAxisAlignment.start,
-                              //         children: [
-                              //           const Padding(
-                              //               padding: EdgeInsets.all(10)),
-                              //           Text(
-                              //             DoneListData![index]['name'],
-                              //             style: const TextStyle(
-                              //                 fontWeight: FontWeight.bold),
-                              //           ),
-                              //           Text(
-                              //               DoneListData![index]['department']),
-                              //           const SizedBox(
-                              //             height: 10,
-                              //           ),
-                              //           Row(
-                              //             children: [
-                              //               const Icon(Icons.star,
-                              //                   color: Colors.amber),
-                              //               const Text('4.5(835)'),
-                              //               const SizedBox(
-                              //                 width: 20,
-                              //               ),
-                              //               Container(
-                              //                 width: 70,
-                              //                 height: 30,
-                              //                 decoration: BoxDecoration(
-                              //                     color: Colors.lightBlue[100],
-                              //                     borderRadius:
-                              //                         BorderRadius.circular(
-                              //                             10)),
-                              //                 child: const Row(
-                              //                   children: [
-                              //                     Icon(Icons.location_on),
-                              //                     Text('2 KM')
-                              //                   ],
-                              //                 ),
-                              //               ),
-                              //             ],
-                              //           )
-                              //         ],
-                              //       ),
-                              //     ]),
-                              //   ),
-                              // );
                             }),
                       ),
                     ],
