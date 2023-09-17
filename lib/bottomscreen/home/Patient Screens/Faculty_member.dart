@@ -1,5 +1,5 @@
 
-// ignore_for_file: sized_box_for_whitespace
+// ignore_for_file: sized_box_for_whitespace, non_constant_identifier_names, avoid_print, file_names, unused_element
 
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -18,9 +18,9 @@ class FacultyMembers extends StatefulWidget {
 class _FacultyMembersState extends State<FacultyMembers> {
   Map<String, dynamic>? DataMap;
   Map<String, dynamic>? DoneDataMap;
-  // List<dynamic>? DoneListData;
   List<dynamic>? DoneListData = [];
-  String searchTerm = '';
+  List<dynamic>? NewListData = [];
+
 
   Future hitApi() async {
     final response = await http.post(
@@ -38,12 +38,38 @@ class _FacultyMembersState extends State<FacultyMembers> {
     } else {
       print('Error getting Products: ${response.statusCode}');
     }
+    for (var i = 0; i < DoneListData!.length; i++) {
+      NewListData?.add({
+        "name": DoneListData?[i]["name"],
+        "id": DoneListData?[i]["id"],
+        "email": DoneListData?[i]["email"],
+      });
+    }
+    //TO SHOW ALL LIST AT INITIAL
+    setState(() {
+      NewListData = DoneListData;
+    });
   }
+  
 
   @override
   void initState() {
     hitApi();
     super.initState();
+  }
+    void _searchlist(String value) {
+    setState(() {
+      if (value.isEmpty) {
+        NewListData = DoneListData;
+      } else {
+        NewListData = DoneListData
+            ?.where((element) => element['name']
+                .toString()
+                .toLowerCase()
+                .contains(value.toString().toLowerCase()))
+            .toList();
+      }
+    });
   }
 
   @override
@@ -56,7 +82,7 @@ class _FacultyMembersState extends State<FacultyMembers> {
           backgroundColor: darkYellow,
         ),
         body: Center(
-            child: DoneListData != null
+            child: NewListData != null
                 ? Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Column(
@@ -67,9 +93,7 @@ class _FacultyMembersState extends State<FacultyMembers> {
                     onTapOutside: (event) => FocusScope.of(context).unfocus(),
                             
                             onChanged: (value) {
-                              setState(() {
-                                searchTerm = value;
-                              });
+                              _searchlist(value);
                             },
                             decoration: const InputDecoration(
 
@@ -88,7 +112,7 @@ class _FacultyMembersState extends State<FacultyMembers> {
                         Expanded(
                           child: ListView.builder(
                              
-                              itemCount: DoneListData!.length,
+                              itemCount: NewListData!.length,
                               itemBuilder: (context, index) {
                                 return Column(
                                   mainAxisAlignment:
@@ -113,7 +137,7 @@ class _FacultyMembersState extends State<FacultyMembers> {
                                                   children: [
                                                    
                                                     Text(
-                                                      'Dr. ${DoneListData![index]['name']}',
+                                                      'Dr. ${NewListData![index]['name']}',
                                                       style: const TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold),
@@ -145,29 +169,11 @@ class _FacultyMembersState extends State<FacultyMembers> {
                                                       const SizedBox(width: 10,),
 
                                                       
-                                                      Text('${DoneListData![index]['user_type']}'),
+                                                      Text('${NewListData![index]['user_type']}'),
 
                                                     ],)
-                                                    // Container(
-                                                    //   height: 30,
-                                                    //   width: width,
-                                                    //   decoration: BoxDecoration(
-                                                    //     border: Border.all(),
-                                                    //     color: yellow,
-                                                    //     borderRadius:
-                                                    //         BorderRadius.circular(
-                                                    //             10),
-                                                    //   ),
-                                                    //   child: Center(
-                                                    //     child: Text(
-                                                    //       'Book Appointment',
-                                                    //       style: TextStyle(
-                                                    //           fontWeight:
-                                                    //               FontWeight
-                                                    //                   .bold),
-                                                    //     ),
-                                                    //   ),
-                                                    // ),
+                                                 
+                                                 
                                                   ],
                                                 ),
                                               ],

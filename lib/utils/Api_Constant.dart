@@ -1,6 +1,6 @@
 // api_constants.dart
 
-// ignore_for_file: constant_identifier_names
+// ignore_for_file: constant_identifier_names, file_names
 
 import 'dart:convert';
 import 'package:http/http.dart';
