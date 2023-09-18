@@ -4,12 +4,9 @@ import 'dart:convert';
 
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/All_doctors.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Card/Card.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Category_View_All.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Transaction_main_screen.dart';
-import 'package:TezHealthCare/custtom/doctorlist/custtomdoctorlist.dart';
 import 'package:TezHealthCare/screens/notification.dart';
-import 'package:TezHealthCare/stringfile/enstring.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
@@ -28,8 +25,7 @@ class PatientHomePage extends StatefulWidget {
 class _PatientHomePageState extends State<PatientHomePage> {
   String role = '', username = '';
   String record = '', genderrecord = '';
-  double progress = 0;
-  late InAppWebViewController inAppWebViewController;
+  
 
   Map<String, dynamic>? DataMap;
   Map<String, dynamic>? DoneDataMap;
@@ -196,17 +192,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                         ),
                         InkWell(
                           onTap: () {
-                            InAppWebView(
-                              initialUrlRequest: URLRequest(
-                                  url: Uri.parse(
-                                      'https://uat.tez.hospital/xzy/webservice/generateIdcard')),
-                              onWebViewCreated:
-                                  (InAppWebViewController controller) {
-                                inAppWebViewController = controller;
-                              },
-                            );
-
-                            // Get.to(()=>const PdfListScreen());
+                           Get.to(()=>Card());
                           },
                           child: Container(
                             width: 100,

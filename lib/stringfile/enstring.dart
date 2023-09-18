@@ -17,6 +17,7 @@ class EnString {
       "Ensure the most accurate results for the\nhealth of you and your family.";
 
   static const String getStart = "Get Start!";
+  static const String transcation = "Transaction";
 
   static const String emailorphonenumber = "Email or phone number";
 

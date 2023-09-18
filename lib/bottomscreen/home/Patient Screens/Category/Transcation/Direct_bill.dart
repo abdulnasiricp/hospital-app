@@ -1,10 +1,11 @@
-// ignore_for_file: non_constant_identifier_names, sized_box_for_whitespace
+// ignore_for_file: non_constant_identifier_names, sized_box_for_whitespace, file_names, avoid_print
 
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shimmer/shimmer.dart';
 
 class DirectBill extends StatefulWidget {
   const DirectBill({Key? key}) : super(key: key);
@@ -14,7 +15,9 @@ class DirectBill extends StatefulWidget {
 }
 
 class _DirectBillState extends State<DirectBill> {
- Map<String, dynamic>? DataMap;
+ bool isloading=false;
+
+   Map<String, dynamic>? DataMap;
   Map<String, dynamic>? DoneDataMap;
   List<dynamic>? DoneListData = [];
 
@@ -28,8 +31,9 @@ class _DirectBillState extends State<DirectBill> {
     if (response.statusCode == 200) {
       setState(() {
         DataMap = jsonDecode(response.body);
-        DoneListData = DataMap!['direct_bill'];
+        DoneListData = DataMap!['pathology_bill'];
         print(DoneListData);
+        isloading=false;
       });
     } else {
       print('Error getting Products: ${response.statusCode}');
@@ -39,89 +43,91 @@ class _DirectBillState extends State<DirectBill> {
   void initState() {
     hitApi();
     super.initState();
+    setState(() {
+      isloading=true;
+    });
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.white.withOpacity(0.9),
-       
-        body: Center(
-            child: DoneListData != null
-                ? Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          width: width,
-                          height: height,
-                          child: ListView.builder(
-                              itemCount: DoneListData!.length,
-                              itemBuilder: (context, index) {
-                                return Container(
-                                  width: width,
-                                  child: Card(
-                                      color: Colors.white70.withOpacity(0.7),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Row(
-                                          children: [
-                                            Container(
-                                              width: width / 5,
-                                              height: 100,
-                                              // child:CircleAvatar(child: Text(DoneListData![index]['id']??""),)
-                                            ),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                // Text("Total :${DoneListData![index]['total']??""}"),
-                                                // Text(
-                                                //   'Name: ${DoneListData![index]['patient_name']??"khan"}',
-                                                //   style: const TextStyle(
-                                                //       fontWeight:
-                                                //           FontWeight.bold),
-                                                // ),
-                                                const SizedBox(
-                                                  height: 5,
-                                                ),
-                                              //  Text(
-                                              //     'paid amount${DoneListData![index]['net_amount']??""}',
+    return  Shimmer(
+      gradient: const LinearGradient(colors: [Colors.blue,Colors.white]),
+      child: Scaffold(
+          backgroundColor: Colors.white.withOpacity(0.9),
+         
+          body: Center(
+              child:
+                  Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            width: width,
+                            height: height,
+                            child: ListView.builder(
+                                itemCount: DoneListData!.length,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    width: width,
+                                    child: Card(
+                                        color: Colors.white70.withOpacity(0.7),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Text("Bill No.: ${DoneListData![index]['id']??""}",style: const TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
+                                                  TextButton.icon(onPressed: (){}, icon: const Icon(Icons.view_list), label: const Text('View'))
+    
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    
+                                                children: [
+                                                 Text(
+                                                    'Date: ${DoneListData![index]['date']}',
+                                                    
+                                                    style: const TextStyle(
+                                                        color: Colors.blue),
+                                                  ),
                                                   
-                                              //     style: const TextStyle(
-                                              //         color: Colors.blue),
-                                              //   ),
+                                                  Container(
+                                                    height: 20,
+                                                    width: width/3,
+                                                    decoration: BoxDecoration(
+                                                    color: Colors.green,
+                                                    borderRadius: BorderRadius.circular(5)
+    
+                                                    ),
+                                                    child: Center(child: Text("Total :${DoneListData![index]['total']??""}",style: const TextStyle(fontWeight: FontWeight.bold),))),
+                                                
                                                 
                                                    
-                                                const SizedBox(
-                                                  height: 10,
-                                                ),
-                                                 Text('Direct bill',
-                                                  // 'Date: ${DoneListData![index]['date']??""}',
-                                                  
-                                                  style: const TextStyle(
-                                                      color: Colors.blue),
-                                                ),
-                                               
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      )),
-                                );
-                      
-                              }),
+                                                ],
+                                              ),
+                                              const SizedBox(height: 10,),
+                                                 Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Text("Doctor: ${DoneListData![index]['doctor_name']??""}",style: const TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
+    
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        )),
+                                  );
+                        
+                                }),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  )
-                : Center(
-                    child: CircularProgressIndicator(
-                    color: darkYellow,
-                  ))));
+                      ],
+                    ),
+                    )
+                  )),
+    );
   }
 }
