@@ -1,7 +1,9 @@
 // ignore_for_file: non_constant_identifier_names, sized_box_for_whitespace, avoid_print
 
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/view_bill.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shimmer/shimmer.dart';
@@ -116,7 +118,10 @@ class _BloodBankState extends State<BloodBank> {
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           TextButton.icon(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                Get.to(()=>const ViewBillDetiles());
+
+                                              },
                                               icon: const Icon(Icons.view_list),
                                               label: const Text('View'))
                                         ],

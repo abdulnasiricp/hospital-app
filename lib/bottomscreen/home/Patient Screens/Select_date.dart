@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, sized_box_for_whitespace
 
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Doctor_profile.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Old_or_newPatient.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -22,6 +23,11 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
         backgroundColor: darkYellow,
         title: const Text('Select a Date'),
         centerTitle: true,
+        actions: [
+          IconButton(onPressed: (){
+            Get.to(()=>const DoctorProfile());
+          }, icon: const Icon(Icons.info))
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),

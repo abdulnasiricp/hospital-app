@@ -17,7 +17,6 @@ class AllDoctorsList extends StatefulWidget {
 }
 
 class _AllDoctorsListState extends State<AllDoctorsList> {
-  
   Map<String, dynamic>? DataMap;
   Map<String, dynamic>? DoneDataMap;
   List<dynamic>? DoneListData = [];
@@ -47,12 +46,9 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
       });
     }
     //TO SHOW ALL LIST AT INITIAL
-    
-      NewListData = DoneListData;
-  
-  }
 
-  
+    NewListData = DoneListData;
+  }
 
   void _searchlist(String value) {
     if (value.isEmpty) {
@@ -63,14 +59,13 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
           .toLowerCase()
           .contains(value.toString().toLowerCase())).toList();
     }
-   
   }
+
   @override
   void initState() {
     hitApi();
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +77,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
           backgroundColor: darkYellow,
         ),
         body: Center(
-            child: NewListData != null
+            child: DoneListData != null
                 ? Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Column(
@@ -93,16 +88,17 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                             onChanged: (value) {
                               _searchlist(value);
                             },
-                            onTapOutside: (event) =>
-                                FocusScope.of(context).unfocus(),
+                            onSubmitted: ((value) {}),
                             decoration: const InputDecoration(
-                                fillColor: Colors.white,
-                                filled: true,
-                                hintText: 'Search your doctor',
-                                border: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20))),
-                                prefixIcon: Icon(Icons.search)),
+                              fillColor: Colors.white,
+                              filled: true,
+                              hintText: 'Search your doctor',
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                              ),
+                              prefixIcon: Icon(Icons.search),
+                            ),
                           ),
                         ),
                         const SizedBox(
@@ -115,7 +111,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                       crossAxisCount: 2,
                                       crossAxisSpacing: 2,
                                       mainAxisSpacing: 0),
-                              itemCount: NewListData!.length,
+                              itemCount: DoneListData!.length,
                               itemBuilder: (context, index) {
                                 return Column(
                                   mainAxisAlignment:
@@ -143,7 +139,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                                     height: 5,
                                                   ),
                                                   Text(
-                                                    '${NewListData![index]['name']} ${NewListData![index]['surname']}',
+                                                    '${DoneListData![index]['name']} ${DoneListData![index]['surname']}',
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -153,12 +149,12 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                                     height: 5,
                                                   ),
                                                   Text(
-                                                      '${NewListData![index]['specialization']}'),
+                                                      '${DoneListData![index]['specialization']}'),
                                                   SizedBox(
                                                     height: 5,
                                                   ),
                                                   Text(
-                                                      '${NewListData![index]['qualification']} '),
+                                                      '${DoneListData![index]['qualification']} '),
                                                   SizedBox(
                                                     height: 5,
                                                   ),
