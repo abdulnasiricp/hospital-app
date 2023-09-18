@@ -24,7 +24,6 @@ class PatientHomePage extends StatefulWidget {
 class _PatientHomePageState extends State<PatientHomePage> {
   String role = '', username = '';
   String record = '', genderrecord = '';
-  
 
   Map<String, dynamic>? DataMap;
   Map<String, dynamic>? DoneDataMap;
@@ -156,7 +155,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                           height: 100,
                           child: InkWell(
                             onTap: () {
-                              Get.to(()=>const MainTransactionScreen());
+                              Get.to(() => const MainTransactionScreen());
                               // Get.to(() => Doctorlist(
                               //     "assets/ucla.png",
                               //     Colors.transparent,
@@ -191,7 +190,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                         ),
                         InkWell(
                           onTap: () {
-                           Get.to(()=>const Card());
+                            Get.to(() => const Card());
                           },
                           child: Container(
                             width: 100,
@@ -574,6 +573,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                         width: width,
                         height: height,
                         child: ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
                             itemCount: DoneListData!.length,
                             itemBuilder: (context, index) {
                               return Container(
@@ -649,8 +649,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                       ),
                                     )),
                               );
-
-                            }),
+                            }
+                            ),
                       ),
                     ],
                   ),
