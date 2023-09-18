@@ -113,6 +113,8 @@
 // }
 
 
+// ignore_for_file: file_names
+
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Direct_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Pathology_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/ambulance_bill.dart';
@@ -121,9 +123,6 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Trans
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/radiology_bill.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:TezHealthCare/custtom/appbar.dart';
-import 'package:TezHealthCare/stringfile/enstring.dart';
-import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:provider/provider.dart';
 
@@ -143,7 +142,7 @@ class _MainTransactionScreenState extends State<MainTransactionScreen>
   @override
   void initState() {
     super.initState();
-    controller = TabController(length: 6, vsync: this,initialIndex: 0,animationDuration: Duration(seconds: 1));
+    controller = TabController(length: 6, vsync: this,initialIndex: 0,animationDuration: const Duration(seconds: 1));
   }
 
   @override
@@ -151,14 +150,14 @@ class _MainTransactionScreenState extends State<MainTransactionScreen>
     notifier = Provider.of<ColorNotifier>(context, listen: true);
     return Scaffold(
       backgroundColor: notifier.getwihitecolor,
-      appBar:AppBar(title: Text('Transaction'),centerTitle: true,backgroundColor: darkYellow,),
+      appBar:AppBar(title: const Text('Transaction'),centerTitle: true,backgroundColor: darkYellow,),
       
       body: Container(
         color: Colors.transparent,
         child: Column(
           children: <Widget>[
             TabBar(
-              labelPadding: EdgeInsets.all(10),
+              labelPadding: const EdgeInsets.all(10),
               indicatorColor: notifier.getperple,
               // indicatorSize: TabBarIndicatorSize.label,label
 

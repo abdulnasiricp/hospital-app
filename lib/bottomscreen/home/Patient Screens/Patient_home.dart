@@ -10,7 +10,6 @@ import 'package:TezHealthCare/screens/notification.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -192,7 +191,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                         ),
                         InkWell(
                           onTap: () {
-                           Get.to(()=>Card());
+                           Get.to(()=>const Card());
                           },
                           child: Container(
                             width: 100,

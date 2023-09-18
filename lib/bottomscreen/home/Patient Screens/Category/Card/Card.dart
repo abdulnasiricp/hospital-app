@@ -39,7 +39,7 @@ class _CardScreenState extends State<CardScreen> {
               child: CircularProgressIndicator(
                 value: _progress,
               ),
-            ):SizedBox()
+            ):const SizedBox()
     
           ],
         )
