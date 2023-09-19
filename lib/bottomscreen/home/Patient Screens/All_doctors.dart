@@ -129,8 +129,35 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                               child: Column(
                                                 children: [
                                                   CircleAvatar(
-                                                      backgroundImage: AssetImage(
-                                                          'assets/logo.png')),
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      child: Image.network(
+                                                        '${DoneListData![index]['image']}', // Replace with your image URL
+                                                        width:
+                                                            200.0, // Set the width (optional)
+                                                        height:
+                                                            200.0, // Set the height (optional)
+                                                        fit: BoxFit
+                                                            .cover, // Set the BoxFit (optional)
+                                                        loadingBuilder: (context,
+                                                            child,
+                                                            loadingProgress) {
+                                                          if (loadingProgress ==
+                                                              null) {
+                                                            return child;
+                                                          } else {
+                                                            return CircularProgressIndicator(
+                                                              color: darkYellow,
+                                                              backgroundColor:
+                                                                  yellow,
+                                                            );
+                                                          }
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ),
                                                   // NetworkImage(
                                                   //     DoneListData![
                                                   //             index]
@@ -140,6 +167,9 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                                   ),
                                                   Text(
                                                     '${DoneListData![index]['name']} ${DoneListData![index]['surname']}',
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -149,12 +179,20 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                                     height: 5,
                                                   ),
                                                   Text(
-                                                      '${DoneListData![index]['specialization']}'),
+                                                    '${DoneListData![index]['specialization']}',
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
                                                   SizedBox(
                                                     height: 5,
                                                   ),
                                                   Text(
-                                                      '${DoneListData![index]['qualification']} '),
+                                                    '${DoneListData![index]['qualification']} ',
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
                                                   SizedBox(
                                                     height: 5,
                                                   ),

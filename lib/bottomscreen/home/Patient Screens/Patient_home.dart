@@ -25,7 +25,7 @@ class PatientHomePage extends StatefulWidget {
 class _PatientHomePageState extends State<PatientHomePage> {
   String role = '', username = '';
   String record = '', genderrecord = '';
-  bool isLoading=true;
+  bool isLoading = true;
 
   Map<String, dynamic>? DataMap;
   Map<String, dynamic>? DoneDataMap;
@@ -39,14 +39,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
           'Auth-key': 'zbuks_ram859553467'
         });
     if (response.statusCode == 200) {
-
       setState(() {
-
         DataMap = jsonDecode(response.body);
         DoneListData = DataMap!['doctors'];
         isLoading = false;
-
-        
       });
     } else {
       print('Error getting Products: ${response.statusCode}');
@@ -599,25 +595,28 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             width: width / 5,
                                             height: 100,
                                             child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                child: Image.network(
-                                                  '${DoneListData![index]['image']}', // Replace with your image URL
-                                                  width: 200.0, // Set the width (optional)
-                                                  height: 200.0, // Set the height (optional)
-                                                  fit: BoxFit.cover, // Set the BoxFit (optional)
-                                                  loadingBuilder: (context, child, loadingProgress) {
-                                                    if (loadingProgress == null) {
-                                                      return child;
-                                                    } else {
-                                                      return CircularProgressIndicator(
-                                                        color: darkYellow,
-                                                        backgroundColor: yellow,
-                                                      );
-                                                    }
-                                                  },
-
-                                                ),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              child: Image.network(
+                                                '${DoneListData![index]['image']}', // Replace with your image URL
+                                                width:
+                                                    200.0, // Set the width (optional)
+                                                height:
+                                                    200.0, // Set the height (optional)
+                                                fit: BoxFit
+                                                    .cover, // Set the BoxFit (optional)
+                                                loadingBuilder: (context, child,
+                                                    loadingProgress) {
+                                                  if (loadingProgress == null) {
+                                                    return child;
+                                                  } else {
+                                                    return CircularProgressIndicator(
+                                                      color: darkYellow,
+                                                      backgroundColor: yellow,
+                                                    );
+                                                  }
+                                                },
+                                              ),
                                             ),
                                           ),
                                           const SizedBox(
@@ -628,7 +627,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                'Dr. ${DoneListData![index]['name']}',
+                                                'Dr. ${DoneListData![index]['name']} ${DoneListData![index]['surname']}',
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
                                                 style: const TextStyle(
                                                     fontWeight:
                                                         FontWeight.bold),
@@ -636,22 +637,28 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               const SizedBox(
                                                 height: 5,
                                               ),
-                                               Text(
+                                              Text(
                                                 '${DoneListData![index]['specialization']}',
-                                                 style: const TextStyle(
-                                                     color: Colors.blue),
-                                               ),
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                    color: Colors.blue),
+                                              ),
                                               const SizedBox(
                                                 height: 5,
                                               ),
-                                              Text(DoneListData![index]
-                                                      ['contact_no'] ??
-                                                  "03429207274"),
+                                              Text(
+                                                "${DoneListData![index]['contact_no']}",
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
                                               const SizedBox(
                                                 height: 5,
                                               ),
-                                                Text(
+                                              Text(
                                                 '${DoneListData![index]['email']}',
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
                                                 // style: const TextStyle(
                                                 //     fontWeight:
                                                 //     FontWeight.bold),
@@ -659,23 +666,31 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               const SizedBox(
                                                 height: 10,
                                               ),
-                                               Row(
+                                              Row(
                                                 children: [
                                                   // Text('${DoneListData![index]['qualification']},'),
                                                   Container(
-                                                      child: Text('${DoneListData![index]['qualification']}',
-                                                      style: const TextStyle(
-                                                          fontWeight:
-                                                          FontWeight.bold,
-                                                        color: Colors.green
-                                                      ),
-                                                          )),
-                                                  const SizedBox(
+                                                      child: Text(
+                                                    '${DoneListData![index]['qualification']}',
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.green),
+                                                  )),
+                                                  SizedBox(
                                                     width: 10,
                                                   ),
 
                                                   // Text('${DoneListData![index]['work_exp']},'),
-                                                  Text('${DoneListData![index]['work_exp']}'),
+                                                  Text(
+                                                    '${DoneListData![index]['work_exp']}',
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
                                                 ],
                                               )
                                             ],
@@ -684,8 +699,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                       ),
                                     )),
                               );
-                            }
-                            ),
+                            }),
                       ),
                     ],
                   ),

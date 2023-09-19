@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 
 class DirectBill extends StatefulWidget {
@@ -16,7 +17,8 @@ class DirectBill extends StatefulWidget {
   State<DirectBill> createState() => _DirectBillState();
 }
 
-class _DirectBillState extends State<DirectBill> {
+class _DirectBillState extends State<DirectBill>  {
+  bool noDataAvailable = false;
   String patientId = "10380";
   String apiUrl =
       "https://uat.tez.hospital/xzy/webservice/getAllPayment"; // Replace with your API endpoint
@@ -25,13 +27,7 @@ class _DirectBillState extends State<DirectBill> {
   List<dynamic>? DoneListData = [];
   bool isLoading = true;
 
-  void fetchData() async {
-    setState(() {
-      isLoading = true;
-      responseData;
-      DoneListData;
-    });
-
+  Future<void> fetchData() async {
     try {
       final response = await http.post(
         Uri.parse(apiUrl),
@@ -49,6 +45,13 @@ class _DirectBillState extends State<DirectBill> {
           print(DoneListData);
           isLoading = false;
         });
+        if (DoneListData == null || DoneListData!.isEmpty) {
+          // If no data is available, set a flag to display "No data available" text.
+          noDataAvailable = true;
+        } else {
+          // If data is available, reset the flag.
+          noDataAvailable = false;
+        }
       } else {
         setState(() {
           isLoading = false;
@@ -58,146 +61,176 @@ class _DirectBillState extends State<DirectBill> {
     } catch (e) {
       setState(() {
         isLoading = false;
-        // responseData = "Error: $e";
-        print("$Error");
+        // Text('No data found');
+        print("$e");
       });
     }
   }
-
   @override
   void initState() {
     fetchData();
-
     super.initState();
+  }
+  Future<void> _handleRefresh() async {
+    // Fetch data when the user pulls down to refresh
+    await fetchData();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white.withOpacity(0.9),
-        body: Center(
-            child: Padding(
+      backgroundColor: Colors.white.withOpacity(0.9),
+      body: Center(
+        child: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [
-              Expanded(
-                child: Container(
-                  width: width,
-                  height: height,
-                  child: ListView.builder(
-                      itemCount: isLoading ? 10 : DoneListData!.length,
+          child: RefreshIndicator(
+            onRefresh: _handleRefresh,
+            child: Column(
+              children: [
+                Expanded(
+                  child: Container(
+                    width: width,
+                    height: height,
+                    child: isLoading
+                        ? ListView.builder(
+                      itemCount: 10,
                       itemBuilder: (context, index) {
-                        if (isLoading) {
-                          return Shimmer.fromColors(
-                            baseColor: Colors.blue.shade100,
-                            highlightColor: Colors.grey.shade100,
-                            child: ListTile(
-                              leading: Container(
-                                width: 60,
-                                height: 60,
-                                color: Colors.white,
-                              ),
-                              title: Container(
-                                width: 150,
-                                height: 20,
-                                color: Colors.white,
-                              ),
-                              subtitle: Container(
-                                width: 100,
-                                height: 10,
-                                color: Colors.white,
-                              ),
-                              trailing: Container(
-                                width: 60,
-                                height: 30,
-                                color: Colors.white,
-                              ),
+                        return Shimmer.fromColors(
+                          baseColor: Colors.blue.shade100,
+                          highlightColor: Colors.grey.shade100,
+                          child: ListTile(
+                            leading: Container(
+                              width: 60,
+                              height: 60,
+                              color: Colors.white,
                             ),
-                          );
-                        } else {
-                          return Container(
-                            width: width,
-                            child: Card(
-                                color: Colors.white70.withOpacity(0.7),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            "Bill No.: ${DoneListData![index]['id'] ?? ""}",
-                                            style: const TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          Text(
-                                            "HIS No: ${DoneListData![index]['case_reference_id'] ?? "10147"}",
-                                            style: const TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          TextButton.icon(
-                                              onPressed: () {
-                                                Get.to(() =>
-                                                    const ViewBillDetiles());
-                                              },
-                                              icon: const Icon(Icons.view_list),
-                                              label: const Text('View'))
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            'Date: ${DoneListData![index]['date']}',
-                                            style: const TextStyle(
-                                                color: Colors.blue),
-                                          ),
-                                          Container(
-                                              height: 20,
-                                              width: width / 3,
-                                              decoration: BoxDecoration(
-                                                  color: Colors.green,
-                                                  borderRadius:
-                                                      BorderRadius.circular(5)),
-                                              child: Center(
-                                                  child: Text(
-                                                "Total :${DoneListData![index]['total'] ?? ""}",
-                                                style: const TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ))),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            "Doctor: ${DoneListData![index]['doctor_name'] ?? "Nasir Khan"}",
-                                            style: const TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                )),
-                          );
-                        }
-                      }),
+                            title: Container(
+                              width: 150,
+                              height: 20,
+                              color: Colors.white,
+                            ),
+                            subtitle: Container(
+                              width: 100,
+                              height: 10,
+                              color: Colors.white,
+                            ),
+                            trailing: Container(
+                              width: 60,
+                              height: 30,
+                              color: Colors.white,
+                            ),
+                          ),
+                        );
+                      },
+                    )
+                        : DoneListData == null || DoneListData!.isEmpty
+                        ? Center(
+                      child: Container(
+                        height: 150,
+                        width: 150,
+                        child: Lottie.asset(
+                          'assets/No_Data_Found.json',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    )
+                        : ListView.builder(
+                      itemCount: DoneListData!.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          width: width,
+                          child: Card(
+                              color: Colors.white70.withOpacity(0.7),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment
+                                          .spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Bill No.: ${DoneListData![index]['id']}",
+                                          style: const TextStyle(
+                                              fontSize: 15,
+                                              fontWeight:
+                                              FontWeight.bold),
+                                        ),
+                                        Text(
+                                          "HIS No: ${DoneListData![index]['case_reference_id']}",
+                                          style: const TextStyle(
+                                              fontSize: 15,
+                                              fontWeight:
+                                              FontWeight.bold),
+                                        ),
+                                        TextButton.icon(
+                                            onPressed: () {
+                                              Get.to(() =>
+                                              const ViewBillDetiles());
+                                            },
+                                            icon: const Icon(
+                                                Icons.view_list),
+                                            label: const Text('View'))
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment
+                                          .spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Date: ${DoneListData![index]['date']}',
+                                          style: const TextStyle(
+                                              color: Colors.blue),
+                                        ),
+                                        Container(
+                                            height: 20,
+                                            width: width / 3,
+                                            decoration: BoxDecoration(
+                                                color: Colors.green,
+                                                borderRadius:
+                                                BorderRadius
+                                                    .circular(5)),
+                                            child: Center(
+                                                child: Text(
+                                                  "Total :${DoneListData![index]['total']}",
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                      FontWeight.bold),
+                                                ))),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment
+                                          .spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Doctor: ${DoneListData![index]['doctor_name']}",
+                                          style: const TextStyle(
+                                              fontSize: 15,
+                                              fontWeight:
+                                              FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        );
+                      },
+                    ),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        )));
+        ),
+      ),
+    );
   }
 }
