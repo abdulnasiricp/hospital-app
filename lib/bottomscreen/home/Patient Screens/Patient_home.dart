@@ -578,6 +578,11 @@ class _PatientHomePageState extends State<PatientHomePage> {
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: DoneListData!.length,
                             itemBuilder: (context, index) {
+                              if (isLoading) {
+                                
+                              } else {
+                                
+                              }
                               return Container(
                                 width: width,
                                 child: Card(

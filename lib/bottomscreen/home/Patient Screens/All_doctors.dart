@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shimmer/shimmer.dart';
 
 class AllDoctorsList extends StatefulWidget {
   const AllDoctorsList({Key? key}) : super(key: key);
@@ -21,6 +22,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
   Map<String, dynamic>? DoneDataMap;
   List<dynamic>? DoneListData = [];
   List<dynamic>? NewListData = [];
+  bool isLoading=true;
 
   Future hitApi() async {
     final response = await http.post(
@@ -43,7 +45,9 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
         "name": DoneListData?[i]["name"],
         "id": DoneListData?[i]["id"],
         "email": DoneListData?[i]["email"],
+        
       });
+
     }
     //TO SHOW ALL LIST AT INITIAL
 
@@ -113,6 +117,36 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                       mainAxisSpacing: 0),
                               itemCount: DoneListData!.length,
                               itemBuilder: (context, index) {
+                                if (isLoading)  {
+                          return Shimmer.fromColors(
+                            baseColor: Colors.blue.shade100,
+                            highlightColor: Colors.grey.shade100,
+                            child: ListTile(
+                              leading: Container(
+                                width: 60,
+                                height: 60,
+                                color: Colors.white,
+                              ),
+                              title: Container(
+                                width: 150,
+                                height: 20,
+                                color: Colors.white,
+                              ),
+                              subtitle: Container(
+                                width: 100,
+                                height: 10,
+                                color: Colors.white,
+                              ),
+                              trailing: Container(
+                                width: 60,
+                                height: 30,
+                                color: Colors.white,
+                              ),
+                            ),
+                          );
+                        }else{
+
+                        
                                 return Column(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -229,6 +263,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                     )
                                   ],
                                 );
+                        }
                               }),
                         ),
                       ],
