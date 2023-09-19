@@ -14,7 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-import 'package:shimmer/shimmer.dart';
 
 class PatientHomePage extends StatefulWidget {
   const PatientHomePage({Key? key}) : super(key: key);
@@ -197,7 +196,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                         ),
                         InkWell(
                           onTap: () {
-                            Get.to(() => const Card());
+                            Get.to(() => const CardScreen());
                           },
                           child: Container(
                             width: 100,
@@ -580,7 +579,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                         width: width,
                         height: height,
                         child: ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
+                            physics: const NeverScrollableScrollPhysics(),
                             itemCount: DoneListData!.length,
                             itemBuilder: (context, index) {
                               return Container(
@@ -668,8 +667,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
         )
             // : const Center(child: CircularProgressIndicator()),
             ),
-        drawer: AboutUSScreen(), // Left drawer
-        endDrawer: Notif(),
+        drawer: const AboutUSScreen(), // Left drawer
+        endDrawer: const Notif(),
       ),
     );
   }

@@ -1,7 +1,6 @@
 import 'package:TezHealthCare/Controller/loginController.dart';
 import 'package:TezHealthCare/Splash_Screen.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/view_bill.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

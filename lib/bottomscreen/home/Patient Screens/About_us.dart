@@ -31,7 +31,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: height / 4, left: 20, right: 20),
+                padding: EdgeInsets.only(top: height / 4, left: width/25, right: width/25),
                 child: Container(
                   height: height / 3.5,
                   width: width,
