@@ -130,7 +130,8 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                                 children: [
                                                   CircleAvatar(
                                                       backgroundImage: AssetImage(
-                                                          'assets/logo.png')),
+                                                          'assets/logo.png')
+                                                  ),
                                                   // NetworkImage(
                                                   //     DoneListData![
                                                   //             index]
