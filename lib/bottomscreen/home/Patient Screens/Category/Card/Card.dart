@@ -1,10 +1,6 @@
 
-// ignore_for_file: file_names, avoid_unnecessary_containers, avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-
-
 class CardScreen extends StatefulWidget {
   const CardScreen({Key? key}) : super(key: key);
 
@@ -21,7 +17,6 @@ class _CardScreenState extends State<CardScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-       
         body:Stack(
           children: [
             InAppWebView(
