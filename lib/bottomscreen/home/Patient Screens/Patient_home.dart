@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace, non_constant_identifier_names, file_names, avoid_print
+// ignore_for_file: sized_box_for_whitespace, non_constant_identifier_names, file_names, avoid_print, avoid_unnecessary_containers
 
 import 'dart:convert';
 
@@ -638,7 +638,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               ),
                                                Text(
                                                 '${DoneListData![index]['specialization']}',
-                                                 style: TextStyle(
+                                                 style: const TextStyle(
                                                      color: Colors.blue),
                                                ),
                                               const SizedBox(
@@ -670,7 +670,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                         color: Colors.green
                                                       ),
                                                           )),
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     width: 10,
                                                   ),
 

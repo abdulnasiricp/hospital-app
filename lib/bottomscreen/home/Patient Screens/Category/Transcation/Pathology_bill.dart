@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
 class PathologyBill extends StatefulWidget {
@@ -17,6 +18,14 @@ class PathologyBill extends StatefulWidget {
 }
 
 class _PathologyBillState extends State<PathologyBill> {
+    // String patientId= '',
+   LoadData() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    patientId = sharedPreferences.getString('patientIdrecord') ?? '';
+   
+    setState(() {});
+  } 
+  
   String patientId = "10380";
   String apiUrl =
       "https://uat.tez.hospital/xzy/webservice/getAllPayment"; // Replace with your API endpoint

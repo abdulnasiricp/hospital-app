@@ -57,8 +57,7 @@ class _PatientLoginState extends State<PatientLogin> {
       sharedPreferences.setString('role', json['role']);
       sharedPreferences.setString('imagerecord', json['record']['image']);
       sharedPreferences.setString('genderrecord', json['record']['gender']);
-      sharedPreferences.setString(
-          'patientidrecord', json['record']['patient_id']);
+      sharedPreferences.setString('patientidrecord', json['record']['patient_id']);
       sharedPreferences.setString('usernamerecord', json['record']['username']);
 
       // Navigate to the home screen ERTYU D
