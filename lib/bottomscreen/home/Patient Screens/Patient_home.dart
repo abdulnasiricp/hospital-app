@@ -661,6 +661,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
         )
             // : const Center(child: CircularProgressIndicator()),
             ),
+        drawer: AboutUSScreen(), // Left drawer
+        endDrawer: Notif(),
       ),
     );
   }
