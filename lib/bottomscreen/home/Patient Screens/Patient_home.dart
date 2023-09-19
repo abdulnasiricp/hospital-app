@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/All_doctors.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Card/Card.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Category_View_All.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Transaction_main_screen.dart';
 import 'package:TezHealthCare/screens/notification.dart';
@@ -13,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:shimmer/shimmer.dart';
 
 class PatientHomePage extends StatefulWidget {
   const PatientHomePage({Key? key}) : super(key: key);
@@ -24,7 +26,7 @@ class PatientHomePage extends StatefulWidget {
 class _PatientHomePageState extends State<PatientHomePage> {
   String role = '', username = '';
   String record = '', genderrecord = '';
-  
+  bool isLoading = true;
 
   Map<String, dynamic>? DataMap;
   Map<String, dynamic>? DoneDataMap;
@@ -38,10 +40,14 @@ class _PatientHomePageState extends State<PatientHomePage> {
           'Auth-key': 'zbuks_ram859553467'
         });
     if (response.statusCode == 200) {
+
       setState(() {
+
         DataMap = jsonDecode(response.body);
         DoneListData = DataMap!['doctors'];
-        print(DoneListData?.where((element) => element['department'] == 'EMR'));
+        isLoading = false;
+
+        
       });
     } else {
       print('Error getting Products: ${response.statusCode}');
@@ -156,7 +162,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                           height: 100,
                           child: InkWell(
                             onTap: () {
-                              Get.to(()=>const MainTransactionScreen());
+                              Get.to(() => const MainTransactionScreen());
                               // Get.to(() => Doctorlist(
                               //     "assets/ucla.png",
                               //     Colors.transparent,
@@ -191,7 +197,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                         ),
                         InkWell(
                           onTap: () {
-                           Get.to(()=>const Card());
+                            Get.to(() => const CardScreen());
                           },
                           child: Container(
                             width: 100,
@@ -576,80 +582,108 @@ class _PatientHomePageState extends State<PatientHomePage> {
                         child: ListView.builder(
                             itemCount: DoneListData!.length,
                             itemBuilder: (context, index) {
-                              return Container(
-                                width: width,
-                                child: Card(
-                                    color: Colors.white70.withOpacity(0.7),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            width: width / 5,
-                                            height: 100,
-                                            child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                child: Image.asset(
-                                                  'assets/drtwo.png',
-                                                  fit: BoxFit.cover,
-                                                )),
-                                          ),
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                'Dr. ${DoneListData![index]['name']}',
-                                                style: const TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                              const SizedBox(
-                                                height: 5,
-                                              ),
-                                              const Text(
-                                                // '${DoneListData![index]['specialization']}'),
-                                                'Surgery',
-                                                style: TextStyle(
-                                                    color: Colors.blue),
-                                              ),
-                                              const SizedBox(
-                                                height: 5,
-                                              ),
-                                              Text(DoneListData![index]
-                                                      ['contact_no'] ??
-                                                  "03429207274"),
-                                              const SizedBox(
-                                                height: 5,
-                                              ),
-                                              const Text(
-                                                  'abdulnasiricp@gmail.com'),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                              const Row(
-                                                children: [
-                                                  // Text('${DoneListData![index]['qualification']},'),
-                                                  Text('Doctor'),
-                                                  SizedBox(
-                                                    width: 10,
-                                                  ),
+                              if (isLoading) {
+                                return Shimmer.fromColors(
+                                  baseColor: Colors.blue.shade100,
+                                  highlightColor: Colors.grey.shade100,
+                                  child: ListTile(
+                                    leading: Container(
+                                      width: 60,
+                                      height: 60,
+                                      color: Colors.white,
+                                    ),
+                                    title: Container(
+                                      width: 150,
+                                      height: 20,
+                                      color: Colors.white,
+                                    ),
+                                    subtitle: Container(
+                                      width: 100,
+                                      height: 10,
+                                      color: Colors.white,
+                                    ),
+                                    trailing: Container(
+                                      width: 60,
+                                      height: 30,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                );
+                              } else {
+                                return Container(
+                                  width: width,
+                                  child: Card(
+                                      color: Colors.white70.withOpacity(0.7),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              width: width / 5,
+                                              height: 100,
+                                              child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  child: Image.asset(
+                                                    'assets/drtwo.png',
+                                                    fit: BoxFit.cover,
+                                                  )),
+                                            ),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Dr. ${DoneListData![index]['name']}',
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                                const Text(
+                                                  // '${DoneListData![index]['specialization']}'),
+                                                  'Surgery',
+                                                  style: TextStyle(
+                                                      color: Colors.blue),
+                                                ),
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Text(DoneListData![index]
+                                                        ['contact_no'] ??
+                                                    "03429207274"),
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                                const Text(
+                                                    'abdulnasiricp@gmail.com'),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                const Row(
+                                                  children: [
+                                                    // Text('${DoneListData![index]['qualification']},'),
+                                                    Text('Doctor'),
+                                                    SizedBox(
+                                                      width: 10,
+                                                    ),
 
-                                                  // Text('${DoneListData![index]['work_exp']},'),
-                                                  Text('20 years Experince'),
-                                                ],
-                                              )
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    )),
-                              );
-
+                                                    // Text('${DoneListData![index]['work_exp']},'),
+                                                    Text('20 years Experince'),
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      )),
+                                );
+                              }
                             }),
                       ),
                     ],
