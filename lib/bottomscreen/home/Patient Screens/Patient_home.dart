@@ -601,10 +601,24 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             child: ClipRRect(
                                                 borderRadius:
                                                     BorderRadius.circular(10),
-                                                child: Image.asset(
-                                                  'assets/drtwo.png',
-                                                  fit: BoxFit.cover,
-                                                )),
+                                                child: Image.network(
+                                                  '${DoneListData![index]['image']}', // Replace with your image URL
+                                                  width: 200.0, // Set the width (optional)
+                                                  height: 200.0, // Set the height (optional)
+                                                  fit: BoxFit.cover, // Set the BoxFit (optional)
+                                                  loadingBuilder: (context, child, loadingProgress) {
+                                                    if (loadingProgress == null) {
+                                                      return child;
+                                                    } else {
+                                                      return CircularProgressIndicator(
+                                                        color: darkYellow,
+                                                        backgroundColor: yellow,
+                                                      );
+                                                    }
+                                                  },
+
+                                                ),
+                                            ),
                                           ),
                                           const SizedBox(
                                             width: 10,
@@ -622,12 +636,11 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               const SizedBox(
                                                 height: 5,
                                               ),
-                                              const Text(
-                                                // '${DoneListData![index]['specialization']}'),
-                                                'Surgery',
-                                                style: TextStyle(
-                                                    color: Colors.blue),
-                                              ),
+                                               Text(
+                                                '${DoneListData![index]['specialization']}',
+                                                 style: TextStyle(
+                                                     color: Colors.blue),
+                                               ),
                                               const SizedBox(
                                                 height: 5,
                                               ),
@@ -637,21 +650,32 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               const SizedBox(
                                                 height: 5,
                                               ),
-                                              const Text(
-                                                  'abdulnasiricp@gmail.com'),
+                                                Text(
+                                                '${DoneListData![index]['email']}',
+                                                // style: const TextStyle(
+                                                //     fontWeight:
+                                                //     FontWeight.bold),
+                                              ),
                                               const SizedBox(
                                                 height: 10,
                                               ),
-                                              const Row(
+                                               Row(
                                                 children: [
                                                   // Text('${DoneListData![index]['qualification']},'),
-                                                  Text('Doctor'),
+                                                  Container(
+                                                      child: Text('${DoneListData![index]['qualification']}',
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                          FontWeight.bold,
+                                                        color: Colors.green
+                                                      ),
+                                                          )),
                                                   SizedBox(
                                                     width: 10,
                                                   ),
 
                                                   // Text('${DoneListData![index]['work_exp']},'),
-                                                  Text('20 years Experince'),
+                                                  Text('${DoneListData![index]['work_exp']}'),
                                                 ],
                                               )
                                             ],
