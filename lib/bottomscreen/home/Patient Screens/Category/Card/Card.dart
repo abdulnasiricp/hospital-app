@@ -25,7 +25,7 @@ class _CardScreenState extends State<CardScreen> {
         body:Stack(
           children: [
             InAppWebView(
-              initialUrlRequest: URLRequest(url: Uri.parse('https://www.google.com/')),
+              initialUrlRequest: URLRequest(url: Uri.parse("https://uat.tez.hospital/admin/generatecertificate/generatepatientidcardPdf/10380")),
               onWebViewCreated: (InAppWebViewController controller){
                 inAppWebViewController= controller;
               },
@@ -36,8 +36,10 @@ class _CardScreenState extends State<CardScreen> {
               },
             ),
             _progress<1?Container(
-              child: CircularProgressIndicator(
-                value: _progress,
+              child: Center(
+                child: CircularProgressIndicator(
+                  value: _progress,
+                ),
               ),
             ):const SizedBox()
     

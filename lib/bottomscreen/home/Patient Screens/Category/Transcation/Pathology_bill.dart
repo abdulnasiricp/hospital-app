@@ -1,9 +1,10 @@
 // ignore_for_file: non_constant_identifier_names, sized_box_for_whitespace, avoid_print, file_names
 
-import 'dart:async';
 
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/view_bill.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shimmer/shimmer.dart';
@@ -16,37 +17,58 @@ class PathologyBill extends StatefulWidget {
 }
 
 class _PathologyBillState extends State<PathologyBill> {
+  String patientId = "10380";
+  String apiUrl =
+      "https://uat.tez.hospital/xzy/webservice/getAllPayment"; // Replace with your API endpoint
+  String authKey = "zbuks_ram859553467"; // Replace with your auth key
+  Map<String, dynamic>? responseData;
+  List<dynamic>? DoneListData = [];
   bool isLoading = true;
 
-  Map<String, dynamic>? DataMap;
-  Map<String, dynamic>? DoneDataMap;
-  List<dynamic>? DoneListData = [];
+  void fetchData() async {
+    setState(() {
+      isLoading = true;
+      responseData;
+      DoneListData;
+    });
 
-  Future hitApi() async {
-    final response = await http.post(
-        Uri.parse('https://uat.tez.hospital/xzy/webservice/getAllPayment'),
+    try {
+      final response = await http.post(
+        Uri.parse(apiUrl),
         headers: {
           'Soft-service': 'TezHealthCare',
-          'Auth-key': 'zbuks_ram859553467'
+          'Auth-key': authKey,
+        },
+        body: json.encode({"patient_id": patientId}),
+      );
+
+      if (response.statusCode == 200) {
+        setState(() {
+          responseData = json.decode(response.body);
+          DoneListData = responseData?['pathology_bill'];
+          print(DoneListData);
+          isLoading = false;
         });
-    if (response.statusCode == 200) {
+      } else {
+        setState(() {
+          isLoading = false;
+          // responseData = Error: ${response.statusCode};
+        });
+      }
+    } catch (e) {
       setState(() {
         isLoading = false;
-
-        DataMap = jsonDecode(response.body);
-        DoneListData = DataMap!['radiology_bill'];
-        print(DoneListData);
+        // responseData = "Error: $e";
+        print("$Error");
       });
-    } else {
-      print('Error getting Products: ${response.statusCode}');
     }
   }
 
   @override
   void initState() {
-    hitApi();
+    fetchData();
+
     super.initState();
-  
   }
 
   @override
@@ -111,14 +133,16 @@ class _PathologyBillState extends State<PathologyBill> {
                                                 fontSize: 15,
                                                 fontWeight: FontWeight.bold),
                                           ),
-                                           Text(
+                                          Text(
                                             "HIS No: ${DoneListData![index]['case_reference_id'] ?? "10147"}",
                                             style: const TextStyle(
                                                 fontSize: 15,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           TextButton.icon(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                Get.to(()=>const ViewBillDetiles());
+                                              },
                                               icon: const Icon(Icons.view_list),
                                               label: const Text('View'))
                                         ],
@@ -156,7 +180,7 @@ class _PathologyBillState extends State<PathologyBill> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            "Doctor: ${DoneListData![index]['doctor_name'] ?? ""}",
+                                            "Doctor: ${DoneListData![index]['doctor_name'] ?? "Nasir Khan"}",
                                             style: const TextStyle(
                                                 fontSize: 15,
                                                 fontWeight: FontWeight.bold),

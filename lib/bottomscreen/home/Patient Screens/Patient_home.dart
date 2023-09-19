@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/All_doctors.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Card/Card.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Category_View_All.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Transaction_main_screen.dart';
 import 'package:TezHealthCare/screens/notification.dart';
@@ -24,6 +25,7 @@ class PatientHomePage extends StatefulWidget {
 class _PatientHomePageState extends State<PatientHomePage> {
   String role = '', username = '';
   String record = '', genderrecord = '';
+  bool isLoading=true;
 
   Map<String, dynamic>? DataMap;
   Map<String, dynamic>? DoneDataMap;
@@ -37,10 +39,14 @@ class _PatientHomePageState extends State<PatientHomePage> {
           'Auth-key': 'zbuks_ram859553467'
         });
     if (response.statusCode == 200) {
+
       setState(() {
+
         DataMap = jsonDecode(response.body);
         DoneListData = DataMap!['doctors'];
-        print(DoneListData?.where((element) => element['department'] == 'EMR'));
+        isLoading = false;
+
+        
       });
     } else {
       print('Error getting Products: ${response.statusCode}');
@@ -190,7 +196,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                         ),
                         InkWell(
                           onTap: () {
-                            Get.to(() => const Card());
+                            Get.to(() => const CardScreen());
                           },
                           child: Container(
                             width: 100,
@@ -573,7 +579,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                         width: width,
                         height: height,
                         child: ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
+                            physics: const NeverScrollableScrollPhysics(),
                             itemCount: DoneListData!.length,
                             itemBuilder: (context, index) {
                               return Container(
@@ -685,8 +691,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
         )
             // : const Center(child: CircularProgressIndicator()),
             ),
-        drawer: AboutUSScreen(), // Left drawer
-        endDrawer: Notif(),
+        drawer: const AboutUSScreen(), // Left drawer
+        endDrawer: const Notif(),
       ),
     );
   }
