@@ -641,7 +641,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                 '${DoneListData![index]['specialization']}',
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     color: Colors.blue),
                                               ),
                                               const SizedBox(
@@ -680,7 +680,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                             FontWeight.bold,
                                                         color: Colors.green),
                                                   )),
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     width: 10,
                                                   ),
 

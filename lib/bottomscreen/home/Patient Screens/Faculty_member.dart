@@ -1,5 +1,5 @@
 
-// ignore_for_file: sized_box_for_whitespace, non_constant_identifier_names, avoid_print, file_names, unused_element
+// ignore_for_file: sized_box_for_whitespace, non_constant_identifier_names, avoid_print, file_names, unused_element, avoid_unnecessary_containers
 
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -172,7 +172,7 @@ class _FacultyMembersState extends State<FacultyMembers> {
                                                   '${DoneListData![index]['specialization']}',
                                                   maxLines: 1,
                                                   overflow: TextOverflow.ellipsis,
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       color: Colors.blue),
                                                 ),
                                                 const SizedBox(
@@ -211,7 +211,7 @@ class _FacultyMembersState extends State<FacultyMembers> {
                                                               FontWeight.bold,
                                                               color: Colors.green),
                                                         )),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       width: 10,
                                                     ),
 

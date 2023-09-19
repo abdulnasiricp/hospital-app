@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers
+// ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers, non_constant_identifier_names, avoid_print, unused_element
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -284,7 +284,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                           '${DoneListData![index]['specialization']}',
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: Colors.blue),
                                         ),
                                         const SizedBox(
@@ -323,7 +323,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                                       FontWeight.bold,
                                                       color: Colors.green),
                                                 )),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 10,
                                             ),
 

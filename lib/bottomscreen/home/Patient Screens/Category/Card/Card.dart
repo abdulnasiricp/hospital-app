@@ -1,4 +1,6 @@
 
+// ignore_for_file: avoid_unnecessary_containers, file_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 class CardScreen extends StatefulWidget {
