@@ -1,11 +1,11 @@
 // ignore_for_file: sized_box_for_whitespace
 
 
-import 'package:TezHealthCare/bottomscreen/Profile/Opd_list.dart';
 import 'package:TezHealthCare/bottomscreen/home/address.dart';
 import 'package:TezHealthCare/bottomscreen/home/informationprofile.dart';
 import 'package:TezHealthCare/bottomscreen/sehedule.dart';
 import 'package:TezHealthCare/screens/auth/Sigin_main_screen.dart';
+import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/helper_class.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -64,8 +64,7 @@ class _ProfileState extends State<Profile> {
           appBar: AppBar(
             title: const Text('Profile'),
             centerTitle: true,
-            backgroundColor: Utils.appbarColor,
-            foregroundColor: Utils.appbarForgroundColor,
+            backgroundColor: darkYellow,
           ),
           body: SingleChildScrollView(
             child: Column(
@@ -75,7 +74,7 @@ class _ProfileState extends State<Profile> {
                     Container(
                       height: 100,
                       decoration: BoxDecoration(
-                          color: Utils.bgColor,
+                          color: darkYellow,
                           borderRadius: const BorderRadius.only(
                               bottomLeft: Radius.circular(30),
                               bottomRight: Radius.circular(30))),
@@ -177,23 +176,6 @@ class _ProfileState extends State<Profile> {
                           ),
                         ),
                         title: const Text('Help Center'),
-                      ),
-                      ListTile(
-                        onTap: () {
-                          
-                          Get.to(() => const OpdListScreen());
-                          
-
-
-                        },
-                        leading: Container(
-                          width: 20,
-                          height: 20,
-                          child: ClipRRect(
-                            child: Image.asset('assets/care.png'),
-                          ),
-                        ),
-                        title: const Text('OPD List'),
                       ),
                       ListTile(
                         onTap: () {},

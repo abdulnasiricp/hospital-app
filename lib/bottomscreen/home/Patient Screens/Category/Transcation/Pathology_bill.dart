@@ -141,8 +141,7 @@ class _PathologyBillState extends State<PathologyBill> {
                                           ),
                                           TextButton.icon(
                                               onPressed: () {
-                                                Get.to(() =>
-                                                    const ViewBillDetiles());
+                                                Get.to(()=>const ViewBillDetiles());
                                               },
                                               icon: const Icon(Icons.view_list),
                                               label: const Text('View'))
@@ -201,3 +200,5 @@ class _PathologyBillState extends State<PathologyBill> {
         )));
   }
 }
+
+
