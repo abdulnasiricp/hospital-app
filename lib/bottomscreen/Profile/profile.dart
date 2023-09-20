@@ -1,6 +1,4 @@
 // ignore_for_file: sized_box_for_whitespace
-
-
 import 'package:TezHealthCare/bottomscreen/home/address.dart';
 import 'package:TezHealthCare/bottomscreen/home/informationprofile.dart';
 import 'package:TezHealthCare/bottomscreen/sehedule.dart';

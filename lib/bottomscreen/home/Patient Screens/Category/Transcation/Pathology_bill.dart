@@ -1,5 +1,4 @@
 // ignore_for_file: non_constant_identifier_names, sized_box_for_whitespace, avoid_print, file_names
-
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/view_bill.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
@@ -8,14 +7,11 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
-
 class PathologyBill extends StatefulWidget {
   const PathologyBill({Key? key}) : super(key: key);
-
   @override
   State<PathologyBill> createState() => _PathologyBillState();
 }
-
 class _PathologyBillState extends State<PathologyBill> {
   bool noDataAvailable = false;
   String patientId = "10380";
@@ -73,10 +69,17 @@ class _PathologyBillState extends State<PathologyBill> {
   }
 
   Future<void> _handleRefresh() async {
+    setState(() {
+      isLoading = true; // Set isLoading to true to show shimmer
+    });
+
     // Fetch data when the user pulls down to refresh
     await fetchData();
-  }
 
+    setState(() {
+      isLoading = false; // Set isLoading to false after data is fetched
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -199,7 +202,8 @@ class _PathologyBillState extends State<PathologyBill> {
                                                         "Total :${DoneListData![index]['total']}",
                                                         style: const TextStyle(
                                                             fontWeight:
-                                                                FontWeight.bold),
+                                                                FontWeight
+                                                                    .bold),
                                                       ))),
                                                 ],
                                               ),

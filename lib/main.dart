@@ -20,12 +20,10 @@ class MyApp extends StatelessWidget {
     return sharedPreferences.containsKey('username') &&
         sharedPreferences.containsKey('password');
   }
-
   @override
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
-
     return ScreenUtilInit(
         child: MultiProvider(
             providers: [

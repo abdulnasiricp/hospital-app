@@ -72,8 +72,16 @@ class _RadiologyBillState extends State<RadiologyBill> {
     super.initState();
   }
   Future<void> _handleRefresh() async {
+    setState(() {
+      isLoading = true; // Set isLoading to true to show shimmer
+    });
+
     // Fetch data when the user pulls down to refresh
     await fetchData();
+
+    setState(() {
+      isLoading = false; // Set isLoading to false after data is fetched
+    });
   }
   @override
   Widget build(BuildContext context) {
