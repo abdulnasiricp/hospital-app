@@ -17,12 +17,15 @@ class AllDoctorsList extends StatefulWidget {
 }
 
 class _AllDoctorsListState extends State<AllDoctorsList> {
+   final TextEditingController _searchController = TextEditingController();
+   static final GlobalKey<FormState> _key = GlobalKey<FormState>();
+
   Map<String, dynamic>? DataMap;
   Map<String, dynamic>? DoneDataMap;
   List<dynamic>? DoneListData = [];
   List<dynamic>? NewListData = [];
 
-  Future hitApi() async {
+  Future hitDoctorApi() async {
     final response = await http.post(
         Uri.parse('https://uat.tez.hospital/xzy/webservice/getAllDoctor'),
         headers: {
@@ -41,8 +44,8 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
     for (var i = 0; i < DoneListData!.length; i++) {
       NewListData?.add({
         "name": DoneListData?[i]["name"],
-        "id": DoneListData?[i]["id"],
-        "email": DoneListData?[i]["email"],
+        // "id": DoneListData?[i]["id"],
+        // "email": DoneListData?[i]["email"],
       });
     }
     //TO SHOW ALL LIST AT INITIAL
@@ -50,9 +53,9 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
     NewListData = DoneListData;
   }
 
-  void _searchlist(String value) {
+  void _searchlist(String value)async {
     if (value.isEmpty) {
-      NewListData = DoneListData;
+      NewListData =DoneListData;
     } else {
       NewListData = DoneListData?.where((element) => element['name']
           .toString()
@@ -60,12 +63,14 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
           .contains(value.toString().toLowerCase())).toList();
     }
   }
+  
 
   @override
   void initState() {
-    hitApi();
+    hitDoctorApi();
     super.initState();
   }
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -77,27 +82,34 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
           backgroundColor: darkYellow,
         ),
         body: Center(
-            child: DoneListData != null
-                ? Padding(
+            child: 
+                Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Column(
                       children: [
                         Container(
                           height: 50,
-                          child: TextField(
+                          child: Form(
+                            key: _key,
+                            child: TextFormField(
+                              controller: _searchController,
                             onChanged: (value) {
-                              _searchlist(value);
+                            _searchlist(value);
                             },
-                            onSubmitted: ((value) {}),
-                            decoration: const InputDecoration(
-                              fillColor: Colors.white,
-                              filled: true,
-                              hintText: 'Search your doctor',
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
+                            onFieldSubmitted: (value) {
+                            // Handle search when the user submits
+                            _searchlist(value);
+                            },
+                              decoration: const InputDecoration(
+                                fillColor: Colors.white,
+                                filled: true,
+                                hintText: 'Search your doctor',
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                ),
+                                prefixIcon: Icon(Icons.search),
                               ),
-                              prefixIcon: Icon(Icons.search),
                             ),
                           ),
                         ),
@@ -234,9 +246,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                       ],
                     ),
                   )
-                : Center(
-                    child: CircularProgressIndicator(
-                    color: darkYellow,
-                  ))));
+                ));
   }
 }
+

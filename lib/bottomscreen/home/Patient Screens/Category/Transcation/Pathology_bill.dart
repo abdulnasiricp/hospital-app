@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names, sized_box_for_whitespace, avoid_print, file_names
+// ignore_for_file: non_constant_identifier_names, sized_box_for_whitespace, avoid_print, file_names, unnecessary_string_interpolations, unnecessary_brace_in_string_interps
 
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/view_bill.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
 class PathologyBill extends StatefulWidget {
@@ -17,11 +18,23 @@ class PathologyBill extends StatefulWidget {
 }
 
 class _PathologyBillState extends State<PathologyBill> {
+  String username = '';
+  String patient = '';
+  LoadData() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+
+    username = sp.getString('usernamerecord') ?? '';
+    patient = sp.getString('patientidrecord') ?? '';
+
+    print(patient);
+    setState(() {});
+  }
+
   bool noDataAvailable = false;
-  String patientId = "10380";
-  String apiUrl =
-      "https://uat.tez.hospital/xzy/webservice/getAllPayment"; // Replace with your API endpoint
-  String authKey = "zbuks_ram859553467"; // Replace with your auth key
+
+ late String patientId = patient;
+  String apiUrl = "https://uat.tez.hospital/xzy/webservice/getAllPayment";
+  String authKey = "zbuks_ram859553467";
   Map<String, dynamic>? responseData;
   List<dynamic>? DoneListData = [];
   bool isLoading = true;
@@ -69,6 +82,7 @@ class _PathologyBillState extends State<PathologyBill> {
   @override
   void initState() {
     fetchData();
+    LoadData();
     super.initState();
   }
 
@@ -76,7 +90,6 @@ class _PathologyBillState extends State<PathologyBill> {
     // Fetch data when the user pulls down to refresh
     await fetchData();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -199,7 +212,8 @@ class _PathologyBillState extends State<PathologyBill> {
                                                         "Total :${DoneListData![index]['total']}",
                                                         style: const TextStyle(
                                                             fontWeight:
-                                                                FontWeight.bold),
+                                                                FontWeight
+                                                                    .bold),
                                                       ))),
                                                 ],
                                               ),
@@ -218,6 +232,7 @@ class _PathologyBillState extends State<PathologyBill> {
                                                         fontWeight:
                                                             FontWeight.bold),
                                                   ),
+                                                  Text(patient)
                                                 ],
                                               ),
                                             ],

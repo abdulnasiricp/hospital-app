@@ -51,14 +51,14 @@ class _PatientLoginState extends State<PatientLogin> {
       Map json = jsonDecode(response.body.toString());
 
       // Successful login, store user credentials
-      final sharedPreferences = await SharedPreferences.getInstance();
-      sharedPreferences.setString('username', username);
-      sharedPreferences.setString('password', password);
-      sharedPreferences.setString('role', json['role']);
-      sharedPreferences.setString('imagerecord', json['record']['image']);
-      sharedPreferences.setString('genderrecord', json['record']['gender']);
-      sharedPreferences.setString('patientidrecord', json['record']['patient_id']);
-      sharedPreferences.setString('usernamerecord', json['record']['username']);
+      final sp = await SharedPreferences.getInstance();
+      sp.setString('username', username);
+      sp.setString('password', password);
+      sp.setString('role', json['role']);
+      sp.setString('imagerecord', json['record']['image']);
+      sp.setString('genderrecord', json['record']['gender']);
+      sp.setString('patientidrecord', json['record']['patient_id']).toString();
+      sp.setString('usernamerecord', json['record']['username']);
 
       // Navigate to the home screen ERTYU D
       Get.off(() => const Bottomhome());

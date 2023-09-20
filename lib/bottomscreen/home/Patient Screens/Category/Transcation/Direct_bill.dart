@@ -19,7 +19,7 @@ class DirectBill extends StatefulWidget {
 
 class _DirectBillState extends State<DirectBill>  {
   bool noDataAvailable = false;
-  String patientId = "10380";
+  String patientId = "10780";
   String apiUrl =
       "https://uat.tez.hospital/xzy/webservice/getAllPayment"; // Replace with your API endpoint
   String authKey = "zbuks_ram859553467"; // Replace with your auth key
