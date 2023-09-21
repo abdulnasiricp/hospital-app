@@ -10,18 +10,14 @@ import 'package:get/get.dart';
 
 class AboutUSScreen extends StatefulWidget {
   const AboutUSScreen({Key? key}) : super(key: key);
-
   @override
   State<AboutUSScreen> createState() => _AboutUSScreenState();
 }
-
 class _AboutUSScreenState extends State<AboutUSScreen> {
   Map<String, dynamic>? DataMap;
   Map<String, dynamic>? DoneDataMap;
   List<dynamic>? DoneListData = [];
   List<dynamic>? NewListData = [];
-
-
   Future hitApi() async {
     final response = await http.post(
         Uri.parse('https://uat.tez.hospital/xzy/webservice/getAllDoctor'),
@@ -51,27 +47,24 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
     });
   }
 
-
   @override
   void initState() {
     hitApi();
     super.initState();
   }
+
   void _searchlist(String value) {
     setState(() {
       if (value.isEmpty) {
         NewListData = DoneListData;
       } else {
-        NewListData = DoneListData
-            ?.where((element) => element['name']
+        NewListData = DoneListData?.where((element) => element['name']
             .toString()
             .toLowerCase()
-            .contains(value.toString().toLowerCase()))
-            .toList();
+            .contains(value.toString().toLowerCase())).toList();
       }
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,7 +83,8 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: height / 4, left: width/25, right: width/25),
+                padding: EdgeInsets.only(
+                    top: height / 4, left: width / 25, right: width / 25),
                 child: Container(
                   height: height / 3.5,
                   width: width,
@@ -115,7 +109,8 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                 children: [
                                   const Text(
                                     'Civil service Hospital',
-                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   const Text(
                                       "प्रादेशिक अस्पताल सिराहा \nसिरहा , नेपाल"),
@@ -205,7 +200,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                       )),
                   InkWell(
                     onTap: () {
-                      Get.to(() => const FacultyMembers());
+                      Get.offAll(() => const FacultyMembers());
                     },
                     child: const Text("All Members",
                         style: TextStyle(
@@ -238,14 +233,13 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                       width: width / 5,
                                       height: 100,
                                       child: ClipRRect(
-                                        borderRadius:
-                                        BorderRadius.circular(10),
+                                        borderRadius: BorderRadius.circular(10),
                                         child: Image.network(
                                           '${DoneListData![index]['image']}', // Replace with your image URL
                                           width:
-                                          200.0, // Set the width (optional)
+                                              200.0, // Set the width (optional)
                                           height:
-                                          200.0, // Set the height (optional)
+                                              200.0, // Set the height (optional)
                                           fit: BoxFit
                                               .cover, // Set the BoxFit (optional)
                                           loadingBuilder: (context, child,
@@ -267,15 +261,14 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                     ),
                                     Column(
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           'Dr. ${DoneListData![index]['name']} ${DoneListData![index]['surname']}',
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                           style: const TextStyle(
-                                              fontWeight:
-                                              FontWeight.bold),
+                                              fontWeight: FontWeight.bold),
                                         ),
                                         const SizedBox(
                                           height: 5,
@@ -314,15 +307,13 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                             // Text('${DoneListData![index]['qualification']},'),
                                             Container(
                                                 child: Text(
-                                                  '${DoneListData![index]['qualification']}',
-                                                  maxLines: 1,
-                                                  overflow:
-                                                  TextOverflow.ellipsis,
-                                                  style: const TextStyle(
-                                                      fontWeight:
-                                                      FontWeight.bold,
-                                                      color: Colors.green),
-                                                )),
+                                              '${DoneListData![index]['qualification']}',
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.green),
+                                            )),
                                             const SizedBox(
                                               width: 10,
                                             ),
@@ -331,8 +322,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                             Text(
                                               '${DoneListData![index]['work_exp']}',
                                               maxLines: 1,
-                                              overflow:
-                                              TextOverflow.ellipsis,
+                                              overflow: TextOverflow.ellipsis,
                                             ),
                                           ],
                                         )
