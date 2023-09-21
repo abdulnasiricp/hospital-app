@@ -58,6 +58,7 @@ class _DoctorLoginState extends State<DoctorLogin> {
       sharedPreferences.setString('password', password);
       sharedPreferences.setString('emailrecord', json['record']['email']);
       sharedPreferences.setString('genderrecord', json['record']['gender']);
+      sharedPreferences.setString('imagerecord', json['record']['image']);
       sharedPreferences.setString(
           'doctorIdrecord', json['record']['employee_id']);
       sharedPreferences.setString('usernamerecord', json['record']['username']);

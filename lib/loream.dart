@@ -20,7 +20,7 @@ class _LoreamState extends State<Loream> {
   Widget build(BuildContext context) {
     notifier = Provider.of<ColorNotifier>(context, listen: true);
     return ScreenUtilInit(
-      builder: (_ , child)  => Scaffold(
+      builder: (_, child) => Scaffold(
         backgroundColor: notifier.getwihitecolor,
         appBar: CustomAppBar(
           Colors.transparent,

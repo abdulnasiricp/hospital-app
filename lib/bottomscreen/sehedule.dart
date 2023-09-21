@@ -82,8 +82,7 @@ class _ScheduleState extends State<Schedule> {
                     )),
                     SizedBox(height: height / 200),
                     Text(
-                      EnString
-                          .bookHealth,
+                      EnString.bookHealth,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 13.sp,

@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:TezHealthCare/bottomscreen/home/activityhistory.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -50,8 +51,32 @@ class _ProfileState extends State<Profile> {
 
   @override
   void initState() {
+    loadSP();
     super.initState();
     getdarkmodepreviousstate();
+  }
+
+  String patientId = '';
+  String role = '';
+  String username = '';
+  String record = '';
+  String genderrecord = '';
+  String imagerecord = '';
+  bool isLoading = true;
+  LoadData() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    setState(() {
+      patientId = sharedPreferences.getString('patientidrecord') ?? '';
+      role = sharedPreferences.getString('role') ?? '';
+      username = sharedPreferences.getString('usernamerecord') ?? '';
+      record = sharedPreferences.getString('record') ?? '';
+      genderrecord = sharedPreferences.getString('genderrecord') ?? '';
+      imagerecord = sharedPreferences.getString('imagerecord') ?? '';
+    });
+  }
+
+  loadSP() async {
+    await LoadData();
   }
 
   @override
@@ -95,21 +120,56 @@ class _ProfileState extends State<Profile> {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Image.asset('assets/drtwo.png')),
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.network(
+                                    '$imagerecord', // Replace with your image URL
+                                    width: 200.0, // Set the width (optional)
+                                    height: 200.0, // Set the height (optional)
+                                    fit: BoxFit
+                                        .cover, // Set the BoxFit (optional)
+                                    loadingBuilder:
+                                        (context, child, loadingProgress) {
+                                      if (loadingProgress == null) {
+                                        return child;
+                                      } else {
+                                        return CircularProgressIndicator(
+                                          color: darkYellow,
+                                          backgroundColor: yellow,
+                                        );
+                                      }
+                                    },
+                                  ),
+                                ),
                               ),
                             ),
                             const SizedBox(
                               width: 10,
                             ),
-                            const Column(
+                            Column(
                               children: [
                                 Padding(padding: EdgeInsets.only(top: 20)),
                                 Text(
-                                  "Dr.Push Puttical",
+                                  "$username",
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
-                                Text("0344-4343-3434"),
+                                Container(
+                                  height: 20, // Specify height (optional)
+                                  decoration: BoxDecoration(
+                                    color: Colors.green, // Background color
+                                    borderRadius: BorderRadius.circular(
+                                        10.0), // Border radius
+                                    // border: Border.all(
+                                    //   color: Colors.black, // Border color
+                                    //   width: 2.0, // Border width
+                                    // ),
+                                  ),
+                                  child: Center(
+                                      child: Text(
+                                    "Patient Id :- $patientId",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  )),
+                                )
                               ],
                             )
                           ],
@@ -127,7 +187,7 @@ class _ProfileState extends State<Profile> {
                     children: [
                       ListTile(
                         onTap: () {
-                          Get.to(()=>const InformationProfile());
+                          Get.to(() => const InformationProfile());
                         },
                         leading: Container(
                           width: 20,
