@@ -1392,10 +1392,16 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                             )),
-                                        InkWell(
+                                        GestureDetector(
                                           onTap: () {
-                                            Get.to(
+                                            Get.offAll(
                                                 () => const AllDoctorsList());
+                                            // Navigator.push(
+                                            //   context,
+                                            //   MaterialPageRoute(
+                                            //       builder: (context) =>
+                                            //           const AllDoctorsList()),
+                                            // );
                                           },
                                           child: const Text("View All",
                                               style: TextStyle(
