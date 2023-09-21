@@ -54,11 +54,8 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
 
   void filterData(String query) {
     setState(() {
-      filteredData = data
-          ?.where((element) => element['name']
-              .toString()
-              .toLowerCase()
-              .contains(query.toLowerCase()))
+      filteredData = data?.where((item) =>
+              item.name.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }
