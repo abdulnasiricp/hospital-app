@@ -132,7 +132,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
         body: RefreshIndicator(
           onRefresh: _handleRefresh,
           child: isLoading
-              ? Center(
+              ? const Center(
                   child: CircularProgressIndicator(
                     color: Colors.red, // Customize the color as needed
                   ),
@@ -626,7 +626,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                       itemBuilder: (context, index) {
                                         if (DoneListData == null ||
                                             DoneListData!.isEmpty) {
-                                          return Center(
+                                          return const Center(
                                             child: CircularProgressIndicator(
                                               color: Colors.red,
                                             ),
