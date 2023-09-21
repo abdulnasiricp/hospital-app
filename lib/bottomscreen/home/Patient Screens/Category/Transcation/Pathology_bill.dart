@@ -9,14 +9,16 @@ import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
+
 class PathologyBill extends StatefulWidget {
   const PathologyBill({Key? key}) : super(key: key);
   @override
   State<PathologyBill> createState() => _PathologyBillState();
 }
+
 class _PathologyBillState extends State<PathologyBill> {
   String username = '';
-  String patient = '';
+  late String patient = '';
   LoadData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
 
@@ -29,7 +31,6 @@ class _PathologyBillState extends State<PathologyBill> {
 
   bool noDataAvailable = false;
 
- late String patientId = patient;
   String apiUrl = "https://uat.tez.hospital/xzy/webservice/getAllPayment";
   String authKey = "zbuks_ram859553467";
   Map<String, dynamic>? responseData;
@@ -44,7 +45,7 @@ class _PathologyBillState extends State<PathologyBill> {
           'Soft-service': 'TezHealthCare',
           'Auth-key': authKey,
         },
-        body: json.encode({"patient_id": patientId}),
+        body: json.encode({"patient_id": patient}),
       );
 
       if (response.statusCode == 200) {
@@ -76,10 +77,16 @@ class _PathologyBillState extends State<PathologyBill> {
     }
   }
 
+  getAllData() async {
+    await LoadData();
+
+    await fetchData();
+  }
+
   @override
   void initState() {
-    fetchData();
-    LoadData();
+    getAllData();
+
     super.initState();
   }
 

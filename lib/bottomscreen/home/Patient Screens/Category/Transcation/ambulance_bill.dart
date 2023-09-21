@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 class AmbulanceBill extends StatefulWidget {
   const AmbulanceBill({Key? key}) : super(key: key);
@@ -13,11 +14,22 @@ class AmbulanceBill extends StatefulWidget {
   State<AmbulanceBill> createState() => _AmbulanceBillState();
 }
 class _AmbulanceBillState extends State<AmbulanceBill> {
+ String username = '';
+  late String patient = '';
+  LoadData() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+
+    username = sp.getString('usernamerecord') ?? '';
+    patient = sp.getString('patientidrecord') ?? '';
+
+    print(patient);
+    setState(() {});
+  }
+
   bool noDataAvailable = false;
-  String patientId = "10380";
-  String apiUrl =
-      "https://uat.tez.hospital/xzy/webservice/getAllPayment"; // Replace with your API endpoint
-  String authKey = "zbuks_ram859553467"; // Replace with your auth key
+
+  String apiUrl = "https://uat.tez.hospital/xzy/webservice/getAllPayment";
+  String authKey = "zbuks_ram859553467";
   Map<String, dynamic>? responseData;
   List<dynamic>? DoneListData = [];
   bool isLoading = true;
@@ -30,7 +42,7 @@ class _AmbulanceBillState extends State<AmbulanceBill> {
           'Soft-service': 'TezHealthCare',
           'Auth-key': authKey,
         },
-        body: json.encode({"patient_id": patientId}),
+        body: json.encode({"patient_id": patient}),
       );
 
       if (response.statusCode == 200) {
@@ -61,11 +73,20 @@ class _AmbulanceBillState extends State<AmbulanceBill> {
       });
     }
   }
+
+  getAllData() async {
+    await LoadData();
+
+    await fetchData();
+  }
+
   @override
   void initState() {
-    fetchData();
+    getAllData();
+
     super.initState();
   }
+
   Future<void> _handleRefresh() async {
     setState(() {
       isLoading = true; // Set isLoading to true to show shimmer
@@ -78,6 +99,7 @@ class _AmbulanceBillState extends State<AmbulanceBill> {
       isLoading = false; // Set isLoading to false after data is fetched
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -219,6 +241,7 @@ class _AmbulanceBillState extends State<AmbulanceBill> {
                                                         fontWeight:
                                                             FontWeight.bold),
                                                   ),
+                                                  Text(patient)
                                                 ],
                                               ),
                                             ],

@@ -33,11 +33,17 @@ class _PatientHomePageState extends State<PatientHomePage> {
   Map<String, dynamic>? DoneDataMap;
   List<dynamic>? DoneListData = [];
 
+  getAllData() async {
+    await LoadData();
+
+    await hitApi();
+  }
+
   @override
   void initState() {
+    getAllData();
+
     super.initState();
-    hitApi();
-    LoadData();
   }
 
   LoadData() async {
@@ -85,7 +91,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
       isLoading = true; // Set isLoading to true when refreshing
     });
 
-    await hitApi();
+    await getAllData();
 
     setState(() {
       isLoading = false; // Set isLoading to false after data is fetched
@@ -603,16 +609,15 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                     )),
-                                InkWell(
-                                  onTap: () {
-                                    Get.to(() => const AllDoctorsList());
-                                  },
-                                  child: const Text("View All",
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black)),
-                                ),
+                                TextButton(
+                                    onPressed: () {
+                                      Get.to(() => const AllDoctorsList());
+                                    },
+                                    child: const Text("View All",
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black))),
                               ],
                             ),
                             const SizedBox(
@@ -635,7 +640,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             child: Lottie.asset(
                                                 'assets/loading1.json'),
                                           ));
-                                        } else {}
+                                        }
                                         return Container(
                                           width: width,
                                           child: Card(
