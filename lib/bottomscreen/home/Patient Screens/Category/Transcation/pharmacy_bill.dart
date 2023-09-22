@@ -1,6 +1,5 @@
 // ignore_for_file: non_constant_identifier_names, sized_box_for_whitespace, avoid_print, file_names
 
-
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/view_bill.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +18,7 @@ class PharmacyBill extends StatefulWidget {
 }
 
 class _PharmacyBillState extends State<PharmacyBill> {
- String username = '';
+  String username = '';
   late String patient = '';
   LoadData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
@@ -195,9 +194,13 @@ class _PharmacyBillState extends State<PharmacyBill> {
                                                   ),
                                                   TextButton.icon(
                                                       onPressed: () {
-                                                        Get.to(() =>
-                                                                                                                        ViewBillDetiles(billNo: DoneListData![index]['id'],billname: 'pharmacy',));
-
+                                                        Get.to(() => ViewBillDetiles(
+                                                            billNo:
+                                                                DoneListData![
+                                                                        index]
+                                                                    ['id'],
+                                                            billname:
+                                                                'pharmacy'));
                                                       },
                                                       icon: const Icon(
                                                           Icons.view_list),
