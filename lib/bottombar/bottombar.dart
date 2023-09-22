@@ -1,10 +1,11 @@
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Patient_home.dart';
+import 'package:TezHealthCare/bottomscreen/home/profile.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:TezHealthCare/bottomscreen/chat/chat.dart';
 import 'package:TezHealthCare/bottomscreen/home/myappoiment.dart';
-import 'package:TezHealthCare/bottomscreen/Profile/profile.dart';
+import 'package:TezHealthCare/bottomscreen/Profile/Information_profile.dart';
 import 'package:TezHealthCare/stringfile/enstring.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:fluttertoast/fluttertoast.dart';
