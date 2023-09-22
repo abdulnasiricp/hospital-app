@@ -194,7 +194,7 @@ class _PathologyBillState extends State<PathologyBill> {
                                                   TextButton.icon(
                                                       onPressed: () {
                                                         Get.to(() =>
-                                                            const ViewBillDetiles());
+                                                             ViewBillDetiles(billNo:DoneListData![index]['id'] ,billname: 'pathology',));
                                                       },
                                                       icon: const Icon(
                                                           Icons.view_list),

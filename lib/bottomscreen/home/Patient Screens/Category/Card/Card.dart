@@ -117,32 +117,28 @@ class _CardScreenState extends State<CardScreen> {
         backgroundColor: darkYellow,
       ),
       body:
-      // _progress != null
-      //         ? Center(
-      //       child: Padding(
-      //         padding: const EdgeInsets.all(10.0),
-      //         child: Container(
-      //           height: height/7,
-      //           width: width/1.5,
+      _progress != null
+              ? Center(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Container(
+                height: height/7,
+                width: width/1.5,
 
-      //           color: Colors.white70.withOpacity(0.9),
-      //           child: Row(
-      //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //             children: [
-      //               const Text('Downloading....',style: TextStyle(fontWeight: FontWeight.bold),),
-      //               Lottie.asset('assets/loading1.json'),
-      //             ],
-      //           ))
-      //       ),
-      //     ):
+                color: Colors.transparent,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text('Downloading....',style: TextStyle(fontWeight: FontWeight.bold),),
+                    Lottie.asset('assets/loading1.json'),
+                  ],
+                ))
+            ),
+          ):
 
-      _progress != null ? Center(
-        child: Center(child: Lottie.asset('assets/loading1.json')),
-        
-        
-         
-      )
-          : Container(
+      // _progress != null ? Center(child: Lottie.asset('assets/loading1.json'))
+      //     :
+           Container(
         color: darkYellow,
         child: Padding(
           padding: const EdgeInsets.all(8.0),

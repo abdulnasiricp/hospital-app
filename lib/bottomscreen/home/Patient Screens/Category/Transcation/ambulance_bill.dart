@@ -8,13 +8,15 @@ import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
+
 class AmbulanceBill extends StatefulWidget {
   const AmbulanceBill({Key? key}) : super(key: key);
   @override
   State<AmbulanceBill> createState() => _AmbulanceBillState();
 }
+
 class _AmbulanceBillState extends State<AmbulanceBill> {
- String username = '';
+  String username = '';
   late String patient = '';
   LoadData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
@@ -191,7 +193,13 @@ class _AmbulanceBillState extends State<AmbulanceBill> {
                                                   TextButton.icon(
                                                       onPressed: () {
                                                         Get.to(() =>
-                                                            const ViewBillDetiles());
+                                                            ViewBillDetiles(
+                                                              billNo:
+                                                                  DoneListData![
+                                                                          index]
+                                                                      ['id'],
+                                                                      billname: 'ambulance',
+                                                            ));
                                                       },
                                                       icon: const Icon(
                                                           Icons.view_list),

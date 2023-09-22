@@ -196,7 +196,8 @@ class _PharmacyBillState extends State<PharmacyBill> {
                                                   TextButton.icon(
                                                       onPressed: () {
                                                         Get.to(() =>
-                                                            const ViewBillDetiles());
+                                                                                                                        ViewBillDetiles(billNo: DoneListData![index]['id'],billname: 'pharmacy',));
+
                                                       },
                                                       icon: const Icon(
                                                           Icons.view_list),

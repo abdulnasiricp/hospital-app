@@ -196,7 +196,8 @@ class _RadiologyBillState extends State<RadiologyBill> {
                                                   TextButton.icon(
                                                       onPressed: () {
                                                         Get.to(() =>
-                                                            const ViewBillDetiles());
+                                                                                                                       ViewBillDetiles(billNo: DoneListData![index]['id'],billname: 'radiology',));
+
                                                       },
                                                       icon: const Icon(
                                                           Icons.view_list),

@@ -196,7 +196,7 @@ class _DirectBillState extends State<DirectBill>  {
                                                   TextButton.icon(
                                                       onPressed: () {
                                                         Get.to(() =>
-                                                            const ViewBillDetiles());
+                                                            ViewBillDetiles(billNo: DoneListData![index]['id'],billname: 'direct_bill',));
                                                       },
                                                       icon: const Icon(
                                                           Icons.view_list),

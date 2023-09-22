@@ -196,7 +196,8 @@ class _BloodBankState extends State<BloodBank>  {
                                                   TextButton.icon(
                                                       onPressed: () {
                                                         Get.to(() =>
-                                                            const ViewBillDetiles());
+                                                            ViewBillDetiles(billNo: DoneListData![index]['id'],billname: 'bloodbank',));
+                                                            
                                                       },
                                                       icon: const Icon(
                                                           Icons.view_list),
