@@ -196,13 +196,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                       onTap: () {
                                         Get.to(() =>
                                             const MainTransactionScreen());
-                                        // Get.to(() => Doctorlist(
-                                        //     "assets/ucla.png",
-                                        //     Colors.transparent,
-                                        //     EnString.columbiaAsiaHospital,
-                                        //     EnString.bangaloreKarnataka,
-                                        //     "16 km",
-                                        //     width / 7));
+                                       
                                       },
                                       child: Card(
                                         borderOnForeground: true,

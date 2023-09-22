@@ -24,7 +24,7 @@ class _BottomhomeState extends State<Bottomhome> {
   Future<bool> _onBackPressed() {
     final now = DateTime.now();
     if (currentBackPressTime == null ||
-        now.difference(currentBackPressTime!) > Duration(seconds: 2)) {
+        now.difference(currentBackPressTime!) > const Duration(seconds: 2)) {
       currentBackPressTime = now;
       Fluttertoast.showToast(
         msg: 'Press back again to exit',

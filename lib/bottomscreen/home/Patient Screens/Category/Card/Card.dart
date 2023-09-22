@@ -1,7 +1,11 @@
+// ignore_for_file: avoid_print, non_constant_identifier_names, deprecated_member_use, file_names
+
 import 'package:TezHealthCare/utils/colors.dart';
+import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
+import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:open_file/open_file.dart';
 import 'package:url_launcher/url_launcher.dart'; // Import the url_launcher package
@@ -41,7 +45,7 @@ class _CardScreenState extends State<CardScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Download Completed'),
+          title: const Text('Download Completed'),
           content: Text('The PDF file is downloaded at: $path'),
           actions: <Widget>[
             TextButton(
@@ -60,27 +64,29 @@ class _CardScreenState extends State<CardScreen> {
                   await launch('https://uat.tez.hospital/xzy/webservice/generateIdcard/$PatientId'); // Replace with your desired URL
                 }
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         );
       },
     );
   }
+ 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          _progress != null
-              ? const Center(
-            child: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: CircularProgressIndicator(),
-            ),
-          )
-              : IconButton(
+          // _progress != null
+          //     ? const Center(
+          //   child: Padding(
+          //     padding: EdgeInsets.all(8.0),
+          //     child: CircularProgressIndicator(),
+          //   ),
+          // )
+          //     :
+               IconButton(
             onPressed: () {
               FileDownloader.downloadFile(
                 url:
@@ -110,12 +116,38 @@ class _CardScreenState extends State<CardScreen> {
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
-      body: Container(
+      body:
+      // _progress != null
+      //         ? Center(
+      //       child: Padding(
+      //         padding: const EdgeInsets.all(10.0),
+      //         child: Container(
+      //           height: height/7,
+      //           width: width/1.5,
+
+      //           color: Colors.white70.withOpacity(0.9),
+      //           child: Row(
+      //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //             children: [
+      //               const Text('Downloading....',style: TextStyle(fontWeight: FontWeight.bold),),
+      //               Lottie.asset('assets/loading1.json'),
+      //             ],
+      //           ))
+      //       ),
+      //     ):
+
+      _progress != null ? Center(
+        child: Center(child: Lottie.asset('assets/loading1.json')),
+        
+        
+         
+      )
+          : Container(
         color: darkYellow,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Center(
-            child: PDF(
+            child: const PDF(
               swipeHorizontal: true,
             ).cachedFromUrl(
               'https://uat.tez.hospital/xzy/webservice/generateIdcard/$PatientId',

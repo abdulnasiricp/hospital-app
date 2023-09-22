@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace
+
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Select_date.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -71,7 +73,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
       onWillPop: () async {
         // Navigate to the Home Screen when the back button is pressed
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => Bottomhome()),
+          MaterialPageRoute(builder: (context) => const Bottomhome()),
         );
         return false; // Prevent default back button behavior
       },
@@ -83,9 +85,9 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
           backgroundColor: darkYellow,
           leading: IconButton(
             onPressed: () {
-              Get.to(() => Bottomhome());
+              Get.to(() => const Bottomhome());
             },
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
           ),
         ),
         body: Center(
@@ -171,19 +173,19 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                           ),
                                         ),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 5,
                                       ),
                                       Text(
                                         '${filteredData![index]['name']} ${filteredData![index]['surname']}',
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 13,
                                         ),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 5,
                                       ),
                                       Text(
@@ -191,7 +193,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 5,
                                       ),
                                       Text(
@@ -199,7 +201,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 5,
                                       ),
                                       Container(
@@ -213,9 +215,9 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                         ),
                                         child: InkWell(
                                           onTap: () {
-                                            Get.to(() => SelectDateScreen());
+                                            Get.to(() => const SelectDateScreen());
                                           },
-                                          child: Center(
+                                          child: const Center(
                                             child: Text(
                                               'Book Appointment',
                                               style: TextStyle(

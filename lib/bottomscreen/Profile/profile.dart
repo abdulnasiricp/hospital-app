@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace
+// ignore_for_file: sized_box_for_whitespace, non_constant_identifier_names, unnecessary_string_interpolations
 import 'package:TezHealthCare/bottomscreen/home/address.dart';
 import 'package:TezHealthCare/bottomscreen/home/informationprofile.dart';
 import 'package:TezHealthCare/bottomscreen/sehedule.dart';
@@ -13,7 +13,6 @@ import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
   const Profile({
@@ -147,10 +146,10 @@ class _ProfileState extends State<Profile> {
                             ),
                             Column(
                               children: [
-                                Padding(padding: EdgeInsets.only(top: 20)),
+                                const Padding(padding: EdgeInsets.only(top: 20)),
                                 Text(
                                   "$username",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  style: const TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 Container(
                                   height: 20, // Specify height (optional)
@@ -167,7 +166,7 @@ class _ProfileState extends State<Profile> {
                                       child: Text(
                                     "Patient Id :- $patientId",
                                     style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                        const TextStyle(fontWeight: FontWeight.bold),
                                   )),
                                 )
                               ],

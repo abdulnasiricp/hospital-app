@@ -59,6 +59,7 @@ dependencies:
   syncfusion_flutter_pdfviewer:
   open_file: ^3.3.2
   url_launcher: ^6.1.14
+  carousel_slider:
 
 
 

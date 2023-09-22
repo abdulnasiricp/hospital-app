@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers, non_constant_identifier_names, avoid_print, unused_element
 
 import 'dart:convert';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:http/http.dart' as http;
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Faculty_member.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -14,6 +15,26 @@ class AboutUSScreen extends StatefulWidget {
   State<AboutUSScreen> createState() => _AboutUSScreenState();
 }
 class _AboutUSScreenState extends State<AboutUSScreen> {
+
+  final List<String> imgList = [
+    'https://tse1.mm.bing.net/th?id=OIP.rf_UTwDKG7XALHaGmsYesQHaFj&pid=Api&P=0&h=180',
+    'https://i.pinimg.com/originals/eb/35/91/eb3591c54fb651f20d157ed7099c4576.jpg',
+    'https://www.medylife.com/blog/wp-content/uploads/2017/10/Best-Cardiology-Hospital.jpg',
+    'https://northernvirginiamag.com/wp-content/uploads/2020/12/hospital.jpg',
+    'https://www.krausanderson.com/wp-content/uploads/2018/11/01_U-of-M-Masonic-Childrens-Hospital-Amplatz-Exterior-View-of-Courtyard-Old-Hospital-and-New-Addition-1920x1080.jpg',
+    'https://yesofcorsa.com/wp-content/uploads/2017/05/Hospital-Wallpaper.jpg',
+    'https://s3.amazonaws.com/uchealth-wp-uploads/wp-content/uploads/sites/6/2018/01/02032200/UCHealth_Memorial_Hospital_Central_Morning.jpgeee.jpg',
+    'https://media.consumeraffairs.com/files/news/Hospital_building_JazzIRT_GI.jpg',
+
+  ];
+
+
+
+
+
+
+
+
   Map<String, dynamic>? DataMap;
   Map<String, dynamic>? DoneDataMap;
   List<dynamic>? DoneListData = [];
@@ -74,17 +95,39 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Stack(children: [
-              Container(
-                height: height / 3,
+               Container(
+                      height: height / 3,
                 width: width,
-                child: Image.asset(
-                  'assets/ucla.png',
-                  fit: BoxFit.cover,
-                ),
-              ),
+                      child: CarouselSlider(
+                          items: imgList
+                              .map((item) => Container(
+                                    child: Image.network(
+                                      item,
+                                      fit: BoxFit.cover,
+                                      width: double.infinity,
+                                    ),
+                                  ))
+                              .toList(),
+                          options: CarouselOptions(
+                              aspectRatio: 2.0,
+                              autoPlay: true,
+                              enlargeCenterPage: true)),
+                    ),
+
+
+
+
+              // Container(
+              //   height: height / 3,
+              //   width: width,
+              //   child: Image.asset(
+              //     'assets/ucla.png',
+              //     fit: BoxFit.cover,
+              //   ),
+              // ),
               Padding(
                 padding: EdgeInsets.only(
-                    top: height / 4, left: width / 25, right: width / 25),
+                    top: height / 3.5, left: width / 25, right: width / 25),
                 child: Container(
                   height: height / 3.5,
                   width: width,
@@ -209,9 +252,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
+           
             Column(
               children: [
                 Container(
