@@ -17,6 +17,7 @@ class ProfileData {
   final String insuranceValidity;
   final String isDead;
   final String availableAmount;
+  final String isActive;
   final List<Map<String, dynamic>> locationUuid;
 
   ProfileData({
@@ -37,6 +38,8 @@ class ProfileData {
     required this.isDead,
     required this.availableAmount,
     required this.locationUuid,
+    required this.isActive,
+
   });
 
   factory ProfileData.fromJson(Map<String, dynamic> json) {
@@ -57,6 +60,7 @@ class ProfileData {
       insuranceValidity: json['insurance_validity'],
       isDead: json['is_dead'],
       availableAmount: json['available_amount'],
+      isActive: json['is_active'],
       locationUuid: List<Map<String, dynamic>>.from(jsonDecode(json['location_uuid'])),
     );
   }

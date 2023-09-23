@@ -1,7 +1,6 @@
+// ignore_for_file: unused_element
+
 import 'package:TezHealthCare/Controller/loginController.dart';
-import 'package:TezHealthCare/Splash_Screen.dart';
-import 'package:TezHealthCare/bottombar/bottombar.dart';
-import 'package:TezHealthCare/bottomscreen/Profile/Information_profile.dart';
 import 'package:TezHealthCare/bottomscreen/home/profile.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
@@ -40,20 +39,20 @@ class MyApp extends StatelessWidget {
             ],
             child: GetMaterialApp(
               debugShowCheckedModeBanner: false,
-              home:
+              home:Profile()
               
-               FutureBuilder<bool>(
-                  future: _isLoggedIn(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      final bool isLoggedIn = snapshot.data ?? false;
-                      return isLoggedIn
-                          ? const Bottomhome()
-                          : const Splash_Screen();
-                    } else {
-                      return Container();
-                    }
-                  }),
+              //  FutureBuilder<bool>(
+              //     future: _isLoggedIn(),
+              //     builder: (context, snapshot) {
+              //       if (snapshot.connectionState == ConnectionState.done) {
+              //         final bool isLoggedIn = snapshot.data ?? false;
+              //         return isLoggedIn
+              //             ? const Bottomhome()
+              //             : const Splash_Screen();
+              //       } else {
+              //         return Container();
+              //       }
+              //     }),
             )));
   }
 }
