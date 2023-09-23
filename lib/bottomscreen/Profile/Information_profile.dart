@@ -19,25 +19,28 @@ class InformationProfile extends StatefulWidget {
 
 class _InformationProfileState extends State<InformationProfile>
     with SingleTickerProviderStateMixin {
-  var profileData;
-  late String patientID = '';
-  LoadData() async {
+
+   ProfileData? profileData;
+   String patientID = '';
+  bool isLoading = true;
+
+  Future<void> loadPatientID() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
-
     patientID = sp.getString('patientidrecord') ?? '';
-
-    print(patientID);
-    setState(() {});
   }
 
-  Future<void> ProfileApi() async {
+  Future<void> fetchProfileData() async {
+    await loadPatientID();
+    print(patientID);
+
     const apiUrl = 'https://uat.tez.hospital/xzy/webservice/getPatientprofile';
     final headers = {
       'Soft-service': 'TezHealthCare',
       'Auth-key': 'zbuks_ram859553467',
     };
 
-    final requestBody = jsonEncode({"patientId": 10723});
+    final requestBody = jsonEncode({"patientId": 10707});
+
 
     try {
       final response = await http.post(Uri.parse(apiUrl),
@@ -62,9 +65,11 @@ class _InformationProfileState extends State<InformationProfile>
   }
 
   getAllData() async {
-    await LoadData();
-
-    await ProfileApi();
+    
+//  await LoadData();
+    // await ProfileApi();
+    fetchProfileData();
+   
   }
 
   @override
@@ -103,7 +108,7 @@ class _InformationProfileState extends State<InformationProfile>
                         child: Center(
                             child: CircleAvatar(
                           backgroundImage:
-                              NetworkImage(profileData.image ?? ""),
+                              NetworkImage(profileData!.image),
                           radius: 60,
                         )),
                       ),
@@ -113,7 +118,7 @@ class _InformationProfileState extends State<InformationProfile>
                         padding: EdgeInsets.only(top: height / 4.5),
                         child: Center(
                             child: Text(
-                          profileData.patientName ?? "",
+                          profileData!.patientName,
                           style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
@@ -147,7 +152,7 @@ class _InformationProfileState extends State<InformationProfile>
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     Text(
-                                      profileData.id ?? "",
+                                      profileData!.id,
                                     ),
                                   ],
                                 ),
@@ -159,7 +164,7 @@ class _InformationProfileState extends State<InformationProfile>
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     Text(
-                                      profileData.gender ?? "",
+                                      profileData!.gender,
                                     ),
                                   ],
                                 ),
@@ -171,7 +176,7 @@ class _InformationProfileState extends State<InformationProfile>
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     Text(
-                                      profileData.age ?? "",
+                                      profileData!.age ?? "",
                                     ),
                                   ],
                                 ),
@@ -236,27 +241,27 @@ class _InformationProfileState extends State<InformationProfile>
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(profileData.email ?? "abd@gmail.com"),
+                              Text(profileData!.email ?? "abd@gmail.com"),
                               const SizedBox(
                                 height: 20,
                               ),
-                              Text(profileData.mobileNo ?? ""),
+                              Text(profileData!.mobileNo ?? ""),
                               const SizedBox(
                                 height: 20,
                               ),
-                              Text(profileData.bloodGroup ?? ""),
+                              Text(profileData!.bloodGroup ?? ""),
                               const SizedBox(
                                 height: 20,
                               ),
-                              Text(profileData.address ?? ""),
+                              Text(profileData!.address ?? ""),
                               const SizedBox(
                                 height: 20,
                               ),
-                              Text(profileData.maritalStatus ?? "single"),
+                              Text(profileData!.maritalStatus ?? "single"),
                               const SizedBox(
                                 height: 20,
                               ),
-                              Text(profileData.guardianName ?? ""),
+                              Text(profileData!.guardianName ?? ""),
                             ],
                           ),
                         ),
