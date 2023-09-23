@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 class ProfileData {
   final String id;
   final String patientName;
@@ -19,7 +18,6 @@ class ProfileData {
   final String availableAmount;
   final String isActive;
   final List<Map<String, dynamic>> locationUuid;
-
   ProfileData({
     required this.id,
     required this.patientName,

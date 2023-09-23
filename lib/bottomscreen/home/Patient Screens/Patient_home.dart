@@ -10,10 +10,9 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Trans
 import 'package:TezHealthCare/screens/notification.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
-import 'package:TezHealthCare/widgets/No_internet_screen.dart';
+import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:internet_connectivity_checker/internet_connectivity_checker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -132,12 +131,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
           backgroundColor: darkYellow,
           elevation: 0,
         ),
-        body:ConnectivityBuilder(
-              interval: const Duration(seconds: 5),
-              builder: (ConnectivityStatus status) {
-                if (status == ConnectivityStatus.online) {
-                  return
-                RefreshIndicator(
+        body: RefreshIndicator(
           onRefresh: _handleRefresh,
           child: isLoading
               ? Center(
@@ -145,7 +139,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                   height: 100,
                   width: 100,
                   child: Center(
-                    child: Lottie.asset('assets/loading1.json'),
+                    child: LoadingIndicatorWidget()
                   ),
                 ))
               : SingleChildScrollView(
@@ -782,21 +776,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                     ],
                   ),
                 ),
-        );
-
-                } else if (status == ConnectivityStatus.offline) {
-                  return NoInternetScreen();
-                } else {
-                  // status == ConnectivityStatus.checking
-                  return  Center(
-                    child: SizedBox(
-                      width: 55,
-                      height: 55,
-                      child: Lottie.asset('assets/loading1.json'),
-                    ),
-                  );
-                } },
-        ) ,
+        ),
         drawer: const AboutUSScreen(), // Left drawer
         endDrawer: const Notif(),
       ),

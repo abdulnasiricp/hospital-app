@@ -32,14 +32,11 @@ class _CardScreenState extends State<CardScreen> {
   loadSP() async {
     await LoadData();
   }
-
   @override
   void initState() {
     loadSP();
     super.initState();
   }
-
-  // Function to show a popup with the PDF file path
   void showDownloadedFilePath(String path) {
     showDialog(
       context: context,
@@ -59,20 +56,17 @@ class _CardScreenState extends State<CardScreen> {
                   } else {
                     print('Error opening file: ${result.message}');
                   }
-
                   // Launch a URL using url_launcher package
                   await launch('https://uat.tez.hospital/xzy/webservice/generateIdcard/$PatientId'); // Replace with your desired URL
                 }
               },
-              child: const Text('OK'),
+              child: const Text('Open'),
             ),
           ],
         );
       },
     );
   }
- 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

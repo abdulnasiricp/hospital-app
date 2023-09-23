@@ -80,9 +80,7 @@ class _ProfileState extends State<Profile> {
       print('Request error: $e');
     }
   }
-
   late ColorNotifier notifier;
-
   TextEditingController dateinput = TextEditingController();
 
   @override
@@ -156,15 +154,14 @@ class _ProfileState extends State<Profile> {
                                 child: Row(
                                   children: [
                                     SvgPicture.asset(
-                                          'assets/done.svg', 
-                                          width:
-                                             15,
-                                          height:
-                                            15,
-                                          // color: darkYellow 
-                                        ),
-                                        const SizedBox(width: 10,),
-                              
+                                      'assets/done.svg',
+                                      width: 15,
+                                      height: 15,
+                                      // color: darkYellow
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
                                     const Text(
                                       "Active",
                                       style: TextStyle(
@@ -192,35 +189,30 @@ class _ProfileState extends State<Profile> {
                                     },
                                     child: ListTile(
                                       leading: SvgPicture.asset(
-                                        'assets/info.svg', 
-                                        width:
-                                           30,
-                                        height:
-                                          30,
-                                        color: darkYellow 
-                                      ),
+                                          'assets/info.svg',
+                                          width: 30,
+                                          height: 30,
+                                          color: darkYellow),
                                       title: const Text(
                                         'My Information',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold),
                                       ),
-                                      subtitle:
-                                          const Text('view your personal details'),
+                                      subtitle: const Text(
+                                          'view your personal details'),
                                     ),
                                   ),
                                   InkWell(
                                     onTap: () {
-                                        Get.to(()=>const DevicesAndCredentials());
+                                      Get.to(
+                                          () => const DevicesAndCredentials());
                                     },
-                                    child:  ListTile(
+                                    child: ListTile(
                                       leading: SvgPicture.asset(
-                                        'assets/dev.svg', 
-                                        width:
-                                          30,
-                                        height:
-                                           30,
-                                         color: darkYellow 
-                                      ),
+                                          'assets/dev.svg',
+                                          width: 30,
+                                          height: 30,
+                                          color: darkYellow),
                                       title: const Text(
                                         'Device & Credentials',
                                         style: TextStyle(
@@ -232,17 +224,14 @@ class _ProfileState extends State<Profile> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                        Get.to(()=>const HelpCenter());
+                                      Get.to(() => const HelpCenter());
                                     },
-                                    child:  ListTile(
+                                    child: ListTile(
                                       leading: SvgPicture.asset(
-                                        'assets/helpcenter.svg', 
-                                        width:
-                                          30,
-                                        height:
-                                           30, 
-                                         color: darkYellow 
-                                      ),
+                                          'assets/helpcenter.svg',
+                                          width: 30,
+                                          height: 30,
+                                          color: darkYellow),
                                       title: const Text(
                                         'Help Center',
                                         style: TextStyle(
@@ -254,40 +243,34 @@ class _ProfileState extends State<Profile> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                        Get.to(()=>const AboutUSScreen());
+                                      Get.to(() => const AboutUSScreen());
                                     },
-                                    child:  ListTile(
-                                      leading:SvgPicture.asset(
-                                        'assets/aboutus.svg', 
-                                        width:
-                                           30,
-                                        height:
-                                           30, 
-                                       color: darkYellow 
-                                      ),
+                                    child: ListTile(
+                                      leading: SvgPicture.asset(
+                                          'assets/aboutus.svg',
+                                          width: 30,
+                                          height: 30,
+                                          color: darkYellow),
                                       title: const Text(
                                         'About Us',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold),
                                       ),
-                                      subtitle:
-                                          const Text('view your personal details'),
+                                      subtitle: const Text('view About App'),
                                     ),
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      Get.isDarkMode?Get.changeTheme(ThemeData.light()):Get.changeTheme(ThemeData.dark());
+                                      Get.isDarkMode
+                                          ? Get.changeTheme(ThemeData.light())
+                                          : Get.changeTheme(ThemeData.dark());
                                     },
                                     child: ListTile(
-                                      leading:
-                                      SvgPicture.asset(
-                                        'assets/darkmode.svg', 
-                                        width:
-                                           30,
-                                        height:
-                                            30, 
-                                         color: darkYellow 
-                                      ),
+                                      leading: SvgPicture.asset(
+                                          'assets/darkmode.svg',
+                                          width: 30,
+                                          height: 30,
+                                          color: darkYellow),
                                       title: const Text(
                                         'Dark Mode',
                                         style: TextStyle(
@@ -298,38 +281,33 @@ class _ProfileState extends State<Profile> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      Get.to(()=>const SettingScreen());
+                                      Get.to(() => const SettingScreen());
                                     },
-                                    child:  ListTile(
+                                    child: ListTile(
                                       leading: SvgPicture.asset(
-                                        'assets/setting.svg', 
-                                        width:
-                                            30, 
-                                        height:
-                                            30, 
-                                        color: darkYellow 
-                                      ),
+                                          'assets/setting.svg',
+                                          width: 30,
+                                          height: 30,
+                                          color: darkYellow),
                                       title: const Text(
                                         'Setting',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold),
                                       ),
-                                      subtitle: const Text('Change your setting'),
+                                      subtitle:
+                                          const Text('Change your setting'),
                                     ),
                                   ),
                                   InkWell(
                                     onTap: () {
                                       _logout(context);
                                     },
-                                    child:  ListTile(
+                                    child: ListTile(
                                       leading: SvgPicture.asset(
-                                        'assets/logout.svg', 
-                                        width:
-                                            30, 
-                                        height:
-                                            30, 
-                                         color: darkYellow 
-                                      ),
+                                          'assets/logout.svg',
+                                          width: 30,
+                                          height: 30,
+                                          color: darkYellow),
                                       title: const Text(
                                         'Log Out',
                                         style: TextStyle(

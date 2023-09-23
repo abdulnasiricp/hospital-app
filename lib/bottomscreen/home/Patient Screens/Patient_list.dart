@@ -50,7 +50,7 @@ class _PatientListState extends State<PatientList> {
                     children: [
                       Center(
                         child: Text(
-                          'Abdul Nasir',
+                          'Ramjinish Kushwaha',
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -77,7 +77,7 @@ class _PatientListState extends State<PatientList> {
                     children: [
                       Center(
                         child: Text(
-                          'Ramjinish kushwaha',
+                          'Test Test',
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),

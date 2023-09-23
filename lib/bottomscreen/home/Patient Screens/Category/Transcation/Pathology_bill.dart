@@ -24,13 +24,11 @@ class _PathologyBillState extends State<PathologyBill> {
 
     username = sp.getString('usernamerecord') ?? '';
     patient = sp.getString('patientidrecord') ?? '';
-
     print(patient);
     setState(() {});
   }
 
   bool noDataAvailable = false;
-
   String apiUrl = "https://uat.tez.hospital/xzy/webservice/getAllPayment";
   String authKey = "zbuks_ram859553467";
   Map<String, dynamic>? responseData;
@@ -194,7 +192,14 @@ class _PathologyBillState extends State<PathologyBill> {
                                                   TextButton.icon(
                                                       onPressed: () {
                                                         Get.to(() =>
-                                                             ViewBillDetiles(billNo:DoneListData![index]['id'] ,billname: 'pathology',));
+                                                            ViewBillDetiles(
+                                                              billNo:
+                                                                  DoneListData![
+                                                                          index]
+                                                                      ['id'],
+                                                              billname:
+                                                                  'pathology',
+                                                            ));
                                                       },
                                                       icon: const Icon(
                                                           Icons.view_list),

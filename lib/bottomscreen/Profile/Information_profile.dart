@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../widgets/LoadingWidget.dart';
+
 class InformationProfile extends StatefulWidget {
   const InformationProfile({Key? key}) : super(key: key);
 
@@ -19,28 +21,25 @@ class InformationProfile extends StatefulWidget {
 
 class _InformationProfileState extends State<InformationProfile>
     with SingleTickerProviderStateMixin {
-
-   ProfileData? profileData;
-   String patientID = '';
-  bool isLoading = true;
-
-  Future<void> loadPatientID() async {
+  var profileData;
+  late String patientID = '';
+  LoadData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
+
     patientID = sp.getString('patientidrecord') ?? '';
+
+    print(patientID);
+    setState(() {});
   }
 
-  Future<void> fetchProfileData() async {
-    await loadPatientID();
-    print(patientID);
-
+  Future<void> ProfileApi() async {
     const apiUrl = 'https://uat.tez.hospital/xzy/webservice/getPatientprofile';
     final headers = {
       'Soft-service': 'TezHealthCare',
       'Auth-key': 'zbuks_ram859553467',
     };
 
-    final requestBody = jsonEncode({"patientId": 10707});
-
+    final requestBody = jsonEncode({"patientId": 10723});
 
     try {
       final response = await http.post(Uri.parse(apiUrl),
@@ -65,11 +64,9 @@ class _InformationProfileState extends State<InformationProfile>
   }
 
   getAllData() async {
-    
-//  await LoadData();
-    // await ProfileApi();
-    fetchProfileData();
-   
+    await LoadData();
+
+    await ProfileApi();
   }
 
   @override
@@ -108,7 +105,7 @@ class _InformationProfileState extends State<InformationProfile>
                         child: Center(
                             child: CircleAvatar(
                           backgroundImage:
-                              NetworkImage(profileData!.image),
+                              NetworkImage(profileData.image ?? ""),
                           radius: 60,
                         )),
                       ),
@@ -118,7 +115,7 @@ class _InformationProfileState extends State<InformationProfile>
                         padding: EdgeInsets.only(top: height / 4.5),
                         child: Center(
                             child: Text(
-                          profileData!.patientName,
+                          profileData.patientName ?? "",
                           style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
@@ -152,7 +149,7 @@ class _InformationProfileState extends State<InformationProfile>
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     Text(
-                                      profileData!.id,
+                                      profileData.id ?? "",
                                     ),
                                   ],
                                 ),
@@ -164,7 +161,7 @@ class _InformationProfileState extends State<InformationProfile>
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     Text(
-                                      profileData!.gender,
+                                      profileData.gender ?? "",
                                     ),
                                   ],
                                 ),
@@ -176,7 +173,7 @@ class _InformationProfileState extends State<InformationProfile>
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     Text(
-                                      profileData!.age,
+                                      profileData.age ?? "",
                                     ),
                                   ],
                                 ),
@@ -241,27 +238,27 @@ class _InformationProfileState extends State<InformationProfile>
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(profileData!.email ),
+                              Text(profileData.email ?? "abd@gmail.com"),
                               const SizedBox(
                                 height: 20,
                               ),
-                              Text(profileData!.mobileNo),
+                              Text(profileData.mobileNo ?? ""),
                               const SizedBox(
                                 height: 20,
                               ),
-                              Text(profileData!.bloodGroup),
+                              Text(profileData.bloodGroup ?? ""),
                               const SizedBox(
                                 height: 20,
                               ),
-                              Text(profileData!.address),
+                              Text(profileData.address ?? ""),
                               const SizedBox(
                                 height: 20,
                               ),
-                              Text(profileData!.maritalStatus),
+                              Text(profileData.maritalStatus ?? "single"),
                               const SizedBox(
                                 height: 20,
                               ),
-                              Text(profileData!.guardianName),
+                              Text(profileData.guardianName ?? ""),
                             ],
                           ),
                         ),
@@ -270,7 +267,7 @@ class _InformationProfileState extends State<InformationProfile>
                   )
                 ],
               )
-            : const LoadingIndicatorWidget()
+            :  AlertDialogWidget()
         // :Center(child: Lottie.asset('assets/loading1.json'))
 
         );
