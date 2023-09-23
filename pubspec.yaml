@@ -61,6 +61,7 @@ dependencies:
   url_launcher: ^6.1.14
   carousel_slider:
   flutter_svg:
+  internet_connectivity_checker: ^1.0.2
 
 
 

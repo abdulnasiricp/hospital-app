@@ -176,7 +176,7 @@ class _InformationProfileState extends State<InformationProfile>
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     Text(
-                                      profileData!.age ?? "",
+                                      profileData!.age,
                                     ),
                                   ],
                                 ),
@@ -241,27 +241,27 @@ class _InformationProfileState extends State<InformationProfile>
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(profileData!.email ?? "abd@gmail.com"),
+                              Text(profileData!.email ),
                               const SizedBox(
                                 height: 20,
                               ),
-                              Text(profileData!.mobileNo ?? ""),
+                              Text(profileData!.mobileNo),
                               const SizedBox(
                                 height: 20,
                               ),
-                              Text(profileData!.bloodGroup ?? ""),
+                              Text(profileData!.bloodGroup),
                               const SizedBox(
                                 height: 20,
                               ),
-                              Text(profileData!.address ?? ""),
+                              Text(profileData!.address),
                               const SizedBox(
                                 height: 20,
                               ),
-                              Text(profileData!.maritalStatus ?? "single"),
+                              Text(profileData!.maritalStatus),
                               const SizedBox(
                                 height: 20,
                               ),
-                              Text(profileData!.guardianName ?? ""),
+                              Text(profileData!.guardianName),
                             ],
                           ),
                         ),
