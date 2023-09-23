@@ -38,22 +38,22 @@ class MyApp extends StatelessWidget {
               ChangeNotifierProvider(create: (_) => ColorNotifier()),
               ChangeNotifierProvider(create: (_) => LoginController()),
             ],
-            child: const GetMaterialApp(
+            child: GetMaterialApp(
               debugShowCheckedModeBanner: false,
-              home:Profile()
+              home:
               
-              //  FutureBuilder<bool>(
-              //     future: _isLoggedIn(),
-              //     builder: (context, snapshot) {
-              //       if (snapshot.connectionState == ConnectionState.done) {
-              //         final bool isLoggedIn = snapshot.data ?? false;
-              //         return isLoggedIn
-              //             ? const Bottomhome()
-              //             : const Splash_Screen();
-              //       } else {
-              //         return Container();
-              //       }
-              //     }),
+               FutureBuilder<bool>(
+                  future: _isLoggedIn(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      final bool isLoggedIn = snapshot.data ?? false;
+                      return isLoggedIn
+                          ? const Bottomhome()
+                          : const Splash_Screen();
+                    } else {
+                      return Container();
+                    }
+                  }),
             )));
   }
 }

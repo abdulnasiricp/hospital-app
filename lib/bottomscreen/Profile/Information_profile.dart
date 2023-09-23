@@ -295,16 +295,16 @@
 //   }
 // }
 
-// ignore_for_file: avoid_unnecessary_containers, avoid_print, non_constant_identifier_names
+// ignore_for_file: avoid_unnecessary_containers, avoid_print, non_constant_identifier_names, prefer_typing_uninitialized_variables
 
 import 'dart:convert';
-
 import 'package:TezHealthCare/bottomscreen/Profile/profile_model.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class InformationProfile extends StatefulWidget {
   const InformationProfile({Key? key}) : super(key: key);
@@ -315,6 +315,15 @@ class InformationProfile extends StatefulWidget {
 
 class _InformationProfileState extends State<InformationProfile> with SingleTickerProviderStateMixin {
   var profileData;
+  late String patientID = '';
+  LoadData() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+
+    patientID = sp.getString('patientidrecord') ?? '';
+
+    print(patientID);
+    setState(() {});
+  }
 
 Future<void> ProfileApi()async{
   const apiUrl = 'https://uat.tez.hospital/xzy/webservice/getPatientprofile';
@@ -323,7 +332,7 @@ Future<void> ProfileApi()async{
     'Auth-key': 'zbuks_ram859553467',
   };
 
-  final requestBody = jsonEncode({"patientId":"10723"});
+  final requestBody = jsonEncode({"patientId":10723});
 
 
    try {
@@ -345,25 +354,18 @@ Future<void> ProfileApi()async{
     print('Request error: $e');
   }
 }
-@override
-  void initState() {
-    ProfileApi();
-    super.initState();
+getAllData() async {
+    await LoadData();
+
+    await ProfileApi();
   }
 
+  @override
+  void initState() {
+    getAllData();
 
-  
-
-
-
-
-
-
-
-
-
-
-
+    super.initState();
+  }
 
 
   bool noDataAvailable = false;
@@ -432,12 +434,12 @@ Future<void> ProfileApi()async{
     return Scaffold(
       appBar: AppBar(
         backgroundColor: darkYellow,
-        title: const Text('InformationProfile'),
+        title: const Text('Information Profile'),
         centerTitle: true,
       ),
       body:
   
-           profileData!=null ?  Column(
+           profileData != null ?  Column(
                 children: [
                   Stack(children: [
                     Container(
@@ -622,7 +624,8 @@ Future<void> ProfileApi()async{
             
           
           
-          ):Center(child: Lottie.asset('assets/loading1.json'))
+          ):SizedBox()
+          // :Center(child: Lottie.asset('assets/loading1.json'))
         
     );
   }
