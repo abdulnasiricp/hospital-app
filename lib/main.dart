@@ -1,7 +1,9 @@
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, deprecated_member_use
 
 import 'package:TezHealthCare/Controller/loginController.dart';
-import 'package:TezHealthCare/bottomscreen/home/profile.dart';
+import 'package:TezHealthCare/Splash_Screen.dart';
+import 'package:TezHealthCare/bottombar/bottombar.dart';
+import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -37,22 +39,33 @@ class MyApp extends StatelessWidget {
               ChangeNotifierProvider(create: (_) => ColorNotifier()),
               ChangeNotifierProvider(create: (_) => LoginController()),
             ],
-            child: GetMaterialApp(
+            child:  GetMaterialApp(
               debugShowCheckedModeBanner: false,
-              home:Profile()
-              
-              //  FutureBuilder<bool>(
-              //     future: _isLoggedIn(),
-              //     builder: (context, snapshot) {
-              //       if (snapshot.connectionState == ConnectionState.done) {
-              //         final bool isLoggedIn = snapshot.data ?? false;
-              //         return isLoggedIn
-              //             ? const Bottomhome()
-              //             : const Splash_Screen();
-              //       } else {
-              //         return Container();
-              //       }
-              //     }),
+              theme: ThemeData(
+                brightness: Brightness.light,
+        primarySwatch: Colors.blue, 
+      ),
+      darkTheme: ThemeData(
+        bottomAppBarTheme: BottomAppBarTheme(color: darkYellow),
+        
+        cardColor: Colors.white60,
+        backgroundColor: Colors.amber,
+        iconTheme: const IconThemeData(color: Colors.white),
+        brightness: Brightness.dark,
+        primarySwatch: Colors.brown,
+      ),
+              home: FutureBuilder<bool>(
+                  future: _isLoggedIn(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      final bool isLoggedIn = snapshot.data ?? false;
+                      return isLoggedIn
+                          ? const Bottomhome()
+                          : const Splash_Screen();
+                    } else {
+                      return Container();
+                    }
+                  }),
             )));
   }
 }

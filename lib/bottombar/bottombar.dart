@@ -1,5 +1,5 @@
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Patient_home.dart';
-import 'package:TezHealthCare/bottomscreen/home/profile.dart';
+import 'package:TezHealthCare/bottomscreen/Profile/profile.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

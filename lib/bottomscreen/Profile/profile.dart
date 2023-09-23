@@ -1,10 +1,14 @@
-// ignore_for_file: non_constant_identifier_names, sized_box_for_whitespace
+// ignore_for_file: non_constant_identifier_names, sized_box_for_whitespace, prefer_typing_uninitialized_variables, avoid_print
 
 import 'dart:convert';
 
 import 'package:TezHealthCare/Splash_Screen.dart';
+import 'package:TezHealthCare/bottomscreen/Profile/Devices_credentials.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/Information_profile.dart';
+import 'package:TezHealthCare/bottomscreen/Profile/Setting/Setting_screen.dart';
+import 'package:TezHealthCare/bottomscreen/Profile/help_center.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/profile_model.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -175,11 +179,10 @@ class _ProfileState extends State<Profile> {
                                       leading: SvgPicture.asset(
                                         'assets/info.svg', 
                                         width:
-                                            40, 
+                                           30,
                                         height:
-                                            40, 
-                                        color: Colors
-                                            .green, // Apply a color (optional)
+                                          30,
+                                        color: darkYellow 
                                       ),
                                       title: const Text(
                                         'My Information',
@@ -191,16 +194,17 @@ class _ProfileState extends State<Profile> {
                                     ),
                                   ),
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                        Get.to(()=>const DevicesAndCredentials());
+                                    },
                                     child:  ListTile(
                                       leading: SvgPicture.asset(
                                         'assets/dev.svg', 
                                         width:
-                                            40, 
+                                          30,
                                         height:
-                                            40, 
-                                        color: Colors
-                                            .green, // Apply a color (optional)
+                                           30,
+                                         color: darkYellow 
                                       ),
                                       title: const Text(
                                         'Device & Credentials',
@@ -212,16 +216,17 @@ class _ProfileState extends State<Profile> {
                                     ),
                                   ),
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                        Get.to(()=>const HelpCenter());
+                                    },
                                     child:  ListTile(
                                       leading: SvgPicture.asset(
                                         'assets/helpcenter.svg', 
                                         width:
-                                            40, 
+                                          30,
                                         height:
-                                            40, 
-                                        color: Colors
-                                            .green, // Apply a color (optional)
+                                           30, 
+                                         color: darkYellow 
                                       ),
                                       title: const Text(
                                         'Help Center',
@@ -233,16 +238,17 @@ class _ProfileState extends State<Profile> {
                                     ),
                                   ),
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                        Get.to(()=>const AboutUSScreen());
+                                    },
                                     child:  ListTile(
                                       leading:SvgPicture.asset(
                                         'assets/aboutus.svg', 
                                         width:
-                                            40, 
+                                           30,
                                         height:
-                                            40, 
-                                        color: Colors
-                                            .green, // Apply a color (optional)
+                                           30, 
+                                       color: darkYellow 
                                       ),
                                       title: const Text(
                                         'About Us',
@@ -254,16 +260,18 @@ class _ProfileState extends State<Profile> {
                                     ),
                                   ),
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Get.isDarkMode?Get.changeTheme(ThemeData.light()):Get.changeTheme(ThemeData.dark());
+                                    },
                                     child: ListTile(
-                                      leading: SvgPicture.asset(
+                                      leading:
+                                      SvgPicture.asset(
                                         'assets/darkmode.svg', 
                                         width:
-                                            40, 
+                                           30,
                                         height:
-                                            40, 
-                                        color: Colors
-                                            .green, // Apply a color (optional)
+                                            30, 
+                                         color: darkYellow 
                                       ),
                                       title: const Text(
                                         'Dark Mode',
@@ -274,16 +282,17 @@ class _ProfileState extends State<Profile> {
                                     ),
                                   ),
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Get.to(()=>const SettingScreen());
+                                    },
                                     child:  ListTile(
                                       leading: SvgPicture.asset(
                                         'assets/setting.svg', 
                                         width:
-                                            40, 
+                                            30, 
                                         height:
-                                            40, 
-                                        color: Colors
-                                            .green, // Apply a color (optional)
+                                            30, 
+                                        color: darkYellow 
                                       ),
                                       title: const Text(
                                         'Setting',
@@ -301,11 +310,10 @@ class _ProfileState extends State<Profile> {
                                       leading: SvgPicture.asset(
                                         'assets/logout.svg', 
                                         width:
-                                            40, 
+                                            30, 
                                         height:
-                                            40, 
-                                        color: Colors
-                                            .green, // Apply a color (optional)
+                                            30, 
+                                         color: darkYellow 
                                       ),
                                       title: const Text(
                                         'Log Out',
