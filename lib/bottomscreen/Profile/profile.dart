@@ -150,12 +150,27 @@ class _ProfileState extends State<Profile> {
                             decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(20)),
-                            child: const Center(
-                              child: Center(
-                                child: Text(
-                                  "Active",
-                                  style: TextStyle(
-                                      color: Colors.green, fontSize: 20),
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Row(
+                                  children: [
+                                    SvgPicture.asset(
+                                          'assets/done.svg', 
+                                          width:
+                                             15,
+                                          height:
+                                            15,
+                                          // color: darkYellow 
+                                        ),
+                                        const SizedBox(width: 10,),
+                              
+                                    const Text(
+                                      "Active",
+                                      style: TextStyle(
+                                          color: Colors.green, fontSize: 20),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),

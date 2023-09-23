@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/Profile/profile_model.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
+import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -83,7 +84,7 @@ class _InformationProfileState extends State<InformationProfile>
           title: const Text('Information Profile'),
           centerTitle: true,
         ),
-        body: profileData != null
+        body: profileData != null 
             ? Column(
                 children: [
                   Stack(children: [
@@ -264,7 +265,7 @@ class _InformationProfileState extends State<InformationProfile>
                   )
                 ],
               )
-            : const SizedBox()
+            : const LoadingIndicatorWidget()
         // :Center(child: Lottie.asset('assets/loading1.json'))
 
         );
