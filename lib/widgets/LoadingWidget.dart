@@ -5,9 +5,8 @@ class AlertDialogWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        color: Colors.transparent, // Black with 50% opacity
+        color: Colors.black.withOpacity(0.5), // Black with 50% opacity
         child: AlertDialog(
-
           content: new Row(
             children: [
               CircularProgressIndicator(backgroundColor: darkYellow, color: yellow),

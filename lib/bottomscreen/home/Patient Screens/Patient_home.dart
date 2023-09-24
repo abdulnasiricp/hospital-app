@@ -1,11 +1,9 @@
-// ignore_for_file: sized_box_for_whitespace, non_constant_identifier_names, file_names, avoid_print, avoid_unnecessary_containers
-
 import 'dart:convert';
-
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/All_doctors.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Card/Card.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Category_View_All.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Main_transaction.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Transaction_main_screen.dart';
 import 'package:TezHealthCare/screens/notification.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -138,9 +136,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                   child: Container(
                   height: 100,
                   width: 100,
-                  child: Center(
-                    child: LoadingIndicatorWidget()
-                  ),
+                  child: Center(child: LoadingIndicatorWidget()),
                 ))
               : SingleChildScrollView(
                   child: Column(
@@ -195,9 +191,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     height: 100,
                                     child: InkWell(
                                       onTap: () {
-                                        Get.to(() =>
-                                            const MainTransactionScreen());
-                                       
+                                        Get.to(() => Main_transaction());
                                       },
                                       child: Card(
                                         borderOnForeground: true,
@@ -254,10 +248,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     ),
                                   ),
                                   InkWell(
-                                    onTap: () {
-                                      Get.to(
-                                          () => const MainTransactionScreen());
-                                    },
+                                    // onTap: () {
+                                    //   Get.to(
+                                    //       () => const MainTransactionScreen());
+                                    // },
                                     child: Container(
                                       width: 100,
                                       height: 100,

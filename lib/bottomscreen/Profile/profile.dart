@@ -28,7 +28,33 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  var profileData;
+  String role = '';
+  String username = '';
+  String record = '';  String image = '';
+  String genderrecord = '';
+  String mobilerecord = '';
+  bool isLoading = true;
+  Map<String, dynamic>? DataMap;
+  Map<String, dynamic>? DoneDataMap;
+  List<dynamic>? DoneListData = [];
+
+  @override
+  void initState() {
+    super.initState();
+    LoadData();
+  }
+
+  LoadData() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    setState(() {
+      role = sharedPreferences.getString('role') ?? '';
+      username = sharedPreferences.getString('usernamerecord') ?? '';
+      record = sharedPreferences.getString('record') ?? '';
+      genderrecord = sharedPreferences.getString('genderrecord') ?? '';
+      mobilerecord = sharedPreferences.getString('mobilerecord') ?? '';
+      image = sharedPreferences.getString('imagerecord') ?? '';
+    });
+  }
 
   Future<void> _logout(BuildContext context) async {
     final sharedPreferences = await SharedPreferences.getInstance();
@@ -39,47 +65,6 @@ class _ProfileState extends State<Profile> {
     Get.off(() => const Splash_Screen());
   }
 
-  getAllData() async {
-    await ProfileApi();
-  }
-
-  @override
-  void initState() {
-    getAllData();
-
-    super.initState();
-  }
-
-  Future<void> ProfileApi() async {
-    const apiUrl = 'https://uat.tez.hospital/xzy/webservice/getPatientprofile';
-    final headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
-
-    final requestBody = jsonEncode({"patientId": 10723});
-
-    try {
-      final response = await http.post(Uri.parse(apiUrl),
-          headers: headers, body: requestBody);
-
-      if (response.statusCode == 200) {
-        final responseBody = jsonDecode(response.body);
-        final profileJson =
-            responseBody[0]; // Assuming your API returns a list with one item
-        setState(() {
-          profileData = ProfileData.fromJson(profileJson);
-        });
-      } else {
-        // Request failed with an error status code
-        print('Request failed with status: ${response.statusCode}');
-        print('Response body: ${response.body}');
-      }
-    } catch (e) {
-      // Handle any exceptions that occur during the request
-      print('Request error: $e');
-    }
-  }
   late ColorNotifier notifier;
   TextEditingController dateinput = TextEditingController();
 
@@ -95,236 +80,208 @@ class _ProfileState extends State<Profile> {
             // elevation: 0,
           ),
           backgroundColor: Colors.grey.shade300,
-          body: profileData != null
-              ? SingleChildScrollView(
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Stack(children: [
+                  Container(
+                      width: width,
+                      height: height / 3,
+                      decoration: BoxDecoration(
+                          color: darkYellow,
+                          borderRadius: const BorderRadius.only(
+                              bottomLeft: Radius.circular(60),
+                              bottomRight: Radius.circular(60)))),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Center(
+                      child: CircleAvatar(
+                          backgroundImage:
+                          NetworkImage("$image"),
+                          radius: 50,
+                          ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: height / 5.5),
+                    child: Center(
+                        child: Text(
+                      '$username',
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 20),
+                    )),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: height / 4.7),
+                    child: Center(
+                        child: Text(
+                         " $mobilerecord 9821880761",
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 20),
+                    )),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: height / 4),
+                    child: Center(
+                        child: Container(
+                      width: width / 3.5,
+                      height: height / 18,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Row(
+                            children: [
+                              SvgPicture.asset(
+                                'assets/done.svg',
+                                width: 15,
+                                height: 15,
+                                // color: darkYellow
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              const Text(
+                                "Active",
+                                style: TextStyle(
+                                    color: Colors.green, fontSize: 20),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )),
+                  ),
+                ]),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: [
-                      Stack(children: [
-                        Container(
-                            width: width,
-                            height: height / 3,
-                            decoration: BoxDecoration(
-                                color: darkYellow,
-                                borderRadius: const BorderRadius.only(
-                                    bottomLeft: Radius.circular(60),
-                                    bottomRight: Radius.circular(60)))),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20),
-                          child: Center(
-                              child: CircleAvatar(
-                            backgroundImage:
-                                NetworkImage(profileData.image ?? ""),
-                            radius: 50,
-                          )),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: height / 5.5),
-                          child: Center(
-                              child: Text(
-                            profileData.patientName ?? "",
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                fontSize: 20),
-                          )),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: height / 4.7),
-                          child: Center(
-                              child: Text(
-                            profileData.mobileNo ?? "",
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                fontSize: 20),
-                          )),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: height / 4),
-                          child: Center(
-                              child: Container(
-                            width: width / 3.5,
-                            height: height / 18,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(20)),
-                            child: Center(
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Row(
-                                  children: [
-                                    SvgPicture.asset(
-                                      'assets/done.svg',
-                                      width: 15,
-                                      height: 15,
-                                      // color: darkYellow
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    const Text(
-                                      "Active",
-                                      style: TextStyle(
-                                          color: Colors.green, fontSize: 20),
-                                    ),
-                                  ],
+                      Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Column(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Get.to(() => const InformationProfile());
+                              },
+                              child: ListTile(
+                                leading: SvgPicture.asset('assets/info.svg',
+                                    width: 30, height: 30, color: darkYellow),
+                                title: const Text(
+                                  'My Information',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                subtitle:
+                                    const Text('view your personal details'),
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Get.to(() => const DevicesAndCredentials());
+                              },
+                              child: ListTile(
+                                leading: SvgPicture.asset('assets/dev.svg',
+                                    width: 30, height: 30, color: darkYellow),
+                                title: const Text(
+                                  'Device & Credentials',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                subtitle: const Text(
+                                    'manage your Devices,cridentials and notification ID'),
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Get.to(() => const HelpCenter());
+                              },
+                              child: ListTile(
+                                leading: SvgPicture.asset(
+                                    'assets/helpcenter.svg',
+                                    width: 30,
+                                    height: 30,
+                                    color: darkYellow),
+                                title: const Text(
+                                  'Help Center',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                subtitle: const Text(
+                                    'Ask a Quastion from help center'),
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Get.to(() => const AboutUSScreen());
+                              },
+                              child: ListTile(
+                                leading: SvgPicture.asset('assets/aboutus.svg',
+                                    width: 30, height: 30, color: darkYellow),
+                                title: const Text(
+                                  'About Us',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                subtitle: const Text('view About App'),
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Get.isDarkMode
+                                    ? Get.changeTheme(ThemeData.light())
+                                    : Get.changeTheme(ThemeData.dark());
+                              },
+                              child: ListTile(
+                                leading: SvgPicture.asset('assets/darkmode.svg',
+                                    width: 30, height: 30, color: darkYellow),
+                                title: const Text(
+                                  'Dark Mode',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                subtitle: const Text('Change Mode'),
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Get.to(() => const SettingScreen());
+                              },
+                              child: ListTile(
+                                leading: SvgPicture.asset('assets/setting.svg',
+                                    width: 30, height: 30, color: darkYellow),
+                                title: const Text(
+                                  'Setting',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                subtitle: const Text('Change your setting'),
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                _logout(context);
+                              },
+                              child: ListTile(
+                                leading: SvgPicture.asset('assets/logout.svg',
+                                    width: 30, height: 30, color: darkYellow),
+                                title: const Text(
+                                  'Log Out',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ),
-                          )),
-                        ),
-                      ]),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            Card(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: Column(
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      Get.to(() => const InformationProfile());
-                                    },
-                                    child: ListTile(
-                                      leading: SvgPicture.asset(
-                                          'assets/info.svg',
-                                          width: 30,
-                                          height: 30,
-                                          color: darkYellow),
-                                      title: const Text(
-                                        'My Information',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      subtitle: const Text(
-                                          'view your personal details'),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      Get.to(
-                                          () => const DevicesAndCredentials());
-                                    },
-                                    child: ListTile(
-                                      leading: SvgPicture.asset(
-                                          'assets/dev.svg',
-                                          width: 30,
-                                          height: 30,
-                                          color: darkYellow),
-                                      title: const Text(
-                                        'Device & Credentials',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      subtitle: const Text(
-                                          'manage your Devices,cridentials and notification ID'),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      Get.to(() => const HelpCenter());
-                                    },
-                                    child: ListTile(
-                                      leading: SvgPicture.asset(
-                                          'assets/helpcenter.svg',
-                                          width: 30,
-                                          height: 30,
-                                          color: darkYellow),
-                                      title: const Text(
-                                        'Help Center',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      subtitle: const Text(
-                                          'Ask a Quastion from help center'),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      Get.to(() => const AboutUSScreen());
-                                    },
-                                    child: ListTile(
-                                      leading: SvgPicture.asset(
-                                          'assets/aboutus.svg',
-                                          width: 30,
-                                          height: 30,
-                                          color: darkYellow),
-                                      title: const Text(
-                                        'About Us',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      subtitle: const Text('view About App'),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      Get.isDarkMode
-                                          ? Get.changeTheme(ThemeData.light())
-                                          : Get.changeTheme(ThemeData.dark());
-                                    },
-                                    child: ListTile(
-                                      leading: SvgPicture.asset(
-                                          'assets/darkmode.svg',
-                                          width: 30,
-                                          height: 30,
-                                          color: darkYellow),
-                                      title: const Text(
-                                        'Dark Mode',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      subtitle: const Text('Change Mode'),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      Get.to(() => const SettingScreen());
-                                    },
-                                    child: ListTile(
-                                      leading: SvgPicture.asset(
-                                          'assets/setting.svg',
-                                          width: 30,
-                                          height: 30,
-                                          color: darkYellow),
-                                      title: const Text(
-                                        'Setting',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      subtitle:
-                                          const Text('Change your setting'),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      _logout(context);
-                                    },
-                                    child: ListTile(
-                                      leading: SvgPicture.asset(
-                                          'assets/logout.svg',
-                                          width: 30,
-                                          height: 30,
-                                          color: darkYellow),
-                                      title: const Text(
-                                        'Log Out',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
                           ],
                         ),
                       )
                     ],
                   ),
                 )
-              : const SizedBox()),
+              ],
+            ),
+          )),
     );
   }
 }

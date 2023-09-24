@@ -59,6 +59,7 @@ class _PatientLoginState extends State<PatientLogin> {
       sp.setString('genderrecord', json['record']['gender']);
       sp.setString('patientidrecord', json['record']['patient_id']).toString();
       sp.setString('usernamerecord', json['record']['username']);
+      sp.setString('mobilerecord', json['record']['mobile']).toString();
 
       // Navigate to the home screen ERTYU D
       Get.off(() => const Bottomhome());
