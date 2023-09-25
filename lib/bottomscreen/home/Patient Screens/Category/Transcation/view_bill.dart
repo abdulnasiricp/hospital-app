@@ -6,7 +6,6 @@
 // class ViewBillDetiles extends StatefulWidget {
 //   final String billNo;
 
-
 //   const ViewBillDetiles({Key? key, required this.billNo}) : super(key: key);
 
 //   @override
@@ -309,8 +308,6 @@
 //   }
 // }
 
-
-
 // ignore_for_file: avoid_print, non_constant_identifier_names, deprecated_member_use, file_names
 
 import 'package:TezHealthCare/utils/colors.dart';
@@ -327,7 +324,9 @@ class ViewBillDetiles extends StatefulWidget {
   final String billNo;
   final String billname;
 
-  const ViewBillDetiles({Key? key, required this.billNo, required this.billname}) : super(key: key);
+  const ViewBillDetiles(
+      {Key? key, required this.billNo, required this.billname})
+      : super(key: key);
 
   @override
   State<ViewBillDetiles> createState() => _ViewBillDetilesState();
@@ -378,17 +377,17 @@ class _ViewBillDetilesState extends State<ViewBillDetiles> {
 
                   // Launch a URL using url_launcher package
                   // await launch('https://uat.tez.hospital/xzy/webservice/generateIdcard/$PatientId'); // Replace with your desired URL
-                  await launch('https://uat.tez.hospital/xzy/webservice/generateBillPrint/${widget.billNo}/pathology'); // Replace with your desired URL
+                  await launch(
+                      'https://uat.tez.hospital/xzy/webservice/generateBillPrint/${widget.billNo}/pathology'); // Replace with your desired URL
                 }
               },
-              child: const Text('OK'),
+              child: const Text('Open'),
             ),
           ],
         );
       },
     );
   }
- 
 
   @override
   Widget build(BuildContext context) {
@@ -403,11 +402,11 @@ class _ViewBillDetilesState extends State<ViewBillDetiles> {
           //   ),
           // )
           //     :
-               IconButton(
+          IconButton(
             onPressed: () {
               FileDownloader.downloadFile(
                 url:
-                'https://uat.tez.hospital/xzy/webservice/generateBillPrint/${widget.billNo}/pathology',
+                    'https://uat.tez.hospital/xzy/webservice/generateBillPrint/${widget.billNo}/pathology',
                 onProgress: (name, progress) {
                   setState(() {
                     _progress = progress;
@@ -429,45 +428,46 @@ class _ViewBillDetilesState extends State<ViewBillDetiles> {
             icon: const Icon(Icons.download),
           )
         ],
-        title:  Text("Bill No ${widget.billNo}"),
+        title: Text("Bill No ${widget.billNo}"),
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
-      body:
-      _progress != null
-              ? Center(
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Container(
-                height: height/7,
-                width: width/1.5,
+      body: _progress != null
+          ? Center(
+              child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                      height: height / 7,
+                      width: width / 1.5,
+                      color: Colors.transparent,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Downloading....',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Lottie.asset('assets/loading1.json'),
+                        ],
+                      ))),
+            )
+          :
 
-                color: Colors.transparent,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text('Downloading....',style: TextStyle(fontWeight: FontWeight.bold),),
-                    Lottie.asset('assets/loading1.json'),
-                  ],
-                ))
+          // _progress != null ? Center(child: Lottie.asset('assets/loading1.json'))
+          //     :
+          Container(
+              color: darkYellow,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                  child: const PDF(
+                    swipeHorizontal: true,
+                  ).cachedFromUrl(
+                    'https://uat.tez.hospital/xzy/webservice/generateBillPrint/${widget.billNo}/pathology',
+                  ),
+                ),
+              ),
             ),
-          ):
-
-      // _progress != null ? Center(child: Lottie.asset('assets/loading1.json'))
-      //     :
-           Container(
-        color: darkYellow,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: const PDF(
-              swipeHorizontal: true,
-            ).cachedFromUrl(
-              'https://uat.tez.hospital/xzy/webservice/generateBillPrint/${widget.billNo}/pathology',
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

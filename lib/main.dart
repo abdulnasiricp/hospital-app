@@ -4,7 +4,6 @@ import 'package:TezHealthCare/Controller/loginController.dart';
 import 'package:TezHealthCare/Splash_Screen.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/themeService.dart';
-import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';

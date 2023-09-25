@@ -1,19 +1,18 @@
-// ignore_for_file: sized_box_for_whitespace, non_constant_identifier_names, file_names, avoid_print, avoid_unnecessary_containers
-
 import 'dart:convert';
-
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/All_doctors.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Card/Card.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Category_View_All.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Main_transaction.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Transaction_main_screen.dart';
+import 'package:TezHealthCare/screens/notification.dart';
 import 'package:TezHealthCare/screens/notification.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
-import 'package:TezHealthCare/widgets/No_internet_screen.dart';
+import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:internet_connectivity_checker/internet_connectivity_checker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -132,21 +131,14 @@ class _PatientHomePageState extends State<PatientHomePage> {
           backgroundColor: darkYellow,
           elevation: 0,
         ),
-        body:ConnectivityBuilder(
-              interval: const Duration(seconds: 5),
-              builder: (ConnectivityStatus status) {
-                if (status == ConnectivityStatus.online) {
-                  return
-                RefreshIndicator(
+        body: RefreshIndicator(
           onRefresh: _handleRefresh,
           child: isLoading
               ? Center(
                   child: Container(
                   height: 100,
                   width: 100,
-                  child: Center(
-                    child: Lottie.asset('assets/loading1.json'),
-                  ),
+                  child: Center(child: LoadingIndicatorWidget()),
                 ))
               : SingleChildScrollView(
                   child: Column(
@@ -201,9 +193,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     height: 100,
                                     child: InkWell(
                                       onTap: () {
-                                        Get.to(() =>
-                                            const MainTransactionScreen());
-                                       
+                                        Get.to(() => Main_transaction());
                                       },
                                       child: Card(
                                         borderOnForeground: true,
@@ -260,10 +250,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     ),
                                   ),
                                   InkWell(
-                                    onTap: () {
-                                      Get.to(
-                                          () => const MainTransactionScreen());
-                                    },
+                                    // onTap: () {
+                                    //   Get.to(
+                                    //       () => const MainTransactionScreen());
+                                    // },
                                     child: Container(
                                       width: 100,
                                       height: 100,
@@ -797,6 +787,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                   );
                 } },
         ) ,
+        ),
         drawer: const AboutUSScreen(), // Left drawer
         endDrawer: const Notif(),
       ),

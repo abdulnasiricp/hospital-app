@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 
 class DoctorProfile extends StatefulWidget {
   const DoctorProfile({Key? key}) : super(key: key);
-
   @override
   State<DoctorProfile> createState() => _DoctorProfileState();
 }
@@ -54,7 +53,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                         const Padding(
                           padding: EdgeInsets.only(left: 20, top: 20),
                           child: Text(
-                            'Dr.Nasir Khan',
+                            'Dr.Ramjinish Kushwaha',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold),

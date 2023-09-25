@@ -14,8 +14,8 @@ class AboutUSScreen extends StatefulWidget {
   @override
   State<AboutUSScreen> createState() => _AboutUSScreenState();
 }
-class _AboutUSScreenState extends State<AboutUSScreen> {
 
+class _AboutUSScreenState extends State<AboutUSScreen> {
   final List<String> imgList = [
     'https://tse1.mm.bing.net/th?id=OIP.rf_UTwDKG7XALHaGmsYesQHaFj&pid=Api&P=0&h=180',
     'https://i.pinimg.com/originals/eb/35/91/eb3591c54fb651f20d157ed7099c4576.jpg',
@@ -25,15 +25,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
     'https://yesofcorsa.com/wp-content/uploads/2017/05/Hospital-Wallpaper.jpg',
     'https://s3.amazonaws.com/uchealth-wp-uploads/wp-content/uploads/sites/6/2018/01/02032200/UCHealth_Memorial_Hospital_Central_Morning.jpgeee.jpg',
     'https://media.consumeraffairs.com/files/news/Hospital_building_JazzIRT_GI.jpg',
-
   ];
-
-
-
-
-
-
-
 
   Map<String, dynamic>? DataMap;
   Map<String, dynamic>? DoneDataMap;
@@ -86,6 +78,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,27 +88,24 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Stack(children: [
-               Container(
-                      height: height / 3,
+              Container(
+                height: height / 3,
                 width: width,
-                      child: CarouselSlider(
-                          items: imgList
-                              .map((item) => Container(
-                                    child: Image.network(
-                                      item,
-                                      fit: BoxFit.cover,
-                                      width: double.infinity,
-                                    ),
-                                  ))
-                              .toList(),
-                          options: CarouselOptions(
-                              aspectRatio: 2.0,
-                              autoPlay: true,
-                              enlargeCenterPage: true)),
-                    ),
-
-
-
+                child: CarouselSlider(
+                    items: imgList
+                        .map((item) => Container(
+                              child: Image.network(
+                                item,
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                              ),
+                            ))
+                        .toList(),
+                    options: CarouselOptions(
+                        aspectRatio: 2.0,
+                        autoPlay: true,
+                        enlargeCenterPage: true)),
+              ),
 
               // Container(
               //   height: height / 3,
@@ -151,13 +141,13 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const Text(
-                                    'Civil service Hospital',
+                                    'Sirha Provincial Hospital',
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   const Text(
                                       "प्रादेशिक अस्पताल सिराहा \nसिरहा , नेपाल"),
-                                  const Text("Main Bhawan, Kathmandu"),
+                                  const Text("Siraha Hospital, Siraha 56500"),
                                   Container(
                                     height: 50,
                                     width: 175,
@@ -252,7 +242,6 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                 ],
               ),
             ),
-           
             Column(
               children: [
                 Container(

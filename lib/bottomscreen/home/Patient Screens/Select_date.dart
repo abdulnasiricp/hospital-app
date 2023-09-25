@@ -55,7 +55,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Dr. Justin Biber',style: TextStyle(fontWeight: FontWeight.bold),),
+                          Text('Dr.Ramjinish Kushwaha',style: TextStyle(fontWeight: FontWeight.bold),),
                       Text('NEUROLOGY')
                     
                         ],

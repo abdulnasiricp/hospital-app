@@ -2,6 +2,7 @@
 
 
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/view_bill.dart';
+import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -108,6 +109,12 @@ class _RadiologyBillState extends State<RadiologyBill> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Radiology'),
+        centerTitle: true,
+        backgroundColor: darkYellow,
+        // elevation: 0,
+      ),
       backgroundColor: Colors.white.withOpacity(0.9),
       body: Center(
         child: Padding(
@@ -125,7 +132,7 @@ class _RadiologyBillState extends State<RadiologyBill> {
                             itemCount: 10,
                             itemBuilder: (context, index) {
                               return Shimmer.fromColors(
-                                baseColor: Colors.blue.shade100,
+                                baseColor: Colors.grey,
                                 highlightColor: Colors.grey.shade100,
                                 child: ListTile(
                                   leading: Container(

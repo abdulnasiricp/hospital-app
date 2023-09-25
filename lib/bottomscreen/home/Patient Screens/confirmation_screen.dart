@@ -64,7 +64,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Dr. Justin Biber',
+                                  'Dr. Ramjinish Kushwaha',
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 Text("MBBS-internal Medicine"),
@@ -145,11 +145,11 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Abdul Nasir'),
-                          Text('+92 342-9107173'),
+                          Text('Ramjinish Kushwaha'),
+                          Text('+977-9855014612'),
                           Text('Male'),
                           Text('07/04/2000'),
-                          Text('karak pakistan'),
+                          Text('Birgunj'),
                         ],
                       ),
                     ),
@@ -199,44 +199,62 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                   child: Row(
                     children: [
                       Container(
-                        width: width/5,
+                        width: width / 5,
                         height: height,
                         child: Image.asset('assets/pay_logo.jpg'),
                       ),
-                      Text('IME Pay',style: TextStyle(fontWeight: FontWeight.bold,color: darkYellow,fontSize: 20),),
+                      Text(
+                        'IME Pay',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: darkYellow,
+                            fontSize: 20),
+                      ),
                       const SizedBox(
-              width: 40,
-            ),
-                      Text('    + 1 % \n RS. 707.00',style: TextStyle( fontWeight: FontWeight.bold,color: darkYellow,fontSize: 15)),
+                        width: 40,
+                      ),
+                      Text('    + 1 % \n RS. 707.00',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: darkYellow,
+                              fontSize: 15)),
                       const SizedBox(
-              width: 50,
-            ),
-            const Icon(Icons.arrow_forward_ios)
-
+                        width: 50,
+                      ),
+                      const Icon(Icons.arrow_forward_ios)
                     ],
                   ),
                 )),
-                Container(
+            Container(
                 width: width,
                 height: height / 10,
                 child: Card(
                   child: Row(
                     children: [
                       Container(
-                        width: width/5,
+                        width: width / 5,
                         height: height,
                         child: Image.asset('assets/esewa_logo.png'),
                       ),
-                      Text('IME Pay',style: TextStyle(fontWeight: FontWeight.bold,color: darkYellow,fontSize: 20),),
+                      Text(
+                        'IME Pay',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: darkYellow,
+                            fontSize: 20),
+                      ),
                       const SizedBox(
-              width: 30,
-            ),
-                      Text('    + 0.75 % \n RS. 705.25',style: TextStyle( fontWeight: FontWeight.bold,color: darkYellow,fontSize: 15)),
+                        width: 30,
+                      ),
+                      Text('    + 0.75 % \n RS. 705.25',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: darkYellow,
+                              fontSize: 15)),
                       const SizedBox(
-              width: 55,
-            ),
-            const Icon(Icons.arrow_forward_ios)
-
+                        width: 55,
+                      ),
+                      const Icon(Icons.arrow_forward_ios)
                     ],
                   ),
                 ))

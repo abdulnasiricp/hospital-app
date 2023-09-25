@@ -71,7 +71,6 @@ class _FacultyMembersState extends State<FacultyMembers> {
       }
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

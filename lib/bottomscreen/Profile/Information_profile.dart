@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../widgets/LoadingWidget.dart';
+
 class InformationProfile extends StatefulWidget {
   const InformationProfile({Key? key}) : super(key: key);
 
@@ -19,20 +21,18 @@ class InformationProfile extends StatefulWidget {
 
 class _InformationProfileState extends State<InformationProfile>
     with SingleTickerProviderStateMixin {
-
-   ProfileData? profileData;
-   String patientID = '';
-  bool isLoading = true;
-
-  Future<void> loadPatientID() async {
+  var profileData;
+  late String patientID = '';
+  LoadData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
+
     patientID = sp.getString('patientidrecord') ?? '';
+
+    print(patientID);
+    setState(() {});
   }
 
-  Future<void> fetchProfileData() async {
-    await loadPatientID();
-    print(patientID);
-
+  Future<void> ProfileApi() async {
     const apiUrl = 'https://uat.tez.hospital/xzy/webservice/getPatientprofile';
     final headers = {
       'Soft-service': 'TezHealthCare',
@@ -66,11 +66,9 @@ class _InformationProfileState extends State<InformationProfile>
   }
 
   getAllData() async {
-    
-//  await LoadData();
-    // await ProfileApi();
-    fetchProfileData();
-   
+    await LoadData();
+
+    await ProfileApi();
   }
 
   @override
@@ -271,7 +269,7 @@ class _InformationProfileState extends State<InformationProfile>
                   )
                 ],
               )
-            : const LoadingIndicatorWidget()
+            :  AlertDialogWidget()
         // :Center(child: Lottie.asset('assets/loading1.json'))
 
         );
