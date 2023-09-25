@@ -198,7 +198,8 @@ class _ProfileState extends State<Profile> {
                               ),
                             ),
                           ),
-                        )),
+                        )
+                        ),
                       ),
                     ]),
                     Padding(
