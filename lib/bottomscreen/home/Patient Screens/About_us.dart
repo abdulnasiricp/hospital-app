@@ -151,8 +151,8 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                   Container(
                                     height: 50,
                                     width: 175,
-                                    child: Card(
-                                      child: const Row(
+                                    child: const Card(
+                                      child: Row(
                                         children: [
                                           Padding(
                                             padding: EdgeInsets.all(8.0),
