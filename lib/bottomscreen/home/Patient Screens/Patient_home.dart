@@ -9,8 +9,8 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Trans
 import 'package:TezHealthCare/screens/notification.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
+import 'package:TezHealthCare/widgets/LoadingWidget.dart';
 import 'package:TezHealthCare/widgets/No_internet_screen.dart';
-import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:internet_connectivity_checker/internet_connectivity_checker.dart';
@@ -145,7 +145,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                   child: Container(
                   height: 100,
                   width: 100,
-                  child: const Center(child: LoadingIndicatorWidget()),
+                  child: const Center(child: SizedBox()),
                 ))
               : SingleChildScrollView(
                   child: Column(

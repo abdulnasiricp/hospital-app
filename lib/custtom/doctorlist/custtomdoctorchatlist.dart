@@ -30,7 +30,7 @@ class _CusttomdoctorchatState extends State<Custtomdoctorchat> {
         child: Padding(
           padding: const EdgeInsets.all(5.0),
           child: Card(
-            color: notifier.getwihitecolor,
+            
             elevation: 1.5.sp,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(

@@ -5,8 +5,10 @@ import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/Profile/profile_model.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
+import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../widgets/LoadingWidget.dart';
@@ -78,9 +80,11 @@ class _InformationProfileState extends State<InformationProfile>
   }
 
   bool noDataAvailable = false;
-
+late ColorNotifier notifier;
   @override
   Widget build(BuildContext context) {
+    notifier = Provider.of<ColorNotifier>(context, listen: true);
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: darkYellow,
@@ -130,7 +134,6 @@ class _InformationProfileState extends State<InformationProfile>
                           left: width / 15,
                           right: width / 15),
                       child: Card(
-                        color: Colors.white,
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),

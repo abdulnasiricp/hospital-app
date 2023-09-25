@@ -1,7 +1,7 @@
+import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:TezHealthCare/custtom/doctorlistappbar.dart';
 import 'package:TezHealthCare/screens/jessicajungchat.dart';
 import 'package:TezHealthCare/stringfile/enstring.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
@@ -23,18 +23,13 @@ class _ChatState extends State<Chat> {
   Widget build(BuildContext context) {
     notifier = Provider.of<ColorNotifier>(context, listen: true);
     return ScreenUtilInit(
-      builder: (_ , child)  => Scaffold(
+      builder: (_, child) => Scaffold(
         backgroundColor: notifier.getwihitecolor,
-        appBar: Doctorlistappbar(
-          notifier.getwihitecolor,
-          EnString.chat,
-          notifier.getblack,
-          "assets/pro.png",
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: Image.asset("assets/chatperson.png", scale: 3.5),
-          ),
-          height: 100,
+       
+        appBar: AppBar(
+          title: const Text('Chat'),
+          centerTitle: true,
+          backgroundColor: darkYellow,
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -133,7 +128,8 @@ class _ChatState extends State<Chat> {
           height: 50,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: const Color(0xfff8f8f8),
+            // color: const Color(0xfff8f8f8),
+            border: Border.all(),
             borderRadius: BorderRadius.all(
               Radius.circular(13.sp),
             ),
@@ -142,8 +138,8 @@ class _ChatState extends State<Chat> {
             children: [
               Container(
                 color: Colors.transparent,
-               height: 50,
-          width:300,
+                height: 50,
+                width: 300,
                 child: Padding(
                   // ignore: prefer_const_constructors
                   padding: EdgeInsets.only(left: 10),

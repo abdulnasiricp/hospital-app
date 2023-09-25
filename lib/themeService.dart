@@ -13,13 +13,17 @@ class Themes {
         actionsIconTheme: IconThemeData(color: Colors.black),
       ),
       brightness: Brightness.dark,
+      cardColor: Colors.grey,
       textTheme: const TextTheme(
           displayLarge: TextStyle(
         color: Colors.white,
+      ),
+      bodyMedium: TextStyle(
+         color: Colors.white,
       )),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(backgroundColor: Colors.grey),
       bottomSheetTheme: const BottomSheetThemeData(
-        backgroundColor: Colors.redAccent,
+        backgroundColor: Colors.white,
 
         
       ),buttonTheme: const ButtonThemeData(buttonColor: Colors.white));

@@ -10,9 +10,9 @@ class ColorNotifier with ChangeNotifier {
     notifyListeners();
   }
 
-  get getIsDark => isDark;
+  // get getIsDark => isDark;
 
-  get getwihitecolor => isDark ? darkchatcolor : whitecolor;
+  get getwihitecolor => isDark ? darkchatcolor : darkYellow;
 
   get getperple => isDark ? darkYellow : whitecolor;
 
@@ -22,7 +22,7 @@ class ColorNotifier with ChangeNotifier {
 
   get getdarkyellow => isDark ? darkYellow : whitecolor;
 
-  get getdarkwhite => isDark ? whitecolor : darkYellow;
+  get getdarkwhite => isDark ? grey : darkYellow;
 
 
   get getchatcolor => isDark ? chatcolor : darkchatcolor;
