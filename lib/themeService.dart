@@ -1,0 +1,24 @@
+
+import 'package:flutter/material.dart';
+
+class Themes {
+  final lightTheme = ThemeData.light().copyWith(
+   
+      );
+      final darkTheme = ThemeData.dark().copyWith(
+      primaryColor: Colors.blueGrey[300],
+      appBarTheme: const AppBarTheme(
+        actionsIconTheme: IconThemeData(color: Colors.black),
+      ),
+      brightness: Brightness.dark,
+      textTheme: const TextTheme(
+          displayLarge: TextStyle(
+        color: Colors.white,
+      )),
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(backgroundColor: Colors.grey),
+      bottomSheetTheme: const BottomSheetThemeData(
+        backgroundColor: Colors.redAccent,
+
+        
+      ),buttonTheme: const ButtonThemeData(buttonColor: Colors.white));
+}

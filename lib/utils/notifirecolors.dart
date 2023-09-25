@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'colors.dart';
 
 class ColorNotifier with ChangeNotifier {
-  bool isDark = false;
+  bool isDark = true;
 
   set setIsDark(v) {
     isDark = v;
@@ -12,13 +12,18 @@ class ColorNotifier with ChangeNotifier {
 
   get getIsDark => isDark;
 
-  get getwihitecolor => isDark ? darkwihitecolor : wihitecolor;
+  get getwihitecolor => isDark ? darkchatcolor : whitecolor;
 
-  get getperple => isDark ? yellow : darkYellow;
+  get getperple => isDark ? darkYellow : whitecolor;
 
   get getblack => isDark ? black : darkblack;
 
-  get getgrey => isDark ? grey : darkgrey;
+  get getgrey => isDark ? grey : darkgrey; 
+
+  get getdarkyellow => isDark ? darkYellow : whitecolor;
+
+  get getdarkwhite => isDark ? whitecolor : darkYellow;
+
 
   get getchatcolor => isDark ? chatcolor : darkchatcolor;
 

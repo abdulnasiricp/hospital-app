@@ -1,24 +1,24 @@
 import 'dart:convert';
 
 class ProfileData {
-  final String id;
-  final String patientName;
-  final String dob;
-  final String age;
-  final String image;
-  final String mobileNo;
-  final String email;
-  final String gender;
-  final String maritalStatus;
-  final String bloodGroup;
-  final String address;
-  final String guardianName;
-  final String insuranceId;
-  final String insuranceValidity;
-  final String isDead;
-  final String availableAmount;
-  final String isActive;
-  final List<Map<String, dynamic>> locationUuid;
+  final String? id;
+  final String? patientName;
+  final String? dob;
+  final String? age;
+  final String? image;
+  final String? mobileNo;
+  final String? email;
+  final String? gender;
+  final String? maritalStatus;
+  final String? bloodGroup;
+  final String? address;
+  final String? guardianName;
+  final String? insuranceId;
+  final String? insuranceValidity;
+  final String? isDead;
+  final String? availableAmount;
+  final String? isActive;
+  
 
   ProfileData({
     required this.id,
@@ -37,7 +37,6 @@ class ProfileData {
     required this.insuranceValidity,
     required this.isDead,
     required this.availableAmount,
-    required this.locationUuid,
     required this.isActive,
 
   });
@@ -61,7 +60,6 @@ class ProfileData {
       isDead: json['is_dead'],
       availableAmount: json['available_amount'],
       isActive: json['is_active'],
-      locationUuid: List<Map<String, dynamic>>.from(jsonDecode(json['location_uuid'])),
     );
   }
 }

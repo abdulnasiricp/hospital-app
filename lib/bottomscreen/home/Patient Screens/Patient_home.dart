@@ -785,13 +785,13 @@ class _PatientHomePageState extends State<PatientHomePage> {
         );
 
                 } else if (status == ConnectivityStatus.offline) {
-                  return NoInternetScreen();
+                  return const NoInternetScreen();
                 } else {
                   // status == ConnectivityStatus.checking
                   return  Center(
                     child: SizedBox(
-                      width: 55,
-                      height: 55,
+                      width: 100,
+                      height: 100,
                       child: Lottie.asset('assets/loading1.json'),
                     ),
                   );

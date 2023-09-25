@@ -1,9 +1,9 @@
+import 'package:TezHealthCare/utils/colors.dart';
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:TezHealthCare/bottomscreen/home/appoinmenttabs/past.dart';
 import 'package:TezHealthCare/bottomscreen/home/appoinmenttabs/upcoming.dart';
-import 'package:TezHealthCare/custtom/appbar.dart';
 import 'package:TezHealthCare/stringfile/enstring.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
@@ -23,14 +23,12 @@ class _MyAppoimentState extends State<MyAppoiment> {
   Widget build(BuildContext context) {
     notifier = Provider.of<ColorNotifier>(context, listen: true);
     return ScreenUtilInit(
-      builder: (_ , child)  => Scaffold(
+      builder: (_, child) => Scaffold(
         backgroundColor: notifier.getwihitecolor,
-        appBar: CustomAppBar(
-          Colors.transparent,
-          EnString.myAppointment,
-          notifier.getblack,
-          "assets/doctorlistbackarrow.png",
-          height: height / 15,
+        appBar: AppBar(
+          title: const Text('My Appointment'),
+          centerTitle: true,
+          backgroundColor: darkYellow,
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -51,12 +49,12 @@ class _MyAppoimentState extends State<MyAppoiment> {
                     child: Column(
                       children: <Widget>[
                         ButtonsTabBar(
-                          // unselectedLabelStyle:
-                          //     TextStyle(color: notifier.getperple),
+                          unselectedLabelStyle:
+                              TextStyle(color: notifier.getperple),
                           backgroundColor: notifier.getperple,
                           unselectedBackgroundColor: Colors.transparent,
                           labelStyle: const TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                              color: Colors.black, fontWeight: FontWeight.bold),
                           //  borderWidth: 1,
                           //  elevation: 30,
                           radius: 10.sp,
@@ -77,7 +75,7 @@ class _MyAppoimentState extends State<MyAppoiment> {
                                     EnString.upcoming,
                                     style: TextStyle(
                                         color: notifier.isDark
-                                            ? Colors.white
+                                            ? Colors.green
                                             : const Color(0xff2AD3E7),
                                         fontFamily: 'Gilroy Medium',
                                         fontSize: 15),
@@ -101,7 +99,7 @@ class _MyAppoimentState extends State<MyAppoiment> {
                                     EnString.past,
                                     style: TextStyle(
                                         color: notifier.isDark
-                                            ? Colors.white
+                                            ? Colors.green
                                             : const Color(0xff2AD3E7),
                                         fontFamily: 'Gilroy Medium',
                                         fontSize: 15),

@@ -1,3 +1,4 @@
+import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:TezHealthCare/bottomscreen/home/payschedule.dart';
@@ -33,8 +34,8 @@ class _UpcomingState extends State<Upcoming> {
               SizedBox(height: height / 150),
               Doctorratinglist(
                   "assets/drone.png",
-                  Colors.transparent,
-                  EnString.jung,
+                  notifier.isDark?whitecolor: darkYellow,  
+                   EnString.jung,
                   EnString.youLike,
                   "12:35",width / 16),
               SizedBox(height: height / 150),

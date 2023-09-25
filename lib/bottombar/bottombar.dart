@@ -47,64 +47,64 @@ class _BottomhomeState extends State<Bottomhome> {
       onWillPop: _onBackPressed, // Handle back button press
 
       child: ScreenUtilInit(
-        builder: (_ , child)  => Scaffold(backgroundColor: notifier.getwihitecolor,
+        builder: (_ , child)  => Scaffold(backgroundColor: notifier.getdarkyellow,
           bottomNavigationBar: SalomonBottomBar(curve:Curves.easeInOut ,
-            selectedItemColor: notifier.getperple,
+            selectedItemColor: notifier.getwihitecolor,
             currentIndex: _selectedIndex,
             items: [
               SalomonBottomBarItem(
                 icon: Image.asset("assets/home.png",
                  height: height / 30,
-                color: Colors.blue[300]),
+                color: notifier.getwihitecolor),
                 title: Text(
                   EnString.home,
                   style: TextStyle(
                       fontSize: 12.sp,
-                      color: notifier.getperple,
+                      color: notifier.getwihitecolor,
                       fontFamily: 'Gilroy_Bold'),
                 ),
-                selectedColor: notifier.getperple,
+                selectedColor: notifier.getwihitecolor,
               ),
               SalomonBottomBarItem(
                 icon: Image.asset("assets/Schedule.png",
                  height: height / 30,
 
-                 color: Colors.blue[300],),
+                 color: notifier.getwihitecolor),
                 title: Text(
                   EnString.sche,
                   style: TextStyle(
                       fontSize: 12.sp,
-                      color: notifier.getperple,
+                      color: notifier.getwihitecolor,
                       fontFamily: 'Gilroy_Bold'),
                 ),
-                selectedColor: notifier.getperple,
+                selectedColor: notifier.getwihitecolor,
               ),
               SalomonBottomBarItem(
                 icon: Image.asset("assets/chat.png",
                 height: height / 30,
 
-                color: Colors.blue[300]),
+                color: notifier.getwihitecolor),
                 title: Text(
                   EnString.chat,
                   style: TextStyle(
                       fontSize: 12.sp,
-                      color: notifier.getperple,
+                      color: notifier.getwihitecolor,
                       fontFamily: 'Gilroy_Bold'),
                 ),
-                selectedColor: notifier.getperple,
+                selectedColor: notifier.getwihitecolor,
               ),
               SalomonBottomBarItem(
                 icon: Image.asset("assets/profile.png",
                  height: height / 30,
-                 color: Colors.blue[300]),
+                 color: notifier.getwihitecolor),
                 title: Text(
                   EnString.profile,
                   style: TextStyle(
                       fontSize: 12.sp,
-                      color: notifier.getperple,
+                      color: notifier.getwihitecolor,
                       fontFamily: 'Gilroy_Bold'),
                 ),
-                selectedColor: notifier.getperple,
+                selectedColor: notifier.getwihitecolor,
               ),
             ],
             onTap: (index) {

@@ -39,7 +39,7 @@ class _InformationProfileState extends State<InformationProfile>
       'Auth-key': 'zbuks_ram859553467',
     };
 
-    final requestBody = jsonEncode({"patientId": 10707});
+    final requestBody = jsonEncode({"patientId": patientID});
 
 
     try {
@@ -58,7 +58,8 @@ class _InformationProfileState extends State<InformationProfile>
         print('Request failed with status: ${response.statusCode}');
         print('Response body: ${response.body}');
       }
-    } catch (e) {
+    }
+     catch (e) {
       // Handle any exceptions that occur during the request
       print('Request error: $e');
     }
@@ -108,7 +109,7 @@ class _InformationProfileState extends State<InformationProfile>
                         child: Center(
                             child: CircleAvatar(
                           backgroundImage:
-                              NetworkImage(profileData!.image),
+                              NetworkImage(profileData!.image??""),
                           radius: 60,
                         )),
                       ),
@@ -118,7 +119,7 @@ class _InformationProfileState extends State<InformationProfile>
                         padding: EdgeInsets.only(top: height / 4.5),
                         child: Center(
                             child: Text(
-                          profileData!.patientName,
+                          profileData!.patientName??"",
                           style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
@@ -152,7 +153,7 @@ class _InformationProfileState extends State<InformationProfile>
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     Text(
-                                      profileData!.id,
+                                      profileData!.id??"",
                                     ),
                                   ],
                                 ),
@@ -164,7 +165,7 @@ class _InformationProfileState extends State<InformationProfile>
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     Text(
-                                      profileData!.gender,
+                                      profileData!.gender??"",
                                     ),
                                   ],
                                 ),
@@ -176,7 +177,7 @@ class _InformationProfileState extends State<InformationProfile>
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     Text(
-                                      profileData!.age,
+                                      profileData!.age??"",
                                     ),
                                   ],
                                 ),
@@ -241,27 +242,27 @@ class _InformationProfileState extends State<InformationProfile>
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(profileData!.email ),
+                              Text(profileData!.email??"" ),
                               const SizedBox(
                                 height: 20,
                               ),
-                              Text(profileData!.mobileNo),
+                              Text(profileData!.mobileNo??""),
                               const SizedBox(
                                 height: 20,
                               ),
-                              Text(profileData!.bloodGroup),
+                              Text(profileData!.bloodGroup??""),
                               const SizedBox(
                                 height: 20,
                               ),
-                              Text(profileData!.address),
+                              Text(profileData!.address??""),
                               const SizedBox(
                                 height: 20,
                               ),
-                              Text(profileData!.maritalStatus),
+                              Text(profileData!.maritalStatus??""),
                               const SizedBox(
                                 height: 20,
                               ),
-                              Text(profileData!.guardianName),
+                              Text(profileData!.guardianName??""),
                             ],
                           ),
                         ),

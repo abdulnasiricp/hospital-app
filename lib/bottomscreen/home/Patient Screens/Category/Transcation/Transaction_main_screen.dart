@@ -50,7 +50,6 @@
 //                       ),
 //                     ),
 
-
 //                   ),
 //                   Tab(
 //                     child: Container(
@@ -62,7 +61,6 @@
 //                             fontWeight: FontWeight.bold),),
 //                       ),
 //                     ),
-
 
 //                   ),
 //                     Tab(
@@ -76,7 +74,6 @@
 //                       ),
 //                     ),
 
-
 //                   ),
 //                     Tab(
 //                     child: Container(
@@ -88,7 +85,6 @@
 //                             fontWeight: FontWeight.bold),),
 //                       ),
 //                     ),
-
 
 //                   ),
 
@@ -103,15 +99,14 @@
 //                 ],
 //               ),
 //             ),
-          
+
 //           ]),
 //         ),
-      
+
 //       ),
 //     );
 //   }
 // }
-
 
 // ignore_for_file: file_names
 
@@ -137,12 +132,23 @@ class _MainTransactionScreenState extends State<MainTransactionScreen>
     with SingleTickerProviderStateMixin {
   late ColorNotifier notifier;
   TabController? controller;
-  List<Widget> tabs = const [PathologyBill(), DirectBill(), RadiologyBill(),PharmacyBill(),AmbulanceBill(),BloodBank()];
+  List<Widget> tabs = const [
+    PathologyBill(),
+    DirectBill(),
+    RadiologyBill(),
+    PharmacyBill(),
+    AmbulanceBill(),
+    BloodBank()
+  ];
 
   @override
   void initState() {
     super.initState();
-    controller = TabController(length: 6, vsync: this,initialIndex: 0,animationDuration: const Duration(seconds: 1));
+    controller = TabController(
+        length: 6,
+        vsync: this,
+        initialIndex: 0,
+        animationDuration: const Duration(seconds: 1));
   }
 
   @override
@@ -150,8 +156,11 @@ class _MainTransactionScreenState extends State<MainTransactionScreen>
     notifier = Provider.of<ColorNotifier>(context, listen: true);
     return Scaffold(
       backgroundColor: notifier.getwihitecolor,
-      appBar:AppBar(title: const Text('Transaction'),centerTitle: true,backgroundColor: darkYellow,),
-      
+      appBar: AppBar(
+        title: const Text('Transaction'),
+        centerTitle: true,
+        backgroundColor: darkYellow,
+      ),
       body: Container(
         color: Colors.transparent,
         child: Column(
@@ -166,13 +175,30 @@ class _MainTransactionScreenState extends State<MainTransactionScreen>
               unselectedLabelColor: Colors.black,
               isScrollable: true,
               tabs: const [
-                
-                Text('Pathology Bill',style: TextStyle(fontSize: 15),),
-                Text('Direct Bill',style: TextStyle(fontSize: 15),),
-                Text('Radiology Bill',style: TextStyle(fontSize: 15),),
-                Text('Pharmacy Bill',style: TextStyle(fontSize: 15),),
-                Text('Ambulance Bill',style: TextStyle(fontSize: 15),),
-                Text('BloodBank',style: TextStyle(fontSize: 15),),
+                Text(
+                  'Pathology Bill',
+                  style: TextStyle(fontSize: 15),
+                ),
+                Text(
+                  'Direct Bill',
+                  style: TextStyle(fontSize: 15),
+                ),
+                Text(
+                  'Radiology Bill',
+                  style: TextStyle(fontSize: 15),
+                ),
+                Text(
+                  'Pharmacy Bill',
+                  style: TextStyle(fontSize: 15),
+                ),
+                Text(
+                  'Ambulance Bill',
+                  style: TextStyle(fontSize: 15),
+                ),
+                Text(
+                  'BloodBank',
+                  style: TextStyle(fontSize: 15),
+                ),
               ],
             ),
             Expanded(
@@ -190,8 +216,3 @@ class _MainTransactionScreenState extends State<MainTransactionScreen>
     );
   }
 }
-
-
-
-
-
