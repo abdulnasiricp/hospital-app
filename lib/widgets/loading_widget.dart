@@ -1,10 +1,8 @@
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
-
 class LoadingIndicatorWidget extends StatelessWidget {
   const LoadingIndicatorWidget({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold( 
