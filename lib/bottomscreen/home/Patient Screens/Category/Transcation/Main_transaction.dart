@@ -187,7 +187,10 @@ class _MainTransactionState extends State<MainTransaction> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Column(
+                  child:
+
+
+                  Column(
                     children: [
                       Card(
                         elevation: 2,

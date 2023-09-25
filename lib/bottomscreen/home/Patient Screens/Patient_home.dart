@@ -31,6 +31,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
   String record = '';
   String genderrecord = '';
   bool isLoading = true;
+  String Patient_id = '';
   Map<String, dynamic>? DataMap;
   Map<String, dynamic>? DoneDataMap;
   List<dynamic>? DoneListData = [];
@@ -49,6 +50,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
       username = sharedPreferences.getString('usernamerecord') ?? '';
       record = sharedPreferences.getString('record') ?? '';
       genderrecord = sharedPreferences.getString('genderrecord') ?? '';
+      Patient_id = sharedPreferences.getString('patientidrecord') ?? '';
     });
   }
 
@@ -151,14 +153,116 @@ class _PatientHomePageState extends State<PatientHomePage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment
+                            .spaceBetween, // Aligns children to the start and end of the row
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment
+                                .start, // Aligns text to the start of the column
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 5.0),
+                                child: Text(
+                                  'Welcome,\n $username',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment
+                                  .end, // Aligns text to the end of the column
+                              children: [
+                                Text(
+                                  'Patient Id:- $Patient_id',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                Text(
+                                  'HIS NO:- $Patient_id',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 20),
-                        child: Text(
-                          'Welcome,\n $username',
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: darkYellow),
+                        padding: const EdgeInsets.all(8.0),
+                        child: ClipRRect(
+
+                          borderRadius: BorderRadius.circular(10),
+                          child: Container(
+                            height: 50,
+                            padding: EdgeInsets.all(10),
+                            color: Colors.grey, // Set your desired background color
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Hospital Dues Balance',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 30.0),
+                                      child: Text(
+                                        'Rs.1000',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.red,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    // Add your button click logic here
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.green, // Background color
+                                    onPrimary: Colors.white, // Text color
+                                    elevation: 0, // Elevation
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 10), // Padding
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                          10), // Button border radius
+                                    ),
+                                  ),
+                                  child: Text(
+                                    'Pay Now',
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                       Padding(
@@ -193,6 +297,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                             ),
                             SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
+
                               child: Row(
                                 children: [
                                   Container(
@@ -590,6 +695,11 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                   ),
                                 ],
                               ),
+
+
+
+
+
                             ),
                             const SizedBox(
                               height: 20,
