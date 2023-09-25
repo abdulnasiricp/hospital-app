@@ -122,7 +122,6 @@ class _ProfileState extends State<Profile> {
           body:profileData!= null? SingleChildScrollView(
             child: Column(
               children: [
-                
                 Column(
                   children: [
                     Stack(children: [
