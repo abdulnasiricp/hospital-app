@@ -1,6 +1,10 @@
+// ignore_for_file: file_names, unnecessary_new
+
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
 class AlertDialogWidget extends StatelessWidget {
+  const AlertDialogWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -11,7 +15,7 @@ class AlertDialogWidget extends StatelessWidget {
             children: [
               CircularProgressIndicator(backgroundColor: darkYellow, color: yellow),
               Container(
-                  margin: EdgeInsets.only(left: 30), child: Text("Loading ...")),
+                  margin: const EdgeInsets.only(left: 30), child: const Text("Loading ...")),
             ],
           ),
           backgroundColor: Colors.white, // Make the AlertDialog background transparent
@@ -22,7 +26,7 @@ class AlertDialogWidget extends StatelessWidget {
 }
 
 void main() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     home: Scaffold(
       body: AlertDialogWidget(),
     ),

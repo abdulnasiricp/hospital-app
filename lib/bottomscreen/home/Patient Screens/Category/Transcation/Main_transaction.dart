@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, deprecated_member_use, sized_box_for_whitespace
+
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Direct_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Pathology_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/ambulance_bill.dart';
@@ -5,7 +7,6 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Trans
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/pharmacy_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/radiology_bill.dart';
 import 'package:TezHealthCare/utils/colors.dart';
-import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,13 +15,14 @@ import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Main_transaction extends StatefulWidget {
-  // const Main_transaction({super.key});
+class MainTransaction extends StatefulWidget {
+  const MainTransaction({Key? key}) : super(key: key);
+
   @override
-  State<Main_transaction> createState() => _Main_transactionState();
+  State<MainTransaction> createState() => _MainTransactionState();
 }
 
-class _Main_transactionState extends State<Main_transaction> {
+class _MainTransactionState extends State<MainTransaction> {
   String role = '';
   String username = '';
   String record = '';
@@ -126,7 +128,7 @@ class _Main_transactionState extends State<Main_transaction> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: Container(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       color: Colors.grey, // Set your desired background color
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -163,14 +165,14 @@ class _Main_transactionState extends State<Main_transaction> {
                               primary: Colors.green, // Background color
                               onPrimary: Colors.white, // Text color
                               elevation: 0, // Elevation
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 10), // Padding
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
                                     10), // Button border radius
                               ),
                             ),
-                            child: Text(
+                            child: const Text(
                               'Pay Now',
                               style: TextStyle(
                                 fontSize: 10,

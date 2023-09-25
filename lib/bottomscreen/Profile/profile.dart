@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names, sized_box_for_whitespace, prefer_typing_uninitialized_variables, avoid_print
+// ignore_for_file: non_constant_identifier_names, sized_box_for_whitespace, prefer_typing_uninitialized_variables, avoid_print, unnecessary_string_interpolations
 
 import 'dart:convert';
 
@@ -30,31 +30,14 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   String role = '';
   String username = '';
-  String record = '';  String image = '';
+  String record = '';
+  String image = '';
   String genderrecord = '';
   String mobilerecord = '';
   bool isLoading = true;
   Map<String, dynamic>? DataMap;
   Map<String, dynamic>? DoneDataMap;
   List<dynamic>? DoneListData = [];
-
-  @override
-  void initState() {
-    super.initState();
-    LoadData();
-  }
-
-  LoadData() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    setState(() {
-      role = sharedPreferences.getString('role') ?? '';
-      username = sharedPreferences.getString('usernamerecord') ?? '';
-      record = sharedPreferences.getString('record') ?? '';
-      genderrecord = sharedPreferences.getString('genderrecord') ?? '';
-      mobilerecord = sharedPreferences.getString('mobilerecord') ?? '';
-      image = sharedPreferences.getString('imagerecord') ?? '';
-    });
-  }
 
   Future<void> _logout(BuildContext context) async {
     final sharedPreferences = await SharedPreferences.getInstance();
@@ -63,6 +46,61 @@ class _ProfileState extends State<Profile> {
 
     // Navigate to the login screen
     Get.off(() => const Splash_Screen());
+  }
+
+  var profileData;
+  late String patientID = '';
+  LoadData() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+
+    patientID = sp.getString('patientidrecord') ?? '';
+
+    print(patientID);
+    setState(() {});
+  }
+
+  Future<void> ProfileApi() async {
+    const apiUrl = 'https://uat.tez.hospital/xzy/webservice/getPatientprofile';
+    final headers = {
+      'Soft-service': 'TezHealthCare',
+      'Auth-key': 'zbuks_ram859553467',
+    };
+
+    final requestBody = jsonEncode({"patientId": patientID});
+
+    try {
+      final response = await http.post(Uri.parse(apiUrl),
+          headers: headers, body: requestBody);
+
+      if (response.statusCode == 200) {
+        final responseBody = jsonDecode(response.body);
+        final profileJson =
+            responseBody[0]; // Assuming your API returns a list with one item
+        setState(() {
+          profileData = ProfileData.fromJson(profileJson);
+        });
+      } else {
+        // Request failed with an error status code
+        print('Request failed with status: ${response.statusCode}');
+        print('Response body: ${response.body}');
+      }
+    } catch (e) {
+      // Handle any exceptions that occur during the request
+      print('Request error: $e');
+    }
+  }
+
+  getAllData() async {
+    await LoadData();
+
+    await ProfileApi();
+  }
+
+  @override
+  void initState() {
+    getAllData();
+
+    super.initState();
   }
 
   late ColorNotifier notifier;
@@ -74,11 +112,11 @@ class _ProfileState extends State<Profile> {
     return ScreenUtilInit(
       builder: (_, child) => Scaffold(
           appBar: AppBar(
-            title: const Text('Profile'),
-            centerTitle: true,
-            backgroundColor: notifier.getdarkyellow
-            // elevation: 0,
-          ),
+              title: const Text('Profile'),
+              centerTitle: true,
+              backgroundColor: notifier.getdarkyellow
+              // elevation: 0,
+              ),
           backgroundColor: Colors.grey.shade300,
           body: SingleChildScrollView(
             child: Column(
@@ -96,10 +134,9 @@ class _ProfileState extends State<Profile> {
                     padding: const EdgeInsets.only(top: 20),
                     child: Center(
                       child: CircleAvatar(
-                          backgroundImage:
-                          NetworkImage("$image"),
-                          radius: 50,
-                          ),
+                        backgroundImage: NetworkImage("$image"),
+                        radius: 50,
+                      ),
                     ),
                   ),
                   Padding(
@@ -117,7 +154,7 @@ class _ProfileState extends State<Profile> {
                     padding: EdgeInsets.only(top: height / 4.7),
                     child: Center(
                         child: Text(
-                         " $mobilerecord 9821880761",
+                      " $mobilerecord 9821880761",
                       style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
@@ -227,9 +264,10 @@ class _ProfileState extends State<Profile> {
                                       width: 10,
                                     ),
                                     Text(
-
-                                      profileData.isActive=="yes"? "Active":"Offine",
-                                      style: TextStyle(
+                                      profileData.isActive == "yes"
+                                          ? "Active"
+                                          : "Offine",
+                                      style: const TextStyle(
                                           color: Colors.green, fontSize: 20),
                                     ),
                                   ],

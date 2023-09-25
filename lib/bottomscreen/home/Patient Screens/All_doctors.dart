@@ -4,9 +4,7 @@ import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Select_date.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
-import 'package:TezHealthCare/widgets/LoadingWidget.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
@@ -112,7 +110,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
           child: Center(
             child: isLoading
                 ? GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       crossAxisSpacing: 2,
                       mainAxisSpacing: 0,
@@ -130,7 +128,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                               mainAxisAlignment: MainAxisAlignment.center, // Adjust alignment as needed
                               crossAxisAlignment: CrossAxisAlignment.center, // Adjust alignment as needed
                               children: [
-                                CircleAvatar(
+                                const CircleAvatar(
                                   radius: 30,
                                 ),
                                 const SizedBox(
@@ -204,7 +202,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                         Expanded(
                           child: GridView.builder(
                             gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
+                                const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                               crossAxisSpacing: 2,
                               mainAxisSpacing: 0,
