@@ -1,3 +1,4 @@
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Card/Card.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Transaction_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Patient_home.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/profile.dart';
@@ -7,10 +8,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:TezHealthCare/bottomscreen/chat/chat.dart';
 import 'package:TezHealthCare/stringfile/enstring.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
-
 
 class Bottomhome extends StatefulWidget {
   const Bottomhome({Key? key}) : super(key: key);
@@ -37,6 +38,7 @@ class _BottomhomeState extends State<Bottomhome> {
     }
     return Future.value(true); // Allow the app to close
   }
+
   int _selectedIndex = 0;
   late ColorNotifier notifier;
 
@@ -47,15 +49,16 @@ class _BottomhomeState extends State<Bottomhome> {
       onWillPop: _onBackPressed, // Handle back button press
 
       child: ScreenUtilInit(
-        builder: (_ , child)  => Scaffold(backgroundColor: notifier.getdarkyellow,
-          bottomNavigationBar: SalomonBottomBar(curve:Curves.easeInOut ,
+        builder: (_, child) => Scaffold(
+          backgroundColor: notifier.getdarkyellow,
+          bottomNavigationBar: SalomonBottomBar(
+            curve: Curves.easeInOut,
             selectedItemColor: notifier.getwihitecolor,
             currentIndex: _selectedIndex,
             items: [
               SalomonBottomBarItem(
                 icon: Image.asset("assets/home.png",
-                 height: height / 30,
-                color: notifier.getwihitecolor),
+                    height: height / 30, color: notifier.getwihitecolor),
                 title: Text(
                   EnString.home,
                   style: TextStyle(
@@ -66,12 +69,10 @@ class _BottomhomeState extends State<Bottomhome> {
                 selectedColor: notifier.getwihitecolor,
               ),
               SalomonBottomBarItem(
-                icon: Image.asset("assets/Schedule.png",
-                 height: height / 30,
-
-                 color: notifier.getwihitecolor),
+                icon: SvgPicture.asset('assets/transaction.svg',
+                    height: height / 30, color: notifier.getwihitecolor),
                 title: Text(
-                  EnString.sche,
+                  EnString.card,
                   style: TextStyle(
                       fontSize: 12.sp,
                       color: notifier.getwihitecolor,
@@ -80,12 +81,10 @@ class _BottomhomeState extends State<Bottomhome> {
                 selectedColor: notifier.getwihitecolor,
               ),
               SalomonBottomBarItem(
-                icon: Image.asset("assets/chat.png",
-                height: height / 30,
-
-                color: notifier.getwihitecolor),
+                icon: SvgPicture.asset('assets/card.svg',
+                    height: height / 30, color: notifier.getwihitecolor),
                 title: Text(
-                  EnString.chat,
+                  EnString.card,
                   style: TextStyle(
                       fontSize: 12.sp,
                       color: notifier.getwihitecolor,
@@ -95,8 +94,7 @@ class _BottomhomeState extends State<Bottomhome> {
               ),
               SalomonBottomBarItem(
                 icon: Image.asset("assets/profile.png",
-                 height: height / 30,
-                 color: notifier.getwihitecolor),
+                    height: height / 30, color: notifier.getwihitecolor),
                 title: Text(
                   EnString.profile,
                   style: TextStyle(
@@ -130,10 +128,10 @@ class _BottomhomeState extends State<Bottomhome> {
     return {
       '/': (context) {
         return [
-          const  PatientHomePage(),
+          const PatientHomePage(),
           // const MyAppoiment(),
           const TransactionBill(),
-          const Chat(),
+          const CardScreen(),
           const Profile(),
         ].elementAt(index);
       },

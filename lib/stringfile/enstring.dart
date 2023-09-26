@@ -18,6 +18,7 @@ class EnString {
 
   static const String getStart = "Get Start!";
   static const String transcation = "Transaction";
+  static const String card = "Card";
 
   static const String emailorphonenumber = "Email or phone number";
 
