@@ -32,7 +32,6 @@ class _DoctorratinglistState extends State<Doctorratinglist> {
         child: Padding(
           padding: const EdgeInsets.all(5.0),
           child: Card(
-            color: notifier.getwihitecolor,
             elevation: 1,
             // shadowColor: const Color.fromARGB(255, 241, 239, 239),
             shape: RoundedRectangleBorder(
@@ -87,13 +86,13 @@ class _DoctorratinglistState extends State<Doctorratinglist> {
                               Text(
                                 "4.5",
                                 style: TextStyle(
-                                    color: notifier.getgrey, fontSize: 12.sp),
+                                     fontSize: 12.sp),
                               ),
                               SizedBox(width: width / 100),
                               Text(
                                 "(834)",
                                 style: TextStyle(
-                                    color: notifier.getgrey, fontSize: 12.sp),
+                                     fontSize: 12.sp),
                               )
                             ],
                           ),

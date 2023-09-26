@@ -208,65 +208,67 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
-                                  child: Container(
-                                    height: 50,
-                                    padding: const EdgeInsets.all(10),
-                                    color: Colors
-                                        .grey, // Set your desired background color
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              'Hospital Dues Balance',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white,
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  EdgeInsets.only(left: 30.0),
-                                              child: Text(
-                                                'Rs.1000',
+                                  child: Card(
+                                     color: Colors.white70
+                                                            .withOpacity(0.7),
+                                    child: Container(
+                                      height: 50,
+                                      padding: const EdgeInsets.all(10),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                           Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                'Hospital Dues Balance',
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.bold,
-                                                  color: Colors.red,
-                                                  fontSize: 16,
+                                                  color: darkYellow,
+                                                  fontSize: 12,
                                                 ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                        ElevatedButton(
-                                          onPressed: () {
-                                            // Add your button click logic here
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                            foregroundColor: Colors.white, backgroundColor: Colors.green, // Text color
-                                            elevation: 0, // Elevation
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 20,
-                                                vertical: 10), // Padding
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(
-                                                  10), // Button border radius
-                                            ),
+                                              const Padding(
+                                                padding:
+                                                    EdgeInsets.only(left: 30.0),
+                                                child: Text(
+                                                  'Rs.1000',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.red,
+                                                    fontSize: 16,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          child: const Text(
-                                            'Pay Now',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.bold,
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              // Add your button click logic here
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              foregroundColor: Colors.white, backgroundColor: Colors.green, // Text color
+                                              elevation: 0, // Elevation
+                                              padding: const EdgeInsets.symmetric(
+                                                  horizontal: 20,
+                                                  vertical: 10), // Padding
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(
+                                                    10), // Button border radius
+                                              ),
                                             ),
-                                          ),
-                                        )
-                                      ],
+                                            child: const Text(
+                                              'Pay Now',
+                                              style: TextStyle(
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -917,7 +919,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                     child: Lottie.asset(
                                                         'assets/loading1.json'),
                                                   ));
-                                                } else {}
+                                                } else {
                                                 return Container(
                                                   width: width,
                                                   child: Card(
@@ -1051,6 +1053,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                         ),
                                                       )),
                                                 );
+                                                }
                                               }),
                                         ),
                                       ],

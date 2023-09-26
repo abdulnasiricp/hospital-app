@@ -1,3 +1,4 @@
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Transaction_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Patient_home.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/profile.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -131,7 +132,8 @@ class _BottomhomeState extends State<Bottomhome> {
       '/': (context) {
         return [
           const  PatientHomePage(),
-          const MyAppoiment(),
+          // const MyAppoiment(),
+          const TransactionBill(),
           const Chat(),
           const Profile(),
         ].elementAt(index);
