@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, sized_box_for_whitespace
+
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Direct_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Pathology_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/ambulance_bill.dart';
@@ -268,7 +270,7 @@ class _IPDState extends State<IPD> {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(16.0),
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: Colors.grey,
@@ -279,43 +281,43 @@ class _IPDState extends State<IPD> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'Patient Information',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 16),
-                        Text('Patient Name: Ramjinish Kushwaha'),
-                        Text('Age: 24'),
-                        Text('Gender: Male'),
-                        Text('Date of Admission: 2023-09-26'),
-                        SizedBox(height: 32),
-                        Text(
+                        const SizedBox(height: 16),
+                        const Text('Patient Name: Ramjinish Kushwaha'),
+                        const Text('Age: 24'),
+                        const Text('Gender: Male'),
+                        const Text('Date of Admission: 2023-09-26'),
+                        const SizedBox(height: 32),
+                        const Text(
                           'Vitals',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                         buildVitalItem('Height', '75 bpm'),
                         buildVitalItem('Weight', '120/80 mmHg'),
                         buildVitalItem('BP', '98.6°F'),
                         buildVitalItem('Pulse', '18 breaths/min'),
                         buildVitalItem('Tempreture', '18 breaths/min'),
                         buildVitalItem('Respiration', '98.6°F'),
-                        SizedBox(height: 32),
-                        Text(
+                        const SizedBox(height: 32),
+                        const Text(
                           'Consultants',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 16),
-                        Text('Diagnosis: Ramjinish kushwaha'),
+                        const SizedBox(height: 16),
+                        const Text('Diagnosis: Ramjinish kushwaha'),
                       ],
                     ),
                   ),
@@ -333,7 +335,7 @@ class _IPDState extends State<IPD> {
         Text(label),
         Text(
           value,
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ],
     );
