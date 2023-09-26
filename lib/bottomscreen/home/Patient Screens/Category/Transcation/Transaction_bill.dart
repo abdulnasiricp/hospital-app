@@ -21,6 +21,7 @@ class TransactionBill extends StatefulWidget {
 }
 
 class _TransactionBillState extends State<TransactionBill> {
+  double totalSum = 0.0;
   String username = '';
   late String patient = '';
   LoadData() async {
@@ -123,6 +124,8 @@ class _TransactionBillState extends State<TransactionBill> {
         }
       }
       // Add similar code for other bill types if needed
+      // Calculate the total sum
+  totalSum = billItems.map((item) => item.total).fold(0.0, (a, b) => a + b);
 
       setState(() {});
     } else {
@@ -252,16 +255,16 @@ class _TransactionBillState extends State<TransactionBill> {
           height: height / 15,
           width: width,
           color: darkYellow,
-          child: const Padding(
-            padding: EdgeInsets.all(10.0),
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Total",
+                const Text("Total",
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold)),
-                Text("Rs. 2000",
-                    style: TextStyle(
+                Text("Rs. $totalSum",
+                    style: const TextStyle(
                       color: Colors.white,
                     )),
               ],
