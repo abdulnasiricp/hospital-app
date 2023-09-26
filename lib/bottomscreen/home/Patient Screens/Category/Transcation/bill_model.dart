@@ -648,4 +648,28 @@ class PharmacyBillItem extends BillItem {
     required String? name,
   }) : super(id: id, total: total, patientId: patientId,name: name);
 }
+class DirectBillItem extends BillItem {
+  DirectBillItem({
+    required String? id,
+    required double total,
+    required String? patientId,
+    required String? name,
+  }) : super(id: id, total: total, patientId: patientId,name: name);
+}
+class AmbulanceBillItem extends BillItem {
+  AmbulanceBillItem({
+    required String? id,
+    required double total,
+    required String? patientId,
+    required String? name,
+  }) : super(id: id, total: total, patientId: patientId,name: name);
+}
+class BloodbankBillItem extends BillItem {
+  BloodbankBillItem({
+    required String? id,
+    required double total,
+    required String? patientId,
+    required String? name,
+  }) : super(id: id, total: total, patientId: patientId,name: name);
+}
 

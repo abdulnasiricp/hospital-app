@@ -7,9 +7,7 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Card/
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/IPD.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Main_transaction.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/ambulance_bill.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/bloodbank.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/pharmacy_bill.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/radiology_bill.dart';
 import 'package:TezHealthCare/screens/notification.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -391,7 +389,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               InkWell(
                                                 onTap: () {
                                                   Get.to(() =>
-                                                       IPD());
+                                                       const IPD());
                                                 },
                                                 child: Container(
                                                   width: 100,

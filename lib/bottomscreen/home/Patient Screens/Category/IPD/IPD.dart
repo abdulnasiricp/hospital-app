@@ -14,6 +14,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
 class IPD extends StatefulWidget {
+  const IPD({Key? key}) : super(key: key);
+
   // classonst IPD({super.key});
 
   @override
@@ -276,10 +278,10 @@ class _IPDState extends State<IPD>{
                       ),
                       borderRadius: BorderRadius.circular(5.0), // Optional: Add rounded corners
                     ),
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const Text(
+                        Text(
                           "Vitals",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,

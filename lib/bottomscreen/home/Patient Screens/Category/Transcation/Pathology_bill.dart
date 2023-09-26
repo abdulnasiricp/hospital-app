@@ -206,7 +206,8 @@ class _PathologyBillState extends State<PathologyBill> {
                                                                       ['id'],
                                                               billname:
                                                                   'pathology',
-                                                            ));
+                                                            ),
+                                                            );
                                                       },
                                                       icon: const Icon(
                                                           Icons.view_list),

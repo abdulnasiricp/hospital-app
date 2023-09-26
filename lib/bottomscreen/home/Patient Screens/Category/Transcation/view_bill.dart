@@ -378,7 +378,7 @@ class _ViewBillDetilesState extends State<ViewBillDetiles> {
                   // Launch a URL using url_launcher package
                   // await launch('https://uat.tez.hospital/xzy/webservice/generateIdcard/$PatientId'); // Replace with your desired URL
                   await launch(
-                      'https://uat.tez.hospital/xzy/webservice/generateBillPrint/${widget.billNo}/pathology'); // Replace with your desired URL
+                      'https://uat.tez.hospital/xzy/webservice/generateBillPrint/${widget.billNo}/${widget.billname}'); // Replace with your desired URL
                 }
               },
               child: const Text('Open'),
@@ -406,7 +406,7 @@ class _ViewBillDetilesState extends State<ViewBillDetiles> {
             onPressed: () {
               FileDownloader.downloadFile(
                 url:
-                    'https://uat.tez.hospital/xzy/webservice/generateBillPrint/${widget.billNo}/pathology',
+                    'https://uat.tez.hospital/xzy/webservice/generateBillPrint/${widget.billNo}/${widget.billname}',
                 onProgress: (name, progress) {
                   setState(() {
                     _progress = progress;
@@ -463,7 +463,7 @@ class _ViewBillDetilesState extends State<ViewBillDetiles> {
                   child: const PDF(
                     swipeHorizontal: true,
                   ).cachedFromUrl(
-                    'https://uat.tez.hospital/xzy/webservice/generateBillPrint/${widget.billNo}/pathology',
+                    'https://uat.tez.hospital/xzy/webservice/generateBillPrint/${widget.billNo}/${widget.billname}',
                   ),
                 ),
               ),
