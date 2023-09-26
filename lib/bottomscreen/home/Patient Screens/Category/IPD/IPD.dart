@@ -1,5 +1,3 @@
-// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, deprecated_member_use, sized_box_for_whitespace
-
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Direct_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Pathology_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/ambulance_bill.dart';
@@ -22,7 +20,7 @@ class IPD extends StatefulWidget {
   State<IPD> createState() => _IPDState();
 }
 
-class _IPDState extends State<IPD>{
+class _IPDState extends State<IPD> {
   late ColorNotifier notifier;
   TextEditingController dateinput = TextEditingController();
   @override
@@ -51,7 +49,7 @@ class _IPDState extends State<IPD>{
                           child: GridView.count(
                             crossAxisCount: 3,
                             shrinkWrap:
-                            true, // Set to true to make the GridView scrollable within the Column
+                                true, // Set to true to make the GridView scrollable within the Column
                             children: [
                               InkWell(
                                 onTap: () {
@@ -270,32 +268,74 @@ class _IPDState extends State<IPD>{
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.only(left: 10.0),
+                    padding: EdgeInsets.all(16.0),
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors.grey, // Border color
-                        width: 1.0,          // Border width
+                        color: Colors.grey,
+                        width: 1.0,
                       ),
-                      borderRadius: BorderRadius.circular(5.0), // Optional: Add rounded corners
+                      borderRadius: BorderRadius.circular(10.0),
                     ),
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Vitals",
+                          'Patient Information',
                           style: TextStyle(
+                            fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            fontSize: 14,
                           ),
                         ),
+                        SizedBox(height: 16),
+                        Text('Patient Name: Ramjinish Kushwaha'),
+                        Text('Age: 24'),
+                        Text('Gender: Male'),
+                        Text('Date of Admission: 2023-09-26'),
+                        SizedBox(height: 32),
+                        Text(
+                          'Vitals',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 16),
+                        buildVitalItem('Height', '75 bpm'),
+                        buildVitalItem('Weight', '120/80 mmHg'),
+                        buildVitalItem('BP', '98.6°F'),
+                        buildVitalItem('Pulse', '18 breaths/min'),
+                        buildVitalItem('Tempreture', '18 breaths/min'),
+                        buildVitalItem('Respiration', '98.6°F'),
+                        SizedBox(height: 32),
+                        Text(
+                          'Consultants',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 16),
+                        Text('Diagnosis: Ramjinish kushwaha'),
                       ],
                     ),
-                  )
-
+                  ),
                 ],
               ),
             ),
           )),
+    );
+  }
+
+  Widget buildVitalItem(String label, String value) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(label),
+        Text(
+          value,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+      ],
     );
   }
 }

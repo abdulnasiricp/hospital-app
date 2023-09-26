@@ -196,54 +196,49 @@ class _TransactionBillState extends State<TransactionBill> {
               itemBuilder: (context, index) {
                 final item = billItems[index];
                 final listName = getListName(item);
-                return Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: InkWell(
-                    onTap: () {
-                      Get.to(
-                        () => ViewBillDetiles(
-                          billNo:  item.id.toString(),
-                          billname: listName,
-                          
-                        ),
-                        
-                      );
-                      print(listName);
-                    },
-                    child: Card(
-                      child: Column(
-                        children: [
-                          Container(
-                            width: width,
-                            height: height / 20,
-                            child: Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    {index + 1}.toString(),
-                                    style: const TextStyle(),
-                                  ),
-                                  Text(
-                                    listName,
-                                    style: const TextStyle(),
-                                  ),
-                                  Text(
-                                    item.id.toString(),
-                                    style: const TextStyle(),
-                                  ),
-                                  Text(
-                                    'Rs.${item.total}',
-                                    style: const TextStyle(),
-                                  ),
-                                ],
-                              ),
+                return InkWell(
+                  onTap: () {
+                    Get.to(
+                      () => ViewBillDetiles(
+                        billNo: item.id.toString(),
+                        billname: listName,
+                      ),
+                    );
+                    print(listName);
+                  },
+                  child: Card(
+                    child: Column(
+                      children: [
+                        Container(
+                          width: width,
+                          height: height / 15,
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Row(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  {index + 1}.toString(),
+                                  style: const TextStyle(),
+                                ),
+                                Text(
+                                  listName,
+                                  style: const TextStyle(),
+                                ),
+                                Text(
+                                  item.id.toString(),
+                                  style: const TextStyle(),
+                                ),
+                                Text(
+                                  'Rs.${item.total}',
+                                  style: const TextStyle(),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 );
