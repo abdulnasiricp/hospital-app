@@ -21,12 +21,27 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class PatientHomePage extends StatefulWidget {
-  const PatientHomePage({Key? key}) : super(key: key);
+  final String? patientId;
+  const PatientHomePage({Key? key,  this.patientId}) : super(key: key);
 
   @override
   State<PatientHomePage> createState() => _PatientHomePageState();
 }
 class _PatientHomePageState extends State<PatientHomePage> {
+   double totalSum = 0.0; 
+   // Initialize with a default value
+    
+
+   Future<void> getTotalSum() async {
+    final sp = await SharedPreferences.getInstance();
+    final patientSpecificKey = 'totalSum_${widget.patientId}'; // Use the patient's ID in the key
+    final storedTotalSum = sp.getDouble(patientSpecificKey);
+    if (storedTotalSum != null) {
+      setState(() {
+        totalSum = storedTotalSum;
+      });
+    }
+  }
   String role = '';
   String username = '';
   String record = '';
@@ -40,8 +55,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
   @override
   void initState() {
     super.initState();
-    hitApi();
+    getTotalSum();
     LoadData();
+
+    hitApi();
   }
 
   LoadData() async {
@@ -202,7 +219,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                   ),
                                 ],
                               ),
-                              Padding(
+                             totalSum==0.0  ? Container():Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
@@ -228,12 +245,12 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                   fontSize: 12,
                                                 ),
                                               ),
-                                              const Padding(
+                                               Padding(
                                                 padding:
-                                                    EdgeInsets.only(left: 30.0),
+                                                    const EdgeInsets.only(left: 30.0),
                                                 child: Text(
-                                                  'Rs.1000',
-                                                  style: TextStyle(
+                                                  'Rs.$totalSum',
+                                                  style: const TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     color: Colors.red,
                                                     fontSize: 16,

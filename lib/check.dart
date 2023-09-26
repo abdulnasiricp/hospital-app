@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const DoctorVitalsPage());
-}
 
 class DoctorVitalsPage extends StatelessWidget {
   const DoctorVitalsPage({Key? key}) : super(key: key);

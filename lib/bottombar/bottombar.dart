@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Card/Card.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Transaction_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Patient_home.dart';
@@ -11,6 +13,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Bottomhome extends StatefulWidget {
   const Bottomhome({Key? key}) : super(key: key);
@@ -20,6 +23,8 @@ class Bottomhome extends StatefulWidget {
 }
 
 class _BottomhomeState extends State<Bottomhome> {
+  String Patient_id = '';
+
   DateTime? currentBackPressTime; // Track back button press time
   Future<bool> _onBackPressed() {
     final now = DateTime.now();
@@ -37,6 +42,21 @@ class _BottomhomeState extends State<Bottomhome> {
     }
     return Future.value(true); // Allow the app to close
   }
+
+
+   LoadData() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    setState(() {
+    
+      Patient_id = sharedPreferences.getString('patientidrecord') ?? '';
+    });
+  }
+  @override
+  void initState() {
+    LoadData();
+    super.initState();
+  }
+
 
   int _selectedIndex = 0;
   late ColorNotifier notifier;
@@ -127,7 +147,7 @@ class _BottomhomeState extends State<Bottomhome> {
     return {
       '/': (context) {
         return [
-          const PatientHomePage(),
+           PatientHomePage(patientId: Patient_id),
           // const MyAppoiment(),
           const TransactionBill(),
           const CardScreen(),

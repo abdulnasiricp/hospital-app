@@ -125,9 +125,15 @@ class _TransactionBillState extends State<TransactionBill> {
       }
       // Add similar code for other bill types if needed
       // Calculate the total sum
+ // Calculate the total sum
   totalSum = billItems.map((item) => item.total).fold(0.0, (a, b) => a + b);
 
-      setState(() {});
+  // Save the totalSum in SharedPreferences with a unique key
+  final sp = await SharedPreferences.getInstance();
+  final patientSpecificKey = 'totalSum_$patient'; // Include the patient ID or username in the key
+  sp.setDouble(patientSpecificKey, totalSum);
+
+  setState(() {});
     } else {
       throw Exception('Failed to load data');
     }
