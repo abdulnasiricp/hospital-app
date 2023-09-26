@@ -11,7 +11,9 @@ import 'package:http/http.dart' as http;
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
 
 class TransactionBill extends StatefulWidget {
   const TransactionBill({Key? key}) : super(key: key);
@@ -21,6 +23,8 @@ class TransactionBill extends StatefulWidget {
 }
 
 class _TransactionBillState extends State<TransactionBill> {
+  bool isLoading = true;
+
   double totalSum = 0.0;
   String username = '';
   late String patient = '';
@@ -63,6 +67,10 @@ class _TransactionBillState extends State<TransactionBill> {
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
+      setState(() {
+          isLoading = false;
+        
+      });
       if (data['pathology_bill'] != null) {
         for (var item in data['pathology_bill']) {
           billItems.add(PathologyBillItem(
@@ -133,7 +141,10 @@ class _TransactionBillState extends State<TransactionBill> {
   final patientSpecificKey = 'totalSum_$patient'; // Include the patient ID or username in the key
   sp.setDouble(patientSpecificKey, totalSum);
 
-  setState(() {});
+  setState(() {
+          
+
+  });
     } else {
       throw Exception('Failed to load data');
     }
@@ -197,7 +208,47 @@ class _TransactionBillState extends State<TransactionBill> {
           ),
         ),
         Expanded(
-          child: ListView.builder(
+          child:isLoading ? ListView.builder(
+                            itemCount: 10,
+                            itemBuilder: (context, index) {
+                              return Shimmer.fromColors(
+                                baseColor: Colors.grey,
+                                highlightColor: Colors.blue.shade100,
+                                child: ListTile(
+                                  leading: Container(
+                                    width: 60,
+                                    height: 60,
+                                    color: Colors.white,
+                                  ),
+                                  title: Container(
+                                    width: 150,
+                                    height: 20,
+                                    color: Colors.white,
+                                  ),
+                                  subtitle: Container(
+                                    width: 100,
+                                    height: 10,
+                                    color: Colors.white,
+                                  ),
+                                  trailing: Container(
+                                    width: 60,
+                                    height: 30,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              );
+                            },
+                          ): billItems == null || billItems!.isEmpty
+                            ? Center(
+                                child: Container(
+                                  height: 150,
+                                  width: 150,
+                                  child: Lottie.asset(
+                                    'assets/No_Data_Found.json',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ) :ListView.builder(
               itemCount: billItems.length,
               itemBuilder: (context, index) {
                 final item = billItems[index];
