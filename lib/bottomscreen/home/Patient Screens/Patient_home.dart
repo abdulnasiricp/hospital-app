@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/All_doctors.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Card/Card.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/IPD.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Main_transaction.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/ambulance_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/bloodbank.dart';
@@ -27,7 +28,6 @@ class PatientHomePage extends StatefulWidget {
   @override
   State<PatientHomePage> createState() => _PatientHomePageState();
 }
-
 class _PatientHomePageState extends State<PatientHomePage> {
   String role = '';
   String username = '';
@@ -391,7 +391,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               InkWell(
                                                 onTap: () {
                                                   Get.to(() =>
-                                                      const RadiologyBill());
+                                                       IPD());
                                                 },
                                                 child: Container(
                                                   width: 100,
@@ -425,42 +425,42 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                   ),
                                                 ),
                                               ),
-                                              InkWell(
-                                                onTap: () {
-                                                  Get.to(() => const BloodBank());
-                                                },
-                                                child: Container(
-                                                  width: 100,
-                                                  height: 100,
-                                                  child: Card(
-                                                    child: Column(
-                                                      children: [
-                                                        const SizedBox(
-                                                          height: 5,
-                                                        ),
-                                                        Container(
-                                                          width: 30,
-                                                          height: 30,
-                                                          child: SvgPicture.asset(
-                                                              'assets/opd.svg',
-                                                              width: 15,
-                                                              height: 15,
-                                                              color: darkYellow),
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 10,
-                                                        ),
-                                                        const Text("OPD",
-                                                            style: TextStyle(
-                                                              fontSize: 5,
-                                                              fontWeight:
-                                                                  FontWeight.bold,
-                                                            ))
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
+                                              // InkWell(
+                                              //   onTap: () {
+                                              //     Get.to(() => const BloodBank());
+                                              //   },
+                                              //   child: Container(
+                                              //     width: 100,
+                                              //     height: 100,
+                                              //     child: Card(
+                                              //       child: Column(
+                                              //         children: [
+                                              //           const SizedBox(
+                                              //             height: 5,
+                                              //           ),
+                                              //           Container(
+                                              //             width: 30,
+                                              //             height: 30,
+                                              //             child: SvgPicture.asset(
+                                              //                 'assets/opd.svg',
+                                              //                 width: 15,
+                                              //                 height: 15,
+                                              //                 color: darkYellow),
+                                              //           ),
+                                              //           const SizedBox(
+                                              //             height: 10,
+                                              //           ),
+                                              //           const Text("OPD",
+                                              //               style: TextStyle(
+                                              //                 fontSize: 5,
+                                              //                 fontWeight:
+                                              //                     FontWeight.bold,
+                                              //               ))
+                                              //         ],
+                                              //       ),
+                                              //     ),
+                                              //   ),
+                                              // ),
                                               InkWell(
                                                 onTap: () {
                                                   Get.to(
