@@ -9,15 +9,12 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Trans
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/ambulance_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/pharmacy_bill.dart';
 import 'package:TezHealthCare/screens/notification.dart';
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
-import 'package:TezHealthCare/widgets/LoadingWidget.dart';
-import 'package:TezHealthCare/widgets/No_internet_screen.dart';
-import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:internet_connectivity_checker/internet_connectivity_checker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
@@ -81,7 +78,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
   Future<void> hitApi() async {
     try {
       final response = await http.post(
-        Uri.parse('https://uat.tez.hospital/xzy/webservice/getAllDoctor'),
+        Uri.parse(ApiLinks.getAllDoctor),
         headers: {
           'Soft-service': 'TezHealthCare',
           'Auth-key': 'zbuks_ram859553467',
@@ -158,11 +155,13 @@ class _PatientHomePageState extends State<PatientHomePage> {
           backgroundColor: darkYellow,
           elevation: 0,
         ),
-        body: ConnectivityBuilder(
-          interval: const Duration(seconds: 5),
-          builder: (ConnectivityStatus status) {
-            if (status == ConnectivityStatus.online) {
-              return RefreshIndicator(
+        body:
+        //  ConnectivityBuilder(
+        //   interval: const Duration(seconds: 5),
+        //   builder: (ConnectivityStatus status) {
+        //     if (status == ConnectivityStatus.online) {
+        //       return 
+              RefreshIndicator(
                 onRefresh: _handleRefresh,
                 child: isLoading
                     ? Center(
@@ -231,123 +230,98 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                   : Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: Card(
-                                          color:
-                                              Colors.white70.withOpacity(0.7),
-                                          child: Container(
-                                            height: 50,
-                                            padding: const EdgeInsets.all(10),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      EnString.hospitaldueBalance,
-                                                      style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: darkYellow,
-                                                        fontSize: 12,
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              left: 30.0),
-                                                      child: Text(
-                                                        'Rs.$totalSum',
-                                                        style:
-                                                            const TextStyle(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          child: Card(
+                                            color:
+                                                Colors.white70.withOpacity(0.7),
+                                            child: Container(
+                                              height: 50,
+                                              padding: const EdgeInsets.all(10),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        EnString
+                                                            .hospitaldueBalance,
+                                                        style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          color: Colors.red,
-                                                          fontSize: 16,
+                                                          color: darkYellow,
+                                                          fontSize: 12,
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                                left: 30.0),
+                                                        child: Text(
+                                                          'Rs.$totalSum',
+                                                          style:
+                                                              const TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: Colors.red,
+                                                            fontSize: 16,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  ElevatedButton(
+                                                    onPressed: () {
+                                                      // Add your button click logic here
+                                                    },
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      foregroundColor:
+                                                          Colors.white,
+                                                      backgroundColor: Colors
+                                                          .green, // Text color
+                                                      elevation: 0, // Elevation
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          horizontal: 20,
+                                                          vertical:
+                                                              10), // Padding
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                10), // Button border radius
+                                                      ),
+                                                    ),
+                                                    child: Shimmer.fromColors(
+                                                      baseColor: Colors.white,
+                                                      highlightColor:
+                                                          Colors.grey,
+                                                      child: const Text(
+                                                        EnString.payNow,
+                                                        style: TextStyle(
+                                                          fontSize: 10,
+                                                          fontWeight:
+                                                              FontWeight.bold,
                                                         ),
                                                       ),
                                                     ),
-                                                  ],
-                                                ),
-                                                ElevatedButton(
-                                                  onPressed: () {
-                                                    // Add your button click logic here
-                                                  },
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                    foregroundColor:
-                                                        Colors.white,
-                                                    backgroundColor: Colors
-                                                        .green, // Text color
-                                                    elevation: 0, // Elevation
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        horizontal: 20,
-                                                        vertical:
-                                                            10), // Padding
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10), // Button border radius
-                                                    ),
-                                                  ),
-                                                  child: Shimmer.fromColors(
-                                                    baseColor: Colors.white,
-                                                    highlightColor: Colors.grey,
-                                                    child: const Text(
-                                                      'Pay Now',
-                                                      style: TextStyle(
-                                                        fontSize: 10,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                )
-                                              ],
+                                                  )
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ))
-                                          
-                                    ),
+                                          ))),
                               Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    // const SizedBox(
-                                    //   height: 20,
-                                    // ),
-                                    // Row(
-                                    //   mainAxisAlignment:
-                                    //       MainAxisAlignment.spaceBetween,
-                                    //   children: [
-                                    //     const Text("Category",
-                                    //         style: TextStyle(
-                                    //           fontWeight: FontWeight.bold,
-                                    //         )),
-                                    //     InkWell(
-                                    //       onTap: () {
-                                    //         Get.to(
-                                    //             () => const Category_View_All());
-                                    //       },
-                                    //       child: const Text("View All",
-                                    //           style: TextStyle(
-                                    //               fontSize: 12,
-                                    //               fontWeight: FontWeight.bold,
-                                    //               color: Colors.black)),
-                                    //     ),
-                                    //   ],
-                                    // ),
-                                    // const SizedBox(
-                                    //   height: 8,
-                                    // ),
                                     Column(
                                       children: [
                                         Padding(
@@ -384,7 +358,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                         const SizedBox(
                                                           height: 10,
                                                         ),
-                                                        const Text(EnString.transactionBill,
+                                                        const Text(
+                                                            EnString
+                                                                .transactionBill,
                                                             style: TextStyle(
                                                               fontSize: 7,
                                                               fontWeight:
@@ -423,7 +399,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                         const SizedBox(
                                                           height: 10,
                                                         ),
-                                                        const Text(EnString.card,
+                                                        const Text(
+                                                            EnString.card,
                                                             style: TextStyle(
                                                               fontSize: 7,
                                                               fontWeight:
@@ -473,42 +450,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                   ),
                                                 ),
                                               ),
-                                              // InkWell(
-                                              //   onTap: () {
-                                              //     Get.to(() => const BloodBank());
-                                              //   },
-                                              //   child: Container(
-                                              //     width: 100,
-                                              //     height: 100,
-                                              //     child: Card(
-                                              //       child: Column(
-                                              //         children: [
-                                              //           const SizedBox(
-                                              //             height: 5,
-                                              //           ),
-                                              //           Container(
-                                              //             width: 30,
-                                              //             height: 30,
-                                              //             child: SvgPicture.asset(
-                                              //                 'assets/opd.svg',
-                                              //                 width: 15,
-                                              //                 height: 15,
-                                              //                 color: darkYellow),
-                                              //           ),
-                                              //           const SizedBox(
-                                              //             height: 10,
-                                              //           ),
-                                              //           const Text("OPD",
-                                              //               style: TextStyle(
-                                              //                 fontSize: 5,
-                                              //                 fontWeight:
-                                              //                     FontWeight.bold,
-                                              //               ))
-                                              //         ],
-                                              //       ),
-                                              //     ),
-                                              //   ),
-                                              // ),
                                               InkWell(
                                                 onTap: () {
                                                   Get.to(() =>
@@ -536,7 +477,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                         const SizedBox(
                                                           height: 10,
                                                         ),
-                                                        const Text(EnString.pathology,
+                                                        const Text(
+                                                            EnString.pathology,
                                                             style: TextStyle(
                                                               fontSize: 7,
                                                               fontWeight:
@@ -575,7 +517,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                         const SizedBox(
                                                           height: 10,
                                                         ),
-                                                        const Text(EnString.radiology,
+                                                        const Text(
+                                                            EnString.radiology,
                                                             style: TextStyle(
                                                               fontSize: 7,
                                                               fontWeight:
@@ -614,7 +557,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                         const SizedBox(
                                                           height: 10,
                                                         ),
-                                                        const Text(EnString.pharmacy,
+                                                        const Text(
+                                                            EnString.pharmacy,
                                                             style: TextStyle(
                                                               fontSize: 7,
                                                               fontWeight:
@@ -692,7 +636,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                         const SizedBox(
                                                           height: 10,
                                                         ),
-                                                        const Text(EnString.surgery,
+                                                        const Text(
+                                                            EnString.surgery,
                                                             style: TextStyle(
                                                               fontSize: 7,
                                                               fontWeight:
@@ -731,7 +676,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                         const SizedBox(
                                                           height: 10,
                                                         ),
-                                                        const Text(EnString.bloodBank,
+                                                        const Text(
+                                                            EnString.bloodBank,
                                                             style: TextStyle(
                                                               fontSize: 7,
                                                               fontWeight:
@@ -770,7 +716,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                         const SizedBox(
                                                           height: 10,
                                                         ),
-                                                        const Text(EnString.ambulance,
+                                                        const Text(
+                                                            EnString.ambulance,
                                                             style: TextStyle(
                                                               fontSize: 7,
                                                               fontWeight:
@@ -810,7 +757,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                           height: 10,
                                                         ),
                                                         const Text(
-                                                            EnString.physioTherapy,
+                                                            EnString
+                                                                .physioTherapy,
                                                             style: TextStyle(
                                                               fontSize: 7,
                                                               fontWeight:
@@ -849,7 +797,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                         const SizedBox(
                                                           height: 10,
                                                         ),
-                                                        const Text(EnString.certificates,
+                                                        const Text(
+                                                            EnString
+                                                                .certificates,
                                                             style: TextStyle(
                                                               fontSize: 7,
                                                               fontWeight:
@@ -888,7 +838,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                         const SizedBox(
                                                           height: 10,
                                                         ),
-                                                        const Text(EnString.bedHistory,
+                                                        const Text(
+                                                            EnString.bedHistory,
                                                             style: TextStyle(
                                                               fontSize: 7,
                                                               fontWeight:
@@ -928,7 +879,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                           height: 10,
                                                         ),
                                                         const Text(
-                                                            EnString.liveConsultations,
+                                                            EnString
+                                                                .liveConsultations,
                                                             style: TextStyle(
                                                               fontSize: 7,
                                                               fontWeight:
@@ -1135,21 +1087,21 @@ class _PatientHomePageState extends State<PatientHomePage> {
                           ),
                         ),
                       ),
-              );
-            } else if (status == ConnectivityStatus.offline) {
-              return const NoInternetScreen();
-            } else {
-              // status == ConnectivityStatus.checking
-              return Center(
-                child: SizedBox(
-                  width: 100,
-                  height: 100,
-                  child: Lottie.asset('assets/loading1.json'),
-                ),
-              );
-            }
-          },
-        ),
+              ),
+            // } else if (status == ConnectivityStatus.offline) {
+            //   return const NoInternetScreen();
+            // } else {
+            //   // status == ConnectivityStatus.checking
+            //   return Center(
+            //     child: SizedBox(
+            //       width: 100,
+            //       height: 100,
+            //       child: Lottie.asset('assets/loading1.json'),
+            //     ),
+            //   );
+            // }
+          
+        
         drawer: const AboutUSScreen(), // Left drawer
         endDrawer: const Notif(),
       ),

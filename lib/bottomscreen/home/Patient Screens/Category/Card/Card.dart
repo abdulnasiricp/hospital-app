@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, non_constant_identifier_names, deprecated_member_use, file_names
 
 import 'package:TezHealthCare/stringfile/All_string.dart';
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +59,7 @@ class _CardScreenState extends State<CardScreen> {
                     print('Error opening file: ${result.message}');
                   }
                   // Launch a URL using url_launcher package
-                  await launch('https://uat.tez.hospital/xzy/webservice/generateIdcard/$PatientId'); // Replace with your desired URL
+                  await launch('${ApiLinks.generateIdcard}/$PatientId'); // Replace with your desired URL
                 }
               },
               child: const Text('Open'),
@@ -78,7 +79,7 @@ class _CardScreenState extends State<CardScreen> {
             onPressed: () {
               FileDownloader.downloadFile(
                 url:
-                'https://uat.tez.hospital/xzy/webservice/generateIdcard/$PatientId',
+                '${ApiLinks.generateIdcard}/$PatientId',
                 onProgress: (name, progress) {
                   setState(() {
                     _progress = progress;
@@ -134,7 +135,7 @@ class _CardScreenState extends State<CardScreen> {
             child: const PDF(
               swipeHorizontal: true,
             ).cachedFromUrl(
-              'https://uat.tez.hospital/xzy/webservice/generateIdcard/$PatientId',
+              '${ApiLinks.generateIdcard}/$PatientId',
             ),
           ),
         ),

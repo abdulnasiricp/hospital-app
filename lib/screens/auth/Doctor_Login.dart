@@ -2,6 +2,8 @@
 
 import 'dart:convert';
 import 'package:TezHealthCare/screens/auth/Forgot_Password.dart';
+import 'package:TezHealthCare/stringfile/All_string.dart';
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:http/http.dart' as http;
 import 'package:TezHealthCare/bottombar/bottombar.dart';
@@ -41,7 +43,7 @@ class _DoctorLoginState extends State<DoctorLogin> {
 
     // Perform API call to authenticate the user
     final response = await http.post(
-      Uri.parse('https://uat.tez.hospital/xzy/auth/doctor_login'),
+      Uri.parse(ApiLinks.doctorLogin),
       body: json.encode({'username': username, 'password': password}),
       headers: {
         'Soft-service': 'TezHealthCare',
@@ -116,7 +118,7 @@ class _DoctorLoginState extends State<DoctorLogin> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          '  Username',
+                          EnString.username,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, color: Colors.white),
                         ),
@@ -126,7 +128,7 @@ class _DoctorLoginState extends State<DoctorLogin> {
                         TextFormField(
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'Please Enter Username';
+                              return EnString.enterusername;
                             }
                             //  else if (!value.contains('@')) {
                             //   return 'please enter valid email';
@@ -144,7 +146,7 @@ class _DoctorLoginState extends State<DoctorLogin> {
                               filled: true,
                               prefixIcon: const Icon(Icons.person),
                               prefixIconColor: yellow,
-                              hintText: 'Enter Username',
+                              hintText: EnString.enterusername,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                               )),
@@ -153,7 +155,7 @@ class _DoctorLoginState extends State<DoctorLogin> {
                           height: 20,
                         ),
                         const Text(
-                          '  Password',
+                          EnString.password,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, color: Colors.white),
                         ),

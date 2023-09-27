@@ -5,6 +5,7 @@
 import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/bill_model.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/view_bill.dart';
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:TezHealthCare/stringfile/All_string.dart';
@@ -51,7 +52,7 @@ class _TransactionBillState extends State<TransactionBill> {
 
   Future<void> fetchData() async {
     final response = await http.post(
-      Uri.parse('https://uat.tez.hospital/xzy/webservice/getAllPayment'),
+      Uri.parse(ApiLinks.getAllPayment),
       headers: {
         'Soft-service': 'TezHealthCare',
         'Auth-key': 'zbuks_ram859553467',
@@ -129,7 +130,6 @@ class _TransactionBillState extends State<TransactionBill> {
       }
       // Add similar code for other bill types if needed
       // Calculate the total sum
-      // Calculate the total sum
       totalSum = billItems.map((item) => item.total).fold(0.0, (a, b) => a + b);
 
       // Save the totalSum in SharedPreferences with a unique key
@@ -161,6 +161,17 @@ class _TransactionBillState extends State<TransactionBill> {
       return 'Unknown'; // Handle other types if needed
     }
   }
+   Future<void> _handleRefresh() async {
+    setState(() {
+      isLoading = true; // Set isLoading to true when refreshing
+    });
+
+    await LoadData();
+
+    setState(() {
+      isLoading = false; // Set isLoading to false after data is fetched
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -170,7 +181,16 @@ class _TransactionBillState extends State<TransactionBill> {
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
-      body: Column(children: [
+      body:RefreshIndicator(
+                onRefresh: _handleRefresh,
+                child: isLoading
+                    ? Center(
+                        child: Container(
+                        height: 100,
+                        width: 100,
+                        child: const Center(child: SizedBox()),
+                      ))
+                    : Column(children: [
         Container(
           color: Colors.grey,
           width: width,
@@ -304,18 +324,14 @@ class _TransactionBillState extends State<TransactionBill> {
                                   ),
                                 ),
                               ),
-                              // Divider(
-                              //   color: Colors.black, //color of divider
-                              //   indent: 10, //Spacing at the top of divider.
-                              //   endIndent:
-                              //       10, //Spacing at the bottom of divider.
-                              // ),
+                             
                             ],
                           ),
                         );
                       }),
         ),
       ]),
+      ),
       bottomSheet: Card(
         child: Container(
           height: height / 15,

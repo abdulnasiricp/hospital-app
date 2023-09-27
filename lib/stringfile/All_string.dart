@@ -1,6 +1,16 @@
 // ignore_for_file: file_names
 
 class EnString {
+  //Patient Login Screen
+  static const String username = "Username";
+  static const String enterusername = "Enter Username ";
+  static const String password= "Password";
+  static const String pleaseEnterpassword= "Please Enter your Password";
+  static const String forgotpassword = "Forgot password?";
+  static const String rememberMe = "Remember Me";
+  static const String login = "Sign In";
+
+
   //Bottom Bar
   static const String home = "Home";
   static const String transcation = "Transaction";
@@ -18,8 +28,18 @@ class EnString {
   static const String myinformation = "My Information";
   static const String myinformationsubtitle = "view your personal details";
   static const String deviceAndCredential = "Device & Credentials";
-  static const String deviceAndCredentialSubtitle =
-      "manage your Devices,cridentials and notification ID";
+  static const String deviceAndCredentialSubtitle ="manage your Devices,cridentials and notification ID";
+  //information Profile screen
+  static const String informationProfile ="Information Profile";
+  static const String patientID ="Patient ID";
+  static const String patientAge ="Age";
+  static const String patientEmail ="Email";
+  static const String patientPhone ="Phone";
+  static const String patientBloodGroup ="Blood Group";
+  static const String patientAddress ="Address";
+  static const String patientMaritialStatus ="Maritial Status";
+  static const String patientGuardianName ="Guardian Name";
+
   static const String helpCenter = "Help Center";
   static const String helpCenterSubtitle = "Ask a Quastion from help center";
   static const String aboutUs = "About Us";
@@ -99,7 +119,6 @@ class EnString {
   static const String patientMobile = "Mobile No.:";
   static const String patientGender = "Gender:";
   static const String patientDOB = "Date of Birth:";
-  static const String patientAddress = "Address:";
   static const String patientPaymentAmount = "Payment amount:";
   static const String confirmationDesc =
       "Please call and confirm at hospital if doctor is a availible at hospital on the day of appointment.";

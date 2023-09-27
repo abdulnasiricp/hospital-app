@@ -2,6 +2,7 @@
 
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Select_date.dart';
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
   Future<void> fetchDataFromAPI() async {
     try {
       final response = await http.post(
-        Uri.parse('https://uat.tez.hospital/xzy/webservice/getAllDoctor'),
+        Uri.parse(ApiLinks.getAllDoctor),
         headers: {
           'Soft-service': 'TezHealthCare',
           'Auth-key': 'zbuks_ram859553467',

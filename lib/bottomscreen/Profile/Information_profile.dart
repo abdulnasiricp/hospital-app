@@ -3,6 +3,8 @@
 
 import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/Profile/profile_model.dart';
+import 'package:TezHealthCare/stringfile/All_string.dart';
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
@@ -34,7 +36,7 @@ class _InformationProfileState extends State<InformationProfile>
   }
 
   Future<void> ProfileApi() async {
-    const apiUrl = 'https://uat.tez.hospital/xzy/webservice/getPatientprofile';
+    const apiUrl = ApiLinks.getPatientprofile;
     final headers = {
       'Soft-service': 'TezHealthCare',
       'Auth-key': 'zbuks_ram859553467',
@@ -88,7 +90,7 @@ late ColorNotifier notifier;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: darkYellow,
-          title: const Text('Information Profile'),
+          title: const Text(EnString.informationProfile),
           centerTitle: true,
         ),
         body: profileData != null 
@@ -149,7 +151,7 @@ late ColorNotifier notifier;
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    const Text('Patient ID',
+                                    const Text(EnString.patientID,
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     Text(
@@ -161,7 +163,7 @@ late ColorNotifier notifier;
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    const Text('Gender',
+                                    const Text(EnString.patientGender,
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     Text(
@@ -173,7 +175,7 @@ late ColorNotifier notifier;
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    const Text('Age',
+                                    const Text(EnString.patientAge,
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     Text(
@@ -197,42 +199,42 @@ late ColorNotifier notifier;
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Email',
+                              EnString.patientEmail,
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
                               height: 20,
                             ),
                             Text(
-                              'phone',
+                              EnString.patientPhone,
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
                               height: 20,
                             ),
                             Text(
-                              'Blood Group',
+                              EnString.patientBloodGroup,
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
                               height: 20,
                             ),
                             Text(
-                              'Address',
+                              EnString.patientAddress,
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
                               height: 20,
                             ),
                             Text(
-                              'Maritial Status',
+                              EnString.patientMaritialStatus,
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
                               height: 20,
                             ),
                             Text(
-                              'Guardian Name',
+                              EnString.patientGuardianName,
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ],

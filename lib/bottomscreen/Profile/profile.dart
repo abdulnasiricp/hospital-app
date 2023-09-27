@@ -10,6 +10,7 @@ import 'package:TezHealthCare/bottomscreen/Profile/help_center.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/profile_model.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/widgets/LoadingWidget.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +63,7 @@ class _ProfileState extends State<Profile> {
   }
 
   Future<void> ProfileApi() async {
-    const apiUrl = 'https://uat.tez.hospital/xzy/webservice/getPatientprofile';
+    const apiUrl = ApiLinks.getPatientprofile;
     final headers = {
       'Soft-service': 'TezHealthCare',
       'Auth-key': 'zbuks_ram859553467',

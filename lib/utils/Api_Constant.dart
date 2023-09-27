@@ -1,16 +1,13 @@
-// api_constants.dart
+// ignore_for_file: file_names
 
-// ignore_for_file: constant_identifier_names, file_names
+class ApiLinks {
+  static const String getAllDoctor= "https://uat.tez.hospital/xzy/webservice/getAllDoctor";
+  static const String getAllPayment= "https://uat.tez.hospital/xzy/webservice/getAllPayment";
+  static const String generateBillPrint= "https://uat.tez.hospital/xzy/webservice/generateBillPrint";
+  static const String generateIdcard= "https://uat.tez.hospital/xzy/webservice/generateIdcard";
+  static const String getPatientprofile= "https://uat.tez.hospital/xzy/webservice/getPatientprofile";
+  static const String patientLogin= "https://uat.tez.hospital/xzy/auth/login";
+  static const String doctorLogin= "https://uat.tez.hospital/xzy/auth/doctor_login";
 
-import 'dart:convert';
-import 'package:http/http.dart';
-const String BASE_URL = 'https://uat.tez.hospital/xzy/webservice';
-const String CREATE_USER_API = '$BASE_URL/users';
-const String UPDATE_USER_API = '$BASE_URL/users/:id';
-const String Doctor_List_API = '$BASE_URL/getDoctor';
-
-Future<Response> postRequest(String apiEndpoint, Map<String, dynamic> body) async {
-  final response = await post(Uri.parse(apiEndpoint), body: jsonEncode(body),
-  );
-  return response;
+  
 }

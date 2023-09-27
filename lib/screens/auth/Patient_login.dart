@@ -2,6 +2,8 @@
 
 import 'dart:convert';
 import 'package:TezHealthCare/screens/auth/Forgot_Password.dart';
+import 'package:TezHealthCare/stringfile/All_string.dart';
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:http/http.dart' as http;
 import 'package:TezHealthCare/bottombar/bottombar.dart';
@@ -39,7 +41,7 @@ class _PatientLoginState extends State<PatientLogin> {
 
     // Perform API call to authenticate the user
     final response = await http.post(
-      Uri.parse('https://uat.tez.hospital/xzy/auth/login'),
+      Uri.parse(ApiLinks.patientLogin),
       body: json.encode({'username': username, 'password': password}),
       headers: {
         'Soft-service': 'TezHealthCare',
@@ -118,7 +120,7 @@ class _PatientLoginState extends State<PatientLogin> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          '  Username',
+                          EnString.username,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, color: Colors.white),
                         ),
@@ -128,7 +130,7 @@ class _PatientLoginState extends State<PatientLogin> {
                         TextFormField(
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'Please enter UserName';
+                              return EnString.enterusername;
                             }
                             //  else if (!value.contains('@')) {
                             //   return 'please enter valid email';
@@ -146,7 +148,7 @@ class _PatientLoginState extends State<PatientLogin> {
                               filled: true,
                               prefixIcon: const Icon(Icons.person),
                               prefixIconColor: yellow,
-                              hintText: 'Enter Username',
+                              hintText: EnString.enterusername,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                               )),
@@ -155,7 +157,7 @@ class _PatientLoginState extends State<PatientLogin> {
                           height: 20,
                         ),
                         const Text(
-                          '  Password',
+                          EnString.password,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, color: Colors.white),
                         ),
@@ -165,7 +167,7 @@ class _PatientLoginState extends State<PatientLogin> {
                         TextFormField(
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'Please Enter your password';
+                              return EnString.pleaseEnterpassword;
                             } else {
                               return null;
                             }
@@ -214,7 +216,7 @@ class _PatientLoginState extends State<PatientLogin> {
                                   }),
                                 ),
                                 const Text(
-                                  'Remember Me',
+                                  EnString.rememberMe,
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ],
@@ -229,7 +231,7 @@ class _PatientLoginState extends State<PatientLogin> {
                                     Get.to(() => const Forgotpassword());
                                   },
                                   child: const Text(
-                                    'Forgot Password',
+                                    EnString.forgotpassword,
                                     style: TextStyle(color: Colors.white),
                                   ),
                                 )),
@@ -242,7 +244,7 @@ class _PatientLoginState extends State<PatientLogin> {
                           width: double.infinity,
                           height: 50,
                           child: MyButton(
-                            title: const Text('Sign In'),
+                            title: const Text(EnString.login),
                             onPressed: () {
                               if (formKey.currentState!.validate()) {
                                 // Loginvalues.patientLogin(
