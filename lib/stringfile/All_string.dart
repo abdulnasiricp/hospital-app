@@ -30,7 +30,7 @@ class EnString {
   static const String settingSubtitle = "Change Your Setting";
   static const String logout = "Log Out";
   // Patient Home Screen
-  static const String welcome = "Welcome,";
+  static const String welcome = "Welcome,\n";
   static const String patientId = "Patient Id:-,";
   static const String hisNo = "HIS NO:-,";
   static const String hospitalTitle = "प्रादेशिक अस्पताल सिराहा, नेपाल";
@@ -107,5 +107,6 @@ class EnString {
   //Notification Screeen
   static const String notification = "Notification";
   static const String ended = "The doctor has ended his consultation";
-  static const String please ="Your consultation is timed and finished,\n please rate us so we can serve you better!";
+  static const String please =
+      "Your consultation is timed and finished,\n please rate us so we can serve you better!";
 }

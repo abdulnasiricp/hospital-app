@@ -262,7 +262,7 @@ class _TransactionBillState extends State<TransactionBill> {
                           child: Column(
                             children: [
                               Padding(
-                                padding: const EdgeInsets.only(top: 1.0),
+                                padding: const EdgeInsets.only(top: 5.0,left: 5,right: 5),
                                 child: Container(
                                   decoration: BoxDecoration(
                                     color: Colors.white70, // Background color
