@@ -9,6 +9,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:TezHealthCare/stringfile/All_string.dart';
+
 
 class AllDoctorsList extends StatefulWidget {
   const AllDoctorsList({Key? key}) : super(key: key);
@@ -95,7 +97,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
       child: Scaffold(
         backgroundColor: Colors.white.withOpacity(0.9),
         appBar: AppBar(
-          title: const Text('Select a Doctor'),
+          title: const Text(EnString.selectADoctor),
           centerTitle: true,
           backgroundColor: darkYellow,
           leading: IconButton(
@@ -186,7 +188,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                             decoration: const InputDecoration(
                               fillColor: Colors.white,
                               filled: true,
-                              hintText: 'Search your doctor',
+                              hintText: EnString.searchADoctor,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(20),
@@ -295,7 +297,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                                   },
                                                   child: const Center(
                                                     child: Text(
-                                                      'Book Appointment',
+                                                      EnString.bookAppointment,
                                                       style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,

@@ -4,6 +4,7 @@
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
+import 'package:TezHealthCare/stringfile/All_string.dart';
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -76,7 +77,7 @@ class _FacultyMembersState extends State<FacultyMembers> {
     return Scaffold(
         backgroundColor: Colors.white.withOpacity(0.9),
         appBar: AppBar(
-          title: const Text('Select a Faculty mamber'),
+          title: const Text(EnString.selectFacultyMember),
           centerTitle: true,
           backgroundColor: darkYellow,
         ),
@@ -98,7 +99,7 @@ class _FacultyMembersState extends State<FacultyMembers> {
 
                                 fillColor: Colors.white,
                                 filled: true,
-                                hintText: 'Search your Faculty mamber',
+                                hintText: EnString.searchFacultyMember,
                                 border: OutlineInputBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(20))),

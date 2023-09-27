@@ -1,29 +1,111 @@
 // ignore_for_file: file_names
 
 class EnString {
+  //Bottom Bar
+  static const String home = "Home";
   static const String transcation = "Transaction";
   static const String card = "Card";
-  static const String home = "Home";
   static const String profile = "Profile";
-  static const String welcome = "Welcome";
-  static const String transactionBill= "Transcation Bill";
-  static const String tid= "TID";
-  static const String section= "Section";
-  static const String billno= "Bill No.";
-  static const String amount= "Amount";
-  static const String total= "Total";
-  static const String myinformation= "My Information";
-  static const String myinformationsubtitle= "view your personal details";
-  static const String deviceAndCredential= "Device & Credentials";
-  static const String deviceAndCredentialSubtitle= "manage your Devices,cridentials and notification ID";
-  static const String helpCenter= "Help Center";
-  static const String helpCenterSubtitle= "Ask a Quastion from help center";
-  static const String aboutUs= "About Us";
-  static const String aboutUsSubtitle= "view aboutus details";
-  static const String darkmode= "Dark Mode";
-  static const String darkmodeSubtitle= "Change Mode";
-  static const String setting= "Setting";
-  static const String settingSubtitle= "Change Your Setting";
-  static const String logout= "Log Out";
 
+  //Transaction bill
+  static const String transactionBill = "Transcation Bill";
+  static const String tid = "TID";
+  static const String section = "Section";
+  static const String billno = "Bill No.";
+  static const String amount = "Amount";
+  static const String total = "Total";
+  // Profile Screen
+  static const String myinformation = "My Information";
+  static const String myinformationsubtitle = "view your personal details";
+  static const String deviceAndCredential = "Device & Credentials";
+  static const String deviceAndCredentialSubtitle =
+      "manage your Devices,cridentials and notification ID";
+  static const String helpCenter = "Help Center";
+  static const String helpCenterSubtitle = "Ask a Quastion from help center";
+  static const String aboutUs = "About Us";
+  static const String aboutUsSubtitle = "view aboutus details";
+  static const String darkmode = "Dark Mode";
+  static const String darkmodeSubtitle = "Change Mode";
+  static const String setting = "Setting";
+  static const String settingSubtitle = "Change Your Setting";
+  static const String logout = "Log Out";
+  // Patient Home Screen
+  static const String welcome = "Welcome,";
+  static const String patientId = "Patient Id:-,";
+  static const String hisNo = "HIS NO:-,";
+  static const String hospitalTitle = "प्रादेशिक अस्पताल सिराहा, नेपाल";
+  static const String hospitaldueBalance = "Hospital Dues Balance";
+  static const String payNow = "Pay Now";
+  static const String idp = "IPD";
+  static const String pathology = "Pathology";
+  static const String radiology = "Radiology";
+  static const String pharmacy = "Pharmacy";
+  static const String usg = "USG";
+  static const String surgery = "Surgery";
+  static const String bloodBank = "Blood Bank";
+  static const String ambulance = "Ambulance";
+  static const String physioTherapy = "Physio Therapy";
+  static const String certificates = "Certificates";
+  static const String bedHistory = "Bed History";
+  static const String liveConsultations = "Live Consultations";
+  static const String doctors = "Doctors";
+  static const String viewAll = "View All";
+  //View All Doctor list
+  static const String selectADoctor = "Select a Doctor";
+  static const String searchADoctor = "Search your doctor";
+  static const String bookAppointment = "Book Appointment";
+  //About us
+  static const String hospitalName = "Sirha Provincial Hospital";
+  static const String hospitalNameCity =
+      "प्रादेशिक अस्पताल सिराहा \nसिरहा , नेपाल";
+  static const String hospitalNameCityLocation =
+      "प्रादेशिक अस्पताल सिराहा \nसिरहा , नेपाल";
+  static const String viewLocation = "View Location";
+  static const String faculty = "Faculty";
+  static const String allMembers = "All Members";
+  //Facality memers screen
+  static const String selectFacultyMember = "Select a Faculty mamber";
+  static const String searchFacultyMember = "Search your Faculty mamber";
+  //Select a Date screen
+  static const String selectADate = "Select a Date";
+  static const String doctorProfile = "Doctor Profile";
+  static const String experience = "Experience";
+  static const String specialist = "Specialist";
+  static const String hospital = "Hospital";
+  static const String location = "Location";
+  static const String nationality = "Nationality";
+  static const String about = "About";
+  //Old or New Patient screen
+  static const String oldOrNewPatient = "Old or New Patient?";
+  static const String askPatientQuestions =
+      "Are you a new patient or old patient of this hospital?";
+  static const String newPatient = "New Patient";
+  static const String newPatientDesc =
+      "I have not visited this hospital before or i do\n not have Hospital No.";
+  static const String oldPatient = "Old Patient";
+  static const String oldPatientDesc =
+      "I have visited this hospital before and have \n Hospital No.";
+  static const String note =
+      "Note: You can find hospital No. on OPD card/book ";
+  //patient List
+  static const String patientList = "Patient List";
+  static const String selectPatient =
+      "Please select patient from whom you want to take\n appointment for:";
+  //conformation screen
+  static const String conformation = "Confirmation";
+  static const String hospitalVisitAppointment = "Hosiptal Visit Appointment";
+  static const String patientInformation = "Patient's information";
+  static const String patientName = "Name:";
+  static const String patientMobile = "Mobile No.:";
+  static const String patientGender = "Gender:";
+  static const String patientDOB = "Date of Birth:";
+  static const String patientAddress = "Address:";
+  static const String patientPaymentAmount = "Payment amount:";
+  static const String confirmationDesc =
+      "Please call and confirm at hospital if doctor is a availible at hospital on the day of appointment.";
+  static const String selectpaymentMethod = "Please Select any one to Pay.";
+  //Notification Screeen
+  static const String notification = "Notification";
+  static const String ended = "The doctor has ended his consultation";
+  static const String please ="Your consultation is timed and finished,\n please rate us so we can serve you better!";
 }

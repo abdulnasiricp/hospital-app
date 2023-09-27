@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, sized_box_for_whitespace
 
+import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: darkYellow,
-        title: const Text('Doctor Profile'),
+        title: const Text(EnString.doctorProfile),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -79,35 +80,35 @@ class _DoctorProfileState extends State<DoctorProfile> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Experience',
+                                  EnString.experience,
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(
                                   height: 10,
                                 ),
                                 Text(
-                                  'Specialist',
+                                  EnString.specialist,
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(
                                   height: 10,
                                 ),
                                 Text(
-                                  'Hospital',
+                                  EnString.hospital,
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(
                                   height: 10,
                                 ),
                                 Text(
-                                  'Location',
+                                  EnString.location,
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(
                                   height: 10,
                                 ),
                                 Text(
-                                  'Nationality',
+                                  EnString.nationality,
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                               ],
@@ -169,7 +170,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'About',
+                              EnString.about,
                               style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
                             ),
                             Text(
