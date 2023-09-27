@@ -12,6 +12,7 @@ import 'package:TezHealthCare/screens/notification.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
+import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -168,7 +169,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                         child: Container(
                         height: 100,
                         width: 100,
-                        child: const Center(child: SizedBox()),
+                        child: LoadingIndicatorWidget(),
                       ))
                     : SingleChildScrollView(
                         child: Padding(
@@ -230,93 +231,91 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                   : Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          child: Card(
-                                            color:
-                                                Colors.white70.withOpacity(0.7),
-                                            child: Container(
-                                              height: 50,
-                                              padding: const EdgeInsets.all(10),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Text(
-                                                        EnString
-                                                            .hospitaldueBalance,
-                                                        style: TextStyle(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Card(
+                                          color:
+                                              Colors.white70.withOpacity(0.7),
+                                          child: Container(
+                                            height: 50,
+                                            padding: const EdgeInsets.all(10),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      EnString.hospitaldueBalance,
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: darkYellow,
+                                                        fontSize: 12,
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 30.0),
+                                                      child: Text(
+                                                        'Rs.$totalSum',
+                                                        style:
+                                                            const TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          color: darkYellow,
-                                                          fontSize: 12,
+                                                          color: Colors.red,
+                                                          fontSize: 16,
                                                         ),
                                                       ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                                left: 30.0),
-                                                        child: Text(
-                                                          'Rs.$totalSum',
-                                                          style:
-                                                              const TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Colors.red,
-                                                            fontSize: 16,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
+                                                    ),
+                                                  ],
+                                                ),
+                                                ElevatedButton(
+                                                  onPressed: () {
+                                                    // Add your button click logic here
+                                                  },
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    foregroundColor:
+                                                        Colors.white,
+                                                    backgroundColor: Colors
+                                                        .green, // Text color
+                                                    elevation: 0, // Elevation
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 20,
+                                                        vertical:
+                                                            10), // Padding
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10), // Button border radius
+                                                    ),
                                                   ),
-                                                  ElevatedButton(
-                                                    onPressed: () {
-                                                      // Add your button click logic here
-                                                    },
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      foregroundColor:
-                                                          Colors.white,
-                                                      backgroundColor: Colors
-                                                          .green, // Text color
-                                                      elevation: 0, // Elevation
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                          horizontal: 20,
-                                                          vertical:
-                                                              10), // Padding
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius.circular(
-                                                                10), // Button border radius
+                                                  child: Shimmer.fromColors(
+                                                    baseColor: Colors.white,
+                                                    highlightColor: Colors.grey,
+                                                    child: const Text(
+                                                      'Pay Now',
+                                                      style: TextStyle(
+                                                        fontSize: 10,
+                                                        fontWeight:
+                                                            FontWeight.bold,
                                                       ),
                                                     ),
-                                                    child: Shimmer.fromColors(
-                                                      baseColor: Colors.white,
-                                                      highlightColor:
-                                                          Colors.grey,
-                                                      child: const Text(
-                                                        EnString.payNow,
-                                                        style: TextStyle(
-                                                          fontSize: 10,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
+                                                  ),
+                                                )
+                                              ],
                                             ),
-                                          ))),
+                                          ),
+                                        ))
+                                          
+                                    ),
                               Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Column(
@@ -939,7 +938,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                   return Center(
                                                       child: Center(
                                                     child: Lottie.asset(
-                                                        'assets/loading1.json'),
+                                                        'assets/tez_spin.json'),
                                                   ));
                                                 } else {
                                                   return Container(
