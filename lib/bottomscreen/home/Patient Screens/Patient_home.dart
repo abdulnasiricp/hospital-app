@@ -11,7 +11,9 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Trans
 import 'package:TezHealthCare/screens/notification.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
+import 'package:TezHealthCare/widgets/LoadingWidget.dart';
 import 'package:TezHealthCare/widgets/No_internet_screen.dart';
+import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -20,22 +22,24 @@ import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:http/http.dart' as http;
+import 'package:shimmer/shimmer.dart';
 
 class PatientHomePage extends StatefulWidget {
   final String? patientId;
-  const PatientHomePage({Key? key,  this.patientId}) : super(key: key);
+  const PatientHomePage({Key? key, this.patientId}) : super(key: key);
 
   @override
   State<PatientHomePage> createState() => _PatientHomePageState();
 }
-class _PatientHomePageState extends State<PatientHomePage> {
-   double totalSum = 0.0; 
-   // Initialize with a default value
-    
 
-   Future<void> getTotalSum() async {
+class _PatientHomePageState extends State<PatientHomePage> {
+  double totalSum = 0.0;
+  // Initialize with a default value
+
+  Future<void> getTotalSum() async {
     final sp = await SharedPreferences.getInstance();
-    final patientSpecificKey = 'totalSum_${widget.patientId}'; // Use the patient's ID in the key
+    final patientSpecificKey =
+        'totalSum_${widget.patientId}'; // Use the patient's ID in the key
     final storedTotalSum = sp.getDouble(patientSpecificKey);
     if (storedTotalSum != null) {
       setState(() {
@@ -43,6 +47,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
       });
     }
   }
+
   String role = '';
   String username = '';
   String record = '';
@@ -181,10 +186,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         .start, // Aligns text to the start of the column
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.only(left: 5.0),
+                                        padding:
+                                            const EdgeInsets.only(left: 5.0),
                                         child: Text(
-                                          
-                                          '${EnString.welcome}\n $username',
+                                          '${EnString.welcome} $username',
                                           style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.black,
@@ -221,75 +226,96 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                   ),
                                 ],
                               ),
-                             totalSum==0.0  ? Container():Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Card(
-                                     color: Colors.white70
-                                                            .withOpacity(0.7),
-                                    child: Container(
-                                      height: 50,
-                                      padding: const EdgeInsets.all(10),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                           Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                EnString.hospitaldueBalance,
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: darkYellow,
-                                                  fontSize: 12,
+                              totalSum == 0.0
+                                  ? Container()
+                                  : Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Card(
+                                          color:
+                                              Colors.white70.withOpacity(0.7),
+                                          child: Container(
+                                            height: 50,
+                                            padding: const EdgeInsets.all(10),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      EnString.hospitaldueBalance,
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: darkYellow,
+                                                        fontSize: 12,
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 30.0),
+                                                      child: Text(
+                                                        'Rs.$totalSum',
+                                                        style:
+                                                            const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.red,
+                                                          fontSize: 16,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                              ),
-                                               Padding(
-                                                padding:
-                                                    const EdgeInsets.only(left: 30.0),
-                                                child: Text(
-                                                  'Rs.$totalSum',
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.red,
-                                                    fontSize: 16,
+                                                ElevatedButton(
+                                                  onPressed: () {
+                                                    // Add your button click logic here
+                                                  },
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    foregroundColor:
+                                                        Colors.white,
+                                                    backgroundColor: Colors
+                                                        .green, // Text color
+                                                    elevation: 0, // Elevation
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 20,
+                                                        vertical:
+                                                            10), // Padding
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10), // Button border radius
+                                                    ),
                                                   ),
-                                                ),
-                                              ),
-                                            ],
+                                                  child: Shimmer.fromColors(
+                                                    baseColor: Colors.white,
+                                                    highlightColor: Colors.grey,
+                                                    child: const Text(
+                                                      'Pay Now',
+                                                      style: TextStyle(
+                                                        fontSize: 10,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
                                           ),
-                                          ElevatedButton(
-                                            onPressed: () {
-                                              // Add your button click logic here
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                              foregroundColor: Colors.white, backgroundColor: Colors.green, // Text color
-                                              elevation: 0, // Elevation
-                                              padding: const EdgeInsets.symmetric(
-                                                  horizontal: 20,
-                                                  vertical: 10), // Padding
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(
-                                                    10), // Button border radius
-                                              ),
-                                            ),
-                                            child: const Text(
-                                              EnString.payNow,
-                                              style: TextStyle(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
+                                        ))
+                                          
                                     ),
-                                  ),
-                                ),
-                              ),
                               Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Column(
@@ -333,8 +359,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             children: [
                                               InkWell(
                                                 onTap: () {
-                                                  Get.to(
-                                                      () => const TransactionBill());
+                                                  Get.to(() =>
+                                                      const TransactionBill());
                                                 },
                                                 child: Container(
                                                   width: 100,
@@ -352,16 +378,18 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                               'assets/transaction.svg',
                                                               width: 15,
                                                               height: 15,
-                                                              color: darkYellow),
+                                                              color:
+                                                                  darkYellow),
                                                         ),
                                                         const SizedBox(
                                                           height: 10,
                                                         ),
                                                         const Text(EnString.transactionBill,
                                                             style: TextStyle(
-                                                              fontSize: 5,
+                                                              fontSize: 7,
                                                               fontWeight:
-                                                                  FontWeight.bold,
+                                                                  FontWeight
+                                                                      .bold,
                                                             ))
                                                       ],
                                                     ),
@@ -370,8 +398,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               ),
                                               InkWell(
                                                 onTap: () {
-                                                  Get.to(() =>
-                                                      const CardScreen());
+                                                  Get.to(
+                                                      () => const CardScreen());
                                                 },
                                                 child: Container(
                                                   width: 100,
@@ -380,7 +408,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                     child: Column(
                                                       children: [
                                                         const SizedBox(
-                                                          height: 5,
+                                                          height: 7,
                                                         ),
                                                         Container(
                                                           width: 30,
@@ -389,16 +417,18 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                               'assets/card.svg',
                                                               width: 15,
                                                               height: 15,
-                                                              color: darkYellow),
+                                                              color:
+                                                                  darkYellow),
                                                         ),
                                                         const SizedBox(
                                                           height: 10,
                                                         ),
                                                         const Text(EnString.card,
                                                             style: TextStyle(
-                                                              fontSize: 5,
+                                                              fontSize: 7,
                                                               fontWeight:
-                                                                  FontWeight.bold,
+                                                                  FontWeight
+                                                                      .bold,
                                                             ))
                                                       ],
                                                     ),
@@ -407,8 +437,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               ),
                                               InkWell(
                                                 onTap: () {
-                                                  Get.to(() =>
-                                                       const IPD());
+                                                  Get.to(() => const IPD());
                                                 },
                                                 child: Container(
                                                   width: 100,
@@ -426,16 +455,18 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                               'assets/ipd.svg',
                                                               width: 15,
                                                               height: 15,
-                                                              color: darkYellow),
+                                                              color:
+                                                                  darkYellow),
                                                         ),
                                                         const SizedBox(
                                                           height: 10,
                                                         ),
                                                         const Text(EnString.idp,
                                                             style: TextStyle(
-                                                              fontSize: 5,
+                                                              fontSize: 7,
                                                               fontWeight:
-                                                                  FontWeight.bold,
+                                                                  FontWeight
+                                                                      .bold,
                                                             ))
                                                       ],
                                                     ),
@@ -480,8 +511,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               // ),
                                               InkWell(
                                                 onTap: () {
-                                                  Get.to(
-                                                      () => const PharmacyBill());
+                                                  Get.to(() =>
+                                                      const PharmacyBill());
                                                 },
                                                 child: Container(
                                                   width: 100,
@@ -499,16 +530,18 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                               'assets/pathology.svg',
                                                               width: 15,
                                                               height: 15,
-                                                              color: darkYellow),
+                                                              color:
+                                                                  darkYellow),
                                                         ),
                                                         const SizedBox(
                                                           height: 10,
                                                         ),
                                                         const Text(EnString.pathology,
                                                             style: TextStyle(
-                                                              fontSize: 5,
+                                                              fontSize: 7,
                                                               fontWeight:
-                                                                  FontWeight.bold,
+                                                                  FontWeight
+                                                                      .bold,
                                                             ))
                                                       ],
                                                     ),
@@ -536,16 +569,18 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                               'assets/radiology.svg',
                                                               width: 15,
                                                               height: 15,
-                                                              color: darkYellow),
+                                                              color:
+                                                                  darkYellow),
                                                         ),
                                                         const SizedBox(
                                                           height: 10,
                                                         ),
                                                         const Text(EnString.radiology,
                                                             style: TextStyle(
-                                                              fontSize: 5,
+                                                              fontSize: 7,
                                                               fontWeight:
-                                                                  FontWeight.bold,
+                                                                  FontWeight
+                                                                      .bold,
                                                             ))
                                                       ],
                                                     ),
@@ -573,16 +608,18 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                               'assets/pharmacy.svg',
                                                               width: 15,
                                                               height: 15,
-                                                              color: darkYellow),
+                                                              color:
+                                                                  darkYellow),
                                                         ),
                                                         const SizedBox(
                                                           height: 10,
                                                         ),
                                                         const Text(EnString.pharmacy,
                                                             style: TextStyle(
-                                                              fontSize: 5,
+                                                              fontSize: 7,
                                                               fontWeight:
-                                                                  FontWeight.bold,
+                                                                  FontWeight
+                                                                      .bold,
                                                             ))
                                                       ],
                                                     ),
@@ -610,16 +647,18 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                               'assets/usg.svg',
                                                               width: 15,
                                                               height: 15,
-                                                              color: darkYellow),
+                                                              color:
+                                                                  darkYellow),
                                                         ),
                                                         const SizedBox(
                                                           height: 10,
                                                         ),
                                                         const Text(EnString.usg,
                                                             style: TextStyle(
-                                                              fontSize: 8,
+                                                              fontSize: 7,
                                                               fontWeight:
-                                                                  FontWeight.bold,
+                                                                  FontWeight
+                                                                      .bold,
                                                             ))
                                                       ],
                                                     ),
@@ -647,16 +686,18 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                               'assets/surgery.svg',
                                                               width: 15,
                                                               height: 15,
-                                                              color: darkYellow),
+                                                              color:
+                                                                  darkYellow),
                                                         ),
                                                         const SizedBox(
                                                           height: 10,
                                                         ),
                                                         const Text(EnString.surgery,
                                                             style: TextStyle(
-                                                              fontSize: 5,
+                                                              fontSize: 7,
                                                               fontWeight:
-                                                                  FontWeight.bold,
+                                                                  FontWeight
+                                                                      .bold,
                                                             ))
                                                       ],
                                                     ),
@@ -684,16 +725,18 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                               'assets/blood_bank.svg',
                                                               width: 15,
                                                               height: 15,
-                                                              color: darkYellow),
+                                                              color:
+                                                                  darkYellow),
                                                         ),
                                                         const SizedBox(
                                                           height: 10,
                                                         ),
                                                         const Text(EnString.bloodBank,
                                                             style: TextStyle(
-                                                              fontSize: 5,
+                                                              fontSize: 7,
                                                               fontWeight:
-                                                                  FontWeight.bold,
+                                                                  FontWeight
+                                                                      .bold,
                                                             ))
                                                       ],
                                                     ),
@@ -721,16 +764,18 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                               'assets/ambulance.svg',
                                                               width: 15,
                                                               height: 15,
-                                                              color: darkYellow),
+                                                              color:
+                                                                  darkYellow),
                                                         ),
                                                         const SizedBox(
                                                           height: 10,
                                                         ),
                                                         const Text(EnString.ambulance,
                                                             style: TextStyle(
-                                                              fontSize: 5,
+                                                              fontSize: 7,
                                                               fontWeight:
-                                                                  FontWeight.bold,
+                                                                  FontWeight
+                                                                      .bold,
                                                             ))
                                                       ],
                                                     ),
@@ -758,7 +803,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                               'assets/therapy.svg',
                                                               width: 15,
                                                               height: 15,
-                                                              color: darkYellow),
+                                                              color:
+                                                                  darkYellow),
                                                         ),
                                                         const SizedBox(
                                                           height: 10,
@@ -766,9 +812,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                         const Text(
                                                             EnString.physioTherapy,
                                                             style: TextStyle(
-                                                              fontSize: 5,
+                                                              fontSize: 7,
                                                               fontWeight:
-                                                                  FontWeight.bold,
+                                                                  FontWeight
+                                                                      .bold,
                                                             ))
                                                       ],
                                                     ),
@@ -796,16 +843,18 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                               'assets/certificate.svg',
                                                               width: 15,
                                                               height: 15,
-                                                              color: darkYellow),
+                                                              color:
+                                                                  darkYellow),
                                                         ),
                                                         const SizedBox(
                                                           height: 10,
                                                         ),
                                                         const Text(EnString.certificates,
                                                             style: TextStyle(
-                                                              fontSize: 5,
+                                                              fontSize: 7,
                                                               fontWeight:
-                                                                  FontWeight.bold,
+                                                                  FontWeight
+                                                                      .bold,
                                                             ))
                                                       ],
                                                     ),
@@ -833,16 +882,18 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                               'assets/bed_history.svg',
                                                               width: 15,
                                                               height: 15,
-                                                              color: darkYellow),
+                                                              color:
+                                                                  darkYellow),
                                                         ),
                                                         const SizedBox(
                                                           height: 10,
                                                         ),
                                                         const Text(EnString.bedHistory,
                                                             style: TextStyle(
-                                                              fontSize: 5,
+                                                              fontSize: 7,
                                                               fontWeight:
-                                                                  FontWeight.bold,
+                                                                  FontWeight
+                                                                      .bold,
                                                             ))
                                                       ],
                                                     ),
@@ -870,7 +921,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                               'assets/live_consult.svg',
                                                               width: 15,
                                                               height: 15,
-                                                              color: darkYellow),
+                                                              color:
+                                                                  darkYellow),
                                                         ),
                                                         const SizedBox(
                                                           height: 10,
@@ -878,9 +930,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                         const Text(
                                                             EnString.liveConsultations,
                                                             style: TextStyle(
-                                                              fontSize: 5,
+                                                              fontSize: 7,
                                                               fontWeight:
-                                                                  FontWeight.bold,
+                                                                  FontWeight
+                                                                      .bold,
                                                             ))
                                                       ],
                                                     ),
@@ -937,139 +990,139 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                         'assets/loading1.json'),
                                                   ));
                                                 } else {
-                                                return Container(
-                                                  width: width,
-                                                  child: Card(
-                                                      color: Colors.white70
-                                                          .withOpacity(0.7),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets.all(
-                                                                10.0),
-                                                        child: Row(
-                                                          children: [
-                                                            Container(
-                                                              width: width / 5,
-                                                              height: 100,
-                                                              child: ClipRRect(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10),
+                                                  return Container(
+                                                    width: width,
+                                                    child: Card(
+                                                        color: Colors.white70
+                                                            .withOpacity(0.7),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(10.0),
+                                                          child: Row(
+                                                            children: [
+                                                              Container(
+                                                                width:
+                                                                    width / 5,
+                                                                height: 100,
                                                                 child:
-                                                                    Image.network(
-                                                                  '${DoneListData![index]['image']}', // Replace with your image URL
-                                                                  width:
-                                                                      200.0, // Set the width (optional)
-                                                                  height:
-                                                                      200.0, // Set the height (optional)
-                                                                  fit: BoxFit
-                                                                      .cover, // Set the BoxFit (optional)
-                                                                  loadingBuilder:
-                                                                      (context,
-                                                                          child,
-                                                                          loadingProgress) {
-                                                                    if (loadingProgress ==
-                                                                        null) {
-                                                                      return child;
-                                                                    } else {
-                                                                      return CircularProgressIndicator(
-                                                                        color:
-                                                                            darkYellow,
-                                                                        backgroundColor:
-                                                                            yellow,
-                                                                      );
-                                                                    }
-                                                                  },
+                                                                    ClipRRect(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10),
+                                                                  child: Image
+                                                                      .network(
+                                                                    '${DoneListData![index]['image']}', // Replace with your image URL
+                                                                    width:
+                                                                        200.0, // Set the width (optional)
+                                                                    height:
+                                                                        200.0, // Set the height (optional)
+                                                                    fit: BoxFit
+                                                                        .cover, // Set the BoxFit (optional)
+                                                                    loadingBuilder:
+                                                                        (context,
+                                                                            child,
+                                                                            loadingProgress) {
+                                                                      if (loadingProgress ==
+                                                                          null) {
+                                                                        return child;
+                                                                      } else {
+                                                                        return CircularProgressIndicator(
+                                                                          color:
+                                                                              darkYellow,
+                                                                          backgroundColor:
+                                                                              yellow,
+                                                                        );
+                                                                      }
+                                                                    },
+                                                                  ),
                                                                 ),
                                                               ),
-                                                            ),
-                                                            const SizedBox(
-                                                              width: 10,
-                                                            ),
-                                                            Column(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Text(
-                                                                  'Dr. ${DoneListData![index]['name']} ${DoneListData![index]['surname']}',
-                                                                  maxLines: 1,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  style: const TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold),
-                                                                ),
-                                                                const SizedBox(
-                                                                  height: 5,
-                                                                ),
-                                                                Text(
-                                                                  '${DoneListData![index]['specialization']}',
-                                                                  maxLines: 1,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  style: const TextStyle(
-                                                                      color: Colors
-                                                                          .blue),
-                                                                ),
-                                                                const SizedBox(
-                                                                  height: 5,
-                                                                ),
-                                                                Text(
-                                                                  '${DoneListData![index]['email']}',
-                                                                  maxLines: 1,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  // style: const TextStyle(
-                                                                  //     fontWeight:
-                                                                  //     FontWeight.bold),
-                                                                ),
-                                                                const SizedBox(
-                                                                  height: 10,
-                                                                ),
-                                                                Row(
-                                                                  children: [
-                                                                    // Text('${DoneListData![index]['qualification']},'),
-                                                                    Container(
-                                                                        child:
-                                                                            Text(
-                                                                      '${DoneListData![index]['qualification']}',
-                                                                      maxLines: 1,
-                                                                      overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
-                                                                      style: const TextStyle(
-                                                                          fontWeight:
-                                                                              FontWeight
-                                                                                  .bold,
-                                                                          color: Colors
-                                                                              .green),
-                                                                    )),
-                                                                    const SizedBox(
-                                                                      width: 10,
-                                                                    ),
+                                                              const SizedBox(
+                                                                width: 10,
+                                                              ),
+                                                              Column(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Text(
+                                                                    'Dr. ${DoneListData![index]['name']} ${DoneListData![index]['surname']}',
+                                                                    maxLines: 1,
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                    style: const TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight.bold),
+                                                                  ),
+                                                                  const SizedBox(
+                                                                    height: 5,
+                                                                  ),
+                                                                  Text(
+                                                                    '${DoneListData![index]['specialization']}',
+                                                                    maxLines: 1,
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                    style: const TextStyle(
+                                                                        color: Colors
+                                                                            .blue),
+                                                                  ),
+                                                                  const SizedBox(
+                                                                    height: 5,
+                                                                  ),
+                                                                  Text(
+                                                                    '${DoneListData![index]['email']}',
+                                                                    maxLines: 1,
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                    // style: const TextStyle(
+                                                                    //     fontWeight:
+                                                                    //     FontWeight.bold),
+                                                                  ),
+                                                                  const SizedBox(
+                                                                    height: 10,
+                                                                  ),
+                                                                  Row(
+                                                                    children: [
+                                                                      // Text('${DoneListData![index]['qualification']},'),
+                                                                      Container(
+                                                                          child:
+                                                                              Text(
+                                                                        '${DoneListData![index]['qualification']}',
+                                                                        maxLines:
+                                                                            1,
+                                                                        overflow:
+                                                                            TextOverflow.ellipsis,
+                                                                        style: const TextStyle(
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            color: Colors.green),
+                                                                      )),
+                                                                      const SizedBox(
+                                                                        width:
+                                                                            10,
+                                                                      ),
 
-                                                                    // Text('${DoneListData![index]['work_exp']},'),
-                                                                    Text(
-                                                                      '${DoneListData![index]['work_exp']}',
-                                                                      maxLines: 1,
-                                                                      overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
-                                                                    ),
-                                                                  ],
-                                                                )
-                                                              ],
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      )),
-                                                );
+                                                                      // Text('${DoneListData![index]['work_exp']},'),
+                                                                      Text(
+                                                                        '${DoneListData![index]['work_exp']}',
+                                                                        maxLines:
+                                                                            1,
+                                                                        overflow:
+                                                                            TextOverflow.ellipsis,
+                                                                      ),
+                                                                    ],
+                                                                  )
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        )),
+                                                  );
                                                 }
                                               }),
                                         ),

@@ -25,7 +25,6 @@ class TransactionBill extends StatefulWidget {
 
 class _TransactionBillState extends State<TransactionBill> {
   bool isLoading = true;
-
   double totalSum = 0.0;
   String username = '';
   late String patient = '';
@@ -36,12 +35,14 @@ class _TransactionBillState extends State<TransactionBill> {
     print(patient);
     setState(() {});
   }
+
   List<BillItem> billItems = [];
   getAllData() async {
     await LoadData();
 
     await fetchData();
   }
+
   @override
   void initState() {
     getAllData();
@@ -170,33 +171,32 @@ class _TransactionBillState extends State<TransactionBill> {
         backgroundColor: darkYellow,
       ),
       body: Column(children: [
-        Card(
-          child: Container(
-            width: width,
-            height: height / 15,
-            child: const Padding(
-              padding: EdgeInsets.all(15.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    EnString.tid,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                  ),
-                  Text(
-                    EnString.section,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                  ),
-                  Text(
-                    EnString.billno,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                  ),
-                  Text(
-                    EnString.amount,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                  ),
-                ],
-              ),
+        Container(
+          color: Colors.grey,
+          width: width,
+          height: height / 20,
+          child: const Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  EnString.tid,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                ),
+                Text(
+                  EnString.section,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                ),
+                Text(
+                  EnString.billno,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                ),
+                Text(
+                  EnString.amount,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                ),
+              ],
             ),
           ),
         ),
@@ -259,10 +259,20 @@ class _TransactionBillState extends State<TransactionBill> {
                             );
                             print(listName);
                           },
-                          child: Card(
-                            child: Column(
-                              children: [
-                                Container(
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 1.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white70, // Background color
+                                    border: Border.all(
+                                      color: Colors.grey, // Border color
+                                      width: 1.0, // Border width
+                                    ),
+                                    borderRadius: BorderRadius.circular(
+                                        10.0), // Border radius
+                                  ),
                                   width: width,
                                   height: height / 15,
                                   child: Padding(
@@ -285,14 +295,22 @@ class _TransactionBillState extends State<TransactionBill> {
                                         ),
                                         Text(
                                           'Rs.${item.total}',
-                                          style: const TextStyle(),
+                                          style: const TextStyle(
+                                            color: Colors.red,
+                                          ),
                                         ),
                                       ],
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                              // Divider(
+                              //   color: Colors.black, //color of divider
+                              //   indent: 10, //Spacing at the top of divider.
+                              //   endIndent:
+                              //       10, //Spacing at the bottom of divider.
+                              // ),
+                            ],
                           ),
                         );
                       }),
@@ -310,11 +328,15 @@ class _TransactionBillState extends State<TransactionBill> {
               children: [
                 const Text(EnString.total,
                     style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold)),
-                Text("Rs. $totalSum",
-                    style: const TextStyle(
-                      color: Colors.white,
-                    )),
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20)),
+                Shimmer.fromColors(
+                  baseColor: Colors.red,
+                  highlightColor: Colors.yellow,
+                  child: Text("Rs. $totalSum",
+                      style: const TextStyle(color: Colors.red, fontSize: 20)),
+                ),
               ],
             ),
           ),
