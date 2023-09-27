@@ -1,6 +1,6 @@
 // // ignore_for_file: sized_box_for_whitespace, non_constant_identifier_names, prefer_typing_uninitialized_variables, avoid_print
 
-// ignore_for_file: non_constant_identifier_names, sized_box_for_whitespace, file_names, avoid_print
+// ignore_for_file: non_constant_identifier_names, sized_box_for_whitespace, file_names, avoid_print, unnecessary_null_comparison
 
 import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/bill_model.dart';
@@ -68,8 +68,7 @@ class _TransactionBillState extends State<TransactionBill> {
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       setState(() {
-          isLoading = false;
-        
+        isLoading = false;
       });
       if (data['pathology_bill'] != null) {
         for (var item in data['pathology_bill']) {
@@ -133,18 +132,16 @@ class _TransactionBillState extends State<TransactionBill> {
       }
       // Add similar code for other bill types if needed
       // Calculate the total sum
- // Calculate the total sum
-  totalSum = billItems.map((item) => item.total).fold(0.0, (a, b) => a + b);
+      // Calculate the total sum
+      totalSum = billItems.map((item) => item.total).fold(0.0, (a, b) => a + b);
 
-  // Save the totalSum in SharedPreferences with a unique key
-  final sp = await SharedPreferences.getInstance();
-  final patientSpecificKey = 'totalSum_$patient'; // Include the patient ID or username in the key
-  sp.setDouble(patientSpecificKey, totalSum);
+      // Save the totalSum in SharedPreferences with a unique key
+      final sp = await SharedPreferences.getInstance();
+      final patientSpecificKey =
+          'totalSum_$patient'; // Include the patient ID or username in the key
+      sp.setDouble(patientSpecificKey, totalSum);
 
-  setState(() {
-          
-
-  });
+      setState(() {});
     } else {
       throw Exception('Failed to load data');
     }
@@ -168,6 +165,22 @@ class _TransactionBillState extends State<TransactionBill> {
     }
   }
 
+  Future<void> _handleRefresh() async {
+    if (isLoading) {
+      return;
+    }
+
+    setState(() {
+      isLoading = true; // Set isLoading to true when refreshing
+    });
+
+    await LoadData();
+
+    setState(() {
+      isLoading = false; // Set isLoading to false after data is fetched
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -176,132 +189,150 @@ class _TransactionBillState extends State<TransactionBill> {
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
-      body: Column(children: [
-        Card(
-          child: Container(
-            width: width,
-            height: height / 15,
-            child: const Padding(
-              padding: EdgeInsets.all(15.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'TID',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                  ),
-                  Text(
-                    'Section',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                  ),
-                  Text(
-                    'Bill No.',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                  ),
-                  Text(
-                    'Amount',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-        Expanded(
-          child:isLoading ? ListView.builder(
-                            itemCount: 10,
-                            itemBuilder: (context, index) {
-                              return Shimmer.fromColors(
-                                baseColor: Colors.grey,
-                                highlightColor: Colors.blue.shade100,
-                                child: ListTile(
-                                  leading: Container(
-                                    width: 60,
-                                    height: 60,
-                                    color: Colors.white,
-                                  ),
-                                  title: Container(
-                                    width: 150,
-                                    height: 20,
-                                    color: Colors.white,
-                                  ),
-                                  subtitle: Container(
-                                    width: 100,
-                                    height: 10,
-                                    color: Colors.white,
-                                  ),
-                                  trailing: Container(
-                                    width: 60,
-                                    height: 30,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              );
-                            },
-                          ): billItems == null || billItems!.isEmpty
-                            ? Center(
-                                child: Container(
-                                  height: 150,
-                                  width: 150,
-                                  child: Lottie.asset(
-                                    'assets/No_Data_Found.json',
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ) :ListView.builder(
-              itemCount: billItems.length,
-              itemBuilder: (context, index) {
-                final item = billItems[index];
-                final listName = getListName(item);
-                return InkWell(
-                  onTap: () {
-                    Get.to(
-                      () => ViewBillDetiles(
-                        billNo: item.id.toString(),
-                        billname: listName,
-                      ),
-                    );
-                    print(listName);
-                  },
-                  child: Card(
-                    child: Column(
-                      children: [
-                        Container(
-                          width: width,
-                          height: height / 15,
-                          child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  {index + 1}.toString(),
-                                  style: const TextStyle(),
-                                ),
-                                Text(
-                                  listName,
-                                  style: const TextStyle(),
-                                ),
-                                Text(
-                                  item.id.toString(),
-                                  style: const TextStyle(),
-                                ),
-                                Text(
-                                  'Rs.${item.total}',
-                                  style: const TextStyle(),
-                                ),
-                              ],
-                            ),
+      body: RefreshIndicator(
+        onRefresh: _handleRefresh,
+        child: isLoading
+            ? Center(
+                child: Container(
+                height: 100,
+                width: 100,
+                child: Center(child: Lottie.asset('assets/loading1.json')),
+              ))
+            : Column(children: [
+                Card(
+                  child: Container(
+                    width: width,
+                    height: height / 15,
+                    child: const Padding(
+                      padding: EdgeInsets.all(15.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'TID',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
                           ),
-                        ),
-                      ],
+                          Text(
+                            'Section',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                          Text(
+                            'Bill No.',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                          Text(
+                            'Amount',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                );
-              }),
-        ),
-      ]),
+                ),
+                Expanded(
+                  child: isLoading
+                      ? ListView.builder(
+                          itemCount: 10,
+                          itemBuilder: (context, index) {
+                            return Shimmer.fromColors(
+                              baseColor: Colors.grey,
+                              highlightColor: Colors.blue.shade100,
+                              child: ListTile(
+                                leading: Container(
+                                  width: 60,
+                                  height: 60,
+                                  color: Colors.white,
+                                ),
+                                title: Container(
+                                  width: 150,
+                                  height: 20,
+                                  color: Colors.white,
+                                ),
+                                subtitle: Container(
+                                  width: 100,
+                                  height: 10,
+                                  color: Colors.white,
+                                ),
+                                trailing: Container(
+                                  width: 60,
+                                  height: 30,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            );
+                          },
+                        )
+                      : billItems == null || billItems.isEmpty
+                          ? Center(
+                              child: Container(
+                                height: 150,
+                                width: 150,
+                                child: Lottie.asset(
+                                  'assets/No_Data_Found.json',
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            )
+                          : ListView.builder(
+                              itemCount: billItems.length,
+                              itemBuilder: (context, index) {
+                                final item = billItems[index];
+                                final listName = getListName(item);
+                                return InkWell(
+                                  onTap: () {
+                                    Get.to(
+                                      () => ViewBillDetiles(
+                                        billNo: item.id.toString(),
+                                        billname: listName,
+                                      ),
+                                    );
+                                    print(listName);
+                                  },
+                                  child: Card(
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          width: width,
+                                          height: height / 15,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(5.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  {index + 1}.toString(),
+                                                  style: const TextStyle(),
+                                                ),
+                                                Text(
+                                                  listName,
+                                                  style: const TextStyle(),
+                                                ),
+                                                Text(
+                                                  item.id.toString(),
+                                                  style: const TextStyle(),
+                                                ),
+                                                Text(
+                                                  'Rs.${item.total}',
+                                                  style: const TextStyle(),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              }),
+                ),
+              ]),
+      ),
       bottomSheet: Card(
         child: Container(
           height: height / 15,
