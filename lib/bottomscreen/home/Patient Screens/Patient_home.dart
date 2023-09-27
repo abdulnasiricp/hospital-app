@@ -169,7 +169,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                         child: Container(
                         height: 100,
                         width: 100,
-                        child: const Center(child: SizedBox()),
+                        child: LoadingIndicatorWidget(),
                       ))
                     : SingleChildScrollView(
                         child: Padding(
@@ -263,8 +263,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                               left: 30.0),
                                                       child: Text(
                                                         'Rs.$totalSum',
-                                                        style:
-                                                            const TextStyle(
+                                                        style: const TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
                                                           color: Colors.red,
@@ -990,7 +989,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                   return Center(
                                                       child: Center(
                                                     child: Lottie.asset(
-                                                        'assets/loading1.json'),
+                                                        'assets/tez_spin.json'),
                                                   ));
                                                 } else {
                                                   return Container(
@@ -1144,11 +1143,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
             } else {
               // status == ConnectivityStatus.checking
               return Center(
-                child: SizedBox(
-                  width: 100,
-                  height: 100,
-                  child: Lottie.asset('assets/loading1.json'),
-                ),
+                child: LoadingIndicatorWidget(),
               );
             }
           },
