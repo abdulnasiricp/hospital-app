@@ -1,6 +1,7 @@
 // ignore_for_file: sized_box_for_whitespace, file_names, non_constant_identifier_names, avoid_print, avoid_unnecessary_containers
 
 import 'dart:convert';
+import 'package:TezHealthCare/Payment_gateway/Select_Pament_Method.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/All_doctors.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Card/Card.dart';
@@ -276,7 +277,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                 ),
                                                 ElevatedButton(
                                                   onPressed: () {
-                                                    // Add your button click logic here
+                                                    Get.to(() =>  Select_Pament_Method());
                                                   },
                                                   style:
                                                       ElevatedButton.styleFrom(
