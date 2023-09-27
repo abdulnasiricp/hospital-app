@@ -1,6 +1,7 @@
 // ignore_for_file: sized_box_for_whitespace, file_names
 
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/confirmation_screen.dart';
+import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class _PatientListState extends State<PatientList> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: darkYellow,
-        title: const Text('Patient List'),
+        title: const Text(EnString.patientList),
         centerTitle: true,
       ),
       body: Padding(
@@ -28,7 +29,7 @@ class _PatientListState extends State<PatientList> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Please select patient from whom you want to take\n appointment for:',
+              EnString.selectPatient,
               style: TextStyle(color: Colors.orange[900], fontSize: 15),
             ),
             InkWell(

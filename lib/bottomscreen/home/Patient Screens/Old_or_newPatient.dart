@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, sized_box_for_whitespace
 
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Patient_list.dart';
+import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class _OldorNewPatientScreenState extends State<OldorNewPatientScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: darkYellow,
-        title: const Text('Old or New Patient?'),
+        title: const Text(EnString.oldOrNewPatient),
         centerTitle: true,
       ),
       body: Padding(
@@ -33,7 +34,7 @@ class _OldorNewPatientScreenState extends State<OldorNewPatientScreen> {
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Text(
-                'Are you a new patient or old patient of this hospital?',
+                EnString.askPatientQuestions,
                 style: TextStyle(color: Colors.blue[400]),
               ),
             ),
@@ -56,14 +57,14 @@ class _OldorNewPatientScreenState extends State<OldorNewPatientScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'New Patient',
+                        EnString.newPatient,
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
                         height: 5,
                       ),
                       Text(
-                          'I have not visited this hospital before or i do\n not have Hospital No.'),
+                          EnString.oldPatientDesc),
                     ],
                   ),
                 )),
@@ -85,14 +86,14 @@ class _OldorNewPatientScreenState extends State<OldorNewPatientScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Old Patient',
+                        EnString.oldPatient,
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
                         height: 5,
                       ),
                       Text(
-                          'I have visited this hospital before and have \n Hospital No.'),
+                          EnString.oldPatientDesc),
                     ],
                   ),
                 )),
@@ -101,7 +102,7 @@ class _OldorNewPatientScreenState extends State<OldorNewPatientScreen> {
             const SizedBox(height: 10,),
             Padding(
               padding: const EdgeInsets.only(left: 10),
-              child: Text('Note: You can find hospital No. on OPD card/book ',style: TextStyle(color: Colors.blue[400]),),
+              child: Text(EnString.note,style: TextStyle(color: Colors.blue[400]),),
             )
           ],
         ),

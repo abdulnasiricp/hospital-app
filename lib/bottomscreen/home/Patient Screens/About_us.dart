@@ -8,6 +8,8 @@ import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:TezHealthCare/stringfile/All_string.dart';
+
 
 class AboutUSScreen extends StatefulWidget {
   const AboutUSScreen({Key? key}) : super(key: key);
@@ -107,21 +109,14 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                         enlargeCenterPage: true)),
               ),
 
-              // Container(
-              //   height: height / 3,
-              //   width: width,
-              //   child: Image.asset(
-              //     'assets/ucla.png',
-              //     fit: BoxFit.cover,
-              //   ),
-              // ),
+           
+             
               Padding(
                 padding: EdgeInsets.only(
                     top: height / 3.5, left: width / 25, right: width / 25),
                 child: Container(
                   height: height / 3.5,
                   width: width,
-                  // color: Colors.white,
                   child: Card(
                     child: Column(
                       children: [
@@ -141,13 +136,13 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const Text(
-                                    'Sirha Provincial Hospital',
+                                    EnString.hospitalName,
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   const Text(
-                                      "प्रादेशिक अस्पताल सिराहा \nसिरहा , नेपाल"),
-                                  const Text("Siraha Hospital, Siraha 56500"),
+                                      EnString.hospitalNameCity),
+                                  const Text(EnString.hospitalNameCityLocation),
                                   Container(
                                     height: 50,
                                     width: 175,
@@ -226,7 +221,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text("Faculty",
+                  const Text(EnString.faculty,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       )),
@@ -234,7 +229,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                     onTap: () {
                       Get.offAll(() => const FacultyMembers());
                     },
-                    child: const Text("All Members",
+                    child: const Text(EnString.allMembers,
                         style: TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.blue)),
                   ),

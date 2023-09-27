@@ -1,5 +1,6 @@
 // ignore_for_file: sized_box_for_whitespace, avoid_unnecessary_containers
 
+import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: darkYellow,
-        title: const Text('confirmation'),
+        title: const Text(EnString.conformation),
         centerTitle: true,
       ),
       body: Padding(
@@ -42,7 +43,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          "Hosiptal Visit Appointment",
+                          EnString.hospitalVisitAppointment,
                           style: TextStyle(
                               color: Colors.orange[900],
                               fontWeight: FontWeight.bold),
@@ -99,7 +100,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
             const SizedBox(
               height: 10,
             ),
-            const Text("Patient's information",
+            const Text(EnString.patientInformation,
                 style: TextStyle(fontWeight: FontWeight.bold)),
             Container(
               width: width,
@@ -116,23 +117,23 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Name:',
+                            EnString.patientName,
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            'Mobile No.:',
+                            EnString.patientMobile,
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            'Gender:',
+                            EnString.patientGender,
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            'Date of Birth:',
+                            EnString.patientDOB,
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            'Address:',
+                            EnString.patientAddress,
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ],
@@ -162,7 +163,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
             ),
             Row(
               children: [
-                const Text("Payment amount:",
+                const Text(EnString.patientPaymentAmount,
                     style: TextStyle(fontWeight: FontWeight.bold)),
                 const SizedBox(
                   width: 10,
@@ -177,13 +178,13 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
               height: 10,
             ),
             Text(
-                'Please call and confirm at hospital if doctor is a availible at hospital on the day of appointment.',
+                EnString.confirmationDesc,
                 style: TextStyle(color: Colors.orange[900])),
             const SizedBox(
               height: 10,
             ),
             Center(
-              child: Text('Please Select any one to Pay.',
+              child: Text(EnString.selectpaymentMethod,
                   style: TextStyle(
                       color: Colors.blue[400],
                       fontWeight: FontWeight.bold,

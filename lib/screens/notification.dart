@@ -1,7 +1,7 @@
+import 'package:TezHealthCare/stringfile/All_string.dart';
+import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:TezHealthCare/custtom/appbar.dart';
-import 'package:TezHealthCare/stringfile/enstring.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:provider/provider.dart';
@@ -22,13 +22,7 @@ class _NotifState extends State<Notif> {
     return ScreenUtilInit(
       builder: (_ , child)  => Scaffold(
         backgroundColor: notifier.getwihitecolor,
-        appBar: CustomAppBar(
-          Colors.transparent,
-          EnString.notification,
-          notifier.getblack,
-          "assets/doctorlistbackarrow.png",
-          height: height / 15,
-        ),
+        appBar:AppBar(title: const Text(EnString.notification),centerTitle: true,backgroundColor: darkYellow,),
         body: SingleChildScrollView(
           child: Column(
             children: [notificationcard()],
