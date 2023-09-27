@@ -6,7 +6,7 @@ class EnString {
   static const String home = "Home";
   static const String profile = "Profile";
   static const String welcome = "Welcome";
-  static const String transactionBill= "Transcation Bill";
+  static const String transactionBill= "Transcation";
   static const String tid= "TID";
   static const String section= "Section";
   static const String billno= "Bill No.";
@@ -15,7 +15,7 @@ class EnString {
   static const String myinformation= "My Information";
   static const String myinformationsubtitle= "view your personal details";
   static const String deviceAndCredential= "Device & Credentials";
-  static const String deviceAndCredentialSubtitle= "manage your Devices,cridentials and notification ID";
+  static const String deviceAndCredentialSubtitle= "manage your Devices and notification ID";
   static const String helpCenter= "Help Center";
   static const String helpCenterSubtitle= "Ask a Quastion from help center";
   static const String aboutUs= "About Us";
