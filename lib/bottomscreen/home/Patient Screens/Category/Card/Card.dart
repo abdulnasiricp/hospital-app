@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print, non_constant_identifier_names, deprecated_member_use, file_names
 
+import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
@@ -72,14 +73,7 @@ class _CardScreenState extends State<CardScreen> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          // _progress != null
-          //     ? const Center(
-          //   child: Padding(
-          //     padding: EdgeInsets.all(8.0),
-          //     child: CircularProgressIndicator(),
-          //   ),
-          // )
-          //     :
+         
                IconButton(
             onPressed: () {
               FileDownloader.downloadFile(
@@ -106,7 +100,7 @@ class _CardScreenState extends State<CardScreen> {
             icon: const Icon(Icons.download),
           )
         ],
-        title: const Text('Card'),
+        title: const Text(EnString.card),
         centerTitle: true,
         backgroundColor: darkYellow,
       ),

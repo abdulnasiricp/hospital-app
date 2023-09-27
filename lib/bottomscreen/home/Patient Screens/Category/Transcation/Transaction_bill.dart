@@ -7,6 +7,7 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Trans
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/view_bill.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:TezHealthCare/stringfile/All_string.dart';
 
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -164,7 +165,7 @@ class _TransactionBillState extends State<TransactionBill> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Transcation Bill'),
+        title: const Text(EnString.transactionBill),
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
@@ -179,19 +180,19 @@ class _TransactionBillState extends State<TransactionBill> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'TID',
+                    EnString.tid,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                   ),
                   Text(
-                    'Section',
+                    EnString.section,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                   ),
                   Text(
-                    'Bill No.',
+                    EnString.billno,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                   ),
                   Text(
-                    'Amount',
+                    EnString.amount,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                   ),
                 ],
@@ -232,7 +233,7 @@ class _TransactionBillState extends State<TransactionBill> {
                     );
                   },
                 )
-              : billItems == null || billItems!.isEmpty
+              : billItems.isEmpty
                   ? Center(
                       child: Container(
                         height: 150,
@@ -307,7 +308,7 @@ class _TransactionBillState extends State<TransactionBill> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text("Total",
+                const Text(EnString.total,
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold)),
                 Text("Rs. $totalSum",

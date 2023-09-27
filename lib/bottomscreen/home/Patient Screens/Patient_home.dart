@@ -5,7 +5,6 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart'
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/All_doctors.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Card/Card.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/IPD.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Main_transaction.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Transaction_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/ambulance_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/pharmacy_bill.dart';
@@ -19,6 +18,7 @@ import 'package:get/get.dart';
 import 'package:internet_connectivity_checker/internet_connectivity_checker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:http/http.dart' as http;
 
 class PatientHomePage extends StatefulWidget {
@@ -183,6 +183,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                       Padding(
                                         padding: const EdgeInsets.only(left: 5.0),
                                         child: Text(
+                                          
                                           'Welcome,\n $username',
                                           style: const TextStyle(
                                             fontWeight: FontWeight.bold,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:TezHealthCare/bottomscreen/chat/doctorinfomation.dart';
 import 'package:TezHealthCare/bottomscreen/home/address.dart';
 import 'package:TezHealthCare/custtom/doctorlistappbar.dart';
 import 'package:TezHealthCare/stringfile/enstring.dart';

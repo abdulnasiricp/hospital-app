@@ -9,6 +9,7 @@ import 'package:TezHealthCare/bottomscreen/Profile/Setting/Setting_screen.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/help_center.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/profile_model.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
+import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/widgets/LoadingWidget.dart';
 import 'package:flutter/material.dart';
@@ -113,7 +114,7 @@ class _ProfileState extends State<Profile> {
     return ScreenUtilInit(
       builder: (_, child) => Scaffold(
           appBar: AppBar(
-              title: const Text('Profile'),
+              title: const Text(EnString.profile),
               centerTitle: true,
               backgroundColor: notifier.getdarkyellow
               // elevation: 0,
@@ -222,12 +223,12 @@ class _ProfileState extends State<Profile> {
                                         height: 30,
                                         color: darkYellow ),
                                     title: const Text(
-                                      'My Information',
+                                     EnString.myinformation,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold),
                                     ),
                                     subtitle: const Text(
-                                        'view your personal details'),
+                                        EnString.myinformationsubtitle),
                                   ),
                                 ),
                                 InkWell(
@@ -242,12 +243,12 @@ class _ProfileState extends State<Profile> {
                                         height: 30,
                                         color: darkYellow),
                                     title: const Text(
-                                      'Device & Credentials',
+                                    EnString.deviceAndCredential,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold),
                                     ),
                                     subtitle: const Text(
-                                        'manage your Devices,cridentials and notification ID'),
+                                        EnString.deviceAndCredentialSubtitle),
                                   ),
                                 ),
                                 InkWell(
@@ -261,12 +262,12 @@ class _ProfileState extends State<Profile> {
                                         height: 30,
                                         color: darkYellow),
                                     title: const Text(
-                                      'Help Center',
+                                      EnString.helpCenter,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold),
                                     ),
                                     subtitle: const Text(
-                                        'Ask a Quastion from help center'),
+                                        EnString.helpCenterSubtitle),
                                   ),
                                 ),
                                 InkWell(
@@ -303,11 +304,11 @@ class _ProfileState extends State<Profile> {
                                         height: 30,
                                         color: darkYellow),
                                     title: const Text(
-                                      'Dark Mode',
+                                      EnString.darkmode,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold),
                                     ),
-                                    subtitle: const Text('Change Mode'),
+                                    subtitle: const Text(EnString.darkmodeSubtitle),
                                   ),
                                 ),
                                 InkWell(
@@ -321,12 +322,12 @@ class _ProfileState extends State<Profile> {
                                         height: 30,
                                         color: darkYellow),
                                     title: const Text(
-                                      'Setting',
+                                      EnString.setting,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold),
                                     ),
                                     subtitle:
-                                        const Text('Change your setting'),
+                                        const Text(EnString.settingSubtitle),
                                   ),
                                 ),
                                 InkWell(
@@ -340,7 +341,7 @@ class _ProfileState extends State<Profile> {
                                         height: 30,
                                         color: darkYellow),
                                     title: const Text(
-                                      'Log Out',
+                                      EnString.logout,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold),
                                     ),
