@@ -55,8 +55,7 @@ class MyApp extends StatelessWidget {
               //   brightness: Brightness.dark,
               //   primarySwatch: Colors.brown,
               // ),
-              home:
-               FutureBuilder<bool>(
+              home: FutureBuilder<bool>(
                   future: _isLoggedIn(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {

@@ -6,6 +6,7 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/All_doctors.da
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Card/Card.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/IPD.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Main_transaction.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Transaction_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/ambulance_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/pharmacy_bill.dart';
 import 'package:TezHealthCare/screens/notification.dart';
@@ -332,7 +333,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               InkWell(
                                                 onTap: () {
                                                   Get.to(
-                                                      () => const MainTransaction());
+                                                      () => const TransactionBill());
                                                 },
                                                 child: Container(
                                                   width: 100,

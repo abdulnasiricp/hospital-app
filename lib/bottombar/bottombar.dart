@@ -4,10 +4,10 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Card/
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Transaction_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Patient_home.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/profile.dart';
+import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:TezHealthCare/stringfile/enstring.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -91,7 +91,7 @@ class _BottomhomeState extends State<Bottomhome> {
                 icon: SvgPicture.asset('assets/transaction.svg',
                     height: height / 30, color: notifier.getwihitecolor),
                 title: Text(
-                  EnString.card,
+                  EnString.transcation,
                   style: TextStyle(
                       fontSize: 12.sp,
                       color: notifier.getwihitecolor,

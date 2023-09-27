@@ -4,9 +4,7 @@ class EnString {
   static const String
       theteamofreputabledoctorshasmanyyearsofprofessionalexperience =
       "The team of reputable doctors has many\nyears of professional experience.";
-
   static const String onlinehealthcheck = "Online health check";
-
   static const String easyandconvenientonlinecheckupsrightfromyourhome =
       "Easy and convenient online check-ups right\nfrom your home.";
 

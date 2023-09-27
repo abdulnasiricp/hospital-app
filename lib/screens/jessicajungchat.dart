@@ -69,9 +69,9 @@ class _JessicaJungChatState extends State<JessicaJungChat> {
           notifier.getblack,
           "assets/doctorlistbackarrow.png",
           GestureDetector(
-            onTap: () {
-              Get.to(const Doctorinfo());
-            },
+            // onTap: () {
+            //   Get.to(const Doctorinfo());
+            // },
             child: Padding(
               padding: const EdgeInsets.only(right: 10),
               child: Image.asset("assets/about.png", scale: 3.5),
