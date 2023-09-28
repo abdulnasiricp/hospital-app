@@ -9,6 +9,7 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/I
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Transaction_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/ambulance_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/pharmacy_bill.dart';
+import 'package:TezHealthCare/bottomscreen/home/paymentsuccessfuly.dart';
 import 'package:TezHealthCare/screens/notification.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -121,934 +122,927 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
+    return Scaffold(
 
-        appBar: AppBar(
-          // toolbarHeight: 100,
-          title: const Text(
-            EnString.hospitalTitle,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-          // centerTitle: true,
-          leading: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                // onTap: () {
-                //   // Get.to(() => const AboutUSScreen());
-                // },
-                child: Image.asset(
-                  'assets/hospital_logo.png',
-                  width: 200,
-                  height: 200,
-                ),
-              )),
-          actions: [
-            IconButton(
-                color: Colors.blue,
-                onPressed: () {
-                  Get.to(() => const Notif());
-                },
-                icon: const Icon(
-                  Icons.notifications,
-                  color: Colors.white,
-                )),
-          ],
-          backgroundColor: darkYellow,
-          elevation: 0,
+      appBar: AppBar(
+        // toolbarHeight: 100,
+        title: const Text(
+          EnString.hospitalTitle,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
-        body:
-            //  ConnectivityBuilder(
-            //   interval: const Duration(seconds: 5),
-            //   builder: (ConnectivityStatus status) {
-            //     if (status == ConnectivityStatus.online) {
-            //       return
-            RefreshIndicator(
-          onRefresh: _handleRefresh,
-          child: isLoading
-              ? Center(
-                  child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Container(
-                          height: 50,
-                          width: 50,
-                          color: Colors.transparent,
-                          child: const LoadingIndicatorWidget())),
-                )
-              : SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment
-                              .spaceBetween, // Aligns children to the start and end of the row
-                          children: [
-                            Column(
+        // centerTitle: true,
+        leading: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: InkWell(
+              // onTap: () {
+              //   // Get.to(() => const AboutUSScreen());
+              // },
+              child: Image.asset(
+                'assets/hospital_logo.png',
+                width: 200,
+                height: 200,
+              ),
+            )),
+        actions: [
+          IconButton(
+              color: Colors.blue,
+              onPressed: () {
+                Get.to(() => const Notif());
+              },
+              icon: const Icon(
+                Icons.notifications,
+                color: Colors.white,
+              )),
+        ],
+        backgroundColor: darkYellow,
+        elevation: 0,
+      ),
+      body:
+          //  ConnectivityBuilder(
+          //   interval: const Duration(seconds: 5),
+          //   builder: (ConnectivityStatus status) {
+          //     if (status == ConnectivityStatus.online) {
+          //       return
+          RefreshIndicator(
+        onRefresh: _handleRefresh,
+        child: isLoading
+            ? Center(
+                child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                        height: 50,
+                        width: 50,
+                        color: Colors.transparent,
+                        child: const LoadingIndicatorWidget())),
+              )
+            : SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment
+                            .spaceBetween, // Aligns children to the start and end of the row
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment
+                                .start, // Aligns text to the start of the column
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 5.0),
+                                child: Text(
+                                  '${EnString.welcome} $username',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: Column(
                               crossAxisAlignment: CrossAxisAlignment
-                                  .start, // Aligns text to the start of the column
+                                  .end, // Aligns text to the end of the column
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 5.0),
-                                  child: Text(
-                                    '${EnString.welcome} $username',
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                    ),
+                                Text(
+                                  '${EnString.patientId} $Patient_id',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                Text(
+                                  '${EnString.hisNo} $Patient_id',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                    fontSize: 14,
                                   ),
                                 ),
                               ],
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment
-                                    .end, // Aligns text to the end of the column
-                                children: [
-                                  Text(
-                                    '${EnString.patientId} $Patient_id',
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                      fontSize: 14,
+                          ),
+                        ],
+                      ),
+                      totalSum == 0.0
+                          ? Container()
+                          : Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Card(
+                                    color: Colors.white70.withOpacity(0.7),
+                                    child: Container(
+                                      height: 50,
+                                      padding: const EdgeInsets.all(10),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment
+                                                    .spaceBetween,
+                                            children: [
+                                              Text(
+                                                EnString.hospitaldueBalance,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: darkYellow,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.only(
+                                                        left: 30.0),
+                                                child: Text(
+                                                  'Rs.$totalSum',
+                                                  style: const TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold,
+                                                    color: Colors.red,
+                                                    fontSize: 16,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              Get.to(() =>
+                                                  const SelectPaymentMethod());
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              foregroundColor: Colors.white,
+                                              backgroundColor:
+                                                  Colors.green, // Text color
+                                              elevation: 0, // Elevation
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 20,
+                                                      vertical:
+                                                          10), // Padding
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        10), // Button border radius
+                                              ),
+                                            ),
+                                            child: Shimmer.fromColors(
+                                              baseColor: Colors.white,
+                                              highlightColor: Colors.grey,
+                                              child: const Text(
+                                                'Pay Now',
+                                                style: TextStyle(
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
+                                  ))),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: GridView.count(
+                                    crossAxisCount: 5,
+                                    shrinkWrap:
+                                        true, // Set to true to make the GridView scrollable within the Column
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          Get.to(
+                                              () => const TransactionBill());
+                                        },
+                                        child: Container(
+                                          width: 100,
+                                          height: 100,
+                                          child: Card(
+                                            child: Column(
+                                              children: [
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Container(
+                                                  width: 30,
+                                                  height: 30,
+                                                  child: SvgPicture.asset(
+                                                      'assets/transaction.svg',
+                                                      width: 15,
+                                                      height: 15,
+                                                      color: darkYellow),
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                const Text(
+                                                    EnString.transactionBill,
+                                                    style: TextStyle(
+                                                      fontSize: 7,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ))
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          Get.to(() => const CardScreen());
+                                        },
+                                        child: Container(
+                                          width: 100,
+                                          height: 100,
+                                          child: Card(
+                                            child: Column(
+                                              children: [
+                                                const SizedBox(
+                                                  height: 7,
+                                                ),
+                                                Container(
+                                                  width: 30,
+                                                  height: 30,
+                                                  child: SvgPicture.asset(
+                                                      'assets/card.svg',
+                                                      width: 15,
+                                                      height: 15,
+                                                      color: darkYellow),
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                const Text(EnString.card,
+                                                    style: TextStyle(
+                                                      fontSize: 7,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ))
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          Get.to(() => const IPD());
+                                        },
+                                        child: Container(
+                                          width: 100,
+                                          height: 100,
+                                          child: Card(
+                                            child: Column(
+                                              children: [
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Container(
+                                                  width: 30,
+                                                  height: 30,
+                                                  child: SvgPicture.asset(
+                                                      'assets/ipd.svg',
+                                                      width: 15,
+                                                      height: 15,
+                                                      color: darkYellow),
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                const Text(EnString.idp,
+                                                    style: TextStyle(
+                                                      fontSize: 7,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ))
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          Get.to(() => const PharmacyBill());
+                                        },
+                                        child: Container(
+                                          width: 100,
+                                          height: 100,
+                                          child: Card(
+                                            child: Column(
+                                              children: [
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Container(
+                                                  width: 30,
+                                                  height: 30,
+                                                  child: SvgPicture.asset(
+                                                      'assets/pathology.svg',
+                                                      width: 15,
+                                                      height: 15,
+                                                      color: darkYellow),
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                const Text(EnString.pathology,
+                                                    style: TextStyle(
+                                                      fontSize: 7,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ))
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          Get.to(() => const AmbulanceBill());
+                                        },
+                                        child: Container(
+                                          width: 100,
+                                          height: 100,
+                                          child: Card(
+                                            child: Column(
+                                              children: [
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Container(
+                                                  width: 30,
+                                                  height: 30,
+                                                  child: SvgPicture.asset(
+                                                      'assets/radiology.svg',
+                                                      width: 15,
+                                                      height: 15,
+                                                      color: darkYellow),
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                const Text(EnString.radiology,
+                                                    style: TextStyle(
+                                                      fontSize: 7,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ))
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          Get.to(() => const AmbulanceBill());
+                                        },
+                                        child: Container(
+                                          width: 100,
+                                          height: 100,
+                                          child: Card(
+                                            child: Column(
+                                              children: [
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Container(
+                                                  width: 30,
+                                                  height: 30,
+                                                  child: SvgPicture.asset(
+                                                      'assets/pharmacy.svg',
+                                                      width: 15,
+                                                      height: 15,
+                                                      color: darkYellow),
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                const Text(EnString.pharmacy,
+                                                    style: TextStyle(
+                                                      fontSize: 7,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ))
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          Get.to(() => const AmbulanceBill());
+                                        },
+                                        child: Container(
+                                          width: 100,
+                                          height: 100,
+                                          child: Card(
+                                            child: Column(
+                                              children: [
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Container(
+                                                  width: 30,
+                                                  height: 30,
+                                                  child: SvgPicture.asset(
+                                                      'assets/usg.svg',
+                                                      width: 15,
+                                                      height: 15,
+                                                      color: darkYellow),
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                const Text(EnString.usg,
+                                                    style: TextStyle(
+                                                      fontSize: 7,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ))
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          Get.to(() => const AmbulanceBill());
+                                        },
+                                        child: Container(
+                                          width: 100,
+                                          height: 100,
+                                          child: Card(
+                                            child: Column(
+                                              children: [
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Container(
+                                                  width: 30,
+                                                  height: 30,
+                                                  child: SvgPicture.asset(
+                                                      'assets/surgery.svg',
+                                                      width: 15,
+                                                      height: 15,
+                                                      color: darkYellow),
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                const Text(EnString.surgery,
+                                                    style: TextStyle(
+                                                      fontSize: 7,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ))
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          Get.to(() => const AmbulanceBill());
+                                        },
+                                        child: Container(
+                                          width: 100,
+                                          height: 100,
+                                          child: Card(
+                                            child: Column(
+                                              children: [
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Container(
+                                                  width: 30,
+                                                  height: 30,
+                                                  child: SvgPicture.asset(
+                                                      'assets/blood_bank.svg',
+                                                      width: 15,
+                                                      height: 15,
+                                                      color: darkYellow),
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                const Text(EnString.bloodBank,
+                                                    style: TextStyle(
+                                                      fontSize: 7,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ))
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          Get.to(() => const AmbulanceBill());
+                                        },
+                                        child: Container(
+                                          width: 100,
+                                          height: 100,
+                                          child: Card(
+                                            child: Column(
+                                              children: [
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Container(
+                                                  width: 30,
+                                                  height: 30,
+                                                  child: SvgPicture.asset(
+                                                      'assets/ambulance.svg',
+                                                      width: 15,
+                                                      height: 15,
+                                                      color: darkYellow),
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                const Text(EnString.ambulance,
+                                                    style: TextStyle(
+                                                      fontSize: 7,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ))
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          Get.to(() => const AmbulanceBill());
+                                        },
+                                        child: Container(
+                                          width: 100,
+                                          height: 100,
+                                          child: Card(
+                                            child: Column(
+                                              children: [
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Container(
+                                                  width: 30,
+                                                  height: 30,
+                                                  child: SvgPicture.asset(
+                                                      'assets/therapy.svg',
+                                                      width: 15,
+                                                      height: 15,
+                                                      color: darkYellow),
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                const Text(
+                                                    EnString.physioTherapy,
+                                                    style: TextStyle(
+                                                      fontSize: 7,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ))
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          Get.to(() => const AmbulanceBill());
+                                        },
+                                        child: Container(
+                                          width: 100,
+                                          height: 100,
+                                          child: Card(
+                                            child: Column(
+                                              children: [
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Container(
+                                                  width: 30,
+                                                  height: 30,
+                                                  child: SvgPicture.asset(
+                                                      'assets/certificate.svg',
+                                                      width: 15,
+                                                      height: 15,
+                                                      color: darkYellow),
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                const Text(
+                                                    EnString.certificates,
+                                                    style: TextStyle(
+                                                      fontSize: 7,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ))
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          Get.to(() => const AmbulanceBill());
+                                        },
+                                        child: Container(
+                                          width: 100,
+                                          height: 100,
+                                          child: Card(
+                                            child: Column(
+                                              children: [
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Container(
+                                                  width: 30,
+                                                  height: 30,
+                                                  child: SvgPicture.asset(
+                                                      'assets/bed_history.svg',
+                                                      width: 15,
+                                                      height: 15,
+                                                      color: darkYellow),
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                const Text(
+                                                    EnString.bedHistory,
+                                                    style: TextStyle(
+                                                      fontSize: 7,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ))
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          Get.to(() => const Paymentsuccessfuly());
+                                        },
+                                        child: Container(
+                                          width: 100,
+                                          height: 100,
+                                          child: Card(
+                                            child: Column(
+                                              children: [
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Container(
+                                                  width: 30,
+                                                  height: 30,
+                                                  child: SvgPicture.asset(
+                                                      'assets/live_consult.svg',
+                                                      width: 15,
+                                                      height: 15,
+                                                      color: darkYellow),
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                const Text(
+                                                    EnString
+                                                        .liveConsultations,
+                                                    style: TextStyle(
+                                                      fontSize: 7,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ))
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  Text(
-                                    '${EnString.hisNo} $Patient_id',
-                                    style: const TextStyle(
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(EnString.doctors,
+                                    style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                    )),
+                                InkWell(
+                                  onTap: () {
+                                    Get.offAll(() => const AllDoctorsList());
+                                  },
+                                  child: const Text(EnString.viewAll,
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black)),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Column(
+                              children: [
+                                Container(
+                                  width: width,
+                                  height: height,
+                                  child: ListView.builder(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      itemCount: DoneListData!.length,
+                                      itemBuilder: (context, index) {
+                                        if (DoneListData == null ||
+                                            DoneListData!.isEmpty) {
+                                          return Center(
+                                              child: Center(
+                                            child: Lottie.asset(
+                                                'assets/tez_spin.json'),
+                                          ));
+                                        } else {
+                                          return Container(
+                                            width: width,
+                                            child: Card(
+                                                color: Colors.white70
+                                                    .withOpacity(0.7),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(
+                                                          10.0),
+                                                  child: Row(
+                                                    children: [
+                                                      Container(
+                                                        width: width / 5,
+                                                        height: 100,
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10),
+                                                          child:
+                                                              Image.network(
+                                                            '${DoneListData![index]['image']}', // Replace with your image URL
+                                                            width:
+                                                                200.0, // Set the width (optional)
+                                                            height:
+                                                                200.0, // Set the height (optional)
+                                                            fit: BoxFit
+                                                                .cover, // Set the BoxFit (optional)
+                                                            loadingBuilder:
+                                                                (context,
+                                                                    child,
+                                                                    loadingProgress) {
+                                                              if (loadingProgress ==
+                                                                  null) {
+                                                                return child;
+                                                              } else {
+                                                                return CircularProgressIndicator(
+                                                                  color:
+                                                                      darkYellow,
+                                                                  backgroundColor:
+                                                                      yellow,
+                                                                );
+                                                              }
+                                                            },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 10,
+                                                      ),
+                                                      Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            'Dr. ${DoneListData![index]['name']} ${DoneListData![index]['surname']}',
+                                                            maxLines: 1,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            style: const TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 5,
+                                                          ),
+                                                          Text(
+                                                            '${DoneListData![index]['specialization']}',
+                                                            maxLines: 1,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            style: const TextStyle(
+                                                                color: Colors
+                                                                    .blue),
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 5,
+                                                          ),
+                                                          Text(
+                                                            '${DoneListData![index]['email']}',
+                                                            maxLines: 1,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            // style: const TextStyle(
+                                                            //     fontWeight:
+                                                            //     FontWeight.bold),
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              // Text('${DoneListData![index]['qualification']},'),
+                                                              Container(
+                                                                  child: Text(
+                                                                '${DoneListData![index]['qualification']}',
+                                                                maxLines: 1,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style: const TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .green),
+                                                              )),
+                                                              const SizedBox(
+                                                                width: 10,
+                                                              ),
+
+                                                              // Text('${DoneListData![index]['work_exp']},'),
+                                                              Text(
+                                                                '${DoneListData![index]['work_exp']}',
+                                                                maxLines: 1,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                              ),
+                                                            ],
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )),
+                                          );
+                                        }
+                                      }),
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                        totalSum == 0.0
-                            ? Container()
-                            : Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Card(
-                                      color: Colors.white70.withOpacity(0.7),
-                                      child: Container(
-                                        height: 50,
-                                        padding: const EdgeInsets.all(10),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  EnString.hospitaldueBalance,
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: darkYellow,
-                                                    fontSize: 12,
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 30.0),
-                                                  child: Text(
-                                                    'Rs.$totalSum',
-                                                    style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.red,
-                                                      fontSize: 16,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            ElevatedButton(
-                                              onPressed: () {
-                                                Get.to(() =>
-                                                    const SelectPaymentMethod());
-                                              },
-                                              style: ElevatedButton.styleFrom(
-                                                foregroundColor: Colors.white,
-                                                backgroundColor:
-                                                    Colors.green, // Text color
-                                                elevation: 0, // Elevation
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 20,
-                                                        vertical:
-                                                            10), // Padding
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10), // Button border radius
-                                                ),
-                                              ),
-                                              child: Shimmer.fromColors(
-                                                baseColor: Colors.white,
-                                                highlightColor: Colors.grey,
-                                                child: const Text(
-                                                  'Pay Now',
-                                                  style: TextStyle(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ))),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: GridView.count(
-                                      crossAxisCount: 5,
-                                      shrinkWrap:
-                                          true, // Set to true to make the GridView scrollable within the Column
-                                      children: [
-                                        InkWell(
-                                          onTap: () {
-                                            Get.to(
-                                                () => const TransactionBill());
-                                          },
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: Card(
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: SvgPicture.asset(
-                                                        'assets/transaction.svg',
-                                                        width: 15,
-                                                        height: 15,
-                                                        color: darkYellow),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  const Text(
-                                                      EnString.transactionBill,
-                                                      style: TextStyle(
-                                                        fontSize: 7,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ))
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.to(() => const CardScreen());
-                                          },
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: Card(
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 7,
-                                                  ),
-                                                  Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: SvgPicture.asset(
-                                                        'assets/card.svg',
-                                                        width: 15,
-                                                        height: 15,
-                                                        color: darkYellow),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  const Text(EnString.card,
-                                                      style: TextStyle(
-                                                        fontSize: 7,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ))
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.to(() => const IPD());
-                                          },
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: Card(
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: SvgPicture.asset(
-                                                        'assets/ipd.svg',
-                                                        width: 15,
-                                                        height: 15,
-                                                        color: darkYellow),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  const Text(EnString.idp,
-                                                      style: TextStyle(
-                                                        fontSize: 7,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ))
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.to(() => const PharmacyBill());
-                                          },
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: Card(
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: SvgPicture.asset(
-                                                        'assets/pathology.svg',
-                                                        width: 15,
-                                                        height: 15,
-                                                        color: darkYellow),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  const Text(EnString.pathology,
-                                                      style: TextStyle(
-                                                        fontSize: 7,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ))
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.to(() => const AmbulanceBill());
-                                          },
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: Card(
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: SvgPicture.asset(
-                                                        'assets/radiology.svg',
-                                                        width: 15,
-                                                        height: 15,
-                                                        color: darkYellow),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  const Text(EnString.radiology,
-                                                      style: TextStyle(
-                                                        fontSize: 7,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ))
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.to(() => const AmbulanceBill());
-                                          },
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: Card(
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: SvgPicture.asset(
-                                                        'assets/pharmacy.svg',
-                                                        width: 15,
-                                                        height: 15,
-                                                        color: darkYellow),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  const Text(EnString.pharmacy,
-                                                      style: TextStyle(
-                                                        fontSize: 7,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ))
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.to(() => const AmbulanceBill());
-                                          },
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: Card(
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: SvgPicture.asset(
-                                                        'assets/usg.svg',
-                                                        width: 15,
-                                                        height: 15,
-                                                        color: darkYellow),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  const Text(EnString.usg,
-                                                      style: TextStyle(
-                                                        fontSize: 7,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ))
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.to(() => const AmbulanceBill());
-                                          },
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: Card(
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: SvgPicture.asset(
-                                                        'assets/surgery.svg',
-                                                        width: 15,
-                                                        height: 15,
-                                                        color: darkYellow),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  const Text(EnString.surgery,
-                                                      style: TextStyle(
-                                                        fontSize: 7,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ))
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.to(() => const AmbulanceBill());
-                                          },
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: Card(
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: SvgPicture.asset(
-                                                        'assets/blood_bank.svg',
-                                                        width: 15,
-                                                        height: 15,
-                                                        color: darkYellow),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  const Text(EnString.bloodBank,
-                                                      style: TextStyle(
-                                                        fontSize: 7,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ))
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.to(() => const AmbulanceBill());
-                                          },
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: Card(
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: SvgPicture.asset(
-                                                        'assets/ambulance.svg',
-                                                        width: 15,
-                                                        height: 15,
-                                                        color: darkYellow),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  const Text(EnString.ambulance,
-                                                      style: TextStyle(
-                                                        fontSize: 7,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ))
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.to(() => const AmbulanceBill());
-                                          },
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: Card(
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: SvgPicture.asset(
-                                                        'assets/therapy.svg',
-                                                        width: 15,
-                                                        height: 15,
-                                                        color: darkYellow),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  const Text(
-                                                      EnString.physioTherapy,
-                                                      style: TextStyle(
-                                                        fontSize: 7,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ))
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.to(() => const AmbulanceBill());
-                                          },
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: Card(
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: SvgPicture.asset(
-                                                        'assets/certificate.svg',
-                                                        width: 15,
-                                                        height: 15,
-                                                        color: darkYellow),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  const Text(
-                                                      EnString.certificates,
-                                                      style: TextStyle(
-                                                        fontSize: 7,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ))
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.to(() => const AmbulanceBill());
-                                          },
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: Card(
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: SvgPicture.asset(
-                                                        'assets/bed_history.svg',
-                                                        width: 15,
-                                                        height: 15,
-                                                        color: darkYellow),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  const Text(
-                                                      EnString.bedHistory,
-                                                      style: TextStyle(
-                                                        fontSize: 7,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ))
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.to(() => const AmbulanceBill());
-                                          },
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: Card(
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: SvgPicture.asset(
-                                                        'assets/live_consult.svg',
-                                                        width: 15,
-                                                        height: 15,
-                                                        color: darkYellow),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  const Text(
-                                                      EnString
-                                                          .liveConsultations,
-                                                      style: TextStyle(
-                                                        fontSize: 7,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ))
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Text(EnString.doctors,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      )),
-                                  InkWell(
-                                    onTap: () {
-                                      Get.offAll(() => const AllDoctorsList());
-                                    },
-                                    child: const Text(EnString.viewAll,
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black)),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Column(
-                                children: [
-                                  Container(
-                                    width: width,
-                                    height: height,
-                                    child: ListView.builder(
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        itemCount: DoneListData!.length,
-                                        itemBuilder: (context, index) {
-                                          if (DoneListData == null ||
-                                              DoneListData!.isEmpty) {
-                                            return Center(
-                                                child: Center(
-                                              child: Lottie.asset(
-                                                  'assets/tez_spin.json'),
-                                            ));
-                                          } else {
-                                            return Container(
-                                              width: width,
-                                              child: Card(
-                                                  color: Colors.white70
-                                                      .withOpacity(0.7),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            10.0),
-                                                    child: Row(
-                                                      children: [
-                                                        Container(
-                                                          width: width / 5,
-                                                          height: 100,
-                                                          child: ClipRRect(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        10),
-                                                            child:
-                                                                Image.network(
-                                                              '${DoneListData![index]['image']}', // Replace with your image URL
-                                                              width:
-                                                                  200.0, // Set the width (optional)
-                                                              height:
-                                                                  200.0, // Set the height (optional)
-                                                              fit: BoxFit
-                                                                  .cover, // Set the BoxFit (optional)
-                                                              loadingBuilder:
-                                                                  (context,
-                                                                      child,
-                                                                      loadingProgress) {
-                                                                if (loadingProgress ==
-                                                                    null) {
-                                                                  return child;
-                                                                } else {
-                                                                  return CircularProgressIndicator(
-                                                                    color:
-                                                                        darkYellow,
-                                                                    backgroundColor:
-                                                                        yellow,
-                                                                  );
-                                                                }
-                                                              },
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        const SizedBox(
-                                                          width: 10,
-                                                        ),
-                                                        Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              'Dr. ${DoneListData![index]['name']} ${DoneListData![index]['surname']}',
-                                                              maxLines: 1,
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                              style: const TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
-                                                            ),
-                                                            const SizedBox(
-                                                              height: 5,
-                                                            ),
-                                                            Text(
-                                                              '${DoneListData![index]['specialization']}',
-                                                              maxLines: 1,
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                              style: const TextStyle(
-                                                                  color: Colors
-                                                                      .blue),
-                                                            ),
-                                                            const SizedBox(
-                                                              height: 5,
-                                                            ),
-                                                            Text(
-                                                              '${DoneListData![index]['email']}',
-                                                              maxLines: 1,
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                              // style: const TextStyle(
-                                                              //     fontWeight:
-                                                              //     FontWeight.bold),
-                                                            ),
-                                                            const SizedBox(
-                                                              height: 10,
-                                                            ),
-                                                            Row(
-                                                              children: [
-                                                                // Text('${DoneListData![index]['qualification']},'),
-                                                                Container(
-                                                                    child: Text(
-                                                                  '${DoneListData![index]['qualification']}',
-                                                                  maxLines: 1,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  style: const TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      color: Colors
-                                                                          .green),
-                                                                )),
-                                                                const SizedBox(
-                                                                  width: 10,
-                                                                ),
-
-                                                                // Text('${DoneListData![index]['work_exp']},'),
-                                                                Text(
-                                                                  '${DoneListData![index]['work_exp']}',
-                                                                  maxLines: 1,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                ),
-                                                              ],
-                                                            )
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  )),
-                                            );
-                                          }
-                                        }),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-        ),
-
-        // } else if (status == ConnectivityStatus.offline) {
-        //   return const NoInternetScreen();
-        // } else {
-        //   // status == ConnectivityStatus.checking
-        //   return Center(
-        //     child: SizedBox(
-        //       width: 100,
-        //       height: 100,
-        //       child: Lottie.asset('assets/loading1.json'),
-        //     ),
-        //   );
-        // }
-
-        drawer: Drawer(
-          width: double.infinity,
-          child: AboutUSScreen()), // Left drawer
-        endDrawer: const Notif(),
+              ),
       ),
+
+      // } else if (status == ConnectivityStatus.offline) {
+      //   return const NoInternetScreen();
+      // } else {
+      //   // status == ConnectivityStatus.checking
+      //   return Center(
+      //     child: SizedBox(
+      //       width: 100,
+      //       height: 100,
+      //       child: Lottie.asset('assets/loading1.json'),
+      //     ),
+      //   );
+      // }
     );
   }
 }

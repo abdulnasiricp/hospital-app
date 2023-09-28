@@ -1,3 +1,4 @@
+import 'package:TezHealthCare/screens/auth/Patient_login.dart';
 import 'package:TezHealthCare/screens/auth/Sigin_main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -245,7 +246,7 @@ class _OnbondingState extends State<Onbonding> {
                                 children: <Widget>[
                                   GestureDetector(
                                     onTap: () {
-                                      Get.to(() => const Bottomhome());
+                                      Get.to(() => const PatientLogin());
                                     },
                                     child: Container(
                                       color: Colors.transparent,
