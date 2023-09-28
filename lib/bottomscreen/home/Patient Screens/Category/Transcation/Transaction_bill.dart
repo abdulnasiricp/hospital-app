@@ -134,8 +134,7 @@ class _TransactionBillState extends State<TransactionBill> {
 
       // Save the totalSum in SharedPreferences with a unique key
       final sp = await SharedPreferences.getInstance();
-      final patientSpecificKey =
-          'totalSum_$patient'; // Include the patient ID or username in the key
+      final patientSpecificKey ='totalSum_$patient'; // Include the patient ID or username in the key
       sp.setDouble(patientSpecificKey, totalSum);
 
       setState(() {});
@@ -178,6 +177,7 @@ class _TransactionBillState extends State<TransactionBill> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        
         title: const Text(EnString.transactionBill),
         centerTitle: true,
         backgroundColor: darkYellow,
@@ -280,8 +280,7 @@ class _TransactionBillState extends State<TransactionBill> {
                                       top: 5.0, left: 5, right: 5),
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color:
-                                          Colors.white70, // Background color
+                                      color: Colors.white70, // Background color
                                       border: Border.all(
                                         color: Colors.grey, // Border color
                                         width: 1.0, // Border width

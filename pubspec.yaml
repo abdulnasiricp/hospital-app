@@ -64,9 +64,10 @@ dependencies:
   internet_connectivity_checker: ^1.0.2
   get_storage:
   device_info_plus:
-
+  imepay_merchant_sdk:
   loading_indicator: ^3.1.1
   khalti_flutter:
+  esewa_flutter:
 
 
 

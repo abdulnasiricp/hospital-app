@@ -1044,7 +1044,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
         //   );
         // }
 
-        drawer: Drawer(
+        drawer: const Drawer(
           width: double.infinity,
           child: AboutUSScreen()), // Left drawer
         endDrawer: const Notif(),

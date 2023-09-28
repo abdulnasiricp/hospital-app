@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Select_date.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:http/http.dart' as http;
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Faculty_member.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';

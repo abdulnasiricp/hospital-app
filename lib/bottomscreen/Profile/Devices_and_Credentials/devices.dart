@@ -131,7 +131,7 @@ class _DevicesState extends State<Devices> {
                             crossAxisAlignment: CrossAxisAlignment.start,
 
                             children: [
-                              Text('Added on'),
+                              const Text('Added on'),
                               Text(loginDateTime),
                             ],
                           ),

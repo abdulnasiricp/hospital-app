@@ -1,3 +1,4 @@
+import 'package:TezHealthCare/widgets/Toast_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -46,7 +47,9 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               theme: Themes().lightTheme,
               darkTheme: Themes().darkTheme,
-              home: FutureBuilder<bool>(
+              home:
+              //  ToastDialog(title: "Test",message: 'tost masg'),
+              FutureBuilder<bool>(
                 future: _isLoggedIn(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {

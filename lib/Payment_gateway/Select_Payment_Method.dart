@@ -148,15 +148,15 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
     if (selectedMethod.isNotEmpty) {
       if (selectedMethod == 'assets/khalti.png') {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) =>  KhaltiPage(),
+          builder: (context) =>  const KhaltiPage(),
         ));
       } else if (selectedMethod == 'assets/esewa.png') {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const EsewaPage(),
+          builder: (context) =>  EsewaPage(),
         ));
       } else if (selectedMethod == 'assets/ips.png') {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const IpsPage(),
+          builder: (context) => const Connectips(),
         ));
       } else if (selectedMethod == 'assets/ime.png') {
         Navigator.of(context).push(MaterialPageRoute(

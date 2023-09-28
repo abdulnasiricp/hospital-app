@@ -121,6 +121,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.3.3"
+  esewa_flutter:
+    dependency: "direct main"
+    description:
+      name: esewa_flutter
+      sha256: "17bca4dea4605b0a3285f3e4994c94339bdf7f2b8ebbae0abd9b6cdc8c73aff1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.2"
   fake_async:
     dependency: transitive
     description:
@@ -296,6 +304,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+  imepay_merchant_sdk:
+    dependency: "direct main"
+    description:
+      name: imepay_merchant_sdk
+      sha256: "0bf288f29c71b3cafc012566ba4f5f1fcf4bf618e873128876cf5223784c6b3c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1-alpha.3"
   internet_connectivity_checker:
     dependency: "direct main"
     description:

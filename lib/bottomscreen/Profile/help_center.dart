@@ -1,4 +1,6 @@
+import 'package:TezHealthCare/widgets/Toast_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class HelpCenter extends StatefulWidget {
   const HelpCenter({Key? key}) : super(key: key);
@@ -13,7 +15,12 @@ class _HelpCenterState extends State<HelpCenter> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Help Center'),
+
       ),
+      body: Center(child: ElevatedButton(onPressed: (){
+        Get.dialog(ToastDialog(title: "welcome",message: "welcome to HealthCare",));
+
+      }, child: Text('Toast Mesg'))),
     );
   }
 }
