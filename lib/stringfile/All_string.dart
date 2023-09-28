@@ -128,4 +128,7 @@ class EnString {
   static const String ended = "The doctor has ended his consultation";
   static const String please =
       "Your consultation is timed and finished,\n please rate us so we can serve you better!";
+  //Payment Gateway Screeen
+  static const String Select_payment_gateway = "Select Payment Method";
+
 }

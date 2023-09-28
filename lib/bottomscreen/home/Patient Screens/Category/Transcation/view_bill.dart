@@ -1,9 +1,9 @@
-
 // ignore_for_file: avoid_print, non_constant_identifier_names, deprecated_member_use, file_names
 
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
+import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
@@ -68,7 +68,7 @@ class _ViewBillDetilesState extends State<ViewBillDetiles> {
                   }
 
                   await launch(
-                     '${ApiLinks.generateBillPrint}/${widget.billNo}/${widget.billname}'); // Replace with your desired URL
+                      '${ApiLinks.generateBillPrint}/${widget.billNo}/${widget.billname}'); // Replace with your desired URL
                 }
               },
               child: const Text('Open'),
@@ -84,7 +84,6 @@ class _ViewBillDetilesState extends State<ViewBillDetiles> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-         
           IconButton(
             onPressed: () {
               FileDownloader.downloadFile(
@@ -120,19 +119,10 @@ class _ViewBillDetilesState extends State<ViewBillDetiles> {
               child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Container(
-                      height: height / 7,
-                      width: width / 1.5,
+                      height: 50,
+                      width: 50,
                       color: Colors.transparent,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            'Downloading....',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          Lottie.asset('assets/loading1.json'),
-                        ],
-                      ))),
+                      child: LoadingIndicatorWidget())),
             )
           :
 
