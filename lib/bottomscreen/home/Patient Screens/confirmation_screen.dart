@@ -97,6 +97,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                 ),
               ),
             ),
+
             const SizedBox(
               height: 10,
             ),
@@ -177,8 +178,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
             const SizedBox(
               height: 10,
             ),
-            Text(
-                EnString.confirmationDesc,
+            Text(EnString.confirmationDesc,
                 style: TextStyle(color: Colors.orange[900])),
             const SizedBox(
               height: 10,
@@ -193,72 +193,95 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
             const SizedBox(
               height: 10,
             ),
-            Container(
-                width: width,
-                height: height / 10,
-                child: Card(
-                  child: Row(
-                    children: [
-                      Container(
-                        width: width / 5,
-                        height: height,
-                        child: Image.asset('assets/pay_logo.jpg'),
-                      ),
-                      Text(
-                        'IME Pay',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: darkYellow,
-                            fontSize: 20),
-                      ),
-                      const SizedBox(
-                        width: 40,
-                      ),
-                      Text('    + 1 % \n RS. 707.00',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: darkYellow,
-                              fontSize: 15)),
-                      const SizedBox(
-                        width: 50,
-                      ),
-                      const Icon(Icons.arrow_forward_ios)
-                    ],
-                  ),
+
+            InkWell(
+              onTap: () {},
+              child: Container(
+                width: width / 1,
+                height: height / 15,
+                decoration: BoxDecoration(
+                    color: darkYellow, borderRadius: BorderRadius.circular(10)),
+                child: const Center(
+                    child: Text(
+                  'Select Payment Method',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Colors.white),
                 )),
-            Container(
-                width: width,
-                height: height / 10,
-                child: Card(
-                  child: Row(
-                    children: [
-                      Container(
-                        width: width / 5,
-                        height: height,
-                        child: Image.asset('assets/esewa_logo.png'),
-                      ),
-                      Text(
-                        'IME Pay',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: darkYellow,
-                            fontSize: 20),
-                      ),
-                      const SizedBox(
-                        width: 30,
-                      ),
-                      Text('    + 0.75 % \n RS. 705.25',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: darkYellow,
-                              fontSize: 15)),
-                      const SizedBox(
-                        width: 55,
-                      ),
-                      const Icon(Icons.arrow_forward_ios)
-                    ],
-                  ),
-                ))
+              ),
+            ),
+
+            //
+            // Container(
+            //     width: width,
+            //     height: height / 10,
+            //     child: Card(
+            //       child: Row(
+            //         children: [
+            //           Container(
+            //             width: width / 5,
+            //             height: height,
+            //             child: Image.asset('assets/pay_logo.jpg'),
+            //           ),
+            //           Text(
+            //             'IME Pay',
+            //             style: TextStyle(
+            //                 fontWeight: FontWeight.bold,
+            //                 color: darkYellow,
+            //                 fontSize: 20),
+            //           ),
+            //           const SizedBox(
+            //             width: 40,
+            //           ),
+            //           Text('    + 1 % \n RS. 707.00',
+            //               style: TextStyle(
+            //                   fontWeight: FontWeight.bold,
+            //                   color: darkYellow,
+            //                   fontSize: 15)),
+            //           const SizedBox(
+            //             width: 50,
+            //           ),
+            //           const Icon(Icons.arrow_forward_ios)
+            //         ],
+            //       ),
+            //     )),
+            //
+            //
+
+            // Container(
+            //     width: width,
+            //     height: height / 10,
+            //     child: Card(
+            //       child: Row(
+            //         children: [
+            //           Container(
+            //             width: width / 5,
+            //             height: height,
+            //             child: Image.asset('assets/esewa_logo.png'),
+            //           ),
+            //           Text(
+            //             'IME Pay',
+            //             style: TextStyle(
+            //                 fontWeight: FontWeight.bold,
+            //                 color: darkYellow,
+            //                 fontSize: 20),
+            //           ),
+            //           const SizedBox(
+            //             width: 30,
+            //           ),
+            //           Text('    + 0.75 % \n RS. 705.25',
+            //               style: TextStyle(
+            //                   fontWeight: FontWeight.bold,
+            //                   color: darkYellow,
+            //                   fontSize: 15)),
+            //           const SizedBox(
+            //             width: 55,
+            //           ),
+            //           const Icon(Icons.arrow_forward_ios)
+            //         ],
+            //       ),
+            //     ))
           ],
         ),
       ),

@@ -32,8 +32,8 @@ class EnString {
   // Profile Screen
   static const String myinformation = "My Information";
   static const String myinformationsubtitle = "view your personal details";
-  static const String deviceAndCredential = "Device & Credentials";
-  static const String deviceAndCredentialSubtitle ="manage your Devices,cridentials and notification ID";
+  static const String deviceAndCredential = "Device & notification";
+  static const String deviceAndCredentialSubtitle ="manage your Devices and notification ID";
   //information Profile screen
   static const String informationProfile ="Information Profile";
   static const String patientID ="Patient ID";
@@ -137,4 +137,7 @@ class EnString {
   static const String credentials = "Credentials";
   static const String notificationId = "Notification IDs";
  // 
+  //Payment Gateway Screeen
+  static const String Select_payment_gateway = "Select Payment Method";
+
 }
