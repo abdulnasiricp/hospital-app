@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NotificationIds extends StatefulWidget {
   const NotificationIds({Key? key}) : super(key: key);
@@ -11,6 +12,16 @@ class NotificationIds extends StatefulWidget {
 }
 
 class _NotificationIdsState extends State<NotificationIds> {
+     String mobilerecord = '';
+  late String patient = '';
+  LoadData() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+
+    mobilerecord = sp.getString('mobilerecord') ?? '';
+    patient = sp.getString('patientidrecord') ?? '';
+    print(patient);
+    setState(() {});
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +34,7 @@ class _NotificationIdsState extends State<NotificationIds> {
               child: ListTile(
                 leading: SvgPicture.asset('assets/dev.svg',width: 25,height: 25,color: Colors.green,),
                 title: const Text('Mobile Number'),
-                subtitle: const Text('03429107137'),
+                subtitle: const Text(''),
                 trailing: const Icon(Icons.more_vert),
             
               ),

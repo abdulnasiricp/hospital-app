@@ -26,6 +26,7 @@ class _PatientLoginState extends State<PatientLogin> {
   bool _rememberMeFlag = false;
   String id = '';
   bool _isPasswordVisible = false;
+  String loginDateTime = '';
   void _togglePasswordVisibility() {
     setState(() {
       _isPasswordVisible = !_isPasswordVisible;
@@ -84,6 +85,24 @@ class _PatientLoginState extends State<PatientLogin> {
     }
   }
 
+    _loadLoginDateTime() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      loginDateTime = prefs.getString('loginDateTime') ?? '';
+    });
+  }
+
+  _saveLoginDateTime() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String now = DateTime.now().toString();
+    await prefs.setString('loginDateTime', now);
+  }
+
+@override
+  void initState() {
+    _loadLoginDateTime();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return isloading
@@ -247,11 +266,10 @@ class _PatientLoginState extends State<PatientLogin> {
                             title: const Text(EnString.login),
                             onPressed: () {
                               if (formKey.currentState!.validate()) {
-                                // Loginvalues.patientLogin(
-                                //   Loginvalues.emailController,
-                                //   Loginvalues.passwordController
-                                // );
+                               
                                 _login();
+                                _saveLoginDateTime();
+                _loadLoginDateTime();
                                 setState(() {
                                   isloading = true;
                                 }

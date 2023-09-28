@@ -40,28 +40,26 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
               children: [
                 SizedBox(
                   height: 150,
-                  child: Expanded(
-                    child: GridView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 2.5,
-                      ),
-                      itemCount: paymentMethods.length,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              selectedMethodIndex = index;
-                            });
-                          },
-                          child: PaymentMethodTile(
-                            paymentMethod: paymentMethods[index],
-                            isSelected: selectedMethodIndex == index,
-                          ),
-                        );
-                      },
+                  child: GridView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 2.5,
                     ),
+                    itemCount: paymentMethods.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedMethodIndex = index;
+                          });
+                        },
+                        child: PaymentMethodTile(
+                          paymentMethod: paymentMethods[index],
+                          isSelected: selectedMethodIndex == index,
+                        ),
+                      );
+                    },
                   ),
                 ),
                 const Text(EnString.patientInformation,
@@ -199,7 +197,7 @@ class PaymentMethodTile extends StatelessWidget {
                   child: Image.asset(
                     paymentMethod.logoPath,
                     height: 80.0,
-                    width: 130.0,
+                    width: width/3,
                   ),
                 ),
               ],

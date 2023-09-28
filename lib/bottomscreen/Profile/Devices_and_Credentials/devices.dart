@@ -6,6 +6,7 @@ import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Devices extends StatefulWidget {
   const Devices({Key? key}) : super(key: key);
@@ -41,11 +42,31 @@ class _DevicesState extends State<Devices> {
     });
   }
 
+
+  getData()async{
+    // LoadData();
+     getDeviceInfo();
+    _loadLoginDateTime();
+
+  }
+
   @override
   void initState() {
-    getDeviceInfo();
+
+   getData();
+
 
     super.initState();
+  }
+  String loginDateTime = '';
+
+ 
+
+  _loadLoginDateTime() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      loginDateTime = prefs.getString('loginDateTime') ?? '';
+    });
   }
 
   @override
@@ -62,8 +83,9 @@ class _DevicesState extends State<Devices> {
               padding: const EdgeInsets.all(12.0),
               child: Container(
                 width: width,
-                height: height / 5,
+                height: height / 6,
                 child: Card(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                   child: Column(
                     children: [
                       Padding(
@@ -86,31 +108,35 @@ class _DevicesState extends State<Devices> {
                               '$_deviceName',
                               style: const TextStyle(fontWeight: FontWeight.bold),
                             ),
+                           
                           ],
                         ),
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                        Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text('App version'),
-                              Text("$_deviceVersion"),
+                              Text("version $_deviceVersion"),
                               // Text('Device Model: $_modelName',style: TextStyle(fontWeight: FontWeight.bold),),
                             ],
                           ),
-                          const Column(
+                           Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+
                             children: [
                               Text('Added on'),
-                              Text('27-09-2023,9:15'),
-                              Text('Get Device info')
+                              Text(loginDateTime),
                             ],
                           ),
                         ],
-                      ),
+                                           ),
                     ],
                   ),
                 ),
