@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace, unused_local_variable, avoid_print
+// ignore_for_file: sized_box_for_whitespace, unused_local_variable, avoid_print, unnecessary_string_interpolations
 
 import 'dart:io';
 
@@ -20,8 +20,8 @@ class _DevicesState extends State<Devices> {
 
   Future getDeviceInfo() async {
     var device = DeviceInfoPlugin();
-    String deviceName = 'Unknown';
-    String deviceVersion = 'Unknown';
+    String? deviceName = 'Unknown';
+    String? deviceVersion = 'Unknown';
     if (Platform.isAndroid) {
       var androidInfo = await device.androidInfo;
       deviceName = androidInfo.model;
@@ -36,8 +36,8 @@ class _DevicesState extends State<Devices> {
     }
     setState(() {
       // Assuming you have a variable to store the device name
-      _deviceName = deviceName;
-      _deviceVersion = deviceVersion;
+      _deviceName = deviceName!;
+      _deviceVersion = deviceVersion!;
     });
   }
 
@@ -97,12 +97,12 @@ class _DevicesState extends State<Devices> {
                         children: [
                           Column(
                             children: [
-                              Text('App version'),
+                              const Text('App version'),
                               Text("$_deviceVersion"),
                               // Text('Device Model: $_modelName',style: TextStyle(fontWeight: FontWeight.bold),),
                             ],
                           ),
-                          Column(
+                          const Column(
                             children: [
                               Text('Added on'),
                               Text('27-09-2023,9:15'),

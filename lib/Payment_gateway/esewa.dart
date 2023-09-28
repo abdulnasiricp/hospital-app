@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 class EsewaPage extends StatelessWidget {
+  const EsewaPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Esewa Page'),
+        title: const Text('Esewa Page'),
       ),
-      body: Center(
+      body: const Center(
         child: Text('Esewa Payment Method Selected'),
       ),
     );

@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-import 'package:lottie/lottie.dart';
 
 class LoadingIndicatorWidget extends StatelessWidget {
   const LoadingIndicatorWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: Colors.transparent,
 
       body: Center(
         child: LoadingIndicator(
             indicatorType: Indicator.lineScalePulseOut,
-            colors: const [
+            colors: [
               Color(0xfff01c58),
               Color(0xfff4a46c),
               Color(0xff1d98d5),

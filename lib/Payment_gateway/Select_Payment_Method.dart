@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace
+
 import 'package:TezHealthCare/Payment_gateway/Khalti.dart';
 import 'package:TezHealthCare/Payment_gateway/connectips.dart';
 import 'package:TezHealthCare/Payment_gateway/esewa.dart';
@@ -8,6 +10,8 @@ import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 class SelectPaymentMethod extends StatefulWidget {
+  const SelectPaymentMethod({Key? key}) : super(key: key);
+
   @override
   _SelectPaymentMethodState createState() => _SelectPaymentMethodState();
 }
@@ -38,8 +42,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                   height: 150,
                   child: Expanded(
                     child: GridView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         childAspectRatio: 2.5,
                       ),
@@ -146,19 +150,19 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
     if (selectedMethod.isNotEmpty) {
       if (selectedMethod == 'assets/khalti.png') {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => KhaltiPage(),
+          builder: (context) => const KhaltiPage(),
         ));
       } else if (selectedMethod == 'assets/esewa.png') {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => EsewaPage(),
+          builder: (context) => const EsewaPage(),
         ));
       } else if (selectedMethod == 'assets/ips.png') {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => IpsPage(),
+          builder: (context) => const IpsPage(),
         ));
       } else if (selectedMethod == 'assets/ime.png') {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => ImePage(),
+          builder: (context) => const ImePage(),
         ));
       }
     } else {
@@ -176,13 +180,13 @@ class PaymentMethod {
 class PaymentMethodTile extends StatelessWidget {
   final PaymentMethod paymentMethod;
   final bool isSelected;
-  PaymentMethodTile({required this.paymentMethod, required this.isSelected});
+  const PaymentMethodTile({Key? key, required this.paymentMethod, required this.isSelected}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 80, // Set the height to 80
       child: Card(
-        margin: EdgeInsets.all(8.0),
+        margin: const EdgeInsets.all(8.0),
         color: isSelected ? Colors.grey.withOpacity(0.7) : Colors.white,
         elevation: 5,
         child: Stack(
@@ -217,7 +221,7 @@ class PaymentMethodTile extends StatelessWidget {
                         width: 2.0,
                       ),
                     ),
-                    child: Center(
+                    child: const Center(
                       child: Icon(
                         Icons.check,
                         color: Colors.white,

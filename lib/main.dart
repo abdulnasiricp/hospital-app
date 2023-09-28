@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:TezHealthCare/Controller/loginController.dart';
 import 'package:TezHealthCare/Splash_Screen.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
@@ -9,6 +8,7 @@ import 'package:TezHealthCare/themeService.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
+import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

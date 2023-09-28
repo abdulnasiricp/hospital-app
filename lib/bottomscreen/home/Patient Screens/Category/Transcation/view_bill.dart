@@ -2,12 +2,10 @@
 
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
-import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
-import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:open_file/open_file.dart';
 import 'package:url_launcher/url_launcher.dart'; // Import the url_launcher package
@@ -122,7 +120,7 @@ class _ViewBillDetilesState extends State<ViewBillDetiles> {
                       height: 50,
                       width: 50,
                       color: Colors.transparent,
-                      child: LoadingIndicatorWidget())),
+                      child: const LoadingIndicatorWidget())),
             )
           :
 

@@ -17,7 +17,6 @@ import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:loading_indicator/loading_indicator.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
@@ -174,7 +173,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                           height: 50,
                           width: 50,
                           color: Colors.transparent,
-                          child: LoadingIndicatorWidget())),
+                          child: const LoadingIndicatorWidget())),
                 )
               : SingleChildScrollView(
                   child: Padding(
@@ -277,7 +276,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             ElevatedButton(
                                               onPressed: () {
                                                 Get.to(() =>
-                                                    SelectPaymentMethod());
+                                                    const SelectPaymentMethod());
                                               },
                                               style: ElevatedButton.styleFrom(
                                                 foregroundColor: Colors.white,
