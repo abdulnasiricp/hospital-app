@@ -63,6 +63,7 @@ dependencies:
   future_progress_dialog: ^0.2.1
   internet_connectivity_checker: ^1.0.2
   get_storage:
+  device_info_plus:
 
 
 

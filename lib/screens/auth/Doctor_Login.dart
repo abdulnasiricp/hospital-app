@@ -165,7 +165,7 @@ class _DoctorLoginState extends State<DoctorLogin> {
                         TextFormField(
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'Please Enter your password';
+                              return EnString.pleaseEnterpassword;
                             } else {
                               return null;
                             }
@@ -182,7 +182,7 @@ class _DoctorLoginState extends State<DoctorLogin> {
                                 Icons.lock,
                                 color: Color(0xfffabd0a),
                               ),
-                              hintText: 'Enter Password',
+                              hintText: EnString.password,
                               suffixIcon: IconButton(
                                 icon: Icon(
                                   _isPasswordVisible
@@ -214,7 +214,7 @@ class _DoctorLoginState extends State<DoctorLogin> {
                                   }),
                                 ),
                                 const Text(
-                                  'Remember Me',
+                                  EnString.rememberMe,
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ],
@@ -229,7 +229,7 @@ class _DoctorLoginState extends State<DoctorLogin> {
                                     Get.to(() => const Forgotpassword());
                                   },
                                   child: const Text(
-                                    'Forgot Password',
+                                    EnString.forgotpassword,
                                     style: TextStyle(color: Colors.white),
                                   ),
                                 )),
@@ -246,7 +246,7 @@ class _DoctorLoginState extends State<DoctorLogin> {
                                 //  isloading
                                 //     ? const CircularProgressIndicator(color: Colors.white,)
                                 // :
-                                const Text('Sign In'),
+                                const Text(EnString.login),
                             onPressed: () {
                               if (formKey.currentState!.validate()) {
                                 // Loginvalues.patientLogin(

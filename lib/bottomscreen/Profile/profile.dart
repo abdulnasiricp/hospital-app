@@ -3,7 +3,7 @@
 import 'dart:convert';
 
 import 'package:TezHealthCare/Splash_Screen.dart';
-import 'package:TezHealthCare/bottomscreen/Profile/Devices_credentials.dart';
+import 'package:TezHealthCare/bottomscreen/Profile/Devices_and_Credentials/Devices_credentials.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/Information_profile.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/Setting/Setting_screen.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/help_center.dart';

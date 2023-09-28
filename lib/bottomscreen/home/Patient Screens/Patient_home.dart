@@ -167,9 +167,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                 child: isLoading
                     ? Center(
                         child: Container(
-                        height: 100,
-                        width: 100,
-                        child: LoadingIndicatorWidget(),
+                        // height: 100,
+                        // width: 100,
+                        // color: Colors.transparent,
+                        child: const LoadingIndicatorWidget(),
                       ))
                     : SingleChildScrollView(
                         child: Padding(

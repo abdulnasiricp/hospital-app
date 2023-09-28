@@ -1,6 +1,11 @@
 // ignore_for_file: file_names
 
 class EnString {
+  //main login Screen
+  static const String patientLogin = "Patient Login";
+  static const String doctorLogin = "Doctor Login";
+
+
   //Patient Login Screen
   static const String username = "Username";
   static const String enterusername = "Enter Username ";
@@ -128,4 +133,8 @@ class EnString {
   static const String ended = "The doctor has ended his consultation";
   static const String please =
       "Your consultation is timed and finished,\n please rate us so we can serve you better!";
+  static const String myDevices = "My Devices";
+  static const String credentials = "Credentials";
+  static const String notificationId = "Notification IDs";
+ // 
 }

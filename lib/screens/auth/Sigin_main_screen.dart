@@ -2,6 +2,7 @@
 
 import 'package:TezHealthCare/screens/auth/Doctor_Login.dart';
 import 'package:TezHealthCare/screens/auth/Patient_login.dart';
+import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,7 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
                       child: Container(
                         width: 150,
                         child: const Center(
-                          child: Text('Patient Login',style: TextStyle(
+                          child: Text(EnString.patientLogin,style: TextStyle(
                               wordSpacing: 5,
                               color: Colors.black,
                               fontWeight: FontWeight.bold),),
@@ -53,7 +54,7 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
                       child: Container(
                         width: 150,
                         child: const Center(
-                          child: Text('Doctor Login',style: TextStyle(
+                          child: Text(EnString.doctorLogin,style: TextStyle(
                               wordSpacing: 5,
                               color: Colors.black,
                               fontWeight: FontWeight.bold),),
