@@ -12,7 +12,7 @@ class NotificationIds extends StatefulWidget {
 }
 
 class _NotificationIdsState extends State<NotificationIds> {
-     String mobilerecord = '';
+  late   String mobilerecord = '';
   late String patient = '';
   LoadData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
@@ -21,6 +21,11 @@ class _NotificationIdsState extends State<NotificationIds> {
     patient = sp.getString('patientidrecord') ?? '';
     print(patient);
     setState(() {});
+  }
+  @override
+  void initState() {
+     LoadData();
+    super.initState();
   }
   @override
   Widget build(BuildContext context) {
@@ -34,7 +39,7 @@ class _NotificationIdsState extends State<NotificationIds> {
               child: ListTile(
                 leading: SvgPicture.asset('assets/dev.svg',width: 25,height: 25,color: Colors.green,),
                 title: const Text('Mobile Number'),
-                subtitle: const Text(''),
+                subtitle: Text(mobilerecord),
                 trailing: const Icon(Icons.more_vert),
             
               ),

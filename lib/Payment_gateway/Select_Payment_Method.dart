@@ -148,7 +148,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
     if (selectedMethod.isNotEmpty) {
       if (selectedMethod == 'assets/khalti.png') {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const KhaltiPage(),
+          builder: (context) =>  KhaltiPage(),
         ));
       } else if (selectedMethod == 'assets/esewa.png') {
         Navigator.of(context).push(MaterialPageRoute(

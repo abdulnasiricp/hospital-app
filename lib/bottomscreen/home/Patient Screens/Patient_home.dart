@@ -123,6 +123,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+
         appBar: AppBar(
           // toolbarHeight: 100,
           title: const Text(
@@ -134,9 +135,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
           leading: Padding(
               padding: const EdgeInsets.all(8.0),
               child: InkWell(
-                onTap: () {
-                  Get.to(() => const AboutUSScreen());
-                },
+                // onTap: () {
+                //   // Get.to(() => const AboutUSScreen());
+                // },
                 child: Image.asset(
                   'assets/hospital_logo.png',
                   width: 200,
@@ -1043,7 +1044,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
         //   );
         // }
 
-        drawer: const AboutUSScreen(), // Left drawer
+        drawer: Drawer(
+          width: double.infinity,
+          child: AboutUSScreen()), // Left drawer
         endDrawer: const Notif(),
       ),
     );
