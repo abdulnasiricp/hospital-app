@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace
+// ignore_for_file: sized_box_for_whitespace, deprecated_member_use
 
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace, file_names, non_constant_identifier_names, avoid_print, avoid_unnecessary_containers
+// ignore_for_file: sized_box_for_whitespace, file_names, non_constant_identifier_names, avoid_print, avoid_unnecessary_containers, deprecated_member_use
 
 import 'dart:convert';
 import 'package:TezHealthCare/Payment_gateway/Select_Payment_Method.dart';
@@ -32,20 +32,10 @@ class PatientHomePage extends StatefulWidget {
 }
 
 class _PatientHomePageState extends State<PatientHomePage> {
-  double totalSum = 0.0;
+  int totalSum = 1000;
   // Initialize with a default value
 
-  Future<void> getTotalSum() async {
-    final sp = await SharedPreferences.getInstance();
-    final patientSpecificKey =
-        'totalSum_${widget.patientId}'; // Use the patient's ID in the key
-    final storedTotalSum = sp.getDouble(patientSpecificKey);
-    if (storedTotalSum != null) {
-      setState(() {
-        totalSum = storedTotalSum;
-      });
-    }
-  }
+  
 
   String role = '';
   String username = '';
@@ -60,7 +50,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
   @override
   void initState() {
     super.initState();
-    getTotalSum();
     LoadData();
 
     hitApi();
@@ -327,7 +316,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                       InkWell(
                                         onTap: () {
                                           Get.to(
-                                              () => TransactionBill());
+                                              () => const TransactionBill());
                                         },
                                         child: Container(
                                           width: 100,

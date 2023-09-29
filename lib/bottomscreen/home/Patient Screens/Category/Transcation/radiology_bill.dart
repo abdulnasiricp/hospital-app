@@ -1,11 +1,9 @@
 // ignore_for_file: non_constant_identifier_names, sized_box_for_whitespace, avoid_print, file_names
 
 
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/view_bill.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
@@ -202,8 +200,6 @@ class _RadiologyBillState extends State<RadiologyBill> {
                                                   ),
                                                   TextButton.icon(
                                                       onPressed: () {
-                                                        Get.to(() =>
-                                                                                                                       ViewBillDetiles(billNo: DoneListData![index]['id'],billname: 'radiology',));
 
                                                       },
                                                       icon: const Icon(

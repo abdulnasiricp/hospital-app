@@ -8,6 +8,7 @@ class ApiLinks {
   static const String getPatientprofile= "https://uat.tez.hospital/xzy/webservice/getPatientprofile";
   static const String patientLogin= "https://uat.tez.hospital/xzy/auth/login";
   static const String doctorLogin= "https://uat.tez.hospital/xzy/auth/doctor_login";
+  static const String getAllTransaction= "https://uat.tez.hospital/xzy/webservice/getAllTransaction";
 
   
 }

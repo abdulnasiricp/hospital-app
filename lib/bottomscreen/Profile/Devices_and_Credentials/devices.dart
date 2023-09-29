@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace, unused_local_variable, avoid_print, unnecessary_string_interpolations
+// ignore_for_file: sized_box_for_whitespace, unused_local_variable, avoid_print, unnecessary_string_interpolations, deprecated_member_use
 
 import 'dart:io';
 

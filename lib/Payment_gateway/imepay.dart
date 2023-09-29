@@ -17,7 +17,7 @@ class ImePage extends StatefulWidget {
 }
 
 class _ImePageState extends State<ImePage> {
-     double totalSum = 0.0;
+     String totalSum = "0";
   String Patient_id = '';
   String username = '';
 
@@ -28,7 +28,7 @@ class _ImePageState extends State<ImePage> {
     final sp = await SharedPreferences.getInstance();
     final patientSpecificKey =
         'totalSum_$Patient_id'; // Use the patient's ID in the key
-    final storedTotalSum = sp.getDouble(patientSpecificKey);
+    final storedTotalSum = sp.getString(patientSpecificKey);
     if (storedTotalSum != null) {
       setState(() {
         totalSum = storedTotalSum;

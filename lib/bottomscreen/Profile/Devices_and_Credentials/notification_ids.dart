@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace, non_constant_identifier_names, avoid_print
+// ignore_for_file: sized_box_for_whitespace, non_constant_identifier_names, avoid_print, deprecated_member_use
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';

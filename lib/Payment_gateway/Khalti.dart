@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, non_constant_identifier_names
+// ignore_for_file: file_names, non_constant_identifier_names, avoid_print
 
 
 
@@ -17,40 +17,30 @@ class KhaltiPage extends StatefulWidget {
 }
 
 class _KhaltiPageState extends State<KhaltiPage> {
-   double totalSum = 0.0;
+   int totalSum = 20000;
   String Patient_id = '';
   String username = '';
 
-
-  // Initialize with a default value
-
-  Future<void> getTotalSum() async {
-    final sp = await SharedPreferences.getInstance();
-    final patientSpecificKey =
-        'totalSum_$Patient_id'; // Use the patient's ID in the key
-    final storedTotalSum = sp.getDouble(patientSpecificKey);
-    if (storedTotalSum != null) {
-      setState(() {
-        totalSum = storedTotalSum;
-      });
-    }
-  }
-
-    LoadData() async {
+ LoadData() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     setState(() {
       username = sharedPreferences.getString('usernamerecord') ?? '';
       Patient_id = sharedPreferences.getString('patientidrecord') ?? '';
+      print(username);
+      print(Patient_id);
     });
   }
+
+
+
+ 
 
  String referenceId = "";
 
 
   getAllData() async {
-    await LoadData();
-
-    await getTotalSum();
+   await LoadData();
+   
   }
 
   @override
@@ -58,7 +48,6 @@ class _KhaltiPageState extends State<KhaltiPage> {
     getAllData();
     super.initState();
   }
-
 
 
   @override
@@ -90,11 +79,10 @@ class _KhaltiPageState extends State<KhaltiPage> {
   payWithKhaltiInApp() {
     KhaltiScope.of(context).pay(
       config: PaymentConfig(
-        amount: totalSum, //in paisa//due balance
-        productIdentity: Patient_id,//patient id.e.g 10707
-        productName: username,//patient name
+        amount: totalSum, //in paisa
+        productIdentity: Patient_id,
+        productName: username,
         mobileReadOnly: false,
-        
       ),
       preferences: [
         PaymentPreference.khalti,
@@ -104,8 +92,6 @@ class _KhaltiPageState extends State<KhaltiPage> {
       onFailure: onFailure,
       onCancel: onCancel,
     );
-                  
-
   }
 
   void onSuccess(PaymentSuccessModel success) {

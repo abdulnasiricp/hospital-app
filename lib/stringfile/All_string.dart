@@ -139,5 +139,8 @@ class EnString {
  // 
   //Payment Gateway Screeen
   static const String Select_payment_gateway = "Select Payment Method";
+  //pathology screen
+  static const String payment = "Payment";
+  static const String status = "Status";
 
 }

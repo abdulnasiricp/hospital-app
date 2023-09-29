@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_print, non_constant_identifier_names, deprecated_member_use, file_names
 
-import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
@@ -12,10 +11,12 @@ import 'package:url_launcher/url_launcher.dart'; // Import the url_launcher pack
 
 class ViewBillDetiles extends StatefulWidget {
   final String billNo;
-  final String billname;
+  // final String billname;
+  final String pdf;
+
 
   const ViewBillDetiles(
-      {Key? key, required this.billNo, required this.billname})
+      {Key? key,   required this.pdf, required this.billNo})
       : super(key: key);
 
   @override
@@ -65,8 +66,7 @@ class _ViewBillDetilesState extends State<ViewBillDetiles> {
                     print('Error opening file: ${result.message}');
                   }
 
-                  await launch(
-                      '${ApiLinks.generateBillPrint}/${widget.billNo}/${widget.billname}'); // Replace with your desired URL
+                  await launch(widget.pdf); // Replace with your desired URL
                 }
               },
               child: const Text('Open'),
@@ -86,7 +86,7 @@ class _ViewBillDetilesState extends State<ViewBillDetiles> {
             onPressed: () {
               FileDownloader.downloadFile(
                 url:
-                    '${ApiLinks.generateBillPrint}/${widget.billNo}/${widget.billname}',
+                    widget.pdf,
                 onProgress: (name, progress) {
                   setState(() {
                     _progress = progress;
@@ -108,7 +108,7 @@ class _ViewBillDetilesState extends State<ViewBillDetiles> {
             icon: const Icon(Icons.download),
           )
         ],
-        title: Text("Bill No ${widget.billNo}"),
+        title: Text(widget.billNo),
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
@@ -134,7 +134,7 @@ class _ViewBillDetilesState extends State<ViewBillDetiles> {
                   child: const PDF(
                     swipeHorizontal: true,
                   ).cachedFromUrl(
-                    '${ApiLinks.generateBillPrint}/${widget.billNo}/${widget.billname}',
+                    widget.pdf,
                   ),
                 ),
               ),

@@ -1,27 +1,24 @@
 
-// ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace
+// ignore_for_file: non_constant_identifier_names, avoid_print, sized_box_for_whitespace
 
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/view_bill.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
-import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class TransactionBill extends StatefulWidget {
-  const TransactionBill({Key? key}) : super(key: key);
+class PathologyScreen extends StatefulWidget {
+  const PathologyScreen({Key? key}) : super(key: key);
 
   @override
-  _TransactionBillState createState() => _TransactionBillState();
+  _PathologyScreenState createState() => _PathologyScreenState();
 }
 
-class _TransactionBillState extends State<TransactionBill> {
+class _PathologyScreenState extends State<PathologyScreen> {
   bool isLoading = true;
   String totalAmount = "0.0"; // Initialize with a default value
   Map<String?, dynamic> apiData = {};
@@ -60,7 +57,7 @@ void initState() {
 
   Future<Map<String, dynamic>> fetchData() async {
     final url =
-        Uri.parse(ApiLinks.getAllTransaction);
+        Uri.parse('https://uat.tez.hospital/xzy/webservice/getAllTransaction');
     final headers = {
       'Soft-service': 'TezHealthCare',
       'Auth-key': 'zbuks_ram859553467',
@@ -102,7 +99,7 @@ void initState() {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(EnString.transactionBill),
+        title: const Text(EnString.pathology),
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
@@ -119,15 +116,15 @@ void initState() {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    EnString.tid,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                  ),
-                  Text(
-                    EnString.section,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                  ),
-                  Text(
                     EnString.billno,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  ),
+                  Text(
+                    EnString.payment,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  ),
+                  Text(
+                    EnString.status,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                   ),
                   Text(
@@ -189,13 +186,14 @@ void initState() {
                           if (transaction != null && transaction.containsKey('id')){
                           return InkWell(
                             onTap: () {
-                              Get.to(()=>ViewBillDetiles(pdf: "${transaction['pdf']}",billNo: "${transaction['bill_no']}",));
-                            },
-                            
-                              
-                              
+                            // Get.to(
+                            //   () => ViewBillDetiles(
+                            //     // billNo: ${data['bill_no']}
+                            //     // billname: listName,
+                            //   ),
 
-                          
+                            // print(listName);
+                            },
 
                             child: Column(
                               children: [
@@ -221,18 +219,18 @@ void initState() {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            "${transaction['id']}",
-                                            style: const TextStyle(),
-                                          ),
-                                          Text(
-                                            // listName,
-                                            "${transaction['section']}",
-                                            style: const TextStyle(),
-                                          ),
-                                          Text(
-                                            // item.id.toString(),
                                             "${transaction['bill_no']}",
                                             style: const TextStyle(),
+                                          ),
+                                          const Text(
+                                            'paid',
+                                            // "${transaction['section']}",
+                                            style: TextStyle(),
+                                          ),
+                                          const Text(
+                                           'pay bill',
+                                            // "${transaction['bill_no']}",
+                                            style: TextStyle(),
                                           ),
                                           Text(
                                             // 'Rs.${item.total}',

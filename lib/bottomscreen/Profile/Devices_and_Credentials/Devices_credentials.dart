@@ -1,6 +1,6 @@
 
 
-// ignore_for_file: file_names
+// ignore_for_file: file_names, deprecated_member_use
 
 import 'package:TezHealthCare/bottomscreen/Profile/Devices_and_Credentials/credentials.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/Devices_and_Credentials/devices.dart';

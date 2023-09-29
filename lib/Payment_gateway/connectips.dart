@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, non_constant_identifier_names
+// ignore_for_file: file_names, non_constant_identifier_names, unused_import, avoid_print
 
 
 
@@ -17,36 +17,31 @@ class Connectips extends StatefulWidget {
 }
 
 class _ConnectipsState extends State<Connectips> {
-   double totalSum = 0.0;
+
+int totalSum = 20000;
   String Patient_id = '';
   String username = '';
 
-
-  // Initialize with a default value
-
-  Future<void> getTotalSum() async {
-    final sp = await SharedPreferences.getInstance();
-    final patientSpecificKey =
-        'totalSum_$Patient_id'; // Use the patient's ID in the key
-    final storedTotalSum = sp.getDouble(patientSpecificKey);
-    if (storedTotalSum != null) {
-      setState(() {
-        totalSum = storedTotalSum;
-      });
-    }
-  }
-
-    LoadData() async {
+ LoadData() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     setState(() {
       username = sharedPreferences.getString('usernamerecord') ?? '';
       Patient_id = sharedPreferences.getString('patientidrecord') ?? '';
+      print(username);
+      print(Patient_id);
     });
   }
-   getAllData() async {
-    await LoadData();
 
-    await getTotalSum();
+
+
+ 
+
+ String referenceId = "";
+
+
+  getAllData() async {
+   await LoadData();
+   
   }
 
   @override
@@ -56,13 +51,11 @@ class _ConnectipsState extends State<Connectips> {
   }
 
 
- String referenceId = "";
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-         centerTitle: true,
+        centerTitle: true,
         backgroundColor: darkYellow,
         title: const Text("ConnectIPS Payment"),
       ),
@@ -87,11 +80,10 @@ class _ConnectipsState extends State<Connectips> {
   payWithKhaltiInApp() {
     KhaltiScope.of(context).pay(
       config: PaymentConfig(
-        amount: totalSum, //in paisa//due balance
-        productIdentity: Patient_id,//patient id.e.g 10707
-        productName: username,//patient name
+        amount: totalSum, //in paisa
+        productIdentity: Patient_id,
+        productName: username,
         mobileReadOnly: false,
-        
       ),
       preferences: [
         PaymentPreference.connectIPS,
