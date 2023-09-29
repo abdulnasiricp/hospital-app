@@ -50,116 +50,149 @@ class _TransactionBillState extends State<TransactionBill> {
     super.initState();
   }
 
+   List<Map<String, dynamic>> apiData = [];
+
+  // @override
+  // void initState() {
+  //   getAllData();
+
+  //   super.initState();
+  //   fetchData();
+  // }
+
   Future<void> fetchData() async {
-    final response = await http.post(
-      Uri.parse(ApiLinks.getAllPayment),
-      headers: {
-        'Soft-service': 'TezHealthCare',
-        'Auth-key': 'zbuks_ram859553467',
-        // Adjust content type if needed
-      },
-      body: jsonEncode({
-        "patient_id": patient,
-      }),
-    );
+    final url = Uri.parse('https://uat.tez.hospital/xzy/webservice/getAllTransaction');
+    final headers = {
+      'Soft-service': 'TezHealthCare',
+      'Auth-key': 'zbuks_ram859553467',
+    };
+    final body = {'patient_id': '10380'};
+
+    final response = await http.post(url, headers: headers, body: body);
 
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
+      final decodedResponse = json.decode(response.body);
       setState(() {
-        isLoading = false;
+        apiData = List.generate(
+          decodedResponse.length - 1,
+          (index) => decodedResponse[index.toString()],
+        );
       });
-      if (data['pathology_bill'] != null) {
-        for (var item in data['pathology_bill']) {
-          billItems.add(PathologyBillItem(
-            id: item['id'],
-            total: double.tryParse(item['total'].toString()) ?? 0.0,
-            patientId: item['patient_id'],
-            name: 'name',
-          ));
-        }
-      }
-      if (data['radiology_bill'] != null) {
-        for (var item in data['radiology_bill']) {
-          billItems.add(RadiologyBillItem(
-            id: item['id'],
-            total: double.tryParse(item['total'].toString()) ?? 0.0,
-            patientId: item['patient_id'],
-            name: 'name',
-          ));
-        }
-      }
-      if (data['pharmacy_bill'] != null) {
-        for (var item in data['pharmacy_bill']) {
-          billItems.add(PharmacyBillItem(
-            id: item['id'],
-            total: double.tryParse(item['total'].toString()) ?? 0.0,
-            patientId: item['patient_id'],
-            name: 'name',
-          ));
-        }
-      }
-      if (data['direct_bill'] != null) {
-        for (var item in data['direct_bill']) {
-          billItems.add(DirectBillItem(
-            id: item['id'],
-            total: double.tryParse(item['total'].toString()) ?? 0.0,
-            patientId: item['patient_id'],
-            name: 'name',
-          ));
-        }
-      }
-      if (data['ambulance_bill'] != null) {
-        for (var item in data['ambulance_bill']) {
-          billItems.add(AmbulanceBillItem(
-            id: item['id'],
-            total: double.tryParse(item['total'].toString()) ?? 0.0,
-            patientId: item['patient_id'],
-            name: 'name',
-          ));
-        }
-      }
-      if (data['bloodbank'] != null) {
-        for (var item in data['bloodbank']) {
-          billItems.add(BloodbankBillItem(
-            id: item['id'],
-            total: double.tryParse(item['total'].toString()) ?? 0.0,
-            patientId: item['patient_id'],
-            name: 'name',
-          ));
-        }
-      }
-      // Add similar code for other bill types if needed
-      // Calculate the total sum
-      totalSum = billItems.map((item) => item.total).fold(0.0, (a, b) => a + b);
-
-      // Save the totalSum in SharedPreferences with a unique key
-      final sp = await SharedPreferences.getInstance();
-      final patientSpecificKey ='totalSum_$patient'; // Include the patient ID or username in the key
-      sp.setDouble(patientSpecificKey, totalSum);
-
-      setState(() {});
     } else {
       throw Exception('Failed to load data');
     }
   }
 
-  String getListName(BillItem item) {
-    if (item is PathologyBillItem) {
-      return 'pathology';
-    } else if (item is RadiologyBillItem) {
-      return 'radiology';
-    } else if (item is PharmacyBillItem) {
-      return 'pharmacy';
-    } else if (item is DirectBillItem) {
-      return 'direct';
-    } else if (item is AmbulanceBillItem) {
-      return 'ambulance';
-    } else if (item is BloodbankBillItem) {
-      return 'bloodbank';
-    } else {
-      return 'Unknown'; // Handle other types if needed
-    }
-  }
+  // Future<void> fetchData() async {
+  //   final response = await http.post(
+  //     Uri.parse(ApiLinks.getAllPayment),
+  //     headers: {
+  //       'Soft-service': 'TezHealthCare',
+  //       'Auth-key': 'zbuks_ram859553467',
+  //       // Adjust content type if needed
+  //     },
+  //     body: jsonEncode({
+  //       "patient_id": patient,
+  //     }),
+  //   );
+
+  //   if (response.statusCode == 200) {
+  //     final data = jsonDecode(response.body);
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //     if (data['pathology_bill'] != null) {
+  //       for (var item in data['pathology_bill']) {
+  //         billItems.add(PathologyBillItem(
+  //           id: item['id'],
+  //           total: double.tryParse(item['total'].toString()) ?? 0.0,
+  //           patientId: item['patient_id'],
+  //           name: 'name',
+  //         ));
+  //       }
+  //     }
+  //     if (data['radiology_bill'] != null) {
+  //       for (var item in data['radiology_bill']) {
+  //         billItems.add(RadiologyBillItem(
+  //           id: item['id'],
+  //           total: double.tryParse(item['total'].toString()) ?? 0.0,
+  //           patientId: item['patient_id'],
+  //           name: 'name',
+  //         ));
+  //       }
+  //     }
+  //     if (data['pharmacy_bill'] != null) {
+  //       for (var item in data['pharmacy_bill']) {
+  //         billItems.add(PharmacyBillItem(
+  //           id: item['id'],
+  //           total: double.tryParse(item['total'].toString()) ?? 0.0,
+  //           patientId: item['patient_id'],
+  //           name: 'name',
+  //         ));
+  //       }
+  //     }
+  //     if (data['direct_bill'] != null) {
+  //       for (var item in data['direct_bill']) {
+  //         billItems.add(DirectBillItem(
+  //           id: item['id'],
+  //           total: double.tryParse(item['total'].toString()) ?? 0.0,
+  //           patientId: item['patient_id'],
+  //           name: 'name',
+  //         ));
+  //       }
+  //     }
+  //     if (data['ambulance_bill'] != null) {
+  //       for (var item in data['ambulance_bill']) {
+  //         billItems.add(AmbulanceBillItem(
+  //           id: item['id'],
+  //           total: double.tryParse(item['total'].toString()) ?? 0.0,
+  //           patientId: item['patient_id'],
+  //           name: 'name',
+  //         ));
+  //       }
+  //     }
+  //     if (data['bloodbank'] != null) {
+  //       for (var item in data['bloodbank']) {
+  //         billItems.add(BloodbankBillItem(
+  //           id: item['id'],
+  //           total: double.tryParse(item['total'].toString()) ?? 0.0,
+  //           patientId: item['patient_id'],
+  //           name: 'name',
+  //         ));
+  //       }
+  //     }
+  //     // Add similar code for other bill types if needed
+  //     // Calculate the total sum
+  //     totalSum = billItems.map((item) => item.total).fold(0.0, (a, b) => a + b);
+
+  //     // Save the totalSum in SharedPreferences with a unique key
+  //     final sp = await SharedPreferences.getInstance();
+  //     final patientSpecificKey ='totalSum_$patient'; // Include the patient ID or username in the key
+  //     sp.setDouble(patientSpecificKey, totalSum);
+
+  //     setState(() {});
+  //   } else {
+  //     throw Exception('Failed to load data');
+  //   }
+  // }
+
+  // String getListName(BillItem item) {
+  //   if (item is PathologyBillItem) {
+  //     return 'pathology';
+  //   } else if (item is RadiologyBillItem) {
+  //     return 'radiology';
+  //   } else if (item is PharmacyBillItem) {
+  //     return 'pharmacy';
+  //   } else if (item is DirectBillItem) {
+  //     return 'direct';
+  //   } else if (item is AmbulanceBillItem) {
+  //     return 'ambulance';
+  //   } else if (item is BloodbankBillItem) {
+  //     return 'bloodbank';
+  //   } else {
+  //     return 'Unknown'; // Handle other types if needed
+  //   }
+  // }
 
   Future<void> _handleRefresh() async {
     setState(() {
@@ -259,20 +292,20 @@ class _TransactionBillState extends State<TransactionBill> {
                         ),
                       )
                     : ListView.builder(
-                        itemCount: billItems.length,
+                        itemCount: apiData.length,
                         itemBuilder: (context, index) {
-                          final item = billItems[index];
-                          final listName = getListName(item);
+                           final data = apiData[index];
+                          // final listName = getListName(item);
                           return InkWell(
-                            onTap: () {
-                              Get.to(
-                                () => ViewBillDetiles(
-                                  billNo: item.id.toString(),
-                                  billname: listName,
-                                ),
-                              );
-                              print(listName);
-                            },
+                            onTap: () {},
+                              // Get.to(
+                              //   () => ViewBillDetiles(
+                              //     // billNo: ${data['bill_no']}
+                              //     // billname: listName,
+                              //   ),
+                              
+                              // print(listName);
+                            
                             child: Column(
                               children: [
                                 Padding(
@@ -301,15 +334,18 @@ class _TransactionBillState extends State<TransactionBill> {
                                             style: const TextStyle(),
                                           ),
                                           Text(
-                                            listName,
+                                            // listName,
+                                            "${data['bill_no']}",
                                             style: const TextStyle(),
                                           ),
                                           Text(
-                                            item.id.toString(),
+                                            // item.id.toString(),
+                                            "${data['bill_no']}",
                                             style: const TextStyle(),
                                           ),
                                           Text(
-                                            'Rs.${item.total}',
+                                            // 'Rs.${item.total}',
+                                            "${data['bill_no']}",
                                             style: const TextStyle(
                                               color: Colors.red,
                                             ),
