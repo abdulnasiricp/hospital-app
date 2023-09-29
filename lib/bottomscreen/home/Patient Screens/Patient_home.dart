@@ -327,7 +327,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                       InkWell(
                                         onTap: () {
                                           Get.to(
-                                              () => const TransactionBill());
+                                              () => TransactionBill());
                                         },
                                         child: Container(
                                           width: 100,
