@@ -45,7 +45,6 @@ class _KhaltiPageState extends State<KhaltiPage> {
 
   @override
   void initState() {
-    getAllData();
     super.initState();
   }
 
@@ -86,7 +85,7 @@ class _KhaltiPageState extends State<KhaltiPage> {
       ),
       preferences: [
         PaymentPreference.khalti,
-        
+
       ],
       onSuccess: onSuccess,
       onFailure: onFailure,
@@ -100,7 +99,7 @@ class _KhaltiPageState extends State<KhaltiPage> {
       builder: (context) {
         return AlertDialog(
           title: const Text('Payment Successful'),
-      
+
           actions: [
             SimpleDialogOption(
                 child: const Text('OK'),

@@ -46,14 +46,14 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               theme: Themes().lightTheme,
               darkTheme: Themes().darkTheme,
-              home:
-              //  ToastDialog(title: "Test",message: 'tost masg'),
-              FutureBuilder<bool>(
+              home: FutureBuilder<bool>(
                 future: _isLoggedIn(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     final bool isLoggedIn = snapshot.data ?? false;
-                    return isLoggedIn ? const Bottomhome() : const Splash_Screen();
+                    return isLoggedIn
+                        ? const Bottomhome()
+                        : const Splash_Screen();
                   } else {
                     return Container();
                   }

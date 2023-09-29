@@ -87,7 +87,7 @@ int totalSum = 20000;
       ),
       preferences: [
         PaymentPreference.connectIPS,
-        
+
       ],
       onSuccess: onSuccess,
       onFailure: onFailure,
@@ -101,7 +101,7 @@ int totalSum = 20000;
       builder: (context) {
         return AlertDialog(
           title: const Text('Payment Successful'),
-      
+
           actions: [
             SimpleDialogOption(
                 child: const Text('OK'),
