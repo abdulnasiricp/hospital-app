@@ -87,15 +87,15 @@ class _ConnectipsState extends State<Connectips> {
   payWithKhaltiInApp() {
     KhaltiScope.of(context).pay(
       config: PaymentConfig(
-        amount: totalSum, //in paisa//due balance
+        amount: 1000, //in paisa//due balance
         productIdentity: Patient_id,//patient id.e.g 10707
         productName: username,//patient name
         mobileReadOnly: false,
-        
+
       ),
       preferences: [
         PaymentPreference.connectIPS,
-        
+
       ],
       onSuccess: onSuccess,
       onFailure: onFailure,
@@ -109,7 +109,7 @@ class _ConnectipsState extends State<Connectips> {
       builder: (context) {
         return AlertDialog(
           title: const Text('Payment Successful'),
-      
+
           actions: [
             SimpleDialogOption(
                 child: const Text('OK'),

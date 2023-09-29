@@ -17,45 +17,12 @@ class KhaltiPage extends StatefulWidget {
 }
 
 class _KhaltiPageState extends State<KhaltiPage> {
-   double totalSum = 0.0;
   String Patient_id = '';
   String username = '';
-
-
-  // Initialize with a default value
-
-  Future<void> getTotalSum() async {
-    final sp = await SharedPreferences.getInstance();
-    final patientSpecificKey =
-        'totalSum_$Patient_id'; // Use the patient's ID in the key
-    final storedTotalSum = sp.getDouble(patientSpecificKey);
-    if (storedTotalSum != null) {
-      setState(() {
-        totalSum = storedTotalSum;
-      });
-    }
-  }
-
-    LoadData() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    setState(() {
-      username = sharedPreferences.getString('usernamerecord') ?? '';
-      Patient_id = sharedPreferences.getString('patientidrecord') ?? '';
-    });
-  }
-
  String referenceId = "";
-
-
-  getAllData() async {
-    await LoadData();
-
-    await getTotalSum();
-  }
 
   @override
   void initState() {
-    getAllData();
     super.initState();
   }
 
@@ -90,21 +57,21 @@ class _KhaltiPageState extends State<KhaltiPage> {
   payWithKhaltiInApp() {
     KhaltiScope.of(context).pay(
       config: PaymentConfig(
-        amount: totalSum, //in paisa//due balance
+        amount: 1000, //in paisa//due balance
         productIdentity: Patient_id,//patient id.e.g 10707
         productName: username,//patient name
         mobileReadOnly: false,
-        
+
       ),
       preferences: [
         PaymentPreference.khalti,
-        
+
       ],
       onSuccess: onSuccess,
       onFailure: onFailure,
       onCancel: onCancel,
     );
-                  
+
 
   }
 
@@ -114,7 +81,7 @@ class _KhaltiPageState extends State<KhaltiPage> {
       builder: (context) {
         return AlertDialog(
           title: const Text('Payment Successful'),
-      
+
           actions: [
             SimpleDialogOption(
                 child: const Text('OK'),
