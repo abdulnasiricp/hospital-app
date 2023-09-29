@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, avoid_print
 
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:esewa_flutter/esewa_flutter.dart';

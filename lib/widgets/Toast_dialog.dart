@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -5,10 +7,10 @@ class ToastDialog extends StatelessWidget {
   final String title;
   final String message;
 
-  ToastDialog({
+  const ToastDialog({Key? key, 
     required this.title,
     required this.message,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +28,12 @@ class ToastDialog extends StatelessWidget {
     return Stack(
       children: <Widget>[
         Container(
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
             top: 60,
             left: 16,
             right: 16,
           ),
-          margin: EdgeInsets.only(top: 45),
+          margin: const EdgeInsets.only(top: 45),
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             color: Colors.white,
@@ -42,20 +44,20 @@ class ToastDialog extends StatelessWidget {
             children: <Widget>[
               Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Text(
                 message,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
@@ -63,20 +65,20 @@ class ToastDialog extends StatelessWidget {
                     onPressed: () {
                       Get.back(result: 'OK');
                     },
-                    child: Text('OK'),
+                    child: const Text('OK'),
                   ),
                   ElevatedButton(
                     onPressed: () {
                       Get.back(result: 'Cancel');
                     },
-                    child: Text('Cancel'),
+                    child: const Text('Cancel'),
                   ),
                 ],
               ),
             ],
           ),
         ),
-        Positioned(
+        const Positioned(
           left: 16,
           right: 16,
           child: CircleAvatar(

@@ -18,9 +18,9 @@ class _HelpCenterState extends State<HelpCenter> {
 
       ),
       body: Center(child: ElevatedButton(onPressed: (){
-        Get.dialog(ToastDialog(title: "welcome",message: "welcome to HealthCare",));
+        Get.dialog(const ToastDialog(title: "welcome",message: "welcome to HealthCare",));
 
-      }, child: Text('Toast Mesg'))),
+      }, child: const Text('Toast Mesg'))),
     );
   }
 }

@@ -140,7 +140,7 @@ class _BottomhomeState extends State<Bottomhome> {
               _buildOffstageNavigator(3),
             ],
           ),
-          drawer: Drawer(
+          drawer: const Drawer(
               width: double.infinity,
               child: AboutUSScreen()), // Left drawer
           endDrawer: const Notif(),

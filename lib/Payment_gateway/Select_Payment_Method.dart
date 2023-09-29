@@ -152,7 +152,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
         ));
       } else if (selectedMethod == 'assets/esewa.png') {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) =>  EsewaPage(),
+          builder: (context) =>  const EsewaPage(),
         ));
       } else if (selectedMethod == 'assets/ips.png') {
         Navigator.of(context).push(MaterialPageRoute(

@@ -91,7 +91,7 @@ class _ImePageState extends State<ImePage> {
             children: <Widget>[
               InkWell(
                 onTap: () async {
-                  Random random = new Random();
+                  Random random = Random();
                   random.nextInt(15);
 
                   var result = await StartSdk.callSdk(context,
