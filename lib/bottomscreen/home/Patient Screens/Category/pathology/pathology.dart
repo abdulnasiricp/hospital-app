@@ -132,22 +132,22 @@ class _PathalogyState extends State<Pathalogy> {
                     Text(
                       EnString.billno,
                       style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                     ),
                     Text(
                       EnString.Payment,
                       style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                     ),
                     Text(
                       EnString.Report,
                       style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                     ),
                     Text(
                       EnString.amount,
                       style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                     ),
                   ],
                 ),
@@ -156,164 +156,160 @@ class _PathalogyState extends State<Pathalogy> {
             Expanded(
               child: isLoading
                   ? ListView.builder(
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return Shimmer.fromColors(
-                    baseColor: Colors.grey,
-                    highlightColor: Colors.blue.shade100,
-                    child: ListTile(
-                      leading: Container(
-                        width: 60,
-                        height: 60,
-                        color: Colors.white,
-                      ),
-                      title: Container(
-                        width: 150,
-                        height: 20,
-                        color: Colors.white,
-                      ),
-                      subtitle: Container(
-                        width: 100,
-                        height: 10,
-                        color: Colors.white,
-                      ),
-                      trailing: Container(
-                        width: 60,
-                        height: 30,
-                        color: Colors.white,
-                      ),
-                    ),
-                  );
-                },
-              )
+                      itemCount: 10,
+                      itemBuilder: (context, index) {
+                        return Shimmer.fromColors(
+                          baseColor: Colors.grey,
+                          highlightColor: Colors.blue.shade100,
+                          child: ListTile(
+                            leading: Container(
+                              width: 60,
+                              height: 60,
+                              color: Colors.white,
+                            ),
+                            title: Container(
+                              width: 150,
+                              height: 20,
+                              color: Colors.white,
+                            ),
+                            subtitle: Container(
+                              width: 100,
+                              height: 10,
+                              color: Colors.white,
+                            ),
+                            trailing: Container(
+                              width: 60,
+                              height: 30,
+                              color: Colors.white,
+                            ),
+                          ),
+                        );
+                      },
+                    )
                   : apiData.isEmpty
-                  ? Center(
-                child: Container(
-                  height: 150,
-                  width: 150,
-                  child: Lottie.asset(
-                    'assets/No_Data_Found.json',
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              )
-                  : ListView.builder(
-                itemCount: apiData.length,
-                itemBuilder: (context, index) {
-                  final Pathologybill = apiData[index];
-                  if (Pathologybill.containsKey('id')) {
-                    return Column(
-                      children: [
-                        Card(
-                          color: Colors.white70.withOpacity(0.7),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "${Pathologybill['id']}",
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    if (Pathologybill['status'] ==
-                                        'Paid') {
-                                      Get.to(
-                                            () => pathologyBillview(
-                                          bill_pdf:
+                      ? Center(
+                          child: Container(
+                            height: 150,
+                            width: 150,
+                            child: Lottie.asset(
+                              'assets/No_Data_Found.json',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        )
+                      : ListView.builder(
+                          itemCount: apiData.length,
+                          itemBuilder: (context, index) {
+                            final Pathologybill = apiData[index];
+                            if (Pathologybill.containsKey('id')) {
+                              return Column(
+                                children: [
+                                  Card(
+                                    color: Colors.white70.withOpacity(0.7),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "${Pathologybill['id']}",
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          InkWell(
+                                            onTap: () {
+                                              if (Pathologybill['status'] ==
+                                                  'Paid') {
+                                                Get.to(
+                                                  () => pathologyBillview(
+                                                    bill_pdf:
                                                         "${Pathologybill['bill_pdf']}",
-                                                    // Use 'id' as the Pathologybill ID
                                                     id: "${Pathologybill['id']}",
                                                   ),
-                                      );
-                                    } else {
-                                      // Handle the tap event for 'UnPaid' status
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                              "You haven't paid the amount.${Pathologybill['net_amount']}"),
-                                          backgroundColor: Colors.red,
-                                        ),
-                                      );
-                                    }
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color:
-                                      Pathologybill['status'] ==
-                                          'Paid'
-                                          ? Colors.green
-                                          : Colors.red,
-                                      borderRadius:
-                                      BorderRadius.circular(5.0),
-                                    ),
-                                    child: Padding(
-                                      padding:
-                                      const EdgeInsets.all(3.0),
-                                      child: Text(
-                                        // listName,
-                                        "${Pathologybill['status']}",
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    if (Pathologybill['is_printed'] ==
-                                        '1') {
-                                      Get.to(
-                                            () => pathologyReport(
-                                          report_pdf:
+                                                );
+                                              } else {
+                                                Get.to(
+                                                  () => pathologyBillview(
+                                                    bill_pdf:
+                                                        "${Pathologybill['bill_pdf']}",
+                                                    id: "${Pathologybill['id']}",
+                                                  ),
+                                                );
+                                              }
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    Pathologybill['status'] ==
+                                                            'Paid'
+                                                        ? Colors.green
+                                                        : Colors.red,
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(3.0),
+                                                child: Text(
+                                                  // listName,
+                                                  "${Pathologybill['status']}",
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          InkWell(
+                                            onTap: () {
+                                              if (Pathologybill['is_printed'] ==
+                                                  '1') {
+                                                Get.to(
+                                                  () => pathologyReport(
+                                                    report_pdf:
                                                         "${Pathologybill['report_pdf']}",
-                                                    // Use 'id' as the Pathologybill ID
                                                     id: "${Pathologybill['id']}",
                                                   ),
-                                      );
-                                    } else {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                          content: Text(
-                                              "Your Report has being printed"),
-                                          backgroundColor: Colors.red,
-                                        ),
-                                      );
-                                    }
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Pathologybill[
-                                      'is_printed'] ==
-                                          '1'
-                                          ? Colors.green
-                                          : Colors.yellowAccent,
-                                      borderRadius:
-                                      BorderRadius.circular(5.0),
-                                    ),
-                                    child: Padding(
-                                      padding:
-                                      const EdgeInsets.all(3.0),
-                                      child: Text(
-                                        Pathologybill['is_printed'] ==
-                                            '1'
-                                            ? 'Report Printed'
-                                            : 'Processing',
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Text(
+                                                );
+                                              } else {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  const SnackBar(
+                                                    content: Text(
+                                                        "Pathology report is currently printing. Please stay tuned."),
+                                                    backgroundColor: Colors.red,
+                                                  ),
+                                                );
+                                              }
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: Pathologybill[
+                                                            'is_printed'] ==
+                                                        '1'
+                                                    ? Colors.green
+                                                    : Colors.yellowAccent,
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(3.0),
+                                                child: Text(
+                                                  Pathologybill['is_printed'] ==
+                                                          '1'
+                                                      ? 'Report Printed'
+                                                      : 'Processing',
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Text(
                                             // 'Rs.${item.total}',
                                             "${Pathologybill['net_amount']}",
                                             // Use 'net_amount' for the amount
@@ -322,16 +318,16 @@ class _PathalogyState extends State<Pathalogy> {
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
-                              ],
-                            ),
-                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }
+                            return null;
+                          },
                         ),
-                      ],
-                    );
-                  }
-                  return null;
-                },
-              ),
             ),
           ],
         ),
@@ -339,34 +335,34 @@ class _PathalogyState extends State<Pathalogy> {
       bottomSheet: apiData.isEmpty
           ? null // Set bottomSheet to null when apiData is empty
           : Card(
-        child: Container(
-          height: height / 15,
-          width: width,
-          color: darkYellow,
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  EnString.total,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20),
+              child: Container(
+                height: height / 15,
+                width: width,
+                color: darkYellow,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        EnString.total,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
+                      ),
+                      Shimmer.fromColors(
+                        baseColor: Colors.red,
+                        highlightColor: Colors.yellow,
+                        child: Text("Rs.$totalAmount",
+                            style: const TextStyle(
+                                color: Colors.red, fontSize: 20)),
+                      ),
+                    ],
+                  ),
                 ),
-                Shimmer.fromColors(
-                  baseColor: Colors.red,
-                  highlightColor: Colors.yellow,
-                  child: Text("Rs.$totalAmount",
-                      style: const TextStyle(
-                          color: Colors.red, fontSize: 20)),
-                ),
-              ],
+              ),
             ),
-          ),
-        ),
-      ),
     );
   }
 }

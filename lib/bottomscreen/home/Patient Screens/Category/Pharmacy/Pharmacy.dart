@@ -239,8 +239,7 @@ class _PharmacyState extends State<Pharmacy> {
                                               }
                                             },
                                             child: const Padding(
-                                              padding:
-                                                  EdgeInsets.all(3.0),
+                                              padding: EdgeInsets.all(3.0),
                                               child: Text(
                                                 "Paracitamol",
                                                 style: TextStyle(

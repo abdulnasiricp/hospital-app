@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:TezHealthCare/Payment_gateway/Select_Payment_Method.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/All_doctors.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Card/Card.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/IPD.dart';
@@ -50,15 +51,16 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
     hitApi();
   }
+
   @override
-void dispose() {
-  super.dispose();
-}
+  void dispose() {
+    super.dispose();
+  }
 
   LoadData() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     setState(() {
-       role = sharedPreferences.getString('role') ?? '';
+      role = sharedPreferences.getString('role') ?? '';
       username = sharedPreferences.getString('usernamerecord') ?? '';
       record = sharedPreferences.getString('record') ?? '';
       genderrecord = sharedPreferences.getString('genderrecord') ?? '';
@@ -77,13 +79,10 @@ void dispose() {
       );
 
       if (response.statusCode == 200) {
-          setState(() {
-         
-        });
-         DataMap = jsonDecode(response.body);
-          DoneListData = DataMap!['doctors'];
-          isLoading = false; // Set isLoading to false after successful response
-      
+        setState(() {});
+        DataMap = jsonDecode(response.body);
+        DoneListData = DataMap!['doctors'];
+        isLoading = false; // Set isLoading to false after successful response
       } else {
         print('Error getting Products: ${response.statusCode}');
         setState(() {
@@ -124,9 +123,9 @@ void dispose() {
         leading: Padding(
             padding: const EdgeInsets.all(8.0),
             child: InkWell(
-              // onTap: () {
-              //   // Get.to(() => const AboutUSScreen());
-              // },
+              onTap: () {
+                Get.to(() => const AboutUSScreen());
+              },
               child: Image.asset(
                 'assets/hospital_logo.png',
                 width: 200,
@@ -245,8 +244,7 @@ void dispose() {
                                         ),
                                       ),
                                       const Padding(
-                                        padding:
-                                            EdgeInsets.only(left: 30.0),
+                                        padding: EdgeInsets.only(left: 30.0),
                                         child: Text(
                                           'Rs. 10000',
                                           style: TextStyle(
@@ -260,7 +258,8 @@ void dispose() {
                                   ),
                                   ElevatedButton(
                                     onPressed: () {
-                                      Get.off(() => const SelectPaymentMethod());
+                                      Get.off(
+                                          () => const SelectPaymentMethod());
                                     },
                                     style: ElevatedButton.styleFrom(
                                       foregroundColor: Colors.white,
@@ -794,11 +793,11 @@ void dispose() {
                                 )
                               ],
                             ),
-                            
                             Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   const Text(EnString.doctors,
                                       style: TextStyle(

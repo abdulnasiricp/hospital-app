@@ -18,6 +18,6 @@ class ApiLinks {
       "https://uat.tez.hospital/xzy/webservice/getPathologyDetails";
   static const String radiology =
       "https://uat.tez.hospital/xzy/webservice/getRadiologyDetails";
-       static const String pharmacy=
+  static const String pharmacy =
       "https://uat.tez.hospital/xzy/webservice/getRadiologyDetails";
 }
