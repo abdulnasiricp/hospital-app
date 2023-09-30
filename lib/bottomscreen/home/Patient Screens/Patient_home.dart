@@ -7,7 +7,7 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Card/
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/IPD.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Transaction_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/ambulance_bill.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/pharmacy_bill.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/pathology/pathology.dart';
 import 'package:TezHealthCare/bottomscreen/home/paymentsuccessfuly.dart';
 import 'package:TezHealthCare/screens/notification.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
@@ -32,7 +32,70 @@ class PatientHomePage extends StatefulWidget {
 }
 
 class _PatientHomePageState extends State<PatientHomePage> {
-  int totalSum = 1000;
+   bool isLoading = true;
+  String totalAmount = "0.0"; // Initialize with a default value
+  Map<String?, dynamic> apiData = {};
+
+ 
+ 
+
+getData()async{
+await LoadData();
+await fetchData().then((data) {
+    setState(() {
+      apiData = data;
+      // Parse and update the total amount
+      if (data.containsKey("total")) {
+        totalAmount = "${data["total"]}";
+      }
+    });
+  }).catchError((error) {
+    // Handle errors here
+    print('Error: $error');
+  });
+    hitApi();
+
+}
+  @override
+void initState() {
+  super.initState();
+  getData();
+ 
+}
+
+  Future<Map<String, dynamic>> fetchData() async {
+    final url =
+        Uri.parse('https://uat.tez.hospital/xzy/webservice/getAllTransaction');
+    final headers = {
+      'Soft-service': 'TezHealthCare',
+      'Auth-key': 'zbuks_ram859553467',
+    };
+    final body = {
+      "patient_id": Patient_id,
+    };
+
+    final response = await http.post(
+      url,
+      headers: headers,
+      body: json.encode(body),
+    );
+
+    if (response.statusCode == 200) {
+      setState(() {
+        isLoading = false;
+      });
+      final Map<String, dynamic> data = json.decode(response.body);
+      return data;
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
+
+
+
+
+
+  // int totalSum = 1000;
   // Initialize with a default value
 
   
@@ -41,19 +104,11 @@ class _PatientHomePageState extends State<PatientHomePage> {
   String username = '';
   String record = '';
   String genderrecord = '';
-  bool isLoading = true;
   String Patient_id = '';
   Map<String, dynamic>? DataMap;
   Map<String, dynamic>? DoneDataMap;
   List<dynamic>? DoneListData = [];
 
-  @override
-  void initState() {
-    super.initState();
-    LoadData();
-
-    hitApi();
-  }
 
   LoadData() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -218,7 +273,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                           ),
                         ],
                       ),
-                      totalSum == 0.0
+                      totalAmount == "0.0"
                           ? Container()
                           : Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -251,7 +306,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                     const EdgeInsets.only(
                                                         left: 30.0),
                                                 child: Text(
-                                                  'Rs.$totalSum',
+                                                  'Rs.$totalAmount',
                                                   style: const TextStyle(
                                                     fontWeight:
                                                         FontWeight.bold,
@@ -425,7 +480,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                       ),
                                       InkWell(
                                         onTap: () {
-                                          Get.to(() => const PharmacyBill());
+                                          Get.to(() => const PathologyScreen());
                                         },
                                         child: Container(
                                           width: 100,

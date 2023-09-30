@@ -3,7 +3,6 @@
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Card/Card.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Transaction_bill.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/pathology/pathology.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Patient_home.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/profile.dart';
 import 'package:TezHealthCare/screens/notification.dart';
