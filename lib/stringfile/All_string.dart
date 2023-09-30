@@ -44,7 +44,6 @@ class EnString {
   static const String patientAddress ="Address";
   static const String patientMaritialStatus ="Maritial Status";
   static const String patientGuardianName ="Guardian Name";
-
   static const String helpCenter = "Help Center";
   static const String helpCenterSubtitle = "Ask a Quastion from help center";
   static const String aboutUs = "About Us";
@@ -56,8 +55,8 @@ class EnString {
   static const String logout = "Log Out";
   // Patient Home Screen
   static const String welcome = "Welcome,\n";
-  static const String patientId = "Patient Id:-,";
-  static const String hisNo = "HIS NO:-,";
+  static const String patientId = "Patient Id:";
+  static const String hisNo = "HIS NO:";
   static const String hospitalTitle = "प्रादेशिक अस्पताल सिराहा, नेपाल";
   static const String hospitaldueBalance = "Hospital Dues Balance";
   static const String payNow = "Pay Now";
@@ -128,6 +127,7 @@ class EnString {
   static const String confirmationDesc =
       "Please call and confirm at hospital if doctor is a availible at hospital on the day of appointment.";
   static const String selectpaymentMethod = "Please Select any one to Pay.";
+
   //Notification Screeen
   static const String notification = "Notification";
   static const String ended = "The doctor has ended his consultation";
@@ -136,11 +136,25 @@ class EnString {
   static const String myDevices = "My Devices";
   static const String credentials = "Credentials";
   static const String notificationId = "Notification IDs";
- // 
+
+  //Pathology screen
+  static const String Payment = "Payment";
+  static const String Pathology = "Pathology";
+  static const String Report = "Report";
+
+  //Radiology screen;
+  static const String Radiology = "Radiology";
+
+  //Pharmacy screen;
+  static const String Medicin = "Medicin";
+  static const String Pharmacy = "Pharmacy";
+  static const String Status = "Status";
+
+  //
   //Payment Gateway Screeen
   static const String Select_payment_gateway = "Select Payment Method";
+
   //pathology screen
   static const String payment = "Payment";
   static const String status = "Status";
-
 }

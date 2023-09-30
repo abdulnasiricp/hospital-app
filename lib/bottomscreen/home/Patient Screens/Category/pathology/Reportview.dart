@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, non_constant_identifier_names, deprecated_member_use, file_names
+// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, avoid_print, deprecated_member_use
 
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
@@ -9,19 +9,20 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:open_file/open_file.dart';
 import 'package:url_launcher/url_launcher.dart'; // Import the url_launcher package
 
-class ViewBillDetiles extends StatefulWidget {
-  final String billNo;
-  final String billname;
-  final String pdf;
-  const ViewBillDetiles(
-      {Key? key, required this.billNo, required this.pdf, required this.billname})
-      : super(key: key);
+class pathologyReport extends StatefulWidget {
+  final String id;
+  final String report_pdf;
+  const pathologyReport({
+    Key? key,
+    required this.id,
+    required this.report_pdf,
+  }) : super(key: key);
 
   @override
-  State<ViewBillDetiles> createState() => _ViewBillDetilesState();
+  State<pathologyReport> createState() => _pathologyReportState();
 }
 
-class _ViewBillDetilesState extends State<ViewBillDetiles> {
+class _pathologyReportState extends State<pathologyReport> {
   double? _progress;
   String PatientId = '';
   String? _downloadedFilePath; // Store the downloaded file path
@@ -65,7 +66,7 @@ class _ViewBillDetilesState extends State<ViewBillDetiles> {
                   }
 
                   await launch(
-                      widget.pdf); // Replace with your desired URL
+                      widget.report_pdf); // Replace with your desired URL
                 }
               },
               child: const Text('Open'),
@@ -85,8 +86,7 @@ class _ViewBillDetilesState extends State<ViewBillDetiles> {
             onPressed: () {
               FileDownloader.downloadFile(
                 name: 'tezash$widget.id.pdf',
-                url:
-                widget.pdf,
+                url: widget.report_pdf,
                 onProgress: (name, progress) {
                   setState(() {
                     _progress = progress;
@@ -108,37 +108,37 @@ class _ViewBillDetilesState extends State<ViewBillDetiles> {
             icon: const Icon(Icons.download),
           )
         ],
-        title: Text("Bill No ${widget.billNo}"),
+        title: Text("Bill No ${widget.id}"),
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
       body: _progress != null
           ? Center(
-        child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Container(
-                height: 50,
-                width: 50,
-                color: Colors.transparent,
-                child: const LoadingIndicatorWidget())),
-      )
+              child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                      height: 50,
+                      width: 50,
+                      color: Colors.transparent,
+                      child: const LoadingIndicatorWidget())),
+            )
           :
 
-      // _progress != null ? Center(child: Lottie.asset('assets/loading1.json'))
-      //     :
-      Container(
-        color: darkYellow,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: const PDF(
-              swipeHorizontal: true,
-            ).cachedFromUrl(
-                widget.pdf// Use the provided PDF URL here
+          // _progress != null ? Center(child: Lottie.asset('assets/loading1.json'))
+          //     :
+          Container(
+              color: darkYellow,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                  child: const PDF(
+                    swipeHorizontal: true,
+                  ).cachedFromUrl(
+                      widget.report_pdf // Use the provided PDF URL here
+                      ),
+                ),
+              ),
             ),
-          ),
-        ),
-      ),
     );
   }
 }

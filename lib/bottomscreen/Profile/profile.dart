@@ -12,16 +12,16 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart'
 import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
+import 'package:TezHealthCare/utils/mediaqury.dart';
+import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:TezHealthCare/utils/mediaqury.dart';
-import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -358,10 +358,11 @@ class _ProfileState extends State<Profile> {
                 )
               ],
             ),
-          ):const Center(
-            child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: LoadingIndicatorWidget()),
+          ):Center(
+            child: Container(
+              height: 50,
+                width: 50,
+                child: const LoadingIndicatorWidget()),
           ))
     );
   }

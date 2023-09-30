@@ -1,15 +1,17 @@
-// ignore_for_file: sized_box_for_whitespace, file_names, non_constant_identifier_names, avoid_print, avoid_unnecessary_containers, deprecated_member_use
+// ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace, deprecated_member_use, avoid_unnecessary_containers
 
 import 'dart:convert';
+
 import 'package:TezHealthCare/Payment_gateway/Select_Payment_Method.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/All_doctors.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Card/Card.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/IPD.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Pathology.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pharmacy/Pharmacy.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Radiology/Radiology.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Transaction_bill.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/ambulance_bill.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/pathology/pathology.dart';
-import 'package:TezHealthCare/bottomscreen/home/paymentsuccessfuly.dart';
 import 'package:TezHealthCare/screens/notification.dart';
+import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -17,10 +19,9 @@ import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:TezHealthCare/stringfile/All_string.dart';
-import 'package:http/http.dart' as http;
 import 'package:shimmer/shimmer.dart';
 
 class PatientHomePage extends StatefulWidget {
@@ -32,83 +33,23 @@ class PatientHomePage extends StatefulWidget {
 }
 
 class _PatientHomePageState extends State<PatientHomePage> {
-   bool isLoading = true;
-  String totalAmount = "0.0"; // Initialize with a default value
-  Map<String?, dynamic> apiData = {};
-
- 
- 
-
-getData()async{
-await LoadData();
-await fetchData().then((data) {
-    setState(() {
-      apiData = data;
-      // Parse and update the total amount
-      if (data.containsKey("total")) {
-        totalAmount = "${data["total"]}";
-      }
-    });
-  }).catchError((error) {
-    // Handle errors here
-    print('Error: $error');
-  });
-    hitApi();
-
-}
-  @override
-void initState() {
-  super.initState();
-  getData();
- 
-}
-
-  Future<Map<String, dynamic>> fetchData() async {
-    final url =
-        Uri.parse('https://uat.tez.hospital/xzy/webservice/getAllTransaction');
-    final headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
-    final body = {
-      "patient_id": Patient_id,
-    };
-
-    final response = await http.post(
-      url,
-      headers: headers,
-      body: json.encode(body),
-    );
-
-    if (response.statusCode == 200) {
-      setState(() {
-        isLoading = false;
-      });
-      final Map<String, dynamic> data = json.decode(response.body);
-      return data;
-    } else {
-      throw Exception('Failed to load data');
-    }
-  }
-
-
-
-
-
-  // int totalSum = 1000;
-  // Initialize with a default value
-
-  
-
   String role = '';
   String username = '';
   String record = '';
   String genderrecord = '';
+  bool isLoading = true;
   String Patient_id = '';
   Map<String, dynamic>? DataMap;
   Map<String, dynamic>? DoneDataMap;
   List<dynamic>? DoneListData = [];
 
+  @override
+  void initState() {
+    super.initState();
+    LoadData();
+
+    hitApi();
+  }
 
   LoadData() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -166,7 +107,6 @@ void initState() {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
         // toolbarHeight: 100,
         title: const Text(
@@ -257,6 +197,7 @@ void initState() {
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black,
+                                    fontFamily: 'Gilroy_Bold',
                                     fontSize: 14,
                                   ),
                                 ),
@@ -264,6 +205,7 @@ void initState() {
                                   '${EnString.hisNo} $Patient_id',
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
+                                    fontFamily: 'Gilroy_Bold',
                                     color: Colors.black,
                                     fontSize: 14,
                                   ),
@@ -273,89 +215,78 @@ void initState() {
                           ),
                         ],
                       ),
-                      totalAmount == "0.0"
-                          ? Container()
-                          : Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Card(
-                                    color: Colors.white70.withOpacity(0.7),
-                                    child: Container(
-                                      height: 50,
-                                      padding: const EdgeInsets.all(10),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceBetween,
-                                            children: [
-                                              Text(
-                                                EnString.hospitaldueBalance,
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: darkYellow,
-                                                  fontSize: 12,
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.only(
-                                                        left: 30.0),
-                                                child: Text(
-                                                  'Rs.$totalAmount',
-                                                  style: const TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold,
-                                                    color: Colors.red,
-                                                    fontSize: 16,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
+                      ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Card(
+                            color: Colors.white70.withOpacity(0.7),
+                            child: Container(
+                              height: 50,
+                              padding: const EdgeInsets.all(10),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        EnString.hospitaldueBalance,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: darkYellow,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                      const Padding(
+                                        padding:
+                                            EdgeInsets.only(left: 30.0),
+                                        child: Text(
+                                          'Rs. 10000',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.red,
+                                            fontSize: 16,
                                           ),
-                                          ElevatedButton(
-                                            onPressed: () {
-                                              Get.to(() =>
-                                                  const SelectPaymentMethod());
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                              foregroundColor: Colors.white,
-                                              backgroundColor:
-                                                  Colors.green, // Text color
-                                              elevation: 0, // Elevation
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 20,
-                                                      vertical:
-                                                          10), // Padding
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        10), // Button border radius
-                                              ),
-                                            ),
-                                            child: Shimmer.fromColors(
-                                              baseColor: Colors.white,
-                                              highlightColor: Colors.grey,
-                                              child: const Text(
-                                                'Pay Now',
-                                                style: TextStyle(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                          )
-                                        ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Get.to(() => const SelectPaymentMethod());
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      foregroundColor: Colors.white,
+                                      backgroundColor:
+                                          Colors.green, // Text color
+                                      elevation: 0, // Elevation
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20,
+                                          vertical: 10), // Padding
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                            10), // Button border radius
                                       ),
                                     ),
-                                  ))),
+                                    child: Shimmer.fromColors(
+                                      baseColor: Colors.white,
+                                      highlightColor: Colors.grey,
+                                      child: const Text(
+                                        'Pay Now',
+                                        style: TextStyle(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          )),
                       Padding(
-                        padding: const EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.all(1.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -370,8 +301,7 @@ void initState() {
                                     children: [
                                       InkWell(
                                         onTap: () {
-                                          Get.to(
-                                              () => const TransactionBill());
+                                          Get.to(() => const TransactionBill());
                                         },
                                         child: Container(
                                           width: 100,
@@ -480,7 +410,7 @@ void initState() {
                                       ),
                                       InkWell(
                                         onTap: () {
-                                          Get.to(() => const PathologyScreen());
+                                          Get.to(() => const Pathalogy());
                                         },
                                         child: Container(
                                           width: 100,
@@ -516,7 +446,7 @@ void initState() {
                                       ),
                                       InkWell(
                                         onTap: () {
-                                          Get.to(() => const AmbulanceBill());
+                                          Get.to(() => const Radiology());
                                         },
                                         child: Container(
                                           width: 100,
@@ -552,7 +482,7 @@ void initState() {
                                       ),
                                       InkWell(
                                         onTap: () {
-                                          Get.to(() => const AmbulanceBill());
+                                          Get.to(() => const Pharmacy());
                                         },
                                         child: Container(
                                           width: 100,
@@ -587,9 +517,6 @@ void initState() {
                                         ),
                                       ),
                                       InkWell(
-                                        onTap: () {
-                                          Get.to(() => const AmbulanceBill());
-                                        },
                                         child: Container(
                                           width: 100,
                                           height: 100,
@@ -623,9 +550,6 @@ void initState() {
                                         ),
                                       ),
                                       InkWell(
-                                        onTap: () {
-                                          Get.to(() => const AmbulanceBill());
-                                        },
                                         child: Container(
                                           width: 100,
                                           height: 100,
@@ -659,9 +583,6 @@ void initState() {
                                         ),
                                       ),
                                       InkWell(
-                                        onTap: () {
-                                          Get.to(() => const AmbulanceBill());
-                                        },
                                         child: Container(
                                           width: 100,
                                           height: 100,
@@ -695,9 +616,6 @@ void initState() {
                                         ),
                                       ),
                                       InkWell(
-                                        onTap: () {
-                                          Get.to(() => const AmbulanceBill());
-                                        },
                                         child: Container(
                                           width: 100,
                                           height: 100,
@@ -731,9 +649,6 @@ void initState() {
                                         ),
                                       ),
                                       InkWell(
-                                        onTap: () {
-                                          Get.to(() => const AmbulanceBill());
-                                        },
                                         child: Container(
                                           width: 100,
                                           height: 100,
@@ -768,9 +683,6 @@ void initState() {
                                         ),
                                       ),
                                       InkWell(
-                                        onTap: () {
-                                          Get.to(() => const AmbulanceBill());
-                                        },
                                         child: Container(
                                           width: 100,
                                           height: 100,
@@ -805,9 +717,6 @@ void initState() {
                                         ),
                                       ),
                                       InkWell(
-                                        onTap: () {
-                                          Get.to(() => const AmbulanceBill());
-                                        },
                                         child: Container(
                                           width: 100,
                                           height: 100,
@@ -829,8 +738,7 @@ void initState() {
                                                 const SizedBox(
                                                   height: 10,
                                                 ),
-                                                const Text(
-                                                    EnString.bedHistory,
+                                                const Text(EnString.bedHistory,
                                                     style: TextStyle(
                                                       fontSize: 7,
                                                       fontWeight:
@@ -842,9 +750,6 @@ void initState() {
                                         ),
                                       ),
                                       InkWell(
-                                        onTap: () {
-                                          Get.to(() => const Paymentsuccessfuly());
-                                        },
                                         child: Container(
                                           width: 100,
                                           height: 100,
@@ -867,8 +772,7 @@ void initState() {
                                                   height: 10,
                                                 ),
                                                 const Text(
-                                                    EnString
-                                                        .liveConsultations,
+                                                    EnString.liveConsultations,
                                                     style: TextStyle(
                                                       fontSize: 7,
                                                       fontWeight:
@@ -888,8 +792,7 @@ void initState() {
                               height: 20,
                             ),
                             Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 const Text(EnString.doctors,
                                     style: TextStyle(
@@ -934,9 +837,8 @@ void initState() {
                                                 color: Colors.white70
                                                     .withOpacity(0.7),
                                                 child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(
-                                                          10.0),
+                                                  padding: const EdgeInsets.all(
+                                                      10.0),
                                                   child: Row(
                                                     children: [
                                                       Container(
@@ -945,10 +847,8 @@ void initState() {
                                                         child: ClipRRect(
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(
-                                                                      10),
-                                                          child:
-                                                              Image.network(
+                                                                  .circular(10),
+                                                          child: Image.network(
                                                             '${DoneListData![index]['image']}', // Replace with your image URL
                                                             width:
                                                                 200.0, // Set the width (optional)
@@ -957,8 +857,7 @@ void initState() {
                                                             fit: BoxFit
                                                                 .cover, // Set the BoxFit (optional)
                                                             loadingBuilder:
-                                                                (context,
-                                                                    child,
+                                                                (context, child,
                                                                     loadingProgress) {
                                                               if (loadingProgress ==
                                                                   null) {
@@ -1003,9 +902,10 @@ void initState() {
                                                             overflow:
                                                                 TextOverflow
                                                                     .ellipsis,
-                                                            style: const TextStyle(
-                                                                color: Colors
-                                                                    .blue),
+                                                            style:
+                                                                const TextStyle(
+                                                                    color: Colors
+                                                                        .blue),
                                                           ),
                                                           const SizedBox(
                                                             height: 5,

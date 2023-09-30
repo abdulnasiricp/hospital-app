@@ -1,15 +1,17 @@
-// ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers, non_constant_identifier_names, avoid_print, unused_element
+// ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers, non_constant_identifier_names, avoid_print, unused_element, deprecated_member_use
 
 import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Select_date.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutUSScreen extends StatefulWidget {
   const AboutUSScreen({Key? key}) : super(key: key);
@@ -29,6 +31,23 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
     'https://s3.amazonaws.com/uchealth-wp-uploads/wp-content/uploads/sites/6/2018/01/02032200/UCHealth_Memorial_Hospital_Central_Morning.jpgeee.jpg',
     'https://media.consumeraffairs.com/files/news/Hospital_building_JazzIRT_GI.jpg',
   ];
+  Future<void> openMapUrl() async {
+    const url = 'https://maps.app.goo.gl/wsazHc8ssSPihXvR7';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  Future<void> makePhoneCall() async {
+    const phoneNumber = 'tel:051-520012';
+    if (await canLaunch(phoneNumber)) {
+      await launch(phoneNumber);
+    } else {
+      throw 'Could not make a phone call';
+    }
+  }
 
   Map<String, dynamic>? DataMap;
   Map<String, dynamic>? DoneDataMap;
@@ -56,8 +75,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
         "name": DoneListData?[i]["name"],
         "id": DoneListData?[i]["id"],
         "email": DoneListData?[i]["email"],
-      }
-      );
+      });
     }
     //TO SHOW ALL LIST AT INITIAL
     setState(() {
@@ -87,12 +105,12 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                 child: CarouselSlider(
                     items: imgList
                         .map((item) => Container(
-                              child: Image.network(
-                                item,
-                                fit: BoxFit.cover,
-                                width: double.infinity,
-                              ),
-                            ))
+                      child: Image.network(
+                        item,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                      ),
+                    ))
                         .toList(),
                     options: CarouselOptions(
                         aspectRatio: 2.0,
@@ -126,7 +144,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                   const Text(
                                     EnString.hospitalName,
                                     style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                    TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   const Text(EnString.hospitalNameCity),
                                   const Text(EnString.hospitalNameCityLocation),
@@ -166,34 +184,65 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                             )
                           ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 30),
-                          child: Container(
-                            child: const Row(
-                              children: [
-                                Icon(Icons.phone, color: Colors.blue),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text('01-410235000')
-                              ],
+                        InkWell(
+                          onTap: () {
+                            makePhoneCall();
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 30),
+                            child: Container(
+                              child: Row(
+                                children: [
+                                  Container(
+                                    child: SvgPicture.asset('assets/phone.svg',
+                                        width: 15,
+                                        height: 15,
+                                        color: darkYellow),
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  const Text(
+                                    '051-520012',
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
+                        ),
+                        const SizedBox(
+                          height: 5,
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 30),
                           child: Container(
-                            child: const Row(
-                              children: [
-                                Icon(
-                                  Icons.location_city,
-                                  color: Colors.blue,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text('View Location')
-                              ],
+                            child: InkWell(
+                              onTap: () {
+                                openMapUrl();
+                              },
+                              child: Row(
+                                children: [
+                                  Container(
+                                    child: SvgPicture.asset(
+                                        'assets/location.svg',
+                                        width: 15,
+                                        height: 15,
+                                        color: darkYellow),
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  const Text(
+                                    'View Location',
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -212,137 +261,130 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       )),
-                  // InkWell(
-                  //   onTap: () {
-                  //     Get.offAll(() => const FacultyMembers());
-                  //   },
-                  //   child: const Text(EnString.allMembers,
-                  //       style: TextStyle(
-                  //           fontWeight: FontWeight.bold, color: Colors.blue)),
-                  // ),
                 ],
               ),
             ),
             Column(
               children: [
-                Container(
-                  width: width,
-                  height: height,
-                  child: isLoading
-                      ? Center(
-                          child: Padding(
-                              padding: const EdgeInsets.only(bottom: 400.0),
-                              child: Container(
-                                  height: 50,
-                                  width: 50,
-                                  color: Colors.transparent,
-                                  child: const LoadingIndicatorWidget())),
-                        )
-                      : ListView.builder(
-
-                      scrollDirection: Axis.horizontal,
-                          // physics: const NeverScrollableScrollPhysics(),
-                          itemCount: DoneListData!.length,
-                          itemBuilder: (context, index) {
-                            return Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  width: width / 2,
-                                  height: height / 3.2,
-                                  child: Card(
-                                    color: Colors.white.withOpacity(0.9),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(5.0),
-                                      child: Column(
-                                        children: [
-                                          ClipRRect(
+                Card(
+                  child: Container(
+                    width: width,
+                    height: 250,
+                    child: isLoading
+                        ? Center(
+                      child: Container(
+                          height: 50,
+                          width: 50,
+                          color: Colors.transparent,
+                          child: const LoadingIndicatorWidget()),
+                    )
+                        : ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        // physics: const NeverScrollableScrollPhysics(),
+                        itemCount: DoneListData!.length,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            mainAxisAlignment:
+                            MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                width: width / 2,
+                                height: height / 3.2,
+                                child: Card(
+                                  color: Colors.white.withOpacity(0.9),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Column(
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius:
+                                          BorderRadius.circular(10),
+                                          child: Image.network(
+                                            '${DoneListData![index]['image']}', // Replace with your image URL
+                                            width:
+                                            100.0, // Set the width (optional)
+                                            height:
+                                            100.0, // Set the height (optional)
+                                            fit: BoxFit
+                                                .cover, // Set the BoxFit (optional)
+                                            loadingBuilder: (context, child,
+                                                loadingProgress) {
+                                              if (loadingProgress == null) {
+                                                return child;
+                                              } else {
+                                                return CircularProgressIndicator(
+                                                  color: darkYellow,
+                                                  backgroundColor: yellow,
+                                                );
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          'Dr. ${DoneListData![index]['name']} ${DoneListData![index]['surname']}',
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 13,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          '${DoneListData![index]['specialization']}',
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          '${DoneListData![index]['qualification']}',
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Container(
+                                          height: 30,
+                                          width: width,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(),
+                                            color: yellow,
                                             borderRadius:
-                                                BorderRadius.circular(10),
-                                            child: Image.network(
-                                              '${DoneListData![index]['image']}', // Replace with your image URL
-                                              width:
-                                                  100.0, // Set the width (optional)
-                                              height:
-                                                  100.0, // Set the height (optional)
-                                              fit: BoxFit
-                                                  .cover, // Set the BoxFit (optional)
-                                              loadingBuilder: (context, child,
-                                                  loadingProgress) {
-                                                if (loadingProgress == null) {
-                                                  return child;
-                                                } else {
-                                                  return CircularProgressIndicator(
-                                                    color: darkYellow,
-                                                    backgroundColor: yellow,
-                                                  );
-                                                }
-                                              },
-                                            ),
+                                            BorderRadius.circular(10),
                                           ),
-                                          const SizedBox(
-                                            height: 5,
-                                          ),
-                                          Text(
-                                            'Dr. ${DoneListData![index]['name']} ${DoneListData![index]['surname']}',
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 13,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 5,
-                                          ),
-                                          Text(
-                                            '${DoneListData![index]['specialization']}',
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                          const SizedBox(
-                                            height: 5,
-                                          ),
-                                          Text(
-                                            '${DoneListData![index]['qualification']}',
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Container(
-                                            height: 30,
-                                            width: width,
-                                            decoration: BoxDecoration(
-                                              border: Border.all(),
-                                              color: yellow,
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: InkWell(
-                                              onTap: () {
-                                                Get.to(() =>
-                                                    const SelectDateScreen());
-                                              },
-                                              child: const Center(
-                                                child: Text(
-                                                  EnString.bookAppointment,
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
+                                          child: InkWell(
+                                            onTap: () {
+                                              Get.to(() =>
+                                              const SelectDateScreen());
+                                            },
+                                            child: const Center(
+                                              child: Text(
+                                                EnString.bookAppointment,
+                                                style: TextStyle(
+                                                  fontWeight:
+                                                  FontWeight.bold,
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
-                              ],
-                            );
-                          }),
+                              ),
+                            ],
+                          );
+                        }),
+                  ),
                 ),
               ],
             ),
@@ -352,3 +394,5 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
     );
   }
 }
+
+

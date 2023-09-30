@@ -1,13 +1,11 @@
-
 // ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace
 
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/view_bill.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
-import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/route_manager.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
@@ -34,33 +32,31 @@ class _TransactionBillState extends State<TransactionBill> {
     setState(() {});
   }
 
- 
-
-getData()async{
-await LoadData();
-await fetchData().then((data) {
-    setState(() {
-      apiData = data;
-      // Parse and update the total amount
-      if (data.containsKey("total")) {
-        totalAmount = "${data["total"]}";
-      }
+  getData() async {
+    await LoadData();
+    await fetchData().then((data) {
+      setState(() {
+        apiData = data;
+        // Parse and update the total amount
+        if (data.containsKey("total")) {
+          totalAmount = "${data["total"]}";
+        }
+      });
+    }).catchError((error) {
+      // Handle errors here
+      print('Error: $error');
     });
-  }).catchError((error) {
-    // Handle errors here
-    print('Error: $error');
-  });
-}
+  }
+
   @override
-void initState() {
-  super.initState();
-  getData();
- 
-}
+  void initState() {
+    super.initState();
+    getData();
+  }
 
   Future<Map<String, dynamic>> fetchData() async {
     final url =
-        Uri.parse(ApiLinks.getAllTransaction);
+        Uri.parse('https://uat.tez.hospital/xzy/webservice/getAllTransaction');
     final headers = {
       'Soft-service': 'TezHealthCare',
       'Auth-key': 'zbuks_ram859553467',
@@ -186,103 +182,115 @@ void initState() {
                         itemCount: apiData.length,
                         itemBuilder: (context, index) {
                           final transaction = apiData[index.toString()];
-                          if (transaction != null && transaction.containsKey('id')){
-                          return InkWell(
-                            onTap: () {
-                              Get.to(()=>ViewBillDetiles(pdf: "${transaction['pdf']}",billNo: "${transaction['bill_no']}",));
-                            },
-                            
-                              
-                              
-
-                          
-
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 5.0, left: 5, right: 5),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.white70, // Background color
-                                      border: Border.all(
-                                        color: Colors.grey, // Border color
-                                        width: 1.0, // Border width
+                          if (transaction != null &&
+                              transaction.containsKey('id')) {
+                            return InkWell(
+                              onTap: () {
+                                Get.to(
+                                  () => ViewBillDetiles(
+                                    pdf:
+                                        "${transaction['pdf']}", // Use 'id' as the transaction ID
+                                    billname: '',
+                                    billNo: "${transaction['id']}",
+                                  ),
+                                );
+                              },
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 5.0, left: 5, right: 5),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color:
+                                            Colors.white70, // Background color
+                                        border: Border.all(
+                                          color: Colors.grey, // Border color
+                                          width: 1.0, // Border width
+                                        ),
+                                        borderRadius: BorderRadius.circular(
+                                            2.0), // Border radius
                                       ),
-                                      borderRadius: BorderRadius.circular(
-                                          10.0), // Border radius
-                                    ),
-                                    width: width,
-                                    height: height / 15,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(5.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            "${transaction['id']}",
-                                            style: const TextStyle(),
-                                          ),
-                                          Text(
-                                            // listName,
-                                            "${transaction['section']}",
-                                            style: const TextStyle(),
-                                          ),
-                                          Text(
-                                            // item.id.toString(),
-                                            "${transaction['bill_no']}",
-                                            style: const TextStyle(),
-                                          ),
-                                          Text(
-                                            // 'Rs.${item.total}',
-                                            "${transaction['amount']}",
-                                            style: const TextStyle(
-                                              color: Colors.red,
+                                      width: width,
+                                      height: 40,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "${transaction['id']}",
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                            Text(
+                                              // listName,
+                                              "${transaction['section']}",
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(
+                                              // item.id.toString(),
+                                              "${transaction['bill_no']}",
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(
+                                              // 'Rs.${item.total}',
+                                              "${transaction['amount']}",
+                                              style: const TextStyle(
+                                                color: Colors.red,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          );
+                                ],
+                              ),
+                            );
                           }
                           return null;
                         }),
           ),
         ]),
       ),
-      bottomSheet: Card(
-        child: Container(
-          height: height / 15,
-          width: width,
-          color: darkYellow,
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(EnString.total,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20)),
-                Shimmer.fromColors(
-                  baseColor: Colors.red,
-                  highlightColor: Colors.yellow,
-                  child: Text("Rs.$totalAmount",
-                      // $totalSum",
-                      style: const TextStyle(color: Colors.red, fontSize: 20)),
+      bottomSheet: apiData.isEmpty
+          ? null // Set bottomSheet to null when apiData is empty
+          : Card(
+              child: Container(
+                height: height / 15,
+                width: width,
+                color: darkYellow,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(EnString.total,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20)),
+                      Shimmer.fromColors(
+                        baseColor: Colors.red,
+                        highlightColor: Colors.yellow,
+                        child: Text("Rs.$totalAmount",
+                            // $totalSum",
+                            style: const TextStyle(
+                                color: Colors.red, fontSize: 20)),
+                      ),
+                    ],
+                  ),
                 ),
-              ],
+              ),
             ),
-          ),
-        ),
-      ),
     );
   }
 }
-

@@ -21,7 +21,6 @@ class _ImePageState extends State<ImePage> {
   String Patient_id = '';
   String username = '';
 
-
   // Initialize with a default value
 
   Future<void> getTotalSum() async {
@@ -98,7 +97,7 @@ class _ImePageState extends State<ImePage> {
                       merchantCode: MERCHANT_CODE,
                       merchantName: username,
                       merchantUrl: MERCHANT_URL,
-                      amount: totalSum,
+                      amount: '100',
                       refId: Patient_id,
                       module: MODULE,
                       user: USER,

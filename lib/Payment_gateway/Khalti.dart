@@ -1,7 +1,5 @@
 // ignore_for_file: file_names, non_constant_identifier_names, avoid_print
 
-
-
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
@@ -17,11 +15,11 @@ class KhaltiPage extends StatefulWidget {
 }
 
 class _KhaltiPageState extends State<KhaltiPage> {
-   int totalSum = 20000;
+  int totalSum = 20000;
   String Patient_id = '';
   String username = '';
 
- LoadData() async {
+  LoadData() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     setState(() {
       username = sharedPreferences.getString('usernamerecord') ?? '';
@@ -31,23 +29,16 @@ class _KhaltiPageState extends State<KhaltiPage> {
     });
   }
 
-
-
- 
-
- String referenceId = "";
-
+  String referenceId = "";
 
   getAllData() async {
-   await LoadData();
-   
+    await LoadData();
   }
 
   @override
   void initState() {
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {

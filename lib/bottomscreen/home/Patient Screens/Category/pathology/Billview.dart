@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, non_constant_identifier_names, deprecated_member_use, file_names
+// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, avoid_print, deprecated_member_use
 
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
@@ -9,19 +9,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:open_file/open_file.dart';
 import 'package:url_launcher/url_launcher.dart'; // Import the url_launcher package
 
-class ViewBillDetiles extends StatefulWidget {
-  final String billNo;
-  final String billname;
-  final String pdf;
-  const ViewBillDetiles(
-      {Key? key, required this.billNo, required this.pdf, required this.billname})
+class pathologyBillview extends StatefulWidget {
+  final String id;
+  final String bill_pdf;
+  const pathologyBillview(
+      {Key? key, required this.id, required this.bill_pdf,})
       : super(key: key);
 
   @override
-  State<ViewBillDetiles> createState() => _ViewBillDetilesState();
+  State<pathologyBillview> createState() => _pathologyBillviewState();
 }
 
-class _ViewBillDetilesState extends State<ViewBillDetiles> {
+class _pathologyBillviewState extends State<pathologyBillview> {
   double? _progress;
   String PatientId = '';
   String? _downloadedFilePath; // Store the downloaded file path
@@ -65,7 +64,7 @@ class _ViewBillDetilesState extends State<ViewBillDetiles> {
                   }
 
                   await launch(
-                      widget.pdf); // Replace with your desired URL
+                      widget.bill_pdf); // Replace with your desired URL
                 }
               },
               child: const Text('Open'),
@@ -86,7 +85,7 @@ class _ViewBillDetilesState extends State<ViewBillDetiles> {
               FileDownloader.downloadFile(
                 name: 'tezash$widget.id.pdf',
                 url:
-                widget.pdf,
+                widget.bill_pdf,
                 onProgress: (name, progress) {
                   setState(() {
                     _progress = progress;
@@ -108,7 +107,7 @@ class _ViewBillDetilesState extends State<ViewBillDetiles> {
             icon: const Icon(Icons.download),
           )
         ],
-        title: Text("Bill No ${widget.billNo}"),
+        title: Text("Bill No ${widget.id}"),
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
@@ -134,7 +133,7 @@ class _ViewBillDetilesState extends State<ViewBillDetiles> {
             child: const PDF(
               swipeHorizontal: true,
             ).cachedFromUrl(
-                widget.pdf// Use the provided PDF URL here
+                widget.bill_pdf// Use the provided PDF URL here
             ),
           ),
         ),

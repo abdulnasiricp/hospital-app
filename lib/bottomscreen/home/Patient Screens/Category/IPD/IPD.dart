@@ -1,17 +1,10 @@
 // ignore_for_file: file_names, sized_box_for_whitespace, deprecated_member_use
 
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Direct_bill.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Pathology_bill.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/ambulance_bill.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/bloodbank.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/pharmacy_bill.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/radiology_bill.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
 class IPD extends StatefulWidget {
   const IPD({Key? key}) : super(key: key);
@@ -54,9 +47,7 @@ class _IPDState extends State<IPD> {
                                 true, // Set to true to make the GridView scrollable within the Column
                             children: [
                               InkWell(
-                                onTap: () {
-                                  Get.to(() => const DirectBill());
-                                },
+
                                 child: Container(
                                   width: 100,
                                   height: 100,
@@ -89,9 +80,7 @@ class _IPDState extends State<IPD> {
                                 ),
                               ),
                               InkWell(
-                                onTap: () {
-                                  Get.to(() => const PathologyBill());
-                                },
+
                                 child: Container(
                                   width: 100,
                                   height: 100,
@@ -124,9 +113,7 @@ class _IPDState extends State<IPD> {
                                 ),
                               ),
                               InkWell(
-                                onTap: () {
-                                  Get.to(() => const RadiologyBill());
-                                },
+
                                 child: Container(
                                   width: 100,
                                   height: 100,
@@ -159,9 +146,6 @@ class _IPDState extends State<IPD> {
                                 ),
                               ),
                               InkWell(
-                                onTap: () {
-                                  Get.to(() => const BloodBank());
-                                },
                                 child: Container(
                                   width: 100,
                                   height: 100,
@@ -194,9 +178,7 @@ class _IPDState extends State<IPD> {
                                 ),
                               ),
                               InkWell(
-                                onTap: () {
-                                  Get.to(() => const PharmacyBill());
-                                },
+
                                 child: Container(
                                   width: 100,
                                   height: 100,
@@ -229,9 +211,7 @@ class _IPDState extends State<IPD> {
                                 ),
                               ),
                               InkWell(
-                                onTap: () {
-                                  Get.to(() => const AmbulanceBill());
-                                },
+
                                 child: Container(
                                   width: 100,
                                   height: 100,

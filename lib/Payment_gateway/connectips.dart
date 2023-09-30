@@ -1,7 +1,5 @@
 // ignore_for_file: file_names, non_constant_identifier_names, unused_import, avoid_print
 
-
-
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
@@ -17,12 +15,11 @@ class Connectips extends StatefulWidget {
 }
 
 class _ConnectipsState extends State<Connectips> {
-
-int totalSum = 20000;
+  int totalSum = 20000;
   String Patient_id = '';
   String username = '';
 
- LoadData() async {
+  LoadData() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     setState(() {
       username = sharedPreferences.getString('usernamerecord') ?? '';
@@ -32,16 +29,10 @@ int totalSum = 20000;
     });
   }
 
-
-
- 
-
- String referenceId = "";
-
+  String referenceId = "";
 
   getAllData() async {
-   await LoadData();
-   
+    await LoadData();
   }
 
   @override
@@ -49,7 +40,6 @@ int totalSum = 20000;
     getAllData();
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
