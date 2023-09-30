@@ -65,7 +65,6 @@ class _KhaltiPageState extends State<KhaltiPage> {
       ),
     );
   }
-
   payWithKhaltiInApp() {
     KhaltiScope.of(context).pay(
       config: PaymentConfig(

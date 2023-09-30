@@ -1,5 +1,3 @@
-// ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace
-
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Billview.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Reportview.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
@@ -239,8 +237,7 @@ class _PharmacyState extends State<Pharmacy> {
                                               }
                                             },
                                             child: const Padding(
-                                              padding:
-                                                  EdgeInsets.all(3.0),
+                                              padding: EdgeInsets.all(3.0),
                                               child: Text(
                                                 "Paracitamol",
                                                 style: TextStyle(

@@ -44,7 +44,6 @@ class _RadiologyState extends State<Radiology> {
           apiData = List<Map<String, dynamic>>.from(data["result"]);
         }
 
-        // Calculate and update the total amount
         double sum = 0.0;
         for (var Pathologybill in apiData) {
           if (Pathologybill.containsKey('net_amount')) {
@@ -230,12 +229,11 @@ class _RadiologyState extends State<Radiology> {
                                                 );
                                               } else {
                                                 // Handle the tap event for 'UnPaid' status
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  SnackBar(
-                                                    content: Text(
-                                                        "You haven't paid the amount.${Pathologybill['net_amount']}"),
-                                                    backgroundColor: Colors.red,
+                                                Get.to(
+                                                      () => pathologyBillview(
+                                                    bill_pdf:
+                                                    "${Pathologybill['bill_pdf']}", // Use 'id' as the Pathologybill ID
+                                                    id: "${Pathologybill['id']}",
                                                   ),
                                                 );
                                               }
@@ -279,7 +277,7 @@ class _RadiologyState extends State<Radiology> {
                                                     .showSnackBar(
                                                   const SnackBar(
                                                     content: Text(
-                                                        "Your Report has being printed"),
+                                                        " radiology report is currently printing. Please stay tuned."),
                                                     backgroundColor: Colors.red,
                                                   ),
                                                 );

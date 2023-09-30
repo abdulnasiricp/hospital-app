@@ -93,9 +93,16 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue.withOpacity(0.2),
-      body: SingleChildScrollView(
+      body: isLoading
+          ? Center(
+        child: Container(
+            height: 50,
+            width: 50,
+            color: Colors.transparent,
+            child: const LoadingIndicatorWidget()),
+      ) : SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
-        child: Column(
+        child:Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Stack(children: [
