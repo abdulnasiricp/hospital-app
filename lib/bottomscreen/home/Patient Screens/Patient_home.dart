@@ -16,6 +16,7 @@ import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
+import 'package:TezHealthCare/widgets/No_internet_screen.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -148,10 +149,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
       ),
       body:
           //  ConnectivityBuilder(
-          //   interval: const Duration(seconds: 5),
-          //   builder: (ConnectivityStatus status) {
-          //     if (status == ConnectivityStatus.online) {
-          //       return
+          //     interval: const Duration(seconds: 5),
+          //     builder: (ConnectivityStatus status) {
+          //       if (status == ConnectivityStatus.online) {
+          //         return
           RefreshIndicator(
         onRefresh: _handleRefresh,
         child: isLoading
@@ -978,12 +979,16 @@ class _PatientHomePageState extends State<PatientHomePage> {
                   ),
                 ),
               ),
-      ),
-
-      // } else if (status == ConnectivityStatus.offline) {
+      )
+              
+              
+           
+   
+  
+      // else if (status == ConnectivityStatus.offline) {
       //   return const NoInternetScreen();
       // } else {
-      //   // status == ConnectivityStatus.checking
+      //   // status == ConnectivityStatus.checking;
       //   return Center(
       //     child: SizedBox(
       //       width: 100,
@@ -992,6 +997,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
       //     ),
       //   );
       // }
+      //       }}
+      //      )
+           
     );
   }
 }

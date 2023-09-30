@@ -92,7 +92,8 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue.withOpacity(0.2),
+      // backgroundColor: Colors.blue.withOpacity(0.2),
+      backgroundColor: Colors.white,
       body: isLoading
           ? Center(
         child: Container(
