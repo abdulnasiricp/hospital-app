@@ -50,11 +50,15 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
     hitApi();
   }
+  @override
+void dispose() {
+  super.dispose();
+}
 
   LoadData() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     setState(() {
-      role = sharedPreferences.getString('role') ?? '';
+       role = sharedPreferences.getString('role') ?? '';
       username = sharedPreferences.getString('usernamerecord') ?? '';
       record = sharedPreferences.getString('record') ?? '';
       genderrecord = sharedPreferences.getString('genderrecord') ?? '';
@@ -73,11 +77,13 @@ class _PatientHomePageState extends State<PatientHomePage> {
       );
 
       if (response.statusCode == 200) {
-        setState(() {
-          DataMap = jsonDecode(response.body);
+          setState(() {
+         
+        });
+         DataMap = jsonDecode(response.body);
           DoneListData = DataMap!['doctors'];
           isLoading = false; // Set isLoading to false after successful response
-        });
+      
       } else {
         print('Error getting Products: ${response.statusCode}');
         setState(() {
@@ -254,7 +260,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                   ),
                                   ElevatedButton(
                                     onPressed: () {
-                                      Get.to(() => const SelectPaymentMethod());
+                                      Get.off(() => const SelectPaymentMethod());
                                     },
                                     style: ElevatedButton.styleFrom(
                                       foregroundColor: Colors.white,
@@ -788,27 +794,28 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                 )
                               ],
                             ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(EnString.doctors,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    )),
-                                InkWell(
-                                  onTap: () {
-                                    Get.offAll(() => const AllDoctorsList());
-                                  },
-                                  child: const Text(EnString.viewAll,
+                            
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text(EnString.doctors,
                                       style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black)),
-                                ),
-                              ],
+                                        fontWeight: FontWeight.bold,
+                                      )),
+                                  InkWell(
+                                    onTap: () {
+                                      Get.offAll(() => const AllDoctorsList());
+                                    },
+                                    child: const Text(EnString.viewAll,
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black)),
+                                  ),
+                                ],
+                              ),
                             ),
                             const SizedBox(
                               height: 20,
