@@ -128,7 +128,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
         merchantCode: "MERCHANT_CODE",
         merchantName: "username",
         merchantUrl: "MERCHANT_URL",
-        amount: '100',
+        amount: 500,
         refId: "Patient_id",
         module: "MODULE",
         user: "USER",
@@ -267,6 +267,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                         },
                       ),
                     ),
+
+
                     const Text(EnString.patientInformation,
                         style: TextStyle(fontWeight: FontWeight.bold)),
                     Container(
@@ -337,6 +339,56 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                     const SizedBox(
                       height: 10,
                     ),
+
+                    const Text("Bill Details",
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    Container(
+                      width: width,
+                      height: height / 5,
+                      child: Card(
+                        color: Colors.white70,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.all(10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    EnString.patientName,
+                                    style:
+                                    TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  right: 40, top: 10, left: 10, bottom: 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    profileData.patientName ?? "",
+                                  ),
+
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+
                     Container(
                       width: double.infinity,
                       height: 50,

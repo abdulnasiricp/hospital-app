@@ -97,7 +97,7 @@ class _ImePageState extends State<ImePage> {
                       merchantCode: MERCHANT_CODE,
                       merchantName: username,
                       merchantUrl: MERCHANT_URL,
-                      amount: "100000",
+                      amount: 000,
                       refId: Patient_id,
                       module: MODULE,
                       user: USER,
