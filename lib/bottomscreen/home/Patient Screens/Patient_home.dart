@@ -11,6 +11,7 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Patho
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pharmacy/Pharmacy.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Radiology/Radiology.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Transaction_bill.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/USG/usg.dart';
 import 'package:TezHealthCare/screens/notification.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
@@ -523,6 +524,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         ),
                                       ),
                                       InkWell(
+                                        onTap: (){
+                                          Get.to(()=>const USGScreen());
+                                        },
                                         child: Container(
                                           width: 100,
                                           height: 100,

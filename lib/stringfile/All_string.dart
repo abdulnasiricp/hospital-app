@@ -157,4 +157,8 @@ class EnString {
   //pathology screen
   static const String payment = "Payment";
   static const String status = "Status";
+  // USG screen
+  // static const String status = "Status";
+  // static const String status = "Status";
+
 }
