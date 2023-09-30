@@ -66,7 +66,7 @@ class _KhaltiPageState extends State<KhaltiPage> {
     );
   }
 
-  payWithKhaltiInApp() {
+ void payWithKhaltiInApp() {
     KhaltiScope.of(context).pay(
       config: PaymentConfig(
         amount: totalSum, //in paisa

@@ -191,7 +191,7 @@ class _TransactionBillState extends State<TransactionBill> {
                                     pdf:
                                         "${transaction['pdf']}", // Use 'id' as the transaction ID
                                     billname: '',
-                                    billNo: "${transaction['id']}",
+                                    billNo: "${transaction['bill_no']}",
                                   ),
                                 );
                               },
