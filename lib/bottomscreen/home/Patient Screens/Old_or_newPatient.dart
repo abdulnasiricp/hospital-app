@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, sized_box_for_whitespace
 
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/new_member.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Patient_list.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -43,6 +44,8 @@ class _OldorNewPatientScreenState extends State<OldorNewPatientScreen> {
             ),
             InkWell(
               onTap: (){
+                Get.to(()=>const AddNewMemberScreen());
+
 
               },
               child: Container(
