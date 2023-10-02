@@ -128,7 +128,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
         merchantCode: "MERCHANT_CODE",
         merchantName: "username",
         merchantUrl: "MERCHANT_URL",
-        amount: 500,
+        amount: "500",
         refId: "Patient_id",
         module: "MODULE",
         user: "USER",

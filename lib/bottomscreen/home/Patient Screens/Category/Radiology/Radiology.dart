@@ -1,5 +1,6 @@
+// ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace
+
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Billview.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Radiology/Billview.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Radiology/Reportbiew.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';

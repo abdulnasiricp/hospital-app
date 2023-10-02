@@ -1,7 +1,5 @@
 // ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace
 
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Billview.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Reportview.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pharmacy/Pharmacybillprint.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
@@ -219,12 +217,12 @@ class _PharmacyState extends State<Pharmacy> {
                                           ),
                                           InkWell(
                                             child: Padding(
-                                              padding: EdgeInsets.all(3.0),
+                                              padding: const EdgeInsets.all(3.0),
                                               child: Text(
                                                 "${Pharmacybill['Medicine']}",
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),

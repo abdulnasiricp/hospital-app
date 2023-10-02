@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace
+// ignore_for_file: sized_box_for_whitespace, avoid_print
 
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -68,7 +68,7 @@ class _AddNewMemberScreenState extends State<AddNewMemberScreen> {
 
   // Function to send data to the API
   void postDataToApi() async {
-    final url = 'YOUR_API_ENDPOINT_HERE'; // Replace with your API endpoint
+    const url = 'YOUR_API_ENDPOINT_HERE'; // Replace with your API endpoint
     final headers = <String, String>{
       'Content-Type': 'application/json',
     };
