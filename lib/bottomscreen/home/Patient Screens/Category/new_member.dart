@@ -1,8 +1,11 @@
-import 'package:TezHealthCare/utils/My_button.dart';
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class AddNewMemberScreen extends StatefulWidget {
   const AddNewMemberScreen({Key? key}) : super(key: key);
@@ -14,6 +17,24 @@ class AddNewMemberScreen extends StatefulWidget {
 class _AddNewMemberScreenState extends State<AddNewMemberScreen> {
   late DateTime selectedDate;
   TextEditingController dateController = TextEditingController();
+  TextEditingController firstNameController=TextEditingController();
+  TextEditingController lastNameController=TextEditingController();
+  TextEditingController ageController=TextEditingController();
+  TextEditingController dobController=TextEditingController();
+  TextEditingController phoneController=TextEditingController();
+  TextEditingController emailController=TextEditingController();
+  TextEditingController relationshipController=TextEditingController();
+  TextEditingController districtController=TextEditingController();
+  TextEditingController vdcMunicipalityController=TextEditingController();
+  TextEditingController wardController=TextEditingController();
+  TextEditingController toleController=TextEditingController();
+  // TextEditingController firstNameController = TextEditingController();
+  // TextEditingController lastNameController TextEditingController();
+  // TextEditingController ageController= TextEditingController();
+  // TextEditingController dateController = TextEditingController();
+  // TextEditingController dateController = TextEditingController();
+  // TextEditingController dateController = TextEditingController();
+  // TextEditingController dateController = TextEditingController();
   String selectedGender = ''; // Stores the selected gender.
 
   // Function to handle gender selection.
@@ -44,6 +65,50 @@ class _AddNewMemberScreenState extends State<AddNewMemberScreen> {
       });
     }
   }
+
+  // Function to send data to the API
+  void postDataToApi() async {
+    final url = 'YOUR_API_ENDPOINT_HERE'; // Replace with your API endpoint
+    final headers = <String, String>{
+      'Content-Type': 'application/json',
+    };
+
+    // Create a JSON payload with the data from the form fields
+    final payload = {
+      'first_name': firstNameController.text,
+      'last_name': lastNameController.text,
+      'gender': selectedGender,
+      'age': ageController.text,
+      'date_of_birth': dateController.text,
+      'phone': phoneController.text,
+      'email': emailController.text,
+      'relationship': relationshipController.text,
+      'district': districtController.text,
+      'vdc_municipality': vdcMunicipalityController.text,
+      'ward': wardController.text,
+      'tole': toleController.text,
+    };
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: headers,
+        body: jsonEncode(payload),
+      );
+
+      if (response.statusCode == 200) {
+        // Data posted successfully
+        print('Data posted successfully');
+      } else {
+        // Handle error here
+        print('Failed to post data. Status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      // Handle network or other errors here
+      print('Error: $e');
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -393,7 +458,7 @@ class _AddNewMemberScreenState extends State<AddNewMemberScreen> {
                     )
                   ],
                 ),
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
                 Center(
                     child: Container(width: width/1.7,
                     height: height/15,
