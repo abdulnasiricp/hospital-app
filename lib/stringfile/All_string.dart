@@ -119,20 +119,24 @@ class EnString {
   static const String conformation = "Confirmation";
   static const String hospitalVisitAppointment = "Hosiptal Visit Appointment";
   static const String patientInformation = "Patient's information";
-  static const String patientName = "Name:";
-  static const String patientMobile = "Mobile No.:";
+   static const String patientMobile = "Mobile No.:";
   static const String patientGender = "Gender:";
   static const String patientDOB = "Date of Birth:";
   static const String patientPaymentAmount = "Payment amount:";
-  static const String confirmationDesc =
-      "Please call and confirm at hospital if doctor is a availible at hospital on the day of appointment.";
+  static const String confirmationDesc ="Please call and confirm at hospital if doctor is a availible at hospital on the day of appointment.";
+  static const String patientName = "Name:";
+  //select payment method
+  static const String packageAmount = "package Amount:";
+  static const String discount = "Discount:";
   static const String selectpaymentMethod = "Please Select any one to Pay.";
+  static const String askTermsAndCondition = "By Clicking On Proceed, you agree to our";
+  static const String termsAndCondition = "Terms and Conditions";
+  static const String termsAndConditionMsg = "1.Payment Responsibility: Your responsibility includes the prompt settlement of all hospital dues through our mobile app.\n\n2. Accepted Payment Methods: The app offers multiple secure payment options for your convenience.\n\n3. Dispute Resolution: If you encounter any billing issues, please report them within [number of days] days for a swift resolution.";
 
   //Notification Screeen
   static const String notification = "Notification";
   static const String ended = "The doctor has ended his consultation";
-  static const String please =
-      "Your consultation is timed and finished,\n please rate us so we can serve you better!";
+  static const String please ="Your consultation is timed and finished,\n please rate us so we can serve you better!";
   static const String myDevices = "My Devices";
   static const String credentials = "Credentials";
   static const String notificationId = "Notification IDs";

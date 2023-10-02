@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'dart:math';
+import 'package:TezHealthCare/Payment_gateway/cancel_payment.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:http/http.dart' as http;
@@ -199,11 +200,16 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
   void onFailure(PaymentFailureModel failure) {
     debugPrint(
       failure.toString(),
+
     );
+    const CancelPaymentScreen();
+
   }
 
   void onCancel() {
     debugPrint('Cancelled');
+    Get.to(()=> CancelPaymentScreen());
+
   }
 
   int selectedMethodIndex = 0;
@@ -224,195 +230,285 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
         return false;
       }, // Prevent default back button behavior
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text(EnString.informationProfile),
-          centerTitle: true,
-          backgroundColor: darkYellow,
-          leading: IconButton(
-            onPressed: () {
-              Get.to(() => const Bottomhome());
-            },
-            icon: const Icon(Icons.arrow_back),
-          ),
-        ),
-        body:profileData != null? Container(
-          child: Card(
-            elevation: 10,
-            child: Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 150,
-                      child: GridView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 2.5,
-                        ),
-                        itemCount: paymentMethods.length,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                selectedMethodIndex = index;
-                              });
-                            },
-                            child: PaymentMethodTile(
-                              paymentMethod: paymentMethods[index],
-                              isSelected: selectedMethodIndex == index,
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-
-
-                    const Text(EnString.Select_payment_gateway,
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                    Container(
-                      width: width,
-                      height: height / 5,
-                      child: Card(
-                        color: Colors.white70,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.all(10.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    EnString.patientName,
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    EnString.patientMobile,
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    EnString.patientGender,
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    EnString.patientDOB,
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    EnString.patientAddress,
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  right: 40, top: 10, left: 10, bottom: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    profileData.patientName ?? "",
-                                  ),
-                                  Text( profileData.mobileNo ?? "",),
-                                  Text( profileData.gender ?? "",),
-                                  Text( profileData.dob ?? "",),
-                                  Text( profileData.address ?? "",),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-
-                    const Text("Bill Details",
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                    Container(
-                      width: width,
-                      height: height / 5,
-                      child: Card(
-                        color: Colors.white70,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.all(10.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    EnString.patientName,
-                                    style:
-                                    TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  right: 40, top: 10, left: 10, bottom: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    profileData.patientName ?? "",
-                                  ),
-
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-
-                    Container(
-                      width: double.infinity,
-                      height: 50,
-                      child: MyButton(
-                        title: const Text('PROCEED'),
-                        onPressed: () {
-                          navigateToSelectedPage();
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+          appBar: AppBar(
+            title: const Text(EnString.selectpaymentMethod),
+            centerTitle: true,
+            backgroundColor: darkYellow,
+            leading: IconButton(
+              onPressed: () {
+                Get.to(() => const Bottomhome());
+              },
+              icon: const Icon(Icons.arrow_back),
             ),
           ),
-        ):Center(
-              child: Container(
-                  width: 50,
-                  height: 50,
-                  child: const LoadingIndicatorWidget(),
-                ),
-            )
-      ),
+          body: profileData != null
+              ? Container(
+                  child: Card(
+                    elevation: 10,
+                    child: Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 150,
+                              child: GridView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 2.5,
+                                ),
+                                itemCount: paymentMethods.length,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        selectedMethodIndex = index;
+                                      });
+                                    },
+                                    child: PaymentMethodTile(
+                                      paymentMethod: paymentMethods[index],
+                                      isSelected: selectedMethodIndex == index,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            Container(
+                              width: width,
+                              height: height / 6,
+                              child: const Card(
+                                color: Colors.white70,
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.all(10.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                EnString.packageAmount,
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              right: 20,
+                                              top: 10,
+                                              left: 10,
+                                              bottom: 10),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text("Rs.1000",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.all(10.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                EnString.discount,
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              right: 20,
+                                              top: 10,
+                                              left: 10,
+                                              bottom: 10),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text("Rs.0",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          right: 20, left: 10, bottom: 10),
+                                      child: Divider(
+                                        height: 2,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 10.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                EnString.total,
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              right: 20, left: 10, bottom: 10),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text("Rs.1000",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              child: Row(
+                                children: [
+                                  const Text(
+                                    EnString.askTermsAndCondition,
+                                    style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
+                                  ),
+                                  TextButton(
+                                  child: const Text(EnString.termsAndCondition),
+                                  onPressed: () {
+                                    showModalBottomSheet<void>(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return FractionallySizedBox(
+                                          heightFactor: 0.5,
+                                          child: Container(
+                                            decoration: const BoxDecoration(
+                                                borderRadius: BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(10),
+                                                    topRight:
+                                                        Radius.circular(10))),
+                                            child: const Padding(
+                                              padding: EdgeInsets.all(8.0),
+                                              child: Column(
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.all(8.0),
+                                                    child: Text(
+                                                      EnString
+                                                          .termsAndCondition,
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 20),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                  Text(
+                                                      EnString
+                                                          .termsAndConditionMsg,
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      )),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+
+                                 
+                                  }
+                            ),
+                                ],
+                              ),
+                            ),
+                           
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              width: double.infinity,
+                              height: 50,
+                              child: MyButton(
+                                title: const Text('PROCEED'),
+                                onPressed: () {
+                                  navigateToSelectedPage();
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              : Center(
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    child: const LoadingIndicatorWidget(),
+                  ),
+                )),
     );
   }
 
