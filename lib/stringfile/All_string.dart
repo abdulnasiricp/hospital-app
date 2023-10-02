@@ -165,6 +165,9 @@ class EnString {
   static const String Physiotherapy = "Physiotherapy";
   //Therapy screen
   static const String Date = "Date";
+  //help center
+  // static const String helpCenter = "Help Center";
+
 
 
 

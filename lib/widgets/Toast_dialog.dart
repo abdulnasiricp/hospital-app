@@ -6,10 +6,12 @@ import 'package:get/get.dart';
 class ToastDialog extends StatelessWidget {
   final String title;
   final String message;
+  final String btnnName;
+  
 
   const ToastDialog({Key? key, 
     required this.title,
-    required this.message,
+    required this.message, required this.btnnName,
   }) : super(key: key);
 
   @override
@@ -63,9 +65,9 @@ class ToastDialog extends StatelessWidget {
                 children: <Widget>[
                   ElevatedButton(
                     onPressed: () {
-                      Get.back(result: 'OK');
+                      Get.back(result: btnnName);
                     },
-                    child: const Text('OK'),
+                    child: Text(btnnName),
                   ),
                   ElevatedButton(
                     onPressed: () {
