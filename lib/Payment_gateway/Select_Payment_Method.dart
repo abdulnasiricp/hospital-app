@@ -202,14 +202,14 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
       failure.toString(),
 
     );
-       Get.to(()=> CancelPaymentScreen(title: 'Cancelled',btnnName: "Save",message: "payment Cancelled",));
+       Get.to(()=> const CancelPaymentScreen(title: 'Cancelled',btnnName: "Save",message: "payment Cancelled",));
 
 
   }
 
   void onCancel() {
     debugPrint('Cancelled');
-    Get.dialog(CancelPaymentScreen(title: 'Cancelled',btnnName: "OK",message: "payment Cancelled",));
+    Get.dialog(const CancelPaymentScreen(title: 'Cancelled',btnnName: "OK",message: "payment Cancelled",));
 
   }
 
