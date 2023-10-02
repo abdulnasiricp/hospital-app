@@ -7,6 +7,7 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart'
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/All_doctors.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Card/Card.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/IPD.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Liveconsultation/Liveconsultation.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Pathology.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pharmacy/Pharmacy.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Physiotherapy/Physiotherapy.dart';
@@ -773,6 +774,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                           ),
                                         ),
                                         InkWell(
+                                          onTap: () {
+                                            Get.to(() =>  Liveconsultation());
+                                          },
                                           child: Container(
                                             width: 100,
                                             height: 100,

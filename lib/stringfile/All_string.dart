@@ -126,12 +126,12 @@ class EnString {
   static const String confirmationDesc ="Please call and confirm at hospital if doctor is a availible at hospital on the day of appointment.";
   static const String patientName = "Name:";
   //select payment method
-  static const String packageAmount = "package Amount:";
+  static const String HospitalAllduespayment = "Hospital Dues Amount:";
   static const String discount = "Discount:";
   static const String selectpaymentMethod = "Please Select any one to Pay.";
   static const String askTermsAndCondition = "By Clicking On Proceed, you agree to our";
   static const String termsAndCondition = "Terms and Conditions";
-  static const String termsAndConditionMsg = "1.Payment Responsibility: Your responsibility includes the prompt settlement of all hospital dues through our mobile app.\n\n2. Accepted Payment Methods: The app offers multiple secure payment options for your convenience.\n\n3. Dispute Resolution: If you encounter any billing issues, please report them within [number of days] days for a swift resolution.";
+  static const String termsAndConditionMsg = "1.Payment Responsibility: Your responsibility includes the prompt settlement of all hospital dues through our mobile app.\n\n2. Accepted Payment Methods: The app offers multiple secure payment options for your convenience.\n\n3. Dispute Resolution: If you encounter any billing issues, please report them within 1 hour.";
 
   //Notification Screeen
   static const String notification = "Notification";
@@ -167,6 +167,8 @@ class EnString {
   static const String Date = "Date";
   //help center
   // static const String helpCenter = "Help Center";
+
+  static const String Liveconsultation = "Liveconsultation";
 
 
 

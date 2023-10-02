@@ -101,6 +101,7 @@ class _TransactionBillState extends State<TransactionBill> {
         title: const Text(EnString.transactionBill),
         centerTitle: true,
         backgroundColor: darkYellow,
+
       ),
       body: RefreshIndicator(
         onRefresh: _handleRefresh,

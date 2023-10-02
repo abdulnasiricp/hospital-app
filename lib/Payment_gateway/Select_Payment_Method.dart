@@ -129,7 +129,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
         merchantCode: "MERCHANT_CODE",
         merchantName: "username",
         merchantUrl: "MERCHANT_URL",
-        amount: "500",
+        amount: 105225,
         refId: "Patient_id",
         module: "MODULE",
         user: "USER",
@@ -200,17 +200,21 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
   void onFailure(PaymentFailureModel failure) {
     debugPrint(
       failure.toString(),
-
     );
-       Get.to(()=> const CancelPaymentScreen(title: 'Cancelled',btnnName: "Save",message: "payment Cancelled",));
-
-
+    Get.to(() => const CancelPaymentScreen(
+          title: 'Cancelled',
+          btnnName: "Save",
+          message: "payment Cancelled",
+        ));
   }
 
   void onCancel() {
     debugPrint('Cancelled');
-    Get.dialog(const CancelPaymentScreen(title: 'Cancelled',btnnName: "OK",message: "payment Cancelled",));
-
+    Get.dialog(const CancelPaymentScreen(
+      title: 'Cancelled',
+      btnnName: "OK",
+      message: "payment Cancelled",
+    ));
   }
 
   int selectedMethodIndex = 0;
@@ -296,7 +300,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                EnString.packageAmount,
+                                                EnString.HospitalAllduespayment,
                                                 style: TextStyle(
                                                     fontWeight:
                                                         FontWeight.bold),
@@ -426,64 +430,71 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                 children: [
                                   const Text(
                                     EnString.askTermsAndCondition,
-                                    style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12),
                                   ),
                                   TextButton(
-                                  child: const Text(EnString.termsAndCondition),
-                                  onPressed: () {
-                                    showModalBottomSheet<void>(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return FractionallySizedBox(
-                                          heightFactor: 0.5,
-                                          child: Container(
-                                            decoration: const BoxDecoration(
-                                                borderRadius: BorderRadius.only(
-                                                    topLeft:
-                                                        Radius.circular(10),
-                                                    topRight:
-                                                        Radius.circular(10))),
-                                            child: const Padding(
-                                              padding: EdgeInsets.all(8.0),
-                                              child: Column(
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsets.all(8.0),
-                                                    child: Text(
-                                                      EnString
-                                                          .termsAndCondition,
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 20),
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Text(
-                                                      EnString
-                                                          .termsAndConditionMsg,
-                                                      style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      )),
-                                                ],
-                                              ),
-                                            ),
+                                      child: const Text(
+                                          EnString.termsAndCondition),
+                                      onPressed: () {
+                                        showModalBottomSheet<void>(
+                                          isScrollControlled: true,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.vertical(
+                                                top: Radius.circular(20.0)),
                                           ),
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return FractionallySizedBox(
+                                              heightFactor: 0.5,
+                                              child: Container(
+                                                decoration: const BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                            topLeft: Radius
+                                                                .circular(10),
+                                                            topRight:
+                                                                Radius.circular(
+                                                                    10))),
+                                                child: const Padding(
+                                                  padding: EdgeInsets.all(8.0),
+                                                  child: Column(
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsets.all(8.0),
+                                                        child: Text(
+                                                          EnString
+                                                              .termsAndCondition,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 20),
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 5,
+                                                      ),
+                                                      Text(
+                                                          EnString
+                                                              .termsAndConditionMsg,
+                                                          style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          )),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          },
                                         );
-                                      },
-                                    );
-
-                                 
-                                  }
-                            ),
+                                      }),
                                 ],
                               ),
                             ),
-                           
                             const SizedBox(
                               height: 10,
                             ),
