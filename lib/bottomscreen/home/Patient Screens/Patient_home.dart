@@ -183,7 +183,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 5.0),
                                   child: Text(
-                                    '${EnString.welcome} $username',
+                                    '${'welcome'.tr} $username',
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black,
@@ -200,7 +200,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     .end, // Aligns text to the end of the column
                                 children: [
                                   Text(
-                                    '${EnString.patientId} $Patient_id',
+                                    '${'patientId'.tr} $Patient_id',
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black,
@@ -209,7 +209,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     ),
                                   ),
                                   Text(
-                                    '${EnString.hisNo} $Patient_id',
+                                    '${'hisNo'.tr} $Patient_id',
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontFamily: 'Gilroy_Bold',
@@ -238,7 +238,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          EnString.hospitaldueBalance,
+                                          // EnString.hospitaldueBalance,
+                                          "hospitaldueBalance".tr,
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: darkYellow,
@@ -279,9 +280,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                       child: Shimmer.fromColors(
                                         baseColor: Colors.white,
                                         highlightColor: Colors.grey,
-                                        child: const Text(
-                                          'Pay Now',
-                                          style: TextStyle(
+                                        child:  Text(
+                                          'payNow'.tr,
+                                          style: const TextStyle(
                                             fontSize: 10,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -332,9 +333,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                   const SizedBox(
                                                     height: 10,
                                                   ),
-                                                  const Text(
-                                                      EnString.transactionBill,
-                                                      style: TextStyle(
+                                                   Text(
+                                                      'transactionBill'.tr,
+                                                      style: const TextStyle(
                                                         fontSize: 7,
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -369,8 +370,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                   const SizedBox(
                                                     height: 10,
                                                   ),
-                                                  const Text(EnString.card,
-                                                      style: TextStyle(
+                                                  Text('card'.tr,
+                                                      style: const TextStyle(
                                                         fontSize: 7,
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -441,8 +442,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                   const SizedBox(
                                                     height: 10,
                                                   ),
-                                                  const Text(EnString.pathology,
-                                                      style: TextStyle(
+                                                   Text('pathology'.tr,
+                                                      style: const TextStyle(
                                                         fontSize: 7,
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -477,8 +478,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                   const SizedBox(
                                                     height: 10,
                                                   ),
-                                                  const Text(EnString.radiology,
-                                                      style: TextStyle(
+                                                  Text('radiology'.tr,
+                                                      style: const TextStyle(
                                                         fontSize: 7,
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -513,8 +514,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                   const SizedBox(
                                                     height: 10,
                                                   ),
-                                                  const Text(EnString.pharmacy,
-                                                      style: TextStyle(
+                                                 Text('pharmacy'.tr,
+                                                      style: const TextStyle(
                                                         fontSize: 7,
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -582,8 +583,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                   const SizedBox(
                                                     height: 10,
                                                   ),
-                                                  const Text(EnString.surgery,
-                                                      style: TextStyle(
+                                       Text('surgery'.tr,
+                                                      style: const TextStyle(
                                                         fontSize: 7,
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -618,8 +619,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                   const SizedBox(
                                                     height: 10,
                                                   ),
-                                                  const Text(EnString.bloodBank,
-                                                      style: TextStyle(
+                                                   Text('bloodBank'.tr,
+                                                      style: const TextStyle(
                                                         fontSize: 7,
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -651,8 +652,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                   const SizedBox(
                                                     height: 10,
                                                   ),
-                                                  const Text(EnString.ambulance,
-                                                      style: TextStyle(
+                                                Text('ambulance'.tr,
+                                                      style: const TextStyle(
                                                         fontSize: 7,
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -691,9 +692,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                   const SizedBox(
                                                     height: 10,
                                                   ),
-                                                  const Text(
-                                                      EnString.physioTherapy,
-                                                      style: TextStyle(
+                                                   Text(
+                                                      'physioTherapy'.tr,
+                                                      style: const TextStyle(
                                                         fontSize: 7,
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -725,9 +726,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                   const SizedBox(
                                                     height: 10,
                                                   ),
-                                                  const Text(
-                                                      EnString.certificates,
-                                                      style: TextStyle(
+                                               Text(
+                                                      'certificates'.tr,
+                                                      style: const TextStyle(
                                                         fontSize: 7,
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -759,9 +760,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                   const SizedBox(
                                                     height: 10,
                                                   ),
-                                                  const Text(
-                                                      EnString.bedHistory,
-                                                      style: TextStyle(
+                                                 Text(
+                                                      'bedHistory'.tr,
+                                                      style: const TextStyle(
                                                         fontSize: 7,
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -793,10 +794,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                   const SizedBox(
                                                     height: 10,
                                                   ),
-                                                  const Text(
-                                                      EnString
-                                                          .liveConsultations,
-                                                      style: TextStyle(
+                                                   Text(
+                                                      'liveConsultations'.tr,
+                                                      style: const TextStyle(
                                                         fontSize: 7,
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -817,8 +817,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const Text(EnString.doctors,
-                                        style: TextStyle(
+                                    Text('doctors'.tr,
+                                        style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                         )),
                                     InkWell(
@@ -826,8 +826,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         Get.offAll(
                                             () => const AllDoctorsList());
                                       },
-                                      child: const Text(EnString.viewAll,
-                                          style: TextStyle(
+                                      child: Text('viewAll'.tr,
+                                          style: const TextStyle(
                                               fontSize: 12,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.black)),

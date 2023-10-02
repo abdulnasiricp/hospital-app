@@ -1,3 +1,5 @@
+
+import 'package:TezHealthCare/language_Services/translation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -43,6 +45,8 @@ class MyApp extends StatelessWidget {
           enabledDebugging: true, // Set to false in production
           builder: (context, navKey) {
             return GetMaterialApp(
+              locale: const Locale('en','US'),
+      translations: Translation(),
               debugShowCheckedModeBanner: false,
               theme: Themes().lightTheme,
               darkTheme: Themes().darkTheme,

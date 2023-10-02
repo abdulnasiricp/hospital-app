@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names, sized_box_for_whitespace, prefer_typing_uninitialized_variables, avoid_print, unnecessary_string_interpolations, unnecessary_const, deprecated_member_use
+// ignore_for_file: non_constant_identifier_names, sized_box_for_whitespace, prefer_typing_uninitialized_variables, avoid_print, unnecessary_string_interpolations, unnecessary_const, deprecated_member_use, avoid_unnecessary_containers
 
 import 'dart:convert';
 
@@ -348,6 +348,26 @@ class _ProfileState extends State<Profile> {
                                     ),
                                   ),
                                 ),
+                              Card(
+              child: Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                  TextButton(onPressed: (){
+                    Get.updateLocale(const Locale('en','US'));
+
+                  }, 
+                  child: const Text('English')),
+                  TextButton(onPressed: (){
+                    Get.updateLocale(const Locale('ne','NP'));
+                    
+                  }, child: const Text('Nepali'))
+                ]),
+                      
+                
+                      
+                      ),
+            ),
                               ],
                             ),
                           )
