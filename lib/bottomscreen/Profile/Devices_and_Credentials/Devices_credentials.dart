@@ -28,7 +28,7 @@ class _DevicesAndCredentialsState extends State<DevicesAndCredentials> {
             backgroundColor: darkYellow,
             title: const Text('Devices and Credentials'),
             bottom: TabBar(
-              indicatorColor: Colors.amber,
+              indicatorColor: yellow,
 
               tabs: [
                 Tab(
@@ -38,9 +38,9 @@ class _DevicesAndCredentialsState extends State<DevicesAndCredentials> {
                       'assets/dev.svg',
                       width: 30,
                       height: 30,
-                      color: Colors.green,
+                      color: Colors.white,
                     ),
-                    const SizedBox(height: 2,),
+                    const SizedBox(height: 1,),
 
                     const Text('Devices')
                   ],
@@ -51,9 +51,9 @@ class _DevicesAndCredentialsState extends State<DevicesAndCredentials> {
                       'assets/credentials.svg',
                       width: 30,
                       height: 30,
-                      color: Colors.green,
+                      color: Colors.white,
                     ),
-                    const SizedBox(height: 2,),
+                    const SizedBox(height: 1,),
 
                     const Text('Credentials')
                   ],
@@ -64,9 +64,9 @@ class _DevicesAndCredentialsState extends State<DevicesAndCredentials> {
                       'assets/notification.svg',
                       width: 30,
                       height: 30,
-                      color: Colors.green,
+                      color: Colors.white,
                     ),
-                    const SizedBox(height: 2,),
+                    const SizedBox(height: 1,),
                     const Text('Notification IDs')
                   ],
                 )),

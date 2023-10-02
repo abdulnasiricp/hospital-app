@@ -2,6 +2,7 @@
 
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Billview.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Reportview.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pharmacy/Pharmacybillprint.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -45,9 +46,9 @@ class _PharmacyState extends State<Pharmacy> {
 
         // Calculate and update the total amount
         double sum = 0.0;
-        for (var Pathologybill in apiData) {
-          if (Pathologybill.containsKey('net_amount')) {
-            sum += double.tryParse("${Pathologybill['net_amount']}") ?? 0.0;
+        for (var Pharmacybill in apiData) {
+          if (Pharmacybill.containsKey('net_amount')) {
+            sum += double.tryParse("${Pharmacybill['net_amount']}") ?? 0.0;
           }
         }
         totalAmount = sum.toStringAsFixed(2);
@@ -70,7 +71,7 @@ class _PharmacyState extends State<Pharmacy> {
   }
 
   Future<Map<String, dynamic>> fetchData() async {
-    Uri.parse(ApiLinks.pathology);
+    Uri.parse(ApiLinks.pharmacy);
     final headers = {
       'Soft-service': 'TezHealthCare',
       'Auth-key': 'zbuks_ram859553467',
@@ -80,7 +81,7 @@ class _PharmacyState extends State<Pharmacy> {
     };
 
     final response = await http.post(
-      Uri.parse(ApiLinks.pathology),
+      Uri.parse(ApiLinks.pharmacy),
       headers: headers,
       body: json.encode(body),
     );
@@ -198,8 +199,8 @@ class _PharmacyState extends State<Pharmacy> {
                       : ListView.builder(
                           itemCount: apiData.length,
                           itemBuilder: (context, index) {
-                            final Pathologybill = apiData[index];
-                            if (Pathologybill.containsKey('id')) {
+                            final Pharmacybill = apiData[index];
+                            if (Pharmacybill.containsKey('id')) {
                               return Column(
                                 children: [
                                   Card(
@@ -211,37 +212,18 @@ class _PharmacyState extends State<Pharmacy> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            "${Pathologybill['id']}",
+                                            "${Pharmacybill['id']}",
                                             style: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                           InkWell(
-                                            onTap: () {
-                                              if (Pathologybill['is_printed'] ==
-                                                  '1') {
-                                                Get.to(
-                                                  () => pathologyReport(
-                                                    report_pdf:
-                                                        "${Pathologybill['report_pdf']}", // Use 'id' as the Pathologybill ID
-                                                    id: "${Pathologybill['id']}",
-                                                  ),
-                                                );
-                                              } else {
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  const SnackBar(
-                                                    content: Text(
-                                                        "Your Report has being printed"),
-                                                    backgroundColor: Colors.red,
-                                                  ),
-                                                );
-                                              }
-                                            },
-                                            child: const Padding(
+                                            child: Padding(
                                               padding: EdgeInsets.all(3.0),
                                               child: Text(
-                                                "Paracitamol",
+                                                "${Pharmacybill['Medicine']}",
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                 ),
@@ -250,34 +232,20 @@ class _PharmacyState extends State<Pharmacy> {
                                           ),
                                           InkWell(
                                             onTap: () {
-                                              if (Pathologybill['status'] ==
-                                                  'Paid') {
-                                                Get.to(
-                                                  () => pathologyBillview(
-                                                    bill_pdf:
-                                                        "${Pathologybill['bill_pdf']}", // Use 'id' as the Pathologybill ID
-                                                    id: "${Pathologybill['id']}",
-                                                  ),
-                                                );
-                                              } else {
-                                                // Handle the tap event for 'UnPaid' status
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  SnackBar(
-                                                    content: Text(
-                                                        "You haven't paid the amount.${Pathologybill['net_amount']}"),
-                                                    backgroundColor: Colors.red,
-                                                  ),
-                                                );
-                                              }
+                                              Get.to(
+                                                () => Pharmacybillprint(
+                                                  bill_pdf:
+                                                      "${Pharmacybill['bill_pdf']}", // Use 'id' as the Pharmacybill ID
+                                                  id: "${Pharmacybill['id']}",
+                                                ),
+                                              );
                                             },
                                             child: Container(
                                               decoration: BoxDecoration(
-                                                color:
-                                                    Pathologybill['status'] ==
-                                                            'Paid'
-                                                        ? Colors.green
-                                                        : Colors.red,
+                                                color: Pharmacybill['status'] ==
+                                                        'Paid'
+                                                    ? Colors.green
+                                                    : Colors.red,
                                                 borderRadius:
                                                     BorderRadius.circular(5.0),
                                               ),
@@ -286,7 +254,7 @@ class _PharmacyState extends State<Pharmacy> {
                                                     const EdgeInsets.all(3.0),
                                                 child: Text(
                                                   // listName,
-                                                  "${Pathologybill['status']}",
+                                                  "${Pharmacybill['status']}",
                                                   style: const TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                   ),
@@ -296,7 +264,7 @@ class _PharmacyState extends State<Pharmacy> {
                                           ),
                                           Text(
                                             // 'Rs.${item.total}',
-                                            "${Pathologybill['net_amount']}", // Use 'net_amount' for the amount
+                                            "${Pharmacybill['net_amount']}", // Use 'net_amount' for the amount
                                             style: const TextStyle(
                                               color: Colors.red,
                                               fontWeight: FontWeight.bold,

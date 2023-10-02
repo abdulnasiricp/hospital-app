@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +73,7 @@ class _DevicesState extends State<Devices> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue.withOpacity(0.2),
+      backgroundColor: Colors.grey.withOpacity(0.2),
       body: Center(
         child: Column(
           children: [
@@ -97,7 +98,7 @@ class _DevicesState extends State<Devices> {
                           children: [
                             SvgPicture.asset(
                               'assets/dev.svg',
-                              color: Colors.green,
+                              color: darkYellow,
                               width: 25,
                               height: 25,
                             ),

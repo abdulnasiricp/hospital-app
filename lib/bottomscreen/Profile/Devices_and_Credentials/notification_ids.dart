@@ -1,5 +1,6 @@
 // ignore_for_file: sized_box_for_whitespace, non_constant_identifier_names, avoid_print, deprecated_member_use
 
+import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,14 +31,14 @@ class _NotificationIdsState extends State<NotificationIds> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue.withOpacity(0.2),
+      backgroundColor: Colors.grey.withOpacity(0.2),
       body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 10,left: 10,right: 10),
             child: Card(
               child: ListTile(
-                leading: SvgPicture.asset('assets/dev.svg',width: 25,height: 25,color: Colors.green,),
+                leading: SvgPicture.asset('assets/dev.svg',width: 25,height: 25,color: darkYellow,),
                 title: const Text('Mobile Number'),
                 subtitle: Text(mobilerecord),
                 trailing: const Icon(Icons.more_vert),
@@ -50,9 +51,9 @@ class _NotificationIdsState extends State<NotificationIds> {
 
             child: Card(
               child: ListTile(
-                leading: SvgPicture.asset('assets/dev.svg',width: 25,height: 25,color: Colors.green,),
+                leading: SvgPicture.asset('assets/dev.svg',width: 25,height: 25,color: darkYellow,),
                 title: const Text('Email Address'),
-                subtitle: const Text('abdulnasiricp"gmail.com'),
+                subtitle: const Text('Example@gmail.com'),
                 trailing: const Icon(Icons.more_vert),
             
               ),

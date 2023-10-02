@@ -31,6 +31,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
     'https://s3.amazonaws.com/uchealth-wp-uploads/wp-content/uploads/sites/6/2018/01/02032200/UCHealth_Memorial_Hospital_Central_Morning.jpgeee.jpg',
     'https://media.consumeraffairs.com/files/news/Hospital_building_JazzIRT_GI.jpg',
   ];
+
   Future<void> openMapUrl() async {
     const url = 'https://maps.app.goo.gl/wsazHc8ssSPihXvR7';
     if (await canLaunch(url)) {
@@ -53,13 +54,15 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
   Map<String, dynamic>? DoneDataMap;
   List<dynamic>? DoneListData = [];
   List<dynamic>? NewListData = [];
+
   Future hitApi() async {
     final response = await http.post(
-        Uri.parse('https://uat.tez.hospital/xzy/webservice/getAllDoctor'),
-        headers: {
-          'Soft-service': 'TezHealthCare',
-          'Auth-key': 'zbuks_ram859553467'
-        });
+      Uri.parse('https://uat.tez.hospital/xzy/webservice/getAllDoctor'),
+      headers: {
+        'Soft-service': 'TezHealthCare',
+        'Auth-key': 'zbuks_ram859553467'
+      },
+    );
     if (response.statusCode == 200) {
       setState(() {
         DataMap = jsonDecode(response.body);
@@ -77,7 +80,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
         "email": DoneListData?[i]["email"],
       });
     }
-    //TO SHOW ALL LIST AT INITIAL
+    // TO SHOW ALL LIST AT INITIAL
     setState(() {
       NewListData = DoneListData;
     });
@@ -89,166 +92,214 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
     super.initState();
   }
 
+  Future<void> _handleRefresh() async {
+    setState(() {
+      isLoading = true; // Set isLoading to true when refreshing
+    });
+
+    await hitApi();
+
+    setState(() {
+      isLoading = false; // Set isLoading to false after data is fetched
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.blue.withOpacity(0.2),
       backgroundColor: Colors.white,
-      body: isLoading
-          ? Center(
-        child: Container(
-            height: 50,
-            width: 50,
-            color: Colors.transparent,
-            child: const LoadingIndicatorWidget()),
-      ) : SingleChildScrollView(
-        physics: const NeverScrollableScrollPhysics(),
-        child:Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(children: [
-              Container(
-                height: height / 3,
-                width: width,
-                child: CarouselSlider(
-                    items: imgList
-                        .map((item) => Container(
-                      child: Image.network(
-                        item,
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                      ),
-                    ))
-                        .toList(),
-                    options: CarouselOptions(
-                        aspectRatio: 2.0,
-                        autoPlay: true,
-                        enlargeCenterPage: true)),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                    top: height / 3.5, left: width / 25, right: width / 25),
+      body: RefreshIndicator(
+        onRefresh: _handleRefresh,
+        child: isLoading
+            ? Center(
                 child: Container(
-                  height: height / 3.5,
-                  width: width,
-                  child: Card(
-                    child: Column(
+                  height: 50,
+                  width: 50,
+                  color: Colors.transparent,
+                  child: const LoadingIndicatorWidget(),
+                ),
+              )
+            : SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Stack(
                       children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Container(
-                                  height: 100,
-                                  width: 100,
-                                  child: Image.asset('assets/mayao.png')),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    EnString.hospitalName,
-                                    style:
-                                    TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  const Text(EnString.hospitalNameCity),
-                                  const Text(EnString.hospitalNameCityLocation),
-                                  Container(
-                                    height: 50,
-                                    width: 175,
-                                    child: const Card(
-                                      child: Row(
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.all(8.0),
-                                            child: Text(
-                                              '   200 \n General',
-                                              style: TextStyle(fontSize: 10),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.all(8.0),
-                                            child: Text(
-                                              '     20 \n ICU/CCU',
-                                              style: TextStyle(fontSize: 10),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.all(8.0),
-                                            child: Text(
-                                              '     20 \n Emergency',
-                                              style: TextStyle(fontSize: 10),
-                                            ),
-                                          )
-                                        ],
+                        Container(
+                          height: height / 3,
+                          width: width,
+                          child: Container(
+                            child: CarouselSlider(
+                              items: imgList
+                                  .map(
+                                    (item) => Container(
+                                      child: Image.network(
+                                        item,
+                                        fit: BoxFit.cover,
+                                        width: double.infinity,
                                       ),
                                     ),
                                   )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                        InkWell(
-                          onTap: () {
-                            makePhoneCall();
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 30),
-                            child: Container(
-                              child: Row(
-                                children: [
-                                  Container(
-                                    child: SvgPicture.asset('assets/phone.svg',
-                                        width: 15,
-                                        height: 15,
-                                        color: darkYellow),
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  const Text(
-                                    '051-520012',
-                                    style: TextStyle(
-                                      color: Colors.blue,
-                                    ),
-                                  )
-                                ],
+                                  .toList(),
+                              options: CarouselOptions(
+                                aspectRatio: 2.0,
+                                autoPlay: true,
+                                viewportFraction: 1,
+                                enlargeCenterPage: true,
                               ),
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 5,
-                        ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 30),
+                          padding: EdgeInsets.only(
+                            top: height / 4,
+                            left: width / 25,
+                            right: width / 25,
+                          ),
                           child: Container(
-                            child: InkWell(
-                              onTap: () {
-                                openMapUrl();
-                              },
-                              child: Row(
+                            height: height / 3.5,
+                            width: width,
+                            child: Card(
+                              color: Colors.grey[200],
+                              child: Column(
                                 children: [
-                                  Container(
-                                    child: SvgPicture.asset(
-                                        'assets/location.svg',
-                                        width: 15,
-                                        height: 15,
-                                        color: darkYellow),
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Container(
+                                          height: 100,
+                                          width: 100,
+                                          child:
+                                              Image.asset('assets/mayao.png'),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Text(
+                                              EnString.hospitalName,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            const Text(
+                                                EnString.hospitalNameCity),
+                                            const Text(EnString
+                                                .hospitalNameCityLocation),
+                                            Container(
+                                              height: 50,
+                                              width: 175,
+                                              child: const Card(
+                                                child: Row(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsets.all(8.0),
+                                                      child: Text(
+                                                        '   200 \n General',
+                                                        style: TextStyle(
+                                                            fontSize: 10),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsets.all(8.0),
+                                                      child: Text(
+                                                        '     20 \n ICU/CCU',
+                                                        style: TextStyle(
+                                                            fontSize: 10),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsets.all(8.0),
+                                                      child: Text(
+                                                        '     20 \n Emergency',
+                                                        style: TextStyle(
+                                                            fontSize: 10),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      makePhoneCall();
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 30),
+                                      child: Container(
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              child: SvgPicture.asset(
+                                                'assets/phone.svg',
+                                                width: 15,
+                                                height: 15,
+                                                color: darkYellow,
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            const Text(
+                                              '051-520012',
+                                              style: TextStyle(
+                                                color: Colors.blue,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                   const SizedBox(
-                                    width: 10,
+                                    height: 5,
                                   ),
-                                  const Text(
-                                    'View Location',
-                                    style: TextStyle(
-                                      color: Colors.blue,
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 30),
+                                    child: Container(
+                                      child: InkWell(
+                                        onTap: () {
+                                          openMapUrl();
+                                        },
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              child: SvgPicture.asset(
+                                                'assets/location.svg',
+                                                width: 15,
+                                                height: 15,
+                                                color: darkYellow,
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            const Text(
+                                              'View Location',
+                                              style: TextStyle(
+                                                color: Colors.blue,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                             ),
@@ -256,151 +307,163 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                         ),
                       ],
                     ),
-                  ),
-                ),
-              )
-            ]),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(EnString.doctors,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      )),
-                ],
-              ),
-            ),
-            Column(
-              children: [
-                Card(
-                  child: Container(
-                    width: width,
-                    height: 250,
-                    child: isLoading
-                        ? Center(
-                      child: Container(
-                          height: 50,
-                          width: 50,
-                          color: Colors.transparent,
-                          child: const LoadingIndicatorWidget()),
-                    )
-                        : ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        // physics: const NeverScrollableScrollPhysics(),
-                        itemCount: DoneListData!.length,
-                        itemBuilder: (context, index) {
-                          return Column(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                width: width / 2,
-                                height: height / 3.2,
-                                child: Card(
-                                  color: Colors.white.withOpacity(0.9),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Column(
-                                      children: [
-                                        ClipRRect(
-                                          borderRadius:
-                                          BorderRadius.circular(10),
-                                          child: Image.network(
-                                            '${DoneListData![index]['image']}', // Replace with your image URL
-                                            width:
-                                            100.0, // Set the width (optional)
-                                            height:
-                                            100.0, // Set the height (optional)
-                                            fit: BoxFit
-                                                .cover, // Set the BoxFit (optional)
-                                            loadingBuilder: (context, child,
-                                                loadingProgress) {
-                                              if (loadingProgress == null) {
-                                                return child;
-                                              } else {
-                                                return CircularProgressIndicator(
-                                                  color: darkYellow,
-                                                  backgroundColor: yellow,
-                                                );
-                                              }
-                                            },
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text(
-                                          'Dr. ${DoneListData![index]['name']} ${DoneListData![index]['surname']}',
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 13,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text(
-                                          '${DoneListData![index]['specialization']}',
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text(
-                                          '${DoneListData![index]['qualification']}',
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        Container(
-                                          height: 30,
-                                          width: width,
-                                          decoration: BoxDecoration(
-                                            border: Border.all(),
-                                            color: yellow,
-                                            borderRadius:
-                                            BorderRadius.circular(10),
-                                          ),
-                                          child: InkWell(
-                                            onTap: () {
-                                              Get.to(() =>
-                                              const SelectDateScreen());
-                                            },
-                                            child: const Center(
-                                              child: Text(
-                                                EnString.bookAppointment,
-                                                style: TextStyle(
-                                                  fontWeight:
-                                                  FontWeight.bold,
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            EnString.doctors,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        Card(
+                          color: Colors.white70.withOpacity(0.6),
+                          child: Container(
+                            width: width,
+                            height: 225,
+                            child: isLoading
+                                ? Center(
+                                    child: Container(
+                                      height: 50,
+                                      width: 50,
+                                      color: Colors.transparent,
+                                      child: const LoadingIndicatorWidget(),
+                                    ),
+                                  )
+                                : ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: DoneListData!.length,
+                                    itemBuilder: (context, index) {
+                                      return Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            width: width / 2,
+                                            height: height / 3.2,
+                                            child: Card(
+                                              color:
+                                                  Colors.white.withOpacity(0.9),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(5.0),
+                                                child: Column(
+                                                  children: [
+                                                    ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      child: Image.network(
+                                                        '${DoneListData![index]['image']}', // Replace with your image URL
+                                                        width:
+                                                            100.0, // Set the width (optional)
+                                                        height:
+                                                            100.0, // Set the height (optional)
+                                                        fit: BoxFit
+                                                            .cover, // Set the BoxFit (optional)
+                                                        loadingBuilder: (context,
+                                                            child,
+                                                            loadingProgress) {
+                                                          if (loadingProgress ==
+                                                              null) {
+                                                            return child;
+                                                          } else {
+                                                            return CircularProgressIndicator(
+                                                              color: darkYellow,
+                                                              backgroundColor:
+                                                                  yellow,
+                                                            );
+                                                          }
+                                                        },
+                                                      ),
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                    Text(
+                                                      'Dr. ${DoneListData![index]['name']} ${DoneListData![index]['surname']}',
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 13,
+                                                      ),
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                    Text(
+                                                      '${DoneListData![index]['specialization']}',
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                    Text(
+                                                      '${DoneListData![index]['qualification']}',
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Container(
+                                                      height: 30,
+                                                      width: width,
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(),
+                                                        color: yellow,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                      ),
+                                                      child: InkWell(
+                                                        onTap: () {
+                                                          Get.to(() =>
+                                                              const SelectDateScreen());
+                                                        },
+                                                        child: const Center(
+                                                          child: Text(
+                                                            EnString
+                                                                .bookAppointment,
+                                                            style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
+                                        ],
+                                      );
+                                    },
                                   ),
-                                ),
-                              ),
-                            ],
-                          );
-                        }),
-                  ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ],
-        ),
+              ),
       ),
     );
   }
 }
-
-
