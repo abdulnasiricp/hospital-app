@@ -1,3 +1,4 @@
+
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
@@ -7,18 +8,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:open_file/open_file.dart';
 import 'package:url_launcher/url_launcher.dart'; // Import the url_launcher package
 
-class RadiologyReportview extends StatefulWidget {
+class Pharmacybillprint extends StatefulWidget {
   final String id;
-  final String report_pdf;
-  const RadiologyReportview(
-      {Key? key, required this.id, required this.report_pdf,})
+  final String bill_pdf;
+  const Pharmacybillprint(
+      {Key? key, required this.id, required this.bill_pdf,})
       : super(key: key);
 
   @override
-  State<RadiologyReportview> createState() => _RadiologyReportviewState();
+  State<Pharmacybillprint> createState() => _PhysiotherapyBillviewState();
 }
 
-class _RadiologyReportviewState extends State<RadiologyReportview>  {
+class _PhysiotherapyBillviewState extends State<Pharmacybillprint> {
   double? _progress;
   String PatientId = '';
   String? _downloadedFilePath; // Store the downloaded file path
@@ -62,7 +63,7 @@ class _RadiologyReportviewState extends State<RadiologyReportview>  {
                   }
 
                   await launch(
-                      widget.report_pdf); // Replace with your desired URL
+                      widget.bill_pdf); // Replace with your desired URL
                 }
               },
               child: const Text('Open'),
@@ -82,7 +83,8 @@ class _RadiologyReportviewState extends State<RadiologyReportview>  {
             onPressed: () {
               FileDownloader.downloadFile(
                 name: 'tezash$widget.id.pdf',
-                url: widget.report_pdf,
+                url:
+                widget.bill_pdf,
                 onProgress: (name, progress) {
                   setState(() {
                     _progress = progress;
@@ -130,7 +132,7 @@ class _RadiologyReportviewState extends State<RadiologyReportview>  {
             child: const PDF(
               swipeHorizontal: true,
             ).cachedFromUrl(
-                widget.report_pdf // Use the provided PDF URL here
+                widget.bill_pdf// Use the provided PDF URL here
             ),
           ),
         ),

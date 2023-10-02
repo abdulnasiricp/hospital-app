@@ -19,7 +19,9 @@ class ApiLinks {
   static const String radiology =
       "https://uat.tez.hospital/xzy/webservice/getRadiologyDetails";
   static const String pharmacy =
-      "https://uat.tez.hospital/xzy/webservice/getRadiologyDetails";
+      "https://uat.tez.hospital/xzy/webservice/getPharmacyDetails";
        static const String usgBillDetails =
       "https://uat.tez.hospital/xzy/webservice/getUsgBillDetail";
+       static const String Therapy =
+      "https://uat.tez.hospital/xzy/webservice/getPhysiotherapyDetails";
 }

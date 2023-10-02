@@ -146,7 +146,7 @@ class EnString {
   static const String Radiology = "Radiology";
 
   //Pharmacy screen;
-  static const String Medicin = "Medicin";
+  static const String Medicin = "Medicine";
   static const String Pharmacy = "Pharmacy";
   static const String Status = "Status";
 
@@ -157,8 +157,11 @@ class EnString {
   //pathology screen
   static const String payment = "Payment";
   static const String status = "Status";
-  // USG screen
-  // static const String status = "Status";
-  // static const String status = "Status";
+  //Therapy screen
+  static const String Physiotherapy = "Physiotherapy";
+  //Therapy screen
+  static const String Date = "Date";
+
+
 
 }

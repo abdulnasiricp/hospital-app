@@ -1,7 +1,6 @@
-// ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace
-
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Billview.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Reportview.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Radiology/Billview.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Radiology/Reportbiew.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -266,9 +265,9 @@ class _RadiologyState extends State<Radiology> {
                                               if (Pathologybill['is_printed'] ==
                                                   '1') {
                                                 Get.to(
-                                                  () => pathologyReport(
+                                                      () => RadiologyReportview(
                                                     report_pdf:
-                                                        "${Pathologybill['report_pdf']}", // Use 'id' as the Pathologybill ID
+                                                    "${Pathologybill['report_pdf']}",
                                                     id: "${Pathologybill['id']}",
                                                   ),
                                                 );
@@ -277,7 +276,7 @@ class _RadiologyState extends State<Radiology> {
                                                     .showSnackBar(
                                                   const SnackBar(
                                                     content: Text(
-                                                        " radiology report is currently printing. Please stay tuned."),
+                                                        "Radiology report is currently printing. Please stay tuned."),
                                                     backgroundColor: Colors.red,
                                                   ),
                                                 );

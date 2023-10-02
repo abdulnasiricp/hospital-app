@@ -225,6 +225,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
       }, // Prevent default back button behavior
       child: Scaffold(
         appBar: AppBar(
+          title: const Text(EnString.informationProfile),
           centerTitle: true,
           backgroundColor: darkYellow,
           leading: IconButton(
@@ -269,7 +270,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                     ),
 
 
-                    const Text(EnString.patientInformation,
+                    const Text(EnString.Select_payment_gateway,
                         style: TextStyle(fontWeight: FontWeight.bold)),
                     Container(
                       width: width,
