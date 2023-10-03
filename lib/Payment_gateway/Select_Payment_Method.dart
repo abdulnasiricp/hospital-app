@@ -22,7 +22,8 @@ import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SelectPaymentMethod extends StatefulWidget {
-  const SelectPaymentMethod({Key? key}) : super(key: key);
+ final  int totalAmount;
+    const SelectPaymentMethod({Key? key, required this.totalAmount}) : super(key: key);
 
   @override
   _SelectPaymentMethodState createState() => _SelectPaymentMethodState();
@@ -90,7 +91,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
   void payWithKhaltiInApp() {
     KhaltiScope.of(context).pay(
       config: PaymentConfig(
-        amount: 1000, //in paisa
+        amount: widget.totalAmount, //in paisa
         productIdentity: "Patient_id",
         productName: "username",
         mobileReadOnly: false,
@@ -107,7 +108,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
   void payWithConnectIPSInApp() {
     KhaltiScope.of(context).pay(
       config: PaymentConfig(
-        amount: 1000, //in paisa
+        amount: widget.totalAmount, //in paisa
         productIdentity: "Patient_id",
         productName: "username",
         mobileReadOnly: false,
@@ -308,8 +309,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                             ],
                                           ),
                                         ),
-                                        const Padding(
-                                          padding: EdgeInsets.only(
+                                         Padding(
+                                          padding: const EdgeInsets.only(
                                               right: 20,
                                               top: 10,
                                               left: 10,
@@ -320,8 +321,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text("Rs.1000",
-                                                  style: TextStyle(
+                                              Text("${widget.totalAmount}",
+                                                  style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold)),
                                             ],
@@ -400,8 +401,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                             ],
                                           ),
                                         ),
-                                        const Padding(
-                                          padding: EdgeInsets.only(
+                                         Padding(
+                                          padding: const EdgeInsets.only(
                                               right: 20, left: 10, bottom: 10),
                                           child: Column(
                                             crossAxisAlignment:
@@ -409,8 +410,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text("Rs.1000",
-                                                  style: TextStyle(
+                                              Text("${widget.totalAmount}",
+                                                  style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold)),
                                             ],

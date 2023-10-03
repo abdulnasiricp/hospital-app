@@ -37,6 +37,7 @@ class PatientHomePage extends StatefulWidget {
 }
 
 class _PatientHomePageState extends State<PatientHomePage> {
+  dynamic totalAmount= 5000;
   String role = '';
   String username = '';
   String record = '';
@@ -247,11 +248,11 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             fontSize: 12,
                                           ),
                                         ),
-                                        const Padding(
-                                          padding: EdgeInsets.only(left: 30.0),
+                                         Padding(
+                                          padding: const EdgeInsets.only(left: 30.0),
                                           child: Text(
-                                            'Rs. 10000',
-                                            style: TextStyle(
+                                            'Rs. $totalAmount',
+                                            style: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.red,
                                               fontSize: 16,
@@ -263,7 +264,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     ElevatedButton(
                                       onPressed: () {
                                         Get.off(
-                                            () => const SelectPaymentMethod());
+                                            () =>  SelectPaymentMethod( totalAmount:totalAmount),);
                                       },
                                       style: ElevatedButton.styleFrom(
                                         foregroundColor: Colors.white,
