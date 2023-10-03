@@ -10,7 +10,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:TezHealthCare/stringfile/All_string.dart';
 
 
 class AllDoctorsList extends StatefulWidget {
@@ -98,7 +97,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
       child: Scaffold(
         backgroundColor: Colors.white.withOpacity(0.9),
         appBar: AppBar(
-          title: const Text(EnString.selectADoctor),
+          title:  Text('selectADoctor'.tr),
           centerTitle: true,
           backgroundColor: darkYellow,
           leading: IconButton(
@@ -186,16 +185,16 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                             onTapOutside: (event) => FocusNode().unfocus(),
                             controller: searchController,
                             onChanged: (query) => filterData(query),
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
                               fillColor: Colors.white,
                               filled: true,
-                              hintText: EnString.searchADoctor,
-                              border: OutlineInputBorder(
+                              hintText: 'searchADoctor'.tr,
+                              border: const OutlineInputBorder(
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(20),
                                 ),
                               ),
-                              prefixIcon: Icon(Icons.search),
+                              prefixIcon: const Icon(Icons.search),
                             ),
                           ),
                         ),
@@ -296,10 +295,10 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                                     Get.to(() =>
                                                         const SelectDateScreen());
                                                   },
-                                                  child: const Center(
+                                                  child:  Center(
                                                     child: Text(
-                                                      EnString.bookAppointment,
-                                                      style: TextStyle(
+                                                      'bookAppointment'.tr,
+                                                      style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
                                                       ),

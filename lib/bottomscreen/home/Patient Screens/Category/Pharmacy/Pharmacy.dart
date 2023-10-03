@@ -1,12 +1,11 @@
 // ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace
 
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pharmacy/Pharmacybillprint.dart';
-import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
@@ -109,7 +108,7 @@ class _PharmacyState extends State<Pharmacy> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text(EnString.Pharmacy),
+        title:  Text('Pharmacy'.tr),
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
@@ -121,30 +120,30 @@ class _PharmacyState extends State<Pharmacy> {
               color: Colors.grey,
               width: width,
               height: height / 20,
-              child: const Padding(
-                padding: EdgeInsets.all(10.0),
+              child:  Padding(
+                padding: const EdgeInsets.all(10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      EnString.billno,
+                      'billno'.tr,
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                          const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                     ),
                     Text(
-                      EnString.Medicin,
+                      'Medicin'.tr,
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                          const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                     ),
                     Text(
-                      EnString.Status,
+                      'Status'.tr,
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                          const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                     ),
                     Text(
-                      EnString.amount,
+                      'amount'.tr,
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                          const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                     ),
                   ],
                 ),
@@ -294,9 +293,9 @@ class _PharmacyState extends State<Pharmacy> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        EnString.total,
-                        style: TextStyle(
+                       Text(
+                        'total'.tr,
+                        style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: 20),

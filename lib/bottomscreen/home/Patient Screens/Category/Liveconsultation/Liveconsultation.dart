@@ -6,6 +6,7 @@ import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -110,7 +111,7 @@ class _LiveconsultationState extends State<Liveconsultation> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text(EnString.Liveconsultation),
+        title:  Text('Liveconsultation'.tr),
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
@@ -122,29 +123,29 @@ class _LiveconsultationState extends State<Liveconsultation> {
               color: Colors.grey,
               width: width,
               height: height / 20,
-              child: const Padding(
-                padding: EdgeInsets.all(10.0),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       "OPD / IPD",
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                     ),
-                    Text("Doctor",
+                    const Text("Doctor",
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                     ),
                     Text(
-                      EnString.Date,
+                      'Date'.tr,
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                    ), Text("Duration ",
+                          const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    ), const Text("Duration ",
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                     ),
-                    Text(
+                    const Text(
                       EnString.status,
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
@@ -266,18 +267,18 @@ class _LiveconsultationState extends State<Liveconsultation> {
                                                   BorderRadius.circular(
                                                       2.0), // Rounded corners
                                             ),
-                                            child: const Padding(
+                                            child:  Padding(
                                               padding:
-                                                  EdgeInsets.all(1.0),
+                                                  const EdgeInsets.all(1.0),
                                               child: Row(
                                                 children: [
-                                                  Icon(
+                                                  const Icon(
                                                     Icons.video_call,
                                                     color: Colors.white,
                                                   ),
                                                   Text(
-                                                    "Join",
-                                                    style: TextStyle(
+                                                    "Join".tr,
+                                                    style: const TextStyle(
                                                       color: Colors.white,
                                                       fontWeight:
                                                           FontWeight.bold,

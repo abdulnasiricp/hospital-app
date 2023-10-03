@@ -236,7 +236,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
       }, // Prevent default back button behavior
       child: Scaffold(
           appBar: AppBar(
-            title: const Text(EnString.selectpaymentMethod),
+            title:  Text('selectAnyOnePayment'.tr),
             centerTitle: true,
             backgroundColor: darkYellow,
             leading: IconButton(
@@ -283,16 +283,16 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                             Container(
                               width: width,
                               height: height / 6,
-                              child: const Card(
+                              child:  Card(
                                 color: Colors.white70,
                                 child: Column(
                                   children: [
-                                    Row(
+                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Padding(
-                                          padding: EdgeInsets.all(10.0),
+                                          padding: const EdgeInsets.all(10.0),
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -300,15 +300,15 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                EnString.HospitalAllduespayment,
-                                                style: TextStyle(
+                                                'hospitalDueAmount'.tr,
+                                                style: const TextStyle(
                                                     fontWeight:
                                                         FontWeight.bold),
                                               ),
                                             ],
                                           ),
                                         ),
-                                        Padding(
+                                        const Padding(
                                           padding: EdgeInsets.only(
                                               right: 20,
                                               top: 10,
@@ -334,7 +334,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Padding(
-                                          padding: EdgeInsets.all(10.0),
+                                          padding: const EdgeInsets.all(10.0),
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -342,15 +342,15 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                EnString.discount,
-                                                style: TextStyle(
+                                                'discount'.tr,
+                                                style: const TextStyle(
                                                     fontWeight:
                                                         FontWeight.bold),
                                               ),
                                             ],
                                           ),
                                         ),
-                                        Padding(
+                                        const Padding(
                                           padding: EdgeInsets.only(
                                               right: 20,
                                               top: 10,
@@ -371,7 +371,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                         ),
                                       ],
                                     ),
-                                    Padding(
+                                    const Padding(
                                       padding: EdgeInsets.only(
                                           right: 20, left: 10, bottom: 10),
                                       child: Divider(
@@ -384,7 +384,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Padding(
-                                          padding: EdgeInsets.only(left: 10.0),
+                                          padding: const EdgeInsets.only(left: 10.0),
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -392,15 +392,15 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                EnString.total,
-                                                style: TextStyle(
+                                                'total'.tr,
+                                                style: const TextStyle(
                                                     fontWeight:
                                                         FontWeight.bold),
                                               ),
                                             ],
                                           ),
                                         ),
-                                        Padding(
+                                        const Padding(
                                           padding: EdgeInsets.only(
                                               right: 20, left: 10, bottom: 10),
                                           child: Column(
@@ -428,15 +428,15 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                             Container(
                               child: Row(
                                 children: [
-                                  const Text(
-                                    EnString.askTermsAndCondition,
-                                    style: TextStyle(
+                                   Text(
+                                    'askTermsAndCondition'.tr,
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 12),
                                   ),
                                   TextButton(
-                                      child: const Text(
-                                          EnString.termsAndCondition),
+                                      child:  Text(
+                                          'termsAndCondition'.tr),
                                       onPressed: () {
                                         showModalBottomSheet<void>(
                                           isScrollControlled: true,
@@ -502,7 +502,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                               width: double.infinity,
                               height: 50,
                               child: MyButton(
-                                title: const Text('PROCEED'),
+                                title:  Text('proceed'.tr),
                                 onPressed: () {
                                   navigateToSelectedPage();
                                 },

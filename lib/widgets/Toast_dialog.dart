@@ -52,6 +52,7 @@ class ToastDialog extends StatelessWidget {
                   child: ListTile(
                     onTap: () {
                       Get.updateLocale(const Locale('en', 'US'));
+                      Get.back();
                     },
                     leading: SvgPicture.asset(
                       'assets/usflag.svg',
@@ -74,6 +75,9 @@ class ToastDialog extends StatelessWidget {
                   child: ListTile(
                     onTap: () {
                       Get.updateLocale(const Locale('ne', 'NP'));
+                      Get.back();
+
+
                     },
                     leading: SvgPicture.asset(
                       'assets/nepflag.svg',
@@ -82,7 +86,7 @@ class ToastDialog extends StatelessWidget {
                     ),
                     title: const Center(
                         child: Text(
-                      'Nepali',
+                      'नेपाली',
                       style: TextStyle(color: Colors.white),
                     )),
                   )),

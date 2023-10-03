@@ -4,12 +4,11 @@ import 'dart:convert';
 
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Billview.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Reportview.dart';
-import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -112,7 +111,7 @@ class _PathalogyState extends State<Pathalogy> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text(EnString.Pathology),
+        title: Text('Pathology'.tr),
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
@@ -124,30 +123,30 @@ class _PathalogyState extends State<Pathalogy> {
               color: Colors.grey,
               width: width,
               height: height / 20,
-              child: const Padding(
-                padding: EdgeInsets.all(10.0),
+              child:  Padding(
+                padding: const EdgeInsets.all(10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      EnString.billno,
+                      'billno'.tr,
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                          const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                     ),
                     Text(
-                      EnString.Payment,
+                      'Payment'.tr,
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                          const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                     ),
                     Text(
-                      EnString.Report,
+                      'Report'.tr,
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                          const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                     ),
                     Text(
-                      EnString.amount,
+                      'amount'.tr,
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                          const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                     ),
                   ],
                 ),
@@ -344,9 +343,9 @@ class _PathalogyState extends State<Pathalogy> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        EnString.total,
-                        style: TextStyle(
+                      Text(
+                        'total'.tr,
+                        style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: 20),

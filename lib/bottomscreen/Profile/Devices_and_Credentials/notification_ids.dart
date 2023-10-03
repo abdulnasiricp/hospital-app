@@ -3,6 +3,7 @@
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class NotificationIds extends StatefulWidget {
@@ -39,7 +40,7 @@ class _NotificationIdsState extends State<NotificationIds> {
             child: Card(
               child: ListTile(
                 leading: SvgPicture.asset('assets/dev.svg',width: 25,height: 25,color: darkYellow,),
-                title: const Text('Mobile Number'),
+                title: Text('mobileNumber'.tr),
                 subtitle: Text(mobilerecord),
                 trailing: const Icon(Icons.more_vert),
             
@@ -52,7 +53,7 @@ class _NotificationIdsState extends State<NotificationIds> {
             child: Card(
               child: ListTile(
                 leading: SvgPicture.asset('assets/dev.svg',width: 25,height: 25,color: darkYellow,),
-                title: const Text('Email Address'),
+                title :Text('emailAddress'.tr),
                 subtitle: const Text('Example@gmail.com'),
                 trailing: const Icon(Icons.more_vert),
             

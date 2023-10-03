@@ -36,7 +36,7 @@ class _SettingScreenState extends State<SettingScreen> {
           ),
           InkWell(
             onTap: (){
-              Get.dialog(ToastDialog());
+              Get.dialog(const ToastDialog());
             },
             child: Card(
               child: ListTile(

@@ -8,6 +8,7 @@ import 'package:TezHealthCare/bottomscreen/Profile/Devices_and_Credentials/notif
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 class DevicesAndCredentials extends StatefulWidget {
   const DevicesAndCredentials({Key? key}) : super(key: key);
@@ -26,7 +27,7 @@ class _DevicesAndCredentialsState extends State<DevicesAndCredentials> {
           appBar: AppBar(
             centerTitle: true,
             backgroundColor: darkYellow,
-            title: const Text('Devices and Credentials'),
+            title:  Text('devicesAndCredentials'.tr),
             bottom: TabBar(
               indicatorColor: yellow,
 
@@ -36,38 +37,38 @@ class _DevicesAndCredentialsState extends State<DevicesAndCredentials> {
                   children: [
                     SvgPicture.asset(
                       'assets/dev.svg',
-                      width: 30,
-                      height: 30,
+                      width: 25,
+                      height: 25,
                       color: Colors.white,
                     ),
                     const SizedBox(height: 1,),
 
-                    const Text('Devices')
+                     Text('devices'.tr)
                   ],
                 )),
                  Tab(child: Column(
                   children: [
                     SvgPicture.asset(
                       'assets/credentials.svg',
-                      width: 30,
-                      height: 30,
+                      width: 25,
+                      height: 25,
                       color: Colors.white,
                     ),
                     const SizedBox(height: 1,),
 
-                    const Text('Credentials')
+                     Text('credentials'.tr)
                   ],
                 )),
                  Tab(child: Column(
                   children: [
                     SvgPicture.asset(
                       'assets/notification.svg',
-                      width: 30,
-                      height: 30,
+                      width: 25,
+                      height: 25,
                       color: Colors.white,
                     ),
                     const SizedBox(height: 1,),
-                    const Text('Notification IDs')
+                    Text('notificationIDs'.tr)
                   ],
                 )),
               ],

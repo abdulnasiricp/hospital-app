@@ -10,7 +10,6 @@ import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutUSScreen extends StatefulWidget {
@@ -183,16 +182,16 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            const Text(
-                                              EnString.hospitalName,
-                                              style: TextStyle(
+                                            Text(
+                                              'hospitalName'.tr,
+                                              style: const TextStyle(
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                            const Text(
-                                                EnString.hospitalNameCity),
-                                            const Text(EnString
-                                                .hospitalNameCityLocation),
+                                            Text(
+                                                'hospitalNameCity'.tr),
+                                             Text(
+                                              'hospitalNameCityLocation'.tr),
                                             Container(
                                               height: 50,
                                               width: 175,
@@ -289,9 +288,9 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                             const SizedBox(
                                               width: 10,
                                             ),
-                                            const Text(
-                                              'View Location',
-                                              style: TextStyle(
+                                            Text(
+                                              'viewLocation'.tr,
+                                              style: const TextStyle(
                                                 color: Colors.blue,
                                               ),
                                             )
@@ -307,14 +306,14 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                         ),
                       ],
                     ),
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
+                     Padding(
+                      padding: const EdgeInsets.all(8.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            EnString.doctors,
-                            style: TextStyle(
+                            'doctors'.tr,
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -327,7 +326,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                           color: Colors.white70.withOpacity(0.6),
                           child: Container(
                             width: width,
-                            height: 225,
+                            height: height/2.5,
                             child: isLoading
                                 ? Center(
                                     child: Container(
@@ -347,7 +346,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                         children: [
                                           Container(
                                             width: width / 2,
-                                            height: height / 3.2,
+                                            height: height / 3,
                                             child: Card(
                                               color:
                                                   Colors.white.withOpacity(0.9),
@@ -434,11 +433,11 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                                           Get.to(() =>
                                                               const SelectDateScreen());
                                                         },
-                                                        child: const Center(
+                                                        child:  Center(
                                                           child: Text(
-                                                            EnString
-                                                                .bookAppointment,
-                                                            style: TextStyle(
+                                                            
+                                                                'bookAppointment'.tr,
+                                                            style: const TextStyle(
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,

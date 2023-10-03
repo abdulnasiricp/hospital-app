@@ -1,5 +1,5 @@
 import 'package:TezHealthCare/Payment_gateway/payment_seccessfull.dart';
-import 'package:TezHealthCare/stringfile/All_string.dart';
+import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,7 +15,9 @@ class _HelpCenterState extends State<HelpCenter> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(EnString.helpCenter),
+        centerTitle: true,
+        backgroundColor: darkYellow,
+        title:  Text('helpCenter'.tr),
 
       ),
       body: Center(child: ElevatedButton(onPressed: (){

@@ -2,13 +2,13 @@
 
 import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/Profile/profile_model.dart';
-import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -86,7 +86,7 @@ class _InformationProfileState extends State<InformationProfile>
     return Scaffold(
         appBar: AppBar(
           backgroundColor: darkYellow,
-          title: const Text(EnString.informationProfile),
+          title:  Text('informationProfile'.tr),
           centerTitle: true,
         ),
         body: profileData != null
@@ -147,8 +147,8 @@ class _InformationProfileState extends State<InformationProfile>
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    const Text(EnString.patientID,
-                                        style: TextStyle(
+                                     Text('patientID'.tr,
+                                        style: const TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     Text(
                                       profileData!.id ?? "",
@@ -159,8 +159,8 @@ class _InformationProfileState extends State<InformationProfile>
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    const Text(EnString.patientGender,
-                                        style: TextStyle(
+                                     Text('patientGender'.tr,
+                                        style: const TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     Text(
                                       profileData!.gender ?? "",
@@ -171,8 +171,8 @@ class _InformationProfileState extends State<InformationProfile>
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    const Text(EnString.patientAge,
-                                        style: TextStyle(
+                                     Text('patientAge'.tr,
+                                        style: const TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     Text(
                                       profileData!.age ?? "",
@@ -191,47 +191,47 @@ class _InformationProfileState extends State<InformationProfile>
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Column(
+                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              EnString.patientEmail,
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              'patientEmail'.tr,
+                              style: const TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             Text(
-                              EnString.patientPhone,
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              'patientPhone'.tr,
+                              style: const TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             Text(
-                              EnString.patientBloodGroup,
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              'patientBloodGroup'.tr,
+                              style: const TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             Text(
-                              EnString.patientAddress,
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              'patientAddress'.tr,
+                              style: const TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             Text(
-                              EnString.patientMaritialStatus,
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              'patientMaritialStatus'.tr,
+                              style: const TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             Text(
-                              EnString.patientGuardianName,
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              'patientGuardianName'.tr,
+                              style: const TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),

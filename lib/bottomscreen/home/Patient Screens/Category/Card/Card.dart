@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_print, non_constant_identifier_names, deprecated_member_use, file_names
 
-import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';

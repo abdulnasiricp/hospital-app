@@ -2,7 +2,6 @@
 
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Doctor_profile.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Old_or_newPatient.dart';
-import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +21,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
       // backgroundColor: Colors.white.withOpacity(.9),
       appBar: AppBar(
         backgroundColor: darkYellow,
-        title: const Text(EnString.selectADate),
+        title: Text('selectADate'.tr),
         centerTitle: true,
         actions: [
           IconButton(onPressed: (){

@@ -1,9 +1,9 @@
 // ignore_for_file: file_names, sized_box_for_whitespace
 
-import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class DoctorProfile extends StatefulWidget {
   const DoctorProfile({Key? key}) : super(key: key);
@@ -16,8 +16,9 @@ class _DoctorProfileState extends State<DoctorProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: darkYellow,
-        title: const Text(EnString.doctorProfile),
+        title: Text('doctorProfile'.tr),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -76,40 +77,40 @@ class _DoctorProfileState extends State<DoctorProfile> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Column(
+                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  EnString.experience,
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  'experience'.tr,
+                                  style: const TextStyle(fontWeight: FontWeight.bold),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 Text(
-                                  EnString.specialist,
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  'specialist'.tr,
+                                  style: const TextStyle(fontWeight: FontWeight.bold),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 Text(
-                                  EnString.hospital,
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  'hospital'.tr,
+                                  style: const TextStyle(fontWeight: FontWeight.bold),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 Text(
-                                  EnString.location,
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  'location'.tr,
+                                  style: const TextStyle(fontWeight: FontWeight.bold),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 Text(
-                                  EnString.nationality,
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  'nationality'.tr,
+                                  style: const TextStyle(fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
@@ -164,16 +165,16 @@ class _DoctorProfileState extends State<DoctorProfile> {
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.all(8),
+                       Padding(
+                        padding: const EdgeInsets.all(8),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              EnString.about,
-                              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
+                              'about'.tr,
+                              style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
                             ),
-                            Text(
+                            const Text(
                               'Doctor On Demand is the trusted provider of 24/7 virtual healthcare for the mind and body, including urgent care, mental health, preventative, primary and chronic care, with access to board-certified physicians and licensed psychologists through a smartphone, tablet, or computer.our mission is to improve the world’s health through compassionate care and innovation. \nWe believe that everyone should have instant and affordable access to a board-certified doctor, whenever and wherever needed.',
                               style: TextStyle(),
                             ),

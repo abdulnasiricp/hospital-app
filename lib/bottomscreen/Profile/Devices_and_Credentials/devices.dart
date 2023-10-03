@@ -7,6 +7,7 @@ import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Devices extends StatefulWidget {
@@ -123,7 +124,7 @@ class _DevicesState extends State<Devices> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text('App version'),
+                               Text('appVersion'.tr),
                               Text("version $_deviceVersion"),
                               // Text('Device Model: $_modelName',style: TextStyle(fontWeight: FontWeight.bold),),
                             ],
@@ -132,7 +133,7 @@ class _DevicesState extends State<Devices> {
                             crossAxisAlignment: CrossAxisAlignment.start,
 
                             children: [
-                              const Text('Added on'),
+                               Text('addedOn'.tr),
                               Text(loginDateTime),
                             ],
                           ),

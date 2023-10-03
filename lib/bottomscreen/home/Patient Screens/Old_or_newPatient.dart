@@ -2,7 +2,6 @@
 
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/new_member.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Patient_list.dart';
-import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +20,7 @@ class _OldorNewPatientScreenState extends State<OldorNewPatientScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: darkYellow,
-        title: const Text(EnString.oldOrNewPatient),
+        title: Text('oldOrNewPatient'.tr),
         centerTitle: true,
       ),
       body: Padding(
@@ -35,7 +34,7 @@ class _OldorNewPatientScreenState extends State<OldorNewPatientScreen> {
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Text(
-                EnString.askPatientQuestions,
+                'askPatientQuestions'.tr,
                 style: TextStyle(color: Colors.blue[400]),
               ),
             ),
@@ -54,20 +53,20 @@ class _OldorNewPatientScreenState extends State<OldorNewPatientScreen> {
                 child:  Card(
                   
                   color: Colors.red[100],
-                    child: const Padding(
-                  padding: EdgeInsets.all(10.0),
+                    child:  Padding(
+                  padding: const EdgeInsets.all(10.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        EnString.newPatient,
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        'newPatient'.tr,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Text(
-                          EnString.oldPatientDesc),
+                          'oldPatientDesc'.tr),
                     ],
                   ),
                 )),
@@ -83,20 +82,20 @@ class _OldorNewPatientScreenState extends State<OldorNewPatientScreen> {
                 height: height / 9,
                 child:  Card(
                   color: Colors.yellow[100],
-                    child: const Padding(
-                  padding: EdgeInsets.all(10.0),
+                    child: Padding(
+                  padding: const EdgeInsets.all(10.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        EnString.oldPatient,
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        'oldPatient'.tr,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
-                      Text(
-                          EnString.oldPatientDesc),
+                       Text(
+                          'oldPatientDesc'.tr),
                     ],
                   ),
                 )),
@@ -105,7 +104,7 @@ class _OldorNewPatientScreenState extends State<OldorNewPatientScreen> {
             const SizedBox(height: 10,),
             Padding(
               padding: const EdgeInsets.only(left: 10),
-              child: Text(EnString.note,style: TextStyle(color: Colors.blue[400]),),
+              child: Text('note'.tr,style: TextStyle(color: Colors.blue[400]),),
             )
           ],
         ),

@@ -1,9 +1,9 @@
-import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class Notif extends StatefulWidget {
@@ -22,7 +22,7 @@ class _NotifState extends State<Notif> {
     return ScreenUtilInit(
       builder: (_ , child)  => Scaffold(
         backgroundColor: notifier.getwihitecolor,
-        appBar:AppBar(title: const Text(EnString.notification),centerTitle: true,backgroundColor: darkYellow,),
+        appBar:AppBar(title:  Text('notification'.tr),centerTitle: true,backgroundColor: darkYellow,),
         body: SingleChildScrollView(
           child: Column(
             children: [notificationcard()],
@@ -50,7 +50,7 @@ class _NotifState extends State<Notif> {
                     children: [
                       SizedBox(height: height / 25),
                       Text(
-                        EnString.ended,
+                        'ended'.tr,
                         style: TextStyle(
                             fontSize: 16.sp,
                             color: notifier.getblack,
@@ -58,8 +58,8 @@ class _NotifState extends State<Notif> {
                       ),
                       SizedBox(height: height / 200),
                       Text(
-                        EnString
-                            .please,
+                        
+                          'please'.tr,
                         style: TextStyle(
                             fontSize: 14.5.sp,
                             fontFamily: 'Gilroy_Medium',

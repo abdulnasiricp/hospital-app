@@ -1,12 +1,10 @@
 // ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace
 
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/view_bill.dart';
-import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/route_manager.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
@@ -112,25 +110,25 @@ class _TransactionBillState extends State<TransactionBill> {
             width: width,
             height: height / 20,
             child: Padding(
-              padding: EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(10.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     'tid'.tr,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                   ),
                   Text(
                   'section'.tr,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                   ),
                   Text(
                 'billno'.tr,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                   ),
                   Text(
                     'amount'.tr,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                   ),
                 ],
               ),
@@ -276,7 +274,7 @@ class _TransactionBillState extends State<TransactionBill> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                        Text('total'.tr,
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: 20)),

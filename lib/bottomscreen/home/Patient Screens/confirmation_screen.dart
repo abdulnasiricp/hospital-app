@@ -1,9 +1,9 @@
 // ignore_for_file: sized_box_for_whitespace, avoid_unnecessary_containers
 
-import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ConfirmationScreen extends StatefulWidget {
   const ConfirmationScreen({Key? key}) : super(key: key);
@@ -18,7 +18,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: darkYellow,
-        title: const Text(EnString.conformation),
+        title: Text('conformation'.tr),
         centerTitle: true,
       ),
       body: Padding(
@@ -43,7 +43,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          EnString.hospitalVisitAppointment,
+                          'hospitalVisitAppointment'.tr,
                           style: TextStyle(
                               color: Colors.orange[900],
                               fontWeight: FontWeight.bold),
@@ -81,13 +81,13 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                       Padding(
                         padding: const EdgeInsets.only(left: 30),
                         child: Container(
-                          child: const Row(
+                          child:  Row(
                             children: [
-                              Text('Date:'),
-                              SizedBox(
+                              Text('date'.tr),
+                              const SizedBox(
                                 width: 10,
                               ),
-                              Text('[14/09/2023] [14/09/2030]')
+                              const Text('[14/09/2023] [14/09/2030]')
                             ],
                           ),
                         ),
@@ -101,46 +101,46 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
             const SizedBox(
               height: 10,
             ),
-            const Text(EnString.patientInformation,
-                style: TextStyle(fontWeight: FontWeight.bold)),
+            Text('patientInformation'.tr,
+                style: const TextStyle(fontWeight: FontWeight.bold)),
             Container(
               width: width,
               height: height / 5,
-              child: const Card(
+              child: Card(
                 color: Colors.white70,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: const EdgeInsets.all(10.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            EnString.patientName,
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            'patientName'.tr,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            EnString.patientMobile,
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            'patientMobile'.tr,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            EnString.patientGender,
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            'patientGender'.tr,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            EnString.patientDOB,
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            'patientDOB'.tr,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            EnString.patientAddress,
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            'patientAddress'.tr,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
                     ),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(
                           right: 40, top: 10, left: 10, bottom: 10),
                       child: Column(
@@ -164,8 +164,8 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
             ),
             Row(
               children: [
-                const Text(EnString.patientPaymentAmount,
-                    style: TextStyle(fontWeight: FontWeight.bold)),
+                Text('patientPaymentAmount'.tr,
+                    style: const TextStyle(fontWeight: FontWeight.bold)),
                 const SizedBox(
                   width: 10,
                 ),
@@ -178,13 +178,13 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
             const SizedBox(
               height: 10,
             ),
-            Text(EnString.confirmationDesc,
+            Text('confirmationDesc'.tr,
                 style: TextStyle(color: Colors.orange[900])),
             const SizedBox(
               height: 10,
             ),
             Center(
-              child: Text(EnString.selectpaymentMethod,
+              child: Text('selectPaymentMethod'.tr,
                   style: TextStyle(
                       color: Colors.blue[400],
                       fontWeight: FontWeight.bold,
@@ -201,10 +201,10 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                 height: height / 15,
                 decoration: BoxDecoration(
                     color: darkYellow, borderRadius: BorderRadius.circular(10)),
-                child: const Center(
+                child:  Center(
                     child: Text(
-                  'Select Payment Method',
-                  style: TextStyle(
+                  'selectPaymentMethod'.tr,
+                  style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                       color: Colors.white),
@@ -212,76 +212,6 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
               ),
             ),
 
-            //
-            // Container(
-            //     width: width,
-            //     height: height / 10,
-            //     child: Card(
-            //       child: Row(
-            //         children: [
-            //           Container(
-            //             width: width / 5,
-            //             height: height,
-            //             child: Image.asset('assets/pay_logo.jpg'),
-            //           ),
-            //           Text(
-            //             'IME Pay',
-            //             style: TextStyle(
-            //                 fontWeight: FontWeight.bold,
-            //                 color: darkYellow,
-            //                 fontSize: 20),
-            //           ),
-            //           const SizedBox(
-            //             width: 40,
-            //           ),
-            //           Text('    + 1 % \n RS. 707.00',
-            //               style: TextStyle(
-            //                   fontWeight: FontWeight.bold,
-            //                   color: darkYellow,
-            //                   fontSize: 15)),
-            //           const SizedBox(
-            //             width: 50,
-            //           ),
-            //           const Icon(Icons.arrow_forward_ios)
-            //         ],
-            //       ),
-            //     )),
-            //
-            //
-
-            // Container(
-            //     width: width,
-            //     height: height / 10,
-            //     child: Card(
-            //       child: Row(
-            //         children: [
-            //           Container(
-            //             width: width / 5,
-            //             height: height,
-            //             child: Image.asset('assets/esewa_logo.png'),
-            //           ),
-            //           Text(
-            //             'IME Pay',
-            //             style: TextStyle(
-            //                 fontWeight: FontWeight.bold,
-            //                 color: darkYellow,
-            //                 fontSize: 20),
-            //           ),
-            //           const SizedBox(
-            //             width: 30,
-            //           ),
-            //           Text('    + 0.75 % \n RS. 705.25',
-            //               style: TextStyle(
-            //                   fontWeight: FontWeight.bold,
-            //                   color: darkYellow,
-            //                   fontSize: 15)),
-            //           const SizedBox(
-            //             width: 55,
-            //           ),
-            //           const Icon(Icons.arrow_forward_ios)
-            //         ],
-            //       ),
-            //     ))
           ],
         ),
       ),

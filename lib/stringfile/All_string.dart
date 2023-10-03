@@ -88,7 +88,7 @@ class EnString {
   static const String viewLocation = "View Location";
   static const String faculty = "Faculty";
   static const String allMembers = "All Members";
-  //Facality memers screen
+  //Facality members screen
   static const String selectFacultyMember = "Select a Faculty mamber";
   static const String searchFacultyMember = "Search your Faculty mamber";
   //Select a Date screen
@@ -162,8 +162,10 @@ class EnString {
   //pathology screen
   static const String payment = "Payment";
   static const String status = "Status";
+
   //Therapy screen
   static const String Physiotherapy = "Physiotherapy";
+  
   //Therapy screen
   static const String Date = "Date";
   //help center
