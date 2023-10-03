@@ -183,6 +183,9 @@ class Translation extends Translations {
           'enterAge':'Enter Age',
           'dob':'Date Of Birth',
           'enterdob':'Enter Date Of Birth',
+          'phone':'Phone (optional)',
+          'enterPhone':'Phone (optional)',
+
 
 
 
@@ -362,6 +365,22 @@ class Translation extends Translations {
              //live consultation
           'Liveconsultation' : "प्रत्यक्ष परामर्श",
           'join':'मिल्नु',
+
+           //Add new members
+          'addNewMember':'Add New Member',
+          'firstName':'First Name',
+          'lastName':'Last Name',
+          'enterFirstName':'Enter First Name',
+          'enterLastName':'Enter Last Name',
+          'gender':'Gender',
+          'male':'Male',
+          'female':'Female',
+          'age':'Age',
+          'enterAge':'Enter Age',
+          'dob':'Date Of Birth',
+          'enterdob':'Enter Date Of Birth',
+          'phone':'Phone (optional)',
+          'enterPhone':'Phone (optional)',
         }
       };
 }
