@@ -1,8 +1,10 @@
 // ignore_for_file: file_names
 
 import 'package:TezHealthCare/utils/colors.dart';
+import 'package:TezHealthCare/widgets/Toast_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -32,14 +34,20 @@ class _SettingScreenState extends State<SettingScreen> {
               title: const Text('Change Password'),
             ),
           ),
-          Card(
-            child: ListTile(
-              leading: SvgPicture.asset(
-                'assets/developer.svg',
-                width: 30,
-                height: 30,
+          InkWell(
+            onTap: (){
+              Get.dialog(ToastDialog());
+            },
+            child: Card(
+              child: ListTile(
+                
+                leading: SvgPicture.asset(
+                  'assets/lang.svg',
+                  width: 30,
+                  height: 30,
+                ),
+                title: const Text('Language change'),
               ),
-              title: const Text('ABout Developer'),
             ),
           )
         ],

@@ -1,17 +1,14 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, sized_box_for_whitespace
 
+import 'package:TezHealthCare/utils/colors.dart';
+import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class ToastDialog extends StatelessWidget {
-  final String title;
-  final String message;
-  final String btnnName;
-  
-
-  const ToastDialog({Key? key, 
-    required this.title,
-    required this.message, required this.btnnName,
+  const ToastDialog({
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -31,11 +28,11 @@ class ToastDialog extends StatelessWidget {
       children: <Widget>[
         Container(
           padding: const EdgeInsets.only(
-            top: 60,
-            left: 16,
-            right: 16,
+            top: 40,
+            left: 20,
+            right: 20,
           ),
-          margin: const EdgeInsets.only(top: 45),
+          margin: const EdgeInsets.only(top: 35),
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             color: Colors.white,
@@ -44,53 +41,53 @@ class ToastDialog extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(height: 16),
-              Text(
-                message,
-                style: const TextStyle(
-                  fontSize: 16,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 24),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  ElevatedButton(
-                    onPressed: () {
-                      Get.back(result: btnnName);
+              const Text('Select Language'),
+              const SizedBox(height: 20),
+              Container(
+                  width: width,
+                  height: 50,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: darkYellow),
+                  child: ListTile(
+                    onTap: () {
+                      Get.updateLocale(const Locale('en', 'US'));
                     },
-                    child: Text(btnnName),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Get.back(result: 'Cancel');
+                    leading: SvgPicture.asset(
+                      'assets/usflag.svg',
+                      width: 30,
+                      height: 30,
+                    ),
+                    title: const Center(
+                        child: Text(
+                      'English',
+                      style: TextStyle(color: Colors.white),
+                    )),
+                  )),
+              const SizedBox(height: 10),
+              Container(
+                  width: width,
+                  height: 50,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: darkYellow),
+                  child: ListTile(
+                    onTap: () {
+                      Get.updateLocale(const Locale('ne', 'NP'));
                     },
-                    child: const Text('Cancel'),
-                  ),
-                ],
-              ),
+                    leading: SvgPicture.asset(
+                      'assets/nepflag.svg',
+                      width: 30,
+                      height: 30,
+                    ),
+                    title: const Center(
+                        child: Text(
+                      'Nepali',
+                      style: TextStyle(color: Colors.white),
+                    )),
+                  )),
+              const SizedBox(height: 50),
             ],
-          ),
-        ),
-        const Positioned(
-          left: 16,
-          right: 16,
-          child: CircleAvatar(
-            backgroundColor: Colors.blueAccent,
-            radius: 40,
-            child: Icon(
-              Icons.info_outline,
-              color: Colors.white,
-              size: 50,
-            ),
           ),
         ),
       ],

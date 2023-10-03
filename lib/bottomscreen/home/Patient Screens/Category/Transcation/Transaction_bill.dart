@@ -5,6 +5,7 @@ import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -98,7 +99,7 @@ class _TransactionBillState extends State<TransactionBill> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(EnString.transactionBill),
+        title:  Text('transactionBill'.tr),
         centerTitle: true,
         backgroundColor: darkYellow,
 
@@ -110,25 +111,25 @@ class _TransactionBillState extends State<TransactionBill> {
             color: Colors.grey,
             width: width,
             height: height / 20,
-            child: const Padding(
+            child: Padding(
               padding: EdgeInsets.all(10.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    EnString.tid,
+                    'tid'.tr,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                   ),
                   Text(
-                    EnString.section,
+                  'section'.tr,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                   ),
                   Text(
-                    EnString.billno,
+                'billno'.tr,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                   ),
                   Text(
-                    EnString.amount,
+                    'amount'.tr,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                   ),
                 ],
@@ -274,7 +275,7 @@ class _TransactionBillState extends State<TransactionBill> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(EnString.total,
+                       Text('total'.tr,
                           style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,

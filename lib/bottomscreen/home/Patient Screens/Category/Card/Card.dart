@@ -7,6 +7,7 @@ import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:open_file/open_file.dart';
 import 'package:url_launcher/url_launcher.dart'; // Import the url_launcher package
@@ -100,7 +101,7 @@ class _CardScreenState extends State<CardScreen> {
             icon: const Icon(Icons.download),
           )
         ],
-        title: const Text(EnString.card),
+        title:  Text('card'.tr),
         centerTitle: true,
         backgroundColor: darkYellow,
       ),

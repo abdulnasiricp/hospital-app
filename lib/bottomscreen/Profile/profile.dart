@@ -348,26 +348,7 @@ class _ProfileState extends State<Profile> {
                                     ),
                                   ),
                                 ),
-                              Card(
-              child: Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                  TextButton(onPressed: (){
-                    Get.updateLocale(const Locale('en','US'));
-
-                  }, 
-                  child: const Text('English')),
-                  TextButton(onPressed: (){
-                    Get.updateLocale(const Locale('ne','NP'));
-                    
-                  }, child: const Text('Nepali'))
-                ]),
                       
-                
-                      
-                      ),
-            ),
                               ],
                             ),
                           )

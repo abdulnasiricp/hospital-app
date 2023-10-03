@@ -34,6 +34,15 @@ class EnString {
   static const String myinformationsubtitle = "view your personal details";
   static const String deviceAndCredential = "Device & notification";
   static const String deviceAndCredentialSubtitle ="manage your Devices and notification ID";
+  static const String helpCenter = "Help Center";
+  static const String helpCenterSubtitle = "Ask a Quastion from help center";
+  static const String aboutUs = "About Us";
+  static const String aboutUsSubtitle = "view aboutus details";
+  static const String darkmode = "Dark Mode";
+  static const String darkmodeSubtitle = "Change Mode";
+  static const String setting = "Setting";
+  static const String settingSubtitle = "Change Your Setting";
+  static const String logout = "Log Out";
   //information Profile screen
   static const String informationProfile ="Information Profile";
   static const String patientID ="Patient ID";
@@ -44,15 +53,7 @@ class EnString {
   static const String patientAddress ="Address";
   static const String patientMaritialStatus ="Maritial Status";
   static const String patientGuardianName ="Guardian Name";
-  static const String helpCenter = "Help Center";
-  static const String helpCenterSubtitle = "Ask a Quastion from help center";
-  static const String aboutUs = "About Us";
-  static const String aboutUsSubtitle = "view aboutus details";
-  static const String darkmode = "Dark Mode";
-  static const String darkmodeSubtitle = "Change Mode";
-  static const String setting = "Setting";
-  static const String settingSubtitle = "Change Your Setting";
-  static const String logout = "Log Out";
+  
   // Patient Home Screen
   static const String welcome = "Welcome,\n";
   static const String patientId = "Patient Id:";

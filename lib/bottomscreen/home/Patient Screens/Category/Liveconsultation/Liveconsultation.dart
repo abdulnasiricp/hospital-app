@@ -1,18 +1,19 @@
+// ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace
+
 import 'dart:convert';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Billview.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Reportview.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
 class Liveconsultation extends StatefulWidget {
+  const Liveconsultation({Key? key}) : super(key: key);
+
   // const Liveconsultation({super.key});
 
   @override
@@ -218,39 +219,39 @@ class _LiveconsultationState extends State<Liveconsultation> {
 
                                             ),
                                           ),
-                                          InkWell(
+                                          const InkWell(
                                             child: Padding(
                                               padding:
-                                                  const EdgeInsets.all(3.0),
+                                                  EdgeInsets.all(3.0),
                                               child: Text(
                                                 // listName,
                                                 "Ramjinish Prasad Kushwaha",
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 8,
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          InkWell(
+                                          const InkWell(
                                             child: Padding(
                                               padding:
-                                                  const EdgeInsets.all(3.0),
+                                                  EdgeInsets.all(3.0),
                                               child: Text(
                                                 "02/10/2023 9:41 PM",
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                     fontSize: 10
                                                 ),
                                               ),
                                             ),
-                                          ), InkWell(
+                                          ), const InkWell(
                                             child: Padding(
                                               padding:
-                                                  const EdgeInsets.all(3.0),
+                                                  EdgeInsets.all(3.0),
                                               child: Text(
                                                 "30 minutes",
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                     fontSize: 10
                                                 ),
@@ -265,18 +266,18 @@ class _LiveconsultationState extends State<Liveconsultation> {
                                                   BorderRadius.circular(
                                                       2.0), // Rounded corners
                                             ),
-                                            child: Padding(
+                                            child: const Padding(
                                               padding:
-                                                  const EdgeInsets.all(1.0),
+                                                  EdgeInsets.all(1.0),
                                               child: Row(
                                                 children: [
-                                                  const Icon(
+                                                  Icon(
                                                     Icons.video_call,
                                                     color: Colors.white,
                                                   ),
-                                                  const Text(
+                                                  Text(
                                                     "Join",
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       color: Colors.white,
                                                       fontWeight:
                                                           FontWeight.bold,

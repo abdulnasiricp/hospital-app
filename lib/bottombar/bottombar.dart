@@ -6,13 +6,13 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Card/
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Transaction_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Patient_home.dart';
 import 'package:TezHealthCare/screens/notification.dart';
-import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -81,7 +81,7 @@ class _BottomhomeState extends State<Bottomhome> {
                 icon: Image.asset("assets/home.png",
                     height: height / 30, color: notifier.getwihitecolor),
                 title: Text(
-                  EnString.home,
+                  'home'.tr,
                   style: TextStyle(
                       fontSize: 12.sp,
                       color: notifier.getwihitecolor,
@@ -93,7 +93,7 @@ class _BottomhomeState extends State<Bottomhome> {
                 icon: SvgPicture.asset('assets/transaction.svg',
                     height: height / 30, color: notifier.getwihitecolor),
                 title: Text(
-                  EnString.transcation,
+                  'transcation'.tr,
                   style: TextStyle(
                       fontSize: 12.sp,
                       color: notifier.getwihitecolor,
@@ -105,7 +105,7 @@ class _BottomhomeState extends State<Bottomhome> {
                 icon: SvgPicture.asset('assets/card.svg',
                     height: height / 30, color: notifier.getwihitecolor),
                 title: Text(
-                  EnString.card,
+                  'card'.tr,
                   style: TextStyle(
                       fontSize: 12.sp,
                       color: notifier.getwihitecolor,
@@ -117,7 +117,7 @@ class _BottomhomeState extends State<Bottomhome> {
                 icon: Image.asset("assets/profile.png",
                     height: height / 30, color: notifier.getwihitecolor),
                 title: Text(
-                  EnString.profile,
+                  'profile'.tr,
                   style: TextStyle(
                       fontSize: 12.sp,
                       color: notifier.getwihitecolor,

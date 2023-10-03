@@ -129,7 +129,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
         merchantCode: "MERCHANT_CODE",
         merchantName: "username",
         merchantUrl: "MERCHANT_URL",
-        amount: 105225,
+        amount: "105225",
         refId: "Patient_id",
         module: "MODULE",
         user: "USER",
@@ -440,7 +440,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                       onPressed: () {
                                         showModalBottomSheet<void>(
                                           isScrollControlled: true,
-                                          shape: RoundedRectangleBorder(
+                                          shape: const RoundedRectangleBorder(
                                             borderRadius: BorderRadius.vertical(
                                                 top: Radius.circular(20.0)),
                                           ),

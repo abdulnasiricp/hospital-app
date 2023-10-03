@@ -3,9 +3,14 @@ import 'package:get/get.dart';
 
 class Translation extends Translations {
   @override
-  Map<String, Map<String, String>> get keys => {
+  Map<String, Map<String,String >> get keys => {
     'en_US':{
-      // Patient Home Screen,
+    //Bottom Bar
+    'home' : "Home",
+    'transcation' :"Transaction",
+    'card' : "Card",
+    'profile' : "Profile",
+    // Patient Home Screen,
    'welcome' : "Welcome,\n",
    'patientId' : "Patient Id:",
    'hisNo' :"HIS NO:",
@@ -27,9 +32,33 @@ class Translation extends Translations {
    'liveConsultations' : "Live Consultations",
    'doctors' : "Doctors",
    'viewAll' : "View All",
-   'card' : "Card",
+   //Transaction bill
+   'tid' : "TID",
+   'section': "Section",
+   'billno' : "Bill No.",
+   'amount' : "Amount",
+   'total' : "Total",
+    // Profile Screen
+   'myinformation' : "My Information",
+   'myinformationsubtitle' : "view your personal details",
+   'deviceAndCredential' :"Device & notification",
+   'deviceAndCredentialSubtitle' :"manage your Devices and notification ID",
+    'helpCenter' : "Help Center",
+   'helpCenterSubtitle': "Ask a Quastion from help center",
+   'aboutUs' :"About Us",
+   'aboutUsSubtitle' : "view aboutus details",
+   'darkmode' : "Dark Mode",
+   'darkmodeSubtitle' : "Change Mode",
+   'setting' : "Setting",
+   'settingSubtitle' :"Change Your Setting",
+   'logout' : "Log Out",
+
       
     },
+
+
+
+
     'ne_NP':{
     // Patient Home Screen,
    'welcome' : "स्वागत छ,\n",
@@ -53,7 +82,30 @@ class Translation extends Translations {
    'liveConsultations' : "प्रत्यक्ष परामर्श",
    'doctors' : "डाक्टरहरू",
    'viewAll' : "सबै हेर्नुहोस्",
-   'card' : "कार्ड"
+   'card' : "कार्ड",
+   //Bottom Bar
+   'home' : "घर",
+   'transcation' : "लेनदेन",
+   'profile' : "प्रोफाइल",
+   'tid' : "TID",
+   'section': "खण्ड",
+   'billno' : "बिल नं.",
+   'amount' : "रकम",
+   'total' : "कुल",
+    // Profile Screen
+   'myinformation' : "My Information",
+   'myinformationsubtitle' : "view your personal details",
+   'deviceAndCredential' :"Device & notification",
+   'deviceAndCredentialSubtitle' :"manage your Devices and notification ID",
+    'helpCenter' : "Help Center",
+   'helpCenterSubtitle': "Ask a Quastion from help center",
+   'aboutUs' :"About Us",
+   'aboutUsSubtitle' : "view aboutus details",
+   'darkmode' : "Dark Mode",
+   'darkmodeSubtitle' : "Change Mode",
+   'setting' : "Setting",
+   'settingSubtitle' :"Change Your Setting",
+   'logout' : "Log Out",
 
 
     }
