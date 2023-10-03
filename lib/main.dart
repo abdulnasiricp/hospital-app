@@ -41,7 +41,8 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => LoginController()),
         ],
         child: KhaltiScope(
-          publicKey: "test_public_key_d5d9f63743584dc38753056b0cc737d5",
+          // publicKey: "test_public_key_d5d9f63743584dc38753056b0cc737d5",
+          publicKey: "test_public_key_c976acda9afe490881d18f9856e6f896",
           enabledDebugging: true, // Set to false in production
           builder: (context, navKey) {
             return GetMaterialApp(

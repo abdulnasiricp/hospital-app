@@ -22,8 +22,9 @@ import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SelectPaymentMethod extends StatefulWidget {
- final  int totalAmount;
-    const SelectPaymentMethod({Key? key, required this.totalAmount}) : super(key: key);
+ final  double totalAmountInRs;
+ final  int totalAmountInpaisa;
+    const SelectPaymentMethod({Key? key, required this.totalAmountInRs, required this.totalAmountInpaisa}) : super(key: key);
 
   @override
   _SelectPaymentMethodState createState() => _SelectPaymentMethodState();
@@ -91,7 +92,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
   void payWithKhaltiInApp() {
     KhaltiScope.of(context).pay(
       config: PaymentConfig(
-        amount: widget.totalAmount, //in paisa
+        amount: widget.totalAmountInpaisa, //in paisa
         productIdentity: "Patient_id",
         productName: "username",
         mobileReadOnly: false,
@@ -108,7 +109,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
   void payWithConnectIPSInApp() {
     KhaltiScope.of(context).pay(
       config: PaymentConfig(
-        amount: widget.totalAmount, //in paisa
+        amount: widget.totalAmountInpaisa, //in paisa
         productIdentity: "Patient_id",
         productName: "username",
         mobileReadOnly: false,
@@ -321,7 +322,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text("${widget.totalAmount}",
+                                              Text("${widget.totalAmountInRs}",
                                                   style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold)),
@@ -410,7 +411,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text("${widget.totalAmount}",
+                                              Text("${widget.totalAmountInRs}",
                                                   style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold)),

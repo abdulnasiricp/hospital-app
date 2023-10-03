@@ -37,7 +37,13 @@ class PatientHomePage extends StatefulWidget {
 }
 
 class _PatientHomePageState extends State<PatientHomePage> {
-  dynamic totalAmount= 5000;
+ final double rupeesAmount = 1300.50; // Replace this with your rupees amount
+
+  int convertRupeesToPaisa() {
+    return (rupeesAmount * 100).toInt();
+  }
+  
+  // dynamic totalAmount= 20000;
   String role = '';
   String username = '';
   String record = '';
@@ -51,6 +57,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
   @override
   void initState() {
     super.initState();
+    convertRupeesToPaisa();
     LoadData();
 
     hitApi();
@@ -115,6 +122,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    int paisaAmount = convertRupeesToPaisa();
     return Scaffold(
         appBar: AppBar(
           // toolbarHeight: 100,
@@ -251,7 +259,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                          Padding(
                                           padding: const EdgeInsets.only(left: 30.0),
                                           child: Text(
-                                            'Rs. $totalAmount',
+                                            'Rs. $rupeesAmount',
                                             style: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.red,
@@ -264,7 +272,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     ElevatedButton(
                                       onPressed: () {
                                         Get.off(
-                                            () =>  SelectPaymentMethod( totalAmount:totalAmount),);
+                                            () =>  SelectPaymentMethod( totalAmountInRs:rupeesAmount,totalAmountInpaisa: paisaAmount),);
                                       },
                                       style: ElevatedButton.styleFrom(
                                         foregroundColor: Colors.white,
