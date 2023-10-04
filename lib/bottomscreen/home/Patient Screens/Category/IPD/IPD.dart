@@ -1,10 +1,12 @@
 // ignore_for_file: file_names, sized_box_for_whitespace, deprecated_member_use
 
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/Madication.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 class IPD extends StatefulWidget {
   const IPD({Key? key}) : super(key: key);
@@ -47,6 +49,9 @@ class _IPDState extends State<IPD> {
                                 true, // Set to true to make the GridView scrollable within the Column
                             children: [
                               InkWell(
+                                onTap: () {
+                                  Get.to(()=>const MedicationScreen());
+                                },
 
                                 child: Container(
                                   width: 100,

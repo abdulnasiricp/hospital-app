@@ -56,7 +56,14 @@ class Translation extends Translations {
           'darkmodeSubtitle': "Change Mode",
           'setting': "Setting",
           'settingSubtitle': "Change Your Setting",
+          'checkUpdate': "Check for Updates",
           'logout': "Log Out",
+          'rateUs': "Rate Us",
+
+
+
+          //term and coditions
+
 
           //information Profile screen
           'informationProfile': "Information Profile",
@@ -189,6 +196,18 @@ class Translation extends Translations {
           'enterEmail':'Enter Email Address',
           'relationship':'Relationship',
 
+          //IPD screen
+          'medication':'Medication',
+          'mid':'Mid',
+          'medicine':'Medicine',
+          'dose':'Dose',
+          'frequency':'Frequency',
+          'No. D':'No. D',
+          
+
+
+
+
 
 
 
@@ -252,7 +271,10 @@ class Translation extends Translations {
           'darkmodeSubtitle': "मोड परिवर्तन गर्नुहोस्",
           'setting': "सेटिङ",
           'settingSubtitle': "आफ्नो सेटिङ परिवर्तन गर्नुहोस्",
+          'checkUpdate': "अपडेटहरूको लागि जाँच गर्नुहोस्",
           'logout': "बाहिर निस्कनु",
+          'rateUs': "हामीलाई मूल्याङ्कन गर्नुहोस्",
+
 
           //information Profile screen
           'informationProfile': "जानकारी प्रोफाइल",
@@ -385,6 +407,14 @@ class Translation extends Translations {
           'enterdob':'Enter Date Of Birth',
           'phone':'Phone (optional)',
           'enterPhone':'Phone (optional)',
+
+          //IPD screen
+          'medication':'औषधि',
+          'mid':'मध्य',
+          'medicine':'औषधी',
+          'dose':'खुराक',
+          'frequency':'आवृत्ति',
+          'No. D':'No. D',
         }
       };
 }

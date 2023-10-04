@@ -8,6 +8,7 @@ import 'package:TezHealthCare/bottomscreen/Profile/Information_profile.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/Setting/Setting_screen.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/help_center.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/profile_model.dart';
+import 'package:TezHealthCare/bottomscreen/Profile/term_and_condition.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -309,6 +310,60 @@ class _ProfileState extends State<Profile> {
                                           fontWeight: FontWeight.bold),
                                     ),
                                     subtitle:  Text('darkmodeSubtitle'.tr),
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    // Get.to(() => const SettingScreen());
+                                  },
+                                  child: ListTile(
+                                    leading: SvgPicture.asset(
+                                        'assets/updatecheck.svg',
+                                        width: 30,
+                                        height: 30,
+                                        color: darkYellow),
+                                    title:  Text(
+                                      'checkUpdate'.tr,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    // Get.to(() => const SettingScreen());
+                                  },
+                                  child: ListTile(
+                                    leading: SvgPicture.asset(
+                                        'assets/rateUs.svg',
+                                        width: 30,
+                                        height: 30,
+                                        color: darkYellow),
+                                    title:  Text(
+                                      'rateUs'.tr,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    Get.to(() => const TermAndConditionsScreen());
+                                  },
+                                  child: ListTile(
+                                    leading: SvgPicture.asset(
+                                        'assets/termcondition.svg',
+                                        width: 30,
+                                        height: 30,
+                                        color: darkYellow),
+                                    title:  Text(
+                                      'termsAndCondition'.tr,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                   
                                   ),
                                 ),
                                 InkWell(
