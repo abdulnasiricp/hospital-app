@@ -293,7 +293,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                                 child: InkWell(
                                                   onTap: () {
                                                     Get.to(() =>
-                                                        const SelectDateScreen());
+                                                        SelectDateScreen(doctorId: filteredData![index]['id'], doctorImage: filteredData![index]['image'],doctorName: filteredData![index]['name'] + filteredData![index]['surname'],doctorSpecialization: filteredData![index]['specialization'],));
                                                   },
                                                   child:  Center(
                                                     child: Text(

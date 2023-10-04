@@ -8,7 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SelectDateScreen extends StatefulWidget {
-  const SelectDateScreen({Key? key}) : super(key: key);
+  final String doctorImage;
+  final String doctorId;
+  final String doctorName;
+  final String doctorSpecialization;
+  const SelectDateScreen({Key? key, required this.doctorImage, required this.doctorName, required this.doctorSpecialization, required this.doctorId}) : super(key: key);
 
   @override
   State<SelectDateScreen> createState() => _SelectDateScreenState();
@@ -44,19 +48,20 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                     Container(
                       height: height,
                       width: width / 5,
-                      child: Image.asset(
-                        'assets/drtwo.png',
+                      child: Image.network(
+                        widget.doctorImage,
                         fit: BoxFit.cover,
                       ),
                     ),
                     const SizedBox(width: 10,),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 20),
+                     Padding(
+                      padding: const EdgeInsets.only(top: 20),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Dr.Ramjinish Kushwaha',style: TextStyle(fontWeight: FontWeight.bold),),
-                      Text('NEUROLOGY')
+                          Text(widget.doctorName,style: const TextStyle(fontWeight: FontWeight.bold),),
+                      Text(widget.doctorSpecialization),
+                      Text(widget.doctorId)
                     
                         ],
                       ),

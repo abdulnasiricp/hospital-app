@@ -188,10 +188,8 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                            Text(
-                                                'hospitalNameCity'.tr),
-                                             Text(
-                                              'hospitalNameCityLocation'.tr),
+                                            Text('hospitalNameCity'.tr),
+                                            Text('hospitalNameCityLocation'.tr),
                                             Container(
                                               height: 50,
                                               width: 175,
@@ -306,7 +304,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                         ),
                       ],
                     ),
-                     Padding(
+                    Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -326,7 +324,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                           color: Colors.white70.withOpacity(0.6),
                           child: Container(
                             width: width,
-                            height: height/2.5,
+                            height: height / 2.5,
                             child: isLoading
                                 ? Center(
                                     child: Container(
@@ -431,13 +429,37 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                                       child: InkWell(
                                                         onTap: () {
                                                           Get.to(() =>
-                                                              const SelectDateScreen());
+                                                              SelectDateScreen(
+                                                                doctorId:
+                                                                    DoneListData![
+                                                                            index]
+                                                                        ['id'],
+                                                                doctorImage:
+                                                                    DoneListData![
+                                                                            index]
+                                                                        [
+                                                                        'image'],
+                                                                doctorName: DoneListData![
+                                                                            index]
+                                                                        [
+                                                                        'name'] +
+                                                                    DoneListData![
+                                                                            index]
+                                                                        [
+                                                                        'surname'],
+                                                                doctorSpecialization:
+                                                                    DoneListData![
+                                                                            index]
+                                                                        [
+                                                                        'specialization'],
+                                                              ));
                                                         },
-                                                        child:  Center(
+                                                        child: Center(
                                                           child: Text(
-                                                            
-                                                                'bookAppointment'.tr,
-                                                            style: const TextStyle(
+                                                            'bookAppointment'
+                                                                .tr,
+                                                            style:
+                                                                const TextStyle(
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,

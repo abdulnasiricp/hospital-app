@@ -1,5 +1,7 @@
 // ignore_for_file: file_names, sized_box_for_whitespace
 
+
+import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +54,9 @@ class ToastDialog extends StatelessWidget {
                   child: ListTile(
                     onTap: () {
                       Get.updateLocale(const Locale('en', 'US'));
-                      Get.back();
+                     Get.offAll(() => const Bottomhome());
+
+                  
                     },
                     leading: SvgPicture.asset(
                       'assets/usflag.svg',
@@ -72,10 +76,10 @@ class ToastDialog extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: darkYellow),
-                  child: ListTile(
+                  child: ListTile(hoverColor: whitecolor,
                     onTap: () {
                       Get.updateLocale(const Locale('ne', 'NP'));
-                      Get.back();
+                     Get.offAll(() => const Bottomhome());
 
 
                     },
@@ -94,6 +98,7 @@ class ToastDialog extends StatelessWidget {
             ],
           ),
         ),
+       
       ],
     );
   }
