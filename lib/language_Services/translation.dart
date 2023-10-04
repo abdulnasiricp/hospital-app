@@ -184,11 +184,7 @@ class Translation extends Translations {
           'dob':'Date Of Birth',
           'enterdob':'Enter Date Of Birth',
           'phone':'Phone (optional)',
-          'enterPhone':'Enter Phone Number',
-          'email':'Email Address (optional)',
-          'enterEmail':'Enter Email Address',
-          'relationship':'Relationship',
-
+          'enterPhone':'Phone (optional)',
 
 
 
