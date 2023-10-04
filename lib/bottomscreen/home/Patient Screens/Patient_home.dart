@@ -37,13 +37,12 @@ class PatientHomePage extends StatefulWidget {
 }
 
 class _PatientHomePageState extends State<PatientHomePage> {
- final double rupeesAmount = 10; // Replace this with your rupees amount
+  final double rupeesAmount = 1050; // Replace this with your rupees amount
 
   int convertRupeesToPaisa() {
     return (rupeesAmount * 100).toInt();
   }
-  
-  // dynamic totalAmount= 20000;
+
   String role = '';
   String username = '';
   String record = '';
@@ -54,13 +53,26 @@ class _PatientHomePageState extends State<PatientHomePage> {
   Map<String, dynamic>? DoneDataMap;
   List<dynamic>? DoneListData = [];
 
+
+getAllData()async{
+  await   fetchData();
+
+    convertRupeesToPaisa();
+   await LoadData();
+
+   await hitApi();
+
+}
   @override
   void initState() {
     super.initState();
+      fetchData();
+
     convertRupeesToPaisa();
     LoadData();
 
-    hitApi();
+   hitApi();
+
   }
 
   @override
@@ -78,6 +90,55 @@ class _PatientHomePageState extends State<PatientHomePage> {
       Patient_id = sharedPreferences.getString('patientidrecord') ?? '';
     });
   }
+
+  //Due Amount Fatch
+
+  Map<String, dynamic> responseData = {};
+
+
+
+  Future<void> fetchData() async {
+    final url = Uri.parse('https://uat.tez.hospital/xzy/webservice/get_dues');
+    final headers = {
+      'Soft-service': 'TezHealthCare',
+      'Auth-key': 'zbuks_ram859553467',
+    };
+    final body = {
+      'patient_id': '10380',
+    };
+
+    try {
+      final response = await http.post(
+        url,
+        headers: headers,
+        body: body,
+      );
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = json.decode(response.body);
+        print(data);
+        setState(() {
+          responseData = data;
+        });
+      } else {
+        // Handle the error, e.g., show an error message
+        print('Failed to load data: ${response.statusCode}');
+      }
+    } catch (e) {
+      // Handle network or other errors
+      print('Error: $e');
+    }
+  }
+
+
+
+
+
+
+
+
+
+
 
   Future<void> hitApi() async {
     try {
@@ -125,7 +186,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
     int paisaAmount = convertRupeesToPaisa();
     return Scaffold(
         appBar: AppBar(
-          // toolbarHeight: 100,
           title: const Text(
             EnString.hospitalTitle,
             maxLines: 1,
@@ -256,10 +316,12 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             fontSize: 12,
                                           ),
                                         ),
-                                         Padding(
-                                          padding: const EdgeInsets.only(left: 30.0),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 30.0),
                                           child: Text(
-                                            'Rs. $rupeesAmount',
+                                            // 'Rs. $rupeesAmount',
+                                            responseData['total_dues'].toString(),
                                             style: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.red,
@@ -272,7 +334,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     ElevatedButton(
                                       onPressed: () {
                                         Get.off(
-                                            () =>  SelectPaymentMethod( totalAmountInRs:rupeesAmount,totalAmountInpaisa: paisaAmount),);
+                                          () => SelectPaymentMethod(
+                                              totalAmountInRs: rupeesAmount,
+                                              totalAmountInpaisa: paisaAmount),
+                                        );
                                       },
                                       style: ElevatedButton.styleFrom(
                                         foregroundColor: Colors.white,

@@ -67,6 +67,9 @@ dependencies:
   khalti_flutter:
   esewa_flutter:
   flutter_downloader:
+  in_app_webview: ^0.0.9
+  webview_flutter:
+
 
 
 dev_dependencies:
