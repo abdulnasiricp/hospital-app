@@ -37,7 +37,7 @@ class PatientHomePage extends StatefulWidget {
 }
 
 class _PatientHomePageState extends State<PatientHomePage> {
- final double rupeesAmount = 1300.50; // Replace this with your rupees amount
+ final double rupeesAmount = 10; // Replace this with your rupees amount
 
   int convertRupeesToPaisa() {
     return (rupeesAmount * 100).toInt();
@@ -290,7 +290,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                       child: Shimmer.fromColors(
                                         baseColor: Colors.white,
                                         highlightColor: Colors.grey,
-                                        child:  Text(
+                                        child: Text(
                                           'payNow'.tr,
                                           style: const TextStyle(
                                             fontSize: 10,
@@ -343,8 +343,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                   const SizedBox(
                                                     height: 10,
                                                   ),
-                                                   Text(
-                                                      'transactionBill'.tr,
+                                                  Text('transactionBill'.tr,
                                                       style: const TextStyle(
                                                         fontSize: 7,
                                                         fontWeight:
@@ -452,7 +451,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                   const SizedBox(
                                                     height: 10,
                                                   ),
-                                                   Text('pathology'.tr,
+                                                  Text('pathology'.tr,
                                                       style: const TextStyle(
                                                         fontSize: 7,
                                                         fontWeight:
@@ -524,7 +523,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                   const SizedBox(
                                                     height: 10,
                                                   ),
-                                                 Text('pharmacy'.tr,
+                                                  Text('pharmacy'.tr,
                                                       style: const TextStyle(
                                                         fontSize: 7,
                                                         fontWeight:
@@ -593,7 +592,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                   const SizedBox(
                                                     height: 10,
                                                   ),
-                                       Text('surgery'.tr,
+                                                  Text('surgery'.tr,
                                                       style: const TextStyle(
                                                         fontSize: 7,
                                                         fontWeight:
@@ -604,9 +603,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             ),
                                           ),
                                         ),
-
-
-
                                         InkWell(
                                           child: Container(
                                             width: 100,
@@ -629,7 +625,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                   const SizedBox(
                                                     height: 10,
                                                   ),
-                                                   Text('bloodBank'.tr,
+                                                  Text('bloodBank'.tr,
                                                       style: const TextStyle(
                                                         fontSize: 7,
                                                         fontWeight:
@@ -662,7 +658,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                   const SizedBox(
                                                     height: 10,
                                                   ),
-                                                Text('ambulance'.tr,
+                                                  Text('ambulance'.tr,
                                                       style: const TextStyle(
                                                         fontSize: 7,
                                                         fontWeight:
@@ -673,10 +669,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             ),
                                           ),
                                         ),
-
-
-
-
                                         InkWell(
                                           onTap: () {
                                             Get.to(() => const Physiotherapy());
@@ -702,8 +694,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                   const SizedBox(
                                                     height: 10,
                                                   ),
-                                                   Text(
-                                                      'physioTherapy'.tr,
+                                                  Text('physioTherapy'.tr,
                                                       style: const TextStyle(
                                                         fontSize: 7,
                                                         fontWeight:
@@ -736,8 +727,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                   const SizedBox(
                                                     height: 10,
                                                   ),
-                                               Text(
-                                                      'certificates'.tr,
+                                                  Text('certificates'.tr,
                                                       style: const TextStyle(
                                                         fontSize: 7,
                                                         fontWeight:
@@ -770,8 +760,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                   const SizedBox(
                                                     height: 10,
                                                   ),
-                                                 Text(
-                                                      'bedHistory'.tr,
+                                                  Text('bedHistory'.tr,
                                                       style: const TextStyle(
                                                         fontSize: 7,
                                                         fontWeight:
@@ -784,7 +773,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         ),
                                         InkWell(
                                           onTap: () {
-                                            Get.to(() =>  const Liveconsultation());
+                                            Get.to(
+                                                () => const Liveconsultation());
                                           },
                                           child: Container(
                                             width: 100,
@@ -807,8 +797,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                   const SizedBox(
                                                     height: 10,
                                                   ),
-                                                   Text(
-                                                      'liveConsultations'.tr,
+                                                  Text('liveConsultations'.tr,
                                                       style: const TextStyle(
                                                         fontSize: 7,
                                                         fontWeight:

@@ -3,7 +3,6 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:TezHealthCare/Payment_gateway/cancel_payment.dart';
-import 'package:TezHealthCare/Payment_gateway/payment_seccessfull.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:http/http.dart' as http;
@@ -23,13 +22,9 @@ import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SelectPaymentMethod extends StatefulWidget {
-  final double totalAmountInRs;
-  final int totalAmountInpaisa;
-  const SelectPaymentMethod(
-      {Key? key,
-      required this.totalAmountInRs,
-      required this.totalAmountInpaisa})
-      : super(key: key);
+ final  double totalAmountInRs;
+ final  int totalAmountInpaisa;
+    const SelectPaymentMethod({Key? key, required this.totalAmountInRs, required this.totalAmountInpaisa}) : super(key: key);
 
   @override
   _SelectPaymentMethodState createState() => _SelectPaymentMethodState();
@@ -182,161 +177,37 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
     }
   }
 
-  void onSuccess(PaymentSuccessModel success)  {
-    debugPrint(
-      success.toString(),
-    );
-    Get.to(() => const PaymentSuccessfullScreen());
-  }
-  //   Dialog(
-  //     shape: RoundedRectangleBorder(
-  //       borderRadius: BorderRadius.circular(16.0),
-  //     ),
-  //     elevation: 0,
-  //     backgroundColor: Colors.white,
-  //     child: contentBox(context),
-  //   );
-  // }
+  void onSuccess(PaymentSuccessModel success) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Payment Successful'),
+          actions: [
+            SimpleDialogOption(
+                child: const Text('OK'),
+                onPressed: () {
+                  setState(() {
+                    referenceId = success.idx;
+                  });
 
-  // contentBox(context) {
-  //   return Container(
-  //     height: height / 1.7,
-  //     child: Center(
-  //       child: Padding(
-  //         padding: const EdgeInsets.all(10.0),
-  //         child: Column(
-  //           children: [
-  //             const Padding(
-  //               padding: EdgeInsets.all(15.0),
-  //               child: Center(
-  //                   child: Text(
-  //                 'Payment Successfull!',
-  //                 style: TextStyle(
-  //                     fontSize: 20,
-  //                     color: Colors.green,
-  //                     fontWeight: FontWeight.bold),
-  //               )),
-  //             ),
-  //             Container(
-  //                 width: width / 3,
-  //                 height: height / 7,
-  //                 child: Lottie.asset('assets/done.json')),
-  //             const Padding(
-  //               padding: EdgeInsets.only(left: 25.0, right: 20),
-  //               child: Row(
-  //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                 children: [
-  //                   Column(
-  //                     crossAxisAlignment: CrossAxisAlignment.start,
-  //                     children: [
-  //                       Text(
-  //                         'Payment Mode',
-  //                         style: TextStyle(fontWeight: FontWeight.bold),
-  //                       ),
-  //                       SizedBox(
-  //                         height: 10,
-  //                       ),
-  //                       Text('Mobile',
-  //                           style: TextStyle(fontWeight: FontWeight.bold)),
-  //                       SizedBox(
-  //                         height: 10,
-  //                       ),
-  //                       Text('Email',
-  //                           style: TextStyle(fontWeight: FontWeight.bold)),
-  //                       SizedBox(
-  //                         height: 10,
-  //                       ),
-  //                       Text('Amount Paid',
-  //                           style: TextStyle(
-  //                               fontWeight: FontWeight.bold, fontSize: 17)),
-  //                       SizedBox(
-  //                         height: 10,
-  //                       ),
-  //                       Text('Transaction id',
-  //                           style: TextStyle(fontWeight: FontWeight.bold)),
-  //                     ],
-  //                   ),
-  //                   Column(
-  //                     crossAxisAlignment: CrossAxisAlignment.start,
-  //                     children: [
-  //                       Text('Net Banking',
-  //                           style: TextStyle(fontWeight: FontWeight.bold)),
-  //                       SizedBox(
-  //                         height: 10,
-  //                       ),
-  //                       Text('977 3232 4343',
-  //                           style: TextStyle(fontWeight: FontWeight.bold)),
-  //                       SizedBox(
-  //                         height: 10,
-  //                       ),
-  //                       Text('abc@gmail.com',
-  //                           style: TextStyle(fontWeight: FontWeight.bold)),
-  //                       SizedBox(
-  //                         height: 10,
-  //                       ),
-  //                       Text('5000',
-  //                           style: TextStyle(
-  //                               fontWeight: FontWeight.bold, fontSize: 17)),
-  //                       SizedBox(
-  //                         height: 10,
-  //                       ),
-  //                       Text('12123434',
-  //                           style: TextStyle(fontWeight: FontWeight.bold)),
-  //                     ],
-  //                   )
-  //                 ],
-  //               ),
-  //             ),
-  //             const SizedBox(
-  //               height: 30,
-  //             ),
-  //             Padding(
-  //               padding: const EdgeInsets.all(10.0),
-  //               child: Row(
-  //                 mainAxisAlignment: MainAxisAlignment.center,
-  //                 crossAxisAlignment: CrossAxisAlignment.center,
-  //                 children: [
-  //                   Container(
-  //                       width: width / 4,
-  //                       child: ElevatedButton(
-  //                         onPressed: () {},
-  //                         child: const Text('Save'),
-  //                         style: ButtonStyle(
-  //                           backgroundColor:
-  //                               MaterialStateProperty.all(darkYellow),
-  //                         ),
-  //                       )),
-  //                   const SizedBox(
-  //                     width: 20,
-  //                   ),
-  //                   Container(
-  //                       width: width / 4,
-  //                       child: ElevatedButton(
-  //                           onPressed: () {},
-  //                           child: const Text('Close'),
-  //                           style: ButtonStyle(
-  //                             backgroundColor:
-  //                                 MaterialStateProperty.all(darkYellow),
-  //                           ))),
-  //                 ],
-  //               ),
-  //             )
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
+                  Navigator.pop(context);
+                })
+          ],
+        );
+      },
+    );
+  }
 
   void onFailure(PaymentFailureModel failure) {
     debugPrint(
       failure.toString(),
     );
-   Get.dialog(const CancelPaymentScreen(
-      title: 'Cancelled',
-      btnnName: "OK",
-      message: "payment Cancelled",
-    ));
+    Get.to(() => const CancelPaymentScreen(
+          title: 'Cancelled',
+          btnnName: "Save",
+          message: "payment Cancelled",
+        ));
   }
 
   void onCancel() {
@@ -367,7 +238,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
       }, // Prevent default back button behavior
       child: Scaffold(
           appBar: AppBar(
-            title: Text('selectAnyOnePayment'.tr),
+            title:  Text('selectAnyOnePayment'.tr),
             centerTitle: true,
             backgroundColor: darkYellow,
             leading: IconButton(
@@ -414,11 +285,11 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                             Container(
                               width: width,
                               height: height / 6,
-                              child: Card(
+                              child:  Card(
                                 color: Colors.white70,
                                 child: Column(
                                   children: [
-                                    Row(
+                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
@@ -439,7 +310,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                             ],
                                           ),
                                         ),
-                                        Padding(
+                                         Padding(
                                           padding: const EdgeInsets.only(
                                               right: 20,
                                               top: 10,
@@ -507,7 +378,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                           right: 20, left: 10, bottom: 10),
                                       child: Divider(
                                         height: 2,
-                                        color: Colors.black,
+                                        color: Colors.black54,
                                       ),
                                     ),
                                     Row(
@@ -515,8 +386,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 10.0),
+                                          padding: const EdgeInsets.only(left: 10.0),
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -532,7 +402,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                             ],
                                           ),
                                         ),
-                                        Padding(
+                                         Padding(
                                           padding: const EdgeInsets.only(
                                               right: 20, left: 10, bottom: 10),
                                           child: Column(
@@ -560,14 +430,15 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                             Container(
                               child: Row(
                                 children: [
-                                  Text(
+                                   Text(
                                     'askTermsAndCondition'.tr,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 12),
                                   ),
                                   TextButton(
-                                      child: Text('termsAndCondition'.tr),
+                                      child:  Text(
+                                          'termsAndCondition'.tr),
                                       onPressed: () {
                                         showModalBottomSheet<void>(
                                           isScrollControlled: true,
@@ -633,7 +504,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                               width: double.infinity,
                               height: 50,
                               child: MyButton(
-                                title: Text('proceed'.tr),
+                                title:  Text('proceed'.tr),
                                 onPressed: () {
                                   navigateToSelectedPage();
                                 },

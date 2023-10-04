@@ -169,7 +169,6 @@ class EnString {
   //Therapy screen
   static const String Date = "Date";
   //help center
-  // static const String helpCenter = "Help Center";
 
   static const String Liveconsultation = "Liveconsultation";
 
