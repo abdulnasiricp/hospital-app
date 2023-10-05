@@ -3,6 +3,7 @@
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 class PaymentSuccessfullScreen extends StatelessWidget {
@@ -136,7 +137,9 @@ class PaymentSuccessfullScreen extends StatelessWidget {
                     Container(
                         width: width / 4,
                         child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.back();
+                            },
                             child: const Text('Close'),
                             style: ButtonStyle(
                               backgroundColor:

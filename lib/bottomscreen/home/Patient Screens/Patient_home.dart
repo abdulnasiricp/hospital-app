@@ -104,7 +104,7 @@ getAllData()async{
       'Auth-key': 'zbuks_ram859553467',
     };
     final body = {
-      'patient_id': '10380',
+      // 'patient_id': '10380',
     };
 
     try {

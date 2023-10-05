@@ -9,6 +9,7 @@ import 'package:TezHealthCare/bottomscreen/Profile/Information_profile.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/Setting/Setting_screen.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/help_center.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/profile_model.dart';
+import 'package:TezHealthCare/bottomscreen/Profile/term_and_condition.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -22,7 +23,6 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -110,7 +110,7 @@ class _ProfileState extends State<Profile> {
   late ColorNotifier notifier;
   TextEditingController dateinput = TextEditingController();
 
-
+// InAppWebViewController? webView;
   @override
   Widget build(BuildContext context) {
     notifier = Provider.of<ColorNotifier>(context, listen: true);
@@ -352,10 +352,16 @@ class _ProfileState extends State<Profile> {
                                           ),
                                         ),
                                         InkWell(
-                                          onTap: () async{
+                                          onTap: () async {
                                             // Get.to(() => const TermAndConditionsScreen());
-                                            
-                                           launchUrl(Uri.parse('https://www.google.com/'),mode: LaunchMode.inAppWebView);
+
+                                            //  launchUrl(Uri.parse('https://www.google.com/'),mode: LaunchMode.inAppWebView);
+
+                                            Get.to(() =>
+                                                const TermAndConditionsScreen(
+                                                  url:
+                                                      'https://www.google.com/',
+                                                ));
                                           },
                                           child: ListTile(
                                             leading: SvgPicture.asset(

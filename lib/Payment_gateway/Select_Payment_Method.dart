@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:TezHealthCare/Payment_gateway/cancel_payment.dart';
+import 'package:TezHealthCare/Payment_gateway/payment_seccessfull.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:http/http.dart' as http;
@@ -93,7 +94,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
     KhaltiScope.of(context).pay(
       config: PaymentConfig(
         amount: widget.totalAmountInpaisa, //in paisa
-        productIdentity: "Patient_id",
+        productIdentity: patientID,
         productName: "username",
         mobileReadOnly: false,
       ),
@@ -110,7 +111,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
     KhaltiScope.of(context).pay(
       config: PaymentConfig(
         amount: widget.totalAmountInpaisa, //in paisa
-        productIdentity: "Patient_id",
+        productIdentity: patientID,
         productName: "username",
         mobileReadOnly: false,
       ),
@@ -131,8 +132,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
         merchantCode: "MERCHANT_CODE",
         merchantName: "username",
         merchantUrl: "MERCHANT_URL",
-        amount: 105225,
-        refId: "Patient_id",
+        amount: widget.totalAmountInpaisa,
+        refId: patientID,
         module: "MODULE",
         user: "USER",
         password: "PASSWORD",
@@ -153,9 +154,9 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
         eSewaConfig: ESewaConfig.dev(
           // .live for live
           su: 'https://www.marvel.com/hello',
-          amt: 1000,
+          amt: widget.totalAmountInpaisa,
           fu: 'https://www.marvel.com/hello',
-          pid: '1212',
+          pid: patientID,
           // scd: dotenv.env['ESEWA_SCD']!
         ));
     // final result = await fakeEsewa();
@@ -178,6 +179,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
   }
 
   void onSuccess(PaymentSuccessModel success) {
+    Get.to(()=>const PaymentSuccessfullScreen());
     showDialog(
       context: context,
       builder: (context) {
