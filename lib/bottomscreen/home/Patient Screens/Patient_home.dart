@@ -37,47 +37,47 @@ class PatientHomePage extends StatefulWidget {
 }
 
 class _PatientHomePageState extends State<PatientHomePage> {
+  /////////////////////////////////////////
+  //convert rupess to paisa
   final double rupeesAmount = 1050; // Replace this with your rupees amount
 
   int convertRupeesToPaisa() {
     return (rupeesAmount * 100).toInt();
   }
+  /////////////////////////////////////////
 
-  String role = '';
-  String username = '';
-  String record = '';
-  String genderrecord = '';
-  bool isLoading = true;
-  String Patient_id = '';
-  Map<String, dynamic>? DataMap;
-  Map<String, dynamic>? DoneDataMap;
-  List<dynamic>? DoneListData = [];
+  ///////////////////////////////////////////////////////////////
+// init state data and dispose 
 
+  // getAllData() async {
+   
+  // }
 
-getAllData()async{
-  await   fetchData();
-
-    convertRupeesToPaisa();
-   await LoadData();
-
-   await hitApi();
-
-}
   @override
   void initState() {
     super.initState();
-      fetchData();
-    convertRupeesToPaisa();
-    LoadData();
+     convertRupeesToPaisa();
+     LoadData();
+     fetchData();
 
-   hitApi();
-
+     hitApi();
+    // getAllData;
   }
 
   @override
   void dispose() {
     super.dispose();
   }
+///////////////////////////////////////////////////////////////////
+  //get Shared preferance data 
+
+  String role = '';
+  String caseId = '';
+  String username = '';
+  String record = '';
+  String genderrecord = '';
+  bool isLoading = true;
+  String Patient_id = '';
 
   LoadData() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -87,21 +87,22 @@ getAllData()async{
       record = sharedPreferences.getString('record') ?? '';
       genderrecord = sharedPreferences.getString('genderrecord') ?? '';
       Patient_id = sharedPreferences.getString('patientidrecord') ?? '';
+      caseId = sharedPreferences.getString('caseId') ?? '';
     });
   }
 
+///////////////////////////////////////////////////////////////////
+// get Due amount
   Map<String, dynamic>? apiData;
 
-
-
   Future<void> fetchData() async {
-    final url = Uri.parse('https://uat.tez.hospital/xzy/webservice/get_dues');
+    final url = Uri.parse(ApiLinks.getDues);
     final headers = {
       'Soft-service': 'TezHealthCare',
       'Auth-key': 'zbuks_ram859553467',
     };
     final body = {
-      'patient_id': '10380',
+      'patient_id': Patient_id,
     };
 
     try {
@@ -120,16 +121,12 @@ getAllData()async{
       print('Error: $error');
     }
   }
+///////////////////////////////////////////////////////
 
-
-
-
-
-
-
-
-
-
+// get All Doctors
+  Map<String, dynamic>? DataMap;
+  Map<String, dynamic>? DoneDataMap;
+  List<dynamic>? DoneListData = [];
 
   Future<void> hitApi() async {
     try {
@@ -147,7 +144,7 @@ getAllData()async{
         DoneListData = DataMap!['doctors'];
         isLoading = false; // Set isLoading to false after successful response
       } else {
-        print('Error getting Products: ${response.statusCode}');
+        print('Error getting doctors: ${response.statusCode}');
         setState(() {
           isLoading = false; // Set isLoading to false in case of error
         });
@@ -160,6 +157,9 @@ getAllData()async{
     }
   }
 
+//////////////////////////////////////////////////////////////////////////////////////
+// Refresh function
+
   Future<void> _handleRefresh() async {
     setState(() {
       isLoading = true; // Set isLoading to true when refreshing
@@ -171,7 +171,7 @@ getAllData()async{
       isLoading = false; // Set isLoading to false after data is fetched
     });
   }
-
+//////////////////////////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
     int paisaAmount = convertRupeesToPaisa();
@@ -270,7 +270,7 @@ getAllData()async{
                                     ),
                                   ),
                                   Text(
-                                    '${'hisNo'.tr} $Patient_id',
+                                    '${'hisNo'.tr} $caseId'.toString(),
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontFamily: 'Gilroy_Bold',
@@ -312,7 +312,7 @@ getAllData()async{
                                               const EdgeInsets.only(left: 30.0),
                                           child: Text(
                                             // 'Rs. $rupeesAmount',
-                                            apiData!['total_dues'],
+                                            apiData?['total_dues'],
                                             style: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.red,

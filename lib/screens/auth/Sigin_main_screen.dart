@@ -25,9 +25,10 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
               padding: const EdgeInsets.only(top: 20),
               child: ButtonsTabBar(
                   height: 50,
-                  unselectedLabelStyle: const TextStyle(color: Colors.black),
+                  
+                  unselectedLabelStyle: const TextStyle(color: Colors.white),
                   backgroundColor: yellow,
-                  unselectedBackgroundColor: darkblue,
+                  unselectedBackgroundColor: whitecolor.withOpacity(0.5),
                   labelStyle: const TextStyle(
                       wordSpacing: 5,
                       color: Colors.white,

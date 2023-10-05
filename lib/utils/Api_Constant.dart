@@ -26,4 +26,6 @@ class ApiLinks {
       "https://uat.tez.hospital/xzy/webservice/getPhysiotherapyDetails";
       static const String getIPDMedication =
       "https://uat.tez.hospital/xzy/webservice/getIpdMedication";
+      static const String getDues=
+      "https://uat.tez.hospital/xzy/webservice/get_dues";
 }

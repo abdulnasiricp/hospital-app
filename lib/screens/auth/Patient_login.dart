@@ -7,7 +7,6 @@ import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:http/http.dart' as http;
 import 'package:TezHealthCare/bottombar/bottombar.dart';
-import 'package:TezHealthCare/utils/My_button.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -32,6 +31,7 @@ class _PatientLoginState extends State<PatientLogin> {
       _isPasswordVisible = !_isPasswordVisible;
     });
   }
+
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
@@ -63,6 +63,7 @@ class _PatientLoginState extends State<PatientLogin> {
       sp.setString('patientidrecord', json['record']['patient_id']).toString();
       sp.setString('usernamerecord', json['record']['username']);
       sp.setString('mobilerecord', json['record']['mobile']).toString();
+      sp.setString('caseId', json['record']['case_id']).toString();
 
       // Navigate to the home screen ERTYU D
       Get.off(() => const Bottomhome());
@@ -85,7 +86,7 @@ class _PatientLoginState extends State<PatientLogin> {
     }
   }
 
-    _loadLoginDateTime() async {
+  _loadLoginDateTime() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       loginDateTime = prefs.getString('loginDateTime') ?? '';
@@ -98,11 +99,12 @@ class _PatientLoginState extends State<PatientLogin> {
     await prefs.setString('loginDateTime', now);
   }
 
-@override
+  @override
   void initState() {
     _loadLoginDateTime();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return isloading
@@ -146,31 +148,34 @@ class _PatientLoginState extends State<PatientLogin> {
                         const SizedBox(
                           height: 5,
                         ),
-                        TextFormField(
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return EnString.enterusername;
-                            }
-                            //  else if (!value.contains('@')) {
-                            //   return 'please enter valid email';
-                            // }
-                            else {
-                              return null;
-                            }
-                          },
-                          keyboardType: TextInputType.emailAddress,
-                          controller: usernameController,
-                          onTapOutside: (event) =>
-                              FocusScope.of(context).unfocus(),
-                          decoration: InputDecoration(
-                              fillColor: Colors.white,
-                              filled: true,
-                              prefixIcon: const Icon(Icons.person),
-                              prefixIconColor: yellow,
-                              hintText: EnString.enterusername,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              )),
+                        Container(
+                          width: width,
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return EnString.enterusername;
+                              }
+                              //  else if (!value.contains('@')) {
+                              //   return 'please enter valid email';
+                              // }
+                              else {
+                                return null;
+                              }
+                            },
+                            keyboardType: TextInputType.emailAddress,
+                            controller: usernameController,
+                            onTapOutside: (event) =>
+                                FocusScope.of(context).unfocus(),
+                            decoration: InputDecoration(
+                                fillColor: Colors.white,
+                                filled: true,
+                                prefixIcon: const Icon(Icons.person),
+                                prefixIconColor: yellow,
+                                hintText: EnString.enterusername,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                )),
+                          ),
                         ),
                         const SizedBox(
                           height: 20,
@@ -183,39 +188,42 @@ class _PatientLoginState extends State<PatientLogin> {
                         const SizedBox(
                           height: 5,
                         ),
-                        TextFormField(
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return EnString.pleaseEnterpassword;
-                            } else {
-                              return null;
-                            }
-                          },
-                          controller: _passwordController,
-                          obscureText: !_isPasswordVisible,
-                          onTapOutside: (event) =>
-                              FocusScope.of(context).unfocus(),
-                          decoration: InputDecoration(
-                              focusColor: yellow,
-                              fillColor: Colors.white,
-                              filled: true,
-                              prefixIcon: const Icon(
-                                Icons.lock,
-                                color: Color(0xfffabd0a),
-                              ),
-                              hintText: 'Enter Password',
-                              suffixIconColor: yellow,
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  _isPasswordVisible
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
+                        Container(
+                          width: width,
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return EnString.pleaseEnterpassword;
+                              } else {
+                                return null;
+                              }
+                            },
+                            controller: _passwordController,
+                            obscureText: !_isPasswordVisible,
+                            onTapOutside: (event) =>
+                                FocusScope.of(context).unfocus(),
+                            decoration: InputDecoration(
+                                focusColor: yellow,
+                                fillColor: Colors.white,
+                                filled: true,
+                                prefixIcon: const Icon(
+                                  Icons.lock,
+                                  color: Color(0xfffabd0a),
                                 ),
-                                onPressed: _togglePasswordVisibility,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              )),
+                                hintText: 'Enter Password',
+                                suffixIconColor: yellow,
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    _isPasswordVisible
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                  ),
+                                  onPressed: _togglePasswordVisibility,
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                )),
+                          ),
                         ),
                         const SizedBox(
                           height: 20,
@@ -241,19 +249,15 @@ class _PatientLoginState extends State<PatientLogin> {
                               ],
                             ),
                             const SizedBox(height: 20.0), // Spacer
-                            InkWell(
-                                onTap: () {
-                                  // Add your Forgot Password functionality here
-                                },
-                                child: TextButton(
-                                  onPressed: () {
-                                    Get.to(() => const Forgotpassword());
-                                  },
-                                  child: const Text(
-                                    EnString.forgotpassword,
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                )),
+                            TextButton(
+                              onPressed: () {
+                                Get.to(() => const Forgotpassword());
+                              },
+                              child: const Text(
+                                EnString.forgotpassword,
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
                           ],
                         ),
                         const SizedBox(
@@ -262,18 +266,20 @@ class _PatientLoginState extends State<PatientLogin> {
                         Container(
                           width: double.infinity,
                           height: 50,
-                          child: MyButton(
-                            title: const Text(EnString.login),
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(yellow),
+                            ),
+                            child: const Text(EnString.login),
                             onPressed: () {
                               if (formKey.currentState!.validate()) {
-                               
                                 _login();
                                 _saveLoginDateTime();
-                _loadLoginDateTime();
+                                _loadLoginDateTime();
                                 setState(() {
                                   isloading = true;
-                                }
-                                );
+                                });
                               }
                             },
                           ),

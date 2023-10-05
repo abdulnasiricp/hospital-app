@@ -7,7 +7,6 @@ import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:http/http.dart' as http;
 import 'package:TezHealthCare/bottombar/bottombar.dart';
-import 'package:TezHealthCare/utils/My_button.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -145,31 +144,35 @@ class _DoctorLoginState extends State<DoctorLogin> {
                         const SizedBox(
                           height: 5,
                         ),
-                        TextFormField(
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return EnString.enterusername;
-                            }
-                            //  else if (!value.contains('@')) {
-                            //   return 'please enter valid email';
-                            // }
-                            else {
-                              return null;
-                            }
-                          },
-                          keyboardType: TextInputType.emailAddress,
-                          controller: usernameController,
-                          onTapOutside: (event) =>
-                              FocusScope.of(context).unfocus(),
-                          decoration: InputDecoration(
-                              fillColor: Colors.white,
-                              filled: true,
-                              prefixIcon: const Icon(Icons.person),
-                              prefixIconColor: yellow,
-                              hintText: EnString.enterusername,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              )),
+                        Container(
+                          width: width,
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return EnString.enterusername;
+                              }
+                              //  else if (!value.contains('@')) {
+                              //   return 'please enter valid email';
+                              // }
+                              else {
+                                return null;
+                              }
+                            },
+                            keyboardType: TextInputType.emailAddress,
+                            controller: usernameController,
+                            onTapOutside: (event) =>
+                                FocusScope.of(context).unfocus(),
+                            decoration: InputDecoration(
+                                fillColor: Colors.white,
+                                filled: true,
+                                prefixIcon: const Icon(Icons.person),
+                                prefixIconColor: yellow,
+                                suffixIconColor: yellow,
+                                hintText: EnString.enterusername,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                )),
+                          ),
                         ),
                         const SizedBox(
                           height: 20,
@@ -182,38 +185,41 @@ class _DoctorLoginState extends State<DoctorLogin> {
                         const SizedBox(
                           height: 5,
                         ),
-                        TextFormField(
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return EnString.pleaseEnterpassword;
-                            } else {
-                              return null;
-                            }
-                          },
-                          controller: _passwordController,
-                          obscureText: !_isPasswordVisible,
-                          onTapOutside: (event) =>
-                              FocusScope.of(context).unfocus(),
-                          decoration: InputDecoration(
-                              fillColor: Colors.white,
-                              focusColor: yellow,
-                              filled: true,
-                              prefixIcon: const Icon(
-                                Icons.lock,
-                                color: Color(0xfffabd0a),
-                              ),
-                              hintText: EnString.password,
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  _isPasswordVisible
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
+                        Container(
+                          width: width,
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return EnString.pleaseEnterpassword;
+                              } else {
+                                return null;
+                              }
+                            },
+                            controller: _passwordController,
+                            obscureText: !_isPasswordVisible,
+                            onTapOutside: (event) =>
+                                FocusScope.of(context).unfocus(),
+                            decoration: InputDecoration(
+                                fillColor: Colors.white,
+                                focusColor: yellow,
+                                filled: true,
+                                prefixIcon: const Icon(
+                                  Icons.lock,
+                                  color: Color(0xfffabd0a),
                                 ),
-                                onPressed: _togglePasswordVisibility,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              )),
+                                hintText: EnString.password,
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    _isPasswordVisible
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                  ),
+                                  onPressed: _togglePasswordVisibility,
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                )),
+                          ),
                         ),
                         const SizedBox(
                           height: 20,
@@ -261,12 +267,12 @@ class _DoctorLoginState extends State<DoctorLogin> {
                         Container(
                           width: double.infinity,
                           height: 50,
-                          child: MyButton(
-                            title:
-                                //  isloading
-                                //     ? const CircularProgressIndicator(color: Colors.white,)
-                                // :
-                                const Text(EnString.login),
+                          child:ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(yellow),
+                            ),
+                            child: const Text(EnString.login),
                             onPressed: () {
                               if (formKey.currentState!.validate()) {
                                
