@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_this
+
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -36,7 +38,7 @@ class _TermAndConditionsScreenState extends State<TermAndConditionsScreen> {
                     backgroundColor: Colors.black,
                   ),
                 )
-              : SizedBox(),
+              : const SizedBox(),
           Expanded(
             child: InAppWebView(
               initialUrlRequest: URLRequest(url: Uri.parse(widget.url)),

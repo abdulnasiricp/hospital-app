@@ -208,64 +208,108 @@ class _PharmacyState extends State<Pharmacy> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(
-                                            "${Pharmacybill['id']}",
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          InkWell(
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(3.0),
-                                              child: Text(
-                                                "${Pharmacybill['Medicine']}",
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          InkWell(
-                                            onTap: () {
-                                              Get.to(
-                                                () => Pharmacybillprint(
-                                                  bill_pdf:
-                                                      "${Pharmacybill['bill_pdf']}", // Use 'id' as the Pharmacybill ID
-                                                  id: "${Pharmacybill['id']}",
-                                                ),
-                                              );
-                                            },
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                color: Pharmacybill['status'] ==
-                                                        'Paid'
-                                                    ? Colors.green
-                                                    : Colors.red,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(3.0),
-                                                child: Text(
-                                                  // listName,
-                                                  "${Pharmacybill['status']}",
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                width: width/10,
+                                                child: Center(
+                                                  child: Text(
+                                                    "${Pharmacybill['id']}",
+                                                    style: const TextStyle(
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
+                                            ],
                                           ),
-                                          Text(
-                                            // 'Rs.${item.total}',
-                                            "${Pharmacybill['net_amount']}", // Use 'net_amount' for the amount
-                                            style: const TextStyle(
-                                              color: Colors.red,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                width: width/3.5,
+                                                child: InkWell(
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.all(3.0),
+                                                    child: Center(
+                                                      child: Text(
+                                                        "${Pharmacybill['Medicine']}",
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow.ellipsis,
+                                                        style: const TextStyle(
+                                                          fontWeight: FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                width: width/6,
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    Get.to(
+                                                      () => Pharmacybillprint(
+                                                        bill_pdf:
+                                                            "${Pharmacybill['bill_pdf']}", // Use 'id' as the Pharmacybill ID
+                                                        id: "${Pharmacybill['id']}",
+                                                      ),
+                                                    );
+                                                  },
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      color: Pharmacybill['status'] ==
+                                                              'Paid'
+                                                          ? Colors.green
+                                                          : Colors.red,
+                                                      borderRadius:
+                                                          BorderRadius.circular(5.0),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(3.0),
+                                                      child: Center(
+                                                        child: Text(
+                                                          // listName,
+                                                          "${Pharmacybill['status']}",
+                                                          style: const TextStyle(
+                                                            fontWeight: FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                width: width/7,
+                                                child: Center(
+                                                  child: Text(
+                                                    // 'Rs.${item.total}',
+                                                    "${Pharmacybill['net_amount']}", // Use 'net_amount' for the amount
+                                                    style: const TextStyle(
+                                                      color: Colors.red,
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),

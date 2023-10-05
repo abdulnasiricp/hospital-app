@@ -109,7 +109,7 @@ class _RadiologyState extends State<Radiology> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title:  Text('Radiology'.tr),
+        title: Text('Radiology'.tr),
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
@@ -121,30 +121,83 @@ class _RadiologyState extends State<Radiology> {
               color: Colors.grey,
               width: width,
               height: height / 20,
-              child:  Padding(
+              child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'billno'.tr,
-                      style:
-                          const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    // Text(
+                    //   'billno'.tr,
+                    //   style: const TextStyle(
+                    //       fontWeight: FontWeight.bold, fontSize: 15),
+                    // ),
+                      Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: width / 8,
+                          child: Text(
+                            'billno'.tr,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                        ),
+                      ],
                     ),
-                    Text(
-                      'Payment'.tr,
-                      style:
-                          const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: width / 5,
+                          child: Text(
+                            'Payment'.tr,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                        ),
+                      ],
                     ),
-                    Text(
-                      'Report'.tr,
-                      style:
-                          const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                      Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: width / 5,
+                          child: Text(
+                          'Report'.tr,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                        ),
+                      ],
                     ),
-                    Text(
-                      'amount'.tr,
-                      style:
-                          const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    // Text(
+                    //   'Report'.tr,
+                    //   style: const TextStyle(
+                    //       fontWeight: FontWeight.bold, fontSize: 15),
+                    // ),
+                    // Text(
+                    //   'amount'.tr,
+                    //   style: const TextStyle(
+                    //       fontWeight: FontWeight.bold, fontSize: 15),
+                    // ),
+                      Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: width /5 ,
+                          child: Center(
+                            child: Text(
+                              'amount'.tr,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 15),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -215,105 +268,159 @@ class _RadiologyState extends State<Radiology> {
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
-                                          InkWell(
-                                            onTap: () {
-                                              if (Pathologybill['status'] ==
-                                                  'Paid') {
-                                                Get.to(
-                                                  () => pathologyBillview(
-                                                    bill_pdf:
-                                                        "${Pathologybill['bill_pdf']}", // Use 'id' as the Pathologybill ID
-                                                    id: "${Pathologybill['id']}",
-                                                  ),
-                                                );
-                                              } else {
-                                                // Handle the tap event for 'UnPaid' status
-                                                Get.to(
-                                                      () => pathologyBillview(
-                                                    bill_pdf:
-                                                    "${Pathologybill['bill_pdf']}", // Use 'id' as the Pathologybill ID
-                                                    id: "${Pathologybill['id']}",
-                                                  ),
-                                                );
-                                              }
-                                            },
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    Pathologybill['status'] ==
-                                                            'Paid'
-                                                        ? Colors.green
-                                                        : Colors.red,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(3.0),
-                                                child: Text(
-                                                  // listName,
-                                                  "${Pathologybill['status']}",
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                width: width / 8,
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    if (Pathologybill[
+                                                            'status'] ==
+                                                        'Paid') {
+                                                      Get.to(
+                                                        () => pathologyBillview(
+                                                          bill_pdf:
+                                                              "${Pathologybill['bill_pdf']}", // Use 'id' as the Pathologybill ID
+                                                          id: "${Pathologybill['id']}",
+                                                        ),
+                                                      );
+                                                    } else {
+                                                      // Handle the tap event for 'UnPaid' status
+                                                      Get.to(
+                                                        () => pathologyBillview(
+                                                          bill_pdf:
+                                                              "${Pathologybill['bill_pdf']}", // Use 'id' as the Pathologybill ID
+                                                          id: "${Pathologybill['id']}",
+                                                        ),
+                                                      );
+                                                    }
+                                                  },
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      color: Pathologybill[
+                                                                  'status'] ==
+                                                              'Paid'
+                                                          ? Colors.green
+                                                          : Colors.red,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5.0),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              3.0),
+                                                      child: Center(
+                                                        child: Text(
+                                                          // listName,
+                                                          "${Pathologybill['status']}",
+                                                          style:
+                                                              const TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
+                                            ],
                                           ),
-                                          InkWell(
-                                            onTap: () {
-                                              if (Pathologybill['is_printed'] ==
-                                                  '1') {
-                                                Get.to(
-                                                      () => RadiologyReportview(
-                                                    report_pdf:
-                                                    "${Pathologybill['report_pdf']}",
-                                                    id: "${Pathologybill['id']}",
-                                                  ),
-                                                );
-                                              } else {
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  const SnackBar(
-                                                    content: Text(
-                                                        "Radiology report is currently printing. Please stay tuned."),
-                                                    backgroundColor: Colors.red,
-                                                  ),
-                                                );
-                                              }
-                                            },
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                color: Pathologybill[
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                width: width / 4,
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    if (Pathologybill[
                                                             'is_printed'] ==
-                                                        '1'
-                                                    ? Colors.green
-                                                    : Colors.yellowAccent,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(3.0),
-                                                child: Text(
-                                                  Pathologybill['is_printed'] ==
-                                                          '1'
-                                                      ? 'Report Printed'
-                                                      : 'Processing',
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
+                                                        '1') {
+                                                      Get.to(
+                                                        () =>
+                                                            RadiologyReportview(
+                                                          report_pdf:
+                                                              "${Pathologybill['report_pdf']}",
+                                                          id: "${Pathologybill['id']}",
+                                                        ),
+                                                      );
+                                                    } else {
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                        const SnackBar(
+                                                          content: Text(
+                                                              "Radiology report is currently printing. Please stay tuned."),
+                                                          backgroundColor:
+                                                              Colors.red,
+                                                        ),
+                                                      );
+                                                    }
+                                                  },
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      color: Pathologybill[
+                                                                  'is_printed'] ==
+                                                              '1'
+                                                          ? Colors.green
+                                                          : Colors.yellowAccent,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5.0),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              3.0),
+                                                      child: Center(
+                                                        child: Text(
+                                                          Pathologybill[
+                                                                      'is_printed'] ==
+                                                                  '1'
+                                                              ? 'Report Printed'
+                                                              : 'Processing',
+                                                          style:
+                                                              const TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
+                                            ],
                                           ),
-                                          Text(
-                                            // 'Rs.${item.total}',
-                                            "${Pathologybill['net_amount']}", // Use 'net_amount' for the amount
-                                            style: const TextStyle(
-                                              color: Colors.red,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                width: width / 7,
+                                                child: Center(
+                                                  child: Text(
+                                                    // 'Rs.${item.total}',
+                                                    "${Pathologybill['net_amount']}", // Use 'net_amount' for the amount
+                                                    style: const TextStyle(
+                                                      color: Colors.red,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),

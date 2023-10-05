@@ -67,7 +67,6 @@ getAllData()async{
   void initState() {
     super.initState();
       fetchData();
-
     convertRupeesToPaisa();
     LoadData();
 
@@ -91,9 +90,7 @@ getAllData()async{
     });
   }
 
-  //Due Amount Fatch
-
-  Map<String, dynamic> responseData = {};
+  Map<String, dynamic>? apiData;
 
 
 
@@ -104,29 +101,23 @@ getAllData()async{
       'Auth-key': 'zbuks_ram859553467',
     };
     final body = {
-      // 'patient_id': '10380',
+      'patient_id': '10380',
     };
 
     try {
-      final response = await http.post(
-        url,
-        headers: headers,
-        body: body,
-      );
-
+      final response = await http.post(url, headers: headers, body: body);
       if (response.statusCode == 200) {
-        final Map<String, dynamic> data = json.decode(response.body);
-        print(data);
+        final data = json.decode(response.body);
         setState(() {
-          responseData = data;
+          apiData = data['result'];
         });
       } else {
-        // Handle the error, e.g., show an error message
-        print('Failed to load data: ${response.statusCode}');
+        // Handle error
+        print('Request failed with status: ${response.statusCode}');
       }
-    } catch (e) {
+    } catch (error) {
       // Handle network or other errors
-      print('Error: $e');
+      print('Error: $error');
     }
   }
 
@@ -321,7 +312,7 @@ getAllData()async{
                                               const EdgeInsets.only(left: 30.0),
                                           child: Text(
                                             // 'Rs. $rupeesAmount',
-                                            responseData['total_dues'].toString(),
+                                            apiData!['total_dues'],
                                             style: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.red,
