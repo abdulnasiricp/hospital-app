@@ -196,6 +196,15 @@ class Translation extends Translations {
           'enterEmail':'Enter Email Address',
           'relationship':'Relationship',
 
+           //IPD screen
+          'medication':'Medication',
+          'mid':'Mid',
+          'medicine':'Medicine',
+          'dose':'Dose',
+          'frequency':'Frequency',
+          'No. D':'No. D',
+
+
 
 
 

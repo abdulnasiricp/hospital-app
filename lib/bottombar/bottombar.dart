@@ -76,38 +76,44 @@ class _BottomhomeState extends State<Bottomhome> {
             curve: Curves.easeInOut,
             selectedItemColor: notifier.getwihitecolor,
             currentIndex: _selectedIndex,
+
             items: [
-              SalomonBottomBarItem(
+
+              SalomonBottomBarItem( 
                 icon: Image.asset("assets/home.png",
-                    height: height / 30, color: notifier.getwihitecolor),
-                title: Text(
-                  'home'.tr,
-                  style: TextStyle(
-                      fontSize: 12.sp,
-                      color: notifier.getwihitecolor,
-                      fontFamily: 'Gilroy_Bold'),
+                    height: height / 28, color: notifier.getwihitecolor),
+                title: Align(alignment: Alignment.topCenter,
+                  child: Text(
+                    'home'.tr,
+                    style: TextStyle(
+                        fontSize: 16.sp,
+                        color: notifier.getwihitecolor,
+                        fontFamily: 'Gilroy_Bold'),
+                  ),
                 ),
                 selectedColor: notifier.getwihitecolor,
+                
               ),
               SalomonBottomBarItem(
                 icon: SvgPicture.asset('assets/transaction.svg',
-                    height: height / 30, color: notifier.getwihitecolor),
+                    height: height / 28, color: notifier.getwihitecolor),
                 title: Text(
                   'transcation'.tr,
                   style: TextStyle(
-                      fontSize: 12.sp,
+                      fontSize: 16.sp,
                       color: notifier.getwihitecolor,
                       fontFamily: 'Gilroy_Bold'),
                 ),
                 selectedColor: notifier.getwihitecolor,
+
               ),
               SalomonBottomBarItem(
                 icon: SvgPicture.asset('assets/card.svg',
-                    height: height / 30, color: notifier.getwihitecolor),
+                    height: height / 28, color: notifier.getwihitecolor),
                 title: Text(
                   'card'.tr,
                   style: TextStyle(
-                      fontSize: 12.sp,
+                      fontSize: 16.sp,
                       color: notifier.getwihitecolor,
                       fontFamily: 'Gilroy_Bold'),
                 ),
@@ -115,11 +121,11 @@ class _BottomhomeState extends State<Bottomhome> {
               ),
               SalomonBottomBarItem(
                 icon: Image.asset("assets/profile.png",
-                    height: height / 30, color: notifier.getwihitecolor),
+                    height: height / 28, color: notifier.getwihitecolor),
                 title: Text(
                   'profile'.tr,
                   style: TextStyle(
-                      fontSize: 12.sp,
+                      fontSize: 16.sp,
                       color: notifier.getwihitecolor,
                       fontFamily: 'Gilroy_Bold'),
                 ),

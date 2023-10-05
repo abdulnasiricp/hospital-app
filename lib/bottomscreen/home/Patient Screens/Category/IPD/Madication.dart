@@ -217,40 +217,90 @@ class _MedicationScreenState extends State<MedicationScreen> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(
-                                          (index+1).toString(),
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
+                                          // Text(
+                                          // (index+1).toString(),
+                                          //   style: const TextStyle(
+                                          //     fontWeight: FontWeight.bold,
+                                          //   ),
+                                          // ),
+                                         Column(
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: width/15,
+
+                                                  child: Text(
+                                                     (index+1).toString(),
+                                                    style: const TextStyle(
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                          ),
-                                            Text(
-                                            "${MedicationData['medicine_name']}",
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
+                                           Column(
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: width/5,
+                                                  child: Text(
+                                                   "${MedicationData['medicine_name']}",
+                                                    style: const TextStyle(
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                          ),
-                                            Text(
-                                            "${MedicationData['medicine_dosage_id']}",
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
+                                             Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: width/10,
+                                                  child: Text(
+                                                  "${MedicationData['medicine_dosage_id']}",
+                                                    style: const TextStyle(
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                          ),
-                                            Text(
-                                            "${MedicationData['dose_interval_id']}",
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
+                                          Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: width/8,
+                                                  child: Text(
+                                                   "${MedicationData['dose_interval_id']}",
+                                                    style: const TextStyle(
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                          ),
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: width/15,
+                                                  child: Text(
+                                                  "${MedicationData['dose_duration_id']}",
+                                                    style: const TextStyle(
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           
-                                          Text(
-                                            // 'Rs.${item.total}',
-                                            "${MedicationData['dose_duration_id']}",
-                                            // Use 'net_amount' for the amount
-                                            style: const TextStyle(
-                                              color: Colors.red,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
+                                       
                                         ],
                                       ),
                                     ),

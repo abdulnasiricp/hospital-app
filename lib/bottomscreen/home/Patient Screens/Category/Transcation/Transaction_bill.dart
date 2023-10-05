@@ -97,10 +97,9 @@ class _TransactionBillState extends State<TransactionBill> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Text('transactionBill'.tr),
+        title: Text('transactionBill'.tr),
         centerTitle: true,
         backgroundColor: darkYellow,
-
       ),
       body: RefreshIndicator(
         onRefresh: _handleRefresh,
@@ -113,22 +112,27 @@ class _TransactionBillState extends State<TransactionBill> {
               padding: const EdgeInsets.all(10.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
                     'tid'.tr,
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 15),
                   ),
                   Text(
-                  'section'.tr,
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    'section'.tr,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 15),
                   ),
                   Text(
-                'billno'.tr,
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    'billno'.tr,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 15),
                   ),
                   Text(
                     'amount'.tr,
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 15),
                   ),
                 ],
               ),
@@ -219,33 +223,69 @@ class _TransactionBillState extends State<TransactionBill> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text(
-                                              "${transaction['id']}",
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: width / 6,
+                                                  child: Text(
+                                                    "${transaction['id']}",
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            Text(
-                                              // listName,
-                                              "${transaction['section']}",
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: width / 6,
+                                                  child: Text(
+                                                    "${transaction['section']}",
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            Text(
-                                              // item.id.toString(),
-                                              "${transaction['bill_no']}",
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: width / 6,
+                                                  child: Text(
+                                                    "${transaction['bill_no']}",
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            Text(
-                                              // 'Rs.${item.total}',
-                                              "${transaction['amount']}",
-                                              style: const TextStyle(
-                                                color: Colors.red,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: width / 6,
+                                                  child: Text(
+                                                    "${transaction['amount']}",
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
@@ -273,7 +313,7 @@ class _TransactionBillState extends State<TransactionBill> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                       Text('total'.tr,
+                      Text('total'.tr,
                           style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
