@@ -1,7 +1,10 @@
 
+import 'dart:developer';
+
 import 'package:TezHealthCare/language_Services/translation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:TezHealthCare/Controller/loginController.dart';
 import 'package:TezHealthCare/Splash_Screen.dart';
@@ -13,10 +16,36 @@ import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+FlutterLocalNotificationsPlugin notificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+ 
+
   await FlutterDownloader.initialize(debug: true); // Set to false in production
+
+    AndroidInitializationSettings androidSettings =
+      const AndroidInitializationSettings("@mipmap/ic_launcher");
+  DarwinInitializationSettings iosSettings = const DarwinInitializationSettings(
+      requestAlertPermission: true,
+      requestBadgePermission: true,
+      requestCriticalPermission: true,
+      requestSoundPermission: true);
+
+
+  InitializationSettings initializationSettings = InitializationSettings(
+    android: androidSettings,
+    iOS: iosSettings,
+  );
+
+ bool? initialized= await notificationsPlugin.initialize(initializationSettings);
+ log("Notification: $initialized");
+
+
+
+
+ 
 
   runApp(const MyApp());
 }

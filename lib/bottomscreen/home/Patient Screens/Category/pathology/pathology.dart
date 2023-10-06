@@ -1,13 +1,16 @@
 // ignore_for_file: non_constant_identifier_names, avoid_print, sized_box_for_whitespace, avoid_unnecessary_containers
 
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Billview.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Reportview.dart';
+import 'package:TezHealthCare/main.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
@@ -22,6 +25,28 @@ class Pathalogy extends StatefulWidget {
 }
 
 class _PathalogyState extends State<Pathalogy> {
+  void showNotification() async {
+    AndroidNotificationDetails androidDetiles =
+        const AndroidNotificationDetails(
+      'Notification',
+      'Discounter',
+      priority: Priority.max,
+      importance: Importance.max,
+    );
+
+    DarwinNotificationDetails iosDetiles = const DarwinNotificationDetails(
+      presentAlert: true,
+      presentBadge: true,
+      presentSound: true,
+    );
+    NotificationDetails notificationDetails = NotificationDetails(
+      android: androidDetiles,
+      iOS: iosDetiles,
+    );
+    await notificationsPlugin.show(
+        0, 'pathology', 'New data are added', notificationDetails);
+  }
+
   bool isLoading = true;
   List<Map<String, dynamic>> apiData = []; // Initialize as a list
 
@@ -37,11 +62,13 @@ class _PathalogyState extends State<Pathalogy> {
 
   getData() async {
     await LoadData();
+    final List<Map<String, dynamic>> previousApiData = List<Map<String, dynamic>>.from(apiData);
     await fetchData().then((data) {
       setState(() {
         // Map the API response to a list of payment records
         if (data.containsKey("result")) {
           apiData = List<Map<String, dynamic>>.from(data["result"]);
+          print(apiData);
         }
 
         // Calculate and update the total amount
@@ -54,6 +81,10 @@ class _PathalogyState extends State<Pathalogy> {
         totalAmount = sum.toStringAsFixed(2);
 
         isLoading = false;
+        // Check if the length of apiData has changed
+      if (apiData.length != previousApiData.length) {
+        showNotification();
+      }
       });
     }).catchError((error) {
       // Handle errors here
@@ -64,11 +95,25 @@ class _PathalogyState extends State<Pathalogy> {
     });
   }
 
+  // late Timer _dataRefreshTimer;
+  // final Duration refreshInterval = const Duration(seconds: 20);
+
   @override
   void initState() {
     super.initState();
     getData();
+    // // Start the timer to refresh data periodically
+    // _dataRefreshTimer = Timer.periodic(refreshInterval, (Timer timer) {
+    //   getData();
+    // });
   }
+
+  //  @override
+  // void dispose() {
+  //   // Cancel the timer to prevent memory leaks
+  //   _dataRefreshTimer.cancel();
+  //   super.dispose();
+  // }
 
   Future<Map<String, dynamic>> fetchData() async {
     Uri.parse(ApiLinks.pathology);
@@ -114,6 +159,13 @@ class _PathalogyState extends State<Pathalogy> {
         title: Text('Pathology'.tr),
         centerTitle: true,
         backgroundColor: darkYellow,
+        actions: [
+          IconButton(onPressed: (){
+            showNotification();
+
+          }, icon: const Icon(Icons.refresh))
+
+        ],
       ),
       body: RefreshIndicator(
         onRefresh: _handleRefresh,
