@@ -44,7 +44,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
   int convertRupeesToPaisa() {
     return (rupeesAmount * 100).toInt();
   }
-  /////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////
 
   ///////////////////////////////////////////////////////////////
 // init state data and dispose 
@@ -102,15 +102,17 @@ class _PatientHomePageState extends State<PatientHomePage> {
       'Auth-key': 'zbuks_ram859553467',
     };
     final body = {
-      'patient_id': Patient_id,
+      'patient_id': "10380",
     };
 
     try {
       final response = await http.post(url, headers: headers, body: body);
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
+        print(data);
         setState(() {
           apiData = data['result'];
+          print(apiData?['total_dues']);
         });
       } else {
         // Handle error
@@ -312,7 +314,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               const EdgeInsets.only(left: 30.0),
                                           child: Text(
                                             // 'Rs. $rupeesAmount',
-                                            apiData?['total_dues'],
+                                            apiData?['total_dues']??"",
                                             style: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.red,
