@@ -20,6 +20,7 @@ class AllDoctorsList extends StatefulWidget {
 }
 
 class _AllDoctorsListState extends State<AllDoctorsList> {
+  
   Map<String, dynamic>? DataMap;
   List<dynamic>? data = [];
   List<dynamic>? filteredData = [];

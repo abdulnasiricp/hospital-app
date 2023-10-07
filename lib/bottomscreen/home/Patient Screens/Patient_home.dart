@@ -201,7 +201,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
             IconButton(
                 color: Colors.blue,
                 onPressed: () {
-                  Get.to(() => const Notif());
+                  Get.to(() =>  const Notif());
                 },
                 icon: const Icon(
                   Icons.notifications,
@@ -486,7 +486,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         ),
                                         InkWell(
                                           onTap: () {
-                                            Get.to(() => const Pathalogy());
+                                            Get.offAll(() => const Pathalogy());
                                           },
                                           child: Container(
                                             width: 100,
@@ -522,7 +522,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         ),
                                         InkWell(
                                           onTap: () {
-                                            Get.to(() => const Radiology());
+                                            Get.offAll(() => const Radiology());
                                           },
                                           child: Container(
                                             width: 100,

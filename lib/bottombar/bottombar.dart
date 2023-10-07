@@ -149,7 +149,7 @@ class _BottomhomeState extends State<Bottomhome> {
           drawer: const Drawer(
               width: double.infinity,
               child: AboutUSScreen()), // Left drawer
-          endDrawer: const Notif(),
+          endDrawer:  const Notif(),
         ),
       ),
 

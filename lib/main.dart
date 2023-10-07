@@ -1,6 +1,6 @@
-
 import 'dart:developer';
 
+import 'package:TezHealthCare/Controller/notificationProvider.dart';
 import 'package:TezHealthCare/language_Services/translation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -16,16 +16,18 @@ import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 FlutterLocalNotificationsPlugin notificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
- 
+
+  
 
   await FlutterDownloader.initialize(debug: true); // Set to false in production
 
-    AndroidInitializationSettings androidSettings =
+  AndroidInitializationSettings androidSettings =
       const AndroidInitializationSettings("@mipmap/ic_launcher");
   DarwinInitializationSettings iosSettings = const DarwinInitializationSettings(
       requestAlertPermission: true,
@@ -33,19 +35,15 @@ Future<void> main() async {
       requestCriticalPermission: true,
       requestSoundPermission: true);
 
-
   InitializationSettings initializationSettings = InitializationSettings(
     android: androidSettings,
     iOS: iosSettings,
   );
 
- bool? initialized= await notificationsPlugin.initialize(initializationSettings);
- log("Notification: $initialized");
-
-
-
-
- 
+  bool? initialized =
+      await notificationsPlugin.initialize(initializationSettings);
+  log("Notification: $initialized");
+  
 
   runApp(const MyApp());
 }
@@ -57,6 +55,8 @@ class MyApp extends StatelessWidget {
     final sharedPreferences = await SharedPreferences.getInstance();
     return sharedPreferences.containsKey('username') &&
         sharedPreferences.containsKey('password');
+
+        
   }
 
   @override
@@ -68,14 +68,15 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(create: (_) => ColorNotifier()),
           ChangeNotifierProvider(create: (_) => LoginController()),
+          ChangeNotifierProvider(create: (_) => NotificationProvider()),
         ],
         child: KhaltiScope(
           publicKey: "test_public_key_c976acda9afe490881d18f9856e6f896",
           enabledDebugging: true, // Set to false in production
           builder: (context, navKey) {
             return GetMaterialApp(
-              locale: const Locale('en','US'),
-      translations: Translation(),
+              locale: const Locale('en', 'US'),
+              translations: Translation(),
               debugShowCheckedModeBanner: false,
               theme: Themes().lightTheme,
               darkTheme: Themes().darkTheme,

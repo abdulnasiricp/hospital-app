@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace
 
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/view_bill.dart';
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +22,10 @@ class TransactionBill extends StatefulWidget {
 class _TransactionBillState extends State<TransactionBill> {
   bool isLoading = true;
   String totalAmount = "0.0"; // Initialize with a default value
-  Map<String?, dynamic> apiData = {};
 
+  Map<String?, dynamic> apiData = {};
+  ////////////////////////////////////////////////////////////////////
+  // get shared prefernce data
   late String patient = '';
   LoadData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
@@ -30,7 +33,8 @@ class _TransactionBillState extends State<TransactionBill> {
     print(patient);
     setState(() {});
   }
-
+//////////////////////////////////////////////////////////////////////
+// call init state
   getData() async {
     await LoadData();
     await fetchData().then((data) {
@@ -52,10 +56,11 @@ class _TransactionBillState extends State<TransactionBill> {
     super.initState();
     getData();
   }
-
+/////////////////////////////////////////////////////////////////////////////
+//  get all transaction bill 
   Future<Map<String, dynamic>> fetchData() async {
     final url =
-        Uri.parse('https://uat.tez.hospital/xzy/webservice/getAllTransaction');
+        Uri.parse(ApiLinks.getAllTransaction);
     final headers = {
       'Soft-service': 'TezHealthCare',
       'Auth-key': 'zbuks_ram859553467',
@@ -80,7 +85,8 @@ class _TransactionBillState extends State<TransactionBill> {
       throw Exception('Failed to load data');
     }
   }
-
+  ///////////////////////////////////////////////////////////////////////
+// call refresh 
   Future<void> _handleRefresh() async {
     setState(() {
       isLoading = true; // Set isLoading to true when refreshing
