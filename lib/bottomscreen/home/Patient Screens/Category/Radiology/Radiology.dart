@@ -6,6 +6,7 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Radio
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
+import 'package:animation_search_bar/animation_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
@@ -24,8 +25,8 @@ class Radiology extends StatefulWidget {
 class _RadiologyState extends State<Radiology> {
   bool isLoading = true;
 
- //////////////////////////////////////////////////////////////////////////////////////////////////
- // get shared preference data
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // get shared preference data
   late String patient = '';
   LoadData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
@@ -34,8 +35,6 @@ class _RadiologyState extends State<Radiology> {
     setState(() {});
   }
 
-
-  
 // ///////////////////////////////////////////////////////////////////////////////////////////////
 //calculate total amount
 
@@ -51,14 +50,13 @@ class _RadiologyState extends State<Radiology> {
           total.toStringAsFixed(2); // Format as a string with 2 decimal places
     });
   }
+
   ////////////////////////////////////////////////////////////////////////////////////////////////
   getData() async {
     await LoadData();
     await fetchData();
     calculateTotalAmount();
-
   }
-
 
   @override
   void initState() {
@@ -99,6 +97,7 @@ class _RadiologyState extends State<Radiology> {
     }
     return {};
   }
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 //refresh screen
   Future<void> _handleRefresh() async {
@@ -128,45 +127,53 @@ class _RadiologyState extends State<Radiology> {
           .toList();
     });
   }
+
 ////////////////////////////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-       onWillPop: () async {
+      onWillPop: () async {
         // Navigate to the Home Screen when the back button is pressed
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const Bottomhome()),
         );
         return false; // Prevent default back button behavior
       },
-
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: Container(
-            width: width,
-            height: 40,
-            child: searchField()),
-          centerTitle: true,
-          backgroundColor: darkYellow,
-           leading: IconButton(
-            onPressed: () {
-              Get.to(() => const Bottomhome());
-            },
-            icon: const Icon(Icons.arrow_back),
-          ),
-        ),
+        appBar: PreferredSize(
+            preferredSize: const Size(double.infinity, 65),
+            child: SafeArea(
+                child: Container(
+              decoration:  BoxDecoration(color: darkYellow, boxShadow: const [
+                BoxShadow(
+                    color: Colors.white,
+                    blurRadius: 5,
+                    spreadRadius: 0,
+                    offset: Offset(0, 5)),
+              ]),
+              alignment: Alignment.center,
+              child: AnimationSearchBar(
+                previousScreen: const Bottomhome(),
+                  isBackButtonVisible: true,
+                 backIconColor: whitecolor,
+
+                  centerTitle: 'radiology'.tr,
+                  centerTitleStyle: TextStyle(color: whitecolor,fontSize: 20),
+                  searchIconColor: whitecolor,
+                  searchFieldDecoration: BoxDecoration(color: whitecolor.withOpacity(0.8),borderRadius: BorderRadius.circular(10)),
+                  closeIconColor: whitecolor,
+                  onChanged: (query) => filterData(query),
+                  searchTextEditingController: searchController,
+                  horizontalPadding: 5),
+
+            ))),
+       
         body: RefreshIndicator(
           onRefresh: _handleRefresh,
           child: Column(
             children: [
-              // Padding(
-              //   padding: const EdgeInsets.all(8.0),
-              //   child: Container(
-              //     height: 40,
-              //     child: searchField(),
-              //   ),
-              // ),
+             
               Container(
                 color: Colors.grey,
                 width: width,
@@ -176,11 +183,7 @@ class _RadiologyState extends State<Radiology> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Text(
-                      //   'billno'.tr,
-                      //   style: const TextStyle(
-                      //       fontWeight: FontWeight.bold, fontSize: 15),
-                      // ),
+                     
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -223,7 +226,7 @@ class _RadiologyState extends State<Radiology> {
                           ),
                         ],
                       ),
-                  
+
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -323,7 +326,8 @@ class _RadiologyState extends State<Radiology> {
                                                               'status'] ==
                                                           'Paid') {
                                                         Get.to(
-                                                          () => pathologyBillview(
+                                                          () =>
+                                                              pathologyBillview(
                                                             bill_pdf:
                                                                 "${Pathologybill['bill_pdf']}", // Use 'id' as the Pathologybill ID
                                                             id: "${Pathologybill['id']}",
@@ -332,7 +336,8 @@ class _RadiologyState extends State<Radiology> {
                                                       } else {
                                                         // Handle the tap event for 'UnPaid' status
                                                         Get.to(
-                                                          () => pathologyBillview(
+                                                          () =>
+                                                              pathologyBillview(
                                                             bill_pdf:
                                                                 "${Pathologybill['bill_pdf']}", // Use 'id' as the Pathologybill ID
                                                             id: "${Pathologybill['id']}",
@@ -348,13 +353,13 @@ class _RadiologyState extends State<Radiology> {
                                                             ? Colors.green
                                                             : Colors.red,
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                5.0),
+                                                            BorderRadius
+                                                                .circular(5.0),
                                                       ),
                                                       child: Padding(
                                                         padding:
-                                                            const EdgeInsets.all(
-                                                                3.0),
+                                                            const EdgeInsets
+                                                                .all(3.0),
                                                         child: Center(
                                                           child: Text(
                                                             // listName,
@@ -362,7 +367,8 @@ class _RadiologyState extends State<Radiology> {
                                                             style:
                                                                 const TextStyle(
                                                               fontWeight:
-                                                                  FontWeight.bold,
+                                                                  FontWeight
+                                                                      .bold,
                                                             ),
                                                           ),
                                                         ),
@@ -412,15 +418,16 @@ class _RadiologyState extends State<Radiology> {
                                                                     'is_printed'] ==
                                                                 '1'
                                                             ? Colors.green
-                                                            : Colors.yellowAccent,
+                                                            : Colors
+                                                                .yellowAccent,
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                5.0),
+                                                            BorderRadius
+                                                                .circular(5.0),
                                                       ),
                                                       child: Padding(
                                                         padding:
-                                                            const EdgeInsets.all(
-                                                                3.0),
+                                                            const EdgeInsets
+                                                                .all(3.0),
                                                         child: Center(
                                                           child: Text(
                                                             Pathologybill[
@@ -431,7 +438,8 @@ class _RadiologyState extends State<Radiology> {
                                                             style:
                                                                 const TextStyle(
                                                               fontWeight:
-                                                                  FontWeight.bold,
+                                                                  FontWeight
+                                                                      .bold,
                                                             ),
                                                           ),
                                                         ),
@@ -512,23 +520,5 @@ class _RadiologyState extends State<Radiology> {
     );
   }
 
-TextFormField searchField() {
-  return TextFormField(
-                   onTapOutside: (event) =>
-                                FocusScope.of(context).unfocus(),
-                  controller: searchController,
-                  
-                  onChanged: (query) => filterData(query),
-                  decoration: const InputDecoration(
-                    // fillColor: Colors.white,
-                    // filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                    ),
-                    prefixIcon: Icon(Icons.search),
-                  ),
-                );
-}
+
 }

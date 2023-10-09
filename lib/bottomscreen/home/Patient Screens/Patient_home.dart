@@ -558,7 +558,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         ),
                                         InkWell(
                                           onTap: () {
-                                            Get.to(() => const Pharmacy());
+                                            Get.offAll(() => const Pharmacy());
                                           },
                                           child: Container(
                                             width: 100,
@@ -729,7 +729,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         ),
                                         InkWell(
                                           onTap: () {
-                                            Get.to(() => const Physiotherapy());
+                                            Get.offAll(() => const Physiotherapy());
                                           },
                                           child: Container(
                                             width: 100,

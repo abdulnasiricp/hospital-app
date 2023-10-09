@@ -1,9 +1,11 @@
 // ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace
 
+import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Physiotherapy/Billprint.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
+import 'package:animation_search_bar/animation_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
@@ -20,10 +22,12 @@ class Physiotherapy extends StatefulWidget {
 
 class _PhysiotherapyState extends State<Physiotherapy> {
   bool isLoading = true;
-  List<Map<String, dynamic>> apiData = []; // Initialize as a list
 
-  late String patient = '';
   late String totalAmount = "0.00"; // Initialize with a default value
+
+  ///////////////////////////////////////////////////////////////////////////////////////////
+// get shared preferance data
+  late String patient = '';
 
   LoadData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
@@ -32,33 +36,18 @@ class _PhysiotherapyState extends State<Physiotherapy> {
     setState(() {});
   }
 
+  ///////////////////////////////////////////////////////////////////////////////////////////
+
   getData() async {
     await LoadData();
-    await fetchData().then((data) {
-      setState(() {
-        // Map the API response to a list of payment records
-        if (data.containsKey("result")) {
-          apiData = List<Map<String, dynamic>>.from(data["result"]);
-        }
+    await fetchData();
+    calculateTotalAmount();
 
-        // Calculate and update the total amount
-        double sum = 0.0;
-        for (var Pharmacybill in apiData) {
-          if (Pharmacybill.containsKey('net_amount')) {
-            sum += double.tryParse("${Pharmacybill['net_amount']}") ?? 0.0;
-          }
-        }
-        totalAmount = sum.toStringAsFixed(2);
-
-        isLoading = false;
-      });
-    }).catchError((error) {
-      // Handle errors here
-      print('Error: $error');
-      setState(() {
-        isLoading = false;
-      });
-    });
+    isLoading = false;
+    // Check if the length of apiData has changed
+    // if (apiData.length != previousApiData.length) {
+    //   showNotification();
+    // }
   }
 
   @override
@@ -66,6 +55,25 @@ class _PhysiotherapyState extends State<Physiotherapy> {
     super.initState();
     getData();
   }
+
+// ///////////////////////////////////////////////////////////////////////////////////////////////
+//calculate total amount
+  void calculateTotalAmount() {
+    double total = 0.0;
+    for (var item in filteredData!) {
+      total += double.tryParse(item['net_amount']) ?? 0.0;
+    }
+    setState(() {
+      totalAmount =
+          total.toStringAsFixed(2); // Format as a string with 2 decimal places
+    });
+  }
+
+///////////////////////////////////////////////////////////////////////////////////////////
+//get pharmacy data
+  Map<String, dynamic>? DataMap;
+  List<dynamic>? data = [];
+  List<dynamic>? filteredData = [];
 
   Future<Map<String, dynamic>> fetchData() async {
     Uri.parse(ApiLinks.Therapy);
@@ -84,13 +92,20 @@ class _PhysiotherapyState extends State<Physiotherapy> {
     );
 
     if (response.statusCode == 200) {
-      final Map<String, dynamic> data = json.decode(response.body);
-      return data;
+      DataMap = json.decode(response.body);
+      setState(() {
+        data = DataMap!['result'];
+        filteredData = data;
+        isLoading = false; // Set isLoading to false when data is loaded
+      });
     } else {
       throw Exception('Failed to load data');
     }
+    return {};
   }
 
+///////////////////////////////////////////////////////////////////////////////////////////
+//refresh screen
   Future<void> _handleRefresh() async {
     setState(() {
       isLoading = true; // Set isLoading to true when refreshing
@@ -103,15 +118,54 @@ class _PhysiotherapyState extends State<Physiotherapy> {
     });
   }
 
+///////////////////////////////////////////////////////////////////////////////////////
+
+  TextEditingController searchController = TextEditingController();
+
+////////////////////////////////////////////////////////////////////////////////////////
+// filter data
+
+  void filterData(String query) {
+    setState(() {
+      filteredData = data
+          ?.where((element) =>
+              element['id'].toLowerCase().contains(query.toLowerCase()) ||
+              element['status'].toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text('Physiotherapy'.tr),
-        centerTitle: true,
-        backgroundColor: darkYellow,
-      ),
+      appBar: PreferredSize(
+          preferredSize: const Size(double.infinity, 65),
+          child: SafeArea(
+              child: Container(
+            decoration: BoxDecoration(color: darkYellow, boxShadow: const [
+              BoxShadow(
+                  color: Colors.white,
+                  blurRadius: 5,
+                  spreadRadius: 0,
+                  offset: Offset(0, 5)),
+            ]),
+            alignment: Alignment.center,
+            child: AnimationSearchBar(
+                previousScreen: const Bottomhome(),
+                isBackButtonVisible: true,
+                backIconColor: whitecolor,
+                centerTitle: 'Physiotherapy'.tr,
+                centerTitleStyle: TextStyle(color: whitecolor, fontSize: 20),
+                searchIconColor: whitecolor,
+                searchFieldDecoration: BoxDecoration(
+                    color: whitecolor.withOpacity(0.8),
+                    borderRadius: BorderRadius.circular(10)),
+                closeIconColor: whitecolor,
+                onChanged: (query) => filterData(query),
+                searchTextEditingController: searchController,
+                horizontalPadding: 5),
+          ))),
       body: RefreshIndicator(
         onRefresh: _handleRefresh,
         child: Column(
@@ -177,7 +231,7 @@ class _PhysiotherapyState extends State<Physiotherapy> {
                         );
                       },
                     )
-                  : apiData.isEmpty
+                  : filteredData!.isEmpty
                       ? Center(
                           child: Container(
                             height: 150,
@@ -189,9 +243,9 @@ class _PhysiotherapyState extends State<Physiotherapy> {
                           ),
                         )
                       : ListView.builder(
-                          itemCount: apiData.length,
+                          itemCount: filteredData?.length,
                           itemBuilder: (context, index) {
-                            final Pharmacybill = apiData[index];
+                            final Pharmacybill = filteredData?[index];
                             if (Pharmacybill.containsKey('id')) {
                               return Column(
                                 children: [
@@ -210,7 +264,7 @@ class _PhysiotherapyState extends State<Physiotherapy> {
                                                 MainAxisAlignment.center,
                                             children: [
                                               Container(
-                                                width: width/8,
+                                                width: width / 8,
                                                 child: Text(
                                                   "${Pharmacybill['id']}",
                                                   style: const TextStyle(
@@ -227,7 +281,7 @@ class _PhysiotherapyState extends State<Physiotherapy> {
                                                 MainAxisAlignment.center,
                                             children: [
                                               Container(
-                                                width: width/7,
+                                                width: width / 7,
                                                 child: InkWell(
                                                   onTap: () {
                                                     if (Pharmacybill[
@@ -271,7 +325,8 @@ class _PhysiotherapyState extends State<Physiotherapy> {
                                                         child: Text(
                                                           // listName,
                                                           "${Pharmacybill['status']}",
-                                                          style: const TextStyle(
+                                                          style:
+                                                              const TextStyle(
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                           ),
@@ -318,7 +373,7 @@ class _PhysiotherapyState extends State<Physiotherapy> {
           ],
         ),
       ),
-      bottomSheet: apiData.isEmpty
+      bottomSheet: data!.isEmpty
           ? null // Set bottomSheet to null when apiData is empty
           : Card(
               child: Container(

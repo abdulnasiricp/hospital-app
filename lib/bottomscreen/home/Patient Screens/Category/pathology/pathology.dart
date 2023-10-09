@@ -11,6 +11,7 @@ import 'package:TezHealthCare/main.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
+import 'package:animation_search_bar/animation_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
@@ -198,27 +199,54 @@ class _PathalogyState extends State<Pathalogy> {
       },
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: Container(
-            height: 40,
-            width: width,
-            child: searchField()),
-          centerTitle: true,
-          backgroundColor: darkYellow,
-          leading: IconButton(
-            onPressed: () {
-              Get.to(() => const Bottomhome());
-            },
-            icon: const Icon(Icons.arrow_back),
-          ),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  showNotification();
-                },
-                icon: const Icon(Icons.refresh))
-          ],
-        ),
+        appBar: PreferredSize(
+            preferredSize: const Size(double.infinity, 65),
+            child: SafeArea(
+                child: Container(
+              decoration:  BoxDecoration(color: darkYellow, boxShadow: const [
+                BoxShadow(
+                    color: Colors.white,
+                    blurRadius: 5,
+                    spreadRadius: 0,
+                    offset: Offset(0, 5)),
+              ]),
+              alignment: Alignment.center,
+              child: AnimationSearchBar(
+                previousScreen: const Bottomhome(),
+                  isBackButtonVisible: true,
+                 backIconColor: whitecolor,
+
+                  centerTitle: 'pathology'.tr,
+                  centerTitleStyle: TextStyle(color: whitecolor,fontSize: 20),
+                  searchIconColor: whitecolor,
+                  searchFieldDecoration: BoxDecoration(color: whitecolor.withOpacity(0.8),borderRadius: BorderRadius.circular(10)),
+                  closeIconColor: whitecolor,
+                  onChanged: (query) => filterData(query),
+                  searchTextEditingController: searchController,
+                  horizontalPadding: 5),
+
+            ))),
+        // appBar: AppBar(
+        //   title: Container(
+        //     height: 40,
+        //     width: width,
+        //     child: searchField()),
+        //   centerTitle: true,
+        //   backgroundColor: darkYellow,
+        //   leading: IconButton(
+        //     onPressed: () {
+        //       Get.to(() => const Bottomhome());
+        //     },
+        //     icon: const Icon(Icons.arrow_back),
+        //   ),
+        //   actions: [
+        //     IconButton(
+        //         onPressed: () {
+        //           showNotification();
+        //         },
+        //         icon: const Icon(Icons.refresh))
+        //   ],
+        // ),
         body: RefreshIndicator(
           onRefresh: _handleRefresh,
           child: Column(
