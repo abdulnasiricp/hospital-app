@@ -8,6 +8,7 @@ import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:animation_search_bar/animation_search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -131,6 +132,11 @@ class _RadiologyState extends State<Radiology> {
 ////////////////////////////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: darkYellow, // Set the status bar color here
+      ),
+    );
     return WillPopScope(
       onWillPop: () async {
         // Navigate to the Home Screen when the back button is pressed

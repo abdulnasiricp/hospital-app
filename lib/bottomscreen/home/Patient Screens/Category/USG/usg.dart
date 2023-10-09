@@ -9,6 +9,7 @@ import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/route_manager.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
@@ -109,6 +110,11 @@ class _USGScreenState extends State<USGScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: darkYellow, // Set the status bar color here
+      ),
+    );
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

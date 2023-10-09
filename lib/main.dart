@@ -19,11 +19,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 FlutterLocalNotificationsPlugin notificationsPlugin =
     FlutterLocalNotificationsPlugin();
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  
 
   await FlutterDownloader.initialize(debug: true); // Set to false in production
 
@@ -43,7 +40,6 @@ Future<void> main() async {
   bool? initialized =
       await notificationsPlugin.initialize(initializationSettings);
   log("Notification: $initialized");
-  
 
   runApp(const MyApp());
 }
@@ -55,8 +51,6 @@ class MyApp extends StatelessWidget {
     final sharedPreferences = await SharedPreferences.getInstance();
     return sharedPreferences.containsKey('username') &&
         sharedPreferences.containsKey('password');
-
-        
   }
 
   @override

@@ -45,20 +45,18 @@ class _BottomhomeState extends State<Bottomhome> {
     return Future.value(true); // Allow the app to close
   }
 
-
-   LoadData() async {
+  LoadData() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     setState(() {
-    
       Patient_id = sharedPreferences.getString('patientidrecord') ?? '';
     });
   }
+
   @override
   void initState() {
     LoadData();
     super.initState();
   }
-
 
   int _selectedIndex = 0;
   late ColorNotifier notifier;
@@ -76,13 +74,12 @@ class _BottomhomeState extends State<Bottomhome> {
             curve: Curves.easeInOut,
             selectedItemColor: notifier.getwihitecolor,
             currentIndex: _selectedIndex,
-
             items: [
-
-              SalomonBottomBarItem( 
+              SalomonBottomBarItem(
                 icon: Image.asset("assets/home.png",
                     height: height / 28, color: notifier.getwihitecolor),
-                title: Align(alignment: Alignment.topCenter,
+                title: Align(
+                  alignment: Alignment.topCenter,
                   child: Text(
                     'home'.tr,
                     style: TextStyle(
@@ -92,7 +89,6 @@ class _BottomhomeState extends State<Bottomhome> {
                   ),
                 ),
                 selectedColor: notifier.getwihitecolor,
-                
               ),
               SalomonBottomBarItem(
                 icon: SvgPicture.asset('assets/transaction.svg',
@@ -105,7 +101,6 @@ class _BottomhomeState extends State<Bottomhome> {
                       fontFamily: 'Gilroy_Bold'),
                 ),
                 selectedColor: notifier.getwihitecolor,
-
               ),
               SalomonBottomBarItem(
                 icon: SvgPicture.asset('assets/card.svg',
@@ -147,12 +142,10 @@ class _BottomhomeState extends State<Bottomhome> {
             ],
           ),
           drawer: const Drawer(
-              width: double.infinity,
-              child: AboutUSScreen()), // Left drawer
-          endDrawer:  const Notif(),
+              width: double.infinity, child: AboutUSScreen()), // Left drawer
+          endDrawer: const Notif(),
         ),
       ),
-
     );
   }
 
@@ -160,7 +153,7 @@ class _BottomhomeState extends State<Bottomhome> {
     return {
       '/': (context) {
         return [
-           PatientHomePage(patientId: Patient_id),
+          PatientHomePage(patientId: Patient_id),
           const TransactionBill(),
           const CardScreen(),
           const Profile(),

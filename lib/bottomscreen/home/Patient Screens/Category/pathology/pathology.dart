@@ -2,7 +2,7 @@
 
 import 'dart:async';
 import 'dart:convert';
-
+import 'package:flutter/services.dart';
 import 'package:TezHealthCare/Controller/notificationProvider.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Billview.dart';
@@ -189,6 +189,11 @@ class _PathalogyState extends State<Pathalogy> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: darkYellow, // Set the status bar color here
+      ),
+    );
     return WillPopScope(
       onWillPop: () async {
         // Navigate to the Home Screen when the back button is pressed
@@ -203,7 +208,7 @@ class _PathalogyState extends State<Pathalogy> {
             preferredSize: const Size(double.infinity, 65),
             child: SafeArea(
                 child: Container(
-              decoration:  BoxDecoration(color: darkYellow, boxShadow: const [
+              decoration: BoxDecoration(color: darkYellow, boxShadow: const [
                 BoxShadow(
                     color: Colors.white,
                     blurRadius: 5,
@@ -212,19 +217,19 @@ class _PathalogyState extends State<Pathalogy> {
               ]),
               alignment: Alignment.center,
               child: AnimationSearchBar(
-                previousScreen: const Bottomhome(),
+                  previousScreen: const Bottomhome(),
                   isBackButtonVisible: true,
-                 backIconColor: whitecolor,
-
+                  backIconColor: whitecolor,
                   centerTitle: 'pathology'.tr,
-                  centerTitleStyle: TextStyle(color: whitecolor,fontSize: 20),
+                  centerTitleStyle: TextStyle(color: whitecolor, fontSize: 20),
                   searchIconColor: whitecolor,
-                  searchFieldDecoration: BoxDecoration(color: whitecolor.withOpacity(0.8),borderRadius: BorderRadius.circular(10)),
+                  searchFieldDecoration: BoxDecoration(
+                      color: whitecolor.withOpacity(0.8),
+                      borderRadius: BorderRadius.circular(10)),
                   closeIconColor: whitecolor,
                   onChanged: (query) => filterData(query),
                   searchTextEditingController: searchController,
                   horizontalPadding: 5),
-
             ))),
         // appBar: AppBar(
         //   title: Container(
@@ -607,20 +612,19 @@ class _PathalogyState extends State<Pathalogy> {
 
   TextFormField searchField() {
     return TextFormField(
-                  onTapOutside: (event) =>
-                                FocusScope.of(context).unfocus(),
-                  controller: searchController,
-                  onChanged: (query) => filterData(query),
-                  decoration: const InputDecoration(
-                    fillColor: Colors.white,
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                    ),
-                    prefixIcon: Icon(Icons.search),
-                  ),
-                );
+      onTapOutside: (event) => FocusScope.of(context).unfocus(),
+      controller: searchController,
+      onChanged: (query) => filterData(query),
+      decoration: const InputDecoration(
+        fillColor: Colors.white,
+        filled: true,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(10),
+          ),
+        ),
+        prefixIcon: Icon(Icons.search),
+      ),
+    );
   }
 }

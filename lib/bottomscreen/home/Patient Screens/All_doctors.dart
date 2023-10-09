@@ -11,7 +11,6 @@ import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 
-
 class AllDoctorsList extends StatefulWidget {
   const AllDoctorsList({Key? key}) : super(key: key);
 
@@ -20,7 +19,6 @@ class AllDoctorsList extends StatefulWidget {
 }
 
 class _AllDoctorsListState extends State<AllDoctorsList> {
-  
   Map<String, dynamic>? DataMap;
   List<dynamic>? data = [];
   List<dynamic>? filteredData = [];
@@ -64,7 +62,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
     setState(() {
       filteredData = data
           ?.where((element) =>
-          element['name'].toLowerCase().contains(query.toLowerCase()))
+              element['name'].toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }
@@ -82,9 +80,6 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
     });
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -96,9 +91,9 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
         return false; // Prevent default back button behavior
       },
       child: Scaffold(
-        backgroundColor: Colors.white.withOpacity(0.9),
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          title:  Text('selectADoctor'.tr),
+          title: Text('selectADoctor'.tr),
           centerTitle: true,
           backgroundColor: darkYellow,
           leading: IconButton(
@@ -113,7 +108,8 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
           child: Center(
             child: isLoading
                 ? GridView.builder(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       crossAxisSpacing: 2,
                       mainAxisSpacing: 0,
@@ -128,8 +124,10 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                           child: Container(
                             width: width / 2,
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center, // Adjust alignment as needed
-                              crossAxisAlignment: CrossAxisAlignment.center, // Adjust alignment as needed
+                              mainAxisAlignment: MainAxisAlignment
+                                  .center, // Adjust alignment as needed
+                              crossAxisAlignment: CrossAxisAlignment
+                                  .center, // Adjust alignment as needed
                               children: [
                                 const CircleAvatar(
                                   radius: 30,
@@ -149,7 +147,8 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                   width: 120,
                                   height: 10,
                                   color: Colors.white,
-                                ),   const SizedBox(
+                                ),
+                                const SizedBox(
                                   height: 5,
                                 ),
                                 Container(
@@ -165,7 +164,8 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                   height: 25,
                                   decoration: BoxDecoration(
                                     color: Colors.white,
-                                    borderRadius: BorderRadius.circular(12.5), // Half of the height to make it circular
+                                    borderRadius: BorderRadius.circular(
+                                        12.5), // Half of the height to make it circular
                                     // Add other properties like boxShadow if needed
                                   ),
                                 ),
@@ -200,7 +200,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                           ),
                         ),
                         const SizedBox(
-                          height: 20,
+                          height: 5,
                         ),
                         Expanded(
                           child: GridView.builder(
@@ -213,13 +213,15 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                             itemCount: filteredData!.length,
                             itemBuilder: (context, index) {
                               return Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
                                     child: Container(
                                       width: width / 2,
                                       child: Card(
-                                        color: Colors.white.withOpacity(0.9),
+                                        elevation: 5,
+                                        color: Colors.white70,
                                         child: Padding(
                                           padding: const EdgeInsets.all(5.0),
                                           child: Column(
@@ -237,14 +239,16 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                                     fit: BoxFit
                                                         .cover, // Set the BoxFit (optional)
                                                     loadingBuilder: (context,
-                                                        child, loadingProgress) {
+                                                        child,
+                                                        loadingProgress) {
                                                       if (loadingProgress ==
                                                           null) {
                                                         return child;
                                                       } else {
                                                         return CircularProgressIndicator(
                                                           color: darkYellow,
-                                                          backgroundColor: yellow,
+                                                          backgroundColor:
+                                                              yellow,
                                                         );
                                                       }
                                                     },
@@ -293,10 +297,31 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                                 ),
                                                 child: InkWell(
                                                   onTap: () {
-                                                    Get.to(() =>
-                                                        SelectDateScreen(doctorId: filteredData![index]['id'], doctorImage: filteredData![index]['image'],doctorName: filteredData![index]['name'] + filteredData![index]['surname'],doctorSpecialization: filteredData![index]['specialization'],));
+                                                    Get.to(
+                                                        () => SelectDateScreen(
+                                                              doctorId:
+                                                                  filteredData![
+                                                                          index]
+                                                                      ['id'],
+                                                              doctorImage:
+                                                                  filteredData![
+                                                                          index]
+                                                                      ['image'],
+                                                              doctorName: filteredData![
+                                                                          index]
+                                                                      ['name'] +
+                                                                  filteredData![
+                                                                          index]
+                                                                      [
+                                                                      'surname'],
+                                                              doctorSpecialization:
+                                                                  filteredData![
+                                                                          index]
+                                                                      [
+                                                                      'specialization'],
+                                                            ));
                                                   },
-                                                  child:  Center(
+                                                  child: Center(
                                                     child: Text(
                                                       'bookAppointment'.tr,
                                                       style: const TextStyle(

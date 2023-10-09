@@ -127,7 +127,6 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
   void payWithImepayInApp() async {
     Random random = Random();
     random.nextInt(15);
-
     var result = await StartSdk.callSdk(context,
         merchantCode: "MERCHANT_CODE",
         merchantName: "username",
