@@ -1,5 +1,6 @@
-// ignore_for_file: file_names, sized_box_for_whitespace, deprecated_member_use
+// ignore_for_file: file_names, sized_box_for_whitespace, deprecated_member_use, non_constant_identifier_names, avoid_print
 
+import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/Madication.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
@@ -8,18 +9,137 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
+
+import 'package:shared_preferences/shared_preferences.dart';
+
 class IPD extends StatefulWidget {
   const IPD({Key? key}) : super(key: key);
-
-  // classonst IPD({super.key});
 
   @override
   State<IPD> createState() => _IPDState();
 }
 
 class _IPDState extends State<IPD> {
+//////////////////////////////////////////////////////////////////////////////////
+// get Shared Prefernce data
+
+  late String patientID = '';
+
+  LoadData() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+
+    patientID = sp.getString('patientidrecord') ?? '';
+
+    print(patientID);
+    setState(() {});
+  }
+///////////////////////////////////////////////////////////////////
+
+  getData() async {
+    await LoadData();
+
+    await getpatientDetails();
+  //  await fetchData();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+    fetchData();
+  }
+
+///////////////////////////////////////////////////////////////////
+// get Patinent Detials
+  late String PatientName = '';
+  late String PatientAge = '';
+  late String PatientGender = '';
+  late String AdmissionDate = '';
+
+  Future<void> getpatientDetails() async {
+    // Set the headers
+    final headers = {
+      'Soft-service': 'TezHealthCare',
+      'Auth-key': 'zbuks_ram859553467',
+    };
+
+    // Set the body
+    final body = {
+      'patient_id': '10380',
+    };
+    try {
+      // Make the POST request
+      final response = await http.post(
+        Uri.parse('https://uat.tez.hospital/xzy/webservice/getpatientDetails'),
+        headers: headers,
+        body: jsonEncode(body),
+      );
+
+      // Check if the response was successful
+      if (response.statusCode == 200) {
+        // Decode the JSON response
+        final data = jsonDecode(response.body);
+
+        // Get the total_dues and patho_dues values
+        PatientName = data['result']['patient_name'];
+        PatientAge = data['result']['age'];
+        PatientGender = data['result']['gender'];
+        AdmissionDate = data['result']['date'];
+
+        // Set the state to rebuild the widget
+        setState(() {});
+      } else {
+        // Handle the error
+      }
+    } catch (error) {
+      print(error);
+    }
+  }
+  //////////////////////////////////////////////////////////////////////////////////
+  // get vital data
+   Map<String, dynamic> responseData = {};
+  Future<void> fetchData() async {
+    final apiUrl = Uri.parse('https://uat.tez.hospital/xzy/webservice/getipdVitals');
+    final headers = {
+      'Soft-Service': 'TezHealthCare',
+      'Auth-key': 'zbuks_ram859553467',
+    };
+    final body = {
+      "ipd_id":"313",
+    "patient_id":"10909"
+    };
+
+    try {
+      final response = await http.post(
+        apiUrl,
+        headers: headers,
+        body: body,
+      );
+
+      if (response.statusCode == 200) {
+        if (response.body.isNotEmpty) {
+          final jsonResponse = json.decode(response.body);
+          setState(() {
+            responseData = jsonResponse;
+          });
+        } else {
+          print('API response is empty.');
+        }
+      } else {
+        print('Failed to load data. Status code: ${response.statusCode}');
+      }
+    } catch (error) {
+      print(error.toString());
+    }
+  }
+  //////////////////////////////////////////////////////////////////////////////
+
+
   late ColorNotifier notifier;
+
   TextEditingController dateinput = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     notifier = Provider.of<ColorNotifier>(context, listen: true);
@@ -50,9 +170,8 @@ class _IPDState extends State<IPD> {
                             children: [
                               InkWell(
                                 onTap: () {
-                                  Get.to(()=>const MedicationScreen());
+                                  Get.offAll(() => const MedicationScreen());
                                 },
-
                                 child: Container(
                                   width: 100,
                                   height: 100,
@@ -85,7 +204,6 @@ class _IPDState extends State<IPD> {
                                 ),
                               ),
                               InkWell(
-
                                 child: Container(
                                   width: 100,
                                   height: 100,
@@ -118,7 +236,6 @@ class _IPDState extends State<IPD> {
                                 ),
                               ),
                               InkWell(
-
                                 child: Container(
                                   width: 100,
                                   height: 100,
@@ -183,7 +300,6 @@ class _IPDState extends State<IPD> {
                                 ),
                               ),
                               InkWell(
-
                                 child: Container(
                                   width: 100,
                                   height: 100,
@@ -216,7 +332,6 @@ class _IPDState extends State<IPD> {
                                 ),
                               ),
                               InkWell(
-
                                 child: Container(
                                   width: 100,
                                   height: 100,
@@ -274,10 +389,11 @@ class _IPDState extends State<IPD> {
                           ),
                         ),
                         const SizedBox(height: 16),
-                        const Text('Patient Name: Ramjinish Kushwaha'),
-                        const Text('Age: 24'),
-                        const Text('Gender: Male'),
-                        const Text('Date of Admission: 2023-09-26'),
+                        Text('Patient Name: $PatientName'),
+                        Text('Age: $PatientAge'),
+                        Text('Gender: $PatientGender'),
+                        Text('Date of Admission: $AdmissionDate'),
+                        Text('Height: ${responseData['vitals']['Height']}'),
                         const SizedBox(height: 32),
                         const Text(
                           'Vitals',
@@ -287,13 +403,13 @@ class _IPDState extends State<IPD> {
                           ),
                         ),
                         const SizedBox(height: 16),
-                        buildVitalItem('Height', '75 bpm'),
-                        buildVitalItem('Weight', '120/80 mmHg'),
-                        buildVitalItem('BP', '98.6°F'),
-                        buildVitalItem('Pulse', '18 breaths/min'),
-                        buildVitalItem('Tempreture', '18 breaths/min'),
-                        buildVitalItem('Respiration', '98.6°F'),
-                        const SizedBox(height: 32),
+                         buildVitalItem('Height', responseData['vitals']?['Height'] ?? 'N/A'),
+                buildVitalItem('Weight', responseData['vitals']?['weight'] ?? 'N/A'),
+                buildVitalItem('BP', responseData['vitals']?['bp'] ?? 'N/A'),
+                buildVitalItem('Pulse', responseData['vitals']?['pulse'] ?? 'N/A'),
+                buildVitalItem('Temperature', responseData['vitals']?['temprature'] ?? 'N/A'),
+                buildVitalItem('Respiration', responseData['vitals']?['respiration'] ?? 'N/A'),
+                const SizedBox(height: 32),
                         const Text(
                           'Consultants',
                           style: TextStyle(

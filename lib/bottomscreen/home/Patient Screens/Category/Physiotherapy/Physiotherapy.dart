@@ -70,7 +70,7 @@ class _PhysiotherapyState extends State<Physiotherapy> {
   }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-//get pharmacy data
+//get physiotherapy data
   Map<String, dynamic>? DataMap;
   List<dynamic>? data = [];
   List<dynamic>? filteredData = [];
@@ -134,276 +134,285 @@ class _PhysiotherapyState extends State<Physiotherapy> {
           .toList();
     });
   }
-
+//////////////////////////////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: PreferredSize(
-          preferredSize: const Size(double.infinity, 65),
-          child: SafeArea(
-              child: Container(
-            decoration: BoxDecoration(color: darkYellow, boxShadow: const [
-              BoxShadow(
-                  color: Colors.white,
-                  blurRadius: 5,
-                  spreadRadius: 0,
-                  offset: Offset(0, 5)),
-            ]),
-            alignment: Alignment.center,
-            child: AnimationSearchBar(
-                previousScreen: const Bottomhome(),
-                isBackButtonVisible: true,
-                backIconColor: whitecolor,
-                centerTitle: 'Physiotherapy'.tr,
-                centerTitleStyle: TextStyle(color: whitecolor, fontSize: 20),
-                searchIconColor: whitecolor,
-                searchFieldDecoration: BoxDecoration(
-                    color: whitecolor.withOpacity(0.8),
-                    borderRadius: BorderRadius.circular(10)),
-                closeIconColor: whitecolor,
-                onChanged: (query) => filterData(query),
-                searchTextEditingController: searchController,
-                horizontalPadding: 5),
-          ))),
-      body: RefreshIndicator(
-        onRefresh: _handleRefresh,
-        child: Column(
-          children: [
-            Container(
-              color: Colors.grey,
-              width: width,
-              height: height / 20,
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'billno'.tr,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 15),
-                    ),
-                    Text(
-                      'Status'.tr,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 15),
-                    ),
-                    Text(
-                      'amount'.tr,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 15),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Expanded(
-              child: isLoading
-                  ? ListView.builder(
-                      itemCount: 10,
-                      itemBuilder: (context, index) {
-                        return Shimmer.fromColors(
-                          baseColor: Colors.grey,
-                          highlightColor: Colors.blue.shade100,
-                          child: ListTile(
-                            leading: Container(
-                              width: 60,
-                              height: 60,
-                              color: Colors.white,
-                            ),
-                            title: Container(
-                              width: 150,
-                              height: 20,
-                              color: Colors.white,
-                            ),
-                            subtitle: Container(
-                              width: 100,
-                              height: 10,
-                              color: Colors.white,
-                            ),
-                            trailing: Container(
-                              width: 60,
-                              height: 30,
-                              color: Colors.white,
-                            ),
-                          ),
-                        );
-                      },
-                    )
-                  : filteredData!.isEmpty
-                      ? Center(
-                          child: Container(
-                            height: 150,
-                            width: 150,
-                            child: Lottie.asset(
-                              'assets/No_Data_Found.json',
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        )
-                      : ListView.builder(
-                          itemCount: filteredData?.length,
-                          itemBuilder: (context, index) {
-                            final Pharmacybill = filteredData?[index];
-                            if (Pharmacybill.containsKey('id')) {
-                              return Column(
-                                children: [
-                                  Card(
-                                    color: Colors.white70.withOpacity(0.7),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                width: width / 8,
-                                                child: Text(
-                                                  "${Pharmacybill['id']}",
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                width: width / 7,
-                                                child: InkWell(
-                                                  onTap: () {
-                                                    if (Pharmacybill[
-                                                            'status'] ==
-                                                        'Paid') {
-                                                      Get.to(
-                                                        () =>
-                                                            PhysiotherapyBillview(
-                                                          bill_pdf:
-                                                              "${Pharmacybill['bill_pdf']}", // Use 'id' as the Pharmacybill ID
-                                                          id: "${Pharmacybill['id']}",
-                                                        ),
-                                                      );
-                                                    } else {
-                                                      Get.to(
-                                                        () =>
-                                                            PhysiotherapyBillview(
-                                                          bill_pdf:
-                                                              "${Pharmacybill['bill_pdf']}", // Use 'id' as the Pharmacybill ID
-                                                          id: "${Pharmacybill['id']}",
-                                                        ),
-                                                      );
-                                                    }
-                                                  },
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                      color: Pharmacybill[
-                                                                  'status'] ==
-                                                              'Paid'
-                                                          ? Colors.green
-                                                          : Colors.red,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5.0),
-                                                    ),
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              3.0),
-                                                      child: Center(
-                                                        child: Text(
-                                                          // listName,
-                                                          "${Pharmacybill['status']}",
-                                                          style:
-                                                              const TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                width: width / 8,
-                                                child: Center(
-                                                  child: Text(
-                                                    "${Pharmacybill['net_amount']}", // Use 'net_amount' for the amount
-                                                    style: const TextStyle(
-                                                      color: Colors.red,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            }
-                            return null;
-                          },
-                        ),
-            ),
-          ],
-        ),
-      ),
-      bottomSheet: data!.isEmpty
-          ? null // Set bottomSheet to null when apiData is empty
-          : Card(
-              child: Container(
-                height: height / 15,
+    return WillPopScope(
+       onWillPop: () async {
+        // Navigate to the Home Screen when the back button is pressed
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const Bottomhome()),
+        );
+        return false; // Prevent default back button behavior
+      },
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: PreferredSize(
+            preferredSize: const Size(double.infinity, 65),
+            child: SafeArea(
+                child: Container(
+              decoration: BoxDecoration(color: darkYellow, boxShadow: const [
+                BoxShadow(
+                    color: Colors.white,
+                    blurRadius: 5,
+                    spreadRadius: 0,
+                    offset: Offset(0, 5)),
+              ]),
+              alignment: Alignment.center,
+              child: AnimationSearchBar(
+                  previousScreen: const Bottomhome(),
+                  isBackButtonVisible: true,
+                  backIconColor: whitecolor,
+                  centerTitle: 'Physiotherapy'.tr,
+                  centerTitleStyle: TextStyle(color: whitecolor, fontSize: 20),
+                  searchIconColor: whitecolor,
+                  searchFieldDecoration: BoxDecoration(
+                      color: whitecolor.withOpacity(0.8),
+                      borderRadius: BorderRadius.circular(10)),
+                  closeIconColor: whitecolor,
+                  onChanged: (query) => filterData(query),
+                  searchTextEditingController: searchController,
+                  horizontalPadding: 5),
+            ))),
+        body: RefreshIndicator(
+          onRefresh: _handleRefresh,
+          child: Column(
+            children: [
+              Container(
+                color: Colors.grey,
                 width: width,
-                color: darkYellow,
+                height: height / 20,
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'total'.tr,
+                        'billno'.tr,
                         style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20),
+                            fontWeight: FontWeight.bold, fontSize: 15),
                       ),
-                      Shimmer.fromColors(
-                        baseColor: Colors.red,
-                        highlightColor: Colors.yellow,
-                        child: Text("Rs.$totalAmount",
-                            style: const TextStyle(
-                                color: Colors.red, fontSize: 20)),
+                      Text(
+                        'Status'.tr,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                      Text(
+                        'amount'.tr,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
                       ),
                     ],
                   ),
                 ),
               ),
-            ),
+              Expanded(
+                child: isLoading
+                    ? ListView.builder(
+                        itemCount: 10,
+                        itemBuilder: (context, index) {
+                          return Shimmer.fromColors(
+                            baseColor: Colors.grey,
+                            highlightColor: Colors.blue.shade100,
+                            child: ListTile(
+                              leading: Container(
+                                width: 60,
+                                height: 60,
+                                color: Colors.white,
+                              ),
+                              title: Container(
+                                width: 150,
+                                height: 20,
+                                color: Colors.white,
+                              ),
+                              subtitle: Container(
+                                width: 100,
+                                height: 10,
+                                color: Colors.white,
+                              ),
+                              trailing: Container(
+                                width: 60,
+                                height: 30,
+                                color: Colors.white,
+                              ),
+                            ),
+                          );
+                        },
+                      )
+                    : filteredData!.isEmpty
+                        ? Center(
+                            child: Container(
+                              height: 150,
+                              width: 150,
+                              child: Lottie.asset(
+                                'assets/No_Data_Found.json',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          )
+                        : ListView.builder(
+                            itemCount: filteredData?.length,
+                            itemBuilder: (context, index) {
+                              final Pharmacybill = filteredData?[index];
+                              if (Pharmacybill.containsKey('id')) {
+                                return Column(
+                                  children: [
+                                    Card(
+                                      color: Colors.white70.withOpacity(0.7),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: width / 8,
+                                                  child: Text(
+                                                    "${Pharmacybill['id']}",
+                                                    style: const TextStyle(
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: width / 7,
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      if (Pharmacybill[
+                                                              'status'] ==
+                                                          'Paid') {
+                                                        Get.to(
+                                                          () =>
+                                                              PhysiotherapyBillview(
+                                                            bill_pdf:
+                                                                "${Pharmacybill['bill_pdf']}", // Use 'id' as the Pharmacybill ID
+                                                            id: "${Pharmacybill['id']}",
+                                                          ),
+                                                        );
+                                                      } else {
+                                                        Get.to(
+                                                          () =>
+                                                              PhysiotherapyBillview(
+                                                            bill_pdf:
+                                                                "${Pharmacybill['bill_pdf']}", // Use 'id' as the Pharmacybill ID
+                                                            id: "${Pharmacybill['id']}",
+                                                          ),
+                                                        );
+                                                      }
+                                                    },
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                        color: Pharmacybill[
+                                                                    'status'] ==
+                                                                'Paid'
+                                                            ? Colors.green
+                                                            : Colors.red,
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                5.0),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets.all(
+                                                                3.0),
+                                                        child: Center(
+                                                          child: Text(
+                                                            // listName,
+                                                            "${Pharmacybill['status']}",
+                                                            style:
+                                                                const TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight.bold,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: width / 8,
+                                                  child: Center(
+                                                    child: Text(
+                                                      "${Pharmacybill['net_amount']}", // Use 'net_amount' for the amount
+                                                      style: const TextStyle(
+                                                        color: Colors.red,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              }
+                              return null;
+                            },
+                          ),
+              ),
+            ],
+          ),
+        ),
+        bottomSheet: data!.isEmpty
+            ? null // Set bottomSheet to null when apiData is empty
+            : Card(
+                child: Container(
+                  height: height / 15,
+                  width: width,
+                  color: darkYellow,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'total'.tr,
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                        ),
+                        Shimmer.fromColors(
+                          baseColor: Colors.red,
+                          highlightColor: Colors.yellow,
+                          child: Text("Rs.$totalAmount",
+                              style: const TextStyle(
+                                  color: Colors.red, fontSize: 20)),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+      ),
     );
   }
 }

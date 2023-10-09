@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace
 
+import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/view_bill.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -101,242 +102,252 @@ class _TransactionBillState extends State<TransactionBill> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('transactionBill'.tr),
-        centerTitle: true,
-        backgroundColor: darkYellow,
-      ),
-      body: RefreshIndicator(
-        onRefresh: _handleRefresh,
-        child: Column(children: [
-          Container(
-            color: Colors.grey,
-            width: width,
-            height: height / 20,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    'tid'.tr,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 15),
-                  ),
-                  Text(
-                    'section'.tr,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 15),
-                  ),
-                  Text(
-                    'billno'.tr,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 15),
-                  ),
-                  Text(
-                    'amount'.tr,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 15),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-            child: isLoading
-                ? ListView.builder(
-                    itemCount: 10,
-                    itemBuilder: (context, index) {
-                      return Shimmer.fromColors(
-                        baseColor: Colors.grey,
-                        highlightColor: Colors.blue.shade100,
-                        child: ListTile(
-                          leading: Container(
-                            width: 60,
-                            height: 60,
-                            color: Colors.white,
-                          ),
-                          title: Container(
-                            width: 150,
-                            height: 20,
-                            color: Colors.white,
-                          ),
-                          subtitle: Container(
-                            width: 100,
-                            height: 10,
-                            color: Colors.white,
-                          ),
-                          trailing: Container(
-                            width: 60,
-                            height: 30,
-                            color: Colors.white,
-                          ),
-                        ),
-                      );
-                    },
-                  )
-                : apiData.isEmpty
-                    ? Center(
-                        child: Container(
-                          height: 150,
-                          width: 150,
-                          child: Lottie.asset(
-                            'assets/No_Data_Found.json',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      )
-                    : ListView.builder(
-                        itemCount: apiData.length,
-                        itemBuilder: (context, index) {
-                          final transaction = apiData[index.toString()];
-                          if (transaction != null &&
-                              transaction.containsKey('id')) {
-                            return InkWell(
-                              onTap: () {
-                                Get.to(
-                                  () => ViewBillDetiles(
-                                    pdf:
-                                        "${transaction['pdf']}", // Use 'id' as the transaction ID
-                                    billname: '',
-                                    billNo: "${transaction['bill_no']}",
-                                  ),
-                                );
-                              },
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 5.0, left: 5, right: 5),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color:
-                                            Colors.white70, // Background color
-                                        border: Border.all(
-                                          color: Colors.grey, // Border color
-                                          width: 1.0, // Border width
-                                        ),
-                                        borderRadius: BorderRadius.circular(
-                                            2.0), // Border radius
-                                      ),
-                                      width: width,
-                                      height: 40,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(5.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Container(
-                                                  width: width / 5,
-                                                  child: Text(
-                                                    "${transaction['id']}",
-                                                    style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Container(
-                                                  width: width / 6,
-                                                  child: Text(
-                                                    "${transaction['section']}",
-                                                    style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Container(
-                                                  width: width / 6,
-                                                  child: Text(
-                                                    "${transaction['bill_no']}",
-                                                    style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Container(
-                                                  width: width / 6,
-                                                  child: Text(
-                                                    "${transaction['amount']}",
-                                                    style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          }
-                          return null;
-                        }),
-          ),
-        ]),
-      ),
-      bottomSheet: apiData.isEmpty
-          ? null // Set bottomSheet to null when apiData is empty
-          : Card(
-              child: Container(
-                height: height / 15,
-                width: width,
-                color: darkYellow,
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('total'.tr,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20)),
-                      Shimmer.fromColors(
-                        baseColor: Colors.red,
-                        highlightColor: Colors.yellow,
-                        child: Text("Rs.$totalAmount",
-                            // $totalSum",
-                            style: const TextStyle(
-                                color: Colors.red, fontSize: 20)),
-                      ),
-                    ],
-                  ),
+    return WillPopScope(
+       onWillPop: () async {
+        // Navigate to the Home Screen when the back button is pressed
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const Bottomhome()),
+        );
+        return false; // Prevent default back button behavior
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('transactionBill'.tr),
+          centerTitle: true,
+          backgroundColor: darkYellow,
+        ),
+        body: RefreshIndicator(
+          onRefresh: _handleRefresh,
+          child: Column(children: [
+            Container(
+              color: Colors.grey,
+              width: width,
+              height: height / 20,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      'tid'.tr,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 15),
+                    ),
+                    Text(
+                      'section'.tr,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 15),
+                    ),
+                    Text(
+                      'billno'.tr,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 15),
+                    ),
+                    Text(
+                      'amount'.tr,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 15),
+                    ),
+                  ],
                 ),
               ),
             ),
+            Expanded(
+              child: isLoading
+                  ? ListView.builder(
+                      itemCount: 10,
+                      itemBuilder: (context, index) {
+                        return Shimmer.fromColors(
+                          baseColor: Colors.grey,
+                          highlightColor: Colors.blue.shade100,
+                          child: ListTile(
+                            leading: Container(
+                              width: 60,
+                              height: 60,
+                              color: Colors.white,
+                            ),
+                            title: Container(
+                              width: 150,
+                              height: 20,
+                              color: Colors.white,
+                            ),
+                            subtitle: Container(
+                              width: 100,
+                              height: 10,
+                              color: Colors.white,
+                            ),
+                            trailing: Container(
+                              width: 60,
+                              height: 30,
+                              color: Colors.white,
+                            ),
+                          ),
+                        );
+                      },
+                    )
+                  : apiData.isEmpty
+                      ? Center(
+                          child: Container(
+                            height: 150,
+                            width: 150,
+                            child: Lottie.asset(
+                              'assets/No_Data_Found.json',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        )
+                      : ListView.builder(
+                          itemCount: apiData.length,
+                          itemBuilder: (context, index) {
+                            final transaction = apiData[index.toString()];
+                            if (transaction != null &&
+                                transaction.containsKey('id')) {
+                              return InkWell(
+                                onTap: () {
+                                  Get.to(
+                                    () => ViewBillDetiles(
+                                      pdf:
+                                          "${transaction['pdf']}", // Use 'id' as the transaction ID
+                                      billname: '',
+                                      billNo: "${transaction['bill_no']}",
+                                    ),
+                                  );
+                                },
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 5.0, left: 5, right: 5),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color:
+                                              Colors.white70, // Background color
+                                          border: Border.all(
+                                            color: Colors.grey, // Border color
+                                            width: 1.0, // Border width
+                                          ),
+                                          borderRadius: BorderRadius.circular(
+                                              2.0), // Border radius
+                                        ),
+                                        width: width,
+                                        height: 40,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Container(
+                                                    width: width / 5,
+                                                    child: Text(
+                                                      "${transaction['id']}",
+                                                      style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Container(
+                                                    width: width / 6,
+                                                    child: Text(
+                                                      "${transaction['section']}",
+                                                      style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Container(
+                                                    width: width / 6,
+                                                    child: Text(
+                                                      "${transaction['bill_no']}",
+                                                      style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Container(
+                                                    width: width / 6,
+                                                    child: Text(
+                                                      "${transaction['amount']}",
+                                                      style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                            return null;
+                          }),
+            ),
+          ]),
+        ),
+        bottomSheet: apiData.isEmpty
+            ? null // Set bottomSheet to null when apiData is empty
+            : Card(
+                child: Container(
+                  height: height / 15,
+                  width: width,
+                  color: darkYellow,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('total'.tr,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20)),
+                        Shimmer.fromColors(
+                          baseColor: Colors.red,
+                          highlightColor: Colors.yellow,
+                          child: Text("Rs.$totalAmount",
+                              // $totalSum",
+                              style: const TextStyle(
+                                  color: Colors.red, fontSize: 20)),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+      ),
     );
   }
 }
+

@@ -39,29 +39,28 @@ class PatientHomePage extends StatefulWidget {
 class _PatientHomePageState extends State<PatientHomePage> {
   /////////////////////////////////////////
   //convert rupess to paisa
-  final double rupeesAmount = 1050; // Replace this with your rupees amount
+  late int rupeesAmount = totalDues; // Replace this with your rupees amount
 
   int convertRupeesToPaisa() {
     return (rupeesAmount * 100).toInt();
   }
-  ///////////////////////////////////////////////////////////////
 
   ///////////////////////////////////////////////////////////////
-// init state data and dispose 
+// init state data and dispose
 
-  // getAllData() async {
-   
-  // }
+  getdata() async {
+   await LoadData();
+
+    await getDues();
+    convertRupeesToPaisa();
+  }
 
   @override
   void initState() {
     super.initState();
-     convertRupeesToPaisa();
-     LoadData();
-     fetchData();
+    getdata();
 
-     hitApi();
-    // getAllData;
+    hitApi();
   }
 
   @override
@@ -69,7 +68,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
     super.dispose();
   }
 ///////////////////////////////////////////////////////////////////
-  //get Shared preferance data 
+  //get Shared preferance data
 
   String role = '';
   String caseId = '';
@@ -93,34 +92,42 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
 ///////////////////////////////////////////////////////////////////
 // get Due amount
-  Map<String, dynamic>? apiData;
+  late int totalDues = 0;
 
-  Future<void> fetchData() async {
-    final url = Uri.parse(ApiLinks.getDues);
+  Future<void> getDues() async {
+    // Set the headers
     final headers = {
       'Soft-service': 'TezHealthCare',
       'Auth-key': 'zbuks_ram859553467',
     };
-    final body = {
-      "patient_id":"10380"
-    };
 
+    // Set the body
+    final body = {
+      'patient_id': Patient_id,
+    };
     try {
-      final response = await http.post(url, headers: headers, body: body);
+      // Make the POST request
+      final response = await http.post(
+        Uri.parse('https://uat.tez.hospital/xzy/webservice/get_dues'),
+        headers: headers,
+        body: jsonEncode(body),
+      );
+
+      // Check if the response was successful
       if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        print(data);
-        setState(() {
-          apiData = data['result'];
-          print(apiData?['total_dues']);
-        });
+        // Decode the JSON response
+        final data = jsonDecode(response.body);
+
+        // Get the total_dues and patho_dues values
+        totalDues = data['result']['total_dues'];
+
+        // Set the state to rebuild the widget
+        setState(() {});
       } else {
-        // Handle error
-        print('Request failed with status: ${response.statusCode}');
+        // Handle the error
       }
     } catch (error) {
-      // Handle network or other errors
-      print('Error: $error');
+      print(error);
     }
   }
 ///////////////////////////////////////////////////////
@@ -173,10 +180,12 @@ class _PatientHomePageState extends State<PatientHomePage> {
       isLoading = false; // Set isLoading to false after data is fetched
     });
   }
+
 //////////////////////////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
     int paisaAmount = convertRupeesToPaisa();
+
     return Scaffold(
         appBar: AppBar(
           title: const Text(
@@ -201,7 +210,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
             IconButton(
                 color: Colors.blue,
                 onPressed: () {
-                  Get.to(() =>  const Notif());
+                  Get.to(() => const Notif());
                 },
                 icon: const Icon(
                   Icons.notifications,
@@ -314,7 +323,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               const EdgeInsets.only(left: 30.0),
                                           child: Text(
                                             // 'Rs. $rupeesAmount',
-                                            apiData?['total_dues']??"",
+                                            "Rs. $totalDues",
                                             style: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.red,
@@ -450,7 +459,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         ),
                                         InkWell(
                                           onTap: () {
-                                            Get.to(() => const IPD());
+                                            Get.to(() =>  IPD());
                                           },
                                           child: Container(
                                             width: 100,
@@ -729,7 +738,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         ),
                                         InkWell(
                                           onTap: () {
-                                            Get.offAll(() => const Physiotherapy());
+                                            Get.offAll(
+                                                () => const Physiotherapy());
                                           },
                                           child: Container(
                                             width: 100,

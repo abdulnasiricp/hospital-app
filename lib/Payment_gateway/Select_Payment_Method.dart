@@ -23,7 +23,7 @@ import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SelectPaymentMethod extends StatefulWidget {
- final  double totalAmountInRs;
+ final  int totalAmountInRs;
  final  int totalAmountInpaisa;
     const SelectPaymentMethod({Key? key, required this.totalAmountInRs, required this.totalAmountInpaisa}) : super(key: key);
 
