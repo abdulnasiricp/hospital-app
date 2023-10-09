@@ -520,8 +520,8 @@ TextFormField searchField() {
                   
                   onChanged: (query) => filterData(query),
                   decoration: const InputDecoration(
-                    fillColor: Colors.white,
-                    filled: true,
+                    // fillColor: Colors.white,
+                    // filled: true,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
                         Radius.circular(10),
