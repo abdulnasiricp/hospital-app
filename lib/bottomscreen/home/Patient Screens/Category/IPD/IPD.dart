@@ -115,7 +115,6 @@ class _IPDState extends State<IPD> {
     );
 
     if (response.statusCode == 200) {
-       
       return jsonDecode(response.body);
     } else {
       throw Exception('Failed to load vitals data');
@@ -123,9 +122,8 @@ class _IPDState extends State<IPD> {
   }
 
   //////////////////////////////////////////////////////////////////////////////
-  ///
   bool isLoading = true;
-   Future<void> _handleRefresh() async {
+  Future<void> _handleRefresh() async {
     setState(() {
       isLoading = true; // Set isLoading to true when refreshing
     });
@@ -137,11 +135,8 @@ class _IPDState extends State<IPD> {
     });
   }
 
-
   late ColorNotifier notifier;
-
   TextEditingController dateinput = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     notifier = Provider.of<ColorNotifier>(context, listen: true);
@@ -156,7 +151,7 @@ class _IPDState extends State<IPD> {
           backgroundColor: Colors.white,
           body: SingleChildScrollView(
             child: RefreshIndicator(
-               onRefresh: _handleRefresh,
+              onRefresh: _handleRefresh,
               child: Column(
                 children: [
                   Padding(
@@ -172,7 +167,7 @@ class _IPDState extends State<IPD> {
                             children: [
                               InkWell(
                                 onTap: () {
-                                  Get.offAll(() => const MedicationScreen());
+                                  Get.to(() => const MedicationScreen());
                                 },
                                 child: Container(
                                   width: 100,
@@ -413,12 +408,12 @@ class _IPDState extends State<IPD> {
                                   SizedBox(
                                     height: 5,
                                   ),
-            
+
                                   Text('Gender: '),
                                   SizedBox(
                                     height: 5,
                                   ),
-            
+
                                   Text('Date of Admission: '),
                                   // Text(_vitalsData['vitals']?['Height']??""),
                                 ],
@@ -482,58 +477,55 @@ class _IPDState extends State<IPD> {
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
-                                  return  Center(
+                                  return Center(
                                       child: Container(
-                            height: 70,
-                            width: 70,
-                            color: Colors.transparent,
-                            child: const LoadingIndicatorWidget()));
+                                          height: 30,
+                                          width: 30,
+                                          color: Colors.transparent,
+                                          child:
+                                              const LoadingIndicatorWidget()));
                                 } else if (snapshot.hasError) {
                                   return Text('Error: ${snapshot.error}');
                                 } else {
                                   final vitalsData = snapshot.data!['vitals'];
-                                  final consultansData = snapshot.data!['consultant_doctor'];
-            
-                                  return Column( 
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                  final consultansData =
+                                      snapshot.data!['consultant_doctor'];
+
+                                  return Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       buildVitalItem(
                                           'Height', "${vitalsData['Height']} "),
                                       buildVitalItem(
                                           'Weight', "${vitalsData['weight']} "),
-                                      buildVitalItem('BP',
-                                          "${vitalsData['bp']} "),
                                       buildVitalItem(
-                                          'Pulse',
-                                          "${vitalsData['pulse']} "),
+                                          'BP', "${vitalsData['bp']} "),
                                       buildVitalItem(
-                                          'Temperature',
+                                          'Pulse', "${vitalsData['pulse']} "),
+                                      buildVitalItem('Temperature',
                                           "${vitalsData['temprature']} "),
-                                         
-                                              
-                                      buildVitalItem(
-                                          'Respiration',
+                                      buildVitalItem('Respiration',
                                           "${vitalsData['respiration']} "),
-                                            const SizedBox(height: 32),
-                          const Column(
-                            children: [
-                              Text(
-                                'Consultants',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-                          // Text("$ConsultansData['name']}"),
-                          Text("${consultansData['name']} ${consultansData['surname']} ")
+                                      const SizedBox(height: 32),
+                                      const Column(
+                                        children: [
+                                          Text(
+                                            'Consultants',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 16),
+                                      Text(
+                                          "${consultansData['name']} ${consultansData['surname']} ")
                                     ],
                                   );
                                 }
                               }),
-                        
                         ],
                       ),
                     ),
