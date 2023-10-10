@@ -26,11 +26,13 @@ class _IPDState extends State<IPD> {
 // get Shared Prefernce data
 
   late String patientID = '';
+  late String IPDID = '';
 
   LoadData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
 
     patientID = sp.getString('patientidrecord') ?? '';
+    IPDID = sp.getString('ipdId') ?? '';
 
     print(patientID);
     setState(() {});
@@ -41,13 +43,21 @@ class _IPDState extends State<IPD> {
     await LoadData();
 
     await getpatientDetails();
-    //  await fetchData();
+   await fetchVitalsData().then((data) {
+      setState(() {
+        vitalsData = data['vitals'];
+        consultansData = data['consultant_doctor'];
+      });
+    });
   }
 
   @override
   void initState() {
     super.initState();
     getData();
+   
+
+    
     // fetchVitalsData();
   }
 
@@ -57,6 +67,8 @@ class _IPDState extends State<IPD> {
   late String PatientAge = '';
   late String PatientGender = '';
   late String AdmissionDate = '';
+  late String ipdData = '';
+  
 
   Future<void> getpatientDetails() async {
     // Set the headers
@@ -79,6 +91,9 @@ class _IPDState extends State<IPD> {
 
       // Check if the response was successful
       if (response.statusCode == 200) {
+      
+      
+
         // Decode the JSON response
         final data = jsonDecode(response.body);
 
@@ -87,6 +102,10 @@ class _IPDState extends State<IPD> {
         PatientAge = data['result']['age'];
         PatientGender = data['result']['gender'];
         AdmissionDate = data['result']['date'];
+        ipdData = data['result']['ipdid'];
+
+        final sp = await SharedPreferences.getInstance();
+      sp.setString('ipdId',ipdData );
 
         // Set the state to rebuild the widget
         setState(() {});
@@ -97,9 +116,17 @@ class _IPDState extends State<IPD> {
       print(error);
     }
   }
+  ////////////////////////////////////////////////////////////////////////////////
+
 
   //////////////////////////////////////////////////////////////////////////////////
   // get vital data
+
+// Existing declaration of vitalsData
+  late Map<String?, dynamic> vitalsData = {};
+  late Map<String?, dynamic> consultansData = {};
+  
+
   Future<Map<String, dynamic>> fetchVitalsData() async {
     final response = await http.post(
       Uri.parse(
@@ -109,14 +136,14 @@ class _IPDState extends State<IPD> {
         'Auth-key': 'zbuks_ram859553467',
       },
       body: jsonEncode({
-        "ipd_id": 313,
-        "patient_id": 10909,
+        "ipd_id":ipdData ,
+        "patient_id": patientID,
       }),
     );
 
     if (response.statusCode == 200) {
        
-      return jsonDecode(response.body);
+      return  jsonDecode(response.body);
     } else {
       throw Exception('Failed to load vitals data');
     }
@@ -138,6 +165,8 @@ class _IPDState extends State<IPD> {
   }
 
 
+  
+  
   late ColorNotifier notifier;
 
   TextEditingController dateinput = TextEditingController();
@@ -420,7 +449,6 @@ class _IPDState extends State<IPD> {
                                   ),
             
                                   Text('Date of Admission: '),
-                                  // Text(_vitalsData['vitals']?['Height']??""),
                                 ],
                               ),
                               Column(
@@ -464,6 +492,14 @@ class _IPDState extends State<IPD> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
+                                   Text(
+                                    ipdData,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ],
@@ -477,43 +513,26 @@ class _IPDState extends State<IPD> {
                             ),
                           ),
                           const SizedBox(height: 16),
-                          FutureBuilder<Map<String, dynamic>>(
-                              future: fetchVitalsData(),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return  Center(
-                                      child: Container(
-                            height: 70,
-                            width: 70,
-                            color: Colors.transparent,
-                            child: const LoadingIndicatorWidget()));
-                                } else if (snapshot.hasError) {
-                                  return Text('Error: ${snapshot.error}');
-                                } else {
-                                  final vitalsData = snapshot.data!['vitals'];
-                                  final consultansData = snapshot.data!['consultant_doctor'];
-            
-                                  return Column( 
+                          Column( 
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       buildVitalItem(
-                                          'Height', "${vitalsData['Height']} "),
+                                          'Height', "${vitalsData['Height']??""} "),
                                       buildVitalItem(
-                                          'Weight', "${vitalsData['weight']} "),
+                                          'Weight', "${vitalsData['weight']??""} "),
                                       buildVitalItem('BP',
-                                          "${vitalsData['bp']} "),
+                                          "${vitalsData['bp']??""} "),
                                       buildVitalItem(
                                           'Pulse',
-                                          "${vitalsData['pulse']} "),
+                                          "${vitalsData['pulse']??""} "),
                                       buildVitalItem(
                                           'Temperature',
-                                          "${vitalsData['temprature']} "),
+                                          "${vitalsData['temprature']??""} "),
                                          
                                               
                                       buildVitalItem(
                                           'Respiration',
-                                          "${vitalsData['respiration']} "),
+                                          "${vitalsData['respiration']??""} "),
                                             const SizedBox(height: 32),
                           const Column(
                             children: [
@@ -528,11 +547,11 @@ class _IPDState extends State<IPD> {
                           ),
                           const SizedBox(height: 16),
                           // Text("$ConsultansData['name']}"),
-                          Text("${consultansData['name']} ${consultansData['surname']} ")
+                          Text("${consultansData['name']??""} ${consultansData['surname']??""} ")
                                     ],
-                                  );
-                                }
-                              }),
+                                  )
+                                
+                              
                         
                         ],
                       ),
