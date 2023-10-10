@@ -30,4 +30,8 @@ class ApiLinks {
       "https://uat.tez.hospital/xzy/webservice/get_dues";
        static const String getAllTransaction=
       "https://uat.tez.hospital/xzy/webservice/getAllTransaction";
+      static const String getAmbulanceDetails=
+      "https://uat.tez.hospital/xzy/webservice/getAmbulanceDetails";
+      static const String getbloodbankDetails=
+      "https://uat.tez.hospital/xzy/webservice/getAllTransaction";
 }

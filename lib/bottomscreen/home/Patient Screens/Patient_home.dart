@@ -114,7 +114,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
     try {
       // Make the POST request
       final response = await http.post(
-        Uri.parse('https://uat.tez.hospital/xzy/webservice/get_dues'),
+        Uri.parse(ApiLinks.getDues),
         headers: headers,
         body: jsonEncode(body),
       );

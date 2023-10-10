@@ -1,3 +1,4 @@
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
@@ -73,12 +74,11 @@ class _Blood_BankState extends State<Blood_Bank> {
 
   Future<List<BloodIssue>> fetchBloodIssues() async {
     final apiUrl = Uri.parse(
-        'https://uat.tez.hospital/xzy/webservice/getbloodbankDetails');
+        ApiLinks.getbloodbankDetails);
     final headers = {
       'Soft-service': 'TezHealthCare',
       'Auth-key': 'zbuks_ram859553467',
-      'Content-Type':
-          'application/json', // You might need to specify the content type
+      
     };
     final body = {
       "patient_id": Patient_id,

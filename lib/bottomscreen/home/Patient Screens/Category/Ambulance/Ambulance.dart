@@ -1,3 +1,4 @@
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
@@ -66,11 +67,10 @@ class _AmbulanceState extends State<Ambulance> {
 
   Future<List<AmbulanceRequest>> fetchAmbulanceRequests() async {
     final apiUrl = Uri.parse(
-        'https://uat.tez.hospital/xzy/webservice/getAmbulanceDetails');
+        ApiLinks.getAmbulanceDetails);
     final headers = {
       'Soft-service': 'TezHealthCare',
       'Auth-key': 'zbuks_ram859553467',
-      'Content-Type': 'application/json',
     };
     final body = {
       'patient_id': Patient_id,
