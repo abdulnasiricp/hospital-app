@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AmbulanceRequest {
   final String id;
@@ -42,11 +43,25 @@ class Ambulance extends StatefulWidget {
 
 class _AmbulanceState extends State<Ambulance> {
   late Future<List<AmbulanceRequest>> ambulanceRequests;
+  String Patient_id = '';
+
+  // Separate method for loading data asynchronously
+  Future<void> loadData() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    setState(() {
+      Patient_id = sharedPreferences.getString('patientidrecord') ?? '';
+    });
+  }
 
   @override
   void initState() {
     super.initState();
-    ambulanceRequests = fetchAmbulanceRequests();
+    // Call the loadData method here
+    loadData();
+    // Now, you can call fetchAmbulanceRequests once the data is loaded
+    loadData().then((_) {
+      ambulanceRequests = fetchAmbulanceRequests();
+    });
   }
 
   Future<List<AmbulanceRequest>> fetchAmbulanceRequests() async {
@@ -58,9 +73,10 @@ class _AmbulanceState extends State<Ambulance> {
       'Content-Type': 'application/json',
     };
     final body = {
-      "patient_id": "10029",
+      'patient_id': Patient_id,
     };
-
+    print(
+        "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ $Patient_id");
     final response =
         await http.post(apiUrl, headers: headers, body: jsonEncode(body));
 
@@ -105,7 +121,7 @@ class _AmbulanceState extends State<Ambulance> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Ambulance Requests'.tr),
+        title: Text('ambulance'.tr),
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
@@ -125,8 +141,11 @@ class _AmbulanceState extends State<Ambulance> {
                         child: const LoadingIndicatorWidget())),
               );
             } else if (snapshot.hasError) {
-              return Center(
-                child: Text('Error: ${snapshot.error}'),
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                  child: Text('Error: ${snapshot.error}'),
+                ),
               );
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
               return Center(

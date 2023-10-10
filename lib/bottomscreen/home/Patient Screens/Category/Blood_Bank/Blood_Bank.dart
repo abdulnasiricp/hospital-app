@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BloodIssue {
   final String id;
@@ -49,10 +50,25 @@ class Blood_Bank extends StatefulWidget {
 class _Blood_BankState extends State<Blood_Bank> {
   late Future<List<BloodIssue>> bloodIssues;
 
+  String Patient_id = '';
+
+  // Separate method for loading data asynchronously
+  Future<void> loadData() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    setState(() {
+      Patient_id = sharedPreferences.getString('patientidrecord') ?? '';
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    bloodIssues = fetchBloodIssues();
+    // Call the loadData method here
+    loadData();
+    // Now, you can call fetchAmbulanceRequests once the data is loaded
+    loadData().then((_) {
+      bloodIssues = fetchBloodIssues();
+    });
   }
 
   Future<List<BloodIssue>> fetchBloodIssues() async {
@@ -65,7 +81,7 @@ class _Blood_BankState extends State<Blood_Bank> {
           'application/json', // You might need to specify the content type
     };
     final body = {
-      "patient_id": "1235",
+      "patient_id": Patient_id,
     };
 
     final response =
