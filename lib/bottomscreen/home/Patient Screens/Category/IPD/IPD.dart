@@ -67,7 +67,7 @@ class _IPDState extends State<IPD> {
 
     // Set the body
     final body = {
-      'patient_id': '10380',
+      'patient_id': patientID,
     };
     try {
       // Make the POST request
@@ -110,7 +110,7 @@ class _IPDState extends State<IPD> {
       },
       body: jsonEncode({
         "ipd_id": 313,
-        "patient_id": 10909,
+        "patient_id": patientID,
       }),
     );
 
