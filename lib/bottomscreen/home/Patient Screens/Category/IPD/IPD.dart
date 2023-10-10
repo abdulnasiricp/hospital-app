@@ -40,7 +40,7 @@ class _IPDState extends State<IPD> {
     await LoadData();
 
     await getpatientDetails();
-  //  await fetchData();
+    //  await fetchData();
   }
 
   @override
@@ -96,19 +96,18 @@ class _IPDState extends State<IPD> {
       print(error);
     }
   }
+
   //////////////////////////////////////////////////////////////////////////////////
   // get vital data
-   Map<String, dynamic> responseData = {};
+  Map<String, dynamic> responseData = {};
   Future<void> fetchData() async {
-    final apiUrl = Uri.parse('https://uat.tez.hospital/xzy/webservice/getipdVitals');
+    final apiUrl =
+        Uri.parse('https://uat.tez.hospital/xzy/webservice/getipdVitals');
     final headers = {
       'Soft-Service': 'TezHealthCare',
       'Auth-key': 'zbuks_ram859553467',
     };
-    final body = {
-      "ipd_id":"313",
-    "patient_id":"10909"
-    };
+    final body = {"ipd_id": "313", "patient_id": "10909"};
 
     try {
       final response = await http.post(
@@ -134,7 +133,6 @@ class _IPDState extends State<IPD> {
     }
   }
   //////////////////////////////////////////////////////////////////////////////
-
 
   late ColorNotifier notifier;
 
@@ -403,13 +401,19 @@ class _IPDState extends State<IPD> {
                           ),
                         ),
                         const SizedBox(height: 16),
-                         buildVitalItem('Height', responseData['vitals']?['Height'] ?? 'N/A'),
-                buildVitalItem('Weight', responseData['vitals']?['weight'] ?? 'N/A'),
-                buildVitalItem('BP', responseData['vitals']?['bp'] ?? 'N/A'),
-                buildVitalItem('Pulse', responseData['vitals']?['pulse'] ?? 'N/A'),
-                buildVitalItem('Temperature', responseData['vitals']?['temprature'] ?? 'N/A'),
-                buildVitalItem('Respiration', responseData['vitals']?['respiration'] ?? 'N/A'),
-                const SizedBox(height: 32),
+                        buildVitalItem('Height',
+                            responseData['vitals']?['Height'] ?? 'N/A'),
+                        buildVitalItem('Weight',
+                            responseData['vitals']?['weight'] ?? 'N/A'),
+                        buildVitalItem(
+                            'BP', responseData['vitals']?['bp'] ?? 'N/A'),
+                        buildVitalItem(
+                            'Pulse', responseData['vitals']?['pulse'] ?? 'N/A'),
+                        buildVitalItem('Temperature',
+                            responseData['vitals']?['temprature'] ?? 'N/A'),
+                        buildVitalItem('Respiration',
+                            responseData['vitals']?['respiration'] ?? 'N/A'),
+                        const SizedBox(height: 32),
                         const Text(
                           'Consultants',
                           style: TextStyle(

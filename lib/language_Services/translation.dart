@@ -203,6 +203,8 @@ class Translation extends Translations {
           'dose':'Dose',
           'frequency':'Frequency',
           'No. D':'No. D',
+          'Bedhistory':'Bedhistory',
+          'Certificate':'Certificate',
 
 
 
@@ -412,6 +414,8 @@ class Translation extends Translations {
           'dose':'खुराक',
           'frequency':'आवृत्ति',
           'No. D':'No. D',
+          'Bedhistory':'ओछ्यान इतिहास',
+          'Certificate':'प्रमाणपत्रहरू',
         }
       };
 }

@@ -5,7 +5,9 @@ import 'dart:convert';
 import 'package:TezHealthCare/Payment_gateway/Select_Payment_Method.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/All_doctors.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Bedhistory/Bedhistory.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Card/Card.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Certificate/Certificate.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/IPD.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Liveconsultation/Liveconsultation.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Pathology.dart';
@@ -49,7 +51,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
 // init state data and dispose
 
   getdata() async {
-   await LoadData();
+    await LoadData();
 
     await getDues();
     convertRupeesToPaisa();
@@ -459,7 +461,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         ),
                                         InkWell(
                                           onTap: () {
-                                            Get.to(() =>  IPD());
+                                            Get.to(() => IPD());
                                           },
                                           child: Container(
                                             width: 100,
@@ -774,6 +776,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                           ),
                                         ),
                                         InkWell(
+                                          onTap: () {
+                                            Get.to(() => const Certificate());
+                                          },
                                           child: Container(
                                             width: 100,
                                             height: 100,
@@ -807,6 +812,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                           ),
                                         ),
                                         InkWell(
+                                          onTap: () {
+                                            Get.to(() => Bedhistory());
+                                          },
                                           child: Container(
                                             width: 100,
                                             height: 100,
