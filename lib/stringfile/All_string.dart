@@ -171,6 +171,9 @@ class EnString {
   //help center
 
   static const String Liveconsultation = "Liveconsultation";
+  static const String Bedhistory = "Liveconsultation";
+  static const String Certificate = "Certificate";
+  static const String Bloodbank = "Bloodbank";
 
 
 

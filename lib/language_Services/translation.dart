@@ -60,10 +60,7 @@ class Translation extends Translations {
           'logout': "Log Out",
           'rateUs': "Rate Us",
 
-
-
           //term and coditions
-
 
           //information Profile screen
           'informationProfile': "Information Profile",
@@ -170,49 +167,42 @@ class Translation extends Translations {
           'Pharmacy': "Pharmacy",
           'Status': "Status",
 
-           //Therapy screen
+          //Therapy screen
           'Physiotherapy': "Physiotherapy",
 
           //live consultation
-          'Liveconsultation' : "Liveconsultation",
-          'join':'join',
+          'Liveconsultation': "Liveconsultation",
+          'join': 'join',
 
           //Add new members
-          'addNewMember':'Add New Member',
-          'firstName':'First Name',
-          'lastName':'Last Name',
-          'enterFirstName':'Enter First Name',
-          'enterLastName':'Enter Last Name',
-          'gender':'Gender',
-          'male':'Male',
-          'female':'Female',
-          'age':'Age',
-          'enterAge':'Enter Age',
-          'dob':'Date Of Birth',
-          'enterdob':'Enter Date Of Birth',
-          'phone':'Phone (optional)',
-          'enterPhone':'Enter Phone Number',
-          'email':'Email Address (optional)',
-          'enterEmail':'Enter Email Address',
-          'relationship':'Relationship',
+          'addNewMember': 'Add New Member',
+          'firstName': 'First Name',
+          'lastName': 'Last Name',
+          'enterFirstName': 'Enter First Name',
+          'enterLastName': 'Enter Last Name',
+          'gender': 'Gender',
+          'male': 'Male',
+          'female': 'Female',
+          'age': 'Age',
+          'enterAge': 'Enter Age',
+          'dob': 'Date Of Birth',
+          'enterdob': 'Enter Date Of Birth',
+          'phone': 'Phone (optional)',
+          'enterPhone': 'Enter Phone Number',
+          'email': 'Email Address (optional)',
+          'enterEmail': 'Enter Email Address',
+          'relationship': 'Relationship',
 
-           //IPD screen
-          'medication':'Medication',
-          'mid':'Mid',
-          'medicine':'Medicine',
-          'dose':'Dose',
-          'frequency':'Frequency',
-          'No. D':'No. D',
-
-
-
-
-
-
-
+          //IPD screen
+          'medication': 'Medication',
+          'mid': 'Mid',
+          'medicine': 'Medicine',
+          'dose': 'Dose',
+          'frequency': 'Frequency',
+          'No. D': 'No. D',
+          'Bedhistory': 'Bedhistory',
+          'Certificate': 'Certificate', 'Bloodbank': 'Bloodbank',
         },
-
-
         'ne_NP': {
           //Bottom Bar
           'home': "घर",
@@ -271,7 +261,6 @@ class Translation extends Translations {
           'checkUpdate': "अपडेटहरूको लागि जाँच गर्नुहोस्",
           'logout': "बाहिर निस्कनु",
           'rateUs': "हामीलाई मूल्याङ्कन गर्नुहोस्",
-
 
           //information Profile screen
           'informationProfile': "जानकारी प्रोफाइल",
@@ -385,33 +374,35 @@ class Translation extends Translations {
           //Therapy screen
           'Physiotherapy': "फिजियोथेरापी",
 
-             //live consultation
-          'Liveconsultation' : "प्रत्यक्ष परामर्श",
-          'join':'मिल्नु',
+          //live consultation
+          'Liveconsultation': "प्रत्यक्ष परामर्श",
+          'join': 'मिल्नु',
 
-           //Add new members
-          'addNewMember':'Add New Member',
-          'firstName':'First Name',
-          'lastName':'Last Name',
-          'enterFirstName':'Enter First Name',
-          'enterLastName':'Enter Last Name',
-          'gender':'Gender',
-          'male':'Male',
-          'female':'Female',
-          'age':'Age',
-          'enterAge':'Enter Age',
-          'dob':'Date Of Birth',
-          'enterdob':'Enter Date Of Birth',
-          'phone':'Phone (optional)',
-          'enterPhone':'Phone (optional)',
+          //Add new members
+          'addNewMember': 'Add New Member',
+          'firstName': 'First Name',
+          'lastName': 'Last Name',
+          'enterFirstName': 'Enter First Name',
+          'enterLastName': 'Enter Last Name',
+          'gender': 'Gender',
+          'male': 'Male',
+          'female': 'Female',
+          'age': 'Age',
+          'enterAge': 'Enter Age',
+          'dob': 'Date Of Birth',
+          'enterdob': 'Enter Date Of Birth',
+          'phone': 'Phone (optional)',
+          'enterPhone': 'Phone (optional)',
 
           //IPD screen
-          'medication':'औषधि',
-          'mid':'मध्य',
-          'medicine':'औषधी',
-          'dose':'खुराक',
-          'frequency':'आवृत्ति',
-          'No. D':'No. D',
+          'medication': 'औषधि',
+          'mid': 'मध्य',
+          'medicine': 'औषधी',
+          'dose': 'खुराक',
+          'frequency': 'आवृत्ति',
+          'No. D': 'No. D',
+          'Bedhistory': 'ओछ्यान इतिहास',
+          'Certificate': 'प्रमाणपत्रहरू', 'Bloodbank': 'ब्लडबैंक',
         }
       };
 }
