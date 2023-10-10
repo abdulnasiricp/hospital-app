@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/Madication.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
+import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -47,7 +48,7 @@ class _IPDState extends State<IPD> {
   void initState() {
     super.initState();
     getData();
-    fetchData();
+    // fetchVitalsData();
   }
 
 ///////////////////////////////////////////////////////////////////
@@ -99,40 +100,45 @@ class _IPDState extends State<IPD> {
 
   //////////////////////////////////////////////////////////////////////////////////
   // get vital data
-  Map<String, dynamic> responseData = {};
-  Future<void> fetchData() async {
-    final apiUrl =
-        Uri.parse('https://uat.tez.hospital/xzy/webservice/getipdVitals');
-    final headers = {
-      'Soft-Service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
-    final body = {"ipd_id": "313", "patient_id": "10909"};
+  Future<Map<String, dynamic>> fetchVitalsData() async {
+    final response = await http.post(
+      Uri.parse(
+          'https://uat.tez.hospital/xzy/webservice/getipdVitals'), // Replace with your API URL
+      headers: {
+        'Soft-service': 'TezHealthCare',
+        'Auth-key': 'zbuks_ram859553467',
+      },
+      body: jsonEncode({
+        "ipd_id": 313,
+        "patient_id": 10909,
+      }),
+    );
 
-    try {
-      final response = await http.post(
-        apiUrl,
-        headers: headers,
-        body: body,
-      );
-
-      if (response.statusCode == 200) {
-        if (response.body.isNotEmpty) {
-          final jsonResponse = json.decode(response.body);
-          setState(() {
-            responseData = jsonResponse;
-          });
-        } else {
-          print('API response is empty.');
-        }
-      } else {
-        print('Failed to load data. Status code: ${response.statusCode}');
-      }
-    } catch (error) {
-      print(error.toString());
+    if (response.statusCode == 200) {
+       setState(() {
+        isLoading = false;
+      });
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Failed to load vitals data');
     }
   }
+
   //////////////////////////////////////////////////////////////////////////////
+  ///
+  bool isLoading = true;
+   Future<void> _handleRefresh() async {
+    setState(() {
+      isLoading = true; // Set isLoading to true when refreshing
+    });
+
+    await fetchVitalsData();
+
+    setState(() {
+      isLoading = false; // Set isLoading to false after data is fetched
+    });
+  }
+
 
   late ColorNotifier notifier;
 
@@ -151,351 +157,391 @@ class _IPDState extends State<IPD> {
           ),
           backgroundColor: Colors.white,
           body: SingleChildScrollView(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: GridView.count(
-                          crossAxisCount: 3,
-                          shrinkWrap:
-                              true, // Set to true to make the GridView scrollable within the Column
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Get.offAll(() => const MedicationScreen());
-                              },
-                              child: Container(
-                                width: 100,
-                                height: 100,
-                                child: Card(
-                                  elevation: 5,
-                                  child: Column(
-                                    children: [
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Container(
-                                        width: 40,
-                                        height: 40,
-                                        child: SvgPicture.asset(
-                                            'assets/Medication.svg',
-                                            width: 15,
-                                            height: 15,
-                                            color: darkYellow),
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      const Text("Medication",
-                                          style: TextStyle(
-                                            fontSize: 8,
-                                            fontWeight: FontWeight.bold,
-                                          ))
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              child: Container(
-                                width: 100,
-                                height: 100,
-                                child: Card(
-                                  elevation: 5,
-
-                                  child: Column(
-                                    children: [
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Container(
-                                        width: 40,
-                                        height: 40,
-                                        child: SvgPicture.asset(
-                                            'assets/bill.svg',
-                                            width: 15,
-                                            height: 15,
-                                            color: darkYellow),
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      const Text("Cardex",
-                                          style: TextStyle(
-                                            fontSize: 8,
-                                            fontWeight: FontWeight.bold,
-                                          ))
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              child: Container(
-                                width: 100,
-                                height: 100,
-                                child: Card(
-                                  elevation: 5,
-
-                                  child: Column(
-                                    children: [
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Container(
-                                        width: 40,
-                                        height: 40,
-                                        child: SvgPicture.asset(
-                                            'assets/surgery.svg',
-                                            width: 15,
-                                            height: 15,
-                                            color: darkYellow),
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      const Text("Surgery",
-                                          style: TextStyle(
-                                            fontSize: 8,
-                                            fontWeight: FontWeight.bold,
-                                          ))
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              child: Container(
-                                width: 100,
-                                height: 100,
-                                child: Card(
-                                  elevation: 5,
-
-                                  child: Column(
-                                    children: [
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Container(
-                                        width: 40,
-                                        height: 40,
-                                        child: SvgPicture.asset(
-                                            'assets/Diagnosis.svg',
-                                            width: 15,
-                                            height: 15,
-                                            color: darkYellow),
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      const Text("Diagnosis",
-                                          style: TextStyle(
-                                            fontSize: 8,
-                                            fontWeight: FontWeight.bold,
-                                          ))
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              child: Container(
-                                width: 100,
-                                height: 100,
-                                child: Card(
-                                  elevation: 5,
-
-                                  child: Column(
-                                    children: [
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Container(
-                                        width: 40,
-                                        height: 40,
-                                        child: SvgPicture.asset(
-                                            'assets/Maternity.svg',
-                                            width: 15,
-                                            height: 15,
-                                            color: darkYellow),
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      const Text("Maternity",
-                                          style: TextStyle(
-                                            fontSize: 8,
-                                            fontWeight: FontWeight.bold,
-                                          ))
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              child: Container(
-                                width: 100,
-                                height: 100,
-                                child: Card(
-                                  elevation: 5,
-
-                                  child: Column(
-                                    children: [
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Container(
-                                        width: 40,
-                                        height: 40,
-                                        child: SvgPicture.asset(
-                                            'assets/bed_history.svg',
-                                            width: 15,
-                                            height: 15,
-                                            color: darkYellow),
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      const Text("Bed History",
-                                          style: TextStyle(
-                                            fontSize: 8,
-                                            fontWeight: FontWeight.bold,
-                                          ))
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    padding: const EdgeInsets.all(20.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.grey,
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
+            child: RefreshIndicator(
+               onRefresh: _handleRefresh,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'Patient Information',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: GridView.count(
+                            crossAxisCount: 3,
+                            shrinkWrap:
+                                true, // Set to true to make the GridView scrollable within the Column
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  Get.offAll(() => const MedicationScreen());
+                                },
+                                child: Container(
+                                  width: 100,
+                                  height: 100,
+                                  child: Card(
+                                    elevation: 5,
+                                    child: Column(
+                                      children: [
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Container(
+                                          width: 40,
+                                          height: 40,
+                                          child: SvgPicture.asset(
+                                              'assets/Medication.svg',
+                                              width: 15,
+                                              height: 15,
+                                              color: darkYellow),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        const Text("Medication",
+                                            style: TextStyle(
+                                              fontSize: 8,
+                                              fontWeight: FontWeight.bold,
+                                            ))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                child: Container(
+                                  width: 100,
+                                  height: 100,
+                                  child: Card(
+                                    elevation: 5,
+                                    child: Column(
+                                      children: [
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Container(
+                                          width: 40,
+                                          height: 40,
+                                          child: SvgPicture.asset(
+                                              'assets/bill.svg',
+                                              width: 15,
+                                              height: 15,
+                                              color: darkYellow),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        const Text("Cardex",
+                                            style: TextStyle(
+                                              fontSize: 8,
+                                              fontWeight: FontWeight.bold,
+                                            ))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                child: Container(
+                                  width: 100,
+                                  height: 100,
+                                  child: Card(
+                                    elevation: 5,
+                                    child: Column(
+                                      children: [
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Container(
+                                          width: 40,
+                                          height: 40,
+                                          child: SvgPicture.asset(
+                                              'assets/surgery.svg',
+                                              width: 15,
+                                              height: 15,
+                                              color: darkYellow),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        const Text("Surgery",
+                                            style: TextStyle(
+                                              fontSize: 8,
+                                              fontWeight: FontWeight.bold,
+                                            ))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                child: Container(
+                                  width: 100,
+                                  height: 100,
+                                  child: Card(
+                                    elevation: 5,
+                                    child: Column(
+                                      children: [
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Container(
+                                          width: 40,
+                                          height: 40,
+                                          child: SvgPicture.asset(
+                                              'assets/Diagnosis.svg',
+                                              width: 15,
+                                              height: 15,
+                                              color: darkYellow),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        const Text("Diagnosis",
+                                            style: TextStyle(
+                                              fontSize: 8,
+                                              fontWeight: FontWeight.bold,
+                                            ))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                child: Container(
+                                  width: 100,
+                                  height: 100,
+                                  child: Card(
+                                    elevation: 5,
+                                    child: Column(
+                                      children: [
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Container(
+                                          width: 40,
+                                          height: 40,
+                                          child: SvgPicture.asset(
+                                              'assets/Maternity.svg',
+                                              width: 15,
+                                              height: 15,
+                                              color: darkYellow),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        const Text("Maternity",
+                                            style: TextStyle(
+                                              fontSize: 8,
+                                              fontWeight: FontWeight.bold,
+                                            ))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                child: Container(
+                                  width: 100,
+                                  height: 100,
+                                  child: Card(
+                                    elevation: 5,
+                                    child: Column(
+                                      children: [
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Container(
+                                          width: 40,
+                                          height: 40,
+                                          child: SvgPicture.asset(
+                                              'assets/bed_history.svg',
+                                              width: 15,
+                                              height: 15,
+                                              color: darkYellow),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        const Text("Bed History",
+                                            style: TextStyle(
+                                              fontSize: 8,
+                                              fontWeight: FontWeight.bold,
+                                            ))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                        const SizedBox(height: 16),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Patient Name: '),
-                                SizedBox(height: 5,),
-                                Text('Age: '),
-                                SizedBox(height: 5,),
-                
-                                Text('Gender: '),
-                                SizedBox(height: 5,),
-                
-                                Text('Date of Admission: '),
-                              ],
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  PatientName,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.fade,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(height: 5,),
-                
-                                Text(
-                                  PatientAge,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.fade,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(height: 5,),
-                
-                                Text(
-                                  PatientGender,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.fade,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(height: 5,),
-                
-                                Text(
-                                  AdmissionDate,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold, ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Text('Patient Name: $PatientName'),
-                        Text('Age: $PatientAge'),
-                        Text('Gender: $PatientGender'),
-                        Text('Date of Admission: $AdmissionDate'),
-                        const SizedBox(height: 32),
-                        const Text(
-                          'Vitals',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        buildVitalItem('Height',
-                            responseData['vitals']?['Height'] ?? 'N/A'),
-                        buildVitalItem('Weight',
-                            responseData['vitals']?['weight'] ?? 'N/A'),
-                        buildVitalItem(
-                            'BP', responseData['vitals']?['bp'] ?? 'N/A'),
-                        buildVitalItem(
-                            'Pulse', responseData['vitals']?['pulse'] ?? 'N/A'),
-                        buildVitalItem('Temperature',
-                            responseData['vitals']?['temprature'] ?? 'N/A'),
-                        buildVitalItem('Respiration',
-                            responseData['vitals']?['respiration'] ?? 'N/A'),
-                        const SizedBox(height: 32),
-                        const Text(
-                          'Consultants',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        const Text('Diagnosis: Ramjinish kushwaha'),
+                        )
                       ],
                     ),
                   ),
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      padding: const EdgeInsets.all(20.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.grey,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Patient Information',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Patient Name: '),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text('Age: '),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+            
+                                  Text('Gender: '),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+            
+                                  Text('Date of Admission: '),
+                                  // Text(_vitalsData['vitals']?['Height']??""),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    PatientName,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.fade,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    PatientAge,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.fade,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    PatientGender,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.fade,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    AdmissionDate,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 32),
+                          const Text(
+                            'Vitals',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          FutureBuilder<Map<String, dynamic>>(
+                              future: fetchVitalsData(),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return  Center(
+                                      child: Container(
+                            height: 70,
+                            width: 70,
+                            color: Colors.transparent,
+                            child: const LoadingIndicatorWidget()));
+                                } else if (snapshot.hasError) {
+                                  return Text('Error: ${snapshot.error}');
+                                } else {
+                                  final vitalsData = snapshot.data!['vitals'];
+                                  final consultansData = snapshot.data!['consultant_doctor'];
+            
+                                  return Column( 
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      buildVitalItem(
+                                          'Height', "${vitalsData['Height']} "),
+                                      buildVitalItem(
+                                          'Weight', "${vitalsData['weight']} "),
+                                      buildVitalItem('BP',
+                                          "${vitalsData['bp']} "),
+                                      buildVitalItem(
+                                          'Pulse',
+                                          "${vitalsData['pulse']} "),
+                                      buildVitalItem(
+                                          'Temperature',
+                                          "${vitalsData['temprature']} "),
+                                         
+                                              
+                                      buildVitalItem(
+                                          'Respiration',
+                                          "${vitalsData['respiration']} "),
+                                            const SizedBox(height: 32),
+                          const Column(
+                            children: [
+                              Text(
+                                'Consultants',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          // Text("$ConsultansData['name']}"),
+                          Text("${consultansData['name']} ${consultansData['surname']} ")
+                                    ],
+                                  );
+                                }
+                              }),
+                        
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           )),
     );

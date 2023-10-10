@@ -490,7 +490,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         ),
                                         InkWell(
                                           onTap: () {
-                                            Get.to(() =>  const IPD());
+                                            Get.to(() =>   IPD());
                                           },
                                           child: Container(
                                             width: 100,
