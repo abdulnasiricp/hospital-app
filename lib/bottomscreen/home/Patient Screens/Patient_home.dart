@@ -14,6 +14,7 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Physi
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Radiology/Radiology.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Transaction_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/USG/usg.dart';
+import 'package:TezHealthCare/main.dart';
 import 'package:TezHealthCare/screens/notification.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
@@ -21,6 +22,7 @@ import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -181,7 +183,31 @@ class _PatientHomePageState extends State<PatientHomePage> {
     });
   }
 
+///  /////////////////////////////////////////////////////////////////////////
+  // show notification
+  void showNotification() async {
+    AndroidNotificationDetails androidDetiles =
+        const AndroidNotificationDetails(
+      'Notification',
+      'Discounter',
+      priority: Priority.max,
+      importance: Importance.max,
+    );
+
+    DarwinNotificationDetails iosDetiles = const DarwinNotificationDetails(
+      presentAlert: true,
+      presentBadge: true,
+      presentSound: true,
+    );
+    NotificationDetails notificationDetails = NotificationDetails(
+      android: androidDetiles,
+      iOS: iosDetiles,
+    );
+    await notificationsPlugin.show(
+        0, 'Dues Amount', 'pay Rs. $rupeesAmount now', notificationDetails);
+  }
 //////////////////////////////////////////////////////////////////////////////////////
+
   @override
   Widget build(BuildContext context) {
     int paisaAmount = convertRupeesToPaisa();
@@ -335,6 +361,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     ),
                                     ElevatedButton(
                                       onPressed: () {
+                                        showNotification();
                                         Get.off(
                                           () => SelectPaymentMethod(
                                               totalAmountInRs: rupeesAmount,
@@ -459,7 +486,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         ),
                                         InkWell(
                                           onTap: () {
-                                            Get.to(() =>  IPD());
+                                            Get.to(() =>  const IPD());
                                           },
                                           child: Container(
                                             width: 100,

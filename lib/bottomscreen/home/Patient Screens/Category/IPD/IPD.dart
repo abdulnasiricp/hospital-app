@@ -151,224 +151,235 @@ class _IPDState extends State<IPD> {
           ),
           backgroundColor: Colors.white,
           body: SingleChildScrollView(
-            child: Card(
-              elevation: 1,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: GridView.count(
-                            crossAxisCount: 3,
-                            shrinkWrap:
-                                true, // Set to true to make the GridView scrollable within the Column
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  Get.offAll(() => const MedicationScreen());
-                                },
-                                child: Container(
-                                  width: 100,
-                                  height: 100,
-                                  child: Card(
-                                    child: Column(
-                                      children: [
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Container(
-                                          width: 40,
-                                          height: 40,
-                                          child: SvgPicture.asset(
-                                              'assets/Medication.svg',
-                                              width: 15,
-                                              height: 15,
-                                              color: darkYellow),
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        const Text("Medication",
-                                            style: TextStyle(
-                                              fontSize: 8,
-                                              fontWeight: FontWeight.bold,
-                                            ))
-                                      ],
-                                    ),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: GridView.count(
+                          crossAxisCount: 3,
+                          shrinkWrap:
+                              true, // Set to true to make the GridView scrollable within the Column
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Get.offAll(() => const MedicationScreen());
+                              },
+                              child: Container(
+                                width: 100,
+                                height: 100,
+                                child: Card(
+                                  elevation: 5,
+                                  child: Column(
+                                    children: [
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        width: 40,
+                                        height: 40,
+                                        child: SvgPicture.asset(
+                                            'assets/Medication.svg',
+                                            width: 15,
+                                            height: 15,
+                                            color: darkYellow),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      const Text("Medication",
+                                          style: TextStyle(
+                                            fontSize: 8,
+                                            fontWeight: FontWeight.bold,
+                                          ))
+                                    ],
                                   ),
                                 ),
                               ),
-                              InkWell(
-                                child: Container(
-                                  width: 100,
-                                  height: 100,
-                                  child: Card(
-                                    child: Column(
-                                      children: [
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Container(
-                                          width: 40,
-                                          height: 40,
-                                          child: SvgPicture.asset(
-                                              'assets/bill.svg',
-                                              width: 15,
-                                              height: 15,
-                                              color: darkYellow),
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        const Text("Cardex",
-                                            style: TextStyle(
-                                              fontSize: 8,
-                                              fontWeight: FontWeight.bold,
-                                            ))
-                                      ],
-                                    ),
+                            ),
+                            InkWell(
+                              child: Container(
+                                width: 100,
+                                height: 100,
+                                child: Card(
+                                  elevation: 5,
+
+                                  child: Column(
+                                    children: [
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        width: 40,
+                                        height: 40,
+                                        child: SvgPicture.asset(
+                                            'assets/bill.svg',
+                                            width: 15,
+                                            height: 15,
+                                            color: darkYellow),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      const Text("Cardex",
+                                          style: TextStyle(
+                                            fontSize: 8,
+                                            fontWeight: FontWeight.bold,
+                                          ))
+                                    ],
                                   ),
                                 ),
                               ),
-                              InkWell(
-                                child: Container(
-                                  width: 100,
-                                  height: 100,
-                                  child: Card(
-                                    child: Column(
-                                      children: [
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Container(
-                                          width: 40,
-                                          height: 40,
-                                          child: SvgPicture.asset(
-                                              'assets/surgery.svg',
-                                              width: 15,
-                                              height: 15,
-                                              color: darkYellow),
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        const Text("Surgery",
-                                            style: TextStyle(
-                                              fontSize: 8,
-                                              fontWeight: FontWeight.bold,
-                                            ))
-                                      ],
-                                    ),
+                            ),
+                            InkWell(
+                              child: Container(
+                                width: 100,
+                                height: 100,
+                                child: Card(
+                                  elevation: 5,
+
+                                  child: Column(
+                                    children: [
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        width: 40,
+                                        height: 40,
+                                        child: SvgPicture.asset(
+                                            'assets/surgery.svg',
+                                            width: 15,
+                                            height: 15,
+                                            color: darkYellow),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      const Text("Surgery",
+                                          style: TextStyle(
+                                            fontSize: 8,
+                                            fontWeight: FontWeight.bold,
+                                          ))
+                                    ],
                                   ),
                                 ),
                               ),
-                              InkWell(
-                                child: Container(
-                                  width: 100,
-                                  height: 100,
-                                  child: Card(
-                                    child: Column(
-                                      children: [
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Container(
-                                          width: 40,
-                                          height: 40,
-                                          child: SvgPicture.asset(
-                                              'assets/Diagnosis.svg',
-                                              width: 15,
-                                              height: 15,
-                                              color: darkYellow),
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        const Text("Diagnosis",
-                                            style: TextStyle(
-                                              fontSize: 8,
-                                              fontWeight: FontWeight.bold,
-                                            ))
-                                      ],
-                                    ),
+                            ),
+                            InkWell(
+                              child: Container(
+                                width: 100,
+                                height: 100,
+                                child: Card(
+                                  elevation: 5,
+
+                                  child: Column(
+                                    children: [
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        width: 40,
+                                        height: 40,
+                                        child: SvgPicture.asset(
+                                            'assets/Diagnosis.svg',
+                                            width: 15,
+                                            height: 15,
+                                            color: darkYellow),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      const Text("Diagnosis",
+                                          style: TextStyle(
+                                            fontSize: 8,
+                                            fontWeight: FontWeight.bold,
+                                          ))
+                                    ],
                                   ),
                                 ),
                               ),
-                              InkWell(
-                                child: Container(
-                                  width: 100,
-                                  height: 100,
-                                  child: Card(
-                                    child: Column(
-                                      children: [
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Container(
-                                          width: 40,
-                                          height: 40,
-                                          child: SvgPicture.asset(
-                                              'assets/Maternity.svg',
-                                              width: 15,
-                                              height: 15,
-                                              color: darkYellow),
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        const Text("Maternity",
-                                            style: TextStyle(
-                                              fontSize: 8,
-                                              fontWeight: FontWeight.bold,
-                                            ))
-                                      ],
-                                    ),
+                            ),
+                            InkWell(
+                              child: Container(
+                                width: 100,
+                                height: 100,
+                                child: Card(
+                                  elevation: 5,
+
+                                  child: Column(
+                                    children: [
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        width: 40,
+                                        height: 40,
+                                        child: SvgPicture.asset(
+                                            'assets/Maternity.svg',
+                                            width: 15,
+                                            height: 15,
+                                            color: darkYellow),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      const Text("Maternity",
+                                          style: TextStyle(
+                                            fontSize: 8,
+                                            fontWeight: FontWeight.bold,
+                                          ))
+                                    ],
                                   ),
                                 ),
                               ),
-                              InkWell(
-                                child: Container(
-                                  width: 100,
-                                  height: 100,
-                                  child: Card(
-                                    child: Column(
-                                      children: [
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Container(
-                                          width: 40,
-                                          height: 40,
-                                          child: SvgPicture.asset(
-                                              'assets/bed_history.svg',
-                                              width: 15,
-                                              height: 15,
-                                              color: darkYellow),
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        const Text("Bed History",
-                                            style: TextStyle(
-                                              fontSize: 8,
-                                              fontWeight: FontWeight.bold,
-                                            ))
-                                      ],
-                                    ),
+                            ),
+                            InkWell(
+                              child: Container(
+                                width: 100,
+                                height: 100,
+                                child: Card(
+                                  elevation: 5,
+
+                                  child: Column(
+                                    children: [
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        width: 40,
+                                        height: 40,
+                                        child: SvgPicture.asset(
+                                            'assets/bed_history.svg',
+                                            width: 15,
+                                            height: 15,
+                                            color: darkYellow),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      const Text("Bed History",
+                                          style: TextStyle(
+                                            fontSize: 8,
+                                            fontWeight: FontWeight.bold,
+                                          ))
+                                    ],
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(16.0),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    padding: const EdgeInsets.all(20.0),
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: Colors.grey,
@@ -387,11 +398,64 @@ class _IPDState extends State<IPD> {
                           ),
                         ),
                         const SizedBox(height: 16),
-                        Text('Patient Name: $PatientName'),
-                        Text('Age: $PatientAge'),
-                        Text('Gender: $PatientGender'),
-                        Text('Date of Admission: $AdmissionDate'),
-                        Text('Height: ${responseData['vitals']['Height']}'),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Patient Name: '),
+                                SizedBox(height: 5,),
+                                Text('Age: '),
+                                SizedBox(height: 5,),
+                
+                                Text('Gender: '),
+                                SizedBox(height: 5,),
+                
+                                Text('Date of Admission: '),
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  PatientName,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.fade,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(height: 5,),
+                
+                                Text(
+                                  PatientAge,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.fade,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(height: 5,),
+                
+                                Text(
+                                  PatientGender,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.fade,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(height: 5,),
+                
+                                Text(
+                                  AdmissionDate,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold, ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                         const SizedBox(height: 32),
                         const Text(
                           'Vitals',
@@ -426,8 +490,8 @@ class _IPDState extends State<IPD> {
                       ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           )),
     );

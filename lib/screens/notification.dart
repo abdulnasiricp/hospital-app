@@ -196,9 +196,7 @@ class Notif extends StatelessWidget {
 
           return GestureDetector(
             onTap: () {
-              // Navigate to the screen or show the data associated with the notification
-              // You can access notificationData here and display it as needed
-              // For example, display it in a dialog or on a new screen
+              
               showDialog(
                 context: context,
                 builder: (context) {
