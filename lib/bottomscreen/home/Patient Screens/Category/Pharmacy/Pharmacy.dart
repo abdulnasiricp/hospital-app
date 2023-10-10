@@ -28,7 +28,7 @@ class _PharmacyState extends State<Pharmacy> {
   late String totalAmount = "0.00"; // Initialize with a default value
 
   ////////////////////////////////////////////////////////////////////////////////////
- late String patient = '';
+  late String patient = '';
   LoadData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     patient = sp.getString('patientidrecord') ?? '';
@@ -37,7 +37,7 @@ class _PharmacyState extends State<Pharmacy> {
   }
   ////////////////////////////////////////////////////////////////////////////////////
 
-    getData() async {
+  getData() async {
     await LoadData();
     await fetchData();
     calculateTotalAmount();
@@ -48,8 +48,6 @@ class _PharmacyState extends State<Pharmacy> {
     //   showNotification();
     // }
   }
-
-
 
   @override
   void initState() {
@@ -69,9 +67,10 @@ class _PharmacyState extends State<Pharmacy> {
           total.toStringAsFixed(2); // Format as a string with 2 decimal places
     });
   }
+
   ////////////////////////////////////////////////////////////////////////////////////
-//get pharmacy data 
- Map<String, dynamic>? DataMap;
+//get pharmacy data
+  Map<String, dynamic>? DataMap;
   List<dynamic>? data = [];
   List<dynamic>? filteredData = [];
 
@@ -91,17 +90,17 @@ class _PharmacyState extends State<Pharmacy> {
       body: json.encode(body),
     );
 
-     if (response.statusCode == 200) {
-        DataMap = json.decode(response.body);
-        setState(() {
-          data = DataMap!['result'];
-          filteredData = data;
-          isLoading = false; // Set isLoading to false when data is loaded
-        });
-      } else {
-        throw Exception('Failed to load data');
-      }
-      return {};
+    if (response.statusCode == 200) {
+      DataMap = json.decode(response.body);
+      setState(() {
+        data = DataMap!['result'];
+        filteredData = data;
+        isLoading = false; // Set isLoading to false when data is loaded
+      });
+    } else {
+      throw Exception('Failed to load data');
+    }
+    return {};
   }
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -119,8 +118,6 @@ class _PharmacyState extends State<Pharmacy> {
     });
   }
 
-
-
 ///////////////////////////////////////////////////////////////////////////////////////
 
   TextEditingController searchController = TextEditingController();
@@ -132,8 +129,8 @@ class _PharmacyState extends State<Pharmacy> {
     setState(() {
       filteredData = data
           ?.where((element) =>
-              element['id'].toLowerCase().contains(query.toLowerCase()) 
-              // element['status'].toLowerCase().contains(query.toLowerCase())
+                  element['id'].toLowerCase().contains(query.toLowerCase())
+              //   element['status'].toLowerCase().contains(query.toLowerCase())
               )
           .toList();
     });
@@ -157,33 +154,33 @@ class _PharmacyState extends State<Pharmacy> {
       },
       child: Scaffold(
         backgroundColor: Colors.white,
-       appBar: PreferredSize(
-              preferredSize: const Size(double.infinity, 65),
-              child: SafeArea(
-                  child: Container(
-                decoration:  BoxDecoration(color: darkYellow, boxShadow: const [
-                  BoxShadow(
-                      color: Colors.white,
-                      blurRadius: 5,
-                      spreadRadius: 0,
-                      offset: Offset(0, 5)),
-                ]),
-                alignment: Alignment.center,
-                child: AnimationSearchBar(
+        appBar: PreferredSize(
+            preferredSize: const Size(double.infinity, 65),
+            child: SafeArea(
+                child: Container(
+              decoration: BoxDecoration(color: darkYellow, boxShadow: const [
+                BoxShadow(
+                    color: Colors.white,
+                    blurRadius: 5,
+                    spreadRadius: 0,
+                    offset: Offset(0, 5)),
+              ]),
+              alignment: Alignment.center,
+              child: AnimationSearchBar(
                   previousScreen: const Bottomhome(),
-                    isBackButtonVisible: true,
-                   backIconColor: whitecolor,
-    
-                    centerTitle: 'Pharmacy'.tr,
-                    centerTitleStyle: TextStyle(color: whitecolor,fontSize: 20),
-                    searchIconColor: whitecolor,
-                    searchFieldDecoration: BoxDecoration(color: whitecolor.withOpacity(0.8),borderRadius: BorderRadius.circular(10)),
-                    closeIconColor: whitecolor,
-                    onChanged: (query) => filterData(query),
-                    searchTextEditingController: searchController,
-                    horizontalPadding: 5),
-    
-              ))),
+                  isBackButtonVisible: true,
+                  backIconColor: whitecolor,
+                  centerTitle: 'Pharmacy'.tr,
+                  centerTitleStyle: TextStyle(color: whitecolor, fontSize: 20),
+                  searchIconColor: whitecolor,
+                  searchFieldDecoration: BoxDecoration(
+                      color: whitecolor.withOpacity(0.8),
+                      borderRadius: BorderRadius.circular(10)),
+                  closeIconColor: whitecolor,
+                  onChanged: (query) => filterData(query),
+                  searchTextEditingController: searchController,
+                  horizontalPadding: 5),
+            ))),
         body: RefreshIndicator(
           onRefresh: _handleRefresh,
           child: Column(
@@ -192,30 +189,30 @@ class _PharmacyState extends State<Pharmacy> {
                 color: Colors.grey,
                 width: width,
                 height: height / 20,
-                child:  Padding(
+                child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         'billno'.tr,
-                        style:
-                            const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
                       ),
                       Text(
                         'Medicin'.tr,
-                        style:
-                            const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
                       ),
                       Text(
                         'Status'.tr,
-                        style:
-                            const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
                       ),
                       Text(
                         'amount'.tr,
-                        style:
-                            const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
                       ),
                     ],
                   ),
@@ -281,16 +278,19 @@ class _PharmacyState extends State<Pharmacy> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Column(
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                                mainAxisAlignment: MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Container(
-                                                  width: width/10,
+                                                  width: width / 10,
                                                   child: Center(
                                                     child: Text(
                                                       "${Pharmacybill['id']}",
                                                       style: const TextStyle(
-                                                        fontWeight: FontWeight.bold,
+                                                        fontWeight:
+                                                            FontWeight.bold,
                                                       ),
                                                     ),
                                                   ),
@@ -298,21 +298,28 @@ class _PharmacyState extends State<Pharmacy> {
                                               ],
                                             ),
                                             Column(
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                                mainAxisAlignment: MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Container(
-                                                  width: width/3.5,
+                                                  width: width / 3.5,
                                                   child: InkWell(
                                                     child: Padding(
-                                                      padding: const EdgeInsets.all(3.0),
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              3.0),
                                                       child: Center(
                                                         child: Text(
                                                           "${Pharmacybill['Medicine']}",
                                                           maxLines: 1,
-                                                          overflow: TextOverflow.ellipsis,
-                                                          style: const TextStyle(
-                                                            fontWeight: FontWeight.bold,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          style:
+                                                              const TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
                                                           ),
                                                         ),
                                                       ),
@@ -322,11 +329,13 @@ class _PharmacyState extends State<Pharmacy> {
                                               ],
                                             ),
                                             Column(
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                                mainAxisAlignment: MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Container(
-                                                  width: width/6,
+                                                  width: width / 6,
                                                   child: InkWell(
                                                     onTap: () {
                                                       Get.to(
@@ -339,22 +348,28 @@ class _PharmacyState extends State<Pharmacy> {
                                                     },
                                                     child: Container(
                                                       decoration: BoxDecoration(
-                                                        color: Pharmacybill['status'] ==
+                                                        color: Pharmacybill[
+                                                                    'status'] ==
                                                                 'Paid'
                                                             ? Colors.green
                                                             : Colors.red,
                                                         borderRadius:
-                                                            BorderRadius.circular(5.0),
+                                                            BorderRadius
+                                                                .circular(5.0),
                                                       ),
                                                       child: Padding(
                                                         padding:
-                                                            const EdgeInsets.all(3.0),
+                                                            const EdgeInsets
+                                                                .all(3.0),
                                                         child: Center(
                                                           child: Text(
                                                             // listName,
                                                             "${Pharmacybill['status']}",
-                                                            style: const TextStyle(
-                                                              fontWeight: FontWeight.bold,
+                                                            style:
+                                                                const TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
                                                             ),
                                                           ),
                                                         ),
@@ -365,18 +380,21 @@ class _PharmacyState extends State<Pharmacy> {
                                               ],
                                             ),
                                             Column(
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                                mainAxisAlignment: MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Container(
-                                                  width: width/7,
+                                                  width: width / 7,
                                                   child: Center(
                                                     child: Text(
                                                       // 'Rs.${item.total}',
                                                       "${Pharmacybill['net_amount']}", // Use 'net_amount' for the amount
                                                       style: const TextStyle(
                                                         color: Colors.red,
-                                                        fontWeight: FontWeight.bold,
+                                                        fontWeight:
+                                                            FontWeight.bold,
                                                       ),
                                                     ),
                                                   ),
@@ -409,7 +427,7 @@ class _PharmacyState extends State<Pharmacy> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                         Text(
+                        Text(
                           'total'.tr,
                           style: const TextStyle(
                               color: Colors.white,

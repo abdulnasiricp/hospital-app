@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Select_date.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:TezHealthCare/utils/colors.dart';
@@ -105,6 +106,11 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: darkYellow, // Set the status bar color here
+      ),
+    );
     return Scaffold(
       backgroundColor: Colors.white,
       body: RefreshIndicator(

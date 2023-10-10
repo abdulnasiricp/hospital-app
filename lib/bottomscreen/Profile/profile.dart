@@ -378,7 +378,7 @@ class _ProfileState extends State<Profile> {
                                         ),
                                         InkWell(
                                           onTap: () {
-                                            Get.to(() => const SettingScreen());
+                                            Get.offAll(() => const SettingScreen());
                                           },
                                           child: ListTile(
                                             leading: SvgPicture.asset(

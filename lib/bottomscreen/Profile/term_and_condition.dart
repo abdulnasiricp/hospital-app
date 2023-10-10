@@ -31,11 +31,11 @@ class _TermAndConditionsScreenState extends State<TermAndConditionsScreen> {
         children: [
           _progress < 1
               ? SizedBox(
-                  height: 5,
+                  height: 10,
                   child: LinearProgressIndicator(
                     value: _progress,
-                    color: Colors.red,
-                    backgroundColor: Colors.black,
+                    color: yellow,
+                    backgroundColor: darkYellow,
                   ),
                 )
               : const SizedBox(),

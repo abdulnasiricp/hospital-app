@@ -1,6 +1,5 @@
-// ignore_for_file: file_names
-
-
+import 'package:TezHealthCare/bottombar/bottombar.dart';
+import 'package:TezHealthCare/bottomscreen/Profile/Setting/change_password.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/widgets/Toast_dialog.dart';
 import 'package:flutter/material.dart';
@@ -15,44 +14,62 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: darkYellow,
-        title: const Text('Setting'),
-        centerTitle: true,
-      ),
-      body: Column(
-        children: [
-          Card(
-            child: ListTile(
-              leading: SvgPicture.asset(
-                'assets/changepass.svg',
-                width: 30,
-                height: 30,
-              ),
-              title: const Text('Change Password'),
-            ),
-          ),
-          InkWell(
-            onTap: (){
-              Get.dialog(const ToastDialog());
+    return WillPopScope(
+      onWillPop: () async {
+        // Navigate to the Home Screen when the back button is pressed
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const Bottomhome()),
+        );
+        return false; // Prevent default back button behavior
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: darkYellow,
+          title: const Text('Setting'),
+          centerTitle: true,
+          leading: IconButton(
+            onPressed: () {
+              Get.to(() => const Bottomhome());
             },
-            child: Card(
-              child: ListTile(
-                
-                leading: SvgPicture.asset(
-                  'assets/lang.svg',
-                  width: 30,
-                  height: 30,
+            icon: const Icon(Icons.arrow_back),
+          ),
+        ),
+        body: Column(
+          children: [
+            InkWell(
+              onTap: () {
+                Get.dialog(Change_Password());
+              },
+              child: Card(
+                child: ListTile(
+                  leading: SvgPicture.asset(
+                    'assets/changepass.svg',
+                    width: 30,
+                    height: 30,
+                  ),
+                  title: const Text('Change Password'),
                 ),
-                title: const Text('Language change'),
               ),
             ),
-          )
-        ],
+            InkWell(
+              onTap: () {
+                Get.dialog(const ToastDialog());
+              },
+              child: Card(
+                child: ListTile(
+                  leading: SvgPicture.asset(
+                    'assets/lang.svg',
+                    width: 30,
+                    height: 30,
+                  ),
+                  title: const Text('Language change'),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
