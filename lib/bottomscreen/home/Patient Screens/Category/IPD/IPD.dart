@@ -150,9 +150,8 @@ class _IPDState extends State<IPD> {
   }
 
   //////////////////////////////////////////////////////////////////////////////
-  ///
   bool isLoading = true;
-   Future<void> _handleRefresh() async {
+  Future<void> _handleRefresh() async {
     setState(() {
       isLoading = true; // Set isLoading to true when refreshing
     });
@@ -168,9 +167,7 @@ class _IPDState extends State<IPD> {
   
   
   late ColorNotifier notifier;
-
   TextEditingController dateinput = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     notifier = Provider.of<ColorNotifier>(context, listen: true);
@@ -185,7 +182,7 @@ class _IPDState extends State<IPD> {
           backgroundColor: Colors.white,
           body: SingleChildScrollView(
             child: RefreshIndicator(
-               onRefresh: _handleRefresh,
+              onRefresh: _handleRefresh,
               child: Column(
                 children: [
                   Padding(
@@ -201,7 +198,7 @@ class _IPDState extends State<IPD> {
                             children: [
                               InkWell(
                                 onTap: () {
-                                  Get.offAll(() => const MedicationScreen());
+                                  Get.to(() => const MedicationScreen());
                                 },
                                 child: Container(
                                   width: 100,
@@ -442,12 +439,12 @@ class _IPDState extends State<IPD> {
                                   SizedBox(
                                     height: 5,
                                   ),
-            
+
                                   Text('Gender: '),
                                   SizedBox(
                                     height: 5,
                                   ),
-            
+
                                   Text('Date of Admission: '),
                                 ],
                               ),
