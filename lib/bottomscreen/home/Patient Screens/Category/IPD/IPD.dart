@@ -391,7 +391,6 @@ class _IPDState extends State<IPD> {
                         Text('Age: $PatientAge'),
                         Text('Gender: $PatientGender'),
                         Text('Date of Admission: $AdmissionDate'),
-                        Text('Height: ${responseData['vitals']['Height']}'),
                         const SizedBox(height: 32),
                         const Text(
                           'Vitals',

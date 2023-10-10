@@ -35,7 +35,7 @@ class _MedicationScreenState extends State<MedicationScreen> {
     setState(() {});
   }
 
-   ///////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////
 
   getData() async {
     await LoadData();
@@ -80,10 +80,7 @@ class _MedicationScreenState extends State<MedicationScreen> {
       'Soft-service': 'TezHealthCare',
       'Auth-key': 'zbuks_ram859553467',
     };
-    final body = {
-      
-      "ipd_id":"310"
-    };
+    final body = {"ipd_id": "310"};
 
     final response = await http.post(
       Uri.parse(ApiLinks.getIPDMedication),
@@ -91,7 +88,7 @@ class _MedicationScreenState extends State<MedicationScreen> {
       body: json.encode(body),
     );
 
-     if (response.statusCode == 200) {
+    if (response.statusCode == 200) {
       DataMap = json.decode(response.body);
       setState(() {
         data = DataMap!['medication'];
@@ -116,7 +113,6 @@ class _MedicationScreenState extends State<MedicationScreen> {
     });
   }
 
-
 ///////////////////////////////////////////////////////////////////////////////////////
 
   TextEditingController searchController = TextEditingController();
@@ -127,17 +123,19 @@ class _MedicationScreenState extends State<MedicationScreen> {
   void filterData(String query) {
     setState(() {
       filteredData = data
-          ?.where((element) =>
-              element['medicine_name'].toLowerCase().contains(query.toLowerCase()) )
-              // element['status'].toLowerCase().contains(query.toLowerCase()))
+          ?.where((element) => element['medicine_name']
+              .toLowerCase()
+              .contains(query.toLowerCase()))
+          // element['status'].toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }
+
 //////////////////////////////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-       onWillPop: () async {
+      onWillPop: () async {
         // Navigate to the Home Screen when the back button is pressed
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const Bottomhome()),
@@ -181,35 +179,35 @@ class _MedicationScreenState extends State<MedicationScreen> {
                 color: Colors.grey,
                 width: width,
                 height: height / 20,
-                child:  Padding(
+                child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         'mid'.tr,
-                        style:
-                            const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
                       ),
                       Text(
                         'medicine'.tr,
-                        style:
-                            const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
                       ),
                       Text(
                         'dose'.tr,
-                        style:
-                            const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
                       ),
                       Text(
                         'frequency'.tr,
-                        style:
-                            const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
                       ),
-                         Text(
+                      Text(
                         'No. D'.tr,
-                        style:
-                            const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
                       ),
                     ],
                   ),
@@ -280,84 +278,96 @@ class _MedicationScreenState extends State<MedicationScreen> {
                                             //     fontWeight: FontWeight.bold,
                                             //   ),
                                             // ),
-                                           Column(
-                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    width: width/15,
-    
-                                                    child: Text(
-                                                       (index+1).toString(),
-                                                      style: const TextStyle(
-                                                        fontWeight: FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                             Column(
-                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    width: width/5,
-                                                    child: Text(
-                                                     "${MedicationData['medicine_name']}",
-                                                      style: const TextStyle(
-                                                        fontWeight: FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                               Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    width: width/10,
-                                                    child: Text(
-                                                    "${MedicationData['medicine_dosage_id']}",
-                                                      style: const TextStyle(
-                                                        fontWeight: FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
                                             Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    width: width/8,
-                                                    child: Text(
-                                                     "${MedicationData['dose_interval_id']}",
-                                                      style: const TextStyle(
-                                                        fontWeight: FontWeight.bold,
-                                                      ),
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: width / 15,
+                                                  child: Text(
+                                                    (index + 1).toString(),
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                     ),
                                                   ),
-                                                ],
-                                              ),
-                                              Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    width: width/15,
-                                                    child: Text(
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: width / 5,
+                                                  child: Text(
+                                                    "${MedicationData['medicine_name']}",
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: width / 10,
+                                                  child: Text(
+                                                    "${MedicationData['medicine_dosage_id']}",
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: width / 8,
+                                                  child: Text(
+                                                    "${MedicationData['dose_interval_id']}",
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: width / 15,
+                                                  child: Text(
                                                     "${MedicationData['dose_duration_id']}",
-                                                      style: const TextStyle(
-                                                        fontWeight: FontWeight.bold,
-                                                      ),
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                     ),
                                                   ),
-                                                ],
-                                              ),
-                                            
-                                         
+                                                ),
+                                              ],
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -372,7 +382,6 @@ class _MedicationScreenState extends State<MedicationScreen> {
             ],
           ),
         ),
-       
       ),
     );
   }
