@@ -110,14 +110,12 @@ class _IPDState extends State<IPD> {
       },
       body: jsonEncode({
         "ipd_id": 313,
-        "patient_id": patientID,
+        "patient_id": 10909,
       }),
     );
 
     if (response.statusCode == 200) {
-       setState(() {
-        isLoading = false;
-      });
+       
       return jsonDecode(response.body);
     } else {
       throw Exception('Failed to load vitals data');
