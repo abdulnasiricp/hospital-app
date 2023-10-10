@@ -1,6 +1,11 @@
 import 'package:TezHealthCare/utils/colors.dart';
+import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+import 'package:lottie/lottie.dart';
 
 class AmbulanceRequest {
   final String id;
@@ -31,63 +36,141 @@ class AmbulanceRequest {
 }
 
 class Ambulance extends StatefulWidget {
-  // const Ambulance({super.key});
-
   @override
   State<Ambulance> createState() => _AmbulanceState();
 }
 
 class _AmbulanceState extends State<Ambulance> {
-  final List<AmbulanceRequest> ambulanceRequests = [
-    AmbulanceRequest(
-      id: "13",
-      patientName: "pooja kushwaha",
-      address: "birgunj nepal",
-      vehicleModel: "78",
-      driverName: "tftrdrfx",
-      vehicleNo: "01145ad",
-      amount: "500.00",
-      date: "2023-07-28 17:35:00",
-      doctorName: "Rahul Patel (65695)",
-      mobileno: "9824210111",
-      chargeName: "USG",
-    ),
-    // Add more AmbulanceRequest objects as needed
-  ];
+  late Future<List<AmbulanceRequest>> ambulanceRequests;
+
+  @override
+  void initState() {
+    super.initState();
+    ambulanceRequests = fetchAmbulanceRequests();
+  }
+
+  Future<List<AmbulanceRequest>> fetchAmbulanceRequests() async {
+    final apiUrl = Uri.parse(
+        'https://uat.tez.hospital/xzy/webservice/getAmbulanceDetails');
+    final headers = {
+      'Soft-service': 'TezHealthCare',
+      'Auth-key': 'zbuks_ram859553467',
+      'Content-Type': 'application/json',
+    };
+    final body = {
+      "patient_id": "10029",
+    };
+
+    final response =
+        await http.post(apiUrl, headers: headers, body: jsonEncode(body));
+
+    if (response.statusCode == 200) {
+      final jsonResponse = json.decode(response.body);
+      final ambulanceRequestList = jsonResponse['result'] as List<dynamic>;
+
+      return ambulanceRequestList.map((request) {
+        return AmbulanceRequest(
+          id: request['id'],
+          patientName: request['patient'],
+          address: request['address'],
+          vehicleModel: request['vehicle_model'],
+          driverName: request['driver_name'],
+          vehicleNo: request['vehicle_no'],
+          amount: request['amount'],
+          date: request['date'],
+          doctorName: request['doctor_name'],
+          mobileno: request['mobileno'],
+          chargeName: request['charge_name'],
+        );
+      }).toList();
+    } else {
+      throw Exception('Failed to load ambulance requests');
+    }
+  }
+
+  bool isLoading = true;
+  Future<void> _handleRefresh() async {
+    setState(() {
+      isLoading = true; // Set isLoading to true when refreshing
+    });
+
+    await fetchAmbulanceRequests();
+
+    setState(() {
+      isLoading = false; // Set isLoading to false after data is fetched
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bedhistory'.tr),
+        title: Text('Ambulance Requests'.tr),
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
-      body: ListView.builder(
-        itemCount: ambulanceRequests.length,
-        itemBuilder: (context, index) {
-          return Card(
-            margin: EdgeInsets.all(8.0),
-            child: ListTile(
-              title:
-                  Text('Patient Name: ${ambulanceRequests[index].patientName}'),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Address: ${ambulanceRequests[index].address}'),
-                  Text('Vehicle Model: ${ambulanceRequests[index].vehicleModel}'),
-                  Text('Driver Name: ${ambulanceRequests[index].driverName}'),
-                  Text('Vehicle No: ${ambulanceRequests[index].vehicleNo}'),
-                  Text('Amount: ${ambulanceRequests[index].amount}'),
-                  Text('Date: ${ambulanceRequests[index].date}'),
-                  Text('Doctor Name: ${ambulanceRequests[index].doctorName}'),
-                  Text('Mobile No: ${ambulanceRequests[index].mobileno}'),
-                  Text('Charge Name: ${ambulanceRequests[index].chargeName}'),
-                ],
-              ),
-            ),
-          );
-        },
+      body: RefreshIndicator(
+        onRefresh: _handleRefresh,
+        child: FutureBuilder<List<AmbulanceRequest>>(
+          future: ambulanceRequests,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                        height: 50,
+                        width: 50,
+                        color: Colors.transparent,
+                        child: const LoadingIndicatorWidget())),
+              );
+            } else if (snapshot.hasError) {
+              return Center(
+                child: Text('Error: ${snapshot.error}'),
+              );
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return Center(
+                child: Container(
+                  height: 150,
+                  width: 150,
+                  child: Lottie.asset(
+                    'assets/No_Data_Found.json',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              );
+            } else {
+              final ambulanceRequests = snapshot.data!;
+
+              return ListView.builder(
+                itemCount: ambulanceRequests.length,
+                itemBuilder: (context, index) {
+                  final request = ambulanceRequests[index];
+                  return Card(
+                    margin: EdgeInsets.all(8.0),
+                    child: ListTile(
+                      title: Text('Patient Name: ${request.patientName}'),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Address: ${request.address}'),
+                          Text('Vehicle Model: ${request.vehicleModel}'),
+                          Text('Driver Name: ${request.driverName}'),
+                          Text('Vehicle No: ${request.vehicleNo}'),
+                          Text('Amount: ${request.amount}'),
+                          Text('Date: ${request.date}'),
+                          Text('Doctor Name: ${request.doctorName}'),
+                          Text('Mobile No: ${request.mobileno}'),
+                          Text('Charge Name: ${request.chargeName}'),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              );
+            }
+          },
+        ),
       ),
     );
   }
