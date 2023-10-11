@@ -31,7 +31,9 @@ class Translation extends Translations {
           'liveConsultations': "Live Consultations",
           'doctors': "Doctors",
           'viewAll': "View All",
-
+          'Ratussubtitle': "Rate Us: Your Feedback Matters",
+          'Termsconditionubtitle': "App Rules & Regulations",
+          'Updatesubtitle': "Never Miss an Update with Check Updates",
           //View All Doctor list
           'selectADoctor': "Select a Doctor",
           'searchADoctor': "Search your doctor",
@@ -261,6 +263,9 @@ class Translation extends Translations {
           'checkUpdate': "अपडेटहरूको लागि जाँच गर्नुहोस्",
           'logout': "बाहिर निस्कनु",
           'rateUs': "हामीलाई मूल्याङ्कन गर्नुहोस्",
+          'Ratussubtitle': "हामीलाई मूल्याङ्कन गर्नुहोस्: तपाईंको प्रतिक्रिया महत्त्वपूर्ण छ",
+          'Termsconditionubtitle': "एप नियम र नियमहरू",
+          'Updatesubtitle': "चेक अपडेटको साथ अद्यावधिक कहिल्यै नछुटाउनुहोस्",
 
           //information Profile screen
           'informationProfile': "जानकारी प्रोफाइल",
