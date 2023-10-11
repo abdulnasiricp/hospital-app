@@ -231,27 +231,7 @@ class _PathalogyState extends State<Pathalogy> {
                   searchTextEditingController: searchController,
                   horizontalPadding: 5),
             ))),
-        // appBar: AppBar(
-        //   title: Container(
-        //     height: 40,
-        //     width: width,
-        //     child: searchField()),
-        //   centerTitle: true,
-        //   backgroundColor: darkYellow,
-        //   leading: IconButton(
-        //     onPressed: () {
-        //       Get.to(() => const Bottomhome());
-        //     },
-        //     icon: const Icon(Icons.arrow_back),
-        //   ),
-        //   actions: [
-        //     IconButton(
-        //         onPressed: () {
-        //           showNotification();
-        //         },
-        //         icon: const Icon(Icons.refresh))
-        //   ],
-        // ),
+      
         body: RefreshIndicator(
           onRefresh: _handleRefresh,
           child: Column(
