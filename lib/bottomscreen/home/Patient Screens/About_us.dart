@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Select_date.dart';
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/services.dart';
@@ -21,19 +22,64 @@ class AboutUSScreen extends StatefulWidget {
 
 class _AboutUSScreenState extends State<AboutUSScreen> {
   bool isLoading = true;
-  final List<String> imgList = [
-    'https://tse1.mm.bing.net/th?id=OIP.rf_UTwDKG7XALHaGmsYesQHaFj&pid=Api&P=0&h=180',
-    'https://i.pinimg.com/originals/eb/35/91/eb3591c54fb651f20d157ed7099c4576.jpg',
-    'https://www.medylife.com/blog/wp-content/uploads/2017/10/Best-Cardiology-Hospital.jpg',
-    'https://northernvirginiamag.com/wp-content/uploads/2020/12/hospital.jpg',
-    'https://www.krausanderson.com/wp-content/uploads/2018/11/01_U-of-M-Masonic-Childrens-Hospital-Amplatz-Exterior-View-of-Courtyard-Old-Hospital-and-New-Addition-1920x1080.jpg',
-    'https://yesofcorsa.com/wp-content/uploads/2017/05/Hospital-Wallpaper.jpg',
-    'https://s3.amazonaws.com/uchealth-wp-uploads/wp-content/uploads/sites/6/2018/01/02032200/UCHealth_Memorial_Hospital_Central_Morning.jpgeee.jpg',
-    'https://media.consumeraffairs.com/files/news/Hospital_building_JazzIRT_GI.jpg',
-  ];
 
+//////////////////////////////////////////////////////////////////////////////////////////
+// about us detials
+
+  List<String> sliderImages = []; // Declare the sliderImages list here
+
+  late String HospitalName = '';
+  late String HospitalEmail = '';
+  late String HospitalPhone = '';
+  late String HospitalAddress = '';
+  late String HospitalLocation = '';
+  late String SliderImages = '';
+  // SliderImages
+
+  Future<void> getpatientDetails() async {
+    // Set the headers
+    final headers = {
+      'Soft-service': 'TezHealthCare',
+      'Auth-key': 'zbuks_ram859553467',
+    };
+
+    try {
+      // Make the POST request
+      final response = await http.post(
+        Uri.parse(ApiLinks.aboutUs),
+        headers: headers,
+      );
+
+      // Check if the response was successful
+      if (response.statusCode == 200) {
+        // Decode the JSON response
+        final data = jsonDecode(response.body);
+
+        // Get hospital data
+        HospitalName = data['0']['name'];
+        HospitalEmail = data['0']['email'];
+        HospitalPhone = data['0']['phone'];
+        HospitalAddress = data['0']['address'];
+        HospitalLocation = data['0']['location_uuid'];
+
+        // Parse the 'slider_image' array
+        sliderImages = (data['slider_image'] as List).cast<String>();
+
+        // Set the state to rebuild the widget
+        setState(() {});
+      } else {
+        // Handle the error
+      }
+    } catch (error) {
+      print(error);
+    }
+  }
+
+//////////////////////////////////////////////////////////////////////////////////////////
+// map and phone call
   Future<void> openMapUrl() async {
-    const url = 'https://maps.app.goo.gl/wsazHc8ssSPihXvR7';
+    // const url = 'https://maps.app.goo.gl/wsazHc8ssSPihXvR7';
+    final url = HospitalLocation;
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -42,7 +88,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
   }
 
   Future<void> makePhoneCall() async {
-    const phoneNumber = 'tel:051-520012';
+    final phoneNumber = HospitalPhone;
     if (await canLaunch(phoneNumber)) {
       await launch(phoneNumber);
     } else {
@@ -50,6 +96,8 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
     }
   }
 
+//////////////////////////////////////////////////////////////////////////////////////////
+  /// Get All Doctor
   Map<String, dynamic>? DataMap;
   Map<String, dynamic>? DoneDataMap;
   List<dynamic>? DoneListData = [];
@@ -57,7 +105,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
 
   Future hitApi() async {
     final response = await http.post(
-      Uri.parse('https://uat.tez.hospital/xzy/webservice/getAllDoctor'),
+      Uri.parse(ApiLinks.getAllDoctor),
       headers: {
         'Soft-service': 'TezHealthCare',
         'Auth-key': 'zbuks_ram859553467'
@@ -86,12 +134,18 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
     });
   }
 
+//////////////////////////////////////////////////////////////////////////////////////////
+  ///
   @override
   void initState() {
+    getpatientDetails();
+
     hitApi();
     super.initState();
   }
 
+//////////////////////////////////////////////////////////////////////////////////////////
+  /// refresh screen
   Future<void> _handleRefresh() async {
     setState(() {
       isLoading = true; // Set isLoading to true when refreshing
@@ -103,6 +157,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
       isLoading = false; // Set isLoading to false after data is fetched
     });
   }
+//////////////////////////////////////////////////////////////////////////////////////////
 
   @override
   Widget build(BuildContext context) {
@@ -136,16 +191,14 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                           width: width,
                           child: Container(
                             child: CarouselSlider(
-                              items: imgList
-                                  .map(
-                                    (item) => Container(
-                                      child: Image.network(
-                                        item,
-                                        fit: BoxFit.cover,
-                                        width: double.infinity,
-                                      ),
-                                    ),
-                                  )
+                              items: sliderImages
+                                  .map((item) => Container(
+                                        child: Image.network(
+                                          item,
+                                          fit: BoxFit.cover,
+                                          width: double.infinity,
+                                        ),
+                                      ))
                                   .toList(),
                               options: CarouselOptions(
                                 aspectRatio: 2.0,
@@ -154,6 +207,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                 enlargeCenterPage: true,
                               ),
                             ),
+                           
                           ),
                         ),
                         Padding(
@@ -189,13 +243,13 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              'hospitalName'.tr,
+                                              HospitalName,
                                               style: const TextStyle(
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                            Text('hospitalNameCity'.tr),
-                                            Text('hospitalNameCityLocation'.tr),
+                                            Text(HospitalAddress),
+                                            Text(HospitalEmail),
                                             Container(
                                               height: 50,
                                               width: 175,
@@ -258,9 +312,9 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                             const SizedBox(
                                               width: 10,
                                             ),
-                                            const Text(
-                                              '051-520012',
-                                              style: TextStyle(
+                                            Text(
+                                              HospitalPhone,
+                                              style: const TextStyle(
                                                 color: Colors.blue,
                                               ),
                                             )

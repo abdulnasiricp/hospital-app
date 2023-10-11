@@ -38,4 +38,8 @@ class ApiLinks {
       "https://uat.tez.hospital/xzy/webservice/getpatientDetails";
        static const String getipdVitals=
       "https://uat.tez.hospital/xzy/webservice/getipdVitals";
+      static const String aboutUs=
+      "https://uat.tez.hospital/xzy/webservice/AboutUs";
+      static const String update_password=
+      "https://uat.tez.hospital/xzy/auth/update_password";
 }
