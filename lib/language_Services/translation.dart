@@ -205,7 +205,7 @@ class Translation extends Translations {
           'No. D': 'No. D',
           'Bedhistory': 'Bedhistory',
           'Certificate': 'Certificate', 'Bloodbank': 'Bloodbank',
-          'Surgery': 'Surgery Report',
+          'Surgery': 'Surgery Report',  'HelpCenter': 'Help Center',
         },
         'ne_NP': {
           //Bottom Bar
@@ -414,6 +414,7 @@ class Translation extends Translations {
           'Certificate': 'प्रमाणपत्रहरू',
           'Bloodbank': 'ब्लडबैंक',
           'Surgery': 'शल्यक्रिया रिपोर्ट',
+          'HelpCenter': 'मद्दत केन्द्र',
           //
         }
       };
