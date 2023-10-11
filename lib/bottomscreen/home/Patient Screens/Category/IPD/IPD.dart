@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Bedhistory/Bedhistory.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/Madication.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Surgery/SurgeryPrescriptionList.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
@@ -260,6 +261,9 @@ class _IPDState extends State<IPD> {
                                     ),
                                   ),
                                   InkWell(
+                                    onTap: () {
+                                      Get.to(() => SurgeryPrescriptionList());
+                                    },
                                     child: Container(
                                       width: 100,
                                       height: 100,
@@ -568,8 +572,8 @@ class _IPDState extends State<IPD> {
                                 children: [
                                   Text(
                                     "${consultansData['name'] ?? ""} ${consultansData['surname'] ?? ""} ",
-                                    style:
-                                        const TextStyle(fontWeight: FontWeight.bold),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
                                   ),
                                   const SizedBox(
                                       height:

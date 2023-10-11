@@ -1,11 +1,15 @@
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Surgery/ViewReport.dart';
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
+import 'package:get/route_manager.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SurgeryPrescriptionList extends StatefulWidget {
   @override
@@ -14,14 +18,83 @@ class SurgeryPrescriptionList extends StatefulWidget {
 }
 
 class _SurgeryPrescriptionListState extends State<SurgeryPrescriptionList> {
-  Future<List<Map<String, dynamic>>?>? _futureData;
-  bool isRefreshing = false; // Track refresh state
+  ///////////////////////////////////////////////////////////////
+
+  late String patientID = '';
+  late String IPDID = '';
+
+  LoadData() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+
+    patientID = sp.getString('patientidrecord') ?? '';
+    IPDID = sp.getString('ipdId') ?? '';
+
+    print(patientID);
+    print(
+        "======================================================================================$IPDID");
+
+    setState(() {});
+  }
+///////////////////////////////////////////////////////////////////
+
+  getData() async {
+    await LoadData();
+    await getpatientDetails();
+    _futureData = fetchData();
+  }
 
   @override
   void initState() {
     super.initState();
-    _futureData = fetchData();
+    getData();
   }
+
+///////////////////////////////////////////////////////////////////
+// get Patinent Detials
+  late String ipdData = '';
+
+  Future<void> getpatientDetails() async {
+    // Set the headers
+    final headers = {
+      'Soft-service': 'TezHealthCare',
+      'Auth-key': 'zbuks_ram859553467',
+    };
+
+    // Set the body
+    final body = {
+      'patient_id': patientID,
+    };
+    try {
+      // Make the POST request
+      final response = await http.post(
+        Uri.parse(ApiLinks.getpatientDetails),
+        headers: headers,
+        body: jsonEncode(body),
+      );
+
+      // Check if the response was successful
+      if (response.statusCode == 200) {
+        // Decode the JSON response
+        final data = jsonDecode(response.body);
+        ipdData = data['result']['ipdid'];
+
+        final sp = await SharedPreferences.getInstance();
+        sp.setString('ipdId', ipdData);
+
+        // Set the state to rebuild the widget
+        setState(() {});
+      } else {
+        // Handle the error
+      }
+    } catch (error) {
+      print(error);
+    }
+  }
+
+  /////////////////////////////////////////////
+
+  Future<List<Map<String, dynamic>>?>? _futureData;
+  bool isRefreshing = false; // Track refresh state
 
   Future<List<Map<String, dynamic>>?> fetchData() async {
     try {
@@ -32,8 +105,8 @@ class _SurgeryPrescriptionListState extends State<SurgeryPrescriptionList> {
       };
 
       final Map<String, dynamic> requestBody = {
-        "ipd_id": "313",
-        "patient_id": "10909",
+        "ipd_id": ipdData,
+        "patient_id": patientID,
       };
 
       final response = await http.post(
@@ -113,37 +186,49 @@ class _SurgeryPrescriptionListState extends State<SurgeryPrescriptionList> {
                 ),
               );
             } else {
-              return GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, // Two items per row
-                ),
+              return ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
                   final item = snapshot.data![index];
                   return Card(
                     margin: EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Stack(
                       children: [
-                        ListTile(
-                          title: Text(
-                              'Prescription ID: ${item['prescripton_id']}'),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Date: ${item['date']}'),
-                              Text('Charge Name: ${item['charge_name']}'),
-                            ],
-                          ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ListTile(
+                              title: Text(
+                                  'Prescription ID: ${item['prescripton_id']}'),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Date: ${item['date']}'),
+                                  Text('Test Name: ${item['charge_name']}'),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: yellow, // Change the background color here
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary:
+                                  yellow, // Change the background color here
+                            ),
+                            onPressed: () {
+                              Get.to(
+                                () => Surgeryreport(
+                                  prescripton_id: "${item['prescripton_id']}",
+                                  prescription_report:
+                                      "${item['prescription_report']}",
+                                ),
+                              );
+                            },
+                            child: Text('View Report'),
                           ),
-                          onPressed: () {
-                            // Handle opening the prescription report URL
-                          },
-                          child: Text('View Prescription Report'),
                         ),
                       ],
                     ),
