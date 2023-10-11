@@ -314,8 +314,7 @@ class _ProfileState extends State<Profile> {
                                               style: const TextStyle(
                                                   fontWeight: FontWeight.bold),
                                             ),
-                                            subtitle:
-                                            Text('Updatesubtitle'.tr),
+                                            subtitle: Text('Updatesubtitle'.tr),
                                           ),
                                         ),
                                         InkWell(
@@ -333,10 +332,8 @@ class _ProfileState extends State<Profile> {
                                               style: const TextStyle(
                                                   fontWeight: FontWeight.bold),
                                             ),
-                                            subtitle:
-                                            Text('Ratussubtitle'.tr),
+                                            subtitle: Text('Ratussubtitle'.tr),
                                           ),
-
                                         ),
                                         InkWell(
                                           onTap: () async {
@@ -361,13 +358,14 @@ class _ProfileState extends State<Profile> {
                                               style: const TextStyle(
                                                   fontWeight: FontWeight.bold),
                                             ),
-                                            subtitle:
-                                            Text('Termsconditionubtitle'.tr),
+                                            subtitle: Text(
+                                                'Termsconditionubtitle'.tr),
                                           ),
                                         ),
                                         InkWell(
                                           onTap: () {
-                                            Get.offAll(() => const SettingScreen());
+                                            Get.offAll(
+                                                () => const SettingScreen());
                                           },
                                           child: ListTile(
                                             leading: SvgPicture.asset(
@@ -386,7 +384,7 @@ class _ProfileState extends State<Profile> {
                                         ),
                                         InkWell(
                                           onTap: () {
-                                            Get.to(() => const HelpCenter());
+                                            Get.to(() =>  HelpCenterPage());
                                           },
                                           child: ListTile(
                                             leading: SvgPicture.asset(
@@ -400,7 +398,7 @@ class _ProfileState extends State<Profile> {
                                                   fontWeight: FontWeight.bold),
                                             ),
                                             subtitle:
-                                            Text('helpCenterSubtitle'.tr),
+                                                Text('helpCenterSubtitle'.tr),
                                           ),
                                         ),
                                         InkWell(

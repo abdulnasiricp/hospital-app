@@ -133,11 +133,8 @@ class _TransactionBillState extends State<TransactionBill> {
                     offset: Offset(0, 5)),
               ]),
               alignment: Alignment.center,
-
               child: AnimationSearchBar(
-                previousScreen: const Bottomhome(),
-
-                  
+                  previousScreen: const Bottomhome(),
                   isBackButtonVisible: true,
                   backIconColor: whitecolor,
                   centerTitle: 'transactionBill'.tr,
