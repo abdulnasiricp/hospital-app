@@ -261,9 +261,6 @@ class _IPDState extends State<IPD> {
                                     ),
                                   ),
                                   InkWell(
-                                    onTap: () {
-                                      Get.to(() => SurgeryPrescriptionList());
-                                    },
                                     child: Container(
                                       width: 100,
                                       height: 100,
@@ -297,6 +294,9 @@ class _IPDState extends State<IPD> {
                                     ),
                                   ),
                                   InkWell(
+                                    onTap: () {
+                                      Get.to(() => SurgeryPrescriptionList());
+                                    },
                                     child: Container(
                                       width: 100,
                                       height: 100,
