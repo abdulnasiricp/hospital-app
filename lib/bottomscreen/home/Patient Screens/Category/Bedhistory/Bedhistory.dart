@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace
+
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
@@ -10,6 +12,8 @@ import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Bedhistory extends StatefulWidget {
+  const Bedhistory({Key? key}) : super(key: key);
+
   @override
   State<Bedhistory> createState() => _BedhistoryState();
 }
@@ -188,7 +192,7 @@ class _BedhistoryState extends State<Bedhistory> {
                           ? "active"
                           : "inactive";
                       return Card(
-                        margin: EdgeInsets.all(10.0),
+                        margin: const EdgeInsets.all(10.0),
                         elevation: 5.0,
                         child: ListTile(
                           title: Text('Bed Name: ${historyItem["bed_name"]}'),

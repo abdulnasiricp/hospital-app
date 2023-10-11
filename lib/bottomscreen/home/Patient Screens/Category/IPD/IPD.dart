@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison, file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace, deprecated_member_use
+
 import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Bedhistory/Bedhistory.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/Madication.dart';
@@ -391,7 +393,7 @@ class _IPDState extends State<IPD> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      Get.to(() => Bedhistory());
+                                      Get.to(() => const Bedhistory());
                                     },
                                     child: Container(
                                       width: 100,
@@ -567,9 +569,9 @@ class _IPDState extends State<IPD> {
                                   Text(
                                     "${consultansData['name'] ?? ""} ${consultansData['surname'] ?? ""} ",
                                     style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                        const TextStyle(fontWeight: FontWeight.bold),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                       height:
                                           1), // Add spacing between the Text widget and the ListView.builder
                                   ListView.builder(
@@ -579,14 +581,14 @@ class _IPDState extends State<IPD> {
                                       final doctor = doctorsIPDData[index];
                                       return Text(
                                         "${doctor['ipd_doctorname']} ${doctor['ipd_doctorsurname']}",
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontWeight: FontWeight.bold),
                                       );
                                     },
                                     shrinkWrap:
                                         true, // Add this to make the ListView.builder use minimum required height
                                     physics:
-                                        NeverScrollableScrollPhysics(), // Add this to disable scrolling
+                                        const NeverScrollableScrollPhysics(), // Add this to disable scrolling
                                   ),
                                 ],
                               )

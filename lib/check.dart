@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use, unnecessary_null_comparison, non_constant_identifier_names, avoid_print, sized_box_for_whitespace
+
 import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/Madication.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -168,13 +170,13 @@ class _IPDState extends State<IPD> {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               // Display a loading indicator while fetching data
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
               // Handle error state
               return Center(child: Text("Error: ${snapshot.error}"));
             } else if (vitalsData == null || vitalsData.isEmpty || consultansData == null || consultansData.isEmpty) {
               // Display a "No Data Found" message
-              return Center(child: Text("No Data Found"));
+              return const Center(child: Text("No Data Found"));
             } else {
               // Data has been successfully fetched, display your content
               return SingleChildScrollView(
