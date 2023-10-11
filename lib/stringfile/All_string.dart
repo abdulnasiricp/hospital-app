@@ -43,6 +43,9 @@ class EnString {
   static const String setting = "Setting";
   static const String settingSubtitle = "Change Your Setting";
   static const String logout = "Log Out";
+  static const String Ratussubtitle = "Rate Us: Your Feedback Matters";
+  static const String Termsconditionubtitle = "App Rules & Regulations";
+  static const String Updatesubtitle = "Never Miss an Update with Check Updates";
   //information Profile screen
   static const String informationProfile ="Information Profile";
   static const String patientID ="Patient ID";

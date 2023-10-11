@@ -237,46 +237,28 @@ class _ProfileState extends State<Profile> {
                                                 'myinformationsubtitle'.tr),
                                           ),
                                         ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.to(() =>
-                                                const DevicesAndCredentials());
-                                          },
-                                          child: ListTile(
-                                            leading: SvgPicture.asset(
-                                                'assets/dev.svg',
-                                                width: 30,
-                                                height: 30,
-                                                color: darkYellow),
-                                            title: Text(
-                                              'deviceAndCredential'.tr,
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            subtitle: Text(
-                                                'deviceAndCredentialSubtitle'
-                                                    .tr),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.to(() => const HelpCenter());
-                                          },
-                                          child: ListTile(
-                                            leading: SvgPicture.asset(
-                                                'assets/helpcenter.svg',
-                                                width: 30,
-                                                height: 30,
-                                                color: darkYellow),
-                                            title: Text(
-                                              'helpCenter'.tr,
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            subtitle:
-                                                Text('helpCenterSubtitle'.tr),
-                                          ),
-                                        ),
+                                        // InkWell(
+                                        //   onTap: () {
+                                        //     Get.to(() =>
+                                        //         const DevicesAndCredentials());
+                                        //   },
+                                        //   child: ListTile(
+                                        //     leading: SvgPicture.asset(
+                                        //         'assets/dev.svg',
+                                        //         width: 30,
+                                        //         height: 30,
+                                        //         color: darkYellow),
+                                        //     title: Text(
+                                        //       'deviceAndCredential'.tr,
+                                        //       style: const TextStyle(
+                                        //           fontWeight: FontWeight.bold),
+                                        //     ),
+                                        //     subtitle: Text(
+                                        //         'deviceAndCredentialSubtitle'
+                                        //             .tr),
+                                        //   ),
+                                        // ),
+
                                         InkWell(
                                           onTap: () {
                                             Get.to(() => const AboutUSScreen());
@@ -296,27 +278,27 @@ class _ProfileState extends State<Profile> {
                                                 Text('aboutUsSubtitle'.tr),
                                           ),
                                         ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.changeThemeMode(Get.isDarkMode
-                                                ? ThemeMode.light
-                                                : ThemeMode.dark);
-                                          },
-                                          child: ListTile(
-                                            leading: SvgPicture.asset(
-                                                'assets/darkmode.svg',
-                                                width: 30,
-                                                height: 30,
-                                                color: darkYellow),
-                                            title: Text(
-                                              'darkmode'.tr,
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            subtitle:
-                                                Text('darkmodeSubtitle'.tr),
-                                          ),
-                                        ),
+                                        // InkWell(
+                                        //   onTap: () {
+                                        //     Get.changeThemeMode(Get.isDarkMode
+                                        //         ? ThemeMode.light
+                                        //         : ThemeMode.dark);
+                                        //   },
+                                        //   child: ListTile(
+                                        //     leading: SvgPicture.asset(
+                                        //         'assets/darkmode.svg',
+                                        //         width: 30,
+                                        //         height: 30,
+                                        //         color: darkYellow),
+                                        //     title: Text(
+                                        //       'darkmode'.tr,
+                                        //       style: const TextStyle(
+                                        //           fontWeight: FontWeight.bold),
+                                        //     ),
+                                        //     subtitle:
+                                        //         Text('darkmodeSubtitle'.tr),
+                                        //   ),
+                                        // ),
                                         InkWell(
                                           onTap: () {
                                             // Get.to(() => const SettingScreen());
@@ -332,6 +314,8 @@ class _ProfileState extends State<Profile> {
                                               style: const TextStyle(
                                                   fontWeight: FontWeight.bold),
                                             ),
+                                            subtitle:
+                                            Text('Updatesubtitle'.tr),
                                           ),
                                         ),
                                         InkWell(
@@ -349,7 +333,10 @@ class _ProfileState extends State<Profile> {
                                               style: const TextStyle(
                                                   fontWeight: FontWeight.bold),
                                             ),
+                                            subtitle:
+                                            Text('Ratussubtitle'.tr),
                                           ),
+
                                         ),
                                         InkWell(
                                           onTap: () async {
@@ -374,6 +361,8 @@ class _ProfileState extends State<Profile> {
                                               style: const TextStyle(
                                                   fontWeight: FontWeight.bold),
                                             ),
+                                            subtitle:
+                                            Text('Termsconditionubtitle'.tr),
                                           ),
                                         ),
                                         InkWell(
@@ -393,6 +382,25 @@ class _ProfileState extends State<Profile> {
                                             ),
                                             subtitle:
                                                 Text('settingSubtitle'.tr),
+                                          ),
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            Get.to(() => const HelpCenter());
+                                          },
+                                          child: ListTile(
+                                            leading: SvgPicture.asset(
+                                                'assets/helpcenter.svg',
+                                                width: 30,
+                                                height: 30,
+                                                color: darkYellow),
+                                            title: Text(
+                                              'helpCenter'.tr,
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            subtitle:
+                                            Text('helpCenterSubtitle'.tr),
                                           ),
                                         ),
                                         InkWell(
