@@ -9,6 +9,7 @@ class Translation extends Translations {
           'transcation': "Transaction",
           'card': "Card",
           'profile': "Profile",
+           'HometransactionBill' : "Transaction Bill",
           // Patient Home Screen,
           'welcome': "Welcome,\n",
           'patientId': "Patient Id:",
@@ -210,6 +211,7 @@ class Translation extends Translations {
           'home': "घर",
           'transcation': "लेनदेन",
           'profile': "प्रोफाइल",
+          'HometransactionBill' : "लेनदेन बिल",
 
           // Patient Home Screen,
           'welcome': "स्वागत छ,\n",
@@ -407,7 +409,10 @@ class Translation extends Translations {
           'frequency': 'आवृत्ति',
           'No. D': 'No. D',
           'Bedhistory': 'ओछ्यान इतिहास',
-          'Certificate': 'प्रमाणपत्रहरू', 'Bloodbank': 'ब्लडबैंक',
+          'Certificate': 'प्रमाणपत्रहरू',
+           'Bloodbank': 'ब्लडबैंक',
+
+           //
         }
       };
 }

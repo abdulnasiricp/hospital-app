@@ -35,8 +35,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
 class PatientHomePage extends StatefulWidget {
-  final String? patientId;
-  const PatientHomePage({Key? key, this.patientId}) : super(key: key);
+  const PatientHomePage({Key? key,}) : super(key: key);
 
   @override
   State<PatientHomePage> createState() => _PatientHomePageState();
@@ -417,7 +416,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                       children: [
                                         InkWell(
                                           onTap: () {
-                                            Get.to(
+                                            Get.offAll(
                                                 () => const TransactionBill());
                                           },
                                           child: Container(

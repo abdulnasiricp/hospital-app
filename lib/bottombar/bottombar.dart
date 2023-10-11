@@ -3,6 +3,7 @@
 import 'package:TezHealthCare/bottomscreen/Profile/profile.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Card/Card.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/HomeTransaction_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Transaction_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Patient_home.dart';
 import 'package:TezHealthCare/screens/notification.dart';
@@ -153,8 +154,8 @@ class _BottomhomeState extends State<Bottomhome> {
     return {
       '/': (context) {
         return [
-          PatientHomePage(patientId: Patient_id),
-          const TransactionBill(),
+          const PatientHomePage(),
+          const HomeTransactionBill(),
           const CardScreen(),
           const Profile(),
         ].elementAt(index);

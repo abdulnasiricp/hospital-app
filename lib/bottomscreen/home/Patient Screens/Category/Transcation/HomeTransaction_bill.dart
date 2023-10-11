@@ -14,14 +14,14 @@ import 'package:shimmer/shimmer.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class TransactionBill extends StatefulWidget {
-  const TransactionBill({Key? key}) : super(key: key);
+class HomeTransactionBill extends StatefulWidget {
+  const HomeTransactionBill({Key? key}) : super(key: key);
 
   @override
-  _TransactionBillState createState() => _TransactionBillState();
+  _HomeTransactionBillState createState() => _HomeTransactionBillState();
 }
 
-class _TransactionBillState extends State<TransactionBill> {
+class _HomeTransactionBillState extends State<HomeTransactionBill> {
   bool isLoading = true;
   String totalAmount = "0.0"; // Initialize with a default value
 
@@ -105,8 +105,6 @@ class _TransactionBillState extends State<TransactionBill> {
 
   TextEditingController searchController = TextEditingController();
 
-////////////////////////////////////////////////////////////////////////////////////////
-// filter data
   Map<String?, dynamic> apiData = {};
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -133,14 +131,9 @@ class _TransactionBillState extends State<TransactionBill> {
                     offset: Offset(0, 5)),
               ]),
               alignment: Alignment.center,
-
               child: AnimationSearchBar(
-                previousScreen: const Bottomhome(),
-
-                  
-                  isBackButtonVisible: true,
-                  backIconColor: whitecolor,
-                  centerTitle: 'transactionBill'.tr,
+                isBackButtonVisible: false,
+                  centerTitle: 'HometransactionBill'.tr,
                   centerTitleStyle: TextStyle(color: whitecolor, fontSize: 20),
                   searchIconColor: whitecolor,
                   searchFieldDecoration: BoxDecoration(
