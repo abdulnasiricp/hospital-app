@@ -9,7 +9,7 @@ class Translation extends Translations {
           'transcation': "Transaction",
           'card': "Card",
           'profile': "Profile",
-           'HometransactionBill' : "Transaction Bill",
+          'HometransactionBill': "Transaction Bill",
           // Patient Home Screen,
           'welcome': "Welcome,\n",
           'patientId': "Patient Id:",
@@ -205,13 +205,14 @@ class Translation extends Translations {
           'No. D': 'No. D',
           'Bedhistory': 'Bedhistory',
           'Certificate': 'Certificate', 'Bloodbank': 'Bloodbank',
+          'Surgery': 'Surgery Report',
         },
         'ne_NP': {
           //Bottom Bar
-          'home': "घर",
+          'home': "होम",
           'transcation': "लेनदेन",
           'profile': "प्रोफाइल",
-          'HometransactionBill' : "लेनदेन बिल",
+          'HometransactionBill': "लेनदेन बिल",
 
           // Patient Home Screen,
           'welcome': "स्वागत छ,\n",
@@ -265,7 +266,8 @@ class Translation extends Translations {
           'checkUpdate': "अपडेटहरूको लागि जाँच गर्नुहोस्",
           'logout': "बाहिर निस्कनु",
           'rateUs': "हामीलाई मूल्याङ्कन गर्नुहोस्",
-          'Ratussubtitle': "हामीलाई मूल्याङ्कन गर्नुहोस्: तपाईंको प्रतिक्रिया महत्त्वपूर्ण छ",
+          'Ratussubtitle':
+              "हामीलाई मूल्याङ्कन गर्नुहोस्: तपाईंको प्रतिक्रिया महत्त्वपूर्ण छ",
           'Termsconditionubtitle': "एप नियम र नियमहरू",
           'Updatesubtitle': "चेक अपडेटको साथ अद्यावधिक कहिल्यै नछुटाउनुहोस्",
 
@@ -410,9 +412,9 @@ class Translation extends Translations {
           'No. D': 'No. D',
           'Bedhistory': 'ओछ्यान इतिहास',
           'Certificate': 'प्रमाणपत्रहरू',
-           'Bloodbank': 'ब्लडबैंक',
-
-           //
+          'Bloodbank': 'ब्लडबैंक',
+          'Surgery': 'शल्यक्रिया रिपोर्ट',
+          //
         }
       };
 }

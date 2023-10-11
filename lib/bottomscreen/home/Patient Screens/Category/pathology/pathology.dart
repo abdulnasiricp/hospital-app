@@ -231,7 +231,6 @@ class _PathalogyState extends State<Pathalogy> {
                   searchTextEditingController: searchController,
                   horizontalPadding: 5),
             ))),
-      
         body: RefreshIndicator(
           onRefresh: _handleRefresh,
           child: Column(
