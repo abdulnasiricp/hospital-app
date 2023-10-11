@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/Setting/change_password.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -40,7 +42,7 @@ class _SettingScreenState extends State<SettingScreen> {
           children: [
             InkWell(
               onTap: () {
-                Get.dialog(Change_Password());
+                Get.dialog(const Change_Password());
               },
               child: Card(
                 child: ListTile(

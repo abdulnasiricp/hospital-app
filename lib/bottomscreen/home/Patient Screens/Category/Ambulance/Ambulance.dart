@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace
+
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
@@ -38,6 +40,8 @@ class AmbulanceRequest {
 }
 
 class Ambulance extends StatefulWidget {
+  const Ambulance({Key? key}) : super(key: key);
+
   @override
   State<Ambulance> createState() => _AmbulanceState();
 }
@@ -166,7 +170,7 @@ class _AmbulanceState extends State<Ambulance> {
                 itemBuilder: (context, index) {
                   final request = ambulanceRequests[index];
                   return Card(
-                    margin: EdgeInsets.all(8.0),
+                    margin: const EdgeInsets.all(8.0),
                     child: ListTile(
                       title: Text('Patient Name: ${request.patientName}'),
                       subtitle: Column(

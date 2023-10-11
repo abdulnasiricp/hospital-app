@@ -490,7 +490,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         ),
                                         InkWell(
                                           onTap: () {
-                                            Get.to(() =>   IPD());
+                                            Get.to(() =>   const IPD());
                                           },
                                           child: Container(
                                             width: 100,
@@ -703,7 +703,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         ),
                                         InkWell(
                                           onTap: () {
-                                            Get.to(() => Blood_Bank());
+                                            Get.to(() => const Blood_Bank());
                                           },
                                           child: Container(
                                             width: 100,
@@ -739,7 +739,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         ),
                                         InkWell(
                                           onTap: () {
-                                            Get.to(() => Ambulance());
+                                            Get.to(() => const Ambulance());
                                           },
                                           child: Container(
                                             width: 100,
@@ -848,7 +848,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         ),
                                         InkWell(
                                           onTap: () {
-                                            Get.to(() => Bedhistory());
+                                            Get.to(() => const Bedhistory());
                                           },
                                           child: Container(
                                             width: 100,

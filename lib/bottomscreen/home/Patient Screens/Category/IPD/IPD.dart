@@ -1,14 +1,15 @@
-// ignore_for_file: file_names, sized_box_for_whitespace, deprecated_member_use, non_constant_identifier_names, avoid_print
+// ignore_for_file: file_names, sized_box_for_whitespace, deprecated_member_use, non_constant_identifier_names, avoid_print, unnecessary_null_comparison
 
 import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/Madication.dart';
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
-import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
@@ -26,13 +27,13 @@ class _IPDState extends State<IPD> {
 // get Shared Prefernce data
 
   late String patientID = '';
-  late String IPDID = '';
+  late String iPDID = '';
 
   LoadData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
 
     patientID = sp.getString('patientidrecord') ?? '';
-    IPDID = sp.getString('ipdId') ?? '';
+    iPDID = sp.getString('ipdId') ?? '';
 
     print(patientID);
     setState(() {});
@@ -43,10 +44,12 @@ class _IPDState extends State<IPD> {
     await LoadData();
 
     await getpatientDetails();
-   await fetchVitalsData().then((data) {
+    await fetchVitalsData().then((data) {
       setState(() {
         vitalsData = data['vitals'];
         consultansData = data['consultant_doctor'];
+        IpdDoctors = data['doctors_ipd'];
+        
       });
     });
   }
@@ -55,10 +58,8 @@ class _IPDState extends State<IPD> {
   void initState() {
     super.initState();
     getData();
-   
 
     
-    // fetchVitalsData();
   }
 
 ///////////////////////////////////////////////////////////////////
@@ -68,7 +69,6 @@ class _IPDState extends State<IPD> {
   late String PatientGender = '';
   late String AdmissionDate = '';
   late String ipdData = '';
-  
 
   Future<void> getpatientDetails() async {
     // Set the headers
@@ -84,16 +84,13 @@ class _IPDState extends State<IPD> {
     try {
       // Make the POST request
       final response = await http.post(
-        Uri.parse('https://uat.tez.hospital/xzy/webservice/getpatientDetails'),
+        Uri.parse(ApiLinks.getpatientDetails),
         headers: headers,
         body: jsonEncode(body),
       );
 
       // Check if the response was successful
       if (response.statusCode == 200) {
-      
-      
-
         // Decode the JSON response
         final data = jsonDecode(response.body);
 
@@ -105,7 +102,7 @@ class _IPDState extends State<IPD> {
         ipdData = data['result']['ipdid'];
 
         final sp = await SharedPreferences.getInstance();
-      sp.setString('ipdId',ipdData );
+        sp.setString('ipdId', ipdData);
 
         // Set the state to rebuild the widget
         setState(() {});
@@ -118,14 +115,13 @@ class _IPDState extends State<IPD> {
   }
   ////////////////////////////////////////////////////////////////////////////////
 
-
   //////////////////////////////////////////////////////////////////////////////////
   // get vital data
 
 // Existing declaration of vitalsData
   late Map<String?, dynamic> vitalsData = {};
   late Map<String?, dynamic> consultansData = {};
-  
+  late List<dynamic> IpdDoctors = [];
 
   Future<Map<String, dynamic>> fetchVitalsData() async {
     final response = await http.post(
@@ -136,14 +132,13 @@ class _IPDState extends State<IPD> {
         'Auth-key': 'zbuks_ram859553467',
       },
       body: jsonEncode({
-        "ipd_id":ipdData ,
+        "ipd_id": ipdData,
         "patient_id": patientID,
       }),
     );
 
     if (response.statusCode == 200) {
-       
-      return  jsonDecode(response.body);
+      return jsonDecode(response.body);
     } else {
       throw Exception('Failed to load vitals data');
     }
@@ -162,12 +157,12 @@ class _IPDState extends State<IPD> {
       isLoading = false; // Set isLoading to false after data is fetched
     });
   }
+  //////////////////////////////////////////////////////////////////////////////
 
-
-  
-  
   late ColorNotifier notifier;
   TextEditingController dateinput = TextEditingController();
+  //////////////////////////////////////////////////////////////////////////////
+
   @override
   Widget build(BuildContext context) {
     notifier = Provider.of<ColorNotifier>(context, listen: true);
@@ -180,7 +175,16 @@ class _IPDState extends State<IPD> {
             // elevation: 0,
           ),
           backgroundColor: Colors.white,
-          body: SingleChildScrollView(
+          body:vitalsData ==null ?  Center(
+                child: Container(
+                  height: 150,
+                  width: 150,
+                  child: Lottie.asset(
+                    'assets/No_Data_Found.json',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ): SingleChildScrollView(
             child: RefreshIndicator(
               onRefresh: _handleRefresh,
               child: Column(
@@ -439,12 +443,10 @@ class _IPDState extends State<IPD> {
                                   SizedBox(
                                     height: 5,
                                   ),
-
                                   Text('Gender: '),
                                   SizedBox(
                                     height: 5,
                                   ),
-
                                   Text('Date of Admission: '),
                                 ],
                               ),
@@ -489,14 +491,6 @@ class _IPDState extends State<IPD> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                   Text(
-                                    ipdData,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
                                 ],
                               ),
                             ],
@@ -510,46 +504,69 @@ class _IPDState extends State<IPD> {
                             ),
                           ),
                           const SizedBox(height: 16),
-                          Column( 
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              buildVitalItem(
+                                  'Height', "${vitalsData['Height'] ?? ""} "),
+                              buildVitalItem(
+                                  'Weight', "${vitalsData['weight'] ?? ""} "),
+                              buildVitalItem(
+                                  'BP', "${vitalsData['bp'] ?? ""} "),
+                              buildVitalItem(
+                                  'Pulse', "${vitalsData['pulse'] ?? ""} "),
+                              buildVitalItem('Temperature',
+                                  "${vitalsData['temprature'] ?? ""} "),
+                              buildVitalItem('Respiration',
+                                  "${vitalsData['respiration'] ?? ""} "),
+                              const SizedBox(height: 32),
+                              const Column(
+                                children: [
+                                  Text(
+                                    'Consultants',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 16),
+                              Text(
+                                  "${consultansData['name'] ?? ""} ${consultansData['surname'] ?? ""} "),
+                              const SizedBox(height: 20),
+
+                              const Column(
+                                children: [
+                                  Text(
+                                    'IPD Doctors',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 10,),
+                              // Display the list of IPD doctors using ListView.builder
+                              ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: IpdDoctors.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  final doctor = IpdDoctors[index];
+                                  return Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      buildVitalItem(
-                                          'Height', "${vitalsData['Height']??""} "),
-                                      buildVitalItem(
-                                          'Weight', "${vitalsData['weight']??""} "),
-                                      buildVitalItem('BP',
-                                          "${vitalsData['bp']??""} "),
-                                      buildVitalItem(
-                                          'Pulse',
-                                          "${vitalsData['pulse']??""} "),
-                                      buildVitalItem(
-                                          'Temperature',
-                                          "${vitalsData['temprature']??""} "),
-                                         
-                                              
-                                      buildVitalItem(
-                                          'Respiration',
-                                          "${vitalsData['respiration']??""} "),
-                                            const SizedBox(height: 32),
-                          const Column(
-                            children: [
-                              Text(
-                                'Consultants',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                      Text(
+                                        'Dr. ${doctor['ipd_doctorname'] ?? ""} ${doctor['ipd_doctorsurname'] ?? ""}',
+                                        style: const TextStyle(),
+                                      ),
+                                    ],
+                                  );
+                                },
                               ),
                             ],
                           ),
-                          const SizedBox(height: 16),
-                          // Text("$ConsultansData['name']}"),
-                          Text("${consultansData['name']??""} ${consultansData['surname']??""} ")
-                                    ],
-                                  )
-                                
-                              
-                        
                         ],
                       ),
                     ),

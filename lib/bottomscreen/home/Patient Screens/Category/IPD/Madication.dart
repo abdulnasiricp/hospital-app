@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 
-import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';

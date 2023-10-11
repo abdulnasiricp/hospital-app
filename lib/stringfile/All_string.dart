@@ -170,10 +170,10 @@ class EnString {
   static const String Date = "Date";
   //help center
 
-  static const String Liveconsultation = "Liveconsultation";
-  static const String Bedhistory = "Liveconsultation";
+  static const String Liveconsultation = "Live consultation";
+  static const String Bedhistory = "Bed History";
   static const String Certificate = "Certificate";
-  static const String Bloodbank = "Bloodbank";
+  static const String Bloodbank = "Blood bank";
 
 
 

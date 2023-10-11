@@ -1,9 +1,13 @@
+// ignore_for_file: camel_case_types
+
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
 
 class Change_Password extends StatefulWidget {
+  const Change_Password({Key? key}) : super(key: key);
+
   // const Change_Password({super.key});
 
   @override
@@ -54,29 +58,29 @@ class _Change_PasswordState extends State<Change_Password> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Change Password'),
+      title: const Text('Change Password'),
       content: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             TextField(
               controller: _currentPasswordController,
               obscureText: true,
-              decoration: InputDecoration(labelText: 'Current Password'),
+              decoration: const InputDecoration(labelText: 'Current Password'),
             ),
             TextField(
               controller: _newPasswordController,
               obscureText: true,
-              decoration: InputDecoration(labelText: 'New Password'),
+              decoration: const InputDecoration(labelText: 'New Password'),
             ),
             TextField(
               controller: _confirmNewPasswordController,
               obscureText: true,
-              decoration: InputDecoration(labelText: 'Confirm New Password'),
+              decoration: const InputDecoration(labelText: 'Confirm New Password'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(
               _errorMessage,
-              style: TextStyle(color: Colors.red),
+              style: const TextStyle(color: Colors.red),
             ),
           ],
         ),
@@ -90,10 +94,10 @@ class _Change_PasswordState extends State<Change_Password> {
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
-            primary: yellow, // Change the background color
+            backgroundColor: yellow, // Change the background color
           ),
           onPressed: _changePassword,
-          child: Text('Change Password'),
+          child: const Text('Change Password'),
         ),
       ],
     );

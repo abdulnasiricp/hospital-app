@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, sized_box_for_whitespace
+
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
@@ -42,6 +44,8 @@ class BloodIssue {
 }
 
 class Blood_Bank extends StatefulWidget {
+  const Blood_Bank({Key? key}) : super(key: key);
+
   //const Blood_Bank({super.key});
 
   @override
@@ -169,7 +173,7 @@ class _Blood_BankState extends State<Blood_Bank> {
                 itemBuilder: (context, index) {
                   final issue = bloodIssues[index];
                   return Card(
-                    margin: EdgeInsets.all(8.0),
+                    margin: const EdgeInsets.all(8.0),
                     child: ListTile(
                       title: Text('Patient Name: ${issue.patientName}'),
                       subtitle: Column(
