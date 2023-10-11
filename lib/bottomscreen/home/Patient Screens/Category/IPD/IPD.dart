@@ -104,8 +104,7 @@ class _IPDState extends State<IPD> {
         AdmissionDate = data['result']['date'];
         ipdData = data['result']['ipdid'];
 
-        final sp = await SharedPreferences.getInstance();
-        sp.setString('ipdId', ipdData);
+       
 
         // Set the state to rebuild the widget
         setState(() {});

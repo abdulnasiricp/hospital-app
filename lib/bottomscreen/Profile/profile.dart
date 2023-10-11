@@ -4,7 +4,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:TezHealthCare/Splash_Screen.dart';
-import 'package:TezHealthCare/bottomscreen/Profile/Devices_and_Credentials/Devices_credentials.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/Information_profile.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/Setting/Setting_screen.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/help_center.dart';
@@ -45,13 +44,49 @@ class _ProfileState extends State<Profile> {
 
   Future<void> _logout(BuildContext context) async {
     final sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.remove('username');
-    sharedPreferences.remove('password');
+    sharedPreferences.clear();
+    sharedPreferences.clear();
 
     // Navigate to the login screen
     Get.off(() => const Splash_Screen());
   }
 
+  ////////////////////////////////////////////////////////////////////////////
+  ///
+  ///////////////////////////////////////////////////////////////////////////////
+  String apiUrl =
+      'https://uat.tez.hospital/xzy/auth/patient_logout'; // Replace with your logout API URL
+
+  Future<void> performLogout() async {
+    try {
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: {
+          'Soft-service': 'TezHealthCare',
+          'Auth-key': 'zbuks_ram859553467',
+        },
+        // You may need to pass additional data in the body if required by your API.
+        body: jsonEncode({"patient_id": patientID}),
+      );
+
+      if (response.statusCode == 200) {
+        // Successful logout, clear user data or navigate to the login screen.
+        print('Logout successful');
+        _logout(context);
+
+        // Implement your logout logic here.
+      } else {
+        // Handle errors, e.g., display an error message to the user.
+        print('Logout failed: ${response.statusCode}');
+      }
+    } catch (e) {
+      // Handle network errors.
+      print('Network error: $e');
+    }
+  }
+
+////////////////////////////////////////////////////////////////////////////
+  ///shared preference data
   var profileData;
   late String patientID = '';
   LoadData() async {
@@ -62,6 +97,8 @@ class _ProfileState extends State<Profile> {
     print(patientID);
     setState(() {});
   }
+////////////////////////////////////////////////////////////////////////////
+// get patient profile
 
   Future<void> ProfileApi() async {
     const apiUrl = ApiLinks.getPatientprofile;
@@ -93,6 +130,7 @@ class _ProfileState extends State<Profile> {
       print('Request error: $e');
     }
   }
+////////////////////////////////////////////////////////////////////////////
 
   getAllData() async {
     await LoadData();
@@ -106,6 +144,7 @@ class _ProfileState extends State<Profile> {
 
     super.initState();
   }
+////////////////////////////////////////////////////////////////////////////
 
   late ColorNotifier notifier;
   TextEditingController dateinput = TextEditingController();
@@ -403,7 +442,7 @@ class _ProfileState extends State<Profile> {
                                         ),
                                         InkWell(
                                           onTap: () {
-                                            _logout(context);
+                                            performLogout();
                                           },
                                           child: ListTile(
                                             leading: SvgPicture.asset(
