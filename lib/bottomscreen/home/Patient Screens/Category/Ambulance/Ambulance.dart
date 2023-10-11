@@ -70,8 +70,7 @@ class _AmbulanceState extends State<Ambulance> {
   }
 
   Future<List<AmbulanceRequest>> fetchAmbulanceRequests() async {
-    final apiUrl = Uri.parse(
-        ApiLinks.getAmbulanceDetails);
+    final apiUrl = Uri.parse(ApiLinks.getAmbulanceDetails);
     final headers = {
       'Soft-service': 'TezHealthCare',
       'Auth-key': 'zbuks_ram859553467',

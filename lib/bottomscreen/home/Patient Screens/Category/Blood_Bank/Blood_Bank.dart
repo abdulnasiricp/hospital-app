@@ -70,19 +70,15 @@ class _Blood_BankState extends State<Blood_Bank> {
     super.initState();
     // Call the loadData method here
     loadData();
-    // Now, you can call fetchAmbulanceRequests once the data is loaded
-    loadData().then((_) {
-      bloodIssues = fetchBloodIssues();
-    });
+    // Now, you can call fetchBloodIssues once the data is loaded
+    bloodIssues = fetchBloodIssues();
   }
 
   Future<List<BloodIssue>> fetchBloodIssues() async {
-    final apiUrl = Uri.parse(
-        ApiLinks.getbloodbankDetails);
+    final apiUrl = Uri.parse(ApiLinks.getbloodbankDetails);
     final headers = {
       'Soft-service': 'TezHealthCare',
       'Auth-key': 'zbuks_ram859553467',
-      
     };
     final body = {
       "patient_id": Patient_id,
