@@ -178,6 +178,7 @@ class EnString {
   static const String Certificate = "Certificate";
   static const String Bloodbank = "Blood bank";
  static const String HometransactionBill = "Transaction Billl";
+ static const String Surgery = "Surgery Report";
 
 
 

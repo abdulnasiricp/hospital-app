@@ -16,6 +16,7 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Patho
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pharmacy/Pharmacy.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Physiotherapy/Physiotherapy.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Radiology/Radiology.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Surgery/SurgeryPrescriptionList.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Transaction_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/USG/usg.dart';
 import 'package:TezHealthCare/main.dart';
@@ -35,7 +36,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
 class PatientHomePage extends StatefulWidget {
-  const PatientHomePage({Key? key,}) : super(key: key);
+  final String? patientId;
+  const PatientHomePage({Key? key, this.patientId}) : super(key: key);
 
   @override
   State<PatientHomePage> createState() => _PatientHomePageState();
@@ -157,10 +159,15 @@ class _PatientHomePageState extends State<PatientHomePage> {
         DataMap = jsonDecode(response.body);
         DoneListData = DataMap!['doctors'];
         isLoading = false; // Set isLoading to false after successful response
+      } else if (response.statusCode == 500) {
+        print('Internal Server Error: ${response.statusCode}');
+        setState(() {
+          isLoading = false; // Set isLoading to false in case of an error
+        });
       } else {
         print('Error getting doctors: ${response.statusCode}');
         setState(() {
-          isLoading = false; // Set isLoading to false in case of error
+          isLoading = false; // Set isLoading to false in case of an error
         });
       }
     } catch (e) {
@@ -180,13 +187,13 @@ class _PatientHomePageState extends State<PatientHomePage> {
     });
 
     await hitApi();
-
+    await getDues();
     setState(() {
       isLoading = false; // Set isLoading to false after data is fetched
     });
   }
 
-///  /////////////////////////////////////////////////////////////////////////
+  ///  /////////////////////////////////////////////////////////////////////////
   // show notification
   void showNotification() async {
     AndroidNotificationDetails androidDetiles =
@@ -489,7 +496,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         ),
                                         InkWell(
                                           onTap: () {
-                                            Get.to(() =>   const IPD());
+                                            Get.to(() => const IPD());
                                           },
                                           child: Container(
                                             width: 100,
@@ -668,6 +675,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                           ),
                                         ),
                                         InkWell(
+                                          onTap: () {
+                                            Get.to(() =>
+                                                SurgeryPrescriptionList());
+                                          },
                                           child: Container(
                                             width: 100,
                                             height: 100,

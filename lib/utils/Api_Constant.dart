@@ -42,4 +42,6 @@ class ApiLinks {
       "https://uat.tez.hospital/xzy/webservice/AboutUs";
       static const String update_password=
       "https://uat.tez.hospital/xzy/auth/update_password";
+       static const String Maternity=
+      "https://uat.tez.hospital/xzy/webservice/getipdMaternity";
 }

@@ -1,6 +1,5 @@
 // ignore_for_file: file_names, sized_box_for_whitespace
 
-
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -54,20 +53,17 @@ class ToastDialog extends StatelessWidget {
                   child: ListTile(
                     onTap: () {
                       Get.updateLocale(const Locale('en', 'US'));
-                     Get.offAll(() => const Bottomhome());
-
-                  
+                      Get.offAll(() => const Bottomhome());
                     },
                     leading: SvgPicture.asset(
                       'assets/usflag.svg',
                       width: 30,
                       height: 30,
                     ),
-                    title: const Center(
-                        child: Text(
+                    title: Text(
                       'English',
                       style: TextStyle(color: Colors.white),
-                    )),
+                    ),
                   )),
               const SizedBox(height: 10),
               Container(
@@ -76,29 +72,26 @@ class ToastDialog extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: darkYellow),
-                  child: ListTile(hoverColor: whitecolor,
+                  child: ListTile(
+                    hoverColor: whitecolor,
                     onTap: () {
                       Get.updateLocale(const Locale('ne', 'NP'));
-                     Get.offAll(() => const Bottomhome());
-
-
+                      Get.offAll(() => const Bottomhome());
                     },
                     leading: SvgPicture.asset(
                       'assets/nepflag.svg',
                       width: 30,
                       height: 30,
                     ),
-                    title: const Center(
-                        child: Text(
+                    title: Text(
                       'नेपाली',
                       style: TextStyle(color: Colors.white),
-                    )),
+                    ),
                   )),
               const SizedBox(height: 50),
             ],
           ),
         ),
-       
       ],
     );
   }
