@@ -220,7 +220,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
 ///
 void navigateToScreen() {
   // Replace this with the code to navigate to the desired screen.
-  Navigator.push(context, MaterialPageRoute(builder: (context) => PatientHomePage()));
+  Navigator.push(context, MaterialPageRoute(builder: (context) => const PatientHomePage()));
 }
 
   @override
