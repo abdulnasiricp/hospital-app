@@ -677,7 +677,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         InkWell(
                                           onTap: () {
                                             Get.to(() =>
-                                                SurgeryPrescriptionList());
+                                                const SurgeryPrescriptionList());
                                           },
                                           child: Container(
                                             width: 100,

@@ -42,7 +42,7 @@ class _SettingScreenState extends State<SettingScreen> {
           children: [
             InkWell(
               onTap: () {
-                Get.dialog(const Change_Password());
+                Get.to(()=> const Change_Password());
               },
               child: Card(
                 child: ListTile(

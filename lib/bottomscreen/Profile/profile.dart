@@ -423,7 +423,7 @@ class _ProfileState extends State<Profile> {
                                         ),
                                         InkWell(
                                           onTap: () {
-                                            Get.to(() =>  HelpCenterPage());
+                                            Get.to(() =>  const HelpCenterPage());
                                           },
                                           child: ListTile(
                                             leading: SvgPicture.asset(

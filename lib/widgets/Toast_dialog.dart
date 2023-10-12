@@ -60,7 +60,7 @@ class ToastDialog extends StatelessWidget {
                       width: 30,
                       height: 30,
                     ),
-                    title: Text(
+                    title: const Text(
                       'English',
                       style: TextStyle(color: Colors.white),
                     ),
@@ -83,7 +83,7 @@ class ToastDialog extends StatelessWidget {
                       width: 30,
                       height: 30,
                     ),
-                    title: Text(
+                    title: const Text(
                       'नेपाली',
                       style: TextStyle(color: Colors.white),
                     ),

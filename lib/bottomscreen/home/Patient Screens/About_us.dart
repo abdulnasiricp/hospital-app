@@ -60,10 +60,13 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
         HospitalEmail = data['0']['email'];
         HospitalPhone = data['0']['phone'];
         HospitalAddress = data['0']['address'];
-        HospitalLocation = data['0']['location_uuid'];
 
         // Parse the 'slider_image' array
         sliderImages = (data['slider_image'] as List).cast<String>();
+
+        HospitalLocation = data['map_link'];
+
+
 
         // Set the state to rebuild the widget
         setState(() {});
@@ -78,7 +81,6 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
 //////////////////////////////////////////////////////////////////////////////////////////
 // map and phone call
   Future<void> openMapUrl() async {
-    // const url = 'https://maps.app.goo.gl/wsazHc8ssSPihXvR7';
     final url = HospitalLocation;
     if (await canLaunch(url)) {
       await launch(url);
@@ -87,14 +89,17 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
     }
   }
 
-  Future<void> makePhoneCall() async {
-    final phoneNumber = HospitalPhone;
-    if (await canLaunch(phoneNumber)) {
-      await launch(phoneNumber);
-    } else {
-      throw 'Could not make a phone call';
-    }
+
+
+  void makePhoneCall(String phoneNumber) async {
+  final url = 'tel:$phoneNumber';
+
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
   }
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////
   /// Get All Doctor
@@ -294,7 +299,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      makePhoneCall();
+                                      makePhoneCall(HospitalPhone);
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.only(left: 30),

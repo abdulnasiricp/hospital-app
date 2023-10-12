@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace, deprecated_member_use
+
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Surgery/ViewReport.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -12,6 +14,8 @@ import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SurgeryPrescriptionList extends StatefulWidget {
+  const SurgeryPrescriptionList({Key? key}) : super(key: key);
+
   @override
   State<SurgeryPrescriptionList> createState() =>
       _SurgeryPrescriptionListState();
@@ -191,7 +195,7 @@ class _SurgeryPrescriptionListState extends State<SurgeryPrescriptionList> {
                 itemBuilder: (context, index) {
                   final item = snapshot.data![index];
                   return Card(
-                    margin: EdgeInsets.all(8.0),
+                    margin: const EdgeInsets.all(8.0),
                     child: Stack(
                       children: [
                         Column(
@@ -227,7 +231,7 @@ class _SurgeryPrescriptionListState extends State<SurgeryPrescriptionList> {
                                 ),
                               );
                             },
-                            child: Text('View Report'),
+                            child: const Text('View Report'),
                           ),
                         ),
                       ],
