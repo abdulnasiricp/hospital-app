@@ -2,11 +2,13 @@
 
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/view_bill.dart';
+import 'package:TezHealthCare/main.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:animation_search_bar/animation_search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -82,6 +84,11 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
         isLoading = false;
       });
       final Map<String, dynamic> data = json.decode(response.body);
+       // Check if the data length has increased
+    if (data.length > previousDataLength) {
+      showNotification();
+      previousDataLength = data.length; // Update the previous length
+    }
       return data;
     } else {
       throw Exception('Failed to load data');
@@ -107,6 +114,32 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
 
   Map<String?, dynamic> apiData = {};
 ////////////////////////////////////////////////////////////////////////////////////////
+///
+  ///  /////////////////////////////////////////////////////////////////////////
+// Modify your fetchData function to keep track of the previous data length
+int previousDataLength = 0;
+  // show notification
+  void showNotification() async {
+    AndroidNotificationDetails androidDetiles =
+        const AndroidNotificationDetails(
+      'Notification',
+      'Discounter',
+      priority: Priority.max,
+      importance: Importance.max,
+    );
+
+    DarwinNotificationDetails iosDetiles = const DarwinNotificationDetails(
+      presentAlert: true,
+      presentBadge: true,
+      presentSound: true,
+    );
+    NotificationDetails notificationDetails = NotificationDetails(
+      android: androidDetiles,
+      iOS: iosDetiles,
+    );
+    await notificationsPlugin.show(
+        0, 'New Data', 'New data are added', notificationDetails,payload:  'your_payload_here');
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -69,8 +69,9 @@ dependencies:
   flutter_downloader:
   in_app_webview: ^0.0.9
   webview_flutter:
-  flutter_local_notifications: ^16.0.0+1
+  flutter_local_notifications: ^16.1.0
   animation_search_bar: ^0.0.10
+  workmanager: ^0.5.2
 
 dev_dependencies:
   flutter_test:

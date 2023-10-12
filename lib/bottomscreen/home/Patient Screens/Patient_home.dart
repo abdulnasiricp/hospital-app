@@ -194,34 +194,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
   }
 
   ///  /////////////////////////////////////////////////////////////////////////
-  // show notification
-  void showNotification() async {
-    AndroidNotificationDetails androidDetiles =
-        const AndroidNotificationDetails(
-      'Notification',
-      'Discounter',
-      priority: Priority.max,
-      importance: Importance.max,
-    );
 
-    DarwinNotificationDetails iosDetiles = const DarwinNotificationDetails(
-      presentAlert: true,
-      presentBadge: true,
-      presentSound: true,
-    );
-    NotificationDetails notificationDetails = NotificationDetails(
-      android: androidDetiles,
-      iOS: iosDetiles,
-    );
-    await notificationsPlugin.show(
-        0, 'Dues Amount', 'pay Rs. $rupeesAmount now', notificationDetails,payload:  'your_payload_here');
-  }
 //////////////////////////////////////////////////////////////////////////////////////
 ///
-void navigateToScreen() {
-  // Replace this with the code to navigate to the desired screen.
-  Navigator.push(context, MaterialPageRoute(builder: (context) => const PatientHomePage()));
-}
+
 
   @override
   Widget build(BuildContext context) {
@@ -376,7 +352,7 @@ void navigateToScreen() {
                                     ),
                                     ElevatedButton(
                                       onPressed: () {
-                                        showNotification();
+                                        // showNotification();
                                         Get.off(
                                           () => SelectPaymentMethod(
                                               totalAmountInRs: rupeesAmount,
