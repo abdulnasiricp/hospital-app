@@ -38,7 +38,7 @@ Future<void> main() async {
   );
 
   bool? initialized =
-      await notificationsPlugin.initialize(initializationSettings);
+      await notificationsPlugin.initialize(initializationSettings,);
   log("Notification: $initialized");
 
   runApp(const MyApp());

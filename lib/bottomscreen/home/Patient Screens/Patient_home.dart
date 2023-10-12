@@ -214,9 +214,14 @@ class _PatientHomePageState extends State<PatientHomePage> {
       iOS: iosDetiles,
     );
     await notificationsPlugin.show(
-        0, 'Dues Amount', 'pay Rs. $rupeesAmount now', notificationDetails);
+        0, 'Dues Amount', 'pay Rs. $rupeesAmount now', notificationDetails,payload:  'your_payload_here');
   }
 //////////////////////////////////////////////////////////////////////////////////////
+///
+void navigateToScreen() {
+  // Replace this with the code to navigate to the desired screen.
+  Navigator.push(context, MaterialPageRoute(builder: (context) => PatientHomePage()));
+}
 
   @override
   Widget build(BuildContext context) {
