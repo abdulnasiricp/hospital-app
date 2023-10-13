@@ -250,273 +250,277 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
             ),
           ),
           body: profileData != null
-              ? Container(
-                  child: Card(
-                    elevation: 10,
-                    child: Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 150,
-                              child: GridView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  childAspectRatio: 2.5,
-                                ),
-                                itemCount: paymentMethods.length,
-                                itemBuilder: (context, index) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        selectedMethodIndex = index;
-                                      });
-                                    },
-                                    child: PaymentMethodTile(
-                                      paymentMethod: paymentMethods[index],
-                                      isSelected: selectedMethodIndex == index,
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                            Container(
-                              width: width,
-                              height: height / 6,
-                              child:  Card(
-                                color: Colors.white70,
-                                child: Column(
-                                  children: [
-                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(10.0),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                'hospitalDueAmount'.tr,
-                                                style: const TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                         Padding(
-                                          padding: const EdgeInsets.only(
-                                              right: 20,
-                                              top: 10,
-                                              left: 10,
-                                              bottom: 10),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text("${widget.totalAmountInRs}",
-                                                  style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(10.0),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                'discount'.tr,
-                                                style: const TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        const Padding(
-                                          padding: EdgeInsets.only(
-                                              right: 20,
-                                              top: 10,
-                                              left: 10,
-                                              bottom: 10),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text("Rs.0",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const Padding(
-                                      padding: EdgeInsets.only(
-                                          right: 20, left: 10, bottom: 10),
-                                      child: Divider(
-                                        height: 2,
-                                        color: Colors.black54,
+              ? SingleChildScrollView(
+                child: Container(
+                    child: Card(
+                      elevation: 10,
+                      child: Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: height/5,
+                                child: GridView.builder(
+                                  // physics: const NeverScrollableScrollPhysics(),
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    childAspectRatio: 2.5,
+                                  ),
+                                  itemCount: paymentMethods.length,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          selectedMethodIndex = index;
+                                        });
+                                      },
+                                      child: PaymentMethodTile(
+                                        paymentMethod: paymentMethods[index],
+                                        isSelected: selectedMethodIndex == index,
                                       ),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(left: 10.0),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                'total'.tr,
-                                                style: const TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                         Padding(
-                                          padding: const EdgeInsets.only(
-                                              right: 20, left: 10, bottom: 10),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text("${widget.totalAmountInRs}",
+                                    );
+                                  },
+                                ),
+                              ),
+                              Container(
+                                width: width,
+                                height: height /5,
+                                child:  Card(
+                                  color: Colors.white70,
+                                  child: Column(
+                                    children: [
+                                       Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(10.0),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text(
+                                                  'hospitalDueAmount'.tr,
                                                   style: const TextStyle(
                                                       fontWeight:
-                                                          FontWeight.bold)),
-                                            ],
+                                                          FontWeight.bold),
+                                                ),
+                                              ],
+                                            ),
                                           ),
+                                           Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 20,
+                                                top: 10,
+                                                left: 10,
+                                                bottom: 10),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text("${widget.totalAmountInRs}",
+                                                    style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(10.0),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text(
+                                                  'discount'.tr,
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          const Padding(
+                                            padding: EdgeInsets.only(
+                                                right: 20,
+                                                top: 10,
+                                                left: 10,
+                                                bottom: 10),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text("Rs.0",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const Padding(
+                                        padding: EdgeInsets.only(
+                                             right: 20,
+                                                left: 10,
+                                                ),
+                                        child:
+                                         Divider(
+                                          color: Colors.black54,
                                         ),
-                                      ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 10.0),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text(
+                                                  'total'.tr,
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                           Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 20, left: 10, bottom: 10),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text("${widget.totalAmountInRs}",
+                                                    style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                child: Row(
+                                  children: [
+                                     Text(
+                                      'askTermsAndCondition'.tr,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12),
                                     ),
+                                    TextButton(
+                                        child:  Text(
+                                            'termsAndCondition'.tr),
+                                        onPressed: () {
+                                          showModalBottomSheet<void>(
+                                            isScrollControlled: true,
+                                            shape: const RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.vertical(
+                                                  top: Radius.circular(20.0)),
+                                            ),
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return FractionallySizedBox(
+                                                heightFactor: 0.5,
+                                                child: Container(
+                                                  decoration: const BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                              topLeft: Radius
+                                                                  .circular(10),
+                                                              topRight:
+                                                                  Radius.circular(
+                                                                      10))),
+                                                  child: const Padding(
+                                                    padding: EdgeInsets.all(8.0),
+                                                    child: Column(
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsets.all(8.0),
+                                                          child: Text(
+                                                            EnString
+                                                                .termsAndCondition,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 20),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 5,
+                                                        ),
+                                                        Text(
+                                                            EnString
+                                                                .termsAndConditionMsg,
+                                                            style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight.bold,
+                                                            )),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        }),
                                   ],
                                 ),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              child: Row(
-                                children: [
-                                   Text(
-                                    'askTermsAndCondition'.tr,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12),
-                                  ),
-                                  TextButton(
-                                      child:  Text(
-                                          'termsAndCondition'.tr),
-                                      onPressed: () {
-                                        showModalBottomSheet<void>(
-                                          isScrollControlled: true,
-                                          shape: const RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.vertical(
-                                                top: Radius.circular(20.0)),
-                                          ),
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return FractionallySizedBox(
-                                              heightFactor: 0.5,
-                                              child: Container(
-                                                decoration: const BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.only(
-                                                            topLeft: Radius
-                                                                .circular(10),
-                                                            topRight:
-                                                                Radius.circular(
-                                                                    10))),
-                                                child: const Padding(
-                                                  padding: EdgeInsets.all(8.0),
-                                                  child: Column(
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsets.all(8.0),
-                                                        child: Text(
-                                                          EnString
-                                                              .termsAndCondition,
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 20),
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        height: 5,
-                                                      ),
-                                                      Text(
-                                                          EnString
-                                                              .termsAndConditionMsg,
-                                                          style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          )),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                        );
-                                      }),
-                                ],
+                              const SizedBox(
+                                height: 10,
                               ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              width: double.infinity,
-                              height: 50,
-                              child: MyButton(
-                                title:  Text('proceed'.tr),
-                                onPressed: () {
-                                  navigateToSelectedPage();
-                                },
+                              Container(
+                                width: double.infinity,
+                                height: 50,
+                                child: MyButton(
+                                  title:  Text('proceed'.tr),
+                                  onPressed: () {
+                                    navigateToSelectedPage();
+                                  },
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                )
+              )
               : Center(
                   child: Container(
                     width: 50,
@@ -560,7 +564,7 @@ class PaymentMethodTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 80, // Set the height to 80
+      height: height, // Set the height to 80
       child: Card(
         margin: const EdgeInsets.all(8.0),
         color: isSelected ? Colors.grey.withOpacity(0.7) : Colors.white,
@@ -574,7 +578,7 @@ class PaymentMethodTile extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Image.asset(
                     paymentMethod.logoPath,
-                    height: 80.0,
+                    height: height/4,
                     width: width / 3,
                   ),
                 ),
@@ -587,8 +591,8 @@ class PaymentMethodTile extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
-                    width: 24.0,
-                    height: 24.0,
+                    // width: width/10,
+                    height: 25.0,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: darkYellow,

@@ -83,7 +83,7 @@ class _BottomhomeState extends State<Bottomhome> {
                   child: Text(
                     'home'.tr,
                     style: TextStyle(
-                        fontSize: 16.sp,
+                        fontSize: 10.sp,
                         color: notifier.getwihitecolor,
                         fontFamily: 'Gilroy_Bold'),
                   ),
@@ -96,7 +96,7 @@ class _BottomhomeState extends State<Bottomhome> {
                 title: Text(
                   'transcation'.tr,
                   style: TextStyle(
-                      fontSize: 16.sp,
+                      fontSize: 10.sp,
                       color: notifier.getwihitecolor,
                       fontFamily: 'Gilroy_Bold'),
                 ),
@@ -108,7 +108,7 @@ class _BottomhomeState extends State<Bottomhome> {
                 title: Text(
                   'card'.tr,
                   style: TextStyle(
-                      fontSize: 16.sp,
+                      fontSize: 10.sp,
                       color: notifier.getwihitecolor,
                       fontFamily: 'Gilroy_Bold'),
                 ),
@@ -120,7 +120,7 @@ class _BottomhomeState extends State<Bottomhome> {
                 title: Text(
                   'profile'.tr,
                   style: TextStyle(
-                      fontSize: 16.sp,
+                      fontSize: 10.sp,
                       color: notifier.getwihitecolor,
                       fontFamily: 'Gilroy_Bold'),
                 ),
@@ -143,7 +143,7 @@ class _BottomhomeState extends State<Bottomhome> {
           ),
           drawer: const Drawer(
               width: double.infinity, child: AboutUSScreen()), // Left drawer
-          endDrawer:  NotificationScreen(),
+          endDrawer:  const NotificationScreen(),
         ),
       ),
     );

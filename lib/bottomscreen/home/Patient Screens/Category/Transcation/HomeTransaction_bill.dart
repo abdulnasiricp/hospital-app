@@ -1,7 +1,8 @@
-// ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace
+// ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace, unused_element, unnecessary_null_comparison
 
 import 'dart:async';
 
+import 'package:TezHealthCare/Services/notificationServies.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/view_bill.dart';
 import 'package:TezHealthCare/main.dart';
@@ -65,18 +66,23 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
 ///////////////////////////////////////////////////////////////////////
 
      // Schedule a periodic task to check the API every minute
-    const duration = Duration(seconds: 30);
+    const duration = Duration(minutes: 1);
     Timer.periodic(duration, (Timer t) {
       checkForNewData();
     });
   }
 
+@override
+void dispose() {
+  // Cancel timers or dispose of resources here
+  super.dispose();
+}
   void checkForNewData() async {
     try {
       final newData = await fetchData();
 
       if (newData.length > previousDataLength) {
-        showNotification();
+        notificationServies.showNotification();
         previousDataLength = newData.length; // Update the previous length
       }
     } catch (error) {
@@ -86,6 +92,8 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
 
 /////////////////////////////////////////////////////////////////////////////
 //  get all transaction bill
+int previousDataLength = 0;
+
   Future<Map<String, dynamic>> fetchData() async {
     final url = Uri.parse(ApiLinks.getAllTransaction);
     final headers = {
@@ -107,11 +115,6 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
         isLoading = false;
       });
       final Map<String, dynamic> data = json.decode(response.body);
-    //    // Check if the data length has increased
-    // if (data.length > previousDataLength) {
-    //   showNotification();
-    //   previousDataLength = data.length; // Update the previous length
-    // }
       return data;
     } else {
       throw Exception('Failed to load data');
@@ -137,43 +140,52 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
 
   Map<String?, dynamic> apiData = {};
 ////////////////////////////////////////////////////////////////////////////////////////
-///
-  ///  /////////////////////////////////////////////////////////////////////////
+
+// Function to handle notification click and navigate to the screen
+Future<void> _navigateToScreen(String payload) async {
+  if (payload != null && payload == 'your_payload_here') {
+    // Get.toNamed('HomeTransactionBill');
+    Navigator.pushNamed(context, '/home_transaction_bill');
+  }
+}
 // Modify your fetchData function to keep track of the previous data length
 void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
-    // Fetch new data and check for updates here
-    // If new data is added, show a notification using the showNotification function
     // showNotification();
 
     return Future.value(true);
   });
 }
 
-int previousDataLength = 0;
-  // show notification
-  void showNotification() async {
-    AndroidNotificationDetails androidDetiles =
-        const AndroidNotificationDetails(
-      'Notification',
-      'Tez health Care',
-      priority: Priority.max,
-      importance: Importance.max,
-    );
+  // // show notification
+  // void showNotification() async {
+  //   AndroidNotificationDetails androidDetiles =
+  //       const AndroidNotificationDetails(
+  //     'Notification',
+  //     'Tez health Care',
+  //     priority: Priority.max,
+  //     importance: Importance.max,
+  //   );
 
-    DarwinNotificationDetails iosDetiles = const DarwinNotificationDetails(
-      presentAlert: true,
-      presentBadge: true,
-      presentSound: true,
-    );
-    NotificationDetails notificationDetails = NotificationDetails(
-      android: androidDetiles,
-      iOS: iosDetiles,
-    );
-    await notificationsPlugin.show(
-        1000, 'New Data', 'New data are added', notificationDetails,payload:  'your_payload_here');
-  }
+  //   DarwinNotificationDetails iosDetiles = const DarwinNotificationDetails(
+  //     presentAlert: true,
+  //     presentBadge: true,
+  //     presentSound: true,
+  //   );
+  //   NotificationDetails notificationDetails = NotificationDetails(
+  //     android: androidDetiles,
+  //     iOS: iosDetiles,
+  //   );
 
+  //    // Define the payload when creating the notification
+  // const String payload = 'your_payload_here';
+
+  //   await notificationsPlugin.show(
+  //       1000, 'New Data', 'New data are added', notificationDetails,payload:  payload);
+  // }
+
+
+NotificationServies notificationServies=NotificationServies();
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

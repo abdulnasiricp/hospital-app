@@ -178,12 +178,12 @@ class _ProfileState extends State<Profile> {
                                           bottomLeft: Radius.circular(60),
                                           bottomRight: Radius.circular(60)))),
                               Padding(
-                                padding: const EdgeInsets.only(top: 20),
+                                padding: const EdgeInsets.only(top: 10),
                                 child: Center(
                                     child: CircleAvatar(
                                   backgroundImage:
                                       NetworkImage(profileData!.image ?? ""),
-                                  radius: 50,
+                                  radius: height/15,
                                 )),
                               ),
                               Padding(
@@ -213,34 +213,32 @@ class _ProfileState extends State<Profile> {
                                 child: Center(
                                     child: Container(
                                   width: width / 3.5,
-                                  height: height / 18,
+                                  height: height / 17,
                                   decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(20)),
                                   child: Center(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Row(
-                                        children: [
-                                          SvgPicture.asset(
-                                            'assets/done.svg',
-                                            width: 15,
-                                            height: 15,
-                                            // color: darkYellow
-                                          ),
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text(
-                                            profileData.isActive == "yes"
-                                                ? "Active"
-                                                : "Offine",
-                                            style: const TextStyle(
-                                                color: Colors.green,
-                                                fontSize: 20),
-                                          ),
-                                        ],
-                                      ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        SvgPicture.asset(
+                                          'assets/done.svg',
+                                          width: width/40,
+                                          height: height/40,
+                                          // color: darkYellow
+                                        ),
+                                         SizedBox(
+                                          width: width/50,
+                                        ),
+                                        Text(
+                                          profileData.isActive == "yes"
+                                              ? "Active"
+                                              : "Offine",
+                                          style: const TextStyle(
+                                              color: Colors.green,
+                                              fontSize: 20),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 )),

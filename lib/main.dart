@@ -1,10 +1,12 @@
 import 'dart:developer';
 
 import 'package:TezHealthCare/Controller/notificationProvider.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/HomeTransaction_bill.dart';
 import 'package:TezHealthCare/language_Services/translation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:TezHealthCare/Controller/loginController.dart';
 import 'package:TezHealthCare/Splash_Screen.dart';
@@ -28,39 +30,44 @@ void callbackDispatcher() {
 }
 
 
-FlutterLocalNotificationsPlugin notificationsPlugin =
-    FlutterLocalNotificationsPlugin();
+// FlutterLocalNotificationsPlugin notificationsPlugin =
+//     FlutterLocalNotificationsPlugin();
+
+
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await FlutterDownloader.initialize(debug: true); // Set to false in production
 
 /////////////////////////////////////////////////////////////////////////
-// Notification
-  AndroidInitializationSettings androidSettings =
-      const AndroidInitializationSettings("@mipmap/ic_launcher");
-  DarwinInitializationSettings iosSettings = const DarwinInitializationSettings(
-      requestAlertPermission: true,
-      requestBadgePermission: true,
-      requestCriticalPermission: true,
-      requestSoundPermission: true);
+// // Notification
+//   AndroidInitializationSettings androidSettings =
+//       const AndroidInitializationSettings("@mipmap/ic_launcher");
+//   DarwinInitializationSettings iosSettings = const DarwinInitializationSettings(
+//       requestAlertPermission: true,
+//       requestBadgePermission: true,
+//       requestCriticalPermission: true,
+//       requestSoundPermission: true);
 
-  InitializationSettings initializationSettings = InitializationSettings(
-    android: androidSettings,
-    iOS: iosSettings,
-  );
+//   InitializationSettings initializationSettings = InitializationSettings(
+//     android: androidSettings,
+//     iOS: iosSettings,
+//   );
 
-  bool? initialized =
-      await notificationsPlugin.initialize(initializationSettings,);
-  log("Notification: $initialized");
+//   bool? initialized =
+//       await notificationsPlugin.initialize(initializationSettings,);
+//   log("Notification: $initialized");
 
-  Workmanager().initialize(callbackDispatcher);
-  Workmanager().registerPeriodicTask(
-    "1000", // Task ID
-    "checkForUpdatesTask", // Task name
-    initialDelay: const Duration(minutes: 1), // Delay before the first execution
-    frequency: const Duration(minutes: 15), // Periodic check every 15 minutes
-  );
+ 
+//   Workmanager().initialize(callbackDispatcher);
+//   Workmanager().registerPeriodicTask(
+//     "1000", // Task ID
+//     "checkForUpdatesTask", // Task name
+//     initialDelay: const Duration(minutes: 1), // Delay before the first execution
+//     frequency: const Duration(minutes: 15), // Periodic check every 15 minutes
+//   );
+  
 
   //////////////////////////////////////////////////////////////////
 
