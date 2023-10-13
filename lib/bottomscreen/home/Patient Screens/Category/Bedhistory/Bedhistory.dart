@@ -181,7 +181,7 @@ class _BedhistoryState extends State<Bedhistory> {
         onRefresh: _handleRefresh,
         child: isLoading
             ? buildLoadingIndicator() // Show loading indicator if data is loading
-            : bedHistory.isEmpty
+            : bedHistory.isEmpty || bedHistory == null
                 ? buildNoDataFound() // Show "No Data Found" message if data is empty
                 : ListView.builder(
                     itemCount: bedHistory.length,

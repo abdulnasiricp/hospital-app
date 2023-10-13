@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Blood_Bank extends StatefulWidget {
   const Blood_Bank({Key? key}) : super(key: key);
@@ -22,11 +23,26 @@ class _Blood_BankState extends State<Blood_Bank> {
   List<dynamic> bloodComponentData = [];
   bool isLoading = true;
   String errorMessage = '';
+  String PatientId = '';
+  LoadData() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    PatientId = sp.getString('patientidrecord') ?? '';
+    print(PatientId);
+    setState(() {});
+  }
+
+  loadSP() async {
+    await LoadData();
+  }
 
   @override
   void initState() {
     super.initState();
-    fetchData();
+    loadSP();
+
+    loadSP().then((_) {
+      fetchData();
+    });
   }
 
   Future<void> fetchData() async {
@@ -38,8 +54,10 @@ class _Blood_BankState extends State<Blood_Bank> {
     };
 
     final Map<String, dynamic> body = {
-      "patient_id": "11110",
+      "patient_id": PatientId,
     };
+    print(
+        "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ $PatientId");
 
     try {
       final response = await http.post(
@@ -151,8 +169,8 @@ class _Blood_BankState extends State<Blood_Bank> {
                                 child: ListTile(
                                   title: Text(
                                     'ID: $id',
-                                    style:
-                                        const TextStyle(fontWeight: FontWeight.bold),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
                                   ),
                                   subtitle: Column(
                                     crossAxisAlignment:
