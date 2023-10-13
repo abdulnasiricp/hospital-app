@@ -101,7 +101,7 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
                                   ), // Replace with your image asset
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 20,
                               ), // Adjust the spacing between social media icons
                               InkWell(
@@ -117,7 +117,7 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
                                   ), // Replace with your image asset
                                 ),
                               ),
-                              SizedBox(width: 20),
+                              const SizedBox(width: 20),
                               InkWell(
                                 onTap: () {
                                   launchWebsite(
@@ -130,7 +130,7 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
                                   ), // Replace with your image asset
                                 ),
                               ),
-                              SizedBox(width: 20),
+                              const SizedBox(width: 20),
                               InkWell(
                                 onTap: () {
                                   launchWebsite(

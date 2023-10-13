@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, sized_box_for_whitespace
+// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, sized_box_for_whitespace, unnecessary_string_interpolations, avoid_print, unused_import
 
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -30,7 +30,7 @@ class _Blood_BankState extends State<Blood_Bank> {
   }
 
   Future<void> fetchData() async {
-    final String apiUrl =
+    const String apiUrl =
         'https://uat.tez.hospital/xzy/webservice/getbloodbankDetails';
     final Map<String, String> headers = {
       'Soft-service': 'TezHealthCare',
@@ -152,7 +152,7 @@ class _Blood_BankState extends State<Blood_Bank> {
                                   title: Text(
                                     'ID: $id',
                                     style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                        const TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   subtitle: Column(
                                     crossAxisAlignment:
@@ -160,67 +160,67 @@ class _Blood_BankState extends State<Blood_Bank> {
                                     children: [
                                       Row(
                                         children: [
-                                          Text('Date of Issue: '),
+                                          const Text('Date of Issue: '),
                                           Text(
                                             '$dateOfIssue',
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontWeight: FontWeight.bold),
                                           ),
                                         ],
                                       ),
                                       Row(
                                         children: [
-                                          Text('Reference: '),
+                                          const Text('Reference: '),
                                           Text('$reference',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontWeight: FontWeight.bold)),
                                         ],
                                       ),
                                       Row(
                                         children: [
-                                          Text('Net Amount: '),
+                                          const Text('Net Amount: '),
                                           Text('$netAmount',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontWeight: FontWeight.bold)),
                                         ],
                                       ),
                                       Row(
                                         children: [
-                                          Text('Gender: '),
+                                          const Text('Gender: '),
                                           Text('$gender',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontWeight: FontWeight.bold)),
                                         ],
                                       ),
                                       Row(
                                         children: [
-                                          Text('Patient Name: '),
+                                          const Text('Patient Name: '),
                                           Text('$patientName',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontWeight: FontWeight.bold)),
                                         ],
                                       ),
                                       Row(
                                         children: [
-                                          Text('Donor Name: '),
+                                          const Text('Donor Name: '),
                                           Text('$donorName',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontWeight: FontWeight.bold)),
                                         ],
                                       ),
                                       Row(
                                         children: [
-                                          Text('Volume: '),
+                                          const Text('Volume: '),
                                           Text('$volume',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontWeight: FontWeight.bold)),
                                         ],
                                       ),
                                       Row(
                                         children: [
-                                          Text('Transaction ID: '),
+                                          const Text('Transaction ID: '),
                                           Text('$transactionId',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontWeight: FontWeight.bold)),
                                         ],
                                       ),
