@@ -122,7 +122,7 @@ class _LiveconsultationState extends State<Liveconsultation> {
             Container(
               color: Colors.grey,
               width: width,
-              height: height / 20,
+              height: 40,
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Row(

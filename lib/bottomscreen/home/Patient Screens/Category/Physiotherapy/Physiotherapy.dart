@@ -187,7 +187,7 @@ class _PhysiotherapyState extends State<Physiotherapy> {
               Container(
                 color: Colors.grey,
                 width: width,
-                height: height / 20,
+                height: 40,
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Row(
@@ -391,7 +391,7 @@ class _PhysiotherapyState extends State<Physiotherapy> {
             ? null // Set bottomSheet to null when apiData is empty
             : Card(
                 child: Container(
-                  height: height / 15,
+                  height: 50,
                   width: width,
                   color: darkYellow,
                   child: Padding(

@@ -129,7 +129,7 @@ class _USGScreenState extends State<USGScreen> {
             Container(
               color: Colors.grey,
               width: width,
-              height: height / 20,
+              height: 40,
               child: const Padding(
                 padding: EdgeInsets.all(10.0),
                 child: Row(
@@ -342,7 +342,7 @@ class _USGScreenState extends State<USGScreen> {
           ? null // Set bottomSheet to null when apiData is empty
           : Card(
               child: Container(
-                height: height / 15,
+                height: 50,
                 width: width,
                 color: darkYellow,
                 child: Padding(

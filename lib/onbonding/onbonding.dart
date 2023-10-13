@@ -108,7 +108,7 @@ class _OnbondingState extends State<Onbonding> {
                                   child: Center(
                                     child: Column(
                                       children: [
-                                        SizedBox(height: height / 6.5),
+                                        const SizedBox(height: 20),
                                         Text(
                                           EnString.qualityReputations,
                                           style: TextStyle(
@@ -116,7 +116,7 @@ class _OnbondingState extends State<Onbonding> {
                                               color: notifire.getwihitecolor,
                                               fontSize: 22.sp),
                                         ),
-                                        SizedBox(height: height / 40),
+                                        const SizedBox(height: 10),
                                         Text(
                                           EnString
                                               .theteamofreputabledoctorshasmanyyearsofprofessionalexperience,
@@ -153,7 +153,7 @@ class _OnbondingState extends State<Onbonding> {
                                   child: Center(
                                     child: Column(
                                       children: [
-                                        SizedBox(height: height / 6.5),
+                                        const SizedBox(height: 20),
                                         Text(
                                           EnString.onlinehealthcheck,
                                           style: TextStyle(
@@ -161,7 +161,7 @@ class _OnbondingState extends State<Onbonding> {
                                               color: notifire.getwihitecolor,
                                               fontSize: 22.sp),
                                         ),
-                                        SizedBox(height: height / 40),
+                                        const SizedBox(height: 10),
                                         Text(
                                           EnString
                                               .easyandconvenientonlinecheckupsrightfromyourhome,
@@ -198,7 +198,7 @@ class _OnbondingState extends State<Onbonding> {
                                   child: Center(
                                     child: Column(
                                       children: [
-                                        SizedBox(height: height / 6.5),
+                                        const SizedBox(height: 20),
                                         Text(
                                           EnString.researchdeeptesting,
                                           style: TextStyle(
@@ -206,7 +206,7 @@ class _OnbondingState extends State<Onbonding> {
                                               color: notifire.getwihitecolor,
                                               fontSize: 22.sp),
                                         ),
-                                        SizedBox(height: height / 40),
+                                        const SizedBox(height: 10),
                                         Text(
                                           EnString
                                               .ensurethemostaccurateresultsforthehealthofyouandyourfamily,
@@ -246,11 +246,11 @@ class _OnbondingState extends State<Onbonding> {
                                 children: <Widget>[
                                   GestureDetector(
                                     onTap: () {
-                                      Get.to(() => const PatientLogin());
+                                      Get.to(() => const MainSiginScreen());
                                     },
                                     child: Container(
                                       color: Colors.transparent,
-                                      height: height / 20,
+                                      height: 30,
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 15.0),
@@ -283,7 +283,7 @@ class _OnbondingState extends State<Onbonding> {
                                     },
                                     child: Container(
                                       color: Colors.transparent,
-                                      height: height / 20,
+                                      height: 30,
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 15.0),
@@ -322,11 +322,11 @@ class _OnbondingState extends State<Onbonding> {
                                 children: <Widget>[
                                   GestureDetector(
                                     onTap: () {
-                                      Get.to(const Bottomhome());
+                                      Get.to(const MainSiginScreen());
                                     },
                                     child: Container(
                                       color: Colors.transparent,
-                                      height: height / 20,
+                                      height: 30,
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 15.0),
@@ -358,7 +358,7 @@ class _OnbondingState extends State<Onbonding> {
                                     },
                                     child: Container(
                                       color: Colors.transparent,
-                                      height: height / 20,
+                                      height: 30,
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 15.0),

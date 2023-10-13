@@ -143,8 +143,7 @@ int previousDataLength = 0;
 // Function to handle notification click and navigate to the screen
 Future<void> _navigateToScreen(String payload) async {
   if (payload != null && payload == 'your_payload_here') {
-    // Get.toNamed('HomeTransactionBill');
-    Navigator.pushNamed(context, '/home_transaction_bill');
+    Get.offAll(const HomeTransactionBill());
   }
 }
 // Modify your fetchData function to keep track of the previous data length
@@ -390,7 +389,7 @@ NotificationServies notificationServies=NotificationServies();
                                                       MainAxisAlignment.center,
                                                   children: [
                                                     Container(
-                                                      width: width / 6,
+                                                      width: width / 4,
                                                       child: Text(
                                                         "${transaction['bill_no']}",
                                                         style: const TextStyle(

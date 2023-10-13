@@ -77,7 +77,7 @@ class _BottomhomeState extends State<Bottomhome> {
             items: [
               SalomonBottomBarItem(
                 icon: Image.asset("assets/home.png",
-                    height: height / 28, color: notifier.getwihitecolor),
+                    height: 30, color: notifier.getwihitecolor),
                 title: Align(
                   alignment: Alignment.topCenter,
                   child: Text(
@@ -92,7 +92,7 @@ class _BottomhomeState extends State<Bottomhome> {
               ),
               SalomonBottomBarItem(
                 icon: SvgPicture.asset('assets/transaction.svg',
-                    height: height / 28, color: notifier.getwihitecolor),
+                    height: 30, color: notifier.getwihitecolor),
                 title: Text(
                   'transcation'.tr,
                   style: TextStyle(
@@ -104,7 +104,7 @@ class _BottomhomeState extends State<Bottomhome> {
               ),
               SalomonBottomBarItem(
                 icon: SvgPicture.asset('assets/card.svg',
-                    height: height / 28, color: notifier.getwihitecolor),
+                    height: 30, color: notifier.getwihitecolor),
                 title: Text(
                   'card'.tr,
                   style: TextStyle(
@@ -116,7 +116,7 @@ class _BottomhomeState extends State<Bottomhome> {
               ),
               SalomonBottomBarItem(
                 icon: Image.asset("assets/profile.png",
-                    height: height / 28, color: notifier.getwihitecolor),
+                    height: 30, color: notifier.getwihitecolor),
                 title: Text(
                   'profile'.tr,
                   style: TextStyle(

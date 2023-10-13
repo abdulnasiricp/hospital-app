@@ -29,13 +29,12 @@ class _DoctorProfileState extends State<DoctorProfile> {
                 color: Colors.white70,
                 child: Container(
                   width: width,
-                  height: height,
                   child: Column(
                     children: [
                       Stack(children: [
                         Container(
                           width: width,
-                          height: height / 7,
+                          height: 120,
                           decoration: BoxDecoration(
                               color: darkYellow,
                               borderRadius: BorderRadius.circular(10)),
@@ -43,8 +42,8 @@ class _DoctorProfileState extends State<DoctorProfile> {
                         Padding(
                           padding: EdgeInsets.only(left: width / 1.7, top: 30),
                           child: Container(
-                              width: width / 4,
-                              height: height / 6,
+                              width: 100,
+                              height: 150,
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
                                   child: Image.asset(
@@ -161,7 +160,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                       const Padding(
                         padding: EdgeInsets.all(8),
                         child: Text(
-                          'Presently working as a Director of institute of Bone,joint Replacement,orthopedic spine and sports Medicine at BLK-MAX super speicalityHospital Delhi',
+                          'Presently working as a Director of institute of Bone,  joint Replacement,orthopedic spine and sports Medicine at BLK-MAX super speicality Hospital Delhi',
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),

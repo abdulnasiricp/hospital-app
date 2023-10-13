@@ -317,7 +317,7 @@ class _TransactionBillState extends State<TransactionBill> {
                                                       MainAxisAlignment.center,
                                                   children: [
                                                     Container(
-                                                      width: width / 6,
+                                                      width: width / 4,
                                                       child: Text(
                                                         "${transaction['bill_no']}",
                                                         style: const TextStyle(

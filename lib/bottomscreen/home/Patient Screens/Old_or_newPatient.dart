@@ -23,90 +23,92 @@ class _OldorNewPatientScreenState extends State<OldorNewPatientScreen> {
         title: Text('oldOrNewPatient'.tr),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 30,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Text(
-                'askPatientQuestions'.tr,
-                style: TextStyle(color: Colors.blue[400]),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(
+                height: 30,
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            InkWell(
-              onTap: (){
-                Get.to(()=>const AddNewMemberScreen());
-
-
-              },
-              child: Container(
-                width: width,
-                height: height / 9,
-                child:  Card(
-                  
-                  color: Colors.red[100],
-                    child:  Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'newPatient'.tr,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                          'oldPatientDesc'.tr),
-                    ],
-                  ),
-                )),
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Text(
+                  'askPatientQuestions'.tr,
+                  style: TextStyle(color: Colors.blue[400]),
+                ),
               ),
-            ),
-            const SizedBox(height: 10,),
-             InkWell(
-              onTap: (){
-                Get.to(()=>const PatientList());
-              },
-               child: Container(
-                width: width,
-                height: height / 9,
-                child:  Card(
-                  color: Colors.yellow[100],
-                    child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'oldPatient'.tr,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                       Text(
-                          'oldPatientDesc'.tr),
-                    ],
-                  ),
-                )),
-                         ),
-             ),
-            const SizedBox(height: 10,),
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Text('note'.tr,style: TextStyle(color: Colors.blue[400]),),
-            )
-          ],
+              const SizedBox(
+                height: 10,
+              ),
+              InkWell(
+                onTap: (){
+                  Get.to(()=>const AddNewMemberScreen());
+      
+      
+                },
+                child: Container(
+                  width: width,
+                  height: 90,
+                  child:  Card(
+                    
+                    color: Colors.red[100],
+                      child:  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'newPatient'.tr,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                            'oldPatientDesc'.tr),
+                      ],
+                    ),
+                  )),
+                ),
+              ),
+              const SizedBox(height: 10,),
+               InkWell(
+                onTap: (){
+                  Get.to(()=>const PatientList());
+                },
+                 child: Container(
+                  width: width,
+                   height: 90,
+                  child:  Card(
+                    color: Colors.yellow[100],
+                      child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'oldPatient'.tr,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                         Text(
+                            'oldPatientDesc'.tr),
+                      ],
+                    ),
+                  )),
+                           ),
+               ),
+              const SizedBox(height: 10,),
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Text('note'.tr,style: TextStyle(color: Colors.blue[400]),),
+              )
+            ],
+          ),
         ),
       ),
     );

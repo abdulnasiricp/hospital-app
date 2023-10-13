@@ -188,7 +188,7 @@ class _PharmacyState extends State<Pharmacy> {
               Container(
                 color: Colors.grey,
                 width: width,
-                height: height / 20,
+                height: 40,
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Row(
@@ -419,7 +419,7 @@ class _PharmacyState extends State<Pharmacy> {
             ? null // Set bottomSheet to null when apiData is empty
             : Card(
                 child: Container(
-                  height: height / 15,
+                  height: 50,
                   width: width,
                   color: darkYellow,
                   child: Padding(
