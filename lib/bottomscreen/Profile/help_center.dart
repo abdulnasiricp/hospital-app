@@ -49,7 +49,7 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white.withOpacity(0.8),
+        backgroundColor: Colors.white.withOpacity(0.9),
         appBar: AppBar(
           title: Text('HelpCenter'.tr),
           centerTitle: true,
@@ -60,20 +60,93 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Center(
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: Container(
-                          child: Image.asset(
-                            'assets/tezash.png', // Replace with your logo file path
-                            width: width / 3,
-                            height: height / 12,
+                Card(
+                  elevation: 0.0,
+                  color: Colors.white.withOpacity(0.9),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: Container(
+                                child: Image.asset(
+                                  'assets/tezash.png', // Replace with your logo file path
+                                  width: width / 2,
+                                  height: height / 11,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                        Center(
+                          // Center the social media logos
+                          child: Row(
+                            mainAxisAlignment:
+                                MainAxisAlignment.center, // Center horizontally
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  launchWebsite(
+                                      'https://www.facebook.com/tezashtech');
+                                },
+                                child: CircleAvatar(
+                                  radius: 10,
+                                  child: SvgPicture.asset(
+                                    'assets/facebook.svg',
+                                  ), // Replace with your image asset
+                                ),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ), // Adjust the spacing between social media icons
+                              InkWell(
+                                onTap: () {
+                                  launchWebsite(
+                                      'https://www.instagram.com/tezashtech');
+                                },
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.white,
+                                  radius: 10,
+                                  child: SvgPicture.asset(
+                                    'assets/insta.svg',
+                                  ), // Replace with your image asset
+                                ),
+                              ),
+                              SizedBox(width: 20),
+                              InkWell(
+                                onTap: () {
+                                  launchWebsite(
+                                      'https://www.linkdin.com/tezashtech');
+                                },
+                                child: CircleAvatar(
+                                  radius: 10,
+                                  child: SvgPicture.asset(
+                                    'assets/linkdin.svg',
+                                  ), // Replace with your image asset
+                                ),
+                              ),
+                              SizedBox(width: 20),
+                              InkWell(
+                                onTap: () {
+                                  launchWebsite(
+                                      'https://www.tiktok.com/tezashtech');
+                                },
+                                child: CircleAvatar(
+                                  radius: 10,
+                                  child: SvgPicture.asset(
+                                    'assets/tiktok.svg',
+                                  ), // Replace with your image asset
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -93,7 +166,7 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
                     ),
                     Container(
                       child: const Text(
-                          'For linked Bank account specific queries and \n transaction error.'),
+                          'Contact us for assistance via phone or email. \n Were here to help.'),
                     ),
                   ],
                 ),
@@ -131,13 +204,49 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text('2438479234782'),
+                            const Text('+977 51520012'),
                             const SizedBox(
                               width: 10,
                             ),
                             InkWell(
                                 onTap: () {
-                                  makePhoneCall('2438479234782');
+                                  makePhoneCall('+977 51520012');
+                                },
+                                child: const Text(
+                                  'Call',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.blue),
+                                )),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Padding(
+                        padding:
+                            EdgeInsets.only(left: 40.0, right: 10, bottom: 10),
+                        child: Divider(
+                          height: 1,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 40, right: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('+977 9855014812'),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            InkWell(
+                                onTap: () {
+                                  makePhoneCall('+977 9855014812');
                                 },
                                 child: const Text(
                                   'Call',
@@ -164,79 +273,13 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text('2438479234782'),
+                            const Text('+977 9855013712'),
                             const SizedBox(
                               width: 10,
                             ),
                             InkWell(
                                 onTap: () {
-                                  makePhoneCall('2438479234782');
-                                },
-                                child: const Text(
-                                  'Call',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.blue),
-                                )),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Padding(
-                        padding:
-                            EdgeInsets.only(left: 40.0, right: 10, bottom: 10),
-                        child: Divider(
-                          height: 1,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 40, right: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text('2438479234782 (Toll Free-NTC)'),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            InkWell(
-                                onTap: () {
-                                  makePhoneCall('2438479234782');
-                                },
-                                child: const Text(
-                                  'Call',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.blue),
-                                )),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Padding(
-                        padding:
-                            EdgeInsets.only(left: 40.0, right: 10, bottom: 10),
-                        child: Divider(
-                          height: 1,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 40, right: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text('2438479234782 (Toll Free-NTC)'),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            InkWell(
-                                onTap: () {
-                                  makePhoneCall('2438479234782');
+                                  makePhoneCall('+977 9855013712');
                                 },
                                 child: const Text(
                                   'Call',
@@ -284,13 +327,67 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text('Supportteam@gmail.com'),
+                            const Text('info@tezash.com'),
                             const SizedBox(
                               width: 10,
                             ),
                             InkWell(
                                 onTap: () {
-                                  launchEmailClient('Supportteam@gmail.com');
+                                  launchEmailClient('info@tezash.com');
+                                },
+                                child: const Text(
+                                  'Mail',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.blue),
+                                )),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  ),
+                ),
+                Card(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(
+                              'assets/mail.svg',
+                              color: darkYellow,
+                              width: 25,
+                              height: 25,
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            const Text(
+                              'Email',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 40, right: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('Tezashtech@gmail.com'),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            InkWell(
+                                onTap: () {
+                                  launchEmailClient('Tezashtech@gmail.com');
                                 },
                                 child: const Text(
                                   'Mail',
@@ -361,140 +458,9 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
                     ],
                   ),
                 ),
-                Card(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          children: [
-                            SvgPicture.asset(
-                              'assets/helpcenter.svg',
-                              color: darkYellow,
-                              width: 25,
-                              height: 25,
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            const Text(
-                              'Help Desk',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 40, right: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text('https://tezash.com/'),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            InkWell(
-                                onTap: () {
-                                  launchWebsite('https://tezash.com/');
-                                },
-                                child: const Text(
-                                  'Report query',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.blue),
-                                )),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                    ],
-                  ),
-                )
               ],
             ),
           ),
-        )
-        // child: Card(
-        //   color: Colors.white,
-        //   child: Column(
-        //     crossAxisAlignment: CrossAxisAlignment.center,
-        //     children: [
-        //       Card(
-        //         child: Padding(
-        //           padding: const EdgeInsets.all(2.0),
-        //           child: Container(
-        //             child: Image.asset(
-        //               'assets/tezash.png', // Replace with your logo file path
-        //               width: width / 3,
-        //               height: height / 12,
-        //             ),
-        //           ),
-        //         ),
-        //       ),
-        //       Card(
-        //         child: Container(
-        //           child: const Padding(
-        //             padding: EdgeInsets.all(2.0),
-        //             child: Text(
-        //               'Tezash & Group Pvt Ltd',
-        //               style: TextStyle(
-        //                 fontSize: 14,
-        //                 fontWeight: FontWeight.bold,
-        //               ),
-        //             ),
-        //           ),
-        //         ),
-        //       ),
-        //       const Divider(
-        //         thickness: 1,
-        //         indent: 20,
-        //         endIndent: 20,
-        //       ),
-        //       Card(
-        //         child: Container(
-        //           child: const Padding(
-        //             padding: EdgeInsets.all(2.0),
-        //             child: Text(
-        //               'Tezash & Group Pvt Ltd',
-        //               style: TextStyle(
-        //                 fontSize: 14,
-        //                 fontWeight: FontWeight.bold,
-        //               ),
-        //             ),
-        //           ),
-        //         ),
-        //       ),
-        //       // Address
-        //       const ListTile(
-        //         leading: Icon(Icons.location_on),
-        //         title: Text('123 Main Street'),
-        //         subtitle: Text('City, Country'),
-        //       ),
-        //       // Contact Information
-        //       const ListTile(
-        //         leading: Icon(Icons.email),
-        //         title: Text('Email: support@yourapp.com'),
-        //       ),
-        //       // Phone Number
-        //       const ListTile(
-        //         leading: Icon(Icons.phone),
-        //         title: Text('Phone: +123-456-7890'),
-        //       ),
-        //       // Divider
-        //       const Divider(
-        //         thickness: 1,
-        //         indent: 20,
-        //         endIndent: 20,
-        //       ),
-        //       // Search Bar
-        //     ],
-        //   ),
-        // ),
-        );
+        ));
   }
 }

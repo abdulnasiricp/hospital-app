@@ -940,7 +940,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                 ),
                               ),
                               const SizedBox(
-                                height: 20,
+                                height: 2,
                               ),
                               Column(
                                 children: [
