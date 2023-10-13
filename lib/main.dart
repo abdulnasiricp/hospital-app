@@ -16,17 +16,7 @@ import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:workmanager/workmanager.dart';
 
-
-void callbackDispatcher() {
-  Workmanager().executeTask((task, inputData) async {
-    // Fetch new data and check for updates here
-    // If new data is added, show a notification using the showNotification function
-
-    return Future.value(true);
-  }
-  );}
 FlutterLocalNotificationsPlugin notificationsPlugin =
     FlutterLocalNotificationsPlugin();
 Future<void> main() async {
@@ -47,17 +37,10 @@ Future<void> main() async {
     iOS: iosSettings,
   );
 
-  bool? initialized =
-      await notificationsPlugin.initialize(initializationSettings,);
-  log("Notification: $initialized");
-
-  Workmanager().initialize(callbackDispatcher);
-  Workmanager().registerPeriodicTask(
-    "1", // Task ID
-    "checkForUpdatesTask", // Task name
-    initialDelay: Duration(minutes: 1), // Delay before the first execution
-    frequency: Duration(minutes: 15), // Periodic check every 15 minutes
+  bool? initialized = await notificationsPlugin.initialize(
+    initializationSettings,
   );
+  log("Notification: $initialized");
 
   runApp(const MyApp());
 }

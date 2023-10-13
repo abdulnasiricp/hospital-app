@@ -16,26 +16,25 @@ class HelpCenterPage extends StatefulWidget {
 
 class _HelpCenterPageState extends State<HelpCenterPage> {
   void launchWebsite(String url) async {
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
-}
 
-void launchEmailClient(String email) async {
-  final Uri emailLaunchUri = Uri(
-    scheme: 'mailto',
-    path: email,
-  );
+  void launchEmailClient(String email) async {
+    final Uri emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: email,
+    );
 
-  if (await canLaunch(emailLaunchUri.toString())) {
-    await launch(emailLaunchUri.toString());
-  } else {
-    throw 'Could not launch $email';
+    if (await canLaunch(emailLaunchUri.toString())) {
+      await launch(emailLaunchUri.toString());
+    } else {
+      throw 'Could not launch $email';
+    }
   }
-}
-
 
   void makePhoneCall(String phoneNumber) async {
     final url = 'tel:$phoneNumber';
@@ -110,8 +109,7 @@ void launchEmailClient(String email) async {
                           children: [
                             SvgPicture.asset(
                               'assets/call.svg',
-                      color: darkYellow,
-
+                              color: darkYellow,
                               width: 25,
                               height: 25,
                             ),
@@ -139,7 +137,7 @@ void launchEmailClient(String email) async {
                             ),
                             InkWell(
                                 onTap: () {
-                              makePhoneCall('2438479234782');
+                                  makePhoneCall('2438479234782');
                                 },
                                 child: const Text(
                                   'Call',
@@ -161,7 +159,7 @@ void launchEmailClient(String email) async {
                           color: Colors.grey,
                         ),
                       ),
-                     Padding(
+                      Padding(
                         padding: const EdgeInsets.only(left: 40, right: 20),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -170,42 +168,9 @@ void launchEmailClient(String email) async {
                             const SizedBox(
                               width: 10,
                             ),
-                             InkWell(
-                                onTap: () {
-                              makePhoneCall('2438479234782');
-                                },
-                                child: const Text(
-                                  'Call',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.blue),
-                                )),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Padding(
-                        padding:
-                            EdgeInsets.only(left: 40.0, right: 10, bottom: 10),
-                        child: Divider(
-                          height: 1,
-                          color: Colors.grey,
-                        ),
-                      ),
-                       Padding(
-                        padding: const EdgeInsets.only(left: 40, right: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text('2438479234782 (Toll Free-NTC)'),
-                            const SizedBox(
-                              width: 10,
-                            ),
                             InkWell(
                                 onTap: () {
-                              makePhoneCall('2438479234782');
+                                  makePhoneCall('2438479234782');
                                 },
                                 child: const Text(
                                   'Call',
@@ -238,7 +203,40 @@ void launchEmailClient(String email) async {
                             ),
                             InkWell(
                                 onTap: () {
-                              makePhoneCall('2438479234782');
+                                  makePhoneCall('2438479234782');
+                                },
+                                child: const Text(
+                                  'Call',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.blue),
+                                )),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Padding(
+                        padding:
+                            EdgeInsets.only(left: 40.0, right: 10, bottom: 10),
+                        child: Divider(
+                          height: 1,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 40, right: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('2438479234782 (Toll Free-NTC)'),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            InkWell(
+                                onTap: () {
+                                  makePhoneCall('2438479234782');
                                 },
                                 child: const Text(
                                   'Call',
@@ -264,8 +262,7 @@ void launchEmailClient(String email) async {
                           children: [
                             SvgPicture.asset(
                               'assets/mail.svg',
-                      color: darkYellow,
-
+                              color: darkYellow,
                               width: 25,
                               height: 25,
                             ),
@@ -293,7 +290,7 @@ void launchEmailClient(String email) async {
                             ),
                             InkWell(
                                 onTap: () {
-                              launchEmailClient('Supportteam@gmail.com');
+                                  launchEmailClient('Supportteam@gmail.com');
                                 },
                                 child: const Text(
                                   'Mail',
@@ -304,8 +301,6 @@ void launchEmailClient(String email) async {
                           ],
                         ),
                       ),
-                    
-                    
                       const SizedBox(
                         height: 20,
                       ),
@@ -321,8 +316,7 @@ void launchEmailClient(String email) async {
                           children: [
                             SvgPicture.asset(
                               'assets/website.svg',
-                      color: darkYellow,
-
+                              color: darkYellow,
                               width: 25,
                               height: 25,
                             ),
@@ -350,7 +344,7 @@ void launchEmailClient(String email) async {
                             ),
                             InkWell(
                                 onTap: () {
-                              launchWebsite('https://tezash.com/');
+                                  launchWebsite('https://tezash.com/');
                                 },
                                 child: const Text(
                                   'Visit',
@@ -361,8 +355,6 @@ void launchEmailClient(String email) async {
                           ],
                         ),
                       ),
-                    
-                    
                       const SizedBox(
                         height: 20,
                       ),
@@ -378,8 +370,7 @@ void launchEmailClient(String email) async {
                           children: [
                             SvgPicture.asset(
                               'assets/helpcenter.svg',
-                      color: darkYellow,
-
+                              color: darkYellow,
                               width: 25,
                               height: 25,
                             ),
@@ -407,7 +398,7 @@ void launchEmailClient(String email) async {
                             ),
                             InkWell(
                                 onTap: () {
-                              launchWebsite('https://tezash.com/');
+                                  launchWebsite('https://tezash.com/');
                                 },
                                 child: const Text(
                                   'Report query',
@@ -418,8 +409,6 @@ void launchEmailClient(String email) async {
                           ],
                         ),
                       ),
-                    
-                    
                       const SizedBox(
                         height: 20,
                       ),
@@ -429,7 +418,6 @@ void launchEmailClient(String email) async {
               ],
             ),
           ),
-          
         )
         // child: Card(
         //   color: Colors.white,

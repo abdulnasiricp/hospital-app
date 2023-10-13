@@ -64,7 +64,7 @@ class _Splash_ScreenState extends State<Splash_Screen> {
               padding: const EdgeInsets.only(
                   bottom: 1.0), // Adjust the bottom padding as needed
               child: Image.asset(
-                'assets/tezash.png',
+                'assets/Tezashlogo.png',
                 width: 80, // Adjust the width as needed
                 height: 80, // Adjust the height as needed
               ),
