@@ -286,7 +286,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                               ),
                               Container(
                                 width: width,
-                                height: height /5,
+                                height: 150,
                                 child:  Card(
                                   color: Colors.white70,
                                   child: Column(

@@ -158,8 +158,8 @@ class _TransactionBillState extends State<TransactionBill> {
           child: Column(children: [
             Container(
               color: Colors.grey,
-              width: width,
-              height: height / 20,
+              width: double.infinity,
+              height: 40,
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Row(
@@ -317,7 +317,7 @@ class _TransactionBillState extends State<TransactionBill> {
                                                       MainAxisAlignment.center,
                                                   children: [
                                                     Container(
-                                                      width: width / 6,
+                                                      width: width / 4,
                                                       child: Text(
                                                         "${transaction['bill_no']}",
                                                         style: const TextStyle(
@@ -363,7 +363,7 @@ class _TransactionBillState extends State<TransactionBill> {
             ? null // Set bottomSheet to null when apiData is empty
             : Card(
                 child: Container(
-                  height: height / 15,
+                  height: 50,
                   width: width,
                   color: darkYellow,
                   child: Padding(

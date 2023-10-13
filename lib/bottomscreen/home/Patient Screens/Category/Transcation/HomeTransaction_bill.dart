@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:TezHealthCare/Services/notificationServies.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/view_bill.dart';
+import 'package:TezHealthCare/main.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -142,8 +143,7 @@ int previousDataLength = 0;
 // Function to handle notification click and navigate to the screen
 Future<void> _navigateToScreen(String payload) async {
   if (payload != null && payload == 'your_payload_here') {
-    // Get.toNamed('HomeTransactionBill');
-    Navigator.pushNamed(context, '/home_transaction_bill');
+    Get.offAll(const HomeTransactionBill());
   }
 }
 // Modify your fetchData function to keep track of the previous data length
@@ -231,7 +231,7 @@ NotificationServies notificationServies=NotificationServies();
             Container(
               color: Colors.grey,
               width: width,
-              height: height / 20,
+              height: 40,
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Row(
@@ -389,7 +389,7 @@ NotificationServies notificationServies=NotificationServies();
                                                       MainAxisAlignment.center,
                                                   children: [
                                                     Container(
-                                                      width: width / 6,
+                                                      width: width / 4,
                                                       child: Text(
                                                         "${transaction['bill_no']}",
                                                         style: const TextStyle(
@@ -435,7 +435,7 @@ NotificationServies notificationServies=NotificationServies();
             ? null // Set bottomSheet to null when apiData is empty
             : Card(
                 child: Container(
-                  height: height / 15,
+                  height: 50,
                   width: width,
                   color: darkYellow,
                   child: Padding(

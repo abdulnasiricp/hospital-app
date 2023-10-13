@@ -33,55 +33,135 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
           }, icon: const Icon(Icons.info))
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: [
-            Card(
-                color: Colors.white70,
-
-              child: Container(
-                width: width,
-                height: height / 10,
-                child: Row(
-                  children: [
-                    Container(
-                      height: height,
-                      width: width / 5,
-                      child: Image.network(
-                        widget.doctorImage,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    const SizedBox(width: 10,),
-                     Padding(
-                      padding: const EdgeInsets.only(top: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(widget.doctorName,style: const TextStyle(fontWeight: FontWeight.bold),),
-                      Text(widget.doctorSpecialization),
-                      Text(widget.doctorId)
-                    
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const Divider(),
-            InkWell(
-              onTap: () {
-                Get.to(()=>const OldorNewPatientScreen());
-
-                
-              },
-              child: Card(
-                color: Colors.white70,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              Card(
+                  color: Colors.white70,
+      
                 child: Container(
                   width: width,
-                  height: height / 10,
+                  height: 100,
+                  child: Row(
+                    children: [
+                      Container(
+                        height: height,
+                        width: 100,
+                        child: Image.network(
+                          widget.doctorImage,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      const SizedBox(width: 10,),
+                       Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(widget.doctorName,style: const TextStyle(fontWeight: FontWeight.bold),),
+                        Text(widget.doctorSpecialization),
+                        Text(widget.doctorId)
+                      
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const Divider(),
+              InkWell(
+                onTap: () {
+                  Get.to(()=>const OldorNewPatientScreen());
+      
+                  
+                },
+                child: Card(
+                  color: Colors.white70,
+                  child: Container(
+                    width: width,
+                    height: 80,
+                    child: Row(
+                      children: [
+                        Container(
+                          height: height,
+                          width: width / 5,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('14',style: TextStyle(fontWeight: FontWeight.bold,color: darkYellow,fontSize: 30)),
+                              const Text('  Thuesday'),
+                            ],
+                          )
+                        ),
+                        const SizedBox(width: 40,),
+                        const Padding(
+                          padding: EdgeInsets.only(top: 20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('[14/09/2023]  [14/09/2030] ',style: TextStyle(fontWeight: FontWeight.bold),),
+                              SizedBox(height: 10,),
+                          Text('           (4 token left)',style: TextStyle(color: Colors.red),)
+                        
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              InkWell(
+                onTap: (){
+                  Get.to(()=>const OldorNewPatientScreen());
+      
+                },
+                child: Card(
+                  color: Colors.white70,
+      
+                  child: Container(
+                    width: width,
+                    height: 80,
+                    child: Row(
+                      children: [
+                        Container(
+                          height: height,
+                          width: width / 5,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('16',style: TextStyle(fontWeight: FontWeight.bold,color: darkYellow,fontSize: 30)),
+                              const Text('  Friday'),
+                            ],
+                          )
+                        ),
+                        const SizedBox(width: 40,),
+                        const Padding(
+                          padding: EdgeInsets.only(top: 20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('[16/09/2023]  [16/09/2030] ',style: TextStyle(fontWeight: FontWeight.bold),),
+                              SizedBox(height: 10,),
+                          Text('           (5 token left)',style: TextStyle(color: Colors.red),)
+                        
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Card(
+                  color: Colors.white70,
+      
+                child: Container(
+                  width: width,
+                  height: 80,
                   child: Row(
                     children: [
                       Container(
@@ -90,7 +170,43 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('14',style: TextStyle(fontWeight: FontWeight.bold,color: darkYellow,fontSize: 30)),
+                            Text('18',style: TextStyle(fontWeight: FontWeight.bold,color: darkYellow,fontSize: 30)),
+                            const Text('  sunday'),
+                          ],
+                        )
+                      ),
+                      const SizedBox(width: 40,),
+                      const Padding(
+                        padding: EdgeInsets.only(top: 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('[14/09/2023]  [18/09/2030] ',style: TextStyle(fontWeight: FontWeight.bold),),
+                            SizedBox(height: 10,),
+                        Text('           (3 token left)',style: TextStyle(color: Colors.red),)
+                      
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Card(
+                  color: Colors.white70,
+      
+                child: Container(
+                  width: width,
+                  height: 80,
+                  child: Row(
+                    children: [
+                      Container(
+                        height: height,
+                        width: width / 5,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('20',style: TextStyle(fontWeight: FontWeight.bold,color: darkYellow,fontSize: 30)),
                             const Text('  Thuesday'),
                           ],
                         )
@@ -101,7 +217,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('[14/09/2023]  [14/09/2030] ',style: TextStyle(fontWeight: FontWeight.bold),),
+                            Text('[20/09/2023]  [12/09/2030] ',style: TextStyle(fontWeight: FontWeight.bold),),
                             SizedBox(height: 10,),
                         Text('           (4 token left)',style: TextStyle(color: Colors.red),)
                       
@@ -112,18 +228,12 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                   ),
                 ),
               ),
-            ),
-            InkWell(
-              onTap: (){
-                Get.to(()=>const OldorNewPatientScreen());
-
-              },
-              child: Card(
-                color: Colors.white70,
-
+              Card(
+                  color: Colors.white70,
+      
                 child: Container(
                   width: width,
-                  height: height / 10,
+                  height: 80,
                   child: Row(
                     children: [
                       Container(
@@ -132,7 +242,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('16',style: TextStyle(fontWeight: FontWeight.bold,color: darkYellow,fontSize: 30)),
+                            Text('22',style: TextStyle(fontWeight: FontWeight.bold,color: darkYellow,fontSize: 30)),
                             const Text('  Friday'),
                           ],
                         )
@@ -143,9 +253,9 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('[16/09/2023]  [16/09/2030] ',style: TextStyle(fontWeight: FontWeight.bold),),
+                            Text('[22/09/2023]  [14/09/2030] ',style: TextStyle(fontWeight: FontWeight.bold),),
                             SizedBox(height: 10,),
-                        Text('           (5 token left)',style: TextStyle(color: Colors.red),)
+                        Text('           (7 token left)',style: TextStyle(color: Colors.red),)
                       
                           ],
                         ),
@@ -154,118 +264,10 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                   ),
                 ),
               ),
-            ),
-            Card(
-                color: Colors.white70,
-
-              child: Container(
-                width: width,
-                height: height / 10,
-                child: Row(
-                  children: [
-                    Container(
-                      height: height,
-                      width: width / 5,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('18',style: TextStyle(fontWeight: FontWeight.bold,color: darkYellow,fontSize: 30)),
-                          const Text('  sunday'),
-                        ],
-                      )
-                    ),
-                    const SizedBox(width: 40,),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('[14/09/2023]  [18/09/2030] ',style: TextStyle(fontWeight: FontWeight.bold),),
-                          SizedBox(height: 10,),
-                      Text('           (3 token left)',style: TextStyle(color: Colors.red),)
-                    
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Card(
-                color: Colors.white70,
-
-              child: Container(
-                width: width,
-                height: height / 10,
-                child: Row(
-                  children: [
-                    Container(
-                      height: height,
-                      width: width / 5,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('20',style: TextStyle(fontWeight: FontWeight.bold,color: darkYellow,fontSize: 30)),
-                          const Text('  Thuesday'),
-                        ],
-                      )
-                    ),
-                    const SizedBox(width: 40,),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('[20/09/2023]  [12/09/2030] ',style: TextStyle(fontWeight: FontWeight.bold),),
-                          SizedBox(height: 10,),
-                      Text('           (4 token left)',style: TextStyle(color: Colors.red),)
-                    
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Card(
-                color: Colors.white70,
-
-              child: Container(
-                width: width,
-                height: height / 10,
-                child: Row(
-                  children: [
-                    Container(
-                      height: height,
-                      width: width / 5,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('22',style: TextStyle(fontWeight: FontWeight.bold,color: darkYellow,fontSize: 30)),
-                          const Text('  Friday'),
-                        ],
-                      )
-                    ),
-                    const SizedBox(width: 40,),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('[22/09/2023]  [14/09/2030] ',style: TextStyle(fontWeight: FontWeight.bold),),
-                          SizedBox(height: 10,),
-                      Text('           (7 token left)',style: TextStyle(color: Colors.red),)
-                    
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            
-            
-          ],
+              
+              
+            ],
+          ),
         ),
       ),
     );

@@ -90,185 +90,187 @@ class _InformationProfileState extends State<InformationProfile>
           centerTitle: true,
         ),
         body: profileData != null
-            ? Column(
-                children: [
-                  Stack(children: [
-                    Container(
-                      width: width,
-                      height: height / 3,
-                      decoration: BoxDecoration(
-                          color: darkYellow,
-                          borderRadius: const BorderRadius.only(
-                              bottomLeft: Radius.circular(40),
-                              bottomRight: Radius.circular(40))),
-                    ),
-                    Container(
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 20),
-                        child: Center(
-                            child: CircleAvatar(
-                          backgroundImage:
-                              NetworkImage(profileData!.image ?? ""),
-                          radius: 60,
-                        )),
+            ? SingleChildScrollView(
+              child: Column(
+                  children: [
+                    Stack(children: [
+                      Container(
+                        width: width,
+                        height: height / 3,
+                        decoration: BoxDecoration(
+                            color: darkYellow,
+                            borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(40),
+                                bottomRight: Radius.circular(40))),
                       ),
-                    ),
-                    Container(
-                      child: Padding(
-                        padding: EdgeInsets.only(top: height / 4.5),
-                        child: Center(
-                            child: Text(
-                          profileData!.patientName ?? "",
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 20),
-                        )),
+                      Container(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: Center(
+                              child: CircleAvatar(
+                            backgroundImage:
+                                NetworkImage(profileData!.image ?? ""),
+                            radius: height/15,
+                          )),
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          top: height / 3.5,
-                          left: width / 15,
-                          right: width / 15),
-                      child: Card(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
+                      Container(
+                        child: Padding(
+                          padding: EdgeInsets.only(top: height / 4.5),
+                          child: Center(
+                              child: Text(
+                            profileData!.patientName ?? "",
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                fontSize: 20),
+                          )),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: height / 3.5,
+                            left: width / 15,
+                            right: width / 15),
+                        child: Card(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            width: width,
+                            height: 100,
+                            child: Padding(
+                              padding: const EdgeInsets.all(20),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                       Text('patientID'.tr,
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold)),
+                                      Text(
+                                        profileData!.id ?? "",
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                       Text('patientGender'.tr,
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold)),
+                                      Text(
+                                        profileData!.gender ?? "",
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                       Text('patientAge'.tr,
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold)),
+                                      Text(
+                                        profileData!.age ?? "",
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
-                          width: width,
-                          height: height / 6,
-                          child: Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        ),
+                      ),
+                    ]),
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                           Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'patientEmail'.tr,
+                                style: const TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Text(
+                                'patientPhone'.tr,
+                                style: const TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Text(
+                                'patientBloodGroup'.tr,
+                                style: const TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Text(
+                                'patientAddress'.tr,
+                                style: const TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Text(
+                                'patientMaritialStatus'.tr,
+                                style: const TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Text(
+                                'patientGuardianName'.tr,
+                                style: const TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(right: width / 4),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                     Text('patientID'.tr,
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.bold)),
-                                    Text(
-                                      profileData!.id ?? "",
-                                    ),
-                                  ],
+                                Text(profileData!.email ?? ""),
+                                const SizedBox(
+                                  height: 20,
                                 ),
-                                Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                     Text('patientGender'.tr,
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.bold)),
-                                    Text(
-                                      profileData!.gender ?? "",
-                                    ),
-                                  ],
+                                Text(profileData!.mobileNo ?? ""),
+                                const SizedBox(
+                                  height: 20,
                                 ),
-                                Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                     Text('patientAge'.tr,
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.bold)),
-                                    Text(
-                                      profileData!.age ?? "",
-                                    ),
-                                  ],
+                                Text(profileData!.bloodGroup ?? ""),
+                                const SizedBox(
+                                  height: 20,
                                 ),
+                                Text(profileData!.address ?? ""),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Text(profileData!.maritalStatus ?? ""),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Text(profileData!.guardianName ?? ""),
                               ],
                             ),
                           ),
-                        ),
+                        ],
                       ),
-                    ),
-                  ]),
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                         Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'patientEmail'.tr,
-                              style: const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Text(
-                              'patientPhone'.tr,
-                              style: const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Text(
-                              'patientBloodGroup'.tr,
-                              style: const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Text(
-                              'patientAddress'.tr,
-                              style: const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Text(
-                              'patientMaritialStatus'.tr,
-                              style: const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Text(
-                              'patientGuardianName'.tr,
-                              style: const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(right: width / 4),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(profileData!.email ?? ""),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Text(profileData!.mobileNo ?? ""),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Text(profileData!.bloodGroup ?? ""),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Text(profileData!.address ?? ""),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Text(profileData!.maritalStatus ?? ""),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Text(profileData!.guardianName ?? ""),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              )
+                    )
+                  ],
+                ),
+            )
             : Center(
               child: Container(
                   width: 50,

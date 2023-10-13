@@ -46,7 +46,7 @@ class _PatientListState extends State<PatientList> {
               },
               child: Container(
                 width: width,
-                height: height / 15,
+                height: 50,
                 child: const Card(
                     color: Colors.white70,
                     child: Padding(
@@ -71,7 +71,7 @@ class _PatientListState extends State<PatientList> {
               },
               child: Container(
                 width: width,
-                height: height / 15,
+                height: 50,
                 child: const Card(
                     color: Colors.white70,
                     child: Padding(
