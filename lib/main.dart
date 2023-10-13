@@ -18,17 +18,6 @@ import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:workmanager/workmanager.dart';
-
-
-void callbackDispatcher() {
-  Workmanager().executeTask((task, inputData) async {
-
-
-    return Future.value(true);
-  });
-}
-
 
 // FlutterLocalNotificationsPlugin notificationsPlugin =
 //     FlutterLocalNotificationsPlugin();
