@@ -227,7 +227,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
             IconButton(
                 color: Colors.blue,
                 onPressed: () {
-                  Get.to(() => const Notif());
+                  Get.to(() =>  NotificationScreen());
                 },
                 icon: const Icon(
                   Icons.notifications,

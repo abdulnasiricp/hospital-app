@@ -1,5 +1,7 @@
 // ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace
 
+import 'dart:async';
+
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/view_bill.dart';
 import 'package:TezHealthCare/main.dart';
@@ -15,6 +17,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:workmanager/workmanager.dart';
 
 class HomeTransactionBill extends StatefulWidget {
   const HomeTransactionBill({Key? key}) : super(key: key);
@@ -59,6 +62,26 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
   void initState() {
     super.initState();
     getData();
+///////////////////////////////////////////////////////////////////////
+
+     // Schedule a periodic task to check the API every minute
+    const duration = Duration(seconds: 30);
+    Timer.periodic(duration, (Timer t) {
+      checkForNewData();
+    });
+  }
+
+  void checkForNewData() async {
+    try {
+      final newData = await fetchData();
+
+      if (newData.length > previousDataLength) {
+        showNotification();
+        previousDataLength = newData.length; // Update the previous length
+      }
+    } catch (error) {
+      print('Error while checking for new data: $error');
+    }
   }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -84,11 +107,11 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
         isLoading = false;
       });
       final Map<String, dynamic> data = json.decode(response.body);
-       // Check if the data length has increased
-    if (data.length > previousDataLength) {
-      showNotification();
-      previousDataLength = data.length; // Update the previous length
-    }
+    //    // Check if the data length has increased
+    // if (data.length > previousDataLength) {
+    //   showNotification();
+    //   previousDataLength = data.length; // Update the previous length
+    // }
       return data;
     } else {
       throw Exception('Failed to load data');
@@ -117,13 +140,23 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
 ///
   ///  /////////////////////////////////////////////////////////////////////////
 // Modify your fetchData function to keep track of the previous data length
+void callbackDispatcher() {
+  Workmanager().executeTask((task, inputData) async {
+    // Fetch new data and check for updates here
+    // If new data is added, show a notification using the showNotification function
+    // showNotification();
+
+    return Future.value(true);
+  });
+}
+
 int previousDataLength = 0;
   // show notification
   void showNotification() async {
     AndroidNotificationDetails androidDetiles =
         const AndroidNotificationDetails(
       'Notification',
-      'Discounter',
+      'Tez health Care',
       priority: Priority.max,
       importance: Importance.max,
     );
@@ -138,7 +171,7 @@ int previousDataLength = 0;
       iOS: iosDetiles,
     );
     await notificationsPlugin.show(
-        0, 'New Data', 'New data are added', notificationDetails,payload:  'your_payload_here');
+        1000, 'New Data', 'New data are added', notificationDetails,payload:  'your_payload_here');
   }
 
   @override

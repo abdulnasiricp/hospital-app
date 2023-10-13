@@ -163,64 +163,54 @@
         
 
 
+
+           // ignore_for_file: non_constant_identifier_names, unused_local_variable
            
 //       ],
 //     );
 //   }
 // }
-
-import 'package:TezHealthCare/Controller/notificationProvider.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-class Notif extends StatelessWidget {
-  const Notif({Key? key}) : super(key: key);
+import 'package:shared_preferences/shared_preferences.dart';
+class NotificationScreen extends StatefulWidget {
+  const NotificationScreen({Key? key}) : super(key: key);
 
   @override
+  State<NotificationScreen> createState() => _NotificationScreenState();
+}
+
+class _NotificationScreenState extends State<NotificationScreen> {
+   final String messages='';
+    LoadData()async{
+       // Fetch stored notification messages from SharedPreferences
+    final sharedPreferences = await SharedPreferences.getInstance();
+    final messages = sharedPreferences.getStringList('notificationMessages') ?? [];
+ 
+    }
+     @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    LoadData();
+  }
+    
+  @override
   Widget build(BuildContext context) {
-    final notifications = Provider.of<NotificationProvider>(context).notifications;
+   
+   
 
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: darkYellow,
-        title: const Text('Notifications'),
+        title: const Text('Notification Screen'),
       ),
       body: ListView.builder(
-        itemCount: notifications.length,
+        itemCount: messages.length,
         itemBuilder: (context, index) {
-          final notification = notifications[index];
-          final notificationMessage = notification['notification'];
-          final notificationData = notification['data'];
-
-          return GestureDetector(
-            onTap: () {
-              
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    title: const Text('Notification Data'),
-                    content: Text('Data: $notificationData'),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text('Close'),
-                      ),
-                    ],
-                  );
-                },
-              );
-            },
-            child: Card(
-              child: ListTile(
-                title: Text(notificationMessage),
-                subtitle: const Text('Tap to see data'),
-              ),
-            ),
+          return ListTile(
+            title: Text(messages[index]),
           );
         },
       ),

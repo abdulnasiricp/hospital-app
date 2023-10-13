@@ -31,27 +31,27 @@ class Pathalogy extends StatefulWidget {
 class _PathalogyState extends State<Pathalogy> {
   /////////////////////////////////////////////////////////////////////////
   // show notification
-  void showNotification() async {
-    AndroidNotificationDetails androidDetiles =
-        const AndroidNotificationDetails(
-      'Notification',
-      'Discounter',
-      priority: Priority.max,
-      importance: Importance.max,
-    );
+  // void showNotification() async {
+  //   AndroidNotificationDetails androidDetiles =
+  //       const AndroidNotificationDetails(
+  //     'Notification',
+  //     'Discounter',
+  //     priority: Priority.max,
+  //     importance: Importance.max,
+  //   );
 
-    DarwinNotificationDetails iosDetiles = const DarwinNotificationDetails(
-      presentAlert: true,
-      presentBadge: true,
-      presentSound: true,
-    );
-    NotificationDetails notificationDetails = NotificationDetails(
-      android: androidDetiles,
-      iOS: iosDetiles,
-    );
-    await notificationsPlugin.show(
-        0, 'pathology', 'New data are added', notificationDetails);
-  }
+  //   DarwinNotificationDetails iosDetiles = const DarwinNotificationDetails(
+  //     presentAlert: true,
+  //     presentBadge: true,
+  //     presentSound: true,
+  //   );
+  //   NotificationDetails notificationDetails = NotificationDetails(
+  //     android: androidDetiles,
+  //     iOS: iosDetiles,
+  //   );
+  //   await notificationsPlugin.show(
+  //       0, 'pathology', 'New data are added', notificationDetails);
+  // }
   /////////////////////////////////////////////////////////////////////////////////////
 
   bool isLoading = true;
