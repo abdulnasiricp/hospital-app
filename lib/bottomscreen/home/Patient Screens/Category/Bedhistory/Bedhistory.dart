@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace
+// ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace, unnecessary_null_comparison
 
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -181,7 +181,7 @@ class _BedhistoryState extends State<Bedhistory> {
         onRefresh: _handleRefresh,
         child: isLoading
             ? buildLoadingIndicator() // Show loading indicator if data is loading
-            : bedHistory.isEmpty
+            : bedHistory.isEmpty || bedHistory == null
                 ? buildNoDataFound() // Show "No Data Found" message if data is empty
                 : ListView.builder(
                     itemCount: bedHistory.length,

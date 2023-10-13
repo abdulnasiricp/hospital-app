@@ -391,527 +391,523 @@ class _PatientHomePageState extends State<PatientHomePage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: GridView.count(
-                                      crossAxisCount: 5,
-                                      shrinkWrap:
-                                          true, // Set to true to make the GridView scrollable within the Column
-                                      children: [
-                                        InkWell(
-                                          onTap: () {
-                                            Get.offAll(
-                                                () => const TransactionBill());
-                                          },
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: Card(
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: SvgPicture.asset(
-                                                        'assets/transaction.svg',
-                                                        width: 15,
-                                                        height: 15,
-                                                        color: darkYellow),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  Text('transactionBill'.tr,
-                                                      style: const TextStyle(
-                                                        fontSize: 7,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ))
-                                                ],
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: GridView.count(
+                                  crossAxisCount: 5,
+                                  shrinkWrap:
+                                      true, // Set to true to make the GridView scrollable within the Column
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        Get.offAll(
+                                            () => const TransactionBill());
+                                      },
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        child: Card(
+                                          child: Column(
+                                            children: [
+                                              const SizedBox(
+                                                height: 5,
                                               ),
-                                            ),
+                                              Container(
+                                                width: 30,
+                                                height: 30,
+                                                child: SvgPicture.asset(
+                                                    'assets/transaction.svg',
+                                                    width: 15,
+                                                    height: 15,
+                                                    color: darkYellow),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text('transactionBill'.tr,
+                                                  style: const TextStyle(
+                                                    fontSize: 7,
+                                                    fontWeight:
+                                                        FontWeight.bold,
+                                                  ))
+                                            ],
                                           ),
                                         ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.to(() => const CardScreen());
-                                          },
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: Card(
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 7,
-                                                  ),
-                                                  Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: SvgPicture.asset(
-                                                        'assets/card.svg',
-                                                        width: 15,
-                                                        height: 15,
-                                                        color: darkYellow),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  Text('card'.tr,
-                                                      style: const TextStyle(
-                                                        fontSize: 7,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ))
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.to(() => const IPD());
-                                          },
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: Card(
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: SvgPicture.asset(
-                                                        'assets/ipd.svg',
-                                                        width: 15,
-                                                        height: 15,
-                                                        color: darkYellow),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  const Text(EnString.idp,
-                                                      style: TextStyle(
-                                                        fontSize: 7,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ))
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.offAll(() => const Pathalogy());
-                                          },
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: Card(
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: SvgPicture.asset(
-                                                        'assets/pathology.svg',
-                                                        width: 15,
-                                                        height: 15,
-                                                        color: darkYellow),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  Text('pathology'.tr,
-                                                      style: const TextStyle(
-                                                        fontSize: 7,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ))
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.offAll(() => const Radiology());
-                                          },
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: Card(
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: SvgPicture.asset(
-                                                        'assets/radiology.svg',
-                                                        width: 15,
-                                                        height: 15,
-                                                        color: darkYellow),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  Text('radiology'.tr,
-                                                      style: const TextStyle(
-                                                        fontSize: 7,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ))
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.offAll(() => const Pharmacy());
-                                          },
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: Card(
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: SvgPicture.asset(
-                                                        'assets/pharmacy.svg',
-                                                        width: 15,
-                                                        height: 15,
-                                                        color: darkYellow),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  Text('pharmacy'.tr,
-                                                      style: const TextStyle(
-                                                        fontSize: 7,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ))
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.to(() => const USGScreen());
-                                          },
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: Card(
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: SvgPicture.asset(
-                                                        'assets/usg.svg',
-                                                        width: 15,
-                                                        height: 15,
-                                                        color: darkYellow),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  const Text(EnString.usg,
-                                                      style: TextStyle(
-                                                        fontSize: 7,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ))
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.to(() =>
-                                                const SurgeryPrescriptionList());
-                                          },
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: Card(
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: SvgPicture.asset(
-                                                        'assets/surgery.svg',
-                                                        width: 15,
-                                                        height: 15,
-                                                        color: darkYellow),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  Text('surgery'.tr,
-                                                      style: const TextStyle(
-                                                        fontSize: 7,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ))
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.to(() => const Blood_Bank());
-                                          },
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: Card(
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: SvgPicture.asset(
-                                                        'assets/blood_bank.svg',
-                                                        width: 15,
-                                                        height: 15,
-                                                        color: darkYellow),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  Text('bloodBank'.tr,
-                                                      style: const TextStyle(
-                                                        fontSize: 7,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ))
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.to(() => const Ambulance());
-                                          },
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: Card(
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: SvgPicture.asset(
-                                                        'assets/ambulance.svg',
-                                                        width: 15,
-                                                        height: 15,
-                                                        color: darkYellow),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  Text('ambulance'.tr,
-                                                      style: const TextStyle(
-                                                        fontSize: 7,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ))
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.offAll(
-                                                () => const Physiotherapy());
-                                          },
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: Card(
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: SvgPicture.asset(
-                                                        'assets/therapy.svg',
-                                                        width: 15,
-                                                        height: 15,
-                                                        color: darkYellow),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  Text('physioTherapy'.tr,
-                                                      style: const TextStyle(
-                                                        fontSize: 7,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ))
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.to(() => const Certificate());
-                                          },
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: Card(
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: SvgPicture.asset(
-                                                        'assets/certificate.svg',
-                                                        width: 15,
-                                                        height: 15,
-                                                        color: darkYellow),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  Text('certificates'.tr,
-                                                      style: const TextStyle(
-                                                        fontSize: 7,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ))
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.to(() => const Bedhistory());
-                                          },
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: Card(
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: SvgPicture.asset(
-                                                        'assets/bed_history.svg',
-                                                        width: 15,
-                                                        height: 15,
-                                                        color: darkYellow),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  Text('bedHistory'.tr,
-                                                      style: const TextStyle(
-                                                        fontSize: 7,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ))
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.to(
-                                                () => const Liveconsultation());
-                                          },
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: Card(
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: SvgPicture.asset(
-                                                        'assets/live_consult.svg',
-                                                        width: 15,
-                                                        height: 15,
-                                                        color: darkYellow),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  Text('liveConsultations'.tr,
-                                                      style: const TextStyle(
-                                                        fontSize: 7,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ))
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+                                      ),
                                     ),
-                                  )
-                                ],
+                                    InkWell(
+                                      onTap: () {
+                                        Get.to(() => const CardScreen());
+                                      },
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        child: Card(
+                                          child: Column(
+                                            children: [
+                                              const SizedBox(
+                                                height: 7,
+                                              ),
+                                              Container(
+                                                width: 30,
+                                                height: 30,
+                                                child: SvgPicture.asset(
+                                                    'assets/card.svg',
+                                                    width: 15,
+                                                    height: 15,
+                                                    color: darkYellow),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text('card'.tr,
+                                                  style: const TextStyle(
+                                                    fontSize: 7,
+                                                    fontWeight:
+                                                        FontWeight.bold,
+                                                  ))
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        Get.to(() => const IPD());
+                                      },
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        child: Card(
+                                          child: Column(
+                                            children: [
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Container(
+                                                width: 30,
+                                                height: 30,
+                                                child: SvgPicture.asset(
+                                                    'assets/ipd.svg',
+                                                    width: 15,
+                                                    height: 15,
+                                                    color: darkYellow),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              const Text(EnString.idp,
+                                                  style: TextStyle(
+                                                    fontSize: 7,
+                                                    fontWeight:
+                                                        FontWeight.bold,
+                                                  ))
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        Get.offAll(() => const Pathalogy());
+                                      },
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        child: Card(
+                                          child: Column(
+                                            children: [
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Container(
+                                                width: 30,
+                                                height: 30,
+                                                child: SvgPicture.asset(
+                                                    'assets/pathology.svg',
+                                                    width: 15,
+                                                    height: 15,
+                                                    color: darkYellow),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text('pathology'.tr,
+                                                  style: const TextStyle(
+                                                    fontSize: 7,
+                                                    fontWeight:
+                                                        FontWeight.bold,
+                                                  ))
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        Get.offAll(() => const Radiology());
+                                      },
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        child: Card(
+                                          child: Column(
+                                            children: [
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Container(
+                                                width: 30,
+                                                height: 30,
+                                                child: SvgPicture.asset(
+                                                    'assets/radiology.svg',
+                                                    width: 15,
+                                                    height: 15,
+                                                    color: darkYellow),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text('radiology'.tr,
+                                                  style: const TextStyle(
+                                                    fontSize: 7,
+                                                    fontWeight:
+                                                        FontWeight.bold,
+                                                  ))
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        Get.offAll(() => const Pharmacy());
+                                      },
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        child: Card(
+                                          child: Column(
+                                            children: [
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Container(
+                                                width: 30,
+                                                height: 30,
+                                                child: SvgPicture.asset(
+                                                    'assets/pharmacy.svg',
+                                                    width: 15,
+                                                    height: 15,
+                                                    color: darkYellow),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text('pharmacy'.tr,
+                                                  style: const TextStyle(
+                                                    fontSize: 7,
+                                                    fontWeight:
+                                                        FontWeight.bold,
+                                                  ))
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        Get.to(() => const USGScreen());
+                                      },
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        child: Card(
+                                          child: Column(
+                                            children: [
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Container(
+                                                width: 30,
+                                                height: 30,
+                                                child: SvgPicture.asset(
+                                                    'assets/usg.svg',
+                                                    width: 15,
+                                                    height: 15,
+                                                    color: darkYellow),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              const Text(EnString.usg,
+                                                  style: TextStyle(
+                                                    fontSize: 7,
+                                                    fontWeight:
+                                                        FontWeight.bold,
+                                                  ))
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        Get.to(() =>
+                                            const SurgeryPrescriptionList());
+                                      },
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        child: Card(
+                                          child: Column(
+                                            children: [
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Container(
+                                                width: 30,
+                                                height: 30,
+                                                child: SvgPicture.asset(
+                                                    'assets/surgery.svg',
+                                                    width: 15,
+                                                    height: 15,
+                                                    color: darkYellow),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text('surgery'.tr,
+                                                  style: const TextStyle(
+                                                    fontSize: 7,
+                                                    fontWeight:
+                                                        FontWeight.bold,
+                                                  ))
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        Get.to(() => const Blood_Bank());
+                                      },
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        child: Card(
+                                          child: Column(
+                                            children: [
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Container(
+                                                width: 30,
+                                                height: 30,
+                                                child: SvgPicture.asset(
+                                                    'assets/blood_bank.svg',
+                                                    width: 15,
+                                                    height: 15,
+                                                    color: darkYellow),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text('bloodBank'.tr,
+                                                  style: const TextStyle(
+                                                    fontSize: 7,
+                                                    fontWeight:
+                                                        FontWeight.bold,
+                                                  ))
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        Get.to(() => const Ambulance());
+                                      },
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        child: Card(
+                                          child: Column(
+                                            children: [
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Container(
+                                                width: 30,
+                                                height: 30,
+                                                child: SvgPicture.asset(
+                                                    'assets/ambulance.svg',
+                                                    width: 15,
+                                                    height: 15,
+                                                    color: darkYellow),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text('ambulance'.tr,
+                                                  style: const TextStyle(
+                                                    fontSize: 7,
+                                                    fontWeight:
+                                                        FontWeight.bold,
+                                                  ))
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        Get.offAll(
+                                            () => const Physiotherapy());
+                                      },
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        child: Card(
+                                          child: Column(
+                                            children: [
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Container(
+                                                width: 30,
+                                                height: 30,
+                                                child: SvgPicture.asset(
+                                                    'assets/therapy.svg',
+                                                    width: 15,
+                                                    height: 15,
+                                                    color: darkYellow),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text('physioTherapy'.tr,
+                                                  style: const TextStyle(
+                                                    fontSize: 7,
+                                                    fontWeight:
+                                                        FontWeight.bold,
+                                                  ))
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        Get.to(() => const Certificate());
+                                      },
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        child: Card(
+                                          child: Column(
+                                            children: [
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Container(
+                                                width: 30,
+                                                height: 30,
+                                                child: SvgPicture.asset(
+                                                    'assets/certificate.svg',
+                                                    width: 15,
+                                                    height: 15,
+                                                    color: darkYellow),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text('certificates'.tr,
+                                                  style: const TextStyle(
+                                                    fontSize: 7,
+                                                    fontWeight:
+                                                        FontWeight.bold,
+                                                  ))
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        Get.to(() => const Bedhistory());
+                                      },
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        child: Card(
+                                          child: Column(
+                                            children: [
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Container(
+                                                width: 30,
+                                                height: 30,
+                                                child: SvgPicture.asset(
+                                                    'assets/bed_history.svg',
+                                                    width: 15,
+                                                    height: 15,
+                                                    color: darkYellow),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text('bedHistory'.tr,
+                                                  style: const TextStyle(
+                                                    fontSize: 7,
+                                                    fontWeight:
+                                                        FontWeight.bold,
+                                                  ))
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        Get.to(
+                                            () => const Liveconsultation());
+                                      },
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        child: Card(
+                                          child: Column(
+                                            children: [
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Container(
+                                                width: 30,
+                                                height: 30,
+                                                child: SvgPicture.asset(
+                                                    'assets/live_consult.svg',
+                                                    width: 15,
+                                                    height: 15,
+                                                    color: darkYellow),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text('liveConsultations'.tr,
+                                                  style: const TextStyle(
+                                                    fontSize: 7,
+                                                    fontWeight:
+                                                        FontWeight.bold,
+                                                  ))
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(10.0),

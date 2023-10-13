@@ -19,7 +19,7 @@ class AlertDialogWidget extends StatelessWidget {
                   margin: const EdgeInsets.only(left: 30), child: const Text("Loading ...")),
             ],
           ),
-          backgroundColor: Colors.white, // Make the AlertDialog background transparent
+          backgroundColor: Colors.transparent, // Make the AlertDialog background transparent
         ),
       ),
     );

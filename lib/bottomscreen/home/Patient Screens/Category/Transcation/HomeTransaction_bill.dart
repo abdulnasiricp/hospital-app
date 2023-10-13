@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:TezHealthCare/Services/notificationServies.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/view_bill.dart';
+import 'package:TezHealthCare/main.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -231,7 +232,7 @@ NotificationServies notificationServies=NotificationServies();
             Container(
               color: Colors.grey,
               width: width,
-              height: height / 20,
+              height: 40,
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Row(
@@ -435,7 +436,7 @@ NotificationServies notificationServies=NotificationServies();
             ? null // Set bottomSheet to null when apiData is empty
             : Card(
                 child: Container(
-                  height: height / 15,
+                  height: 50,
                   width: width,
                   color: darkYellow,
                   child: Padding(
