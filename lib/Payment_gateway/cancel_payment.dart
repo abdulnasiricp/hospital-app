@@ -68,14 +68,15 @@ class CancelPaymentScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   Container(
-                    width: width/3,
+                    width: width / 3,
                     child: ElevatedButton(
                         onPressed: () {
                           Get.back();
                         },
                         child: Text(btnnName),
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(darkYellow),
+                          backgroundColor:
+                              MaterialStateProperty.all(darkYellow),
                         )),
                   )
                 ],
