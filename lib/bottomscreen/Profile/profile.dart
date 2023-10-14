@@ -10,6 +10,7 @@ import 'package:TezHealthCare/bottomscreen/Profile/help_center.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/profile_model.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/term_and_condition.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
+import 'package:TezHealthCare/screens/auth/Sigin_main_screen.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -18,6 +19,7 @@ import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
@@ -41,6 +43,7 @@ class _ProfileState extends State<Profile> {
   Map<String, dynamic>? DataMap;
   Map<String, dynamic>? DoneDataMap;
   List<dynamic>? DoneListData = [];
+  bool isLoggingOut = false; // Flag to check if logout process is in progress
 
   Future<void> _logout(BuildContext context) async {
     final sharedPreferences = await SharedPreferences.getInstance();
@@ -51,13 +54,13 @@ class _ProfileState extends State<Profile> {
     Get.off(() => const Splash_Screen());
   }
 
-  ////////////////////////////////////////////////////////////////////////////
-  ///
-  ///////////////////////////////////////////////////////////////////////////////
   String apiUrl =
       'https://uat.tez.hospital/xzy/auth/patient_logout'; // Replace with your logout API URL
 
   Future<void> performLogout() async {
+    setState(() {
+      isLoggingOut = true;
+    });
     try {
       final response = await http.post(
         Uri.parse(apiUrl),
@@ -68,24 +71,37 @@ class _ProfileState extends State<Profile> {
         // You may need to pass additional data in the body if required by your API.
         body: jsonEncode({"patient_id": patientID}),
       );
-
       if (response.statusCode == 200) {
         // Successful logout, clear user data or navigate to the login screen.
+        Get.offAll(() => const MainSiginScreen());
         print('Logout successful');
         _logout(context);
-
+        Fluttertoast.showToast(
+          msg: 'Logot Successfully!!!.',
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+        );
         // Implement your logout logic here.
+        setState(() {
+          isLoggingOut = false;
+        });
       } else {
         // Handle errors, e.g., display an error message to the user.
         print('Logout failed: ${response.statusCode}');
+        setState(() {
+          isLoggingOut = false;
+        });
       }
     } catch (e) {
       // Handle network errors.
       print('Network error: $e');
+      setState(() {
+        isLoggingOut = false;
+      });
     }
   }
 
-////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////
   ///shared preference data
   var profileData;
   late String patientID = '';
@@ -148,21 +164,23 @@ class _ProfileState extends State<Profile> {
 
   late ColorNotifier notifier;
   TextEditingController dateinput = TextEditingController();
+  // Existing code for LoadData, getAllData, and initState methods
 
-// InAppWebViewController? webView;
   @override
   Widget build(BuildContext context) {
     notifier = Provider.of<ColorNotifier>(context, listen: true);
     return ScreenUtilInit(
-        builder: (_, child) => Scaffold(
-            appBar: AppBar(
-                title: Text('profile'.tr),
-                centerTitle: true,
-                backgroundColor: notifier.getdarkyellow
-                // elevation: 0,
-                ),
-            backgroundColor: Colors.grey.shade300,
-            body: profileData != null
+      builder: (_, child) => Scaffold(
+        appBar: AppBar(
+          title: Text('profile'.tr),
+          centerTitle: true,
+          backgroundColor: notifier.getdarkyellow,
+        ),
+        backgroundColor: Colors.grey.shade300,
+        body: Stack(
+          children: [
+            // Background content (Profile information, etc.)
+            profileData != null
                 ? SingleChildScrollView(
                     child: Column(
                       children: [
@@ -183,7 +201,7 @@ class _ProfileState extends State<Profile> {
                                     child: CircleAvatar(
                                   backgroundImage:
                                       NetworkImage(profileData!.image ?? ""),
-                                  radius: height/15,
+                                  radius: height / 15,
                                 )),
                               ),
                               Padding(
@@ -219,16 +237,17 @@ class _ProfileState extends State<Profile> {
                                       borderRadius: BorderRadius.circular(20)),
                                   child: Center(
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         SvgPicture.asset(
                                           'assets/done.svg',
-                                          width: width/40,
-                                          height: height/40,
+                                          width: width / 40,
+                                          height: height / 40,
                                           // color: darkYellow
                                         ),
-                                         SizedBox(
-                                          width: width/50,
+                                        SizedBox(
+                                          width: width / 50,
                                         ),
                                         Text(
                                           profileData.isActive == "yes"
@@ -339,6 +358,11 @@ class _ProfileState extends State<Profile> {
                                         InkWell(
                                           onTap: () {
                                             // Get.to(() => const SettingScreen());
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(const SnackBar(
+                                              content: Text('Comming soon.'),
+                                              backgroundColor: Colors.red,
+                                            ));
                                           },
                                           child: ListTile(
                                             leading: SvgPicture.asset(
@@ -421,7 +445,8 @@ class _ProfileState extends State<Profile> {
                                         ),
                                         InkWell(
                                           onTap: () {
-                                            Get.to(() => const HelpCenterPage());
+                                            Get.to(
+                                                () => const HelpCenterPage());
                                           },
                                           child: ListTile(
                                             leading: SvgPicture.asset(
@@ -466,11 +491,31 @@ class _ProfileState extends State<Profile> {
                       ],
                     ),
                   )
-                : Center(
-                    child: Container(
-                        height: 50,
-                        width: 50,
-                        child: const LoadingIndicatorWidget()),
-                  )));
+                : Container(), // Use an empty container if profileData is null
+
+            // Transparent background to overlay the loading indicator
+            if (isLoggingOut)
+              Container(
+                color:
+                    Colors.black.withOpacity(0.3), // Adjust opacity as needed
+              ),
+
+            // Loading indicator
+            if (isLoggingOut)
+              Center(
+                child: Container(
+                  height: 50,
+                  width: 100,
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: const LoadingIndicatorWidget(),
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
   }
 }

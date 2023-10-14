@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
@@ -60,7 +61,7 @@ class _NotifState extends State<Notif> {
   //     iOS: iosDetiles,
   //   );
   //   await notificationsPlugin.periodicallyShow(
-  //     1, 
+  //     1,
   //    'Sechedule Notification',
   //     'Every minute notification show',
   //     RepeatInterval.everyMinute,
@@ -77,34 +78,42 @@ class _NotifState extends State<Notif> {
   Widget build(BuildContext context) {
     notifier = Provider.of<ColorNotifier>(context, listen: true);
     return ScreenUtilInit(
-      builder: (_ , child)  => Scaffold(
+      builder: (_, child) => Scaffold(
         backgroundColor: notifier.getwihitecolor,
-        appBar:AppBar(title:  Text('notification'.tr),centerTitle: true,backgroundColor: darkYellow,),
+        appBar: AppBar(
+          title: Text('notification'.tr),
+          centerTitle: true,
+          backgroundColor: darkYellow,
+        ),
         body: SingleChildScrollView(
           child: Column(
-            children: [notificationcard(),
-            MyButton(
-              title: const Text('click Notification'),
-              onPressed: () {
-                log('click Notification start');
-
-              },
-            ),
-            const SizedBox(height: 10,),
-             MyButton(
-              title: const Text('periodically Notification'),
-              onPressed: () {
-                log('periodically Notification start');
-
-              },
-            ),
-             const SizedBox(height: 10,),
-             MyButton(
-              title: const Text('Stop Notification'),
-              onPressed: () {
-                log('Notification stoped');
-              },
-            )],
+            children: [
+              notificationcard(),
+              MyButton(
+                title: const Text('click Notification'),
+                onPressed: () {
+                  log('click Notification start');
+                },
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              MyButton(
+                title: const Text('periodically Notification'),
+                onPressed: () {
+                  log('periodically Notification start');
+                },
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              MyButton(
+                title: const Text('Stop Notification'),
+                onPressed: () {
+                  log('Notification stoped');
+                },
+              )
+            ],
           ),
         ),
       ),
@@ -137,8 +146,7 @@ class _NotifState extends State<Notif> {
                       ),
                       SizedBox(height: height / 200),
                       Text(
-                        
-                          'please'.tr,
+                        'please'.tr,
                         style: TextStyle(
                             fontSize: 14.5.sp,
                             fontFamily: 'Gilroy_Medium',
@@ -151,15 +159,15 @@ class _NotifState extends State<Notif> {
             ),
           ],
         ),
+
         Padding(
           padding: EdgeInsets.only(left: width / 10, top: height / 27),
-          child: Image.asset("assets/notification.png", height: height / 17),
+          child: Center(
+            child: SvgPicture.asset(
+                'assets/notification.svg',
+                color: darkYellow),
+          ),
         ),
-        
-
-
-
-           
       ],
     );
   }

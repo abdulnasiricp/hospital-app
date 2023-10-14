@@ -66,8 +66,6 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
 
         HospitalLocation = data['map_link'];
 
-
-
         // Set the state to rebuild the widget
         setState(() {});
       } else {
@@ -89,17 +87,15 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
     }
   }
 
-
-
   void makePhoneCall(String phoneNumber) async {
-  final url = 'tel:$phoneNumber';
+    final url = 'tel:$phoneNumber';
 
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
-}
 
 //////////////////////////////////////////////////////////////////////////////////////////
   /// Get All Doctor
@@ -185,369 +181,379 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                 ),
               )
             : SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Stack(
-                    children: [
-                      Container(
-                        height: 200,
-                        width: width,
-                        child: Container(
-                          child: CarouselSlider(
-                            items: sliderImages
-                                .map((item) => Container(
-                                      child: Image.network(
-                                        item,
-                                        fit: BoxFit.cover,
-                                        width: double.infinity,
-                                      ),
-                                    ))
-                                .toList(),
-                            options: CarouselOptions(
-                              aspectRatio: 2.0,
-                              autoPlay: true,
-                              viewportFraction: 1,
-                              enlargeCenterPage: true,
-                            ),
-                          ),
-                         
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          top: 150,
-                          left: width / 25,
-                          right: width / 25,
-                        ),
-                        child: Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Stack(
+                      children: [
+                        Container(
                           height: 200,
                           width: width,
-                          child: Card(
-                            color: Colors.grey[200],
-                            child: Column(
-                              children: [
-                                Row(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Container(
-                                        height: 100,
-                                        width: 100,
-                                        child:
-                                            Image.asset('assets/mayao.png'),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            HospitalName,
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          Text(HospitalAddress),
-                                          Text(HospitalEmail),
-                                          Container(
-                                            height: 50,
-                                            width: 175,
-                                            child: const Card(
-                                              child: Row(
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsets.all(8.0),
-                                                    child: Text(
-                                                      '   200 \n General',
-                                                      style: TextStyle(
-                                                          fontSize: 10),
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsets.all(8.0),
-                                                    child: Text(
-                                                      '     20 \n ICU/CCU',
-                                                      style: TextStyle(
-                                                          fontSize: 10),
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsets.all(8.0),
-                                                    child: Text(
-                                                      '     20 \n Emergency',
-                                                      style: TextStyle(
-                                                          fontSize: 10),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    makePhoneCall(HospitalPhone);
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 30),
-                                    child: Container(
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            child: SvgPicture.asset(
-                                              'assets/phone.svg',
-                                              width: 15,
-                                              height: 15,
-                                              color: darkYellow,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text(
-                                            HospitalPhone,
-                                            style: const TextStyle(
-                                              color: Colors.blue,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 30),
-                                  child: Container(
-                                    child: InkWell(
-                                      onTap: () {
-                                        openMapUrl();
-                                      },
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            child: SvgPicture.asset(
-                                              'assets/location.svg',
-                                              width: 15,
-                                              height: 15,
-                                              color: darkYellow,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text(
-                                            'viewLocation'.tr,
-                                            style: const TextStyle(
-                                              color: Colors.blue,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
+                          child: Container(
+                            child: CarouselSlider(
+                              items: sliderImages
+                                  .map((item) => Container(
+                                        child: Image.network(
+                                          item,
+                                          fit: BoxFit.cover,
+                                          width: double.infinity,
+                                          loadingBuilder: (context, child,
+                                              loadingProgress) {
+                                            if (loadingProgress == null) {
+                                              return child;
+                                            } else {
+                                              return CircularProgressIndicator(
+                                                color: darkYellow,
+                                                backgroundColor: yellow,
+                                              );
+                                            }
+                                          },
+                                        ),
+                                      ))
+                                  .toList(),
+                              options: CarouselOptions(
+                                aspectRatio: 2.0,
+                                autoPlay: true,
+                                viewportFraction: 1,
+                                enlargeCenterPage: true,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'doctors'.tr,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
+                        Padding(
+                          padding: EdgeInsets.only(
+                            top: 150,
+                            left: width / 25,
+                            right: width / 25,
+                          ),
+                          child: Container(
+                            height: 200,
+                            width: width,
+                            child: Card(
+                              color: Colors.grey[200],
+                              child: Column(
+                                children: [
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Container(
+                                          height: 100,
+                                          width: 100,
+                                          child:
+                                              Image.asset('assets/mayao.png'),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              HospitalName,
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(HospitalAddress),
+                                            Text(HospitalEmail),
+                                            Container(
+                                              height: 50,
+                                              width: 175,
+                                              child: const Card(
+                                                child: Row(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsets.all(8.0),
+                                                      child: Text(
+                                                        '   200 \n General',
+                                                        style: TextStyle(
+                                                            fontSize: 10),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsets.all(8.0),
+                                                      child: Text(
+                                                        '     20 \n ICU/CCU',
+                                                        style: TextStyle(
+                                                            fontSize: 10),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsets.all(8.0),
+                                                      child: Text(
+                                                        '     20 \n Emergency',
+                                                        style: TextStyle(
+                                                            fontSize: 10),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      makePhoneCall(HospitalPhone);
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 30),
+                                      child: Container(
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              child: SvgPicture.asset(
+                                                'assets/phone.svg',
+                                                width: 15,
+                                                height: 15,
+                                                color: darkYellow,
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            Text(
+                                              HospitalPhone,
+                                              style: const TextStyle(
+                                                color: Colors.blue,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 30),
+                                    child: Container(
+                                      child: InkWell(
+                                        onTap: () {
+                                          openMapUrl();
+                                        },
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              child: SvgPicture.asset(
+                                                'assets/location.svg',
+                                                width: 15,
+                                                height: 15,
+                                                color: darkYellow,
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            Text(
+                                              'viewLocation'.tr,
+                                              style: const TextStyle(
+                                                color: Colors.blue,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                       ],
                     ),
-                  ),
-                  Column(
-                    children: [
-                      Card(
-                        color: Colors.white70.withOpacity(0.6),
-                        child: Container(
-                          width: width,
-                          height: 500,
-                          child: isLoading
-                              ? Center(
-                                  child: Container(
-                                    height: 50,
-                                    width: 50,
-                                    color: Colors.transparent,
-                                    child: const LoadingIndicatorWidget(),
-                                  ),
-                                )
-                              : ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: DoneListData!.length,
-                                  itemBuilder: (context, index) {
-                                    return Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          width: width / 2,
-                                          height: 250,
-                                          child: Card(
-                                            color:
-                                                Colors.white.withOpacity(0.9),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(5.0),
-                                              child: Column(
-                                                children: [
-                                                  ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    child: Image.network(
-                                                      '${DoneListData![index]['image']}', // Replace with your image URL
-                                                      width:
-                                                          100.0, // Set the width (optional)
-                                                      height:
-                                                          100.0, // Set the height (optional)
-                                                      fit: BoxFit
-                                                          .cover, // Set the BoxFit (optional)
-                                                      loadingBuilder: (context,
-                                                          child,
-                                                          loadingProgress) {
-                                                        if (loadingProgress ==
-                                                            null) {
-                                                          return child;
-                                                        } else {
-                                                          return CircularProgressIndicator(
-                                                            color: darkYellow,
-                                                            backgroundColor:
-                                                                yellow,
-                                                          );
-                                                        }
-                                                      },
-                                                    ),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Text(
-                                                    'Dr. ${DoneListData![index]['name']} ${DoneListData![index]['surname']}',
-                                                    maxLines: 1,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 13,
-                                                    ),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Text(
-                                                    '${DoneListData![index]['specialization']}',
-                                                    maxLines: 1,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Text(
-                                                    '${DoneListData![index]['qualification']}',
-                                                    maxLines: 1,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  Container(
-                                                    height: 30,
-                                                    width: width,
-                                                    decoration: BoxDecoration(
-                                                      border: Border.all(),
-                                                      color: yellow,
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'doctors'.tr,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        Card(
+                          color: Colors.white70.withOpacity(0.6),
+                          child: Container(
+                            width: width,
+                            height: 250,
+                            child: isLoading
+                                ? Center(
+                                    child: Container(
+                                      height: 50,
+                                      width: 50,
+                                      color: Colors.transparent,
+                                      child: const LoadingIndicatorWidget(),
+                                    ),
+                                  )
+                                : ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: DoneListData!.length,
+                                    itemBuilder: (context, index) {
+                                      return Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            width: width / 2,
+                                            height: 250,
+                                            child: Card(
+                                              color:
+                                                  Colors.white.withOpacity(0.9),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(5.0),
+                                                child: Column(
+                                                  children: [
+                                                    ClipRRect(
                                                       borderRadius:
-                                                          BorderRadius
-                                                              .circular(10),
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      child: Image.network(
+                                                        '${DoneListData![index]['image']}', // Replace with your image URL
+                                                        width:
+                                                            100.0, // Set the width (optional)
+                                                        height:
+                                                            100.0, // Set the height (optional)
+                                                        fit: BoxFit
+                                                            .cover, // Set the BoxFit (optional)
+                                                        loadingBuilder: (context,
+                                                            child,
+                                                            loadingProgress) {
+                                                          if (loadingProgress ==
+                                                              null) {
+                                                            return child;
+                                                          } else {
+                                                            return CircularProgressIndicator(
+                                                              color: darkYellow,
+                                                              backgroundColor:
+                                                                  yellow,
+                                                            );
+                                                          }
+                                                        },
+                                                      ),
                                                     ),
-                                                    child: InkWell(
-                                                      onTap: () {
-                                                        Get.to(() =>
-                                                            SelectDateScreen(
-                                                              doctorId:
-                                                                  DoneListData![
-                                                                          index]
-                                                                      ['id'],
-                                                              doctorImage:
-                                                                  DoneListData![
-                                                                          index]
-                                                                      [
-                                                                      'image'],
-                                                              doctorName: DoneListData![
-                                                                          index]
-                                                                      [
-                                                                      'name'] +
-                                                                  DoneListData![
-                                                                          index]
-                                                                      [
-                                                                      'surname'],
-                                                              doctorSpecialization:
-                                                                  DoneListData![
-                                                                          index]
-                                                                      [
-                                                                      'specialization'],
-                                                            ));
-                                                      },
-                                                      child: Center(
-                                                        child: Text(
-                                                          'bookAppointment'
-                                                              .tr,
-                                                          style:
-                                                              const TextStyle(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold,
+                                                    const SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                    Text(
+                                                      'Dr. ${DoneListData![index]['name']} ${DoneListData![index]['surname']}',
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 13,
+                                                      ),
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                    Text(
+                                                      '${DoneListData![index]['specialization']}',
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                    Text(
+                                                      '${DoneListData![index]['qualification']}',
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Container(
+                                                      height: 30,
+                                                      width: width,
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(),
+                                                        color: yellow,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                      ),
+                                                      child: InkWell(
+                                                        onTap: () {
+                                                          Get.to(() =>
+                                                              SelectDateScreen(
+                                                                doctorId:
+                                                                    DoneListData![
+                                                                            index]
+                                                                        ['id'],
+                                                                doctorImage:
+                                                                    DoneListData![
+                                                                            index]
+                                                                        [
+                                                                        'image'],
+                                                                doctorName: DoneListData![
+                                                                            index]
+                                                                        [
+                                                                        'name'] +
+                                                                    DoneListData![
+                                                                            index]
+                                                                        [
+                                                                        'surname'],
+                                                                doctorSpecialization:
+                                                                    DoneListData![
+                                                                            index]
+                                                                        [
+                                                                        'specialization'],
+                                                              ));
+                                                        },
+                                                        child: Center(
+                                                          child: Text(
+                                                            'bookAppointment'
+                                                                .tr,
+                                                            style:
+                                                                const TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                ),
+                                        ],
+                                      );
+                                    },
+                                  ),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
       ),
     );
   }

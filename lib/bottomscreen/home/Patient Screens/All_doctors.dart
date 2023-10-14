@@ -104,7 +104,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
         //     icon: const Icon(Icons.arrow_back),
         //   ),
         // ),
-         appBar: PreferredSize(
+        appBar: PreferredSize(
             preferredSize: const Size(double.infinity, 65),
             child: SafeArea(
                 child: Container(
@@ -136,7 +136,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
           child: Center(
             child: isLoading
                 ? SingleChildScrollView(
-                  child: GridView.builder(
+                    child: GridView.builder(
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
@@ -205,7 +205,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                         );
                       },
                     ),
-                )
+                  )
                 : Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Column(
@@ -267,16 +267,14 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                                   fit: BoxFit
                                                       .cover, // Set the BoxFit (optional)
                                                   loadingBuilder: (context,
-                                                      child,
-                                                      loadingProgress) {
+                                                      child, loadingProgress) {
                                                     if (loadingProgress ==
                                                         null) {
                                                       return child;
                                                     } else {
                                                       return CircularProgressIndicator(
                                                         color: darkYellow,
-                                                        backgroundColor:
-                                                            yellow,
+                                                        backgroundColor: yellow,
                                                       );
                                                     }
                                                   },
@@ -325,29 +323,24 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                               ),
                                               child: InkWell(
                                                 onTap: () {
-                                                  Get.to(
-                                                      () => SelectDateScreen(
-                                                            doctorId:
-                                                                filteredData![
-                                                                        index]
-                                                                    ['id'],
-                                                            doctorImage:
-                                                                filteredData![
-                                                                        index]
-                                                                    ['image'],
-                                                            doctorName: filteredData![
-                                                                        index]
+                                                  Get.to(() => SelectDateScreen(
+                                                        doctorId:
+                                                            filteredData![index]
+                                                                ['id'],
+                                                        doctorImage:
+                                                            filteredData![index]
+                                                                ['image'],
+                                                        doctorName:
+                                                            filteredData![index]
                                                                     ['name'] +
                                                                 filteredData![
                                                                         index]
-                                                                    [
-                                                                    'surname'],
-                                                            doctorSpecialization:
-                                                                filteredData![
-                                                                        index]
-                                                                    [
-                                                                    'specialization'],
-                                                          ));
+                                                                    ['surname'],
+                                                        doctorSpecialization:
+                                                            filteredData![index]
+                                                                [
+                                                                'specialization'],
+                                                      ));
                                                 },
                                                 child: Center(
                                                   child: Text(

@@ -222,9 +222,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
             IconButton(
                 color: Colors.blue,
                 onPressed: () {
-                  Get.to(() => const Notif(
-                       
-                      ));
+                  Get.to(() => const Notif());
                 },
                 icon: const Icon(
                   Icons.notifications,
@@ -308,6 +306,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                             ),
                           ],
                         ),
+
+                        ///   if (totalDues > 0)   ////  we will use this
                         ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Card(
