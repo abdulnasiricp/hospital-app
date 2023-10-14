@@ -23,8 +23,19 @@ Future<void> main() async {
   await FlutterDownloader.initialize(debug: true); // Set to false in production
 
   //////////////////////////////////////////////////////////////////
+  // // Initialize SharedPreferences
+  final sharedPreferences = await SharedPreferences.getInstance();
 
-  runApp(const MyApp());
+  String? selectedLanguage = sharedPreferences.getString('selectedLanguage') ??
+      'en'; // Default to 'en' if not found
+
+  String defaultLang = selectedLanguage == 'ne' ? 'ne_NP' : 'en_US';
+
+  print('========================> $defaultLang');
+
+  runApp(MyApp(
+    defaultLanguage: defaultLang,
+  ));
 
   Workmanager().initialize(callbackDispatcher);
   Workmanager().registerPeriodicTask(
@@ -39,7 +50,11 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final String defaultLanguage;
+  const MyApp({
+    Key? key,
+    required this.defaultLanguage,
+  }) : super(key: key);
 
   Future<bool> _isLoggedIn() async {
     final sharedPreferences = await SharedPreferences.getInstance();
@@ -55,15 +70,13 @@ class MyApp extends StatelessWidget {
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => ColorNotifier()),
-          ChangeNotifierProvider(create: (_) => LoginController()),
-          ChangeNotifierProvider(create: (_) => NotificationProvider()),
         ],
         child: KhaltiScope(
           publicKey: "test_public_key_c976acda9afe490881d18f9856e6f896",
           enabledDebugging: true, // Set to false in production
           builder: (context, navKey) {
             return GetMaterialApp(
-              locale: const Locale('en', 'US'),
+              locale: Locale('$defaultLanguage'),
               translations: Translation(),
               debugShowCheckedModeBanner: false,
               theme: Themes().lightTheme,

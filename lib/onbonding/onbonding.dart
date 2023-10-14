@@ -106,7 +106,7 @@ class _OnbondingState extends State<Onbonding> {
                                   child: Center(
                                     child: Column(
                                       children: [
-                                        const SizedBox(height: 20),
+                                        const SizedBox(height: 50),
                                         Text(
                                           EnString.qualityReputations,
                                           style: TextStyle(
@@ -151,7 +151,7 @@ class _OnbondingState extends State<Onbonding> {
                                   child: Center(
                                     child: Column(
                                       children: [
-                                        const SizedBox(height: 20),
+                                        const SizedBox(height: 50),
                                         Text(
                                           EnString.onlinehealthcheck,
                                           style: TextStyle(
@@ -196,7 +196,7 @@ class _OnbondingState extends State<Onbonding> {
                                   child: Center(
                                     child: Column(
                                       children: [
-                                        const SizedBox(height: 20),
+                                        const SizedBox(height: 50),
                                         Text(
                                           EnString.researchdeeptesting,
                                           style: TextStyle(

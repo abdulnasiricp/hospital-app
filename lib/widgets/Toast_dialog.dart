@@ -6,12 +6,28 @@ import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ToastDialog extends StatelessWidget {
   const ToastDialog({
     Key? key,
   }) : super(key: key);
+/////////////////////////////////////////////////////////////////////
+   // Define a key to store the selected language
+  static const String selectedLanguageKey = 'selectedLanguage';
 
+  // Function to save the selected language
+  Future<void> saveSelectedLanguage(String languageCode) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(selectedLanguageKey, languageCode,);
+  }
+
+  // Function to retrieve the selected language
+  Future<String?> getSelectedLanguage() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(selectedLanguageKey);
+  }
+///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -52,6 +68,8 @@ class ToastDialog extends StatelessWidget {
                       color: darkYellow),
                   child: ListTile(
                     onTap: () {
+                      // Save the selected language when tapped
+                    saveSelectedLanguage('en');
                       Get.updateLocale(const Locale('en', 'US'));
                       Get.offAll(() => const Bottomhome());
                     },
@@ -75,6 +93,8 @@ class ToastDialog extends StatelessWidget {
                   child: ListTile(
                     hoverColor: whitecolor,
                     onTap: () {
+                      // Save the selected language when tapped
+                    saveSelectedLanguage('ne');
                       Get.updateLocale(const Locale('ne', 'NP'));
                       Get.offAll(() => const Bottomhome());
                     },

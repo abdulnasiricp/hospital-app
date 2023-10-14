@@ -156,14 +156,7 @@ class _PathalogyState extends State<Pathalogy> {
       isLoading = false; // Set isLoading to false after data is fetched
     });
 
-    final notificationProvider =
-        Provider.of<NotificationProvider>(context, listen: false);
-    const notificationMessage = 'New data are added';
-    final notificationData = {
-      'key1': 'value1',
-      'key2': 'value2'
-    }; // Replace with your data
-    notificationProvider.addNotification(notificationMessage, notificationData);
+    
   }
 
   /////////////////////////////////////////////////////////////////////////////////////
