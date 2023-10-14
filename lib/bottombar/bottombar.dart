@@ -6,7 +6,6 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Card/
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/HomeTransaction_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Patient_home.dart';
 import 'package:TezHealthCare/screens/notification.dart';
-import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -143,7 +142,7 @@ class _BottomhomeState extends State<Bottomhome> {
           ),
           drawer: const Drawer(
               width: double.infinity, child: AboutUSScreen()), // Left drawer
-          endDrawer:  const NotificationScreen(),
+          endDrawer: const Notif(),
         ),
       ),
     );
@@ -154,7 +153,7 @@ class _BottomhomeState extends State<Bottomhome> {
       '/': (context) {
         return [
           const PatientHomePage(),
-          const HomeTransactionBill(),
+          const HomeTransactionBill(payload: 'payload'),
           const CardScreen(),
           const Profile(),
         ].elementAt(index);

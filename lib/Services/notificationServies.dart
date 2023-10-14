@@ -2,7 +2,9 @@
 
 import 'dart:developer';
 
+import 'package:TezHealthCare/Services/notification_worker.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:workmanager/workmanager.dart';
 
 class NotificationServies {
   FlutterLocalNotificationsPlugin notificationsPlugin =
@@ -53,24 +55,26 @@ class NotificationServies {
     );
 
      // Define the payload when creating the notification
-  const String payload = 'your_payload_here';
+  const String payload = 'navigate_to_home_transaction_bill';
 
     await notificationsPlugin.show(
-        1000, 'New Data', 'New data are added', notificationDetails,payload:  payload);
+        1000, 'New Data', 'New data are added please check your transaction Bill ', notificationDetails,payload:  payload);
   }
 
 
- 
+  // Workmanager initialization and registration
+  void initializeWorkManager() {
+    Workmanager().initialize(callbackDispatcher);
+    Workmanager().registerPeriodicTask(
+      "1", // Task ID (should be unique)
+      "checkForNewDataTask", // Task name
+      initialDelay: const Duration(minutes: 1), // Delay before the first execution
+      frequency: const Duration(minutes: 15), // Periodic check every 15 minutes
+      inputData: <String, dynamic>{'payload': 'navigate_to_home_transaction_bill'},
+    );
+  }
 
  
  
-  // Workmanager().initialize(callbackDispatcher);
-  // Workmanager().registerPeriodicTask(
-  //   "1000", // Task ID
-  //   "checkForUpdatesTask", // Task name
-  //   initialDelay: const Duration(minutes: 1), // Delay before the first execution
-  //   frequency: const Duration(minutes: 15), // Periodic check every 15 minutes
-  // );
-
   
 }

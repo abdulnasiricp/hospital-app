@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace, deprecated_member_use, avoid_unnecessary_containers
+// ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace, deprecated_member_use, avoid_unnecessary_containers, unused_element
 
 import 'dart:convert';
 
@@ -72,6 +72,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
   void dispose() {
     super.dispose();
   }
+
 ///////////////////////////////////////////////////////////////////
   //get Shared preferance data
 
@@ -191,11 +192,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
     });
   }
 
-  ///  /////////////////////////////////////////////////////////////////////////
-
 //////////////////////////////////////////////////////////////////////////////////////
-///
-
 
   @override
   Widget build(BuildContext context) {
@@ -225,7 +222,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
             IconButton(
                 color: Colors.blue,
                 onPressed: () {
-                  Get.to(() =>  const NotificationScreen());
+                  Get.to(() => const Notif(
+                       
+                      ));
                 },
                 icon: const Icon(
                   Icons.notifications,
@@ -349,8 +348,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                       ],
                                     ),
                                     ElevatedButton(
-                                      onPressed: () {
-                                        // showNotification();
+                                      onPressed: () async {
                                         Get.off(
                                           () => SelectPaymentMethod(
                                               totalAmountInRs: rupeesAmount,
@@ -427,8 +425,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               Text('transactionBill'.tr,
                                                   style: const TextStyle(
                                                     fontSize: 7,
-                                                    fontWeight:
-                                                        FontWeight.bold,
+                                                    fontWeight: FontWeight.bold,
                                                   ))
                                             ],
                                           ),
@@ -463,8 +460,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               Text('card'.tr,
                                                   style: const TextStyle(
                                                     fontSize: 7,
-                                                    fontWeight:
-                                                        FontWeight.bold,
+                                                    fontWeight: FontWeight.bold,
                                                   ))
                                             ],
                                           ),
@@ -499,8 +495,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               const Text(EnString.idp,
                                                   style: TextStyle(
                                                     fontSize: 7,
-                                                    fontWeight:
-                                                        FontWeight.bold,
+                                                    fontWeight: FontWeight.bold,
                                                   ))
                                             ],
                                           ),
@@ -535,8 +530,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               Text('pathology'.tr,
                                                   style: const TextStyle(
                                                     fontSize: 7,
-                                                    fontWeight:
-                                                        FontWeight.bold,
+                                                    fontWeight: FontWeight.bold,
                                                   ))
                                             ],
                                           ),
@@ -571,8 +565,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               Text('radiology'.tr,
                                                   style: const TextStyle(
                                                     fontSize: 7,
-                                                    fontWeight:
-                                                        FontWeight.bold,
+                                                    fontWeight: FontWeight.bold,
                                                   ))
                                             ],
                                           ),
@@ -607,8 +600,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               Text('pharmacy'.tr,
                                                   style: const TextStyle(
                                                     fontSize: 7,
-                                                    fontWeight:
-                                                        FontWeight.bold,
+                                                    fontWeight: FontWeight.bold,
                                                   ))
                                             ],
                                           ),
@@ -643,8 +635,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               const Text(EnString.usg,
                                                   style: TextStyle(
                                                     fontSize: 7,
-                                                    fontWeight:
-                                                        FontWeight.bold,
+                                                    fontWeight: FontWeight.bold,
                                                   ))
                                             ],
                                           ),
@@ -680,8 +671,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               Text('surgery'.tr,
                                                   style: const TextStyle(
                                                     fontSize: 7,
-                                                    fontWeight:
-                                                        FontWeight.bold,
+                                                    fontWeight: FontWeight.bold,
                                                   ))
                                             ],
                                           ),
@@ -716,8 +706,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               Text('bloodBank'.tr,
                                                   style: const TextStyle(
                                                     fontSize: 7,
-                                                    fontWeight:
-                                                        FontWeight.bold,
+                                                    fontWeight: FontWeight.bold,
                                                   ))
                                             ],
                                           ),
@@ -752,8 +741,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               Text('ambulance'.tr,
                                                   style: const TextStyle(
                                                     fontSize: 7,
-                                                    fontWeight:
-                                                        FontWeight.bold,
+                                                    fontWeight: FontWeight.bold,
                                                   ))
                                             ],
                                           ),
@@ -762,8 +750,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     ),
                                     InkWell(
                                       onTap: () {
-                                        Get.offAll(
-                                            () => const Physiotherapy());
+                                        Get.offAll(() => const Physiotherapy());
                                       },
                                       child: Container(
                                         width: 100,
@@ -789,8 +776,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               Text('physioTherapy'.tr,
                                                   style: const TextStyle(
                                                     fontSize: 7,
-                                                    fontWeight:
-                                                        FontWeight.bold,
+                                                    fontWeight: FontWeight.bold,
                                                   ))
                                             ],
                                           ),
@@ -825,8 +811,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               Text('certificates'.tr,
                                                   style: const TextStyle(
                                                     fontSize: 7,
-                                                    fontWeight:
-                                                        FontWeight.bold,
+                                                    fontWeight: FontWeight.bold,
                                                   ))
                                             ],
                                           ),
@@ -861,8 +846,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               Text('bedHistory'.tr,
                                                   style: const TextStyle(
                                                     fontSize: 7,
-                                                    fontWeight:
-                                                        FontWeight.bold,
+                                                    fontWeight: FontWeight.bold,
                                                   ))
                                             ],
                                           ),
@@ -871,8 +855,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     ),
                                     InkWell(
                                       onTap: () {
-                                        Get.to(
-                                            () => const Liveconsultation());
+                                        Get.to(() => const Liveconsultation());
                                       },
                                       child: Container(
                                         width: 100,
@@ -898,8 +881,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               Text('liveConsultations'.tr,
                                                   style: const TextStyle(
                                                     fontSize: 7,
-                                                    fontWeight:
-                                                        FontWeight.bold,
+                                                    fontWeight: FontWeight.bold,
                                                   ))
                                             ],
                                           ),
