@@ -5,7 +5,6 @@ import 'dart:async';
 import 'package:TezHealthCare/Services/notificationServies.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/view_bill.dart';
-import 'package:TezHealthCare/main.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -17,10 +16,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:workmanager/workmanager.dart';
 
 class HomeTransactionBill extends StatefulWidget {
-  const HomeTransactionBill({Key? key}) : super(key: key);
+   final String payload;
+  const HomeTransactionBill({Key? key,  required this.payload,}) : super(key: key);
 
   @override
   _HomeTransactionBillState createState() => _HomeTransactionBillState();
@@ -142,45 +141,11 @@ int previousDataLength = 0;
 
 // Function to handle notification click and navigate to the screen
 Future<void> _navigateToScreen(String payload) async {
-  if (payload != null && payload == 'your_payload_here') {
-    Get.offAll(const HomeTransactionBill());
+  if (payload != null && payload == 'navigate_to_home_transaction_bill') {
+    Get.offAll( HomeTransactionBill(payload: payload,));
   }
 }
-// Modify your fetchData function to keep track of the previous data length
-void callbackDispatcher() {
-  Workmanager().executeTask((task, inputData) async {
-    // showNotification();
 
-    return Future.value(true);
-  });
-}
-
-  // // show notification
-  // void showNotification() async {
-  //   AndroidNotificationDetails androidDetiles =
-  //       const AndroidNotificationDetails(
-  //     'Notification',
-  //     'Tez health Care',
-  //     priority: Priority.max,
-  //     importance: Importance.max,
-  //   );
-
-  //   DarwinNotificationDetails iosDetiles = const DarwinNotificationDetails(
-  //     presentAlert: true,
-  //     presentBadge: true,
-  //     presentSound: true,
-  //   );
-  //   NotificationDetails notificationDetails = NotificationDetails(
-  //     android: androidDetiles,
-  //     iOS: iosDetiles,
-  //   );
-
-  //    // Define the payload when creating the notification
-  // const String payload = 'your_payload_here';
-
-  //   await notificationsPlugin.show(
-  //       1000, 'New Data', 'New data are added', notificationDetails,payload:  payload);
-  // }
 
 
 NotificationServies notificationServies=NotificationServies();
