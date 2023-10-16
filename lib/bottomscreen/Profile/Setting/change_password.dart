@@ -1,7 +1,11 @@
-// ignore_for_file: camel_case_types, non_constant_identifier_names, avoid_print, sized_box_for_whitespace
-
 import 'dart:convert';
-
+import 'package:TezHealthCare/screens/auth/Sigin_main_screen.dart';
+import 'package:TezHealthCare/utils/My_button.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get/get.dart';
+import 'dart:convert';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/My_button.dart';
@@ -13,9 +17,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
-import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
-
 class Change_Password extends StatefulWidget {
   const Change_Password({Key? key}) : super(key: key);
 
@@ -25,36 +26,32 @@ class Change_Password extends StatefulWidget {
 
 class _Change_PasswordState extends State<Change_Password> {
   String _errorMessage = '';
-////////////////////////////////////////////////////////////////////////////////////////////
-// get Shared prefernce data
 
-  late String patientId = '';
+  // Shared preference data
+  late String patientId;
+  late bool isloading;
+
+  // Controllers for text fields
+  final currentPasswordController = TextEditingController();
+  final newPasswordController = TextEditingController();
+  final confirmNewPasswordController = TextEditingController();
+
+  final formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    isloading = false;
+    LoadData();
+  }
+
+  // Load Shared preference data
   LoadData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     patientId = sp.getString('patientidrecord') ?? '';
     print(patientId);
     setState(() {});
   }
-
-////////////////////////////////////////////////////////////////////////////////////////////
-  ///
-  getData() async {
-    await LoadData();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getData();
-  }
-
-////////////////////////////////////////////////////////////////////////////////////////////
-  final currentPasswordController = TextEditingController();
-  final newPasswordController = TextEditingController();
-  final confirmNewPasswordController = TextEditingController();
-
-  final formKey = GlobalKey<FormState>();
-  var isloading = false;
 
   Future<void> changePassword() async {
     final String currentPassword = currentPasswordController.text;
@@ -64,6 +61,15 @@ class _Change_PasswordState extends State<Change_Password> {
     if (newPassword != confirmNewPassword) {
       setState(() {
         _errorMessage = 'New Passwords do not match.';
+        isloading = false;
+      });
+      return;
+    }
+
+    if (newPassword.length < 8) {
+      setState(() {
+        _errorMessage = 'Password must be at least 8 characters long.';
+        isloading = false;
       });
       return;
     }
@@ -79,7 +85,7 @@ class _Change_PasswordState extends State<Change_Password> {
         }),
         headers: {
           'Soft-service': 'TezHealthCare',
-          'Auth-key': 'zbuks_ram859553467'
+          'Auth-key': 'zbuks_ram859553467',
         },
       );
 
@@ -94,10 +100,7 @@ class _Change_PasswordState extends State<Change_Password> {
           });
         } else if (responseJson['status'] == '1') {
           // Handle successful password change scenario
-          setState(() {
-            isloading = false;
-          });
-          Get.off(() => const Bottomhome());
+          Get.offAll(() => const MainSiginScreen());
 
           Fluttertoast.showToast(
             msg: 'Password changed Successfully',
@@ -110,29 +113,29 @@ class _Change_PasswordState extends State<Change_Password> {
         final errorResponse = json.decode(response.body);
         setState(() {
           _errorMessage = errorResponse['message'];
+          isloading = false;
         });
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Change password failed. Please try again.'),
           backgroundColor: Colors.red,
         ));
-        setState(() {
-          isloading = false;
-        });
       }
     } catch (e) {
       // Handle network or other errors
       setState(() {
-        _errorMessage = 'An error occurred. Please try again later.';
+        _errorMessage = 'Your old password is wrong.';
+        isloading = false;
       });
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Change password failed. Please try again.'),
+        backgroundColor: Colors.red,
+      ));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    height = MediaQuery.of(context).size.height;
-    width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Utils.scaffoldBackgroundColor,
       appBar: AppBar(
         title: const Text('Change Password'),
         centerTitle: true,
@@ -142,12 +145,14 @@ class _Change_PasswordState extends State<Change_Password> {
       body: isloading
           ? Center(
               child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Container(
-                      height: 50,
-                      width: 50,
-                      color: Colors.transparent,
-                      child: const LoadingIndicatorWidget())),
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  height: 50,
+                  width: 50,
+                  color: Colors.transparent,
+                  child: const LoadingIndicatorWidget(),
+                ),
+              ),
             )
           : SingleChildScrollView(
               child: Stack(
@@ -155,10 +160,12 @@ class _Change_PasswordState extends State<Change_Password> {
                   Container(
                     height: 170,
                     decoration: BoxDecoration(
-                        color: darkblue,
-                        borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(30),
-                            bottomRight: Radius.circular(30))),
+                      color: darkblue,
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(30),
+                        bottomRight: Radius.circular(30),
+                      ),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(20.0),
@@ -178,8 +185,9 @@ class _Change_PasswordState extends State<Change_Password> {
                               const Text(
                                 'Current Password',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
                               ),
                               const SizedBox(
                                 height: 5,
@@ -196,12 +204,13 @@ class _Change_PasswordState extends State<Change_Password> {
                                 onTapOutside: (event) =>
                                     FocusScope.of(context).unfocus(),
                                 decoration: InputDecoration(
-                                    fillColor: Colors.white,
-                                    filled: true,
-                                    hintText: 'Enter Old password',
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    )),
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                  hintText: 'Enter Old password',
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
                               ),
                               const SizedBox(
                                 height: 20,
@@ -209,8 +218,9 @@ class _Change_PasswordState extends State<Change_Password> {
                               const Text(
                                 'New Password',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
                               ),
                               const SizedBox(
                                 height: 5,
@@ -219,6 +229,8 @@ class _Change_PasswordState extends State<Change_Password> {
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return 'Enter New password';
+                                  } else if (value.length < 8) {
+                                    return 'Password must be at least 8 characters long';
                                   } else {
                                     return null;
                                   }
@@ -227,12 +239,13 @@ class _Change_PasswordState extends State<Change_Password> {
                                 onTapOutside: (event) =>
                                     FocusScope.of(context).unfocus(),
                                 decoration: InputDecoration(
-                                    fillColor: Colors.white,
-                                    filled: true,
-                                    hintText: 'Enter new password',
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    )),
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                  hintText: 'Enter new password',
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
                               ),
                               const SizedBox(
                                 height: 20,
@@ -240,8 +253,9 @@ class _Change_PasswordState extends State<Change_Password> {
                               const Text(
                                 'Confirm New Password',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
                               ),
                               const SizedBox(
                                 height: 5,
@@ -250,6 +264,8 @@ class _Change_PasswordState extends State<Change_Password> {
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return 'Enter confirm password';
+                                  } else if (value.length < 8) {
+                                    return 'Password must be at least 8 characters long';
                                   } else {
                                     return null;
                                   }
@@ -258,12 +274,13 @@ class _Change_PasswordState extends State<Change_Password> {
                                 onTapOutside: (event) =>
                                     FocusScope.of(context).unfocus(),
                                 decoration: InputDecoration(
-                                    fillColor: Colors.white,
-                                    filled: true,
-                                    hintText: 'Enter confirm password',
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    )),
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                  hintText: 'Enter confirm password',
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
                               ),
                               const SizedBox(
                                 height: 10,
@@ -273,7 +290,7 @@ class _Change_PasswordState extends State<Change_Password> {
                                 style: const TextStyle(color: Colors.red),
                               ),
                               const SizedBox(
-                                height: 30,
+                                height: 20,
                               ),
                               Container(
                                 width: double.infinity,
@@ -281,12 +298,10 @@ class _Change_PasswordState extends State<Change_Password> {
                                 child: MyButton(
                                   title: const Text('Change Password'),
                                   onPressed: () {
-                                    if (formKey.currentState!.validate()) {
-                                      changePassword();
-                                      setState(() {
-                                        isloading = true;
-                                      });
-                                    }
+                                    setState(() {
+                                      isloading = true;
+                                    });
+                                    changePassword();
                                   },
                                 ),
                               ),

@@ -1,5 +1,3 @@
-// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, sized_box_for_whitespace, unnecessary_string_interpolations, avoid_print, unused_import
-
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
@@ -111,148 +109,159 @@ class _Blood_BankState extends State<Blood_Bank> {
         backgroundColor: darkYellow,
       ),
       body: Center(
-        child: RefreshIndicator(
-          onRefresh: _handleRefresh,
-          child: Column(
-            children: <Widget>[
-              if (isLoading)
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Container(
-                    height: 50,
-                    width: 50,
-                    color: Colors.transparent,
-                    child: const LoadingIndicatorWidget(),
-                  ),
+        child: isLoading
+            ? Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  height: 50,
+                  width: 50,
+                  color: Colors.transparent,
+                  child: const LoadingIndicatorWidget(),
                 ),
-              if (errorMessage.isNotEmpty)
-                Center(
-                  child: Text(errorMessage),
-                ),
-              if (!isLoading && errorMessage.isEmpty)
-                Expanded(
-                  child: (bloodIssueData.isEmpty && bloodComponentData.isEmpty)
-                      ? Center(
-                          child: Container(
-                            height: 150,
-                            width: 150,
-                            child: Lottie.asset(
-                              'assets/No_Data_Found.json',
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        )
-                      : Card(
-                          child: ListView.builder(
-                            itemCount: bloodIssueData.length +
-                                bloodComponentData.length,
-                            itemBuilder: (context, index) {
-                              final Map<String, dynamic> item =
-                                  index < bloodIssueData.length
-                                      ? bloodIssueData[index]
-                                      : bloodComponentData[
-                                          index - bloodIssueData.length];
-
-                              // Customize the displayed information here
-                              final String id = item['id'];
-                              final String dateOfIssue = item['date_of_issue'];
-                              final String reference = item['reference'];
-                              final String netAmount = item['net_amount'];
-                              final String gender = item['gender'];
-                              final String patientName = item['patient_name'];
-                              final String donorName = item['donor_name'];
-                              final String volume = item['volume'];
-                              final String transactionId =
-                                  item['transaction_id'];
-
-                              return Card(
-                                child: ListTile(
-                                  title: Text(
-                                    'ID: $id',
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  subtitle: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          const Text('Date of Issue: '),
-                                          Text(
-                                            '$dateOfIssue',
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          const Text('Reference: '),
-                                          Text('$reference',
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold)),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          const Text('Net Amount: '),
-                                          Text('$netAmount',
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold)),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          const Text('Gender: '),
-                                          Text('$gender',
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold)),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          const Text('Patient Name: '),
-                                          Text('$patientName',
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold)),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          const Text('Donor Name: '),
-                                          Text('$donorName',
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold)),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          const Text('Volume: '),
-                                          Text('$volume',
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold)),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          const Text('Transaction ID: '),
-                                          Text('$transactionId',
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold)),
-                                        ],
-                                      ),
-                                    ],
+              )
+            : RefreshIndicator(
+                onRefresh: _handleRefresh,
+                child: Column(
+                  children: <Widget>[
+                    if (errorMessage.isNotEmpty)
+                      Center(
+                        child: Text(errorMessage),
+                      ),
+                    if (!isLoading && errorMessage.isEmpty)
+                      Expanded(
+                        child: (bloodIssueData.isEmpty &&
+                                bloodComponentData.isEmpty)
+                            ? Center(
+                                child: Container(
+                                  height: 150,
+                                  width: 150,
+                                  child: Lottie.asset(
+                                    'assets/No_Data_Found.json',
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
-                              );
-                            },
-                          ),
-                        ),
+                              )
+                            : Card(
+                                child: ListView.builder(
+                                  itemCount: bloodIssueData.length +
+                                      bloodComponentData.length,
+                                  itemBuilder: (context, index) {
+                                    final Map<String, dynamic> item =
+                                        index < bloodIssueData.length
+                                            ? bloodIssueData[index]
+                                            : bloodComponentData[
+                                                index - bloodIssueData.length];
+
+                                    // Customize the displayed information here
+                                    final String id = item['id'];
+                                    final String dateOfIssue =
+                                        item['date_of_issue'];
+                                    final String reference = item['reference'];
+                                    final String netAmount = item['net_amount'];
+                                    final String gender = item['gender'];
+                                    final String patientName =
+                                        item['patient_name'];
+                                    final String donorName = item['donor_name'];
+                                    final String volume = item['volume'];
+                                    final String transactionId =
+                                        item['transaction_id'];
+
+                                    return Card(
+                                      child: ListTile(
+                                        title: Text(
+                                          'ID: $id',
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        subtitle: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                const Text('Date of Issue: '),
+                                                Text(
+                                                  '$dateOfIssue',
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                const Text('Reference: '),
+                                                Text('$reference',
+                                                    style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                const Text('Net Amount: '),
+                                                Text('$netAmount',
+                                                    style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                const Text('Gender: '),
+                                                Text('$gender',
+                                                    style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                const Text('Patient Name: '),
+                                                Text('$patientName',
+                                                    style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                const Text('Donor Name: '),
+                                                Text('$donorName',
+                                                    style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                const Text('Volume: '),
+                                                Text('$volume',
+                                                    style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                const Text('Transaction ID: '),
+                                                Text('$transactionId',
+                                                    style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                      ),
+                  ],
                 ),
-            ],
-          ),
-        ),
+              ),
       ),
     );
   }

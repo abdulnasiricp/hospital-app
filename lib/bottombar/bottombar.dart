@@ -163,7 +163,6 @@ class _BottomhomeState extends State<Bottomhome> {
 
   Widget _buildOffstageNavigator(int index) {
     var routeBuilders = _routeBuilders(context, index);
-
     return Offstage(
       offstage: _selectedIndex != index,
       child: Navigator(

@@ -75,9 +75,9 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
                               padding: const EdgeInsets.all(2.0),
                               child: Container(
                                 child: Image.asset(
-                                  'assets/tezash.png', // Replace with your logo file path
+                                  'assets/Tezashlogo.png', // Replace with your logo file path
                                   width: width / 2,
-                                  height: height / 11,
+                                  height: height / 10,
                                 ),
                               ),
                             ),

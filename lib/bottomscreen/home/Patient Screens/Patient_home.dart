@@ -323,6 +323,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                             ),
                           ],
                         ),
+
+                        ///   if (totalDues > 0)   ////  we will use this
                         ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Card(
