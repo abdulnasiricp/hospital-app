@@ -18,7 +18,6 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pharm
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Physiotherapy/Physiotherapy.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Radiology/Radiology.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Surgery/SurgeryPrescriptionList.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/HomeTransaction_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Transaction_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/USG/usg.dart';
 import 'package:TezHealthCare/screens/notification.dart';
@@ -366,7 +365,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     ),
                                     ElevatedButton(
                                       onPressed: () async {
-                                        notificationServies.showNotification();
+                                        notificationServies.showNotification(2,
+                                            'please check your due bill amount',
+                                            'DueAmount');
 
                                         // Store the notification data in shared preferences
                                         final prefs = await SharedPreferences

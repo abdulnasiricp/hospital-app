@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'package:TezHealthCare/Splash_Screen.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/Information_profile.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/Setting/Setting_screen.dart';
+import 'package:TezHealthCare/bottomscreen/Profile/check_update.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/help_center.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/profile_model.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/term_and_condition.dart';
@@ -357,12 +358,12 @@ class _ProfileState extends State<Profile> {
                                         // ),
                                         InkWell(
                                           onTap: () {
-                                            // Get.to(() => const SettingScreen());
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(const SnackBar(
-                                              content: Text('Comming soon.'),
-                                              backgroundColor: Colors.red,
-                                            ));
+                                            Get.to(() => const CheckForUpdate());
+                                            // ScaffoldMessenger.of(context)
+                                            //     .showSnackBar(const SnackBar(
+                                            //   content: Text('Comming soon.'),
+                                            //   backgroundColor: Colors.red,
+                                            // ));
                                           },
                                           child: ListTile(
                                             leading: SvgPicture.asset(
@@ -507,9 +508,9 @@ class _ProfileState extends State<Profile> {
                   height: 50,
                   width: 100,
                   color: Colors.white,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: const LoadingIndicatorWidget(),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: LoadingIndicatorWidget(),
                   ),
                 ),
               ),

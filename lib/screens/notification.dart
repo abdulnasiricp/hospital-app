@@ -201,7 +201,7 @@ class _NotifState extends State<Notif> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Notifications'),
+        title: const Text('Notifications'),
         
         centerTitle: true,
         backgroundColor: darkYellow,
@@ -214,10 +214,17 @@ class _NotifState extends State<Notif> {
             child: Card(
               child: ListTile(
                 onTap: () {
-                  Get.to(()=>HomeTransactionBill(payload: 'payload'));
+                  Get.to(()=>const HomeTransactionBill(payload: 'payload'));
                   
                 },
-                title: Text(notifications[index]),
+                title: Column( 
+                  children: [
+                    
+                    Text(index.toString()),
+                    const SizedBox(width: 5,),
+                    Text(notifications[index]),
+                  ],
+                ),
               ),
             ),
           );

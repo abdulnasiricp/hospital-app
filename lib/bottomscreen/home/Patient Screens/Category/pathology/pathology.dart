@@ -2,8 +2,8 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'package:TezHealthCare/Services/notificationServies.dart';
 import 'package:flutter/services.dart';
-import 'package:TezHealthCare/Controller/notificationProvider.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Billview.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Reportview.dart';
@@ -15,7 +15,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -54,7 +53,6 @@ class _PathalogyState extends State<Pathalogy> {
 
   bool isLoading = true;
   late String totalAmount = "0.00"; // Initialize with a default value
-  List<Map<String, dynamic>> apiData = []; // Initialize as a list
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 // get Shared prefernce data
@@ -69,17 +67,7 @@ class _PathalogyState extends State<Pathalogy> {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-  getData() async {
-    await LoadData();
-    await fetchData();
-    calculateTotalAmount();
-
-    isLoading = false;
-    // Check if the length of apiData has changed
-    // if (apiData.length != previousApiData.length) {
-    //   showNotification();
-    // }
-  }
+ 
 
 // ///////////////////////////////////////////////////////////////////////////////////////////////
 //calculate total amount
@@ -95,13 +83,53 @@ class _PathalogyState extends State<Pathalogy> {
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////
+ getData() async {
+    await LoadData();
+    await fetchData();
+    calculateTotalAmount();
+
+    isLoading = false;
+    
+      }
 
   @override
   void initState() {
     super.initState();
     getData();
+    // Schedule a periodic task to check the API every minute
+    const duration = Duration(minutes: 1);
+    Timer.periodic(duration, (Timer t) {
+      checkForNewData();
+    });
+     // Initialize currentDataLength with the length of the initial data
+    currentDataLength = filteredData!.length;
+  
   }
 
+  
+// Store the current data length
+  int currentDataLength = 0;
+
+void checkForNewData() async {
+  try {
+    final newData = await fetchData();
+
+    if (newData.length > currentDataLength) {
+      // Store the notification data in shared preferences
+      final prefs = await SharedPreferences.getInstance();
+      final notifications = prefs.getStringList('notifications') ?? [];
+      notifications.add('New data are added please check your pathology bill');
+      prefs.setStringList('notifications', notifications);
+
+      notificationServies.showNotification(3,'New data are added please check your pathology bill','navigate_to_pathology_bill');
+      currentDataLength = newData.length;
+
+     
+    }
+  } catch (error) {
+    print('Error while checking for new data: $error');
+  }
+}
 ////////////////////////////////////////////////////////////////////////////////////////////
 // Get pathology data
   Map<String, dynamic>? DataMap;
@@ -162,6 +190,8 @@ class _PathalogyState extends State<Pathalogy> {
   /////////////////////////////////////////////////////////////////////////////////////
 
   TextEditingController searchController = TextEditingController();
+NotificationServies notificationServies=NotificationServies();
+
 
 ////////////////////////////////////////////////////////////////////////////////////////
 // filter data
@@ -226,13 +256,7 @@ class _PathalogyState extends State<Pathalogy> {
           onRefresh: _handleRefresh,
           child: Column(
             children: [
-              // Padding(
-              //   padding: const EdgeInsets.all(8.0),
-              //   child: Container(
-              //     height: 40,
-              //     child: searchField(),
-              //   ),
-              // ),
+            
               Container(
                 color: Colors.grey,
                 width: width,

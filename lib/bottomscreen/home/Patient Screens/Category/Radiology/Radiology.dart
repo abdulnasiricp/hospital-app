@@ -1,5 +1,8 @@
 // ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace
 
+import 'dart:async';
+
+import 'package:TezHealthCare/Services/notificationServies.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Billview.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Radiology/Reportbiew.dart';
@@ -63,8 +66,44 @@ class _RadiologyState extends State<Radiology> {
   void initState() {
     super.initState();
     getData();
+       // Schedule a periodic task to check the API every minute
+    const duration = Duration(minutes: 1);
+    Timer.periodic(duration, (Timer t) {
+      checkForNewData();
+    });
+     // Initialize currentDataLength with the length of the initial data
+    currentDataLength = filteredData!.length;
   }
 
+@override
+void dispose() {
+  // Cancel timers or dispose of resources here
+  super.dispose();
+}
+////////////////////////////////////////////////////////////////////////////////////////
+// Store the current data length
+  int currentDataLength = 0;
+
+void checkForNewData() async {
+  try {
+    final newData = await fetchData();
+
+    if (newData.length > currentDataLength) {
+      // Store the notification data in shared preferences
+      final prefs = await SharedPreferences.getInstance();
+      final notifications = prefs.getStringList('notifications') ?? [];
+      notifications.add('New data are added please check your Radiology bill');
+      prefs.setStringList('notifications', notifications);
+
+      notificationServies.showNotification(5,'New data are added please check your Radiology bill','navigate_to_Radiology_bill');
+      currentDataLength = newData.length;
+
+     
+    }
+  } catch (error) {
+    print('Error while checking for new data: $error');
+  }
+}
 ////////////////////////////////////////////////////////////////////////////////////////////
 // Get Radiology data
   Map<String, dynamic>? DataMap;
@@ -115,6 +154,8 @@ class _RadiologyState extends State<Radiology> {
 
 ////////////////////////////////////////////////////////////////////////////////////
   TextEditingController searchController = TextEditingController();
+  NotificationServies notificationServies=NotificationServies();
+
 
 ////////////////////////////////////////////////////////////////////////////////////////
 // filter data

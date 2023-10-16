@@ -1,5 +1,8 @@
 // ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace
 
+import 'dart:async';
+
+import 'package:TezHealthCare/Services/notificationServies.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Physiotherapy/Billprint.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
@@ -22,7 +25,12 @@ class Physiotherapy extends StatefulWidget {
 }
 
 class _PhysiotherapyState extends State<Physiotherapy> {
+  
+// Store the current data length
+  int currentDataLength = 0;
+  NotificationServies notificationService = NotificationServies(); // Create an instance
   bool isLoading = true;
+  
 
   late String totalAmount = "0.00"; // Initialize with a default value
 
@@ -38,6 +46,7 @@ class _PhysiotherapyState extends State<Physiotherapy> {
   }
 
   ///////////////////////////////////////////////////////////////////////////////////////////
+  ///
 
   getData() async {
     await LoadData();
@@ -45,17 +54,52 @@ class _PhysiotherapyState extends State<Physiotherapy> {
     calculateTotalAmount();
 
     isLoading = false;
-    // Check if the length of apiData has changed
-    // if (apiData.length != previousApiData.length) {
-    //   showNotification();
-    // }
   }
 
   @override
   void initState() {
     super.initState();
     getData();
+     // Schedule a periodic task to check the API every minute
+    const duration = Duration(minutes: 1);
+    Timer.periodic(duration, (Timer t) {
+      checkForNewData();
+    });
+
+    // Initialize currentDataLength with the length of the initial data
+    currentDataLength = DataMap?.length??0;
+
   }
+   @override
+  void dispose() {
+    // Cancel timers or dispose of resources here
+    super.dispose();
+  }
+  
+  void checkForNewData() async {
+    // try {
+      final newData = await fetchData();
+
+      if (newData.length > currentDataLength) {
+        // Store the notification data in shared preferences
+        final prefs = await SharedPreferences.getInstance();
+        final notifications = prefs.getStringList('notifications') ?? [];
+        notifications.add('New data are added in Physiotherapy, please check');
+        prefs.setStringList('notifications', notifications);
+
+        notificationService.showNotification(
+            10, 'New data are added in Physiotherapy, please check', 'navigate_to_physiotherapy');
+        currentDataLength = newData.length;
+      }
+    // } catch (error) {
+    //   print('Error while checking for new data: $error');
+    // }
+  }
+
+
+
+
+
 
 // ///////////////////////////////////////////////////////////////////////////////////////////////
 //calculate total amount
@@ -77,7 +121,6 @@ class _PhysiotherapyState extends State<Physiotherapy> {
   List<dynamic>? filteredData = [];
 
   Future<Map<String, dynamic>> fetchData() async {
-    Uri.parse(ApiLinks.Therapy);
     final headers = {
       'Soft-service': 'TezHealthCare',
       'Auth-key': 'zbuks_ram859553467',
@@ -135,6 +178,7 @@ class _PhysiotherapyState extends State<Physiotherapy> {
           .toList();
     });
   }
+
 //////////////////////////////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
@@ -144,7 +188,7 @@ class _PhysiotherapyState extends State<Physiotherapy> {
       ),
     );
     return WillPopScope(
-       onWillPop: () async {
+      onWillPop: () async {
         // Navigate to the Home Screen when the back button is pressed
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const Bottomhome()),
@@ -282,7 +326,8 @@ class _PhysiotherapyState extends State<Physiotherapy> {
                                                   child: Text(
                                                     "${Pharmacybill['id']}",
                                                     style: const TextStyle(
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                     ),
                                                   ),
                                                 ),
@@ -328,13 +373,13 @@ class _PhysiotherapyState extends State<Physiotherapy> {
                                                             ? Colors.green
                                                             : Colors.red,
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                5.0),
+                                                            BorderRadius
+                                                                .circular(5.0),
                                                       ),
                                                       child: Padding(
                                                         padding:
-                                                            const EdgeInsets.all(
-                                                                3.0),
+                                                            const EdgeInsets
+                                                                .all(3.0),
                                                         child: Center(
                                                           child: Text(
                                                             // listName,
@@ -342,7 +387,8 @@ class _PhysiotherapyState extends State<Physiotherapy> {
                                                             style:
                                                                 const TextStyle(
                                                               fontWeight:
-                                                                  FontWeight.bold,
+                                                                  FontWeight
+                                                                      .bold,
                                                             ),
                                                           ),
                                                         ),

@@ -174,7 +174,7 @@ class Translation extends Translations {
           'Physiotherapy': "Physiotherapy",
 
           //live consultation
-          'Liveconsultation': "Liveconsultation",
+          'Liveconsultation': "Live consultation",
           'join': 'join',
 
           //Add new members

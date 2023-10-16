@@ -105,7 +105,6 @@ class _SurgeryPrescriptionListState extends State<SurgeryPrescriptionList> {
       final Map<String, String> headers = {
         'Soft-service': 'TezHealthCare',
         'Auth-key': 'zbuks_ram859553467',
-        'Content-Type': 'application/json',
       };
 
       final Map<String, dynamic> requestBody = {
@@ -115,7 +114,7 @@ class _SurgeryPrescriptionListState extends State<SurgeryPrescriptionList> {
 
       final response = await http.post(
         Uri.parse(
-            "https://uat.tez.hospital/xzy/webservice/getipdSurgeryPrescription"),
+            ApiLinks.surgery),
         headers: headers,
         body: json.encode(requestBody),
       );

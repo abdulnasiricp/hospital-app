@@ -19,8 +19,11 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class HomeTransactionBill extends StatefulWidget {
-   final String payload;
-  const HomeTransactionBill({Key? key,  required this.payload,}) : super(key: key);
+  final String payload;
+  const HomeTransactionBill({
+    Key? key,
+    required this.payload,
+  }) : super(key: key);
 
   @override
   _HomeTransactionBillState createState() => _HomeTransactionBillState();
@@ -42,6 +45,10 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
 
 //////////////////////////////////////////////////////////////////////
 // call init state
+
+// Store the current data length
+  int currentDataLength = 0;
+
   getData() async {
     await LoadData();
     await fetchData().then((data) {
@@ -62,46 +69,48 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
   void initState() {
     super.initState();
     getData();
-///////////////////////////////////////////////////////////////////////
 
-     // Schedule a periodic task to check the API every minute
-    const duration = Duration(minutes: 1);
-    Timer.periodic(duration, (Timer t) {
-      checkForNewData();
-    });
+// ///////////////////////////////////////////////////////////////////////
+
+//     // Schedule a periodic task to check the API every minute
+//     const duration = Duration(minutes: 1);
+//     Timer.periodic(duration, (Timer t) {
+//       // checkForNewData();
+//     });
+//     // Initialize currentDataLength with the length of the initial data
+//     currentDataLength = apiData.length;
   }
 
-@override
-void dispose() {
-  // Cancel timers or dispose of resources here
-  super.dispose();
-}
-void checkForNewData() async {
-  try {
-    final newData = await fetchData();
+  // @override
+  // void dispose() {
+  //   // Cancel timers or dispose of resources here
+  //   super.dispose();
+  // }
 
-    if (newData.length > previousDataLength) {
-      // Store the notification data in shared preferences
-      final prefs = await SharedPreferences.getInstance();
-      final notifications = prefs.getStringList('notifications') ?? [];
-      notifications.add('New data are added please check your transaction Bill');
-      prefs.setStringList('notifications', notifications);
+  // void checkForNewData() async {
+  //   try {
+  //     final newData = await fetchData();
 
-      notificationServies.showNotification();
-      previousDataLength = newData.length;
+  //     if (newData.length > currentDataLength) {
+  //       // Store the notification data in shared preferences
+  //       final prefs = await SharedPreferences.getInstance();
+  //       final notifications = prefs.getStringList('notifications') ?? [];
+  //       notifications
+  //           .add('New data are added please check your transaction Bill');
+  //       prefs.setStringList('notifications', notifications);
 
-      // Call _navigateToScreen to navigate to NotificationsScreen
-      _navigateToScreen('navigate_to_home_transaction_bill');
-    }
-  } catch (error) {
-    print('Error while checking for new data: $error');
-  }
-}
-
+  //       notificationServies.showNotification(1,
+  //           'New data are added please check your transaction Bill',
+  //           'navigate_to_home_transaction_bill');
+  //       currentDataLength = newData.length;
+  //     }
+  //   } catch (error) {
+  //     print('Error while checking for new data: $error');
+  //   }
+  // }
 
 /////////////////////////////////////////////////////////////////////////////
 //  get all transaction bill
-int previousDataLength = 0;
 
   Future<Map<String, dynamic>> fetchData() async {
     final url = Uri.parse(ApiLinks.getAllTransaction);
@@ -144,6 +153,7 @@ int previousDataLength = 0;
     });
   }
   /////////////////////////////////////////////////////////////////////////////////////
+  NotificationServies notificationServies = NotificationServies();
 
   TextEditingController searchController = TextEditingController();
 
@@ -151,16 +161,12 @@ int previousDataLength = 0;
 ////////////////////////////////////////////////////////////////////////////////////////
 
 // Function to handle notification click and navigate to the screen
-Future<void> _navigateToScreen(String payload) async {
-  if (payload != null && payload == 'navigate_to_home_transaction_bill') {
-    Get.to(Notif(payload: payload));
-  }
-}
+  // Future<void> _navigateToScreen(String payload) async {
+  //   if (payload != null && payload == 'navigate_to_home_transaction_bill') {
+  //     Get.to(Notif(payload: payload));
+  //   }
+  // }
 
-
-
-
-NotificationServies notificationServies=NotificationServies();
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -185,7 +191,7 @@ NotificationServies notificationServies=NotificationServies();
               ]),
               alignment: Alignment.center,
               child: AnimationSearchBar(
-                isBackButtonVisible: false,
+                  isBackButtonVisible: false,
                   centerTitle: 'HometransactionBill'.tr,
                   centerTitleStyle: TextStyle(color: whitecolor, fontSize: 20),
                   searchIconColor: whitecolor,

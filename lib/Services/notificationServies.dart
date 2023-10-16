@@ -35,7 +35,7 @@ class NotificationServies {
 
       }
         // show notification
-  void showNotification() async {
+  void showNotification(int id,String message,String payload) async {
     AndroidNotificationDetails androidDetiles =
         const AndroidNotificationDetails(
       'Notification',
@@ -55,10 +55,10 @@ class NotificationServies {
     );
 
      // Define the payload when creating the notification
-  const String payload = 'navigate_to_home_transaction_bill';
+  // const String payload = 'navigate_to_home_transaction_bill';
 
     await notificationsPlugin.show(
-        1000, 'New Data', 'New data are added please check your transaction Bill ', notificationDetails,payload:  payload);
+        id, 'New Data', message, notificationDetails,payload:  payload);
   }
 
 
