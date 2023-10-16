@@ -1,121 +1,121 @@
-import 'package:TezHealthCare/Controller/notificationProvider.dart';
-import 'package:TezHealthCare/Services/notification_worker.dart';
-import 'package:TezHealthCare/language_Services/translation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:get/get.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:TezHealthCare/Controller/loginController.dart';
-import 'package:TezHealthCare/Splash_Screen.dart';
-import 'package:TezHealthCare/bottombar/bottombar.dart';
-import 'package:TezHealthCare/themeService.dart';
-import 'package:TezHealthCare/utils/mediaqury.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:TezHealthCare/utils/notifirecolors.dart';
-import 'package:khalti_flutter/khalti_flutter.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:workmanager/workmanager.dart';
+// import 'package:TezHealthCare/Controller/notificationProvider.dart';
+// import 'package:TezHealthCare/Services/notification_worker.dart';
+// import 'package:TezHealthCare/language_Services/translation.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_downloader/flutter_downloader.dart';
+// import 'package:get/get.dart';
+// import 'package:get/get_navigation/src/root/get_material_app.dart';
+// import 'package:TezHealthCare/Controller/loginController.dart';
+// import 'package:TezHealthCare/Splash_Screen.dart';
+// import 'package:TezHealthCare/bottombar/bottombar.dart';
+// import 'package:TezHealthCare/themeService.dart';
+// import 'package:TezHealthCare/utils/mediaqury.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:TezHealthCare/utils/notifirecolors.dart';
+// import 'package:khalti_flutter/khalti_flutter.dart';
+// import 'package:provider/provider.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:workmanager/workmanager.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+// Future<void> main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
 
-  await FlutterDownloader.initialize(debug: true); // Set to false in production
+//   await FlutterDownloader.initialize(debug: true); // Set to false in production
 
-  //////////////////////////////////////////////////////////////////
-  // Initialize SharedPreferences
-  // Initialize SharedPreferences
-  final sharedPreferences = await SharedPreferences.getInstance();
+//   //////////////////////////////////////////////////////////////////
+//   // Initialize SharedPreferences
+//   // Initialize SharedPreferences
+//   final sharedPreferences = await SharedPreferences.getInstance();
 
-  String? selectedLanguage = sharedPreferences.getString('selectedLanguage');
+//   String? selectedLanguage = sharedPreferences.getString('selectedLanguage');
 
-  String defaultLang = ''; // Initialize defaultLanguage with an empty string
+//   String defaultLang = ''; // Initialize defaultLanguage with an empty string
 
-  if (selectedLanguage == 'ne') {
-     defaultLang = '"ne","NP"';
-  } else if (selectedLanguage == 'en') {
-    defaultLang = '"en","US"';
-  }
+//   if (selectedLanguage == 'ne') {
+//      defaultLang = '"ne","NP"';
+//   } else if (selectedLanguage == 'en') {
+//     defaultLang = '"en","US"';
+//   }
 
-  print('========================> $defaultLang');
+//   print('========================> $defaultLang');
 
-  // final defaultLanguage = 'en_US';
+//   // final defaultLanguage = 'en_US';
 
-  runApp(MyApp(
-      defaultLanguage: defaultLang,
-      ));
+//   runApp(MyApp(
+//       defaultLanguage: defaultLang,
+//       ));
 
-  Workmanager().initialize(callbackDispatcher);
-  Workmanager().registerPeriodicTask(
-    "1",
-    "checkForNewDataTask",
-    initialDelay: const Duration(minutes: 1),
-    frequency: const Duration(minutes: 15),
-    inputData: <String, dynamic>{
-      'payload': 'navigate_to_home_transaction_bill'
-    },
-  );
-}
+//   Workmanager().initialize(callbackDispatcher);
+//   Workmanager().registerPeriodicTask(
+//     "1",
+//     "checkForNewDataTask",
+//     initialDelay: const Duration(minutes: 1),
+//     frequency: const Duration(minutes: 15),
+//     inputData: <String, dynamic>{
+//       'payload': 'navigate_to_home_transaction_bill'
+//     },
+//   );
+// }
 
-class MyApp extends StatelessWidget {
-  final String defaultLanguage;
-  const MyApp({
-    Key? key,
-    required this.defaultLanguage,
-  }) : super(key: key);
+// class MyApp extends StatelessWidget {
+//   final String defaultLanguage;
+//   const MyApp({
+//     Key? key,
+//     required this.defaultLanguage,
+//   }) : super(key: key);
 
-  Future<bool> _isLoggedIn() async {
-    final sharedPreferences = await SharedPreferences.getInstance();
-    return sharedPreferences.containsKey('username') &&
-        sharedPreferences.containsKey('password');
-  }
+//   Future<bool> _isLoggedIn() async {
+//     final sharedPreferences = await SharedPreferences.getInstance();
+//     return sharedPreferences.containsKey('username') &&
+//         sharedPreferences.containsKey('password');
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    height = MediaQuery.of(context).size.height;
-    width = MediaQuery.of(context).size.width;
-    return ScreenUtilInit(
-      child: MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => ColorNotifier()),
-          // ChangeNotifierProvider(create: (_) => LoginController()),
-          // ChangeNotifierProvider(create: (_) => NotificationProvider()),
-        ],
-        child: KhaltiScope(
+//   @override
+//   Widget build(BuildContext context) {
+//     height = MediaQuery.of(context).size.height;
+//     width = MediaQuery.of(context).size.width;
+//     return ScreenUtilInit(
+//       child: MultiProvider(
+//         providers: [
+//           ChangeNotifierProvider(create: (_) => ColorNotifier()),
+//           // ChangeNotifierProvider(create: (_) => LoginController()),
+//           // ChangeNotifierProvider(create: (_) => NotificationProvider()),
+//         ],
+//         child: KhaltiScope(
           
-          publicKey: "test_public_key_c976acda9afe490881d18f9856e6f896",
-          enabledDebugging: true, // Set to false in production
-          builder: (context, navKey) {
-            return GetMaterialApp(
+//           publicKey: "test_public_key_c976acda9afe490881d18f9856e6f896",
+//           enabledDebugging: true, // Set to false in production
+//           builder: (context, navKey) {
+//             return GetMaterialApp(
               
-              locale: Locale(defaultLanguage),
-              translations: Translation(),
-              debugShowCheckedModeBanner: false,
-              theme: Themes().lightTheme,
-              darkTheme: Themes().darkTheme,
-              home: FutureBuilder<bool>(
-                future: _isLoggedIn(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    print('=============>>>>> $defaultLanguage');
-                    final bool isLoggedIn = snapshot.data ?? false;
-                    return isLoggedIn
-                        ? const Bottomhome()
+//               locale: Locale(defaultLanguage),
+//               translations: Translation(),
+//               debugShowCheckedModeBanner: false,
+//               theme: Themes().lightTheme,
+//               darkTheme: Themes().darkTheme,
+//               home: FutureBuilder<bool>(
+//                 future: _isLoggedIn(),
+//                 builder: (context, snapshot) {
+//                   if (snapshot.connectionState == ConnectionState.done) {
+//                     print('=============>>>>> $defaultLanguage');
+//                     final bool isLoggedIn = snapshot.data ?? false;
+//                     return isLoggedIn
+//                         ? const Bottomhome()
                         
-                        : const Splash_Screen();
-                  } else {
-                    return Container();
-                  }
-                },
-              ),
-              navigatorKey: navKey,
-              localizationsDelegates: const [
-                KhaltiLocalizations.delegate,
-              ],
-            );
-          },
-        ),
-      ),
-    );
-  }
-}
+//                         : const Splash_Screen();
+//                   } else {
+//                     return Container();
+//                   }
+//                 },
+//               ),
+//               navigatorKey: navKey,
+//               localizationsDelegates: const [
+//                 KhaltiLocalizations.delegate,
+//               ],
+//             );
+//           },
+//         ),
+//       ),
+//     );
+//   }
+// }

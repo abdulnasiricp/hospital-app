@@ -1,6 +1,7 @@
-// ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace, deprecated_member_use, avoid_unnecessary_containers, unused_element
+// ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace, deprecated_member_use, avoid_unnecessary_containers, unused_element, unnecessary_null_comparison
 
 import 'dart:convert';
+import 'package:TezHealthCare/Services/notificationServies.dart';
 
 import 'package:TezHealthCare/Payment_gateway/Select_Payment_Method.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
@@ -17,6 +18,7 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pharm
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Physiotherapy/Physiotherapy.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Radiology/Radiology.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Surgery/SurgeryPrescriptionList.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/HomeTransaction_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Transaction_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/USG/usg.dart';
 import 'package:TezHealthCare/screens/notification.dart';
@@ -193,6 +195,19 @@ class _PatientHomePageState extends State<PatientHomePage> {
   }
 
 //////////////////////////////////////////////////////////////////////////////////////
+//  Future<void> _navigateToScreen(String payload) async {
+//   if (payload != null) {
+//     if (payload == 'open_notification_screen') {
+//       Get.to(Notif(payload:payload ,));
+//     } else if (payload == 'navigate_to_home_transaction_bill') {
+//       Get.to(HomeTransactionBill(payload: payload));
+//     }
+//   }
+// }
+//////////////////////////////////////////////////////////////////////////////////////
+  NotificationServies notificationServies = NotificationServies();
+
+  ///
 
   @override
   Widget build(BuildContext context) {
@@ -223,7 +238,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                 color: Colors.blue,
                 onPressed: () {
                   Get.to(() => const Notif(
-                       
+                        payload: '',
                       ));
                 },
                 icon: const Icon(
@@ -349,6 +364,20 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     ),
                                     ElevatedButton(
                                       onPressed: () async {
+                                        notificationServies.showNotification();
+
+                                        // Store the notification data in shared preferences
+                                        final prefs = await SharedPreferences
+                                            .getInstance();
+                                        final notifications =
+                                            prefs.getStringList(
+                                                    'notifications') ??
+                                                [];
+                                        notifications.add(
+                                            'please check your due bill amount'); // Replace with your notification message
+                                        prefs.setStringList(
+                                            'notifications', notifications);
+
                                         Get.off(
                                           () => SelectPaymentMethod(
                                               totalAmountInRs: rupeesAmount,

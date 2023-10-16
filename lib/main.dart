@@ -28,33 +28,7 @@ Future<void> main() async {
 
   await FlutterDownloader.initialize(debug: true); // Set to false in production
 
-/////////////////////////////////////////////////////////////////////////
-// // Notification
-//   AndroidInitializationSettings androidSettings =
-//       const AndroidInitializationSettings("@mipmap/ic_launcher");
-//   DarwinInitializationSettings iosSettings = const DarwinInitializationSettings(
-//       requestAlertPermission: true,
-//       requestBadgePermission: true,
-//       requestCriticalPermission: true,
-//       requestSoundPermission: true);
 
-//   InitializationSettings initializationSettings = InitializationSettings(
-//     android: androidSettings,
-//     iOS: iosSettings,
-//   );
-
-//   bool? initialized =
-//       await notificationsPlugin.initialize(initializationSettings,);
-//   log("Notification: $initialized");
-
- 
-//   Workmanager().initialize(callbackDispatcher);
-//   Workmanager().registerPeriodicTask(
-//     "1000", // Task ID
-//     "checkForUpdatesTask", // Task name
-//     initialDelay: const Duration(minutes: 1), // Delay before the first execution
-//     frequency: const Duration(minutes: 15), // Periodic check every 15 minutes
-//   );
   
 
   //////////////////////////////////////////////////////////////////
@@ -72,16 +46,16 @@ Future<void> main() async {
     defaultLanguage: defaultLang,
   ));
 
-  Workmanager().initialize(callbackDispatcher);
-  Workmanager().registerPeriodicTask(
-    "1",
-    "checkForNewDataTask",
-    initialDelay: const Duration(minutes: 1),
-    frequency: const Duration(minutes: 15),
-    inputData: <String, dynamic>{
-      'payload': 'navigate_to_home_transaction_bill'
-    },
-  );
+  // Workmanager().initialize(callbackDispatcher);
+  // Workmanager().registerPeriodicTask(
+  //   "1",
+  //   "checkForNewDataTask",
+  //   // initialDelay: const Duration(minutes: 1),
+  //   frequency: const Duration(minutes: 15),
+  //   inputData: <String, dynamic>{
+  //     'payload': 'navigate_to_home_transaction_bill'
+  //   },
+  // );
 }
 
 class MyApp extends StatelessWidget {

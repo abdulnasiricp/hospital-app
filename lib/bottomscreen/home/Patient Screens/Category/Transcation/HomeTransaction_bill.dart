@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:TezHealthCare/Services/notificationServies.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/view_bill.dart';
+import 'package:TezHealthCare/screens/notification.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -75,18 +76,28 @@ void dispose() {
   // Cancel timers or dispose of resources here
   super.dispose();
 }
-  void checkForNewData() async {
-    try {
-      final newData = await fetchData();
+void checkForNewData() async {
+  try {
+    final newData = await fetchData();
 
-      if (newData.length > previousDataLength) {
-        notificationServies.showNotification();
-        previousDataLength = newData.length; // Update the previous length
-      }
-    } catch (error) {
-      print('Error while checking for new data: $error');
+    if (newData.length > previousDataLength) {
+      // Store the notification data in shared preferences
+      final prefs = await SharedPreferences.getInstance();
+      final notifications = prefs.getStringList('notifications') ?? [];
+      notifications.add('New data are added please check your transaction Bill');
+      prefs.setStringList('notifications', notifications);
+
+      notificationServies.showNotification();
+      previousDataLength = newData.length;
+
+      // Call _navigateToScreen to navigate to NotificationsScreen
+      _navigateToScreen('navigate_to_home_transaction_bill');
     }
+  } catch (error) {
+    print('Error while checking for new data: $error');
   }
+}
+
 
 /////////////////////////////////////////////////////////////////////////////
 //  get all transaction bill
@@ -142,9 +153,10 @@ int previousDataLength = 0;
 // Function to handle notification click and navigate to the screen
 Future<void> _navigateToScreen(String payload) async {
   if (payload != null && payload == 'navigate_to_home_transaction_bill') {
-    Get.offAll( HomeTransactionBill(payload: payload,));
+    Get.to(Notif(payload: payload));
   }
 }
+
 
 
 
