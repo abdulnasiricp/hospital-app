@@ -52,7 +52,7 @@ class _ProfileState extends State<Profile> {
     sharedPreferences.clear();
 
     // Navigate to the login screen
-    Get.off(() => const Splash_Screen());
+    Get.offAll(() => const MainSiginScreen());
   }
 
   String apiUrl =
@@ -74,7 +74,6 @@ class _ProfileState extends State<Profile> {
       );
       if (response.statusCode == 200) {
         // Successful logout, clear user data or navigate to the login screen.
-        Get.offAll(() => const MainSiginScreen());
         print('Logout successful');
         _logout(context);
         Fluttertoast.showToast(

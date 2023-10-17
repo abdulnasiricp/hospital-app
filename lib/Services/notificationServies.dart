@@ -9,36 +9,36 @@ import 'package:workmanager/workmanager.dart';
 
 class NotificationServies {
   FlutterLocalNotificationsPlugin notificationsPlugin =
-    FlutterLocalNotificationsPlugin();
+  FlutterLocalNotificationsPlugin();
 
-   // Notification
+  // Notification
   AndroidInitializationSettings androidSettings =
-      const AndroidInitializationSettings("ic_launcher");
+  const AndroidInitializationSettings("ic_launcher");
   DarwinInitializationSettings iosSettings = const DarwinInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
       requestCriticalPermission: true,
       requestSoundPermission: true);
 
-      void initialNotification()async{
-         InitializationSettings initializationSettings = InitializationSettings(
-    android: androidSettings,
-    iOS: iosSettings,
+  void initialNotification()async{
+    InitializationSettings initializationSettings = InitializationSettings(
+      android: androidSettings,
+      iOS: iosSettings,
 
-  );
+    );
 
-   bool? initialized =
-      await notificationsPlugin.initialize(initializationSettings,);
-  log("Notification: $initialized");
-
-
+    bool? initialized =
+    await notificationsPlugin.initialize(initializationSettings,);
+    log("Notification: $initialized");
 
 
-      }
-        // show notification
+
+
+  }
+  // show notification
   void showNotification(int id,String message,String payload) async {
     AndroidNotificationDetails androidDetiles =
-        const AndroidNotificationDetails(
+    const AndroidNotificationDetails(
       'Notification',
       'Tez health Care',
       priority: Priority.max,
@@ -55,8 +55,8 @@ class NotificationServies {
       iOS: iosDetiles,
     );
 
-     // Define the payload when creating the notification
-  // const String payload = 'navigate_to_home_transaction_bill';
+    // Define the payload when creating the notification
+    // const String payload = 'navigate_to_home_transaction_bill';
 
     await notificationsPlugin.show(
         id, 'New Data', message, notificationDetails,payload:  payload);
@@ -75,7 +75,4 @@ class NotificationServies {
     );
   }
 
- 
- 
-  
 }

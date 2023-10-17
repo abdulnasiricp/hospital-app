@@ -62,7 +62,7 @@ class _PathalogyState extends State<Pathalogy> {
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////
- getData() async {
+  getData() async {
     await LoadData();
     await fetchData();
       ///////////////////////////////////////////////////////////////////////
@@ -78,8 +78,7 @@ class _PathalogyState extends State<Pathalogy> {
     calculateTotalAmount();
 
     isLoading = false;
-    
-      }
+  }
 
   @override
   void initState() {
@@ -169,15 +168,12 @@ class _PathalogyState extends State<Pathalogy> {
     setState(() {
       isLoading = false; // Set isLoading to false after data is fetched
     });
-
-    
   }
 
   /////////////////////////////////////////////////////////////////////////////////////
 
   TextEditingController searchController = TextEditingController();
   NotificationServies notificationServies = NotificationServies();
-
 
 ////////////////////////////////////////////////////////////////////////////////////////
 // filter data
@@ -242,13 +238,12 @@ class _PathalogyState extends State<Pathalogy> {
           onRefresh: _handleRefresh,
           child: Column(
             children: [
-            
               Container(
                 color: Colors.grey,
                 width: width,
                 height: 40,
                 child: Padding(
-                  padding: const EdgeInsets.only(left:15.0,top: 12),
+                  padding: const EdgeInsets.only(left: 15.0, top: 12),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

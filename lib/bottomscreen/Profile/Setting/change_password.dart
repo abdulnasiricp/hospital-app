@@ -49,6 +49,15 @@ class _Change_PasswordState extends State<Change_Password> {
     setState(() {});
   }
 
+  Future<void> _logout(BuildContext context) async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.clear();
+    sharedPreferences.clear();
+
+    // Navigate to the login screen
+    Get.offAll(() => const MainSiginScreen());
+  }
+
   Future<void> changePassword() async {
     final String currentPassword = currentPasswordController.text;
     final String newPassword = newPasswordController.text;
@@ -96,8 +105,7 @@ class _Change_PasswordState extends State<Change_Password> {
           });
         } else if (responseJson['status'] == '1') {
           // Handle successful password change scenario
-          Get.offAll(() => const MainSiginScreen());
-
+          _logout(context);
           Fluttertoast.showToast(
             msg: 'Password changed Successfully',
             backgroundColor: Colors.green,

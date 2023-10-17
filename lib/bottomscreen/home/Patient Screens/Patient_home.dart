@@ -367,7 +367,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     ),
                                     ElevatedButton(
                                       onPressed: () async {
-                                        notificationServies.showNotification(2,
+                                        notificationServies.showNotification(
+                                            2,
                                             'please check your due bill amount',
                                             'DueAmount');
 
