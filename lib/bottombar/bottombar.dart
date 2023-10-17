@@ -152,7 +152,7 @@ class _BottomhomeState extends State<Bottomhome> {
     return {
       '/': (context) {
         return [
-          const PatientHomePage(),
+          const PatientHomePage(  payload: ''),
           const HomeTransactionBill(payload: 'payload'),
           const CardScreen(),
           const Profile(),

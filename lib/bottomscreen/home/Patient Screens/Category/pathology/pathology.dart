@@ -19,6 +19,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
 class Pathalogy extends StatefulWidget {
+  
   const Pathalogy({Key? key}) : super(key: key);
 
   @override
@@ -26,29 +27,6 @@ class Pathalogy extends StatefulWidget {
 }
 
 class _PathalogyState extends State<Pathalogy> {
-  /////////////////////////////////////////////////////////////////////////
-  // show notification
-  // void showNotification() async {
-  //   AndroidNotificationDetails androidDetiles =
-  //       const AndroidNotificationDetails(
-  //     'Notification',
-  //     'Discounter',
-  //     priority: Priority.max,
-  //     importance: Importance.max,
-  //   );
-
-  //   DarwinNotificationDetails iosDetiles = const DarwinNotificationDetails(
-  //     presentAlert: true,
-  //     presentBadge: true,
-  //     presentSound: true,
-  //   );
-  //   NotificationDetails notificationDetails = NotificationDetails(
-  //     android: androidDetiles,
-  //     iOS: iosDetiles,
-  //   );
-  //   await notificationsPlugin.show(
-  //       0, 'pathology', 'New data are added', notificationDetails);
-  // }
   /////////////////////////////////////////////////////////////////////////////////////
 
   bool isLoading = true;
@@ -66,7 +44,8 @@ class _PathalogyState extends State<Pathalogy> {
   }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
-
+// Store the current data length
+  int currentDataLength = 0;
  
 
 // ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -86,6 +65,16 @@ class _PathalogyState extends State<Pathalogy> {
  getData() async {
     await LoadData();
     await fetchData();
+      ///////////////////////////////////////////////////////////////////////
+
+    // Schedule a periodic task to check the API every minute
+    const duration = Duration(minutes: 1);
+    Timer.periodic(duration, (Timer t) {
+      checkForNewData();
+    });
+    // Initialize currentDataLength with the length of the initial data
+
+   
     calculateTotalAmount();
 
     isLoading = false;
@@ -96,45 +85,38 @@ class _PathalogyState extends State<Pathalogy> {
   void initState() {
     super.initState();
     getData();
-    // Schedule a periodic task to check the API every minute
-    const duration = Duration(minutes: 1);
-    Timer.periodic(duration, (Timer t) {
-      checkForNewData();
-      print('$checkForNewData ============>');
-    });
-     // Initialize currentDataLength with the length of the initial data
-    currentDataLength = data!.length;
-  
+    
+    
   }
-
   
-// Store the current data length
-  int currentDataLength = 0;
 
-void checkForNewData() async {
-  try {
-    final newData = await fetchData();
 
-    if (newData.length > currentDataLength) {
-      print('Check data store are not ===================>pathology');
-      notificationServies.showNotification(3,'New data are added please check your pathology bill','navigate_to_pathology_bill');
-      currentDataLength = newData.length;
-      // Store the notification data in shared preferences
-      final prefs = await SharedPreferences.getInstance();
-      final notifications = prefs.getStringList('notifications') ?? [];
-      notifications.add('New data are added please check your pathology bill');
-      prefs.setStringList('notifications', notifications);
+    void checkForNewData() async {
+    try {
+      final newData = await fetchData();
+       print('old data length: ${newData.length}');
+       print('New data length: ${filteredData?.length}');
+      if (newData.length < filteredData!.length) {
+        print("===============>");
+         print('New data added, showing notification');
+        // Store the notification data in shared preferences
+        final prefs = await SharedPreferences.getInstance();
+        final notifications = prefs.getStringList('notifications') ?? [];
+        notifications
+            .add('New data are added please check your pathology Bill');
+        prefs.setStringList('notifications', notifications);
 
-      notificationServies.showNotification(3,'New data are added please check your pathology bill','navigate_to_pathology_bill');
-      currentDataLength = newData.length;
-
-     
+        notificationServies.showNotification(11,
+            'New data are added please check your pathology Bill',
+            'navigate_to_pathology_bill');
+        currentDataLength = newData.length;
+      }
+    } catch (error) {
+      print('Error while checking for new data: $error');
     }
-  } catch (error) {
-    print('Error while checking for new data: $error');
   }
-}
-////////////////////////////////////////////////////////////////////////////////////////////
+
+ ////////////////////////////////////////////////////////////////////////////////////////////
 // Get pathology data
   Map<String, dynamic>? DataMap;
   List<dynamic>? data = [];
@@ -194,7 +176,7 @@ void checkForNewData() async {
   /////////////////////////////////////////////////////////////////////////////////////
 
   TextEditingController searchController = TextEditingController();
-NotificationServies notificationServies=NotificationServies();
+  NotificationServies notificationServies = NotificationServies();
 
 
 ////////////////////////////////////////////////////////////////////////////////////////

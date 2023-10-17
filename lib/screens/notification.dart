@@ -165,6 +165,7 @@
 //   }
 // }
 
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/pathology.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Physiotherapy/Physiotherapy.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/HomeTransaction_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Patient_home.dart';
@@ -201,11 +202,13 @@ class _NotifState extends State<Notif> {
   // Function to navigate to the desired screen based on the notification text
   void _navigateToScreen(String notification) {
     if (notification == 'please check your due bill amount') {
-      Get.to(() => const PatientHomePage());
+      Get.to(() => const PatientHomePage(payload: '',));
     } else if (notification == 'New data are added in Physiotherapy, please check') {
-      Get.to(() => const Physiotherapy());
+      Get.to(() => const Physiotherapy(payload: 'navigate_to_physiotherapy',));
     } else if (notification == 'New data are added please check your transaction Bill') {
       Get.to(() => const HomeTransactionBill(payload: 'payload'));
+    }else if (notification == 'New data are added please check your pathology Bill') {
+      Get.to(() => const Pathalogy());
     }
   }
 
