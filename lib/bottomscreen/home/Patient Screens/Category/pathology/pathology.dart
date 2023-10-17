@@ -67,8 +67,6 @@ class _PathalogyState extends State<Pathalogy> {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
- 
-
 // ///////////////////////////////////////////////////////////////////////////////////////////////
 //calculate total amount
   void calculateTotalAmount() {
@@ -83,14 +81,13 @@ class _PathalogyState extends State<Pathalogy> {
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////
- getData() async {
+  getData() async {
     await LoadData();
     await fetchData();
     calculateTotalAmount();
 
     isLoading = false;
-    
-      }
+  }
 
   @override
   void initState() {
@@ -102,38 +99,42 @@ class _PathalogyState extends State<Pathalogy> {
       checkForNewData();
       print('$checkForNewData ============>');
     });
-     // Initialize currentDataLength with the length of the initial data
+    // Initialize currentDataLength with the length of the initial data
     currentDataLength = data!.length;
-  
   }
 
-  
 // Store the current data length
   int currentDataLength = 0;
 
-void checkForNewData() async {
-  try {
-    final newData = await fetchData();
+  void checkForNewData() async {
+    try {
+      final newData = await fetchData();
 
-    if (newData.length > currentDataLength) {
-      print('Check data store are not ===================>pathology');
-      notificationServies.showNotification(3,'New data are added please check your pathology bill','navigate_to_pathology_bill');
-      currentDataLength = newData.length;
-      // Store the notification data in shared preferences
-      final prefs = await SharedPreferences.getInstance();
-      final notifications = prefs.getStringList('notifications') ?? [];
-      notifications.add('New data are added please check your pathology bill');
-      prefs.setStringList('notifications', notifications);
+      if (newData.length > currentDataLength) {
+        print('Check data store are not ===================>pathology');
+        notificationServies.showNotification(
+            3,
+            'New data are added please check your pathology bill',
+            'navigate_to_pathology_bill');
+        currentDataLength = newData.length;
+        // Store the notification data in shared preferences
+        final prefs = await SharedPreferences.getInstance();
+        final notifications = prefs.getStringList('notifications') ?? [];
+        notifications
+            .add('New data are added please check your pathology bill');
+        prefs.setStringList('notifications', notifications);
 
-      notificationServies.showNotification(3,'New data are added please check your pathology bill','navigate_to_pathology_bill');
-      currentDataLength = newData.length;
-
-     
+        notificationServies.showNotification(
+            3,
+            'New data are added please check your pathology bill',
+            'navigate_to_pathology_bill');
+        currentDataLength = newData.length;
+      }
+    } catch (error) {
+      print('Error while checking for new data: $error');
     }
-  } catch (error) {
-    print('Error while checking for new data: $error');
   }
-}
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 // Get pathology data
   Map<String, dynamic>? DataMap;
@@ -187,15 +188,12 @@ void checkForNewData() async {
     setState(() {
       isLoading = false; // Set isLoading to false after data is fetched
     });
-
-    
   }
 
   /////////////////////////////////////////////////////////////////////////////////////
 
   TextEditingController searchController = TextEditingController();
-NotificationServies notificationServies=NotificationServies();
-
+  NotificationServies notificationServies = NotificationServies();
 
 ////////////////////////////////////////////////////////////////////////////////////////
 // filter data
@@ -260,13 +258,12 @@ NotificationServies notificationServies=NotificationServies();
           onRefresh: _handleRefresh,
           child: Column(
             children: [
-            
               Container(
                 color: Colors.grey,
                 width: width,
                 height: 40,
                 child: Padding(
-                  padding: const EdgeInsets.only(left:15.0,top: 12),
+                  padding: const EdgeInsets.only(left: 15.0, top: 12),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

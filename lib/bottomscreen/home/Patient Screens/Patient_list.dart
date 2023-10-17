@@ -23,8 +23,9 @@ class _PatientListState extends State<PatientList> {
           radius: 25,
           child: IconButton(
               onPressed: () {
-                Get.to(()=>const AddNewMemberScreen());
-              }, icon: Icon(Icons.add, color: whitecolor))),
+                Get.to(() => const AddNewMemberScreen());
+              },
+              icon: Icon(Icons.add, color: whitecolor))),
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       appBar: AppBar(
         backgroundColor: darkYellow,
