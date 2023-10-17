@@ -70,14 +70,10 @@ class _PhysiotherapyState extends State<Physiotherapy> {
     currentDataLength = DataMap?.length??0;
 
   }
-   @override
-  void dispose() {
-    // Cancel timers or dispose of resources here
-    super.dispose();
-  }
+  
   
   void checkForNewData() async {
-    // try {
+    try {
       final newData = await fetchData();
 
       if (newData.length > currentDataLength) {
@@ -91,9 +87,9 @@ class _PhysiotherapyState extends State<Physiotherapy> {
             10, 'New data are added in Physiotherapy, please check', 'navigate_to_physiotherapy');
         currentDataLength = newData.length;
       }
-    // } catch (error) {
-    //   print('Error while checking for new data: $error');
-    // }
+    } catch (error) {
+      print('Error while checking for new data: $error');
+    }
   }
 
 

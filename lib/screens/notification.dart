@@ -165,8 +165,9 @@
 //   }
 // }
 
-
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Physiotherapy/Physiotherapy.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/HomeTransaction_bill.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Patient_home.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -197,12 +198,22 @@ class _NotifState extends State<Notif> {
     });
   }
 
+  // Function to navigate to the desired screen based on the notification text
+  void _navigateToScreen(String notification) {
+    if (notification == 'please check your due bill amount') {
+      Get.to(() => const PatientHomePage());
+    } else if (notification == 'New data are added in Physiotherapy, please check') {
+      Get.to(() => const Physiotherapy());
+    } else if (notification == 'New data are added please check your transaction Bill') {
+      Get.to(() => const HomeTransactionBill(payload: 'payload'));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Notifications'),
-        
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
@@ -210,16 +221,14 @@ class _NotifState extends State<Notif> {
         itemCount: notifications.length,
         itemBuilder: (context, index) {
           return Padding(
-            padding: const EdgeInsets.only(left:10.0,right: 10),
+            padding: const EdgeInsets.only(left: 10.0, right: 10),
             child: Card(
               child: ListTile(
                 onTap: () {
-                  Get.to(()=>const HomeTransactionBill(payload: 'payload'));
-                  
+                  _navigateToScreen(notifications[index]);
                 },
-                title: Column( 
+                title: Column(
                   children: [
-                    
                     Text(index.toString()),
                     const SizedBox(width: 5,),
                     Text(notifications[index]),

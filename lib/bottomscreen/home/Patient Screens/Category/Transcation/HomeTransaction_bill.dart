@@ -72,42 +72,42 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
 
 // ///////////////////////////////////////////////////////////////////////
 
-//     // Schedule a periodic task to check the API every minute
-//     const duration = Duration(minutes: 1);
-//     Timer.periodic(duration, (Timer t) {
-//       // checkForNewData();
-//     });
-//     // Initialize currentDataLength with the length of the initial data
-//     currentDataLength = apiData.length;
+    // Schedule a periodic task to check the API every minute
+    const duration = Duration(minutes: 1);
+    Timer.periodic(duration, (Timer t) {
+      checkForNewData();
+    });
+    // Initialize currentDataLength with the length of the initial data
+    currentDataLength = apiData.length;
   }
 
-  // @override
-  // void dispose() {
-  //   // Cancel timers or dispose of resources here
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    // Cancel timers or dispose of resources here
+    super.dispose();
+  }
 
-  // void checkForNewData() async {
-  //   try {
-  //     final newData = await fetchData();
+  void checkForNewData() async {
+    try {
+      final newData = await fetchData();
 
-  //     if (newData.length > currentDataLength) {
-  //       // Store the notification data in shared preferences
-  //       final prefs = await SharedPreferences.getInstance();
-  //       final notifications = prefs.getStringList('notifications') ?? [];
-  //       notifications
-  //           .add('New data are added please check your transaction Bill');
-  //       prefs.setStringList('notifications', notifications);
+      if (newData.length > currentDataLength) {
+        // Store the notification data in shared preferences
+        final prefs = await SharedPreferences.getInstance();
+        final notifications = prefs.getStringList('notifications') ?? [];
+        notifications
+            .add('New data are added please check your transaction Bill');
+        prefs.setStringList('notifications', notifications);
 
-  //       notificationServies.showNotification(1,
-  //           'New data are added please check your transaction Bill',
-  //           'navigate_to_home_transaction_bill');
-  //       currentDataLength = newData.length;
-  //     }
-  //   } catch (error) {
-  //     print('Error while checking for new data: $error');
-  //   }
-  // }
+        notificationServies.showNotification(1,
+            'New data are added please check your transaction Bill',
+            'navigate_to_home_transaction_bill');
+        currentDataLength = newData.length;
+      }
+    } catch (error) {
+      print('Error while checking for new data: $error');
+    }
+  }
 
 /////////////////////////////////////////////////////////////////////////////
 //  get all transaction bill

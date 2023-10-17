@@ -100,9 +100,10 @@ class _PathalogyState extends State<Pathalogy> {
     const duration = Duration(minutes: 1);
     Timer.periodic(duration, (Timer t) {
       checkForNewData();
+      print('$checkForNewData ============>');
     });
      // Initialize currentDataLength with the length of the initial data
-    currentDataLength = filteredData!.length;
+    currentDataLength = data!.length;
   
   }
 
@@ -115,6 +116,9 @@ void checkForNewData() async {
     final newData = await fetchData();
 
     if (newData.length > currentDataLength) {
+      print('Check data store are not ===================>pathology');
+      notificationServies.showNotification(3,'New data are added please check your pathology bill','navigate_to_pathology_bill');
+      currentDataLength = newData.length;
       // Store the notification data in shared preferences
       final prefs = await SharedPreferences.getInstance();
       final notifications = prefs.getStringList('notifications') ?? [];
