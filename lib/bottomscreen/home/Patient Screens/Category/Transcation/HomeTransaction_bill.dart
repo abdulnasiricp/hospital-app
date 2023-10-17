@@ -64,6 +64,8 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
     });
   }
 
+  
+
   @override
   void initState() {
     super.initState();
@@ -78,6 +80,10 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
     });
     // Initialize currentDataLength with the length of the initial data
     currentDataLength = apiData.length;
+
+
+
+
   }
 
   @override

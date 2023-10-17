@@ -61,36 +61,47 @@ class _PhysiotherapyState extends State<Physiotherapy> {
   @override
   void initState() {
     super.initState();
-    getData();
-     // Schedule a periodic task to check the API every minute
-    const duration = Duration(minutes: 1);
+       // Schedule a periodic task to check the API every minute
+    const duration = Duration(seconds: 30);
     Timer.periodic(duration, (Timer t) {
       checkForNewData();
+      print('1==========================>');
     });
-
     // Initialize currentDataLength with the length of the initial data
-    currentDataLength = DataMap?.length??0;
+    currentDataLength = data!.length;
+    getData();
+
 
   }
+  NotificationServies notificationServies = NotificationServies();
   
   
+ 
   void checkForNewData() async {
-    try {
-      final newData = await fetchData();
+    // final newData = await fetchData(); // Fetch the latest data from the API
+    final newDataLength = DataMap?['result']
+        .length; // Assuming the data structure is similar to your existing data
 
-      if (newData.length > currentDataLength) {
-        // Store the notification data in shared preferences
-        final prefs = await SharedPreferences.getInstance();
-        final notifications = prefs.getStringList('notifications') ?? [];
-        notifications.add('New data are added in Physiotherapy, please check');
-        prefs.setStringList('notifications', notifications);
+    if (newDataLength > currentDataLength) {
+      print('2==========================>');
 
-        notificationService.showNotification(
-            10, 'New data are added in Physiotherapy, please check', 'navigate_to_physiotherapy');
-        currentDataLength = newData.length;
-      }
-    } catch (error) {
-      print('Error while checking for new data: $error');
+      // New data is available
+      notificationServies.showNotification(
+          15,
+          'New data are added in Physiotherapy, please check',
+          'navigate_to_physiotherapy_bill');
+      // Store the notification data in shared preferences
+      final prefs = await SharedPreferences.getInstance();
+      final notifications = prefs.getStringList('notifications') ?? [];
+      notifications
+          .add('New data are added in Physiotherapy, please check');
+      prefs.setStringList('notifications', notifications);
+
+      setState(() {
+        currentDataLength = newDataLength;
+        data = DataMap?['result'];
+        filteredData = data;
+      });
     }
   }
 

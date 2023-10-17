@@ -36,7 +36,11 @@ void showLocalNotificationWithPayload(String payload) {
   }else if(payload == 'navigate_to_physiotherapy') {
     Get.to(() =>  Physiotherapy(payload: payload,));
 
+  }else{
     // Handle other types of notifications or actions here
+    print('error');
+
+
   }
 
   flutterLocalNotificationsPlugin.show(
