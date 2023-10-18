@@ -16,7 +16,7 @@ class EnString {
   static const String login = "Sign In";
 
 
-  //Bottom Bar
+  //Bottom Barub
   static const String home = "Home";
   static const String transcation = "Transaction";
   static const String card = "Card";
@@ -40,6 +40,7 @@ class EnString {
   static const String aboutUsSubtitle = "view aboutus details";
   static const String darkmode = "Dark Mode";
   static const String darkmodeSubtitle = "Change Mode";
+  static const String LogoutSubtitle = "Logout from this device";
   static const String setting = "Setting";
   static const String settingSubtitle = "Change Your Setting";
   static const String logout = "Log Out";

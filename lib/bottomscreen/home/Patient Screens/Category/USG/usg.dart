@@ -1,15 +1,15 @@
-// ignore_for_file: non_constant_identifier_names, avoid_print, sized_box_for_whitespace
-
 import 'dart:convert';
-
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Billview.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Reportview.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/USG/BillReport.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/USG/ScanReport.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
@@ -26,10 +26,7 @@ class USGScreen extends StatefulWidget {
 class _USGScreenState extends State<USGScreen> {
   bool isLoading = true;
   List<Map<String, dynamic>> apiData = []; // Initialize as a list
-
   late String patient = '';
-  late String totalAmount = "0.00"; // Initialize with a default value
-
   LoadData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     patient = sp.getString('patientidrecord') ?? '';
@@ -45,16 +42,6 @@ class _USGScreenState extends State<USGScreen> {
         if (data.containsKey("result")) {
           apiData = List<Map<String, dynamic>>.from(data["result"]);
         }
-
-        // Calculate and update the total amount
-        double sum = 0.0;
-        for (var Pathologybill in apiData) {
-          if (Pathologybill.containsKey('net_amount')) {
-            sum += double.tryParse("${Pathologybill['net_amount']}") ?? 0.0;
-          }
-        }
-        totalAmount = sum.toStringAsFixed(2);
-
         isLoading = false;
       });
     }).catchError((error) {
@@ -73,17 +60,17 @@ class _USGScreenState extends State<USGScreen> {
   }
 
   Future<Map<String, dynamic>> fetchData() async {
-    Uri.parse(ApiLinks.pathology);
+    Uri.parse(ApiLinks.getAllUsgBill);
     final headers = {
       'Soft-service': 'TezHealthCare',
       'Auth-key': 'zbuks_ram859553467',
     };
     final body = {
-      "patient_id": "2850",
+      "patient_id": patient,
     };
 
     final response = await http.post(
-      Uri.parse(ApiLinks.pathology),
+      Uri.parse(ApiLinks.getAllUsgBill),
       headers: headers,
       body: json.encode(body),
     );
@@ -118,7 +105,7 @@ class _USGScreenState extends State<USGScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text(EnString.Pathology),
+        title: Text('usg'.tr),
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
@@ -130,30 +117,60 @@ class _USGScreenState extends State<USGScreen> {
               color: Colors.grey,
               width: width,
               height: 40,
-              child: const Padding(
-                padding: EdgeInsets.all(10.0),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 15.0, top: 12),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      EnString.billno,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    Column(
+                      children: [
+                        Container(
+                          // width: width/7,
+                          child: Center(
+                            child: Text(
+                              'billno'.tr,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 15),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    Text(
-                      EnString.Payment,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    Column(
+                      children: [
+                        Container(
+                          width: width / 7,
+                          child: Text(
+                            'Scan'.tr,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                        ),
+                      ],
                     ),
-                    Text(
-                      EnString.Report,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    Column(
+                      children: [
+                        Container(
+                          width: width / 7,
+                          child: Text(
+                            'Report'.tr,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                        ),
+                      ],
                     ),
-                    Text(
-                      EnString.amount,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    Column(
+                      children: [
+                        Container(
+                          width: width / 7,
+                          child: Text(
+                            'amount'.tr,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -206,8 +223,8 @@ class _USGScreenState extends State<USGScreen> {
                       : ListView.builder(
                           itemCount: apiData.length,
                           itemBuilder: (context, index) {
-                            final Pathologybill = apiData[index];
-                            if (Pathologybill.containsKey('id')) {
+                            final USGbill = apiData[index];
+                            if (USGbill.containsKey('id')) {
                               return Column(
                                 children: [
                                   Card(
@@ -219,64 +236,21 @@ class _USGScreenState extends State<USGScreen> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            "${Pathologybill['id']}",
+                                            "${USGbill['id']}",
                                             style: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                           InkWell(
                                             onTap: () {
-                                              if (Pathologybill['status'] ==
-                                                  'Paid') {
-                                                Get.to(
-                                                  () => pathologyBillview(
-                                                    bill_pdf:
-                                                        "${Pathologybill['bill_pdf']}",
-                                                    id: "${Pathologybill['id']}",
-                                                  ),
-                                                );
-                                              } else {
-                                                Get.to(
-                                                  () => pathologyBillview(
-                                                    bill_pdf:
-                                                        "${Pathologybill['bill_pdf']}",
-                                                    id: "${Pathologybill['id']}",
-                                                  ),
-                                                );
-                                              }
-                                            },
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    Pathologybill['status'] ==
-                                                            'Paid'
-                                                        ? Colors.green
-                                                        : Colors.red,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(3.0),
-                                                child: Text(
-                                                  // listName,
-                                                  "${Pathologybill['status']}",
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          InkWell(
-                                            onTap: () {
-                                              if (Pathologybill['is_printed'] ==
+                                              if (USGbill['is_scan_entry'] ==
                                                   '1') {
                                                 Get.to(
-                                                  () => pathologyReport(
-                                                    report_pdf:
-                                                        "${Pathologybill['report_pdf']}",
-                                                    id: "${Pathologybill['id']}",
+                                                  () => USGScanreportview(
+                                                    scan_report_link: USGbill[
+                                                            'direct_charge_details']
+                                                        [0]['scan_report_link'],
+                                                    id: "${USGbill['id']}",
                                                   ),
                                                 );
                                               } else {
@@ -292,24 +266,83 @@ class _USGScreenState extends State<USGScreen> {
                                             },
                                             child: Container(
                                               decoration: BoxDecoration(
-                                                color: Pathologybill[
-                                                            'is_printed'] ==
-                                                        '1'
-                                                    ? Colors.green
-                                                    : Colors.yellowAccent,
+                                                color:
+                                                    USGbill['is_scan_entry'] ==
+                                                            '1'
+                                                        ? Colors.green
+                                                        : Colors.yellow,
                                                 borderRadius:
                                                     BorderRadius.circular(5.0),
                                               ),
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(3.0),
-                                                child: Text(
-                                                  Pathologybill['is_printed'] ==
-                                                          '1'
-                                                      ? 'Report Printed'
-                                                      : 'Processing',
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(1.0),
+                                                  child: Text(
+                                                    USGbill['is_scan_entry'] ==
+                                                            '1'
+                                                        ? 'Report Scanned'
+                                                        : 'Processing',
+                                                    style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 10),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          InkWell(
+                                            onTap: () {
+                                              if (USGbill['is_report_entry'] ==
+                                                  '1') {
+                                                Get.to(
+                                                  () => USGBillview(
+                                                    finding_report_link: USGbill[
+                                                            'direct_charge_details']
+                                                        [
+                                                        0]['finding_report_link'],
+                                                    id: "${USGbill['id']}",
+                                                  ),
+                                                );
+                                              } else {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  const SnackBar(
+                                                    content: Text(
+                                                        "Pathology report is currently printing. Please stay tuned."),
+                                                    backgroundColor: Colors.red,
+                                                  ),
+                                                );
+                                              }
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    USGbill['is_report_entry'] ==
+                                                            '1'
+                                                        ? Colors.green
+                                                        : Colors.yellowAccent,
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(3.0),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(1.0),
+                                                  child: Text(
+                                                    USGbill['is_report_entry'] ==
+                                                            '1'
+                                                        ? 'Report Printed'
+                                                        : 'Processing',
+                                                    style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 10),
                                                   ),
                                                 ),
                                               ),
@@ -317,7 +350,7 @@ class _USGScreenState extends State<USGScreen> {
                                           ),
                                           Text(
                                             // 'Rs.${item.total}',
-                                            "${Pathologybill['net_amount']}",
+                                            "${USGbill['net_amount']}",
                                             // Use 'net_amount' for the amount
                                             style: const TextStyle(
                                               color: Colors.red,
@@ -338,37 +371,6 @@ class _USGScreenState extends State<USGScreen> {
           ],
         ),
       ),
-      bottomSheet: apiData.isEmpty
-          ? null // Set bottomSheet to null when apiData is empty
-          : Card(
-              child: Container(
-                height: 50,
-                width: width,
-                color: darkYellow,
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        EnString.total,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20),
-                      ),
-                      Shimmer.fromColors(
-                        baseColor: Colors.red,
-                        highlightColor: Colors.yellow,
-                        child: Text("Rs.$totalAmount",
-                            style: const TextStyle(
-                                color: Colors.red, fontSize: 20)),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
     );
   }
 }

@@ -357,7 +357,8 @@ class _ProfileState extends State<Profile> {
                                         // ),
                                         InkWell(
                                           onTap: () {
-                                            Get.to(() => const CheckForUpdate());
+                                            Get.to(
+                                                () => const CheckForUpdate());
                                             // ScaffoldMessenger.of(context)
                                             //     .showSnackBar(const SnackBar(
                                             //   content: Text('Comming soon.'),
@@ -478,6 +479,7 @@ class _ProfileState extends State<Profile> {
                                               style: const TextStyle(
                                                   fontWeight: FontWeight.bold),
                                             ),
+                                            subtitle: Text('LogoutSubtitle'.tr),
                                           ),
                                         ),
                                       ],

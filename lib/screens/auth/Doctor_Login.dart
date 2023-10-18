@@ -28,7 +28,7 @@ class _DoctorLoginState extends State<DoctorLogin> {
 
   var isloading = false;
   bool _isPasswordVisible = false;
-    String loginDateTime = '';
+  String loginDateTime = '';
 
   void _togglePasswordVisibility() {
     setState(() {
@@ -70,19 +70,25 @@ class _DoctorLoginState extends State<DoctorLogin> {
       // Navigate to the home screen or any other screen you need
       Get.off(() => const Bottomhome());
       setState(() {
-        Fluttertoast.showToast(msg: 'Login Successfully');
+        Fluttertoast.showToast(
+          msg: 'Login Successfully',
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+        );
       });
     } else {
       // Handle login failure
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Login failed. Please try again.'),
+        backgroundColor: Colors.red,
       ));
       setState(() {
         isloading = false;
       });
     }
   }
-    _loadLoginDateTime() async {
+
+  _loadLoginDateTime() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       loginDateTime = prefs.getString('loginDateTime') ?? '';
@@ -95,7 +101,7 @@ class _DoctorLoginState extends State<DoctorLogin> {
     await prefs.setString('loginDateTime', now);
   }
 
-@override
+  @override
   void initState() {
     _loadLoginDateTime();
     super.initState();
@@ -136,10 +142,24 @@ class _DoctorLoginState extends State<DoctorLogin> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          EnString.username,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.white),
+                        RichText(
+                          text: const TextSpan(
+                            children: [
+                              TextSpan(
+                                text: EnString.username,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              TextSpan(
+                                text: '*',
+                                style: TextStyle(
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         const SizedBox(
                           height: 5,
@@ -177,10 +197,24 @@ class _DoctorLoginState extends State<DoctorLogin> {
                         const SizedBox(
                           height: 20,
                         ),
-                        const Text(
-                          EnString.password,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.white),
+                        RichText(
+                          text: const TextSpan(
+                            children: [
+                              TextSpan(
+                                text: EnString.password,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              TextSpan(
+                                text: '*',
+                                style: TextStyle(
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         const SizedBox(
                           height: 5,
@@ -267,7 +301,7 @@ class _DoctorLoginState extends State<DoctorLogin> {
                         Container(
                           width: double.infinity,
                           height: 50,
-                          child:ElevatedButton(
+                          child: ElevatedButton(
                             style: ButtonStyle(
                               backgroundColor:
                                   MaterialStateProperty.all(yellow),
@@ -275,10 +309,9 @@ class _DoctorLoginState extends State<DoctorLogin> {
                             child: const Text(EnString.login),
                             onPressed: () {
                               if (formKey.currentState!.validate()) {
-                               
                                 _login();
                                 _saveLoginDateTime();
-                _loadLoginDateTime();
+                                _loadLoginDateTime();
                                 setState(() {
                                   isloading = true;
                                 });

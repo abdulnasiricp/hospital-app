@@ -20,8 +20,8 @@ class ApiLinks {
       "https://uat.tez.hospital/xzy/webservice/getRadiologyDetails";
   static const String pharmacy =
       "https://uat.tez.hospital/xzy/webservice/getPharmacyDetails";
-       static const String usgBillDetails =
-      "https://uat.tez.hospital/xzy/webservice/getUsgBillDetail";
+       static const String getAllUsgBill =
+      "https://uat.tez.hospital/xzy/webservice/getAllUsgBill";
        static const String Therapy =
       "https://uat.tez.hospital/xzy/webservice/getPhysiotherapyDetails";
       static const String getIPDMedication =
@@ -42,6 +42,8 @@ class ApiLinks {
       "https://uat.tez.hospital/xzy/webservice/AboutUs";
       static const String update_password=
       "https://uat.tez.hospital/xzy/auth/update_password";
+      static const String forget_password=
+      "https://uat.tez.hospital/xzy/auth/forget_password";
        static const String Maternity=
       "https://uat.tez.hospital/xzy/webservice/getipdMaternity";
         static const String surgery=

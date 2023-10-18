@@ -36,7 +36,7 @@ class _PatientLoginState extends State<PatientLogin> {
   final TextEditingController _passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   var isloading = false;
-  
+
   Future<void> _login() async {
     final String username = usernameController.text;
     final String password = _passwordController.text;
@@ -141,10 +141,24 @@ class _PatientLoginState extends State<PatientLogin> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          EnString.username,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.white),
+                        RichText(
+                          text: const TextSpan(
+                            children: [
+                              TextSpan(
+                                text: EnString.username,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              TextSpan(
+                                text: '*',
+                                style: TextStyle(
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         const SizedBox(
                           height: 5,
@@ -181,10 +195,24 @@ class _PatientLoginState extends State<PatientLogin> {
                         const SizedBox(
                           height: 20,
                         ),
-                        const Text(
-                          EnString.password,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.white),
+                        RichText(
+                          text: const TextSpan(
+                            children: [
+                              TextSpan(
+                                text: EnString.password,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              TextSpan(
+                                text: '*',
+                                style: TextStyle(
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         const SizedBox(
                           height: 5,

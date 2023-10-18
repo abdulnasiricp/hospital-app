@@ -1,14 +1,22 @@
-// ignore_for_file: sized_box_for_whitespace, body_might_complete_normally_nullable, non_constant_identifier_names, file_names
-
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:TezHealthCare/screens/auth/Sigin_main_screen.dart';
+import 'package:TezHealthCare/screens/auth/authwidget/ForgotPasswordtoast.dart';
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/My_button.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/helper_class.dart';
+import 'package:TezHealthCare/widgets/Toast_dialog.dart';
+import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/route_manager.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Forgotpassword extends StatefulWidget {
   const Forgotpassword({Key? key}) : super(key: key);
@@ -18,63 +26,116 @@ class Forgotpassword extends StatefulWidget {
 }
 
 class _ForgotpasswordState extends State<Forgotpassword> {
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController EmailController = TextEditingController();
-  final TextEditingController DobController = TextEditingController();
+  String _errorMessage = '';
+  late bool isloading;
 
+  // Controllers for text fields
+  final PatientIdController = TextEditingController();
+  final PhonenumberController = TextEditingController();
   final formKey = GlobalKey<FormState>();
-  var isloading = false;
 
-  void resetPassword(String email) async {
-    const apiUrl = 'https://uat.tez.hospital/xzy/webservice/forgotpassword';
-    final body = {
-      'username': email
-    }; // You can change 'email' to 'username' based on your API requirements.
+  @override
+  void initState() {
+    super.initState();
+    isloading = false;
+    ForgotPassword();
+  }
 
-    final response = await http.post(
-      Uri.parse(apiUrl),
-      headers: {
-        'Soft-service': 'TezHealthCare',
-        'Auth-key': 'zbuks_ram859553467'
-      },
-      body: json.encode(body),
-    );
+  Future<void> ForgotPassword() async {
+    final String PatientId = PatientIdController.text;
+    final String Phonenumber = PhonenumberController.text;
 
-    if (response.statusCode == 200) {
-      // Password reset request successful
-      // You can handle the success response here
-    } else {
-      // Password reset request failed
-      // You can handle the error response here
+    setState(() {
+      isloading = true; // Set loading to true before making the API request
+    });
+
+    try {
+      final response = await http.post(
+        Uri.parse(ApiLinks.forget_password),
+        body: json.encode({
+          "patient_id": PatientId,
+          "mobile_no": Phonenumber,
+        }),
+        headers: {
+          'Soft-service': 'TezHealthCare',
+          'Auth-key': 'zbuks_ram859553467',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final responseJson = json.decode(response.body);
+        if (responseJson['status'] == '1') {
+          Get.dialog(Forgotpasswordtoast(
+            title: 'Password Send successfully',
+            message:
+                'Your new password has been sent to your registered phone number and email. Please check for login within the app',
+            btnnName: 'Ok',
+          ));
+        } else {
+          setState(() {
+            final message = responseJson['message'];
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(message),
+                backgroundColor: Colors.red,
+              ),
+            );
+          });
+        }
+      }
+    } catch (e) {
+      // Handle network or other errors
+      setState(() {
+        if (e is SocketException) {
+          // Network error
+          _errorMessage =
+              'Network error. Please check your internet connection.';
+        } else {
+          // Other errors
+          _errorMessage = 'Something went wrong. Please try again.';
+        }
+      });
+    } finally {
+      setState(() {
+        isloading =
+            false; // Set loading to false when the API request is completed
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    height = MediaQuery.of(context).size.height;
-    width = MediaQuery.of(context).size.width;
-    return isloading
-        ? Center(
-            child: Lottie.asset('assets/loading1.json'),
-          )
-        : Scaffold(
-            backgroundColor: Utils.scaffoldBackgroundColor,
-            appBar: AppBar(
-              title: const Text('Forgot Password'),
-              centerTitle: true,
-              backgroundColor: darkblue,
-              foregroundColor: Utils.appbarForgroundColor,
-            ),
-            body: SingleChildScrollView(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Forgot Password'),
+        centerTitle: true,
+        backgroundColor: darkblue,
+        foregroundColor: Utils.appbarForgroundColor,
+      ),
+      body: isloading
+          ? Center(
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  height: 50,
+                  width: 50,
+                  color: Colors.transparent,
+                  child: const LoadingIndicatorWidget(),
+                ),
+              ),
+            )
+          : SingleChildScrollView(
               child: Stack(
                 children: [
                   Container(
                     height: 170,
                     decoration: BoxDecoration(
-                        color: darkblue,
-                        borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(30),
-                            bottomRight: Radius.circular(30))),
+                      color: darkblue,
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(30),
+                        bottomRight: Radius.circular(30),
+                      ),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(20.0),
@@ -91,11 +152,24 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                '  Username',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
+                              RichText(
+                                text: const TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: 'Patient ID ',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: '*',
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                               const SizedBox(
                                 height: 5,
@@ -103,130 +177,85 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                               TextFormField(
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return 'Please enter UserName';
-                                  }
-                                  //  else if (!value.contains('@')) {
-                                  //   return 'please enter valid email';
-                                  // }
-                                  else {
-                                    return null;
+                                    return 'This field is required'; // Display a message when the field is empty
+                                  } else {
+                                    return null; // No error when the field has a value
                                   }
                                 },
-                                keyboardType: TextInputType.emailAddress,
-                                controller: usernameController,
+                                controller: PatientIdController,
                                 onTapOutside: (event) =>
                                     FocusScope.of(context).unfocus(),
                                 decoration: InputDecoration(
-                                    fillColor: Colors.white,
-                                    filled: true,
-                                    prefixIcon: const Icon(
-                                      Icons.person,
-                                      color: Colors.amber,
-                                    ),
-                                    hintText: 'Enter Yor Username',
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    )),
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                  hintText: 'Enter Patient ID',
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
                               ),
                               const SizedBox(
                                 height: 20,
                               ),
-                              const Text(
-                                'Email',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
+                              RichText(
+                                text: const TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: 'Phone Number ',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: '*',
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                               const SizedBox(
                                 height: 5,
                               ),
                               TextFormField(
+                                keyboardType: TextInputType.number,
+                                inputFormatters: <TextInputFormatter>[
+                                  FilteringTextInputFormatter.allow(
+                                      RegExp(r'[0-9]')),
+                                ],
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return 'Please Enter Your Email';
-                                  } else if (!value.contains(
-                                    '@',
-                                  )) {
-                                    return 'please enter valid email';
+                                    return 'This field is required'; // Display a message when the field is empty
                                   } else {
-                                    return null;
+                                    return null; // No error when the field has a value
                                   }
                                 },
-                                keyboardType: TextInputType.emailAddress,
-                                controller: EmailController,
+                                controller: PhonenumberController,
                                 onTapOutside: (event) =>
                                     FocusScope.of(context).unfocus(),
                                 decoration: InputDecoration(
-                                    fillColor: Colors.white,
-                                    filled: true,
-                                    prefixIcon: const Icon(
-                                      Icons.mail,
-                                      color: Colors.amber,
-                                    ),
-                                    hintText: 'Enter Your Email',
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    )),
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                  hintText: 'Enter Phone Number',
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
                               ),
                               const SizedBox(
                                 height: 20,
-                              ),
-                              const Text(
-                                'Date Of Birth',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              TextFormField(
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Please Enter Your Dob';
-                                  } else if (!value.contains(
-                                    '',
-                                  )) {
-                                    return 'please enter valid email';
-                                  } else {
-                                    return null;
-                                  }
-                                },
-                                keyboardType: TextInputType.emailAddress,
-                                controller: DobController,
-                                onTapOutside: (event) =>
-                                    FocusScope.of(context).unfocus(),
-                                decoration: InputDecoration(
-                                    fillColor: Colors.white,
-                                    filled: true,
-                                    prefixIcon: const Icon(
-                                      Icons.calendar_month,
-                                      color: Colors.amber,
-                                    ),
-                                    hintText:
-                                        'Example:- 2057-01-02 / 2000-04-14',
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    )),
-                              ),
-                              const SizedBox(
-                                height: 30,
                               ),
                               Container(
                                 width: double.infinity,
                                 height: 50,
                                 child: MyButton(
-                                  title: const Text('Sign In'),
+                                  title: const Text('Forgot Password'),
                                   onPressed: () {
                                     if (formKey.currentState!.validate()) {
-                                      // Loginvalues.patientLogin(
-                                      //   Loginvalues.emailController,
-                                      //   Loginvalues.passwordController
-                                      // );
-                                      // _Forgotpass();
-                                      setState(() {
-                                        isloading = true;
-                                      });
+                                      // Only perform the ForgotPassword action if both fields are filled
+                                      ForgotPassword();
                                     }
                                   },
                                 ),
@@ -240,6 +269,6 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                 ],
               ),
             ),
-          );
+    );
   }
 }

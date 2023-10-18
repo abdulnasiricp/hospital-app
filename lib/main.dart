@@ -1,4 +1,3 @@
-
 import 'package:TezHealthCare/Controller/notificationProvider.dart';
 import 'package:TezHealthCare/Services/notification_worker.dart';
 import 'package:TezHealthCare/language_Services/translation.dart';
@@ -20,32 +19,19 @@ import 'package:workmanager/workmanager.dart';
 
 // FlutterLocalNotificationsPlugin notificationsPlugin =
 //     FlutterLocalNotificationsPlugin();
-
-
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await FlutterDownloader.initialize(debug: true); // Set to false in production
-
-
-  
-
   //////////////////////////////////////////////////////////////////
   // // Initialize SharedPreferences
   final sharedPreferences = await SharedPreferences.getInstance();
-
   String? selectedLanguage = sharedPreferences.getString('selectedLanguage') ??
       'en'; // Default to 'en' if not found
-
   String defaultLang = selectedLanguage == 'ne' ? 'ne_NP' : 'en_US';
-
   print('========================> $defaultLang');
-
   runApp(MyApp(
     defaultLanguage: defaultLang,
   ));
-
   // Workmanager().initialize(callbackDispatcher);
   // Workmanager().registerPeriodicTask(
   //   "1",

@@ -63,6 +63,14 @@ class _PathalogyState extends State<Pathalogy> {
   getData() async {
     await LoadData();
     await fetchData();
+    ///////////////////////////////////////////////////////////////////////
+
+    // Schedule a periodic task to check the API every minute
+    const duration = Duration(minutes: 1);
+    Timer.periodic(duration, (Timer t) {
+      checkForNewData();
+    });
+    // Initialize currentDataLength with the length of the initial data
 
     calculateTotalAmount();
 
@@ -72,42 +80,32 @@ class _PathalogyState extends State<Pathalogy> {
   @override
   void initState() {
     super.initState();
-    // Schedule a periodic task to check the API every minute
-    const duration = Duration(seconds: 30);
-    Timer.periodic(duration, (Timer t) {
-      checkForNewData();
-      print('1==========================>');
-    });
-    // Initialize currentDataLength with the length of the initial data
-    currentDataLength = data!.length;
     getData();
   }
 
   void checkForNewData() async {
-    // final newData = await fetchData(); // Fetch the latest data from the API
-    final newDataLength = DataMap?['result']
-        .length; // Assuming the data structure is similar to your existing data
+    try {
+      final newData = await fetchData();
+      print('old data length: ${newData.length}');
+      print('New data length: ${filteredData?.length}');
+      if (newData.length < filteredData!.length) {
+        print("===============>");
+        print('New data added, showing notification');
+        // Store the notification data in shared preferences
+        final prefs = await SharedPreferences.getInstance();
+        final notifications = prefs.getStringList('notifications') ?? [];
+        notifications
+            .add('New data are added please check your pathology Bill');
+        prefs.setStringList('notifications', notifications);
 
-    if (newDataLength > currentDataLength) {
-      print('2==========================>');
-
-      // New data is available
-      notificationServies.showNotification(
-          15,
-          'New data are added please check your pathology Bill',
-          'navigate_to_pathology_bill');
-      // Store the notification data in shared preferences
-      final prefs = await SharedPreferences.getInstance();
-      final notifications = prefs.getStringList('notifications') ?? [];
-      notifications
-          .add('New data are added please check your pathology Bill');
-      prefs.setStringList('notifications', notifications);
-
-      setState(() {
-        currentDataLength = newDataLength;
-        data = DataMap?['result'];
-        filteredData = data;
-      });
+        notificationServies.showNotification(
+            11,
+            'New data are added please check your pathology Bill',
+            'navigate_to_pathology_bill');
+        currentDataLength = newData.length;
+      }
+    } catch (error) {
+      print('Error while checking for new data: $error');
     }
   }
 

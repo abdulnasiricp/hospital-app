@@ -47,7 +47,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
                                   child: Image.asset(
-                                    'assets/drtwo.png',
+                                    'assets/hospital_logo.png',
                                     fit: BoxFit.cover,
                                   ))),
                         ),

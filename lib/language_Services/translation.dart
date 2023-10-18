@@ -38,6 +38,7 @@ class Translation extends Translations {
           //View All Doctor list
           'selectADoctor': "Select a Doctor",
           'searchADoctor': "Search your doctor",
+          'Scan': "Scan",
 
           //Transaction bill
           'tid': "TID",
@@ -59,9 +60,11 @@ class Translation extends Translations {
           'darkmodeSubtitle': "Change Mode",
           'setting': "Setting",
           'settingSubtitle': "Change Your Setting",
+
           'checkUpdate': "Check for Updates",
           'logout': "Log Out",
           'rateUs': "Rate Us",
+          'LogoutSubtitle': "Logout from this device",
 
           //term and coditions
 
@@ -205,7 +208,7 @@ class Translation extends Translations {
           'No. D': 'No. D',
           'Bedhistory': 'Bedhistory',
           'Certificate': 'Certificate', 'Bloodbank': 'Bloodbank',
-          'Surgery': 'Surgery Report',  'HelpCenter': 'Help Center',
+          'Surgery': 'Surgery Report', 'HelpCenter': 'Help Center',
         },
         'ne_NP': {
           //Bottom Bar
@@ -261,6 +264,7 @@ class Translation extends Translations {
           'aboutUsSubtitle': "हाम्रोबारे",
           'darkmode': "गाढा मोड",
           'darkmodeSubtitle': "मोड परिवर्तन गर्नुहोस्",
+          'LogoutSubtitle': "यस उपकरण लगआउट गर्नुहोस्",
           'setting': "सेटिङ",
           'settingSubtitle': "आफ्नो सेटिङ परिवर्तन गर्नुहोस्",
           'checkUpdate': "अपडेटहरूको लागि जाँच गर्नुहोस्",
@@ -415,6 +419,7 @@ class Translation extends Translations {
           'Bloodbank': 'ब्लडबैंक',
           'Surgery': 'शल्यक्रिया रिपोर्ट',
           'HelpCenter': 'मद्दत केन्द्र',
+          'Scan': 'स्क्यान',
           //
         }
       };
