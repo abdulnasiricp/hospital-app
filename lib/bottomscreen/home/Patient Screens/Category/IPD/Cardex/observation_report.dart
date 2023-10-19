@@ -193,13 +193,13 @@ class _ObservationreportState extends State<Observationreport> {
                         elevation: 1.0,
                         child: ListTile(
                           title: Text(
-                              'Patient Id: ${MedicationItem["patient_id"]?? 'N/A'}'),
+                              'Patient Id: ${MedicationItem["patient_id"] ?? 'N/A'}'),
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('ID: ${MedicationItem["id"]?? 'N/A'}'),
+                              Text('ID: ${MedicationItem["id"] ?? 'N/A'}'),
                               Text(
-                                  'Created At: ${MedicationItem["created_at"]?? 'N/A'}'),
+                                  'Created At: ${MedicationItem["created_at"] ?? 'N/A'}'),
                               Text(
                                   'Updated At: ${MedicationItem["updated_at"] ?? 'N/A'}'),
                               Text('Pulse: ${MedicationItem["p"] ?? 'N/A'}'),

@@ -11,6 +11,7 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Bedhi
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Blood_Bank/Blood_Bank.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Card/Card.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Certificate/Certificate.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Directbill/Direct_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/IPD.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Liveconsultation/Liveconsultation.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Pathology.dart';
@@ -35,10 +36,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
 class PatientHomePage extends StatefulWidget {
-    final String payload;
+  final String payload;
 
   final String? patientId;
-  const PatientHomePage({Key? key, this.patientId, required this.payload}) : super(key: key);
+  const PatientHomePage({Key? key, this.patientId, required this.payload})
+      : super(key: key);
 
   @override
   State<PatientHomePage> createState() => _PatientHomePageState();
@@ -539,6 +541,41 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     ),
                                     InkWell(
                                       onTap: () {
+                                        Get.to(() => const Direct_bill());
+                                      },
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        child: Card(
+                                          child: Column(
+                                            children: [
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Container(
+                                                width: 30,
+                                                height: 30,
+                                                child: SvgPicture.asset(
+                                                    'assets/directbill.svg',
+                                                    width: 15,
+                                                    height: 15,
+                                                    color: darkYellow),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text('Directbill'.tr,
+                                                  style: TextStyle(
+                                                    fontSize: 7,
+                                                    fontWeight: FontWeight.bold,
+                                                  ))
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
                                         Get.offAll(() => const Pathalogy());
                                       },
                                       child: Container(
@@ -785,7 +822,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     ),
                                     InkWell(
                                       onTap: () {
-                                        Get.offAll(() => const Physiotherapy(payload: '',));
+                                        Get.offAll(() => const Physiotherapy(
+                                              payload: '',
+                                            ));
                                       },
                                       child: Container(
                                         width: 100,

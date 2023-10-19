@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Bedhistory/Bedhistory.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/Cardex/CardexHome.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/Madication.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/Maternity.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/daignosis.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Surgery/SurgeryPrescriptionList.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
@@ -369,6 +370,9 @@ class _IPDState extends State<IPD> {
                                     ),
                                   ),
                                   InkWell(
+                                    onTap: () {
+                                      Get.to(() => Maternity());
+                                    },
                                     child: Container(
                                       width: 100,
                                       height: 100,

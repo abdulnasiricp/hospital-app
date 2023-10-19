@@ -217,6 +217,7 @@ class Translation extends Translations {
           'observation_report': 'Observation Report',
           'diet_report': 'Diet Report',
           'Cardex': 'Cardex',
+          'Directbill': 'Direct Bill',
         },
         'ne_NP': {
           //Bottom Bar
@@ -436,6 +437,7 @@ class Translation extends Translations {
           'observation_report': 'अवलोकन रिपोर्ट',
           'diet_report': 'आहार रिपोर्ट',
           'Cardex': 'कार्डेक्स',
+          'Directbill': 'प्रत्यक्ष बिल',
 
           //
         }

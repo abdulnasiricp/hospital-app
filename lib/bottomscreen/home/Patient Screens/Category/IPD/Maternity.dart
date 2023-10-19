@@ -21,7 +21,7 @@ class Maternity extends StatefulWidget {
 class _MaternityState extends State<Maternity> {
   late String patientID = '';
   late String IPDID = '';
-  List<Map<String, dynamic>> apiData = [];
+
   LoadData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
 
@@ -39,7 +39,7 @@ class _MaternityState extends State<Maternity> {
   getData() async {
     await LoadData();
     await getpatientDetails();
-    await fetchdaignosis();
+    await fetchBedHistory();
   }
 
   @override
@@ -95,8 +95,8 @@ class _MaternityState extends State<Maternity> {
   bool isLoading = true;
 
   // Function to fetch bed history data from the API
-  Future<void> fetchdaignosis() async {
-    final apiUrl = Uri.parse(ApiLinks.getipdVitals);
+  Future<void> fetchBedHistory() async {
+    final apiUrl = Uri.parse(ApiLinks.Maternity);
     final headers = {
       'Soft-service': 'TezHealthCare',
       'Auth-key': 'zbuks_ram859553467',
@@ -111,29 +111,21 @@ class _MaternityState extends State<Maternity> {
 
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
-      final diagnosisList = jsonResponse['daignosis'] as List<dynamic>?;
+      final bedHistoryList = jsonResponse['result'] as List<dynamic>;
 
-      // Check if the diagnosisList is not null before processing
-      if (diagnosisList != null) {
-        setState(() {
-          apiData = diagnosisList.map((item) {
-            return {
-              "diagnosis": item,
-            };
-          }).toList();
-          isLoading = false; // Set loading indicator to false
-        });
-      } else {
-        setState(() {
-          apiData = []; // Set apiData to an empty list
-          isLoading = false;
-        });
-      }
+      setState(() {
+        bedHistory = bedHistoryList.map((historyItem) {
+          return {
+            "report": historyItem['report'],
+            "ipd_id": historyItem['ipd_id'],
+          };
+        }).toList();
+        isLoading = false; // Set loading indicator to false
+      });
     } else {
-      throw Exception('Failed to load diagnosis data');
+      throw Exception('Failed to load bed history');
     }
   }
-
   /////////////////////////////////////////////////////////////////////////////////////////////////////
 
   Widget buildLoadingIndicator() {
@@ -166,7 +158,7 @@ class _MaternityState extends State<Maternity> {
       isLoading = true; // Set isLoading to true when refreshing
     });
 
-    await fetchdaignosis();
+    await fetchBedHistory();
 
     setState(() {
       isLoading = false; // Set isLoading to false after data is fetched
@@ -177,34 +169,36 @@ class _MaternityState extends State<Maternity> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('daignosis'.tr),
+        title: Text('Bedhistory'.tr),
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
       body: RefreshIndicator(
-          onRefresh: _handleRefresh,
-          child: isLoading
-              ? buildLoadingIndicator() // Show loading indicator if data is loading
-              : apiData.isEmpty || apiData == null
-                  ? buildNoDataFound() // Show "No Data Found" message if data is empty
-                  : Card(
-                      child: ListView.builder(
-                        itemCount: apiData.length,
-                        itemBuilder: (context, index) {
-                          final diagnosis = apiData[index]['diagnosis'];
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              '$diagnosis.', // Add a period after the diagnosis
-                              style: TextStyle(
-                                fontSize: 16,
-                                // You can adjust other styles as needed
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    )),
+        onRefresh: _handleRefresh,
+        child: isLoading
+            ? buildLoadingIndicator() // Show loading indicator if data is loading
+            : bedHistory.isEmpty || bedHistory == null
+                ? buildNoDataFound() // Show "No Data Found" message if data is empty
+                : ListView.builder(
+                    itemCount: bedHistory.length,
+                    itemBuilder: (context, index) {
+                      final historyItem = bedHistory[index];
+                      return Card(
+                        margin: const EdgeInsets.all(10.0),
+                        elevation: 5.0,
+                        child: ListTile(
+                          title: Text('Bed Name: ${historyItem["ipd_id"]}'),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('ipd_id: ${historyItem["ipd_id"]}'),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+      ),
     );
   }
 }

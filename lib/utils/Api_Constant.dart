@@ -50,5 +50,5 @@ class ApiLinks {
       "https://uat.tez.hospital/xzy/webservice/getipdSurgeryPrescription";
         static const String Cardex=
       "https://uat.tez.hospital/xzy/webservice/getipdCardex";
-        static const String consultation="";
+        static const String getDirectDetails="https://uat.tez.hospital/xzy/webservice/getDirectDetails";
 }
