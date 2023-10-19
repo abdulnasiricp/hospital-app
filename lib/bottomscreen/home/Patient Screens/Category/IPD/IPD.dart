@@ -2,7 +2,9 @@
 
 import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Bedhistory/Bedhistory.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/Cardex/CardexHome.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/Madication.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/daignosis.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Surgery/SurgeryPrescriptionList.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -104,8 +106,6 @@ class _IPDState extends State<IPD> {
         AdmissionDate = data['result']['date'];
         ipdData = data['result']['ipdid'];
 
-       
-
         // Set the state to rebuild the widget
         setState(() {});
       } else {
@@ -189,9 +189,6 @@ class _IPDState extends State<IPD> {
                         color: Colors.transparent,
                         child: const LoadingIndicatorWidget())),
               );
-            } else if (snapshot.hasError) {
-              // Handle error state
-              return Center(child: Text("Error: ${snapshot.error}"));
             } else if (vitalsData == null ||
                 vitalsData.isEmpty ||
                 consultansData == null ||
@@ -206,6 +203,9 @@ class _IPDState extends State<IPD> {
                   ),
                 ),
               );
+            } else if (snapshot.hasError) {
+              // Handle error state
+              return Center(child: Text("Error: ${snapshot.error}"));
             } else {
               // Data has been successfully fetched, display your content
               return SingleChildScrollView(
@@ -260,6 +260,9 @@ class _IPDState extends State<IPD> {
                                     ),
                                   ),
                                   InkWell(
+                                    onTap: () {
+                                      Get.to(() => const CardexHome());
+                                    },
                                     child: Container(
                                       width: 100,
                                       height: 100,
@@ -294,7 +297,8 @@ class _IPDState extends State<IPD> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      Get.to(() => const SurgeryPrescriptionList());
+                                      Get.to(() =>
+                                          const SurgeryPrescriptionList());
                                     },
                                     child: Container(
                                       width: 100,
@@ -329,6 +333,9 @@ class _IPDState extends State<IPD> {
                                     ),
                                   ),
                                   InkWell(
+                                    onTap: () {
+                                      Get.to(() => const Daignosis());
+                                    },
                                     child: Container(
                                       width: 100,
                                       height: 100,

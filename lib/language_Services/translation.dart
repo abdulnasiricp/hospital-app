@@ -29,6 +29,7 @@ class Translation extends Translations {
           'physioTherapy': "Physio Therapy",
           'certificates': "Certificates",
           'bedHistory': "Bed History",
+          'daignosis': "Daignosis",
           'liveConsultations': "Live Consultations",
           'doctors': "Doctors",
           'viewAll': "View All",
@@ -209,6 +210,13 @@ class Translation extends Translations {
           'Bedhistory': 'Bedhistory',
           'Certificate': 'Certificate', 'Bloodbank': 'Bloodbank',
           'Surgery': 'Surgery Report', 'HelpCenter': 'Help Center',
+
+          //////////////// Cardex
+          'medication_report': 'Medication Report',
+          'drainage_report': 'Drainage Report',
+          'observation_report': 'Observation Report',
+          'diet_report': 'Diet Report',
+          'Cardex': 'Cardex',
         },
         'ne_NP': {
           //Bottom Bar
@@ -420,6 +428,15 @@ class Translation extends Translations {
           'Surgery': 'शल्यक्रिया रिपोर्ट',
           'HelpCenter': 'मद्दत केन्द्र',
           'Scan': 'स्क्यान',
+          'daignosis': 'निदान',
+
+          /////////////////// Cardex
+          'medication_report': 'औषधि रिपोर्ट',
+          'drainage_report': 'ड्रेनेज रिपोर्ट',
+          'observation_report': 'अवलोकन रिपोर्ट',
+          'diet_report': 'आहार रिपोर्ट',
+          'Cardex': 'कार्डेक्स',
+
           //
         }
       };
