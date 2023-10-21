@@ -62,34 +62,19 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
       // Handle errors here
       print('Error: $error');
     });
-  }
+    // Schedule a periodic task to check the API every minute
+    const duration = Duration(seconds: 30);
+    Timer.periodic(duration, (Timer t) {
+      print("1 transaction ===============>");
 
-  
+      checkForNewData();
+    });
+  }
 
   @override
   void initState() {
     super.initState();
     getData();
-
-// ///////////////////////////////////////////////////////////////////////
-
-    // Schedule a periodic task to check the API every minute
-    const duration = Duration(minutes: 1);
-    Timer.periodic(duration, (Timer t) {
-      checkForNewData();
-    });
-    // Initialize currentDataLength with the length of the initial data
-    currentDataLength = apiData.length;
-
-
-
-
-  }
-
-  @override
-  void dispose() {
-    // Cancel timers or dispose of resources here
-    super.dispose();
   }
 
   void checkForNewData() async {
@@ -104,7 +89,8 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
             .add('New data are added please check your transaction Bill');
         prefs.setStringList('notifications', notifications);
 
-        notificationServies.showNotification(1,
+        notificationServies.showNotification(
+            1,
             'New data are added please check your transaction Bill',
             'navigate_to_home_transaction_bill');
         currentDataLength = newData.length;
@@ -157,6 +143,7 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
       isLoading = false; // Set isLoading to false after data is fetched
     });
   }
+
   /////////////////////////////////////////////////////////////////////////////////////
   NotificationServies notificationServies = NotificationServies();
 
@@ -164,13 +151,6 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
 
   Map<String?, dynamic> apiData = {};
 ////////////////////////////////////////////////////////////////////////////////////////
-
-// Function to handle notification click and navigate to the screen
-  // Future<void> _navigateToScreen(String payload) async {
-  //   if (payload != null && payload == 'navigate_to_home_transaction_bill') {
-  //     Get.to(Notif(payload: payload));
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {

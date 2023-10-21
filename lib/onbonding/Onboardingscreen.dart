@@ -1,6 +1,11 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
 class Onboardingscreen extends StatefulWidget {
+  const Onboardingscreen({Key? key}) : super(key: key);
+
+
   //const Onboardingscreen({super.key});
 
   @override

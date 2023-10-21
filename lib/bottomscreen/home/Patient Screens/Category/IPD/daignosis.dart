@@ -196,7 +196,7 @@ class _DaignosisState extends State<Daignosis> {
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
                               '$diagnosis.', // Add a period after the diagnosis
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 16,
                                 // You can adjust other styles as needed
                               ),

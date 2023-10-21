@@ -1,16 +1,14 @@
+// ignore_for_file: sized_box_for_whitespace, avoid_unnecessary_containers, avoid_print, non_constant_identifier_names
+
 import 'dart:convert';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Billview.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Reportview.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/USG/BillReport.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/USG/ScanReport.dart';
-import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get/route_manager.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';

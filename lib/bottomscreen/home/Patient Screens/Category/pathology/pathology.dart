@@ -66,9 +66,11 @@ class _PathalogyState extends State<Pathalogy> {
     ///////////////////////////////////////////////////////////////////////
 
     // Schedule a periodic task to check the API every minute
-    const duration = Duration(minutes: 1);
+    const duration = Duration(seconds: 30);
     Timer.periodic(duration, (Timer t) {
       checkForNewData();
+        print("1 pathology ===============>");
+      
     });
     // Initialize currentDataLength with the length of the initial data
 
@@ -89,8 +91,7 @@ class _PathalogyState extends State<Pathalogy> {
       print('old data length: ${newData.length}');
       print('New data length: ${filteredData?.length}');
       if (newData.length < filteredData!.length) {
-        print("===============>");
-        print('New data added, showing notification');
+        print("2 pathology ===============>");
         // Store the notification data in shared preferences
         final prefs = await SharedPreferences.getInstance();
         final notifications = prefs.getStringList('notifications') ?? [];

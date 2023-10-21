@@ -41,15 +41,15 @@ class _CheckForUpdateState extends State<CheckForUpdate> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Center(
+              const Center(
                 child: Text('Update info: 10.16.2023'),
               ),
               ElevatedButton(
-                child: Text('Check for Update'),
+                child: const Text('Check for Update'),
                 onPressed: () => checkForUpdate(),
               ),
               ElevatedButton(
-                child: Text('Perform immediate update'),
+                child: const Text('Perform immediate update'),
                 onPressed: _updateInfo?.updateAvailability ==
                         UpdateAvailability.updateAvailable
                     ? () {
@@ -62,7 +62,7 @@ class _CheckForUpdateState extends State<CheckForUpdate> {
                     : null,
               ),
               ElevatedButton(
-                child: Text('Start flexible update'),
+                child: const Text('Start flexible update'),
                 onPressed: _updateInfo?.updateAvailability ==
                         UpdateAvailability.updateAvailable
                     ? () {
@@ -77,7 +77,7 @@ class _CheckForUpdateState extends State<CheckForUpdate> {
                     : null,
               ),
               ElevatedButton(
-                child: Text('Complete flexible update'),
+                child: const Text('Complete flexible update'),
                 onPressed: !_flexibleUpdateAvailable
                     ? null
                     : () {

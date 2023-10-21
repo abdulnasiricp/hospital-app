@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names, avoid_print, sized_box_for_whitespace, avoid_unnecessary_containers
+// ignore_for_file: non_constant_identifier_names, avoid_print, sized_box_for_whitespace, avoid_unnecessary_containers, camel_case_types, file_names
 
 import 'dart:async';
 import 'dart:convert';
@@ -6,7 +6,6 @@ import 'package:TezHealthCare/Services/notificationServies.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Directbill/Directbillview.dart';
 import 'package:flutter/services.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Billview.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Reportview.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';

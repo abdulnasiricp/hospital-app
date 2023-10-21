@@ -41,8 +41,8 @@ class NotificationServies {
     const AndroidNotificationDetails(
       'Notification',
       'Tez health Care',
-      priority: Priority.max,
-      importance: Importance.max,
+      priority: Priority.high,
+      importance: Importance.high,
     );
 
     DarwinNotificationDetails iosDetiles = const DarwinNotificationDetails(

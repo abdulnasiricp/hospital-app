@@ -565,7 +565,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                 height: 10,
                                               ),
                                               Text('Directbill'.tr,
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                     fontSize: 7,
                                                     fontWeight: FontWeight.bold,
                                                   ))

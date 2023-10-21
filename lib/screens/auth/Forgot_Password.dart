@@ -1,22 +1,18 @@
+// ignore_for_file: unused_field, non_constant_identifier_names, file_names, sized_box_for_whitespace
+
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:TezHealthCare/screens/auth/Sigin_main_screen.dart';
 import 'package:TezHealthCare/screens/auth/authwidget/ForgotPasswordtoast.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/My_button.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/helper_class.dart';
-import 'package:TezHealthCare/widgets/Toast_dialog.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/route_manager.dart';
 import 'package:http/http.dart' as http;
-import 'package:lottie/lottie.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Forgotpassword extends StatefulWidget {
   const Forgotpassword({Key? key}) : super(key: key);
@@ -65,7 +61,7 @@ class _ForgotpasswordState extends State<Forgotpassword> {
       if (response.statusCode == 200) {
         final responseJson = json.decode(response.body);
         if (responseJson['status'] == '1') {
-          Get.dialog(Forgotpasswordtoast(
+          Get.dialog(const Forgotpasswordtoast(
             title: 'Password Send successfully',
             message:
                 'Your new password has been sent to your registered phone number and email. Please check for login within the app',

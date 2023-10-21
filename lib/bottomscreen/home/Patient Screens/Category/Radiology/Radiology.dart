@@ -59,6 +59,12 @@ class _RadiologyState extends State<Radiology> {
   getData() async {
     await LoadData();
     await fetchData();
+    // Schedule a periodic task to check the API every minute
+    const duration = Duration(seconds: 30);
+    Timer.periodic(duration, (Timer t) {
+      checkForNewData();
+      print("1 Radiology ===============>");
+    });
     calculateTotalAmount();
   }
 
@@ -66,44 +72,39 @@ class _RadiologyState extends State<Radiology> {
   void initState() {
     super.initState();
     getData();
-       // Schedule a periodic task to check the API every minute
-    const duration = Duration(minutes: 1);
-    Timer.periodic(duration, (Timer t) {
-      checkForNewData();
-    });
-     // Initialize currentDataLength with the length of the initial data
-    currentDataLength = filteredData!.length;
+
+    // Initialize currentDataLength with the length of the initial data
   }
 
-@override
-void dispose() {
-  // Cancel timers or dispose of resources here
-  super.dispose();
-}
 ////////////////////////////////////////////////////////////////////////////////////////
 // Store the current data length
   int currentDataLength = 0;
 
-void checkForNewData() async {
-  try {
-    final newData = await fetchData();
+  void checkForNewData() async {
+    try {
+      final newData = await fetchData();
 
-    if (newData.length > currentDataLength) {
-      // Store the notification data in shared preferences
-      final prefs = await SharedPreferences.getInstance();
-      final notifications = prefs.getStringList('notifications') ?? [];
-      notifications.add('New data are added please check your Radiology bill');
-      prefs.setStringList('notifications', notifications);
+      if (newData.length > currentDataLength) {
+        print("2 Radiology ===============>");
 
-      notificationServies.showNotification(5,'New data are added please check your Radiology bill','navigate_to_Radiology_bill');
-      currentDataLength = newData.length;
+        // Store the notification data in shared preferences
+        final prefs = await SharedPreferences.getInstance();
+        final notifications = prefs.getStringList('notifications') ?? [];
+        notifications
+            .add('New data are added please check your Radiology bill');
+        prefs.setStringList('notifications', notifications);
 
-     
+        notificationServies.showNotification(
+            5,
+            'New data are added please check your Radiology bill',
+            'navigate_to_Radiology_bill');
+        currentDataLength = newData.length;
+      }
+    } catch (error) {
+      print('Error while checking for new data: $error');
     }
-  } catch (error) {
-    print('Error while checking for new data: $error');
   }
-}
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 // Get Radiology data
   Map<String, dynamic>? DataMap;
@@ -154,8 +155,7 @@ void checkForNewData() async {
 
 ////////////////////////////////////////////////////////////////////////////////////
   TextEditingController searchController = TextEditingController();
-  NotificationServies notificationServies=NotificationServies();
-
+  NotificationServies notificationServies = NotificationServies();
 
 ////////////////////////////////////////////////////////////////////////////////////////
 // filter data
@@ -192,7 +192,7 @@ void checkForNewData() async {
             preferredSize: const Size(double.infinity, 65),
             child: SafeArea(
                 child: Container(
-              decoration:  BoxDecoration(color: darkYellow, boxShadow: const [
+              decoration: BoxDecoration(color: darkYellow, boxShadow: const [
                 BoxShadow(
                     color: Colors.white,
                     blurRadius: 5,
@@ -201,26 +201,24 @@ void checkForNewData() async {
               ]),
               alignment: Alignment.center,
               child: AnimationSearchBar(
-                previousScreen: const Bottomhome(),
+                  previousScreen: const Bottomhome(),
                   isBackButtonVisible: true,
-                 backIconColor: whitecolor,
-
+                  backIconColor: whitecolor,
                   centerTitle: 'radiology'.tr,
-                  centerTitleStyle: TextStyle(color: whitecolor,fontSize: 20),
+                  centerTitleStyle: TextStyle(color: whitecolor, fontSize: 20),
                   searchIconColor: whitecolor,
-                  searchFieldDecoration: BoxDecoration(color: whitecolor.withOpacity(0.8),borderRadius: BorderRadius.circular(10)),
+                  searchFieldDecoration: BoxDecoration(
+                      color: whitecolor.withOpacity(0.8),
+                      borderRadius: BorderRadius.circular(10)),
                   closeIconColor: whitecolor,
                   onChanged: (query) => filterData(query),
                   searchTextEditingController: searchController,
                   horizontalPadding: 5),
-
             ))),
-       
         body: RefreshIndicator(
           onRefresh: _handleRefresh,
           child: Column(
             children: [
-             
               Container(
                 color: Colors.grey,
                 width: width,
@@ -230,7 +228,6 @@ void checkForNewData() async {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                     
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -273,7 +270,6 @@ void checkForNewData() async {
                           ),
                         ],
                       ),
-
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -566,6 +562,4 @@ void checkForNewData() async {
       ),
     );
   }
-
-
 }

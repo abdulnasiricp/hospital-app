@@ -1,11 +1,10 @@
-import 'package:TezHealthCare/Controller/notificationProvider.dart';
-import 'package:TezHealthCare/Services/notification_worker.dart';
+// ignore_for_file: avoid_print
+
 import 'package:TezHealthCare/language_Services/translation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:TezHealthCare/Controller/loginController.dart';
 import 'package:TezHealthCare/Splash_Screen.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/themeService.dart';
@@ -15,7 +14,6 @@ import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:workmanager/workmanager.dart';
 
 // FlutterLocalNotificationsPlugin notificationsPlugin =
 //     FlutterLocalNotificationsPlugin();

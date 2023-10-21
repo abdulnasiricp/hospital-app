@@ -19,7 +19,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class Physiotherapy extends StatefulWidget {
-    final String payload;
+  final String payload;
 
   const Physiotherapy({Key? key, required this.payload}) : super(key: key);
   @override
@@ -27,12 +27,11 @@ class Physiotherapy extends StatefulWidget {
 }
 
 class _PhysiotherapyState extends State<Physiotherapy> {
-  
 // Store the current data length
   int currentDataLength = 0;
-  NotificationServies notificationService = NotificationServies(); // Create an instance
+  NotificationServies notificationService =
+      NotificationServies(); // Create an instance
   bool isLoading = true;
-  
 
   late String totalAmount = "0.00"; // Initialize with a default value
 
@@ -53,6 +52,7 @@ class _PhysiotherapyState extends State<Physiotherapy> {
   getData() async {
     await LoadData();
     await fetchData();
+   
     calculateTotalAmount();
 
     isLoading = false;
@@ -61,54 +61,47 @@ class _PhysiotherapyState extends State<Physiotherapy> {
   @override
   void initState() {
     super.initState();
-       // Schedule a periodic task to check the API every minute
+
+    getData();
+     // Schedule a periodic task to check the API every minute
     const duration = Duration(seconds: 30);
     Timer.periodic(duration, (Timer t) {
       checkForNewData();
-      print('1==========================>');
+      print("1 Physiotherapy ===============>");
     });
-    // Initialize currentDataLength with the length of the initial data
-    currentDataLength = data!.length;
-    getData();
-
-
   }
+
   NotificationServies notificationServies = NotificationServies();
-  
-  
- 
+
   void checkForNewData() async {
-    // final newData = await fetchData(); // Fetch the latest data from the API
-    final newDataLength = DataMap?['result']
-        .length; // Assuming the data structure is similar to your existing data
+    try {
+      final newData = await fetchData();
+      print('old data length: ${newData.length}');
+      print('New data length: ${filteredData?.length}');
+      if (newData.length < filteredData!.length) {
+        print("2 Physiotherapy ===============>");
+        // Store the notification data in shared preferences
+        final prefs = await SharedPreferences.getInstance();
+        final notifications = prefs.getStringList('notifications') ?? [];
+        notifications
+            .add('New data are added please check your Physiotherapy Bill');
+        prefs.setStringList('notifications', notifications);
 
-    if (newDataLength > currentDataLength) {
-      print('2==========================>');
-
-      // New data is available
-      notificationServies.showNotification(
-          15,
-          'New data are added in Physiotherapy, please check',
-          'navigate_to_physiotherapy_bill');
-      // Store the notification data in shared preferences
-      final prefs = await SharedPreferences.getInstance();
-      final notifications = prefs.getStringList('notifications') ?? [];
-      notifications
-          .add('New data are added in Physiotherapy, please check');
-      prefs.setStringList('notifications', notifications);
-
-      setState(() {
-        currentDataLength = newDataLength;
-        data = DataMap?['result'];
-        filteredData = data;
-      });
+        notificationServies.showNotification(
+            15,
+            'New data are added please check your Physiotherapy Bill',
+            'navigate_to_Physiotherapy_bill');
+        currentDataLength = newData.length;
+      }
+    } catch (error) {
+      print('Error while checking for new data: $error');
     }
   }
-
-
-
-
-
+  @override
+  void dispose() {
+    
+    super.dispose();
+  }
 
 // ///////////////////////////////////////////////////////////////////////////////////////////////
 //calculate total amount

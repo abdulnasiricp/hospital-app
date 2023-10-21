@@ -4,9 +4,6 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/C
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/Cardex/drainage_report.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/Cardex/medication_report.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/Cardex/observation_report.dart';
-import 'package:TezHealthCare/screens/auth/Doctor_Login.dart';
-import 'package:TezHealthCare/screens/auth/Patient_login.dart';
-import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +49,7 @@ class _CardexHomeState extends State<CardexHome> {
                       child: Center(
                         child: Text(
                           'medication_report'.tr,
-                          style: TextStyle(
+                          style: const TextStyle(
                               wordSpacing: 5,
                               color: Colors.black,
                               fontWeight: FontWeight.bold),
@@ -66,7 +63,7 @@ class _CardexHomeState extends State<CardexHome> {
                       child: Center(
                         child: Text(
                           'diet_report'.tr,
-                          style: TextStyle(
+                          style: const TextStyle(
                               wordSpacing: 5,
                               color: Colors.black,
                               fontWeight: FontWeight.bold),
@@ -80,7 +77,7 @@ class _CardexHomeState extends State<CardexHome> {
                       child: Center(
                         child: Text(
                           'observation_report'.tr,
-                          style: TextStyle(
+                          style: const TextStyle(
                               wordSpacing: 5,
                               color: Colors.black,
                               fontWeight: FontWeight.bold),
@@ -94,7 +91,7 @@ class _CardexHomeState extends State<CardexHome> {
                       child: Center(
                         child: Text(
                           'drainage_report'.tr,
-                          style: TextStyle(
+                          style: const TextStyle(
                               wordSpacing: 5,
                               color: Colors.black,
                               fontWeight: FontWeight.bold),

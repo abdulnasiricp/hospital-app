@@ -371,7 +371,7 @@ class _IPDState extends State<IPD> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      Get.to(() => Maternity());
+                                      Get.to(() => const Maternity());
                                     },
                                     child: Container(
                                       width: 100,
