@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Select_date.dart';
+import 'package:TezHealthCare/check.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -168,7 +169,8 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
       ),
     );
     return Scaffold(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
+      backgroundColor: Colors.lightBlue[50],
       body: RefreshIndicator(
         onRefresh: _handleRefresh,
         child: isLoading
@@ -230,7 +232,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                             height: 200,
                             width: width,
                             child: Card(
-                              color: Colors.grey[200],
+                              // color: Colors.grey[200],
                               child: Column(
                                 children: [
                                   Row(
@@ -390,165 +392,186 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                     ),
                     Column(
                       children: [
-                        Card(
-                          color: Colors.white70.withOpacity(0.6),
-                          child: Container(
-                            width: width,
-                            height: 250,
-                            child: isLoading
-                                ? Center(
-                                    child: Container(
-                                      height: 50,
-                                      width: 50,
-                                      color: Colors.transparent,
-                                      child: const LoadingIndicatorWidget(),
-                                    ),
-                                  )
-                                : ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: DoneListData!.length,
-                                    itemBuilder: (context, index) {
-                                      return Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Container(
-                                            width: width / 2,
-                                            height: 250,
-                                            child: Card(
-                                              color:
-                                                  Colors.white.withOpacity(0.9),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(5.0),
-                                                child: Column(
-                                                  children: [
-                                                    ClipRRect(
+                        Container(
+                          width: width,
+                          height: 250,
+                          child: isLoading
+                              ? Center(
+                                  child: Container(
+                                    height: 50,
+                                    width: 50,
+                                    color: Colors.white70,
+                                    child: const LoadingIndicatorWidget(),
+                                  ),
+                                )
+                              : ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: DoneListData!.length,
+                                  itemBuilder: (context, index) {
+                                    return Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          width: width / 2,
+                                          height: 250,
+                                          child: 
+                                          
+                                          Card(
+                                            
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(5.0),
+                                              child: Column(
+                                                children: [
+                                                  ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    child: Image.network(
+                                                      '${DoneListData![index]['image']}', // Replace with your image URL
+                                                      width:
+                                                          100.0, // Set the width (optional)
+                                                      height:
+                                                          100.0, // Set the height (optional)
+                                                      fit: BoxFit
+                                                          .cover, // Set the BoxFit (optional)
+                                                      loadingBuilder: (context,
+                                                          child,
+                                                          loadingProgress) {
+                                                        if (loadingProgress ==
+                                                            null) {
+                                                          return child;
+                                                        } else {
+                                                          return CircularProgressIndicator(
+                                                            color: darkYellow,
+                                                            backgroundColor:
+                                                                yellow,
+                                                          );
+                                                        }
+                                                      },
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  Text(
+                                                    'Dr. ${DoneListData![index]['name']} ${DoneListData![index]['surname']}',
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 13,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                  Text(
+                                                    '${DoneListData![index]['specialization']}',
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                  Text(
+                                                    '${DoneListData![index]['qualification']}',
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  Container(
+                                                    height: 30,
+                                                    width: width,
+                                                    decoration: BoxDecoration(
+                                                      border: Border.all(),
+                                                      color: yellow,
                                                       borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                      child: Image.network(
-                                                        '${DoneListData![index]['image']}', // Replace with your image URL
-                                                        width:
-                                                            100.0, // Set the width (optional)
-                                                        height:
-                                                            100.0, // Set the height (optional)
-                                                        fit: BoxFit
-                                                            .cover, // Set the BoxFit (optional)
-                                                        loadingBuilder: (context,
-                                                            child,
-                                                            loadingProgress) {
-                                                          if (loadingProgress ==
-                                                              null) {
-                                                            return child;
-                                                          } else {
-                                                            return CircularProgressIndicator(
-                                                              color: darkYellow,
-                                                              backgroundColor:
-                                                                  yellow,
-                                                            );
-                                                          }
-                                                        },
-                                                      ),
+                                                          BorderRadius
+                                                              .circular(10),
                                                     ),
-                                                    const SizedBox(
-                                                      height: 5,
-                                                    ),
-                                                    Text(
-                                                      'Dr. ${DoneListData![index]['name']} ${DoneListData![index]['surname']}',
-                                                      maxLines: 1,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 13,
-                                                      ),
-                                                    ),
-                                                    const SizedBox(
-                                                      height: 5,
-                                                    ),
-                                                    Text(
-                                                      '${DoneListData![index]['specialization']}',
-                                                      maxLines: 1,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    ),
-                                                    const SizedBox(
-                                                      height: 5,
-                                                    ),
-                                                    Text(
-                                                      '${DoneListData![index]['qualification']}',
-                                                      maxLines: 1,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    ),
-                                                    const SizedBox(
-                                                      height: 10,
-                                                    ),
-                                                    Container(
-                                                      height: 30,
-                                                      width: width,
-                                                      decoration: BoxDecoration(
-                                                        border: Border.all(),
-                                                        color: yellow,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
-                                                      ),
-                                                      child: InkWell(
-                                                        onTap: () {
-                                                          Get.to(() =>
-                                                              SelectDateScreen(
-                                                                doctorId:
-                                                                    DoneListData![
-                                                                            index]
-                                                                        ['id'],
-                                                                doctorImage:
-                                                                    DoneListData![
-                                                                            index]
-                                                                        [
-                                                                        'image'],
-                                                                doctorName: DoneListData![
-                                                                            index]
-                                                                        [
-                                                                        'name'] +
-                                                                    DoneListData![
-                                                                            index]
-                                                                        [
-                                                                        'surname'],
-                                                                doctorSpecialization:
-                                                                    DoneListData![
-                                                                            index]
-                                                                        [
-                                                                        'specialization'],
-                                                              ));
-                                                        },
-                                                        child: Center(
-                                                          child: Text(
-                                                            'bookAppointment'
-                                                                .tr,
-                                                            style:
-                                                                const TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                            ),
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                        Get.to(() =>
+                                                            SelectDateScreen(workExp:DoneListData![
+                                                                          index]
+                                                                      ['work_exp'], 
+                                                              doctorId:
+                                                                  DoneListData![
+                                                                          index]
+                                                                      ['id'],
+                                                              doctorImage:
+                                                                  DoneListData![
+                                                                          index]
+                                                                      [
+                                                                      'image'],
+                                                              doctorName: DoneListData![
+                                                                          index]
+                                                                      [
+                                                                      'name'] +
+                                                                  DoneListData![
+                                                                          index]
+                                                                      [
+                                                                      'surname'],
+                                                              doctorSpecialization:
+                                                                  DoneListData![
+                                                                          index]
+                                                                      [
+                                                                      'specialization'],
+                                                            ));
+                                                      },
+                                                      child: Center(
+                                                        child: Text(
+                                                          'bookAppointment'
+                                                              .tr,
+                                                          style:
+                                                              const TextStyle(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold,
                                                           ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ],
-                                                ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                           ),
-                                        ],
-                                      );
-                                    },
-                                  ),
-                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ),
                         ),
+                        SizedBox(height: 20,),
+                     Align(
+            alignment: Alignment.bottomCenter,
+            child: Text(
+              'Powered by:',
+              style: TextStyle(
+                  fontSize: 13, fontWeight: FontWeight.bold, color: yellow),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  bottom: 1.0), // Adjust the bottom padding as needed
+              child: Image.asset(
+                'assets/Tezashlogo.png',
+                width: 120, // Adjust the width as needed
+                height: 80, // Adjust the height as needed
+              ),
+            ),
+          ),
                       ],
                     ),
                   ],

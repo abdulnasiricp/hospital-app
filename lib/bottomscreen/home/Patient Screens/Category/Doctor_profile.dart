@@ -6,7 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DoctorProfile extends StatefulWidget {
-  const DoctorProfile({Key? key}) : super(key: key);
+   final String doctorImage;
+  final String doctorId;
+  final String doctorName;
+  final String doctorSpecialization;
+  final String workExp;
+
+  const DoctorProfile({Key? key, required this.doctorImage, required this.doctorId, required this.doctorName, required this.doctorSpecialization, required this.workExp}) : super(key: key);
   @override
   State<DoctorProfile> createState() => _DoctorProfileState();
 }
@@ -46,25 +52,25 @@ class _DoctorProfileState extends State<DoctorProfile> {
                               height: 150,
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
-                                  child: Image.asset(
-                                    'assets/hospital_logo.png',
+                                  child: Image.network(
+                                    widget.doctorImage,
                                     fit: BoxFit.cover,
                                   ))),
                         ),
-                        const Padding(
-                          padding: EdgeInsets.only(left: 20, top: 20),
+                         Padding(
+                          padding: const EdgeInsets.only(left: 20, top: 20),
                           child: Text(
-                            'Dr.Ramjinish Kushwaha',
-                            style: TextStyle(
+                            widget.doctorName,
+                            style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
-                        const Padding(
-                          padding: EdgeInsets.only(left: 20, top: 40),
+                         Padding(
+                          padding: const EdgeInsets.only(left: 20, top: 40),
                           child: Text(
-                            'Director,Orthopedics ',
-                            style: TextStyle(
+                            widget.doctorSpecialization,
+                            style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -115,39 +121,39 @@ class _DoctorProfileState extends State<DoctorProfile> {
                             ),
                             Padding(
                               padding: EdgeInsets.only(right: width / 3),
-                              child: const Column(
+                              child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    '25+ years',
+                                    widget.workExp,
                                     style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                        const TextStyle(fontWeight: FontWeight.bold),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   ),
                                   Text(
-                                    'Orthopedics',
-                                    style: TextStyle(color: Colors.blue),
+                                    widget.doctorSpecialization,
+                                    style: const TextStyle(color: Colors.blue),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   ),
-                                  Text(
+                                  const Text(
                                     'Firtis Hospital',
                                     style: TextStyle(color: Colors.blue),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   ),
-                                  Text(
+                                  const Text(
                                     'Nepal NCR',
                                     style: TextStyle(),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   ),
-                                  Text(
+                                  const Text(
                                     'Nepal',
                                     style: TextStyle(),
                                   )

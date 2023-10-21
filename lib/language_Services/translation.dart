@@ -218,7 +218,15 @@ class Translation extends Translations {
           'diet_report': 'Diet Report',
           'Cardex': 'Cardex',
           'Directbill': 'Direct Bill',
+
+           //maternity card
+          'Maternity':'Maternity'
         },
+
+
+
+
+
         'ne_NP': {
           //Bottom Bar
           'home': "होम",
@@ -439,7 +447,8 @@ class Translation extends Translations {
           'Cardex': 'कार्डेक्स',
           'Directbill': 'प्रत्यक्ष बिल',
 
-          //
+          //maternity card
+          'Maternity':'मातृत्व'
         }
       };
 }

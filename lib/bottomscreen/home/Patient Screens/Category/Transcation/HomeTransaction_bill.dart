@@ -62,26 +62,29 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
       // Handle errors here
       print('Error: $error');
     });
-    // Schedule a periodic task to check the API every minute
-    const duration = Duration(seconds: 30);
-    Timer.periodic(duration, (Timer t) {
-      print("1 transaction ===============>");
-
-      checkForNewData();
-    });
   }
 
   @override
   void initState() {
     super.initState();
     getData();
+
+// ///////////////////////////////////////////////////////////////////////
+
+    // Schedule a periodic task to check the API every minute
+    const duration = Duration(minutes: 1);
+    Timer.periodic(duration, (Timer t) {
+      checkForNewData();
+    });
+    // Initialize currentDataLength with the length of the initial data
+    currentDataLength = apiData.length;
   }
 
   void checkForNewData() async {
     try {
       final newData = await fetchData();
 
-      if (newData.length > currentDataLength) {
+      if (newData.length < currentDataLength) {
         // Store the notification data in shared preferences
         final prefs = await SharedPreferences.getInstance();
         final notifications = prefs.getStringList('notifications') ?? [];

@@ -300,29 +300,33 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                                 ),
                                                 child: InkWell(
                                                   onTap: () {
-                                                    Get.to(
-                                                        () => SelectDateScreen(
-                                                              doctorId:
-                                                                  filteredData![
-                                                                          index]
-                                                                      ['id'],
-                                                              doctorImage:
-                                                                  filteredData![
-                                                                          index]
-                                                                      ['image'],
-                                                              doctorName: filteredData![
+                                                    Get.to(() =>
+                                                        SelectDateScreen(
+                                                          workExp:
+                                                              filteredData![
+                                                                      index]
+                                                                  ['work_exp'],
+                                                          doctorId:
+                                                              filteredData![
+                                                                  index]['id'],
+                                                          doctorImage:
+                                                              filteredData![
+                                                                      index]
+                                                                  ['image'],
+                                                          doctorName:
+                                                              filteredData![
                                                                           index]
                                                                       ['name'] +
+                                                                 
                                                                   filteredData![
                                                                           index]
                                                                       [
                                                                       'surname'],
-                                                              doctorSpecialization:
-                                                                  filteredData![
-                                                                          index]
-                                                                      [
-                                                                      'specialization'],
-                                                            ));
+                                                          doctorSpecialization:
+                                                              filteredData![
+                                                                      index][
+                                                                  'specialization'],
+                                                        ));
                                                   },
                                                   child: Center(
                                                     child: Text(

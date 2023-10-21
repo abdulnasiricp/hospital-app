@@ -12,7 +12,8 @@ class SelectDateScreen extends StatefulWidget {
   final String doctorId;
   final String doctorName;
   final String doctorSpecialization;
-  const SelectDateScreen({Key? key, required this.doctorImage, required this.doctorName, required this.doctorSpecialization, required this.doctorId}) : super(key: key);
+  final String workExp;
+  const SelectDateScreen({Key? key, required this.doctorImage, required this.doctorName, required this.doctorSpecialization, required this.doctorId, required this.workExp}) : super(key: key);
 
   @override
   State<SelectDateScreen> createState() => _SelectDateScreenState();
@@ -29,7 +30,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
         centerTitle: true,
         actions: [
           IconButton(onPressed: (){
-            Get.to(()=>const DoctorProfile());
+            Get.to(()=> DoctorProfile(doctorId: widget.doctorId,doctorImage: widget.doctorImage,doctorName: widget.doctorName,doctorSpecialization: widget.doctorSpecialization,workExp: widget.workExp,));
           }, icon: const Icon(Icons.info))
         ],
       ),

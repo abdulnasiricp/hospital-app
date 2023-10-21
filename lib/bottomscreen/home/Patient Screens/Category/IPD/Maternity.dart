@@ -1,15 +1,18 @@
-// ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace, unnecessary_null_comparison
+// ignore_for_file: avoid_print, non_constant_identifier_names, deprecated_member_use, file_names, unnecessary_string_interpolations
+
+import 'dart:convert';
 
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_utils/src/extensions/internacionalization.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-
-import 'package:lottie/lottie.dart';
+import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
+import 'package:flutter_file_downloader/flutter_file_downloader.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:open_file/open_file.dart';
+import 'package:url_launcher/url_launcher.dart'; // Import the url_launcher package
+import 'package:http/http.dart' as http;
 
 class Maternity extends StatefulWidget {
   const Maternity({Key? key}) : super(key: key);
@@ -19,40 +22,34 @@ class Maternity extends StatefulWidget {
 }
 
 class _MaternityState extends State<Maternity> {
-  late String patientID = '';
-  late String IPDID = '';
+  double? _progress;
+  String PatientId = '';
+  String? _downloadedFilePath; // Store the downloaded file path
 
   LoadData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
-
-    patientID = sp.getString('patientidrecord') ?? '';
-    IPDID = sp.getString('ipdId') ?? '';
-
-    print(patientID);
-    print(
-        "======================================================================================$IPDID");
-
+    PatientId = sp.getString('patientidrecord') ?? '';
+    print(PatientId);
     setState(() {});
   }
-///////////////////////////////////////////////////////////////////
 
-  getData() async {
+  loadSP() async {
     await LoadData();
     await getpatientDetails();
-    await fetchBedHistory();
+    await getMternityData();
+     print("==============> $maternityReport");
+    print("==============> $ipdData");
   }
-
   @override
   void initState() {
+    loadSP();
+   
     super.initState();
-    getData();
   }
-
-///////////////////////////////////////////////////////////////////
-// get Patinent Detials
+  ////////////////////////////////////////////////////////////////////////////
   late String ipdData = '';
 
-  Future<void> getpatientDetails() async {
+ Future<void> getpatientDetails() async {
     // Set the headers
     final headers = {
       'Soft-service': 'TezHealthCare',
@@ -61,7 +58,7 @@ class _MaternityState extends State<Maternity> {
 
     // Set the body
     final body = {
-      'patient_id': patientID,
+      'patient_id': PatientId,
     };
     try {
       // Make the POST request
@@ -75,10 +72,10 @@ class _MaternityState extends State<Maternity> {
       if (response.statusCode == 200) {
         // Decode the JSON response
         final data = jsonDecode(response.body);
-        ipdData = data['result']['ipdid'];
 
-        final sp = await SharedPreferences.getInstance();
-        sp.setString('ipdId', ipdData);
+        // Get the total_dues and patho_dues values
+        ipdData = data['result']['ipdid'];
+        
 
         // Set the state to rebuild the widget
         setState(() {});
@@ -90,114 +87,149 @@ class _MaternityState extends State<Maternity> {
     }
   }
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  List<Map<String, dynamic>> bedHistory = [];
-  bool isLoading = true;
 
-  // Function to fetch bed history data from the API
-  Future<void> fetchBedHistory() async {
-    final apiUrl = Uri.parse(ApiLinks.Maternity);
+  /////////////////////////////////////////////////////////////////////////
+  // get meternity data
+  late String maternityReport = '';
+
+ Future<void> getMternityData() async {
+    // Set the headers
     final headers = {
       'Soft-service': 'TezHealthCare',
       'Auth-key': 'zbuks_ram859553467',
     };
+
+    // Set the body
     final body = {
-      "ipd_id": ipdData,
-      "patient_id": patientID,
+      'ipd_id':ipdData,
+      'patient_id': PatientId,
     };
+    try {
+      // Make the POST request
+      final response = await http.post(
+        Uri.parse(ApiLinks.Maternity),
+        headers: headers,
+        body: jsonEncode(body),
+      );
 
-    final response =
-        await http.post(apiUrl, headers: headers, body: jsonEncode(body));
+      // Check if the response was successful
+      if (response.statusCode == 200) {
+        // Decode the JSON response
+        final data = jsonDecode(response.body);
 
-    if (response.statusCode == 200) {
-      final jsonResponse = json.decode(response.body);
-      final bedHistoryList = jsonResponse['result'] as List<dynamic>;
+        // Get the total_dues and patho_dues values
+        maternityReport = data['result']['report'];
 
-      setState(() {
-        bedHistory = bedHistoryList.map((historyItem) {
-          return {
-            "report": historyItem['report'],
-            "ipd_id": historyItem['ipd_id'],
-          };
-        }).toList();
-        isLoading = false; // Set loading indicator to false
-      });
-    } else {
-      throw Exception('Failed to load bed history');
+        // Set the state to rebuild the widget
+        setState(() {});
+      } else {
+        // Handle the error
+      }
+    } catch (error) {
+      print(error);
     }
   }
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  Widget buildLoadingIndicator() {
-    return Center(
-      child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Container(
-              height: 50,
-              width: 50,
-              color: Colors.transparent,
-              child: const LoadingIndicatorWidget())),
+
+
+
+  void showDownloadedFilePath(String path){
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Download Completed'),
+          content: Text('The PDF file is downloaded at: $path'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () async {
+                Navigator.of(context).pop();
+                if (_downloadedFilePath != null) {
+                  // Open the downloaded PDF file using open_file package
+                  final result = await OpenFile.open(_downloadedFilePath!);
+                  if (result.type == ResultType.done) {
+                    print('File opened with success');
+                  } else {
+                    print('Error opening file: ${result.message}');
+                  }
+                  // Launch a URL using url_launcher package
+                  await launch('$maternityReport'); // Replace with your desired URL
+                }
+              },
+              child: const Text('Open'),
+            ),
+          ],
+        );
+      },
     );
   }
-
-  Widget buildNoDataFound() {
-    return Center(
-      child: Container(
-        height: 150,
-        width: 150,
-        child: Lottie.asset(
-          'assets/No_Data_Found.json',
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
-  }
-
-  Future<void> _handleRefresh() async {
-    setState(() {
-      isLoading = true; // Set isLoading to true when refreshing
-    });
-
-    await fetchBedHistory();
-
-    setState(() {
-      isLoading = false; // Set isLoading to false after data is fetched
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bedhistory'.tr),
+        actions: [
+         
+               IconButton(
+            onPressed: () {
+              FileDownloader.downloadFile(
+                url:
+                '$maternityReport',
+                onProgress: (name, progress) {
+                  setState(() {
+                    _progress = progress;
+                  });
+                },
+                onDownloadCompleted: (path) {
+                  print('Downloaded path: $path');
+                  setState(() {
+                    _progress = null;
+                    _downloadedFilePath =
+                        path; // Store the downloaded file path
+                  });
+
+                  // Show the downloaded file path in a popup
+                  showDownloadedFilePath(path);
+                },
+              );
+            },
+            icon: const Icon(Icons.download),
+          )
+        ],
+        title:  Text('Maternity'.tr),
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
-      body: RefreshIndicator(
-        onRefresh: _handleRefresh,
-        child: isLoading
-            ? buildLoadingIndicator() // Show loading indicator if data is loading
-            : bedHistory.isEmpty || bedHistory == null
-                ? buildNoDataFound() // Show "No Data Found" message if data is empty
-                : ListView.builder(
-                    itemCount: bedHistory.length,
-                    itemBuilder: (context, index) {
-                      final historyItem = bedHistory[index];
-                      return Card(
-                        margin: const EdgeInsets.all(10.0),
-                        elevation: 5.0,
-                        child: ListTile(
-                          title: Text('Bed Name: ${historyItem["ipd_id"]}'),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('ipd_id: ${historyItem["ipd_id"]}'),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+      body:
+       maternityReport.isEmpty
+              ? Center(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Center(
+                child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                        height: 50,
+                        width: 50,
+                        color: Colors.transparent,
+                        child: const LoadingIndicatorWidget())),
+              )
+            ),
+          ):
+
+      // _progress != null ? Center(child: Lottie.asset('assets/loading1.json'))
+      //     :
+           Container(
+        color: darkYellow,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: const PDF(
+              swipeHorizontal: true,
+            ).cachedFromUrl(
+              '$maternityReport',
+            ),
+          ),
+        ),
       ),
     );
   }
