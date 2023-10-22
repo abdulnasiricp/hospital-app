@@ -222,10 +222,12 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                                       RegExp(r'[0-9]')),
                                 ],
                                 validator: (value) {
-                                  if (value!.isEmpty) {
+                                  if (value == null || value.isEmpty) {
                                     return 'This field is required'; // Display a message when the field is empty
+                                  } else if (value.length != 10) {
+                                    return 'Phone number must be 10 digits'; // Display a message for incorrect length
                                   } else {
-                                    return null; // No error when the field has a value
+                                    return null; // No error when the field has a valid 10-digit value
                                   }
                                 },
                                 controller: PhonenumberController,
@@ -234,7 +236,7 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                                 decoration: InputDecoration(
                                   fillColor: Colors.white,
                                   filled: true,
-                                  hintText: 'Enter Phone Number',
+                                  hintText: 'Enter 10-Digit Phone Number',
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),

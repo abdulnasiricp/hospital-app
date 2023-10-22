@@ -69,8 +69,7 @@ class _PathalogyState extends State<Pathalogy> {
     const duration = Duration(seconds: 30);
     Timer.periodic(duration, (Timer t) {
       checkForNewData();
-        print("1 pathology===============>");
-
+      print("1 pathology===============>");
     });
     // Initialize currentDataLength with the length of the initial data
 
