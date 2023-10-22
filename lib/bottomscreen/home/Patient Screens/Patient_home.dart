@@ -786,24 +786,24 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                   ),
                                 ],
                               ),
+                              // Visibility(
+                              //   visible: !_showMore,
+                              //   child: Container(
+                              //     height: 30,
+                              //     //color: darkYellow,
+                              //     alignment: Alignment
+                              //         .centerRight, // Align child to the right
+                              //     child: TextButton(
+                              //       onPressed: toggleShowMore,
+                              //       child: Text(
+                              //         'Show More',
+                              //         style: TextStyle(color: darkYellow),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
                               Visibility(
-                                visible: !_showMore,
-                                child: Container(
-                                  height: 30,
-                                  //color: darkYellow,
-                                  alignment: Alignment
-                                      .centerRight, // Align child to the right
-                                  child: TextButton(
-                                    onPressed: toggleShowMore,
-                                    child: Text(
-                                      'Show More',
-                                      style: TextStyle(color: darkYellow),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Visibility(
-                                visible: _showMore,
+                                /// visible: _showMore,
                                 child: GridView.count(
                                   crossAxisCount: 5,
                                   shrinkWrap:
