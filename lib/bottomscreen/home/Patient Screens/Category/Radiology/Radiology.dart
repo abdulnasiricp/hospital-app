@@ -96,6 +96,7 @@ class _RadiologyState extends State<Radiology> {
 
         notificationServies.showNotification(
             5,
+            'Radiology bill',
             'New data are added please check your Radiology bill',
             'navigate_to_Radiology_bill');
         currentDataLength = newData.length;

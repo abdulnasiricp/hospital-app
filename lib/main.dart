@@ -1,8 +1,10 @@
 // ignore_for_file: avoid_print
 
+import 'package:TezHealthCare/Services/notificationServies.dart';
 import 'package:TezHealthCare/language_Services/translation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:TezHealthCare/Splash_Screen.dart';
@@ -15,31 +17,23 @@ import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// FlutterLocalNotificationsPlugin notificationsPlugin =
-//     FlutterLocalNotificationsPlugin();
+FlutterLocalNotificationsPlugin notificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterDownloader.initialize(debug: true); // Set to false in production
-  //////////////////////////////////////////////////////////////////
   // // Initialize SharedPreferences
   final sharedPreferences = await SharedPreferences.getInstance();
   String? selectedLanguage = sharedPreferences.getString('selectedLanguage') ??
       'en'; // Default to 'en' if not found
   String defaultLang = selectedLanguage == 'ne' ? 'ne_NP' : 'en_US';
   print('========================> $defaultLang');
+
+  // Call initializeWorkManager here
+  NotificationServies().initializeWorkManager();
   runApp(MyApp(
     defaultLanguage: defaultLang,
   ));
-  // Workmanager().initialize(callbackDispatcher);
-  // Workmanager().registerPeriodicTask(
-  //   "1",
-  //   "checkForNewDataTask",
-  //   // initialDelay: const Duration(minutes: 1),
-  //   frequency: const Duration(minutes: 15),
-  //   inputData: <String, dynamic>{
-  //     'payload': 'navigate_to_home_transaction_ bill'
-  //   },
-  // );
 }
 
 class MyApp extends StatelessWidget {

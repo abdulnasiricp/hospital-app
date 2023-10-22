@@ -80,6 +80,7 @@ class _PharmacyState extends State<Pharmacy> {
 
         notificationServies.showNotification(
             11,
+            'pharmacy Bill',
             'New data are added please check your pharmacy Bill',
             'navigate_to_pharmacy_bill');
         currentDataLength = newData.length;

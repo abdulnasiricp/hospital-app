@@ -66,7 +66,7 @@ class _PathalogyState extends State<Pathalogy> {
     ///////////////////////////////////////////////////////////////////////
 
     // Schedule a periodic task to check the API every minute
-    const duration = Duration(minutes: 1);
+    const duration = Duration(seconds: 30);
     Timer.periodic(duration, (Timer t) {
       checkForNewData();
         print("1 pathology===============>");
@@ -101,6 +101,7 @@ class _PathalogyState extends State<Pathalogy> {
 
         notificationServies.showNotification(
             11,
+            'pathology Bill',
             'New data are added please check your pathology Bill',
             'navigate_to_pathology_bill');
         currentDataLength = newData.length;

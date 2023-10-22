@@ -95,13 +95,14 @@ class _Direct_billState extends State<Direct_bill> {
         final prefs = await SharedPreferences.getInstance();
         final notifications = prefs.getStringList('notifications') ?? [];
         notifications
-            .add('New data are added please check your pathology Bill');
+            .add('New data are added please check your direct Bill');
         prefs.setStringList('notifications', notifications);
 
         notificationServies.showNotification(
             11,
-            'New data are added please check your pathology Bill',
-            'navigate_to_pathology_bill');
+            'Direct Bill',
+            'New data are added please check your direct Bill',
+            'navigate_to_direct_bill');
         currentDataLength = newData.length;
       }
     } catch (error) {

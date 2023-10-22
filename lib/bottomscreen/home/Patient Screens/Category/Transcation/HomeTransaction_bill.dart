@@ -94,6 +94,7 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
 
         notificationServies.showNotification(
             1,
+            'Transaction Bill',
             'New data are added please check your transaction Bill',
             'navigate_to_home_transaction_bill');
         currentDataLength = newData.length;

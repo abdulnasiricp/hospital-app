@@ -36,7 +36,7 @@ class NotificationServies {
 
   }
   // show notification
-  void showNotification(int id,String message,String payload) async {
+  void showNotification(int id,String title,String message,String payload) async {
     AndroidNotificationDetails androidDetiles =
     const AndroidNotificationDetails(
       'Notification',
@@ -59,7 +59,7 @@ class NotificationServies {
     // const String payload = 'navigate_to_home_transaction_bill';
 
     await notificationsPlugin.show(
-        id, 'New Data', message, notificationDetails,payload:  payload);
+        id, title, message, notificationDetails,payload:  payload);
   }
 
 

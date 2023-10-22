@@ -89,6 +89,7 @@ class _PhysiotherapyState extends State<Physiotherapy> {
 
         notificationServies.showNotification(
             15,
+            'Physiotherapy Bill',
             'New data are added please check your Physiotherapy Bill',
             'navigate_to_Physiotherapy_bill');
         currentDataLength = newData.length;

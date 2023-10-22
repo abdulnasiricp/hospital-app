@@ -373,6 +373,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                       onPressed: () async {
                                         notificationServies.showNotification(
                                             2,
+                                            'due bill amount',
                                             'please check your due bill amount',
                                             'DueAmount');
 
