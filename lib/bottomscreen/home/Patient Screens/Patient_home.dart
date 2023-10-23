@@ -34,6 +34,7 @@ import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:badges/badges.dart' as badges;
 
 class PatientHomePage extends StatefulWidget {
   final String payload;
@@ -78,6 +79,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
   @override
   void initState() {
     super.initState();
+    _loadNotifications();
+
     getdata();
 
     hitApi();
@@ -211,6 +214,16 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
 //////////////////////////////////////////////////////////////////////////////////////
   NotificationServies notificationServies = NotificationServies();
+  List<String> notifications = [];
+  int _badgeCount = 0;
+  Future<void> _loadNotifications() async {
+    final prefs = await SharedPreferences.getInstance();
+    final storedNotifications = prefs.getStringList('notifications') ?? [];
+    setState(() {
+      notifications = storedNotifications;
+      _badgeCount = notifications.length;
+    });
+  }
 
   ///
 
@@ -219,8 +232,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
     int paisaAmount = convertRupeesToPaisa();
 
     return Scaffold(
-      backgroundColor: Colors.lightBlue[50],
-
+        backgroundColor: Colors.lightBlue[50],
         appBar: AppBar(
           title: const Text(
             EnString.hospitalTitle,
@@ -229,29 +241,47 @@ class _PatientHomePageState extends State<PatientHomePage> {
           ),
           // centerTitle: true,
           leading: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                onTap: () {
-                  Get.to(() => const AboutUSScreen());
-                },
-                child: Image.asset(
-                  'assets/hospital_logo.png',
-                  width: 200,
-                  height: 200,
-                ),
-              )),
+            padding: const EdgeInsets.all(8.0),
+            child: InkWell(
+              onTap: () {
+                Get.to(() => const AboutUSScreen());
+              },
+              child: Image.asset(
+                'assets/hospital_logo.png',
+                width: 200,
+                height: 200,
+              ),
+            ),
+          ),
           actions: [
-            IconButton(
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: IconButton(
                 color: Colors.blue,
                 onPressed: () {
                   Get.to(() => const Notif(
                         payload: '',
                       ));
                 },
-                icon: const Icon(
-                  Icons.notifications,
-                  color: Colors.white,
-                )),
+                icon: Stack(
+                  children: [
+                    badges.Badge(
+                      badgeContent: Text(_badgeCount.toString()),
+                      badgeStyle: const badges.BadgeStyle(
+                        badgeColor: Colors.orangeAccent,
+                      ),
+                      position:
+                          badges.BadgePosition.custom(start: 15, bottom: 3),
+                      child: const Icon(
+                        Icons.notifications,
+                        color: Colors.white,
+                        size: 30,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
           backgroundColor: darkYellow,
           elevation: 0,
@@ -375,8 +405,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                       onPressed: () async {
                                         notificationServies.showNotification(
                                             2,
-                                            'due bill amount',
-                                            'please check your due bill amount',
+                                            'Due bill amount',
+                                            'please check your due bill amount===============',
                                             'DueAmount');
 
                                         // Store the notification data in shared preferences

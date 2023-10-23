@@ -149,13 +149,11 @@ class _AppUpdateCheckScreenState extends State<AppUpdateCheckScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('App Update Check'),
-        centerTitle: true,
-        backgroundColor: darkYellow,
-      ),
-      body: Center(
+    return Dialog(
+        backgroundColor: Colors.lightBlue[50],
+      
+      
+      child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
