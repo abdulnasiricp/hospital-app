@@ -84,6 +84,8 @@ class _InformationProfileState extends State<InformationProfile>
     notifier = Provider.of<ColorNotifier>(context, listen: true);
 
     return Scaffold(
+            backgroundColor: Colors.lightBlue[50],
+
         appBar: AppBar(
           backgroundColor: darkYellow,
           title:  Text('informationProfile'.tr),

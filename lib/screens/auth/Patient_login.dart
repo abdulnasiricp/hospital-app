@@ -128,7 +128,7 @@ class _PatientLoginState extends State<PatientLogin> {
                   ),
                 ],
               ),
-              child: Column(
+              child:  Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
@@ -167,6 +167,7 @@ class _PatientLoginState extends State<PatientLogin> {
                           width: width,
                           child: TextFormField(
                             validator: (value) {
+                              
                               if (value!.isEmpty) {
                                 return EnString.enterusername;
                               }

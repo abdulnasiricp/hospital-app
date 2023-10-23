@@ -106,7 +106,7 @@ class _OnbondingState extends State<Onbonding> {
                                   child: Center(
                                     child: Column(
                                       children: [
-                                        const SizedBox(height: 50),
+                                        const SizedBox(height: 100),
                                         Text(
                                           EnString.qualityReputations,
                                           style: TextStyle(

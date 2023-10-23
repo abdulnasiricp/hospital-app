@@ -242,6 +242,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
         return false;
       }, // Prevent default back button behavior
       child: Scaffold(
+            backgroundColor: Colors.lightBlue[50],
+
           appBar: AppBar(
             title: Text('selectAnyOnePayment'.tr),
             centerTitle: true,
@@ -257,6 +259,9 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
               ? SingleChildScrollView(
                   child: Container(
                     child: Card(
+                      color:    Colors.lightBlue[50],
+ 
+                      
                       elevation: 10,
                       child: Padding(
                         padding: const EdgeInsets.all(2.0),
@@ -293,7 +298,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                 width: width,
                                 height: 150,
                                 child: Card(
-                                  color: Colors.white70,
+                                  color: Colors.white,
                                   child: Column(
                                     children: [
                                       Row(

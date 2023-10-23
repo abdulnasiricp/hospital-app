@@ -49,7 +49,8 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white.withOpacity(0.9),
+                    backgroundColor: Colors.lightBlue[50],
+
         appBar: AppBar(
           title: Text('HelpCenter'.tr),
           centerTitle: true,

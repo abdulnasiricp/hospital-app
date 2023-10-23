@@ -71,6 +71,8 @@ class _CardScreenState extends State<CardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.lightBlue[50],
+
       appBar: AppBar(
         actions: [
          

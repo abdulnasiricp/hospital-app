@@ -20,7 +20,7 @@ class _Splash_ScreenState extends State<Splash_Screen> {
   }
 
   startTime() async {
-    var duration = const Duration(seconds: 2);
+    var duration = const Duration(seconds: 3);
     return new Timer(duration, route);
   }
 
@@ -32,7 +32,7 @@ class _Splash_ScreenState extends State<Splash_Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: darkYellow, // Background color
+      backgroundColor: Colors.lightBlue.withOpacity(0.5), // Background color
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -40,8 +40,8 @@ class _Splash_ScreenState extends State<Splash_Screen> {
           Center(
             child: Image.asset(
               'assets/hospital_logo.png',
-              width: 200, // Adjust the width as needed
-              height: 200, // Adjust the height as needed
+              width: 300, // Adjust the width as needed
+              height: 300, // Adjust the height as needed
             ),
           ),
           //
@@ -65,7 +65,7 @@ class _Splash_ScreenState extends State<Splash_Screen> {
                   bottom: 1.0), // Adjust the bottom padding as needed
               child: Image.asset(
                 'assets/Tezashlogo.png',
-                width: 80, // Adjust the width as needed
+                width: 100, // Adjust the width as needed
                 height: 80, // Adjust the height as needed
               ),
             ),

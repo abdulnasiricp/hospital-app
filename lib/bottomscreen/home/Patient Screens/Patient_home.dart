@@ -219,6 +219,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
     int paisaAmount = convertRupeesToPaisa();
 
     return Scaffold(
+      backgroundColor: Colors.lightBlue[50],
+
         appBar: AppBar(
           title: const Text(
             EnString.hospitalTitle,
@@ -333,7 +335,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                         ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Card(
-                              color: Colors.white70.withOpacity(0.7),
+                              color: Colors.white,
                               child: Container(
                                 height: 50,
                                 padding: const EdgeInsets.all(10),

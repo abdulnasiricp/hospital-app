@@ -27,6 +27,8 @@ class _SettingScreenState extends State<SettingScreen> {
         return false; // Prevent default back button behavior
       },
       child: Scaffold(
+            backgroundColor: Colors.lightBlue[50],
+
         appBar: AppBar(
           backgroundColor: darkYellow,
           title: const Text('Setting'),

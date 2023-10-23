@@ -170,12 +170,14 @@ class _ProfileState extends State<Profile> {
     notifier = Provider.of<ColorNotifier>(context, listen: true);
     return ScreenUtilInit(
       builder: (_, child) => Scaffold(
+              backgroundColor: Colors.lightBlue[50],
+
         appBar: AppBar(
           title: Text('profile'.tr),
           centerTitle: true,
           backgroundColor: notifier.getdarkyellow,
         ),
-        backgroundColor: Colors.grey.shade300,
+        // backgroundColor: Colors.grey.shade300,
         body: Stack(
           children: [
             // Background content (Profile information, etc.)
