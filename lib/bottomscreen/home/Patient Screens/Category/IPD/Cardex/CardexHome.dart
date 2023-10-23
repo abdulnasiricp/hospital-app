@@ -20,12 +20,12 @@ class _CardexHomeState extends State<CardexHome> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.lightBlue[50],
         appBar: AppBar(
           title: Text('Cardex'.tr),
           centerTitle: true,
           backgroundColor: darkYellow,
         ),
-        backgroundColor: darkblue,
         body: DefaultTabController(
           length: 4,
           child: Column(children: [

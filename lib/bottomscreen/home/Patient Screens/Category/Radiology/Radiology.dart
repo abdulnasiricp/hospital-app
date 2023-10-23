@@ -188,7 +188,7 @@ class _RadiologyState extends State<Radiology> {
         return false; // Prevent default back button behavior
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.lightBlue[50],
         appBar: PreferredSize(
             preferredSize: const Size(double.infinity, 65),
             child: SafeArea(

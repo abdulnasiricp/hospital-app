@@ -176,6 +176,7 @@ class _DaignosisState extends State<Daignosis> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.lightBlue[50],
       appBar: AppBar(
         title: Text('daignosis'.tr),
         centerTitle: true,

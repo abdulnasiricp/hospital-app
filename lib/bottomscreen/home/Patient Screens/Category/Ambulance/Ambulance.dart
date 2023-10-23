@@ -123,6 +123,7 @@ class _AmbulanceState extends State<Ambulance> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.lightBlue[50],
       appBar: AppBar(
         title: Text('ambulance'.tr),
         centerTitle: true,

@@ -80,6 +80,7 @@ class _USGScanreportviewState extends State<USGScanreportview> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.lightBlue[50],
       appBar: AppBar(
         actions: [
           IconButton(

@@ -2,10 +2,8 @@
 
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:TezHealthCare/bottomscreen/Profile/Information_profile.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/Setting/Setting_screen.dart';
-import 'package:TezHealthCare/bottomscreen/Profile/check_update.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/help_center.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/profile_model.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/term_and_condition.dart';
@@ -24,6 +22,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -33,13 +32,218 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  //////////////////////////////////////////
+  // Future<String> getCurrentAppVersion() async {
+  //   // Replace 'your_package_name' with your app's package name
+  //   const packageInfo = 'com.tezash.msmenepal';
+  //   final String url =
+  //       'https://play.google.com/store/apps/details?id=$packageInfo';
+  //   final Uri uri = Uri.parse(url);
+  //
+  //   final response = await http.get(uri);
+  //
+  //   if (response.statusCode == 200) {
+  //     final playStoreVersion = getPlayStoreVersion(response.body);
+  //     if (playStoreVersion.isNotEmpty) {
+  //       return playStoreVersion;
+  //     }
+  //   }
+  //
+  //   return '';
+  // }
+  //
+  // Future<void> checkForUpdate(BuildContext context) async {
+  //   final currentVersion = await getCurrentAppVersion();
+  //   if (currentVersion.isNotEmpty) {
+  //     final latestVersion = await fetchLatestPlayStoreVersion();
+  //
+  //     if (latestVersion.isNotEmpty && currentVersion != latestVersion) {
+  //       // An update is available
+  //       showUpdateDialog(context);
+  //     } else {
+  //       // No updates are available
+  //       showSnackbar(context, 'You have the latest version.');
+  //     }
+  //   } else {
+  //     // Failed to get the app version from the Play Store
+  //     showSnackbar(context, 'Failed to check for updates.');
+  //   }
+  // }
+  //
+  // String getPlayStoreVersion(String responseBody) {
+  //   final startDelimiter = 'Current Version">';
+  //   final endDelimiter = '<';
+  //   final startIndex = responseBody.indexOf(startDelimiter);
+  //   final endIndex = responseBody.indexOf(endDelimiter, startIndex);
+  //
+  //   if (startIndex != -1 && endIndex != -1) {
+  //     return responseBody.substring(
+  //         startIndex + startDelimiter.length, endIndex);
+  //   }
+  //
+  //   return '';
+  // }
+  //
+  // Future<String> fetchLatestPlayStoreVersion() async {
+  //   // Replace 'your_package_name' with your app's package name
+  //   const packageInfo = 'com.tezash.msmenepal';
+  //   final String url =
+  //       'https://play.google.com/store/apps/details?id=$packageInfo';
+  //   final Uri uri = Uri.parse(url);
+  //
+  //   final response = await http.get(uri);
+  //
+  //   if (response.statusCode == 200) {
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //     return getPlayStoreVersion(response.body);
+  //   }
+  //   setState(() {
+  //     isLoading = false;
+  //   });
+  //   return '';
+  // }
+  //
+  // void showUpdateDialog(BuildContext context) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) {
+  //       return AlertDialog(
+  //         title: Text('Update Available'),
+  //         content: Text(
+  //             'An update is available for your app. Would you like to update now?'),
+  //         actions: [
+  //           TextButton(
+  //             onPressed: () {
+  //               Navigator.of(context).pop();
+  //             },
+  //             child: Text('Later'),
+  //           ),
+  //           TextButton(
+  //             onPressed: () {
+  //               // Redirect to the Play Store for the update
+  //               redirectToPlayStore();
+  //               Navigator.of(context).pop();
+  //             },
+  //             child: Text('Update Now'),
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
+  //
+  // void showSnackbar(BuildContext context, String message) {
+  //   ScaffoldMessenger.of(context).showSnackBar(
+  //     SnackBar(
+  //       content: Text(message),
+  //       duration: const Duration(seconds: 3),
+  //     ),
+  //   );
+  // }
+  //
+  // void redirectToPlayStore() async {
+  //   // Replace 'your_package_name' with your app's package name
+  //   const packageInfo = 'com.tezash.msmenepal';
+  //   final url = 'https://play.google.com/store/apps/details?id=$packageInfo';
+  //   if (await canLaunch(url)) {
+  //     await launch(url);
+  //   }
+  // }
+
+  //////////////////////////////
+
+  /////////////////////// For App Update
+  void _checkForUpdate() async {
+    final packageName = 'tez.hospital.siraha';
+    final url = 'https://play.google.com/store/apps/details?id=$packageName';
+
+    final uri = Uri.parse(url);
+    final response = await http.get(uri);
+    if (response.statusCode == 200) {
+      setState(() {
+        isLoading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(
+          'Updated_msg'.tr,
+        ),
+        backgroundColor: Colors.green,
+      ));
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(
+              'Update_Available'.tr,
+            ),
+            content: Text(
+              'Update_Available_question'.tr,
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                },
+                child: Text(
+                  'Later'.tr,
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  _navigateToPlayStore();
+                  Navigator.of(context).pop(); // Close the dialog
+                },
+                child: Text(
+                  'Update_Now'.tr,
+                ),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
+  void _navigateToPlayStore() async {
+    const String packageName = 'tez.hospital.siraha';
+    const String url =
+        'https://play.google.com/store/apps/details?id=$packageName';
+
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
+    } else {}
+  }
+
+  ////////////// End App Update
+////////////////Rateus
+  Future<void> rateUs() async {
+    const String packageName =
+        'tez.hospital.siraha'; // Replace with your app's package name
+    final String url =
+        'https://play.google.com/store/apps/details?id=$packageName';
+
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      // Handle the case where the app store URL cannot be opened.
+      print('Could not launch $url');
+    }
+  }
+
+  ////////////////////Rateus End
   String role = '';
   String username = '';
   String record = '';
   String image = '';
   String genderrecord = '';
   String mobilerecord = '';
-  bool isLoading = true;
+  bool isLoading = false;
   Map<String, dynamic>? DataMap;
   Map<String, dynamic>? DoneDataMap;
   List<dynamic>? DoneListData = [];
@@ -168,9 +372,10 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     notifier = Provider.of<ColorNotifier>(context, listen: true);
+
     return ScreenUtilInit(
       builder: (_, child) => Scaffold(
-              backgroundColor: Colors.lightBlue[50],
+        backgroundColor: Colors.lightBlue[50],
 
         appBar: AppBar(
           title: Text('profile'.tr),
@@ -294,28 +499,6 @@ class _ProfileState extends State<Profile> {
                                                 'myinformationsubtitle'.tr),
                                           ),
                                         ),
-                                        // InkWell(
-                                        //   onTap: () {
-                                        //     Get.to(() =>
-                                        //         const DevicesAndCredentials());
-                                        //   },
-                                        //   child: ListTile(
-                                        //     leading: SvgPicture.asset(
-                                        //         'assets/dev.svg',
-                                        //         width: 30,
-                                        //         height: 30,
-                                        //         color: darkYellow),
-                                        //     title: Text(
-                                        //       'deviceAndCredential'.tr,
-                                        //       style: const TextStyle(
-                                        //           fontWeight: FontWeight.bold),
-                                        //     ),
-                                        //     subtitle: Text(
-                                        //         'deviceAndCredentialSubtitle'
-                                        //             .tr),
-                                        //   ),
-                                        // ),
-
                                         InkWell(
                                           onTap: () {
                                             Get.to(() => const AboutUSScreen());
@@ -335,36 +518,12 @@ class _ProfileState extends State<Profile> {
                                                 Text('aboutUsSubtitle'.tr),
                                           ),
                                         ),
-                                        // InkWell(
-                                        //   onTap: () {
-                                        //     Get.changeThemeMode(Get.isDarkMode
-                                        //         ? ThemeMode.light
-                                        //         : ThemeMode.dark);
-                                        //   },
-                                        //   child: ListTile(
-                                        //     leading: SvgPicture.asset(
-                                        //         'assets/darkmode.svg',
-                                        //         width: 30,
-                                        //         height: 30,
-                                        //         color: darkYellow),
-                                        //     title: Text(
-                                        //       'darkmode'.tr,
-                                        //       style: const TextStyle(
-                                        //           fontWeight: FontWeight.bold),
-                                        //     ),
-                                        //     subtitle:
-                                        //         Text('darkmodeSubtitle'.tr),
-                                        //   ),
-                                        // ),
                                         InkWell(
                                           onTap: () {
-                                            Get.to(
-                                                () =>  const AppUpdateCheckScreen());
-                                            // ScaffoldMessenger.of(context)
-                                            //     .showSnackBar(const SnackBar(
-                                            //   content: Text('Comming soon.'),
-                                            //   backgroundColor: Colors.red,
-                                            // ));
+                                            _checkForUpdate();
+                                            setState(() {
+                                              isLoading = true;
+                                            });
                                           },
                                           child: ListTile(
                                             leading: SvgPicture.asset(
@@ -382,7 +541,7 @@ class _ProfileState extends State<Profile> {
                                         ),
                                         InkWell(
                                           onTap: () {
-                                            // Get.to(() => const SettingScreen());
+                                            rateUs();
                                           },
                                           child: ListTile(
                                             leading: SvgPicture.asset(
@@ -495,8 +654,6 @@ class _ProfileState extends State<Profile> {
                     ),
                   )
                 : Container(), // Use an empty container if profileData is null
-
-            // Transparent background to overlay the loading indicator
             if (isLoggingOut)
               Container(
                 color:
@@ -505,6 +662,27 @@ class _ProfileState extends State<Profile> {
 
             // Loading indicator
             if (isLoggingOut)
+              Center(
+                child: Container(
+                  height: 50,
+                  width: 100,
+                  color: Colors.white,
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: LoadingIndicatorWidget(),
+                  ),
+                ),
+              ),
+
+            Container(), // Use an empty container if profileData is null
+            if (isLoading)
+              Container(
+                color:
+                    Colors.black.withOpacity(0.3), // Adjust opacity as needed
+              ),
+
+            // Loading indicator
+            if (isLoading)
               Center(
                 child: Container(
                   height: 50,

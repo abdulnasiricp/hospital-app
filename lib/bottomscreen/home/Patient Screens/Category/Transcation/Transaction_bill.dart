@@ -121,6 +121,7 @@ class _TransactionBillState extends State<TransactionBill> {
         return false; // Prevent default back button behavior
       },
       child: Scaffold(
+        backgroundColor: Colors.lightBlue[50],
         appBar: PreferredSize(
             preferredSize: const Size(double.infinity, 65),
             child: SafeArea(

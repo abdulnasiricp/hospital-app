@@ -134,7 +134,7 @@ class _MedicationScreenState extends State<MedicationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.lightBlue[50],
       appBar: PreferredSize(
           preferredSize: const Size(double.infinity, 65),
           child: SafeArea(

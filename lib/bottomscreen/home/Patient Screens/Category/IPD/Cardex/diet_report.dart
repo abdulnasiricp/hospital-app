@@ -171,6 +171,7 @@ class _DietreportState extends State<Dietreport> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.lightBlue[50],
       body: RefreshIndicator(
         onRefresh: _handleRefresh,
         child: isLoading

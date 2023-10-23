@@ -101,7 +101,7 @@ class _USGScreenState extends State<USGScreen> {
       ),
     );
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.lightBlue[50],
       appBar: AppBar(
         title: Text('usg'.tr),
         centerTitle: true,

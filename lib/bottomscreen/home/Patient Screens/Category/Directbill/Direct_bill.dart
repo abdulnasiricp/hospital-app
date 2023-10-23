@@ -94,8 +94,7 @@ class _Direct_billState extends State<Direct_bill> {
         // Store the notification data in shared preferences
         final prefs = await SharedPreferences.getInstance();
         final notifications = prefs.getStringList('notifications') ?? [];
-        notifications
-            .add('New data are added please check your direct Bill');
+        notifications.add('New data are added please check your direct Bill');
         prefs.setStringList('notifications', notifications);
 
         notificationServies.showNotification(
@@ -201,10 +200,11 @@ class _Direct_billState extends State<Direct_bill> {
         return false; // Prevent default back button behavior
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.lightBlue[50],
         appBar: PreferredSize(
             preferredSize: const Size(double.infinity, 65),
             child: SafeArea(
+
                 child: Container(
               decoration: BoxDecoration(color: darkYellow, boxShadow: const [
                 BoxShadow(

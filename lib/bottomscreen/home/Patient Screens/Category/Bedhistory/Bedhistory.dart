@@ -172,6 +172,7 @@ class _BedhistoryState extends State<Bedhistory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.lightBlue[50],
       appBar: AppBar(
         title: Text('Bedhistory'.tr),
         centerTitle: true,
