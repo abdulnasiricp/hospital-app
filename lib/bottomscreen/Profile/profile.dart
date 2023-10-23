@@ -357,7 +357,7 @@ class _ProfileState extends State<Profile> {
                                         InkWell(
                                           onTap: () {
                                             Get.to(
-                                                () => const CheckForUpdate());
+                                                () =>  const AppUpdateCheckScreen());
                                             // ScaffoldMessenger.of(context)
                                             //     .showSnackBar(const SnackBar(
                                             //   content: Text('Comming soon.'),

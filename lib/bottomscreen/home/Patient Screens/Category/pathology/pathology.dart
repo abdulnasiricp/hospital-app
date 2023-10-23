@@ -64,14 +64,15 @@ class _PathalogyState extends State<Pathalogy> {
     await LoadData();
     await fetchData();
     ///////////////////////////////////////////////////////////////////////
-
-    // Schedule a periodic task to check the API every minute
+ // Schedule a periodic task to check the API every minute
     const duration = Duration(seconds: 30);
     Timer.periodic(duration, (Timer t) {
       checkForNewData();
-      print("1 pathology===============>");
+      print("1 pathology ===============>");
     });
     // Initialize currentDataLength with the length of the initial data
+    currentDataLength = data!.length;
+  
 
     calculateTotalAmount();
 
@@ -82,26 +83,30 @@ class _PathalogyState extends State<Pathalogy> {
   void initState() {
     super.initState();
     getData();
+    
   }
+  // Store the current data length
 
   void checkForNewData() async {
     try {
       final newData = await fetchData();
-      print('old data length: ${newData.length}');
-      print('New data length: ${filteredData?.length}');
-      if (newData.length < filteredData!.length) {
-        print("2 pathology===============>");
+      print('old data $currentDataLength');
+      print('new data $newData');
+
+      if (newData.length < currentDataLength) {
+        print("2 pathology ===============>");
+
         // Store the notification data in shared preferences
         final prefs = await SharedPreferences.getInstance();
         final notifications = prefs.getStringList('notifications') ?? [];
         notifications
-            .add('New data are added please check your pathology Bill');
+            .add('New data are added please check your pathology bill');
         prefs.setStringList('notifications', notifications);
 
         notificationServies.showNotification(
-            11,
-            'pathology Bill',
-            'New data are added please check your pathology Bill',
+            5,
+            'pathology bill',
+            'New data are added please check your pathology bill',
             'navigate_to_pathology_bill');
         currentDataLength = newData.length;
       }
@@ -109,6 +114,7 @@ class _PathalogyState extends State<Pathalogy> {
       print('Error while checking for new data: $error');
     }
   }
+
 
   ////////////////////////////////////////////////////////////////////////////////////////////
 // Get pathology data

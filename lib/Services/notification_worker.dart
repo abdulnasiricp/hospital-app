@@ -10,7 +10,8 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Trans
 
 void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) {
-    showLocalNotificationWithPayload(inputData?['payload']);
+    
+    
     return Future.value(true);
   });
 }

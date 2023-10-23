@@ -1,61 +1,50 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="tez.hospital.siraha">
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.BATTERY_STATS" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-    
-
-
-
-
-
-
-    <application
-      
-       
-            android:label="Tez Helth Care"
-        android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:launchMode="singleTop"
-            android:theme="@style/LaunchTheme"
-            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-            android:hardwareAccelerated="true"
-            android:windowSoftInputMode="adjustResize">
-            
-            <!-- <meta-data
-                android:name="io.flutter.embedding.android.NormalTheme"
-                android:resource="@style/NormalTheme"
-                /> -->
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-            <meta-data android:name="flutter_deeplinking_enabled" android:value="true" />
-            <intent-filter android:autoVerify="true">
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="kpg" android:host="tez.hospital.siraha" />
-            </intent-filter>
-           
-        </activity>
-        <!-- Don't delete the meta-data below.
-             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
-        <meta-data
-            android:name="flutterEmbedding"
-            android:value="2" />
-    </application>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="tez.hospital.siraha">
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	<uses-permission android:name="android.permission.VIBRATE" />
+	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+	<uses-permission android:name="android.permission.BATTERY_STATS" />
+	<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+	<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+	<uses-permission android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" />
+	<uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+	<uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+	<uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+	<application android:label="Tez Helth Care" android:name="${applicationName}" android:icon="@mipmap/ic_launcher">
+		<activity android:name=".MainActivity" android:showWhenLocked="true" android:turnScreenOn="true" android:exported="true" android:launchMode="singleTop" android:theme="@style/LaunchTheme" android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode" android:hardwareAccelerated="true" android:windowSoftInputMode="adjustResize">
+			<!--
+			<meta-data
+			android:name="io.flutter.embedding.android.NormalTheme"
+			android:resource="@style/NormalTheme"
+			/>
+			-->
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+			<meta-data android:name="flutterEmbedding" android:value="2" />
+			<intent-filter android:autoVerify="true">
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="kpg" android:host="tez.hospital.siraha" />
+			</intent-filter>
+		</activity>
+		<!--
+		Don't delete the meta-data below.
+		This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+		-->
+		<meta-data android:name="flutterEmbedding" android:value="2" />
+		<service android:name="dev.fluttercommunity.plus.androidalarmmanager.AlarmService" android:permission="android.permission.BIND_JOB_SERVICE" android:exported="false" />
+		<receiver android:name="dev.fluttercommunity.plus.androidalarmmanager.AlarmBroadcastReceiver" android:exported="false" />
+		<receiver android:name="dev.fluttercommunity.plus.androidalarmmanager.RebootBroadcastReceiver" android:enabled="false" android:exported="false">
+			<intent-filter>
+				<action android:name="android.intent.action.BOOT_COMPLETED" />
+			</intent-filter>
+		</receiver>
+	</application>
 </manifest>

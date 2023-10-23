@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Select_date.dart';
-import 'package:TezHealthCare/check.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -415,10 +414,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                         Container(
                                           width: width / 2,
                                           height: 250,
-                                          child: 
-                                          
-                                          Card(
-                                            
+                                          child: Card(
                                             child: Padding(
                                               padding:
                                                   const EdgeInsets.all(5.0),
@@ -494,15 +490,18 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                                       border: Border.all(),
                                                       color: yellow,
                                                       borderRadius:
-                                                          BorderRadius
-                                                              .circular(10),
+                                                          BorderRadius.circular(
+                                                              10),
                                                     ),
                                                     child: InkWell(
                                                       onTap: () {
                                                         Get.to(() =>
-                                                            SelectDateScreen(workExp:DoneListData![
+                                                            SelectDateScreen(
+                                                              workExp:
+                                                                  DoneListData![
                                                                           index]
-                                                                      ['work_exp'], 
+                                                                      [
+                                                                      'work_exp'],
                                                               doctorId:
                                                                   DoneListData![
                                                                           index]
@@ -510,12 +509,10 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                                               doctorImage:
                                                                   DoneListData![
                                                                           index]
-                                                                      [
-                                                                      'image'],
+                                                                      ['image'],
                                                               doctorName: DoneListData![
                                                                           index]
-                                                                      [
-                                                                      'name'] +
+                                                                      ['name'] +
                                                                   DoneListData![
                                                                           index]
                                                                       [
@@ -529,13 +526,11 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                                       },
                                                       child: Center(
                                                         child: Text(
-                                                          'bookAppointment'
-                                                              .tr,
+                                                          'bookAppointment'.tr,
                                                           style:
                                                               const TextStyle(
                                                             fontWeight:
-                                                                FontWeight
-                                                                    .bold,
+                                                                FontWeight.bold,
                                                           ),
                                                         ),
                                                       ),
@@ -551,27 +546,25 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                   },
                                 ),
                         ),
-                        SizedBox(height: 20,),
-                     Align(
-            alignment: Alignment.bottomCenter,
-            child: Text(
-              'Powered by:',
-              style: TextStyle(
-                  fontSize: 13, fontWeight: FontWeight.bold, color: yellow),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  bottom: 1.0), // Adjust the bottom padding as needed
-              child: Image.asset(
-                'assets/Tezashlogo.png',
-                width: 120, // Adjust the width as needed
-                height: 80, // Adjust the height as needed
-              ),
-            ),
-          ),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              'Powered by:',
+                              style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold,
+                                  color: yellow),
+                            ),
+                            Image.asset(
+                              'assets/Tezashlogo.png',
+                              width: 120, // Adjust the width as needed
+                              height: 50, // Adjust the height as needed
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ],

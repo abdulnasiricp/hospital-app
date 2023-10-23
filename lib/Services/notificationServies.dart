@@ -63,15 +63,17 @@ class NotificationServies {
   }
 
 
+
+
   // Workmanager initialization and registration
   void initializeWorkManager() {
     Workmanager().initialize(callbackDispatcher);
     Workmanager().registerPeriodicTask(
       "100", // Task ID (should be unique)
       "checkForNewDataTask", // Task name
-      // initialDelay: const Duration(minutes: 1), // Delay before the first execution
+      initialDelay: const Duration(minutes: 1), // Delay before the first execution
       frequency: const Duration(minutes: 15), // Periodic check every 15 minutes
-      inputData: <String, dynamic>{'payload': 'navigate_to_home_transaction_bill'},
+      // inputData: <String, dynamic>{'payload': 'navigate_to_home_transaction_bill'},
     );
   }
 
