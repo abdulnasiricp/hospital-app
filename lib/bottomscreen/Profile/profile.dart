@@ -259,7 +259,7 @@ class _ProfileState extends State<Profile> {
   }
 
   String apiUrl =
-      'https://uat.tez.hospital/xzy/auth/patient_logout'; // Replace with your logout API URL
+      ApiLinks.logout; // Replace with your logout API URL
 
   Future<void> performLogout() async {
     setState(() {
