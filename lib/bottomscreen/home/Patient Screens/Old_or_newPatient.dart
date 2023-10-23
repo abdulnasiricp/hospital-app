@@ -18,6 +18,9 @@ class _OldorNewPatientScreenState extends State<OldorNewPatientScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+              backgroundColor: Colors.lightBlue[50],
+
+
       appBar: AppBar(
         backgroundColor: darkYellow,
         title: Text('oldOrNewPatient'.tr),

@@ -16,6 +16,8 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.lightBlue[50],
+
       appBar: AppBar(
         backgroundColor: darkYellow,
         title: Text('conformation'.tr),
@@ -37,7 +39,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                   width: width,
                   // color: Colors.white,
                   child: Card(
-                    color: Colors.white70,
+                    color: Colors.white,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -108,7 +110,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                 width: width,
                 height: 150,
                 child: Card(
-                  color: Colors.white70,
+                  color: Colors.white,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

@@ -25,10 +25,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SelectPaymentMethod extends StatefulWidget {
   final int totalAmountInRs;
   final int totalAmountInpaisa;
+  final int path_Amount;
+  final int phrma_Amount;
+  final int ambulance_Amount;
+  final int direct_amount;
+  final int blood_Amount;
+  final int radio_Amount;
   const SelectPaymentMethod(
       {Key? key,
       required this.totalAmountInRs,
-      required this.totalAmountInpaisa})
+      required this.totalAmountInpaisa, required this.path_Amount, required this.phrma_Amount, required this.ambulance_Amount, required this.direct_amount, required this.blood_Amount, required this.radio_Amount})
       : super(key: key);
 
   @override
@@ -179,6 +185,13 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
     if (hasError.isNotEmpty) {
       Text('Console: Payment Failed, Message: $hasError');
     }
+
+    
+
+
+
+
+
   }
 
   void onSuccess(PaymentSuccessModel success) {
@@ -419,6 +432,18 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                                       fontWeight:
                                                           FontWeight.bold),
                                                 ),
+                                                // Text(
+                                                //   '${widget.ambulance_Amount}',
+                                                //   style: const TextStyle(
+                                                //       fontWeight:
+                                                //           FontWeight.bold),
+                                                // ),
+                                                //  Text(
+                                                //   '${widget.path_Amount}',
+                                                //   style: const TextStyle(
+                                                //       fontWeight:
+                                                //           FontWeight.bold),
+                                                // ),
                                               ],
                                             ),
                                           ),

@@ -18,6 +18,8 @@ class _PatientListState extends State<PatientList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.lightBlue[50],
+
       floatingActionButton: CircleAvatar(
           backgroundColor: darkYellow,
           radius: 25,
@@ -49,7 +51,7 @@ class _PatientListState extends State<PatientList> {
                 width: width,
                 height: 50,
                 child: const Card(
-                    color: Colors.white70,
+                    color: Colors.white,
                     child: Padding(
                       padding: EdgeInsets.all(10.0),
                       child: Column(
@@ -74,7 +76,7 @@ class _PatientListState extends State<PatientList> {
                 width: width,
                 height: 50,
                 child: const Card(
-                    color: Colors.white70,
+                    color: Colors.white,
                     child: Padding(
                       padding: EdgeInsets.all(10.0),
                       child: Column(

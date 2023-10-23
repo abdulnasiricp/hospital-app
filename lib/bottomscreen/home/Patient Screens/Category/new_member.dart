@@ -28,13 +28,7 @@ class _AddNewMemberScreenState extends State<AddNewMemberScreen> {
   TextEditingController vdcMunicipalityController=TextEditingController();
   TextEditingController wardController=TextEditingController();
   TextEditingController toleController=TextEditingController();
-  // TextEditingController firstNameController = TextEditingController();
-  // TextEditingController lastNameController TextEditingController();
-  // TextEditingController ageController= TextEditingController();
-  // TextEditingController dateController = TextEditingController();
-  // TextEditingController dateController = TextEditingController();
-  // TextEditingController dateController = TextEditingController();
-  // TextEditingController dateController = TextEditingController();
+  
   String selectedGender = ''; // Stores the selected gender.
 
   // Function to handle gender selection.
@@ -113,7 +107,8 @@ class _AddNewMemberScreenState extends State<AddNewMemberScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white70.withOpacity(0.9),
+             backgroundColor: Colors.lightBlue[50],
+
         appBar: AppBar(
           title: const Text('Add New Member'),
           centerTitle: true,

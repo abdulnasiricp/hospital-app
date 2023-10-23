@@ -13,7 +13,14 @@ class SelectDateScreen extends StatefulWidget {
   final String doctorName;
   final String doctorSpecialization;
   final String workExp;
-  const SelectDateScreen({Key? key, required this.doctorImage, required this.doctorName, required this.doctorSpecialization, required this.doctorId, required this.workExp}) : super(key: key);
+  const SelectDateScreen(
+      {Key? key,
+      required this.doctorImage,
+      required this.doctorName,
+      required this.doctorSpecialization,
+      required this.doctorId,
+      required this.workExp})
+      : super(key: key);
 
   @override
   State<SelectDateScreen> createState() => _SelectDateScreenState();
@@ -23,15 +30,24 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.white.withOpacity(.9),
+              backgroundColor: Colors.lightBlue[50],
+
       appBar: AppBar(
         backgroundColor: darkYellow,
         title: Text('selectADate'.tr),
         centerTitle: true,
         actions: [
-          IconButton(onPressed: (){
-            Get.to(()=> DoctorProfile(doctorId: widget.doctorId,doctorImage: widget.doctorImage,doctorName: widget.doctorName,doctorSpecialization: widget.doctorSpecialization,workExp: widget.workExp,));
-          }, icon: const Icon(Icons.info))
+          IconButton(
+              onPressed: () {
+                Get.to(() => DoctorProfile(
+                      doctorId: widget.doctorId,
+                      doctorImage: widget.doctorImage,
+                      doctorName: widget.doctorName,
+                      doctorSpecialization: widget.doctorSpecialization,
+                      workExp: widget.workExp,
+                    ));
+              },
+              icon: const Icon(Icons.info))
         ],
       ),
       body: SingleChildScrollView(
@@ -40,8 +56,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
           child: Column(
             children: [
               Card(
-                  color: Colors.white70,
-      
+                color: Colors.white,
                 child: Container(
                   width: width,
                   height: 100,
@@ -55,16 +70,21 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                           fit: BoxFit.cover,
                         ),
                       ),
-                      const SizedBox(width: 10,),
-                       Padding(
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Padding(
                         padding: const EdgeInsets.only(top: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(widget.doctorName,style: const TextStyle(fontWeight: FontWeight.bold),),
-                        Text(widget.doctorSpecialization),
-                        Text(widget.doctorId)
-                      
+                            Text(
+                              widget.doctorName,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Text(widget.doctorSpecialization),
+                            Text(widget.doctorId)
                           ],
                         ),
                       ),
@@ -75,38 +95,48 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
               const Divider(),
               InkWell(
                 onTap: () {
-                  Get.to(()=>const OldorNewPatientScreen());
-      
-                  
+                  Get.to(() => const OldorNewPatientScreen());
                 },
                 child: Card(
-                  color: Colors.white70,
+                  color: Colors.white,
                   child: Container(
                     width: width,
                     height: 80,
                     child: Row(
                       children: [
                         Container(
-                          height: height,
-                          width: width / 5,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('14',style: TextStyle(fontWeight: FontWeight.bold,color: darkYellow,fontSize: 30)),
-                              const Text('  Thuesday'),
-                            ],
-                          )
+                            height: height,
+                            width: width / 5,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text('14',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: darkYellow,
+                                        fontSize: 30)),
+                                const Text('  Thuesday'),
+                              ],
+                            )),
+                        const SizedBox(
+                          width: 40,
                         ),
-                        const SizedBox(width: 40,),
                         const Padding(
                           padding: EdgeInsets.only(top: 20),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('[14/09/2023]  [14/09/2030] ',style: TextStyle(fontWeight: FontWeight.bold),),
-                              SizedBox(height: 10,),
-                          Text('           (4 token left)',style: TextStyle(color: Colors.red),)
-                        
+                              Text(
+                                '[14/09/2023]  [14/09/2030] ',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                '           (4 token left)',
+                                style: TextStyle(color: Colors.red),
+                              )
                             ],
                           ),
                         ),
@@ -116,39 +146,49 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                 ),
               ),
               InkWell(
-                onTap: (){
-                  Get.to(()=>const OldorNewPatientScreen());
-      
+                onTap: () {
+                  Get.to(() => const OldorNewPatientScreen());
                 },
                 child: Card(
-                  color: Colors.white70,
-      
+                  color: Colors.white,
                   child: Container(
                     width: width,
                     height: 80,
                     child: Row(
                       children: [
                         Container(
-                          height: height,
-                          width: width / 5,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('16',style: TextStyle(fontWeight: FontWeight.bold,color: darkYellow,fontSize: 30)),
-                              const Text('  Friday'),
-                            ],
-                          )
+                            height: height,
+                            width: width / 5,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text('16',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: darkYellow,
+                                        fontSize: 30)),
+                                const Text('  Friday'),
+                              ],
+                            )),
+                        const SizedBox(
+                          width: 40,
                         ),
-                        const SizedBox(width: 40,),
                         const Padding(
                           padding: EdgeInsets.only(top: 20),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('[16/09/2023]  [16/09/2030] ',style: TextStyle(fontWeight: FontWeight.bold),),
-                              SizedBox(height: 10,),
-                          Text('           (5 token left)',style: TextStyle(color: Colors.red),)
-                        
+                              Text(
+                                '[16/09/2023]  [16/09/2030] ',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                '           (5 token left)',
+                                style: TextStyle(color: Colors.red),
+                              )
                             ],
                           ),
                         ),
@@ -158,34 +198,45 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                 ),
               ),
               Card(
-                  color: Colors.white70,
-      
+                color: Colors.white,
                 child: Container(
                   width: width,
                   height: 80,
                   child: Row(
                     children: [
                       Container(
-                        height: height,
-                        width: width / 5,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('18',style: TextStyle(fontWeight: FontWeight.bold,color: darkYellow,fontSize: 30)),
-                            const Text('  sunday'),
-                          ],
-                        )
+                          height: height,
+                          width: width / 5,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('18',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: darkYellow,
+                                      fontSize: 30)),
+                              const Text('  sunday'),
+                            ],
+                          )),
+                      const SizedBox(
+                        width: 40,
                       ),
-                      const SizedBox(width: 40,),
                       const Padding(
                         padding: EdgeInsets.only(top: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('[14/09/2023]  [18/09/2030] ',style: TextStyle(fontWeight: FontWeight.bold),),
-                            SizedBox(height: 10,),
-                        Text('           (3 token left)',style: TextStyle(color: Colors.red),)
-                      
+                            Text(
+                              '[14/09/2023]  [18/09/2030] ',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              '           (3 token left)',
+                              style: TextStyle(color: Colors.red),
+                            )
                           ],
                         ),
                       ),
@@ -194,34 +245,45 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                 ),
               ),
               Card(
-                  color: Colors.white70,
-      
+                color: Colors.white,
                 child: Container(
                   width: width,
                   height: 80,
                   child: Row(
                     children: [
                       Container(
-                        height: height,
-                        width: width / 5,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('20',style: TextStyle(fontWeight: FontWeight.bold,color: darkYellow,fontSize: 30)),
-                            const Text('  Thuesday'),
-                          ],
-                        )
+                          height: height,
+                          width: width / 5,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('20',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: darkYellow,
+                                      fontSize: 30)),
+                              const Text('  Thuesday'),
+                            ],
+                          )),
+                      const SizedBox(
+                        width: 40,
                       ),
-                      const SizedBox(width: 40,),
                       const Padding(
                         padding: EdgeInsets.only(top: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('[20/09/2023]  [12/09/2030] ',style: TextStyle(fontWeight: FontWeight.bold),),
-                            SizedBox(height: 10,),
-                        Text('           (4 token left)',style: TextStyle(color: Colors.red),)
-                      
+                            Text(
+                              '[20/09/2023]  [12/09/2030] ',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              '           (4 token left)',
+                              style: TextStyle(color: Colors.red),
+                            )
                           ],
                         ),
                       ),
@@ -230,34 +292,45 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                 ),
               ),
               Card(
-                  color: Colors.white70,
-      
+                color: Colors.white,
                 child: Container(
                   width: width,
                   height: 80,
                   child: Row(
                     children: [
                       Container(
-                        height: height,
-                        width: width / 5,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('22',style: TextStyle(fontWeight: FontWeight.bold,color: darkYellow,fontSize: 30)),
-                            const Text('  Friday'),
-                          ],
-                        )
+                          height: height,
+                          width: width / 5,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('22',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: darkYellow,
+                                      fontSize: 30)),
+                              const Text('  Friday'),
+                            ],
+                          )),
+                      const SizedBox(
+                        width: 40,
                       ),
-                      const SizedBox(width: 40,),
                       const Padding(
                         padding: EdgeInsets.only(top: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('[22/09/2023]  [14/09/2030] ',style: TextStyle(fontWeight: FontWeight.bold),),
-                            SizedBox(height: 10,),
-                        Text('           (7 token left)',style: TextStyle(color: Colors.red),)
-                      
+                            Text(
+                              '[22/09/2023]  [14/09/2030] ',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              '           (7 token left)',
+                              style: TextStyle(color: Colors.red),
+                            )
                           ],
                         ),
                       ),
@@ -265,8 +338,6 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                   ),
                 ),
               ),
-              
-              
             ],
           ),
         ),

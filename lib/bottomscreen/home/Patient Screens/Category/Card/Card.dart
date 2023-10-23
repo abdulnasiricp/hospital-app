@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, non_constant_identifier_names, avoid_print, deprecated_member_use, sized_box_for_whitespace
+
 import 'dart:io';
 
 import 'package:TezHealthCare/utils/Api_Constant.dart';
@@ -111,7 +113,7 @@ class _CardScreenState extends State<CardScreen> {
   }
 
   Future<int> checkStatusCode() async {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
     return 500; // Replace with the actual status code checking logic
   }
 

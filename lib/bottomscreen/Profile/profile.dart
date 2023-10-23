@@ -156,8 +156,8 @@ class _ProfileState extends State<Profile> {
 
   /////////////////////// For App Update
   void _checkForUpdate() async {
-    final packageName = 'tez.hospital.siraha';
-    final url = 'https://play.google.com/store/apps/details?id=$packageName';
+    const packageName = 'tez.hospital.siraha';
+    const url = 'https://play.google.com/store/apps/details?id=$packageName';
 
     final uri = Uri.parse(url);
     final response = await http.get(uri);
@@ -225,7 +225,7 @@ class _ProfileState extends State<Profile> {
   Future<void> rateUs() async {
     const String packageName =
         'tez.hospital.siraha'; // Replace with your app's package name
-    final String url =
+    const String url =
         'https://play.google.com/store/apps/details?id=$packageName';
 
     if (await canLaunch(url)) {

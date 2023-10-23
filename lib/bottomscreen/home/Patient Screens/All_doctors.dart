@@ -93,7 +93,8 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
         return false; // Prevent default back button behavior
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
+                backgroundColor: Colors.lightBlue[50],
+
         appBar: PreferredSize(
             preferredSize: const Size(double.infinity, 65),
             child: SafeArea(
@@ -224,7 +225,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                     Expanded(
                                       child: Card(
                                         elevation: 5,
-                                        color: Colors.white70,
+                                        color: Colors.white,
                                         child: Padding(
                                           padding: const EdgeInsets.all(5.0),
                                           child: Column(

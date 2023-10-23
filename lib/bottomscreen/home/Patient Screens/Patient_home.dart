@@ -117,6 +117,12 @@ class _PatientHomePageState extends State<PatientHomePage> {
 ///////////////////////////////////////////////////////////////////
 // get Due amount
   late int totalDues = 0;
+  late int blooddues = 0;
+  late int ambulancedues = 0;
+  late int pharmadues = 0;
+  late int diredues = 0;
+  late int radiodues = 0;
+  late int pathodues = 0;
 
   Future<void> getDues() async {
     // Set the headers
@@ -144,6 +150,12 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
         // Get the total_dues and patho_dues values
         totalDues = data['result']['total_dues'];
+        diredues = data['result']['dire_dues'];
+        pharmadues = data['result']['pharma_dues'];
+        pathodues = data['result']['patho_dues'];
+        radiodues = data['result']['radio_dues'];
+        blooddues = data['result']['blood_dues'];
+        ambulancedues = data['result']['ambulance_dues'];
 
         // Set the state to rebuild the widget
         setState(() {});
@@ -266,7 +278,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                 icon: Stack(
                   children: [
                     badges.Badge(
-                      badgeContent: Text(_badgeCount.toString()),
+                      badgeContent: Text(_badgeCount.toString(),style:TextStyle(fontSize:8)),
                       badgeStyle: const badges.BadgeStyle(
                         badgeColor: Colors.orangeAccent,
                       ),
@@ -424,7 +436,14 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         Get.off(
                                           () => SelectPaymentMethod(
                                               totalAmountInRs: rupeesAmount,
-                                              totalAmountInpaisa: paisaAmount),
+                                              totalAmountInpaisa: paisaAmount,
+                                              ambulance_Amount: ambulancedues,
+                                              blood_Amount: blooddues,
+                                              direct_amount: diredues,
+                                              path_Amount: pathodues,
+                                              phrma_Amount: pharmadues,
+                                              radio_Amount: radiodues,
+                                              ),
                                         );
                                       },
                                       style: ElevatedButton.styleFrom(
@@ -1070,7 +1089,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             return Container(
                                               width: width,
                                               child: Card(
-                                                  color: Colors.white70
+                                                  color: Colors.white
                                                       .withOpacity(0.7),
                                                   child: Padding(
                                                     padding:
@@ -1155,16 +1174,12 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                               overflow:
                                                                   TextOverflow
                                                                       .ellipsis,
-                                                              // style: const TextStyle(
-                                                              //     fontWeight:
-                                                              //     FontWeight.bold),
                                                             ),
                                                             const SizedBox(
                                                               height: 10,
                                                             ),
                                                             Row(
                                                               children: [
-                                                                // Text('${DoneListData![index]['qualification']},'),
                                                                 Container(
                                                                     child: Text(
                                                                   '${DoneListData![index]['qualification']}',
@@ -1183,7 +1198,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                                   width: 10,
                                                                 ),
 
-                                                                // Text('${DoneListData![index]['work_exp']},'),
                                                                 Text(
                                                                   '${DoneListData![index]['work_exp']}',
                                                                   maxLines: 1,

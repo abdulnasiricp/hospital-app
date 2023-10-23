@@ -21,6 +21,8 @@ class _DoctorProfileState extends State<DoctorProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.lightBlue[50],
+
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: darkYellow,
@@ -32,7 +34,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
           child: Column(
             children: [
               Card(
-                color: Colors.white70,
+                color: Colors.white,
                 child: Container(
                   width: width,
                   child: Column(
