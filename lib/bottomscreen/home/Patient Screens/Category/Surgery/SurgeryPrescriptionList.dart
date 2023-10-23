@@ -150,6 +150,7 @@ class _SurgeryPrescriptionListState extends State<SurgeryPrescriptionList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.lightBlue[50],
       appBar: AppBar(
         title: Text('Surgery'.tr),
         centerTitle: true,

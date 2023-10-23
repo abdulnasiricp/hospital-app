@@ -173,6 +173,7 @@ class _MedicationReportState extends State<MedicationReport> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.lightBlue[50],
       body: RefreshIndicator(
         onRefresh: _handleRefresh,
         child: isLoading

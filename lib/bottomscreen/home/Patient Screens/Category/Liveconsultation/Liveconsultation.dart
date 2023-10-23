@@ -109,7 +109,7 @@ class _LiveconsultationState extends State<Liveconsultation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.lightBlue[50],
       appBar: AppBar(
         title:  Text('Liveconsultation'.tr),
         centerTitle: true,

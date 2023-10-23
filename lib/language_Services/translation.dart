@@ -208,8 +208,17 @@ class Translation extends Translations {
           'frequency': 'Frequency',
           'No. D': 'No. D',
           'Bedhistory': 'Bedhistory',
-          'Certificate': 'Certificate', 'Bloodbank': 'Bloodbank',
-          'Surgery': 'Surgery Report', 'HelpCenter': 'Help Center',
+          'Certificate': 'Certificate',
+          'Bloodbank': 'Bloodbank',
+          'Surgery': 'Surgery Report',
+          'HelpCenter': 'Help Center',
+          ////////////////////////// For App Update
+          'Update_Available': 'Update Available',
+          'Update_Available_question':
+              'An update for the app is available. Would you like to update now?',
+          'Later': 'Later',
+          'Update_Now': 'Update Now',
+          'Updated_msg': 'Your app is up to date. No updates are available.',
 
           //////////////// Cardex
           'medication_report': 'Medication Report',
@@ -219,14 +228,9 @@ class Translation extends Translations {
           'Cardex': 'Cardex',
           'Directbill': 'Direct Bill',
 
-           //maternity card
-          'Maternity':'Maternity'
+          //maternity card
+          'Maternity': 'Maternity'
         },
-
-
-
-
-
         'ne_NP': {
           //Bottom Bar
           'home': "होम",
@@ -446,9 +450,15 @@ class Translation extends Translations {
           'diet_report': 'आहार रिपोर्ट',
           'Cardex': 'कार्डेक्स',
           'Directbill': 'प्रत्यक्ष बिल',
-
+          ////////////////////////// For App Update
+          'Update_Available': 'अपडेट उपलब्ध छ',
+          'Update_Available_question':
+              'एपको लागि अपडेट उपलब्ध छ। के तपाई अहिले अपडेट गर्न चाहनुहुन्छ?',
+          'Later': 'पछि',
+          'Updated_msg': 'तपाईंको एप अप टु डेट छ। कुनै अद्यावधिकहरू उपलब्ध छैनन्।',
+          'Update_Now': 'अहिले अपडेट गर्नुहोस्',
           //maternity card
-          'Maternity':'मातृत्व'
+          'Maternity': 'मातृत्व'
         }
       };
 }

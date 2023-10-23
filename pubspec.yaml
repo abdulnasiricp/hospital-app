@@ -73,7 +73,8 @@ dependencies:
   animation_search_bar: ^0.0.10
   workmanager: ^0.5.2
   badges: ^3.1.2
-  in_app_update:
+
+
 
 
 

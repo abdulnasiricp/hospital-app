@@ -105,6 +105,7 @@ class _Blood_BankState extends State<Blood_Bank> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.lightBlue[50],
       appBar: AppBar(
         title: Text('bloodBank'.tr),
         centerTitle: true,

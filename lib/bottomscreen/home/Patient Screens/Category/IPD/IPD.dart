@@ -175,7 +175,7 @@ class _IPDState extends State<IPD> {
           centerTitle: true,
           backgroundColor: darkYellow,
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.lightBlue[50],
         body: FutureBuilder(
           future: fetchVitalsData(),
           builder: (context, snapshot) {

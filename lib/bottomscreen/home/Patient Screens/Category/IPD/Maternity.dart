@@ -37,19 +37,21 @@ class _MaternityState extends State<Maternity> {
     await LoadData();
     await getpatientDetails();
     await getMternityData();
-     print("==============> $maternityReport");
+    print("==============> $maternityReport");
     print("==============> $ipdData");
   }
+
   @override
   void initState() {
     loadSP();
-   
+
     super.initState();
   }
+
   ////////////////////////////////////////////////////////////////////////////
   late String ipdData = '';
 
- Future<void> getpatientDetails() async {
+  Future<void> getpatientDetails() async {
     // Set the headers
     final headers = {
       'Soft-service': 'TezHealthCare',
@@ -75,7 +77,6 @@ class _MaternityState extends State<Maternity> {
 
         // Get the total_dues and patho_dues values
         ipdData = data['result']['ipdid'];
-        
 
         // Set the state to rebuild the widget
         setState(() {});
@@ -87,12 +88,11 @@ class _MaternityState extends State<Maternity> {
     }
   }
 
-
   /////////////////////////////////////////////////////////////////////////
   // get meternity data
   late String maternityReport = '';
 
- Future<void> getMternityData() async {
+  Future<void> getMternityData() async {
     // Set the headers
     final headers = {
       'Soft-service': 'TezHealthCare',
@@ -101,7 +101,7 @@ class _MaternityState extends State<Maternity> {
 
     // Set the body
     final body = {
-      'ipd_id':ipdData,
+      'ipd_id': ipdData,
       'patient_id': PatientId,
     };
     try {
@@ -130,10 +130,7 @@ class _MaternityState extends State<Maternity> {
     }
   }
 
-
-
-
-  void showDownloadedFilePath(String path){
+  void showDownloadedFilePath(String path) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -153,7 +150,8 @@ class _MaternityState extends State<Maternity> {
                     print('Error opening file: ${result.message}');
                   }
                   // Launch a URL using url_launcher package
-                  await launch('$maternityReport'); // Replace with your desired URL
+                  await launch(
+                      '$maternityReport'); // Replace with your desired URL
                 }
               },
               child: const Text('Open'),
@@ -163,17 +161,17 @@ class _MaternityState extends State<Maternity> {
       },
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.lightBlue[50],
       appBar: AppBar(
         actions: [
-         
-               IconButton(
+          IconButton(
             onPressed: () {
               FileDownloader.downloadFile(
-                url:
-                '$maternityReport',
+                url: '$maternityReport',
                 onProgress: (name, progress) {
                   setState(() {
                     _progress = progress;
@@ -195,42 +193,41 @@ class _MaternityState extends State<Maternity> {
             icon: const Icon(Icons.download),
           )
         ],
-        title:  Text('Maternity'.tr),
+        title: Text('Maternity'.tr),
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
-      body:
-       maternityReport.isEmpty
-              ? Center(
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Center(
-                child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Container(
-                        height: 50,
-                        width: 50,
-                        color: Colors.transparent,
-                        child: const LoadingIndicatorWidget())),
-              )
-            ),
-          ):
+      body: maternityReport.isEmpty
+          ? Center(
+              child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Center(
+                    child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Container(
+                            height: 50,
+                            width: 50,
+                            color: Colors.transparent,
+                            child: const LoadingIndicatorWidget())),
+                  )),
+            )
+          :
 
-      // _progress != null ? Center(child: Lottie.asset('assets/loading1.json'))
-      //     :
-           Container(
-        color: darkYellow,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: const PDF(
-              swipeHorizontal: true,
-            ).cachedFromUrl(
-              '$maternityReport',
+          // _progress != null ? Center(child: Lottie.asset('assets/loading1.json'))
+          //     :
+          Container(
+              color: darkYellow,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                  child: const PDF(
+                    swipeHorizontal: true,
+                  ).cachedFromUrl(
+                    '$maternityReport',
+                  ),
+                ),
+              ),
             ),
-          ),
-        ),
-      ),
     );
   }
 }
