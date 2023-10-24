@@ -148,6 +148,7 @@ class Translation extends Translations {
           //select payment method
           'selectAnyOnePayment': "Select any one to Pay.",
           'hospitalDueAmount': "Hospital Due Amount",
+          'totalhospitalDueAmount': "Total Hospital Due Amount",
           'proceed': "PROCEED",
           'discount': "Discount:",
           'askTermsAndCondition': "By Clicking On Proceed, you agree to our",
@@ -378,6 +379,8 @@ class Translation extends Translations {
           //select payment method
           'selectAnyOnePayment': "भुक्तान गर्न कुनै एक चयन गर्नुहोस्।",
           'hospitalDueAmount': "अस्पतालको बाँकी रकम",
+          'totalhospitalDueAmount': "कुल अस्पताल देय रकम",
+
           'discount': "छुट:",
           'proceed': "अगाडि बढ्नुहोस्",
           'askTermsAndCondition':

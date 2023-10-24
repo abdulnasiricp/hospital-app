@@ -30,6 +30,8 @@ Future<void> main() async {
   String defaultLang = selectedLanguage == 'ne' ? 'ne_NP' : 'en_US';
   print('========================> $defaultLang');
 
+  
+
    // Create an instance of the Workmanager class.
   final workmanager = Workmanager();
 

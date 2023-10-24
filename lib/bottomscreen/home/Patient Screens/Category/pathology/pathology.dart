@@ -138,6 +138,9 @@ class _PathalogyState extends State<Pathalogy> {
           // Check if there is an increase in the data length.
           if (data!.length > oldDataLength) {
             print('=============> 1 patholgy');
+            //length=data.length
+             // Update the old data length.
+          oldDataLength = data!.length;
             // Show a notification.
             notificationServies.showNotification(
                 101,
@@ -147,8 +150,7 @@ class _PathalogyState extends State<Pathalogy> {
             checkForNewData();
           }
 
-          // Update the old data length.
-          oldDataLength = data!.length;
+         
         });
       } else {
         throw Exception('Failed to load data');

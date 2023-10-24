@@ -48,7 +48,23 @@ class PatientHomePage extends StatefulWidget {
 }
 
 class _PatientHomePageState extends State<PatientHomePage> {
+  /////////////////////////////////////////
+  //convert rupess to paisa
+  late num rupeesAmount = totalDues; 
+  late num pathalogyAmount= pathodues; 
+  // late double rupeesAmount = totalDues; 
+  // late double rupeesAmount = totalDues; 
+  // late double rupeesAmount = totalDues; 
+  // late double rupeesAmount = totalDues;  
+
  
+
+  num rupeesToPaisa(num rupees) {
+  return rupees * 100.0;
+}
+
+late int paisaAmount = rupeesToPaisa(rupeesAmount).round();
+
   ///////////////////////////////////////////////////////////////
   // show more catogory
   bool _showMore = false;
@@ -66,7 +82,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
     await LoadData();
 
     await getDues();
-    convertRupeesToPaisa();
+    // rupeesToPaisa();
   }
 
   @override
@@ -109,13 +125,13 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
 ///////////////////////////////////////////////////////////////////
 // get Due amount
-  late double totalDues = 0.0;
-  late double blooddues = 0.0;
-  late double ambulancedues = 0.0;
-  late double pharmadues = 0.0;
-  late double diredues = 0.0;
-  late double radiodues = 0.0;
-  late double pathodues = 0.0;
+  late num totalDues = 0;
+  late num blooddues = 0;
+  late num ambulancedues = 0;
+  late num pharmadues = 0;
+  late num diredues = 0;
+  late num radiodues = 0;
+  late num pathodues = 0;
 
   Future<void> getDues() async {
     // Set the headers
@@ -159,17 +175,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
       print(error);
     }
   }
-   /////////////////////////////////////////
-  //convert rupess to paisa
-  // late double rupeesAmount = totalDues; // Replace this with your rupees amount
-  late int paisaAmount = totalDues.toInt();
-
-  int convertRupeesToPaisa() {
-    print(paisaAmount);
-    return (paisaAmount * 100).toInt();
-    
-  }
-
 ///////////////////////////////////////////////////////
 
 // get All Doctors
@@ -245,8 +250,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    int paisaAmount = convertRupeesToPaisa();
-    print(paisaAmount);
+    // int paisaAmount = convertRupeesToPaisa();
 
     return Scaffold(
         backgroundColor: Colors.lightBlue[50],
@@ -408,7 +412,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               const EdgeInsets.only(left: 30.0),
                                           child: Text(
                                             // 'Rs. $rupeesAmount',
-                                            "Rs. $totalDues",
+                                            "Rs. $rupeesAmount",
                                             style: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.red,
@@ -440,13 +444,12 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
                                         Get.off(
                                           () => SelectPaymentMethod(
-                                              totalAmountInRs: paisaAmount,
-                                              // totalAmountInpaisa: paisaAmount,
+                                              totalAmountInRs: rupeesAmount,
                                               totalAmountInpaisa: paisaAmount,
                                               ambulance_Amount: ambulancedues,
                                               blood_Amount: blooddues,
                                               direct_amount: diredues,
-                                              path_Amount: pathodues,
+                                              path_Amount: pathalogyAmount,
                                               phrma_Amount: pharmadues,
                                               radio_Amount: radiodues,
                                               ),

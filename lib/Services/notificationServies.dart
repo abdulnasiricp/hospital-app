@@ -9,36 +9,34 @@ import 'package:workmanager/workmanager.dart';
 
 class NotificationServies {
   FlutterLocalNotificationsPlugin notificationsPlugin =
-  FlutterLocalNotificationsPlugin();
+      FlutterLocalNotificationsPlugin();
 
   // Notification
   AndroidInitializationSettings androidSettings =
-  const AndroidInitializationSettings("ic_launcher");
+      const AndroidInitializationSettings("ic_launcher");
   DarwinInitializationSettings iosSettings = const DarwinInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
       requestCriticalPermission: true,
       requestSoundPermission: true);
 
-  void initialNotification()async{
+  void initialNotification() async {
     InitializationSettings initializationSettings = InitializationSettings(
       android: androidSettings,
       iOS: iosSettings,
-
     );
 
-    bool? initialized =
-    await notificationsPlugin.initialize(initializationSettings,);
+    bool? initialized = await notificationsPlugin.initialize(
+      initializationSettings,
+    );
     log("Notification: $initialized");
-
-
-
-
   }
+
   // show notification
-  void showNotification(int id,String title,String message,String payload) async {
+  void showNotification(
+      int id, String title, String message, String payload) async {
     AndroidNotificationDetails androidDetiles =
-    const AndroidNotificationDetails(
+        const AndroidNotificationDetails(
       'Notification',
       'Tez health Care',
       priority: Priority.high,
@@ -58,12 +56,9 @@ class NotificationServies {
     // Define the payload when creating the notification
     // const String payload = 'navigate_to_home_transaction_bill';
 
-    await notificationsPlugin.show(
-        id, title, message, notificationDetails,payload:  payload);
+    await notificationsPlugin.show(id, title, message, notificationDetails,
+        payload: payload);
   }
-
-
-
 
   // Workmanager initialization and registration
   void initializeWorkManager() {
@@ -71,13 +66,10 @@ class NotificationServies {
     Workmanager().registerPeriodicTask(
       "100", // Task ID (should be unique)
       "checkForNewDataTask", // Task name
-      initialDelay: const Duration(minutes: 1), // Delay before the first execution
+      initialDelay:
+          const Duration(minutes: 1), // Delay before the first execution
       frequency: const Duration(minutes: 15), // Periodic check every 15 minutes
       // inputData: <String, dynamic>{'payload': 'navigate_to_home_transaction_bill'},
     );
   }
-
 }
-
-
-

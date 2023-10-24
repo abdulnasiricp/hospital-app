@@ -23,14 +23,14 @@ import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SelectPaymentMethod extends StatefulWidget {
-  final int totalAmountInRs;
+  final num totalAmountInRs;
   final int totalAmountInpaisa;
-  final double path_Amount;
-  final double phrma_Amount;
-  final double ambulance_Amount;
-  final double direct_amount;
-  final double blood_Amount;
-  final double radio_Amount;
+  final num path_Amount;
+  final num phrma_Amount;
+  final num ambulance_Amount;
+  final num direct_amount;
+  final num blood_Amount;
+  final num radio_Amount;
   const SelectPaymentMethod(
       {Key? key,
       required this.totalAmountInRs,
@@ -110,6 +110,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
     KhaltiScope.of(context).pay(
       config: PaymentConfig(
         amount: widget.totalAmountInpaisa, //in paisa
+        // amount: 20000, //in paisa
         productIdentity: patientID,
         productName: "username",
         mobileReadOnly: false,
@@ -195,26 +196,35 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
   }
 
   void onSuccess(PaymentSuccessModel success) {
-    Get.to(() => const PaymentSuccessfullScreen());
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Payment Successful'),
-          actions: [
-            SimpleDialogOption(
-                child: const Text('OK'),
-                onPressed: () {
-                  setState(() {
-                    referenceId = success.idx;
-                  });
+    Get.to(() => PaymentSuccessfullScreen(
+          ambulance_Amount: widget.ambulance_Amount,
+          blood_Amount: widget.blood_Amount,
+          direct_amount: widget.direct_amount,
+          path_Amount: widget.path_Amount,
+          phrma_Amount: widget.phrma_Amount,
+          radio_Amount: widget.radio_Amount,
+          TotalAmountInRs: widget.totalAmountInRs,
+          totalAmountInpaisa: widget.totalAmountInpaisa,
+        ));
+    // showDialog(
+    //   context: context,
+    //   builder: (context) {
+    //     return AlertDialog(
+    //       title: const Text('Payment Successful'),
+    //       actions: [
+    //         SimpleDialogOption(
+    //             child: const Text('OK'),
+    //             onPressed: () {
+    //               setState(() {
+    //                 referenceId = success.idx;
+    //               });
 
-                  Navigator.pop(context);
-                })
-          ],
-        );
-      },
-    );
+    //               Navigator.pop(context);
+    //             })
+    //       ],
+    //     );
+    //   },
+    // );
   }
 
   void onFailure(PaymentFailureModel failure) {
@@ -306,7 +316,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                               ),
                               Container(
                                 width: width,
-                                height: 150,
+                                // height: 150,
                                 child: Card(
                                   color: Colors.white,
                                   child: Column(
@@ -315,8 +325,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(10.0),
+                                          const Padding(
+                                            padding: EdgeInsets.all(10.0),
                                             child: Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
@@ -325,8 +335,184 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  'hospitalDueAmount'.tr,
-                                                  style: const TextStyle(
+                                                  'Pathology Dues',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 20,
+                                                top: 10,
+                                                left: 10,
+                                                bottom: 10),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text("${widget.path_Amount}",
+                                                    style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Padding(
+                                            padding: EdgeInsets.all(10.0),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  'Radiology Dues',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 20,
+                                                top: 10,
+                                                left: 10,
+                                                bottom: 10),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text("${widget.radio_Amount}",
+                                                    style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Padding(
+                                            padding: EdgeInsets.all(10.0),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  'Direct Dues',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 20,
+                                                top: 10,
+                                                left: 10,
+                                                bottom: 10),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text("${widget.direct_amount}",
+                                                    style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Padding(
+                                            padding: EdgeInsets.all(10.0),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  'Pharmacy Dues',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 20,
+                                                top: 10,
+                                                left: 10,
+                                                bottom: 10),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text("${widget.phrma_Amount}",
+                                                    style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Padding(
+                                            padding: EdgeInsets.all(10.0),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  'Ambulance Dues',
+                                                  style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold),
                                                 ),
@@ -347,7 +533,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                    "${widget.totalAmountInRs}",
+                                                    "${widget.ambulance_Amount}",
                                                     style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold)),
@@ -360,8 +546,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(10.0),
+                                          const Padding(
+                                            padding: EdgeInsets.all(10.0),
                                             child: Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
@@ -370,16 +556,16 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  'discount'.tr,
-                                                  style: const TextStyle(
+                                                  'Blood Bank Dues',
+                                                  style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold),
                                                 ),
                                               ],
                                             ),
                                           ),
-                                          const Padding(
-                                            padding: EdgeInsets.only(
+                                          Padding(
+                                            padding: const EdgeInsets.only(
                                                 right: 20,
                                                 top: 10,
                                                 left: 10,
@@ -391,8 +577,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
-                                                Text("Rs.0",
-                                                    style: TextStyle(
+                                                Text("${widget.blood_Amount}",
+                                                    style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold)),
                                               ],
@@ -424,23 +610,11 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  'total'.tr,
+                                                  'totalhospitalDueAmount'.tr,
                                                   style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold),
                                                 ),
-                                                // Text(
-                                                //   '${widget.ambulance_Amount}',
-                                                //   style: const TextStyle(
-                                                //       fontWeight:
-                                                //           FontWeight.bold),
-                                                // ),
-                                                //  Text(
-                                                //   '${widget.path_Amount}',
-                                                //   style: const TextStyle(
-                                                //       fontWeight:
-                                                //           FontWeight.bold),
-                                                // ),
                                               ],
                                             ),
                                           ),
@@ -466,6 +640,9 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                           ),
                                         ],
                                       ),
+                                      SizedBox(
+                                        height: 20,
+                                      )
                                     ],
                                   ),
                                 ),

@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace
+// ignore_for_file: sized_box_for_whitespace, non_constant_identifier_names
 
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -6,27 +6,23 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
-class PaymentSuccessfullScreen extends StatelessWidget {
+class PaymentSuccessfullScreen extends StatefulWidget {
+   final num TotalAmountInRs;
+  final int totalAmountInpaisa;
+  final num path_Amount;
+  final num phrma_Amount;
+  final num ambulance_Amount;
+  final num direct_amount;
+  final num blood_Amount;
+  final num radio_Amount;
   const PaymentSuccessfullScreen({
-    Key? key,
+    Key? key, required this.TotalAmountInRs, required this.totalAmountInpaisa, required this.path_Amount, required this.phrma_Amount, required this.ambulance_Amount, required this.direct_amount, required this.blood_Amount, required this.radio_Amount,
   }) : super(key: key);
 
-  @override
   Widget build(BuildContext context) {
-    return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0),
-      ),
-      elevation: 0,
-      backgroundColor: Colors.white,
-      child: contentBox(context),
-    );
-  }
-
-  contentBox(context) {
-    return Container(
-      height: height / 1.7,
-      child: Center(
+    return Scaffold(
+      appBar: AppBar(centerTitle: true,backgroundColor: darkYellow),
+      body: Center(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
@@ -46,71 +42,352 @@ class PaymentSuccessfullScreen extends StatelessWidget {
                   width: width / 3,
                   height: height / 7,
                   child: Lottie.asset('assets/done.json')),
-              const Padding(
-                padding: EdgeInsets.only(left: 25.0, right: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Payment Mode',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+              Column(
+                children: [
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Payment Mode',
+                                style:
+                                    TextStyle(fontWeight: FontWeight.bold)),
+                            
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text('Transaction id',
+                                style:
+                                    TextStyle(fontWeight: FontWeight.bold)),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text('Pathology Dues',
+                                style:
+                                    TextStyle(fontWeight: FontWeight.bold)),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text('Radiology Dues',
+                                style:
+                                    TextStyle(fontWeight: FontWeight.bold)),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text('Direct Dues',
+                                style:
+                                    TextStyle(fontWeight: FontWeight.bold)),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text('Pharmacy Dues',
+                                style:
+                                    TextStyle(fontWeight: FontWeight.bold)),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text('Ambulance Dues',
+                                style:
+                                    TextStyle(fontWeight: FontWeight.bold)),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text('Blood Bank Dues',
+                                style:
+                                    TextStyle(fontWeight: FontWeight.bold)),
+                          ],
                         ),
-                        SizedBox(
-                          height: 10,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Net Banking',
+                                style:
+                                    TextStyle(fontWeight: FontWeight.bold)),
+                           
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text('12123434',
+                                style:
+                                    TextStyle(fontWeight: FontWeight.bold)),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text('',
+                                style:
+                                    TextStyle(fontWeight: FontWeight.bold)),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text('12123434',
+                                style:
+                                    TextStyle(fontWeight: FontWeight.bold)),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text('12123434',
+                                style:
+                                    TextStyle(fontWeight: FontWeight.bold)),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text('12123434',
+                                style:
+                                    TextStyle(fontWeight: FontWeight.bold)),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text('12123434',
+                                style:
+                                    TextStyle(fontWeight: FontWeight.bold)),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text('12123434',
+                                style:
+                                    TextStyle(fontWeight: FontWeight.bold)),
+                          ],
                         ),
-                        Text('Mobile',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text('Email',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text('Amount Paid',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 17)),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text('Transaction id',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                      ],
+                      )
+                    ],
+                  ),
+                  // const Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Padding(
+                  //       padding: EdgeInsets.all(10.0),
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           Text(
+                  //             'Pathology Dues',
+                  //             style: TextStyle(fontWeight: FontWeight.bold),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //     Padding(
+                  //       padding: EdgeInsets.all(10),
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           Text('22',
+                  //               // "${widget.path_Amount}",
+                  //               style: TextStyle(fontWeight: FontWeight.bold)),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  // const Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Padding(
+                  //       padding: EdgeInsets.all(10.0),
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           Text(
+                  //             'Radiology Dues',
+                  //             style: TextStyle(fontWeight: FontWeight.bold),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //     Padding(
+                  //       padding: EdgeInsets.only(
+                  //           right: 20, top: 10, left: 10, bottom: 10),
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           Text('200',
+                  //               // "${widget.radio_Amount}",
+                  //               style: TextStyle(fontWeight: FontWeight.bold)),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  // const Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Padding(
+                  //       padding: EdgeInsets.all(10.0),
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           Text(
+                  //             'Direct Dues',
+                  //             style: TextStyle(fontWeight: FontWeight.bold),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //     Padding(
+                  //       padding: EdgeInsets.only(
+                  //           right: 20, top: 10, left: 10, bottom: 10),
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           Text('',
+                  //               // "${widget.direct_amount}",
+                  //               style: TextStyle(fontWeight: FontWeight.bold)),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  // const Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Padding(
+                  //       padding: EdgeInsets.all(10.0),
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           Text(
+                  //             'Pharmacy Dues',
+                  //             style: TextStyle(fontWeight: FontWeight.bold),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //     Padding(
+                  //       padding: EdgeInsets.only(
+                  //           right: 20, top: 10, left: 10, bottom: 10),
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           Text('',
+                  //               // "${widget.phrma_Amount}",
+                  //               style: TextStyle(fontWeight: FontWeight.bold)),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  // const Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Padding(
+                  //       padding: EdgeInsets.all(10.0),
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           Text(
+                  //             'Ambulance Dues',
+                  //             style: TextStyle(fontWeight: FontWeight.bold),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //     Padding(
+                  //       padding: EdgeInsets.only(
+                  //           right: 20, top: 10, left: 10, bottom: 10),
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           Text('',
+                  //               // "${widget.ambulance_Amount}",
+                  //               style: TextStyle(fontWeight: FontWeight.bold)),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  // const Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Padding(
+                  //       padding: EdgeInsets.all(10.0),
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           Text(
+                  //             'Blood Bank Dues',
+                  //             style: TextStyle(fontWeight: FontWeight.bold),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //     Padding(
+                  //       padding: EdgeInsets.only(
+                  //           right: 20, top: 10, left: 10, bottom: 10),
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           Text("",
+                  //               // "${widget.blood_Amount}",
+                  //               style: TextStyle(fontWeight: FontWeight.bold)),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  const Padding(
+                    padding: EdgeInsets.only(
+                      right: 20,
+                      left: 10,
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Net Banking',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        SizedBox(
-                          height: 10,
+                    child: Divider(
+                      color: Colors.black54,
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'totalhospitalDueAmount'.tr,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
                         ),
-                        Text('977 3232 4343',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        SizedBox(
-                          height: 10,
+                      ),
+                      const Padding(
+                        padding:
+                            EdgeInsets.only(right: 20, left: 10, bottom: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('',
+                                // "${widget.totalAmountInRs}",
+                                style:
+                                    TextStyle(fontWeight: FontWeight.bold)),
+                          ],
                         ),
-                        Text('abc@gmail.com',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text('5000',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 17)),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text('12123434',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                      ],
-                    )
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  )
+                ],
               ),
               const SizedBox(
                 height: 30,
@@ -153,5 +430,11 @@ class PaymentSuccessfullScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+  
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    throw UnimplementedError();
   }
 }
