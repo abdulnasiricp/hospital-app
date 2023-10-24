@@ -258,8 +258,7 @@ class _ProfileState extends State<Profile> {
     Get.offAll(() => const MainSiginScreen());
   }
 
-  String apiUrl =
-      ApiLinks.logout; // Replace with your logout API URL
+  String apiUrl ='https://uat.tez.hospital/xzy/auth/patient_logout'; // Replace with your logout API URL
 
   Future<void> performLogout() async {
     setState(() {
@@ -280,7 +279,7 @@ class _ProfileState extends State<Profile> {
         print('Logout successful');
         _logout(context);
         Fluttertoast.showToast(
-          msg: 'Logot Successfully!!!.',
+          msg: 'Logout Successfully!!!.',
           backgroundColor: Colors.red,
           textColor: Colors.white,
         );

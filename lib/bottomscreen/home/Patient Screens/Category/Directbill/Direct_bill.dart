@@ -84,29 +84,29 @@ class _Direct_billState extends State<Direct_bill> {
   }
 
   void checkForNewData() async {
-    try {
-      final newData = await fetchData();
-      print('old data length: ${newData.length}');
-      print('New data length: ${filteredData?.length}');
-      if (newData.length < filteredData!.length) {
-        print("===============>");
-        print('New data added, showing notification');
-        // Store the notification data in shared preferences
-        final prefs = await SharedPreferences.getInstance();
-        final notifications = prefs.getStringList('notifications') ?? [];
-        notifications.add('New data are added please check your direct Bill');
-        prefs.setStringList('notifications', notifications);
+    // try {
+    //   final newData = await fetchData();
+    //   print('old data length: ${newData.length}');
+    //   print('New data length: ${filteredData?.length}');
+    //   if (newData.length < filteredData!.length) {
+    //     print("===============>");
+    //     print('New data added, showing notification');
+    //     // Store the notification data in shared preferences
+    //     final prefs = await SharedPreferences.getInstance();
+    //     final notifications = prefs.getStringList('notifications') ?? [];
+    //     notifications.add('New data are added please check your direct Bill');
+    //     prefs.setStringList('notifications', notifications);
 
-        notificationServies.showNotification(
-            11,
-            'Direct Bill',
-            'New data are added please check your direct Bill',
-            'navigate_to_direct_bill');
-        currentDataLength = newData.length;
-      }
-    } catch (error) {
-      print('Error while checking for new data: $error');
-    }
+    //     notificationServies.showNotification(
+    //         11,
+    //         'Direct Bill',
+    //         'New data are added please check your direct Bill',
+    //         'navigate_to_direct_bill');
+    //     currentDataLength = newData.length;
+    //   }
+    // } catch (error) {
+    //   print('Error while checking for new data: $error');
+    // }
   }
 
   ////////////////////////////////////////////////////////////////////////////////////////////
@@ -137,6 +137,7 @@ class _Direct_billState extends State<Direct_bill> {
           data = DataMap!['result'];
           filteredData = data;
           isLoading = false; // Set isLoading to false when data is loaded
+          
         });
       } else {
         throw Exception('Failed to load data');

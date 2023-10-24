@@ -23,6 +23,8 @@ class Pathalogy extends StatefulWidget {
 
   @override
   State<Pathalogy> createState() => _PathalogyState();
+
+  void fetchData() {}
 }
 
 class _PathalogyState extends State<Pathalogy> {
@@ -43,8 +45,8 @@ class _PathalogyState extends State<Pathalogy> {
   }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
-// Store the current data length
-  int currentDataLength = 0;
+
+  NotificationServies notificationServies = NotificationServies();
 
 // ///////////////////////////////////////////////////////////////////////////////////////////////
 //calculate total amount
@@ -64,15 +66,8 @@ class _PathalogyState extends State<Pathalogy> {
     await LoadData();
     await fetchData();
     ///////////////////////////////////////////////////////////////////////
- // Schedule a periodic task to check the API every minute
-    const duration = Duration(seconds: 30);
-    Timer.periodic(duration, (Timer t) {
-      checkForNewData();
-      print("1 pathology ===============>");
-    });
-    // Initialize currentDataLength with the length of the initial data
-    currentDataLength = data!.length;
-  
+
+   
 
     calculateTotalAmount();
 
@@ -83,41 +78,37 @@ class _PathalogyState extends State<Pathalogy> {
   void initState() {
     super.initState();
     getData();
-    
+     // Create a timer to check for an increase in the data length every 30 seconds.
+    Timer timer = Timer.periodic(const Duration(seconds: 30), (_) async {
+
+      await fetchData();
+            print('=============> 0 patholgy');
+
+
+    });
   }
-  // Store the current data length
 
-  void checkForNewData() async {
-    try {
-      final newData = await fetchData();
-      print('old data $currentDataLength');
-      print('new data $newData');
-
-      if (newData.length < currentDataLength) {
-        print("2 pathology ===============>");
-
+ void checkForNewData() async {
+    
+    
+        print('New data added, showing notification');
         // Store the notification data in shared preferences
         final prefs = await SharedPreferences.getInstance();
         final notifications = prefs.getStringList('notifications') ?? [];
-        notifications
-            .add('New data are added please check your pathology bill');
+        notifications.add('New data are added please check your direct Bill');
         prefs.setStringList('notifications', notifications);
 
         notificationServies.showNotification(
-            5,
-            'pathology bill',
-            'New data are added please check your pathology bill',
-            'navigate_to_pathology_bill');
-        currentDataLength = newData.length;
+            11,
+            'Pathology Bill',
+            'New data are added please check your Pathology Bill',
+            'navigate_to_Pathology_bill');
       }
-    } catch (error) {
-      print('Error while checking for new data: $error');
-    }
-  }
-
+  
 
   ////////////////////////////////////////////////////////////////////////////////////////////
 // Get pathology data
+  int oldDataLength = 0;
   Map<String, dynamic>? DataMap;
   List<dynamic>? data = [];
   List<dynamic>? filteredData = [];
@@ -144,6 +135,20 @@ class _PathalogyState extends State<Pathalogy> {
           data = DataMap!['result'];
           filteredData = data;
           isLoading = false; // Set isLoading to false when data is loaded
+          // Check if there is an increase in the data length.
+          if (data!.length > oldDataLength) {
+            print('=============> 1 patholgy');
+            // Show a notification.
+            notificationServies.showNotification(
+                101,
+                'New pathology data available',
+                'You have ${data?.length} new pathology results.',
+                '');
+            checkForNewData();
+          }
+
+          // Update the old data length.
+          oldDataLength = data!.length;
         });
       } else {
         throw Exception('Failed to load data');
@@ -174,7 +179,6 @@ class _PathalogyState extends State<Pathalogy> {
   /////////////////////////////////////////////////////////////////////////////////////
 
   TextEditingController searchController = TextEditingController();
-  NotificationServies notificationServies = NotificationServies();
 
 ////////////////////////////////////////////////////////////////////////////////////////
 // filter data

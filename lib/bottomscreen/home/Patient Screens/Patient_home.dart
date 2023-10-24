@@ -48,14 +48,7 @@ class PatientHomePage extends StatefulWidget {
 }
 
 class _PatientHomePageState extends State<PatientHomePage> {
-  /////////////////////////////////////////
-  //convert rupess to paisa
-  late int rupeesAmount = totalDues; // Replace this with your rupees amount
-
-  int convertRupeesToPaisa() {
-    return (rupeesAmount * 100).toInt();
-  }
-
+ 
   ///////////////////////////////////////////////////////////////
   // show more catogory
   bool _showMore = false;
@@ -116,13 +109,13 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
 ///////////////////////////////////////////////////////////////////
 // get Due amount
-  late int totalDues = 0;
-  late int blooddues = 0;
-  late int ambulancedues = 0;
-  late int pharmadues = 0;
-  late int diredues = 0;
-  late int radiodues = 0;
-  late int pathodues = 0;
+  late double totalDues = 0.0;
+  late double blooddues = 0.0;
+  late double ambulancedues = 0.0;
+  late double pharmadues = 0.0;
+  late double diredues = 0.0;
+  late double radiodues = 0.0;
+  late double pathodues = 0.0;
 
   Future<void> getDues() async {
     // Set the headers
@@ -166,6 +159,17 @@ class _PatientHomePageState extends State<PatientHomePage> {
       print(error);
     }
   }
+   /////////////////////////////////////////
+  //convert rupess to paisa
+  // late double rupeesAmount = totalDues; // Replace this with your rupees amount
+  late int paisaAmount = totalDues.toInt();
+
+  int convertRupeesToPaisa() {
+    print(paisaAmount);
+    return (paisaAmount * 100).toInt();
+    
+  }
+
 ///////////////////////////////////////////////////////
 
 // get All Doctors
@@ -242,6 +246,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
   @override
   Widget build(BuildContext context) {
     int paisaAmount = convertRupeesToPaisa();
+    print(paisaAmount);
 
     return Scaffold(
         backgroundColor: Colors.lightBlue[50],
@@ -278,7 +283,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                 icon: Stack(
                   children: [
                     badges.Badge(
-                      badgeContent: Text(_badgeCount.toString(),style:TextStyle(fontSize:8)),
+                      badgeContent: Text(_badgeCount.toString(),style:const TextStyle(fontSize:8,fontWeight: FontWeight.bold)),
                       badgeStyle: const badges.BadgeStyle(
                         badgeColor: Colors.orangeAccent,
                       ),
@@ -418,7 +423,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         notificationServies.showNotification(
                                             2,
                                             'Due bill amount',
-                                            'please check your due bill amount===============',
+                                            'please check your due bill amount',
                                             'DueAmount');
 
                                         // Store the notification data in shared preferences
@@ -435,7 +440,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
                                         Get.off(
                                           () => SelectPaymentMethod(
-                                              totalAmountInRs: rupeesAmount,
+                                              totalAmountInRs: paisaAmount,
+                                              // totalAmountInpaisa: paisaAmount,
                                               totalAmountInpaisa: paisaAmount,
                                               ambulance_Amount: ambulancedues,
                                               blood_Amount: blooddues,

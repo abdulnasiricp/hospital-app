@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/pathology.dart';
 import 'package:TezHealthCare/language_Services/translation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -14,6 +15,7 @@ import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:workmanager/workmanager.dart';
 
 // FlutterLocalNotificationsPlugin notificationsPlugin =
 //     FlutterLocalNotificationsPlugin();
@@ -27,6 +29,24 @@ Future<void> main() async {
       'en'; // Default to 'en' if not found
   String defaultLang = selectedLanguage == 'ne' ? 'ne_NP' : 'en_US';
   print('========================> $defaultLang');
+
+   // Create an instance of the Workmanager class.
+  final workmanager = Workmanager();
+
+  // Register a background task to call the fetchData() function every 30 seconds.
+  workmanager.registerPeriodicTask(
+    "my_task_id",
+    "my_task_name",
+    frequency: const Duration(seconds: 30),
+    initialDelay: const Duration(seconds: 10),
+    constraints: Constraints(
+      networkType: NetworkType.connected,
+
+    ),
+   
+
+  );
+
   runApp(MyApp(
     defaultLanguage: defaultLang,
   ));

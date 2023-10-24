@@ -6,6 +6,7 @@ import 'package:TezHealthCare/Payment_gateway/cancel_payment.dart';
 import 'package:TezHealthCare/Payment_gateway/payment_seccessfull.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
+import 'package:esewa_flutter/esewa_flutter.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:TezHealthCare/bottombar/bottombar.dart';
@@ -14,7 +15,6 @@ import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/My_button.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
-import 'package:esewa_flutter/esewa_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,16 +25,22 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SelectPaymentMethod extends StatefulWidget {
   final int totalAmountInRs;
   final int totalAmountInpaisa;
-  final int path_Amount;
-  final int phrma_Amount;
-  final int ambulance_Amount;
-  final int direct_amount;
-  final int blood_Amount;
-  final int radio_Amount;
+  final double path_Amount;
+  final double phrma_Amount;
+  final double ambulance_Amount;
+  final double direct_amount;
+  final double blood_Amount;
+  final double radio_Amount;
   const SelectPaymentMethod(
       {Key? key,
       required this.totalAmountInRs,
-      required this.totalAmountInpaisa, required this.path_Amount, required this.phrma_Amount, required this.ambulance_Amount, required this.direct_amount, required this.blood_Amount, required this.radio_Amount})
+      required this.totalAmountInpaisa,
+      required this.path_Amount,
+      required this.phrma_Amount,
+      required this.ambulance_Amount,
+      required this.direct_amount,
+      required this.blood_Amount,
+      required this.radio_Amount})
       : super(key: key);
 
   @override
@@ -163,7 +169,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
         eSewaConfig: ESewaConfig.dev(
           // .live for live
           su: 'https://www.marvel.com/hello',
-          amt: widget.totalAmountInpaisa,
+          // amt: widget.totalAmountInpaisa,
+          amt: 1000,
           fu: 'https://www.marvel.com/hello',
           pid: patientID,
           // scd: dotenv.env['ESEWA_SCD']!
@@ -185,13 +192,6 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
     if (hasError.isNotEmpty) {
       Text('Console: Payment Failed, Message: $hasError');
     }
-
-    
-
-
-
-
-
   }
 
   void onSuccess(PaymentSuccessModel success) {
@@ -255,8 +255,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
         return false;
       }, // Prevent default back button behavior
       child: Scaffold(
-            backgroundColor: Colors.lightBlue[50],
-
+          backgroundColor: Colors.lightBlue[50],
           appBar: AppBar(
             title: Text('selectAnyOnePayment'.tr),
             centerTitle: true,
@@ -272,9 +271,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
               ? SingleChildScrollView(
                   child: Container(
                     child: Card(
-                      color:    Colors.lightBlue[50],
- 
-                      
+                      color: Colors.lightBlue[50],
                       elevation: 10,
                       child: Padding(
                         padding: const EdgeInsets.all(2.0),
