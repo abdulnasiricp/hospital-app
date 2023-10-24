@@ -43,16 +43,12 @@ Future<void> main() async {
     initialDelay: const Duration(seconds: 10),
     constraints: Constraints(
       networkType: NetworkType.connected,
-
     ),
-   
-
   );
 
   runApp(MyApp(
     defaultLanguage: defaultLang,
   ));
-  
 }
 
 class MyApp extends StatelessWidget {
