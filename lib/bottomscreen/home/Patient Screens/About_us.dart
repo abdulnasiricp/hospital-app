@@ -522,7 +522,8 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                                                           index]
                                                                       [
                                                                       'specialization'],
-                                                            ));
+                                                            )
+                                                        );
                                                       },
                                                       child: Center(
                                                         child: Text(

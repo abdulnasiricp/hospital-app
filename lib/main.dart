@@ -30,7 +30,7 @@ Future<void> main() async {
   String defaultLang = selectedLanguage == 'ne' ? 'ne_NP' : 'en_US';
   print('========================> $defaultLang');
 
-   // Create an instance of the Workmanager class.
+  // Create an instance of the Workmanager class.
   final workmanager = Workmanager();
 
   // Register a background task to call the fetchData() function every 30 seconds.
@@ -41,16 +41,12 @@ Future<void> main() async {
     initialDelay: const Duration(seconds: 10),
     constraints: Constraints(
       networkType: NetworkType.connected,
-
     ),
-   
-
   );
 
   runApp(MyApp(
     defaultLanguage: defaultLang,
   ));
-  
 }
 
 class MyApp extends StatelessWidget {
