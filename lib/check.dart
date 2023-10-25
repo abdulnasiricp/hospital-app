@@ -428,3 +428,200 @@
 //     );
 //   }
 // }
+
+
+
+
+
+
+
+
+
+
+
+
+// const Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Padding(
+                  //       padding: EdgeInsets.all(10.0),
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           Text(
+                  //             'Pathology Dues',
+                  //             style: TextStyle(fontWeight: FontWeight.bold),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //     Padding(
+                  //       padding: EdgeInsets.all(10),
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           Text('22',
+                  //               // "${widget.path_Amount}",
+                  //               style: TextStyle(fontWeight: FontWeight.bold)),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  // const Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Padding(
+                  //       padding: EdgeInsets.all(10.0),
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           Text(
+                  //             'Radiology Dues',
+                  //             style: TextStyle(fontWeight: FontWeight.bold),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //     Padding(
+                  //       padding: EdgeInsets.only(
+                  //           right: 20, top: 10, left: 10, bottom: 10),
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           Text('200',
+                  //               // "${widget.radio_Amount}",
+                  //               style: TextStyle(fontWeight: FontWeight.bold)),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  // const Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Padding(
+                  //       padding: EdgeInsets.all(10.0),
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           Text(
+                  //             'Direct Dues',
+                  //             style: TextStyle(fontWeight: FontWeight.bold),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //     Padding(
+                  //       padding: EdgeInsets.only(
+                  //           right: 20, top: 10, left: 10, bottom: 10),
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           Text('',
+                  //               // "${widget.direct_amount}",
+                  //               style: TextStyle(fontWeight: FontWeight.bold)),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  // const Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Padding(
+                  //       padding: EdgeInsets.all(10.0),
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           Text(
+                  //             'Pharmacy Dues',
+                  //             style: TextStyle(fontWeight: FontWeight.bold),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //     Padding(
+                  //       padding: EdgeInsets.only(
+                  //           right: 20, top: 10, left: 10, bottom: 10),
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           Text('',
+                  //               // "${widget.phrma_Amount}",
+                  //               style: TextStyle(fontWeight: FontWeight.bold)),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  // const Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Padding(
+                  //       padding: EdgeInsets.all(10.0),
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           Text(
+                  //             'Ambulance Dues',
+                  //             style: TextStyle(fontWeight: FontWeight.bold),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //     Padding(
+                  //       padding: EdgeInsets.only(
+                  //           right: 20, top: 10, left: 10, bottom: 10),
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           Text('',
+                  //               // "${widget.ambulance_Amount}",
+                  //               style: TextStyle(fontWeight: FontWeight.bold)),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  // const Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Padding(
+                  //       padding: EdgeInsets.all(10.0),
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           Text(
+                  //             'Blood Bank Dues',
+                  //             style: TextStyle(fontWeight: FontWeight.bold),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //     Padding(
+                  //       padding: EdgeInsets.only(
+                  //           right: 20, top: 10, left: 10, bottom: 10),
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           Text("",
+                  //               // "${widget.blood_Amount}",
+                  //               style: TextStyle(fontWeight: FontWeight.bold)),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),

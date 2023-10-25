@@ -79,13 +79,13 @@ class _PathalogyState extends State<Pathalogy> {
     super.initState();
     getData();
      // Create a timer to check for an increase in the data length every 30 seconds.
-    Timer timer = Timer.periodic(const Duration(seconds: 30), (_) async {
+    // Timer timer = Timer.periodic(const Duration(seconds: 30), (_) async {
 
-      await fetchData();
-            print('=============> 0 patholgy');
+    //   await fetchData();
+    //         print('=============> 0 patholgy');
 
 
-    });
+    // });
   }
 
  void checkForNewData() async {

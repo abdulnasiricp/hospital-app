@@ -30,21 +30,6 @@ Future<void> main() async {
   String defaultLang = selectedLanguage == 'ne' ? 'ne_NP' : 'en_US';
   print('========================> $defaultLang');
 
-  
-
-   // Create an instance of the Workmanager class.
-  final workmanager = Workmanager();
-
-  // Register a background task to call the fetchData() function every 30 seconds.
-  workmanager.registerPeriodicTask(
-    "my_task_id",
-    "my_task_name",
-    frequency: const Duration(seconds: 30),
-    initialDelay: const Duration(seconds: 10),
-    constraints: Constraints(
-      networkType: NetworkType.connected,
-    ),
-  );
 
   runApp(MyApp(
     defaultLanguage: defaultLang,

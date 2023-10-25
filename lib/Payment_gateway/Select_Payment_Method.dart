@@ -26,6 +26,7 @@ class SelectPaymentMethod extends StatefulWidget {
   final num totalAmountInRs;
   final int totalAmountInpaisa;
   final num path_Amount;
+  final num total_Amount;
   final num phrma_Amount;
   final num ambulance_Amount;
   final num direct_amount;
@@ -40,7 +41,7 @@ class SelectPaymentMethod extends StatefulWidget {
       required this.ambulance_Amount,
       required this.direct_amount,
       required this.blood_Amount,
-      required this.radio_Amount})
+      required this.radio_Amount, required this.total_Amount})
       : super(key: key);
 
   @override
@@ -196,16 +197,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
   }
 
   void onSuccess(PaymentSuccessModel success) {
-    Get.to(() => PaymentSuccessfullScreen(
-          ambulance_Amount: widget.ambulance_Amount,
-          blood_Amount: widget.blood_Amount,
-          direct_amount: widget.direct_amount,
-          path_Amount: widget.path_Amount,
-          phrma_Amount: widget.phrma_Amount,
-          radio_Amount: widget.radio_Amount,
-          TotalAmountInRs: widget.totalAmountInRs,
-          totalAmountInpaisa: widget.totalAmountInpaisa,
-        ));
+    Get.to(() => PaymentSuccessfullScreen());
     // showDialog(
     //   context: context,
     //   builder: (context) {
@@ -734,6 +726,19 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                   title: Text('proceed'.tr),
                                   onPressed: () {
                                     navigateToSelectedPage();
+                                  },
+                                ),
+                              ),
+                                 const SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                width: double.infinity,
+                                height: 50,
+                                child: MyButton(
+                                  title: Text('success'.tr),
+                                  onPressed: () {
+                                    Get.to(()=> PaymentSuccessfullScreen());
                                   },
                                 ),
                               ),

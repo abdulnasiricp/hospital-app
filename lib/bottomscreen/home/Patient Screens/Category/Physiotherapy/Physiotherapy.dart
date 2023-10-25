@@ -63,12 +63,12 @@ class _PhysiotherapyState extends State<Physiotherapy> {
     super.initState();
 
     getData();
-     // Schedule a periodic task to check the API every minute
-    const duration = Duration(seconds: 30);
-    Timer.periodic(duration, (Timer t) {
-      checkForNewData();
-      print("1 Physiotherapy ===============>");
-    });
+    //  // Schedule a periodic task to check the API every minute
+    // const duration = Duration(seconds: 30);
+    // Timer.periodic(duration, (Timer t) {
+    //   checkForNewData();
+    //   print("1 Physiotherapy ===============>");
+    // });
   }
 
   NotificationServies notificationServies = NotificationServies();

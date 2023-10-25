@@ -51,20 +51,14 @@ class PatientHomePage extends StatefulWidget {
 class _PatientHomePageState extends State<PatientHomePage> {
   /////////////////////////////////////////
   //convert rupess to paisa
-  late num rupeesAmount = totalDues; 
-  late num pathalogyAmount= pathodues; 
-  // late double rupeesAmount = totalDues; 
-  // late double rupeesAmount = totalDues; 
-  // late double rupeesAmount = totalDues; 
-  // late double rupeesAmount = totalDues;  
-
- 
+  late num rupeesAmount = totalDues;
+  late num pathalogyAmount = pathodues;
 
   num rupeesToPaisa(num rupees) {
-  return rupees * 100.0;
-}
+    return rupees * 100.0;
+  }
 
-late int paisaAmount = rupeesToPaisa(rupeesAmount).round();
+  late int paisaAmount = rupeesToPaisa(rupeesAmount).round();
 
   ///////////////////////////////////////////////////////////////
   // show more catogory
@@ -236,16 +230,30 @@ late int paisaAmount = rupeesToPaisa(rupeesAmount).round();
 
 //////////////////////////////////////////////////////////////////////////////////////
   NotificationServies notificationServies = NotificationServies();
+   Set<int> readNotifications = Set<int>();
   List<String> notifications = [];
-  int _badgeCount = 0;
+  // int _badgeCount = 0;
   Future<void> _loadNotifications() async {
     final prefs = await SharedPreferences.getInstance();
     final storedNotifications = prefs.getStringList('notifications') ?? [];
+  final readIndices = prefs.getStringList('readNotifications')?.map(int.parse).toSet() ?? Set<int>();
+
+    
     setState(() {
       notifications = storedNotifications;
-      _badgeCount = notifications.length;
+      // _badgeCount = notifications.length;
+    readNotifications = readIndices;
+
     });
   }
+  Future<void> _saveReadNotifications() async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setStringList('readNotifications', readNotifications.map((i) => i.toString()).toList());
+}
+
+int getUnreadNotificationCount() {
+  return notifications.length - readNotifications.length;
+}
 
   ///
 
@@ -283,13 +291,14 @@ late int paisaAmount = rupeesToPaisa(rupeesAmount).round();
                 onPressed: () {
                   Get.to(() => const Notif(
                         payload: '',
+                        
                       ));
                 },
                 icon: Stack(
                   children: [
                     badges.Badge(
                       badgeContent: Text(
-                        _badgeCount >= 99 ? '99+' : _badgeCount.toString(),
+                        getUnreadNotificationCount() > 99 ? '99+' : "${getUnreadNotificationCount()}",
                         style: const TextStyle(
                           fontSize: 8,
                           fontWeight: FontWeight.bold,
@@ -419,7 +428,7 @@ late int paisaAmount = rupeesToPaisa(rupeesAmount).round();
                                               const EdgeInsets.only(left: 30.0),
                                           child: Text(
                                             // 'Rs. $rupeesAmount',
-                                            "Rs. $rupeesAmount",
+                                            "Rs. $totalDues",
                                             style: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.red,
@@ -451,15 +460,16 @@ late int paisaAmount = rupeesToPaisa(rupeesAmount).round();
 
                                         Get.off(
                                           () => SelectPaymentMethod(
-                                              totalAmountInRs: rupeesAmount,
-                                              totalAmountInpaisa: paisaAmount,
-                                              ambulance_Amount: ambulancedues,
-                                              blood_Amount: blooddues,
-                                              direct_amount: diredues,
-                                              path_Amount: pathalogyAmount,
-                                              phrma_Amount: pharmadues,
-                                              radio_Amount: radiodues,
-                                              ),
+                                            totalAmountInRs: rupeesAmount,
+                                            totalAmountInpaisa: paisaAmount,
+                                            ambulance_Amount: ambulancedues,
+                                            total_Amount: totalDues,
+                                            blood_Amount: blooddues,
+                                            direct_amount: diredues,
+                                            path_Amount: pathodues,
+                                            phrma_Amount: pharmadues,
+                                            radio_Amount: radiodues,
+                                          ),
                                         );
                                       },
                                       style: ElevatedButton.styleFrom(

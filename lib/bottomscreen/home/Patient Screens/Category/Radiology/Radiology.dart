@@ -59,12 +59,12 @@ class _RadiologyState extends State<Radiology> {
   getData() async {
     await LoadData();
     await fetchData();
-    // Schedule a periodic task to check the API every minute
-    const duration = Duration(seconds: 30);
-    Timer.periodic(duration, (Timer t) {
-      checkForNewData();
-      print("1 Radiology ===============>");
-    });
+    // // Schedule a periodic task to check the API every minute
+    // const duration = Duration(seconds: 30);
+    // Timer.periodic(duration, (Timer t) {
+    //   checkForNewData();
+    //   print("1 Radiology ===============>");
+    // });
     calculateTotalAmount();
   }
 
