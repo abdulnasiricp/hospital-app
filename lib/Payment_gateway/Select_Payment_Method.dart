@@ -41,7 +41,8 @@ class SelectPaymentMethod extends StatefulWidget {
       required this.ambulance_Amount,
       required this.direct_amount,
       required this.blood_Amount,
-      required this.radio_Amount, required this.total_Amount})
+      required this.radio_Amount,
+      required this.total_Amount})
       : super(key: key);
 
   @override
@@ -195,7 +196,9 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
   }
 
   void onSuccess(PaymentSuccessModel success) {
-    Get.to(() => const PaymentSuccessfullScreen(paymentMode: '',));
+    Get.to(() => const PaymentSuccessfullScreen(
+          paymentMode: '',
+        ));
     // showDialog(
     //   context: context,
     //   builder: (context) {
@@ -223,7 +226,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
     );
     Get.to(() => const CancelPaymentScreen(
           title: 'Cancelled',
-          btnnName: "Save",
+          btnnName: "OK",
           message: "payment Cancelled",
         ));
   }
@@ -311,11 +314,11 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                   color: Colors.white,
                                   child: Column(
                                     children: [
-                                      Row(
+                                      if (widget.path_Amount > 0)   Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                         const Padding(
+                                          const Padding(
                                             padding: EdgeInsets.all(10.0),
                                             child: Column(
                                               crossAxisAlignment:
@@ -355,7 +358,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                           ),
                                         ],
                                       ),
-                                      Row(
+                                      if (widget.radio_Amount > 0)  Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
@@ -399,7 +402,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                           ),
                                         ],
                                       ),
-                                      Row(
+                                      if (widget.direct_amount > 0)    Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
@@ -443,7 +446,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                           ),
                                         ],
                                       ),
-                                      Row(
+                                      if (widget.phrma_Amount > 0)   Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
@@ -487,7 +490,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                           ),
                                         ],
                                       ),
-                                      Row(
+                                      if (widget.ambulance_Amount > 0)    Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
@@ -532,7 +535,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                           ),
                                         ],
                                       ),
-                                      Row(
+                                      if (widget.blood_Amount > 0)   Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
@@ -620,8 +623,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
-                                                Text(
-                                                    "${widget.total_Amount}",
+                                                Text("${widget.total_Amount}",
                                                     style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold)),
@@ -727,7 +729,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                   },
                                 ),
                               ),
-                                 const SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                               Container(
@@ -736,7 +738,9 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                 child: MyButton(
                                   title: Text('success'.tr),
                                   onPressed: () {
-                                    Get.to(()=> const PaymentSuccessfullScreen(paymentMode: '',));
+                                    Get.to(() => const PaymentSuccessfullScreen(
+                                          paymentMode: '',
+                                        ));
                                   },
                                 ),
                               ),

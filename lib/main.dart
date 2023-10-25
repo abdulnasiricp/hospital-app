@@ -27,8 +27,6 @@ Future<void> main() async {
       'en'; // Default to 'en' if not found
   String defaultLang = selectedLanguage == 'ne' ? 'ne_NP' : 'en_US';
   print('========================> $defaultLang');
-
-
   runApp(MyApp(
     defaultLanguage: defaultLang,
   ));

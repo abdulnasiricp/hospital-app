@@ -234,30 +234,32 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
 //////////////////////////////////////////////////////////////////////////////////////
   NotificationServies notificationServies = NotificationServies();
-   Set<int> readNotifications = Set<int>();
+  Set<int> readNotifications = Set<int>();
   List<String> notifications = [];
   // int _badgeCount = 0;
   Future<void> _loadNotifications() async {
     final prefs = await SharedPreferences.getInstance();
     final storedNotifications = prefs.getStringList('notifications') ?? [];
-  final readIndices = prefs.getStringList('readNotifications')?.map(int.parse).toSet() ?? Set<int>();
+    final readIndices =
+        prefs.getStringList('readNotifications')?.map(int.parse).toSet() ??
+            Set<int>();
 
-    
     setState(() {
       notifications = storedNotifications;
       // _badgeCount = notifications.length;
-    readNotifications = readIndices;
-
+      readNotifications = readIndices;
     });
   }
-  Future<void> _saveReadNotifications() async {
-  final prefs = await SharedPreferences.getInstance();
-  await prefs.setStringList('readNotifications', readNotifications.map((i) => i.toString()).toList());
-}
 
-int getUnreadNotificationCount() {
-  return notifications.length - readNotifications.length;
-}
+  Future<void> _saveReadNotifications() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList('readNotifications',
+        readNotifications.map((i) => i.toString()).toList());
+  }
+
+  int getUnreadNotificationCount() {
+    return notifications.length - readNotifications.length;
+  }
 
   ///
 
@@ -295,14 +297,15 @@ int getUnreadNotificationCount() {
                 onPressed: () {
                   Get.to(() => const Notif(
                         payload: '',
-                        
                       ));
                 },
                 icon: Stack(
                   children: [
                     badges.Badge(
                       badgeContent: Text(
-                        getUnreadNotificationCount() > 99 ? '99+' : "${getUnreadNotificationCount()}",
+                        getUnreadNotificationCount() > 99
+                            ? '99+'
+                            : "${getUnreadNotificationCount()}",
                         style: const TextStyle(
                           fontSize: 8,
                           fontWeight: FontWeight.bold,
