@@ -1,7 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace, non_constant_identifier_names, avoid_print
-
 import 'dart:convert';
-
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -11,42 +8,21 @@ import 'package:lottie/lottie.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class PaymentSuccessfullScreen extends StatefulWidget {
-    final String paymentMode;
+  final String paymentMode;
 
   const PaymentSuccessfullScreen({
-    Key? key, required this.paymentMode,
+    Key? key,
+    required this.paymentMode,
   }) : super(key: key);
 
   @override
-  State<PaymentSuccessfullScreen> createState() => _PaymentSuccessfullScreenState();
+  State<PaymentSuccessfullScreen> createState() =>
+      _PaymentSuccessfullScreenState();
 }
 
 class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
-
-getData()async{
-
-await LoadData();
-await getDues();
-}
-  @override
-  void initState() {
-    getData();
-    super.initState();
-  }
-    String Patient_id = '';
-
-  LoadData() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    setState(() {
-   
-      Patient_id = sharedPreferences.getString('patientidrecord') ?? '';
-    });
-  }
-
-  /////////////////////////////////////////////////////////////////////////////
-  // get Due amount
+  late String Patient_id = '';
   late num totalDues = 0;
   late num blooddues = 0;
   late num ambulancedues = 0;
@@ -55,33 +31,43 @@ await getDues();
   late num radiodues = 0;
   late num pathodues = 0;
 
-  
+  getData() async {
+    await LoadData();
+    await getDues();
+  }
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  LoadData() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    setState(() {
+      Patient_id = sharedPreferences.getString('patientidrecord') ?? '';
+    });
+  }
 
   Future<void> getDues() async {
-    // Set the headers
     final headers = {
       'Soft-service': 'TezHealthCare',
       'Auth-key': 'zbuks_ram859553467',
     };
 
-    // Set the body
     final body = {
       'patient_id': Patient_id,
     };
     try {
-      // Make the POST request
       final response = await http.post(
         Uri.parse(ApiLinks.getDues),
         headers: headers,
         body: jsonEncode(body),
       );
 
-      // Check if the response was successful
       if (response.statusCode == 200) {
-        // Decode the JSON response
         final data = jsonDecode(response.body);
 
-        // Get the total_dues and patho_dues values
         totalDues = data['result']['total_dues'];
         diredues = data['result']['dire_dues'];
         pharmadues = data['result']['pharma_dues'];
@@ -90,7 +76,6 @@ await getDues();
         blooddues = data['result']['blood_dues'];
         ambulancedues = data['result']['ambulance_dues'];
 
-        // Set the state to rebuild the widget
         setState(() {});
       } else {
         // Handle the error
@@ -99,218 +84,173 @@ await getDues();
       print(error);
     }
   }
-@override
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[50],
-      appBar: AppBar(centerTitle: true, backgroundColor: darkYellow),
-      body: Center(
+      appBar: AppBar(
+        title: Text('Payment Successfully!'),
+        centerTitle: true,
+        backgroundColor: darkYellow,
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.red[200]!, Colors.blue[100]!],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Padding(
-                padding: EdgeInsets.all(15.0),
-                child: Center(
-                    child: Text(
-                  'Payment Successfull!',
-                  style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.green,
-                      fontWeight: FontWeight.bold),
-                )),
-              ),
-             
+              const SizedBox(height: 20),
               Card(
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
                 child: Column(
                   children: [
-                     Container(
-                    width: width / 3,
-                    height: height / 7,
-                    child: Lottie.asset('assets/done.json')),
-                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                         const Padding(
-                          padding: EdgeInsets.all(15.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Payment Mode',
-                                  style: TextStyle(fontWeight: FontWeight.bold)),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text('Transaction id',
-                                  style: TextStyle(fontWeight: FontWeight.bold)),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text('Pathology Dues',
-                                  style: TextStyle(fontWeight: FontWeight.bold)),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text('Radiology Dues',
-                                  style: TextStyle(fontWeight: FontWeight.bold)),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text('Direct Dues',
-                                  style: TextStyle(fontWeight: FontWeight.bold)),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text('Pharmacy Dues',
-                                  style: TextStyle(fontWeight: FontWeight.bold)),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text('Ambulance Dues',
-                                  style: TextStyle(fontWeight: FontWeight.bold)),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text('Blood Bank Dues',
-                                  style: TextStyle(fontWeight: FontWeight.bold)),
-                            ],
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Container(
+                        child: const Text(
+                          'Payment Successfully!',
+                          style: TextStyle(
+                            fontSize: 28,
+                            color: Colors.green,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text('Net Banking',
-                                  style: TextStyle(fontWeight: FontWeight.bold)),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                               Text(Patient_id,
-                                  style: const TextStyle(fontWeight: FontWeight.bold)),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Text("$pathodues",
-                                  style: const TextStyle(fontWeight: FontWeight.bold)),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                               Text("$radiodues",
-                                  style: const TextStyle(fontWeight: FontWeight.bold)),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                             Text("$diredues",
-                                  style: const TextStyle(fontWeight: FontWeight.bold)),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                               Text("$pharmadues",
-                                  style: const TextStyle(fontWeight: FontWeight.bold)),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                             Text("$ambulancedues",
-                                  style: const TextStyle(fontWeight: FontWeight.bold)),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                               Text("$blooddues",
-                                  style: const TextStyle(fontWeight: FontWeight.bold)),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(
-                        right: 20,
-                        left: 10,
-                      ),
-                      child: Divider(
-                        color: Colors.black54,
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'totalhospitalDueAmount'.tr,
-                                style:
-                                    const TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                        ),
-                         Padding(
-                          padding:
-                              const EdgeInsets.only(right: 70, left: 10, bottom: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('$totalDues',
-                                  style: const TextStyle(fontWeight: FontWeight.bold)),
-                            ],
-                          ),
-                        ),
-                      ],
+                    Container(
+                      width: width / 2,
+                      height: height / 4,
+                      child: Lottie.asset('assets/done.json'),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    )
+                    DottedLineDivider(),
+                    if (pathodues > 0)
+                      PaymentItem(
+                        title: 'Pathology Dues',
+                        amount: pathodues,
+                      ),
+                    if (radiodues > 0)
+                      PaymentItem(
+                        title: 'Radiology Dues',
+                        amount: radiodues,
+                      ),
+                    if (diredues > 0)
+                      PaymentItem(
+                        title: 'Direct Dues',
+                        amount: diredues,
+                      ),
+                    if (pharmadues > 0)
+                      PaymentItem(
+                        title: 'Pharmacy Dues',
+                        amount: pharmadues,
+                      ),
+                    if (ambulancedues > 0)
+                      PaymentItem(
+                        title: 'Ambulance Dues',
+                        amount: ambulancedues,
+                      ),
+                    if (blooddues > 0)
+                      PaymentItem(
+                        title: 'Blood Bank Dues',
+                        amount: blooddues,
+                      ),
+                    DottedLineDivider(),
+                    PaymentItem(
+                      title: 'Total Hospital Due Amount',
+                      amount: totalDues,
+                      isTotal: true,
+                    ),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 30,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                        width: width / 4,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          child: const Text('Save'),
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(darkYellow),
-                          ),
-                        )),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Container(
-                        width: width / 4,
-                        child: ElevatedButton(
-                            onPressed: () {
-                              Get.back();
-                            },
-                            child: const Text('Close'),
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(darkYellow),
-                            ))),
-                  ],
-                ),
-              )
             ],
           ),
         ),
       ),
     );
   }
+}
 
+class PaymentItem extends StatelessWidget {
+  final String title;
+  final num amount;
+  final bool isTotal;
 
+  const PaymentItem({
+    required this.title,
+    required this.amount,
+    this.isTotal = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
+          Text(
+            isTotal ? 'Rs $amount' : 'Rs $amount',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: isTotal ? Colors.green : Colors.black,
+              fontSize: 16,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class DottedLineDivider extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 1, // Adjust the height of the divider as needed
+      width: double.infinity, // Takes the full width of the parent
+      child: CustomPaint(
+        painter: DottedLinePainter(),
+      ),
+    );
+  }
+}
+
+class DottedLinePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = Colors.black // Change the color as needed
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = 1.0; // Adjust the width as needed
+    const dashWidth = 5; // Adjust the length of dashes as needed
+    const dashSpace = 5; // Adjust the space between dashes as needed
+
+    double startX = 0;
+    while (startX < size.width) {
+      canvas.drawLine(Offset(startX, 0), Offset(startX + dashWidth, 0), paint);
+      startX += dashWidth + dashSpace;
+    }
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return false;
+  }
 }

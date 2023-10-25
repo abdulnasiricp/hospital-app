@@ -24,8 +24,6 @@ Future<void> main() async {
   String? selectedLanguage = sharedPreferences.getString('selectedLanguage') ??'en'; // Default to 'en' if not found
   String defaultLang = selectedLanguage == 'ne' ? 'ne_NP' : 'en_US';
   print('========================> $defaultLang');
-
-
   runApp(MyApp(
     defaultLanguage: defaultLang,
   ));
