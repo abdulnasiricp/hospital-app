@@ -59,10 +59,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
   num rupeesToPaisa(num rupees) {
     return rupees * 100.0;
   }
- 
-  late int paisaAmount = rupeesToPaisa(rupeesAmount).round();
 
-  
+  late int paisaAmount = rupeesToPaisa(rupeesAmount).round();
 
   ///////////////////////////////////////////////////////////////
   // show more catogory
@@ -81,7 +79,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
     await LoadData();
 
     await getDues();
-    // rupeesToPaisa();
   }
 
   @override
@@ -231,40 +228,34 @@ class _PatientHomePageState extends State<PatientHomePage> {
   }
 
 //////////////////////////////////////////////////////////////////////////////////////
+  List<NotificationItem> notifications = [];
 
-//////////////////////////////////////////////////////////////////////////////////////
-  NotificationServies notificationServies = NotificationServies();
-   Set<int> readNotifications = Set<int>();
-  List<String> notifications = [];
-  // int _badgeCount = 0;
-  Future<void> _loadNotifications() async {
+Future<void> _loadNotifications() async {
     final prefs = await SharedPreferences.getInstance();
     final storedNotifications = prefs.getStringList('notifications') ?? [];
-  final readIndices = prefs.getStringList('readNotifications')?.map(int.parse).toSet() ?? Set<int>();
-
-    
+    final newNotifications = storedNotifications.map((text) {
+      return NotificationItem(text: text, isRead: false);
+    }).toList();
     setState(() {
-      notifications = storedNotifications;
-      // _badgeCount = notifications.length;
-    readNotifications = readIndices;
-
+      notifications = newNotifications.reversed.toList(); // Reverse the order
     });
   }
-  Future<void> _saveReadNotifications() async {
-  final prefs = await SharedPreferences.getInstance();
-  await prefs.setStringList('readNotifications', readNotifications.map((i) => i.toString()).toList());
-}
 
-int getUnreadNotificationCount() {
-  return notifications.length - readNotifications.length;
-}
+  Future<void> _saveReadNotifications() async {
+    final prefs = await SharedPreferences.getInstance();
+    final readIndices = notifications.where((item) => item.isRead).map((item) => item.text).toList();
+    prefs.setStringList('notifications', readIndices);
+  }
+
+  int getUnreadNotificationCount() {
+    return notifications.where((item) => !item.isRead).length;
+  }
+
 
   ///
 
   @override
   Widget build(BuildContext context) {
-    // int paisaAmount = convertRupeesToPaisa();
-
     return Scaffold(
         backgroundColor: Colors.lightBlue[50],
         appBar: AppBar(
@@ -295,14 +286,15 @@ int getUnreadNotificationCount() {
                 onPressed: () {
                   Get.to(() => const Notif(
                         payload: '',
-                        
                       ));
                 },
                 icon: Stack(
                   children: [
                     badges.Badge(
                       badgeContent: Text(
-                        getUnreadNotificationCount() > 99 ? '99+' : "${getUnreadNotificationCount()}",
+                        getUnreadNotificationCount() > 99
+                            ? '99+'
+                            : "${getUnreadNotificationCount()}",
                         style: const TextStyle(
                           fontSize: 8,
                           fontWeight: FontWeight.bold,
@@ -443,25 +435,7 @@ int getUnreadNotificationCount() {
                                       ],
                                     ),
                                     ElevatedButton(
-                                      onPressed: () async {
-                                        notificationServies.showNotification(
-                                            2,
-                                            'Due bill amount',
-                                            'please check your due bill amount',
-                                            'DueAmount');
-
-                                        // Store the notification data in shared preferences
-                                        final prefs = await SharedPreferences
-                                            .getInstance();
-                                        final notifications =
-                                            prefs.getStringList(
-                                                    'notifications') ??
-                                                [];
-                                        notifications.add(
-                                            'please check your due bill amount'); // Replace with your notification message
-                                        prefs.setStringList(
-                                            'notifications', notifications);
-
+                                      onPressed: () {
                                         Get.off(
                                           () => SelectPaymentMethod(
                                             totalAmountInRs: rupeesAmountInt,

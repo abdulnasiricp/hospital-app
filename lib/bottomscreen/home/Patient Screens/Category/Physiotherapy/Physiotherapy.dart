@@ -2,7 +2,6 @@
 
 import 'dart:async';
 
-import 'package:TezHealthCare/Services/notificationServies.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Physiotherapy/Billprint.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
@@ -27,10 +26,6 @@ class Physiotherapy extends StatefulWidget {
 }
 
 class _PhysiotherapyState extends State<Physiotherapy> {
-// Store the current data length
-  int currentDataLength = 0;
-  NotificationServies notificationService =
-      NotificationServies(); // Create an instance
   bool isLoading = true;
 
   late String totalAmount = "0.00"; // Initialize with a default value
@@ -63,45 +58,7 @@ class _PhysiotherapyState extends State<Physiotherapy> {
     super.initState();
 
     getData();
-    //  // Schedule a periodic task to check the API every minute
-    // const duration = Duration(seconds: 30);
-    // Timer.periodic(duration, (Timer t) {
-    //   checkForNewData();
-    //   print("1 Physiotherapy ===============>");
-    // });
-  }
-
-  NotificationServies notificationServies = NotificationServies();
-
-  void checkForNewData() async {
-    try {
-      final newData = await fetchData();
-      print('old data length: ${newData.length}');
-      print('New data length: ${filteredData?.length}');
-      if (newData.length < filteredData!.length) {
-        print("2 Physiotherapy ===============>");
-        // Store the notification data in shared preferences
-        final prefs = await SharedPreferences.getInstance();
-        final notifications = prefs.getStringList('notifications') ?? [];
-        notifications
-            .add('New data are added please check your Physiotherapy Bill');
-        prefs.setStringList('notifications', notifications);
-
-        notificationServies.showNotification(
-            15,
-            'Physiotherapy Bill',
-            'New data are added please check your Physiotherapy Bill',
-            'navigate_to_Physiotherapy_bill');
-        currentDataLength = newData.length;
-      }
-    } catch (error) {
-      print('Error while checking for new data: $error');
-    }
-  }
-  @override
-  void dispose() {
-    
-    super.dispose();
+  
   }
 
 // ///////////////////////////////////////////////////////////////////////////////////////////////

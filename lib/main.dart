@@ -15,16 +15,13 @@ import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// FlutterLocalNotificationsPlugin notificationsPlugin =
-//     FlutterLocalNotificationsPlugin();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterDownloader.initialize(debug: true); // Set to false in production
   //////////////////////////////////////////////////////////////////
   // // Initialize SharedPreferences
   final sharedPreferences = await SharedPreferences.getInstance();
-  String? selectedLanguage = sharedPreferences.getString('selectedLanguage') ??
-      'en'; // Default to 'en' if not found
+  String? selectedLanguage = sharedPreferences.getString('selectedLanguage') ??'en'; // Default to 'en' if not found
   String defaultLang = selectedLanguage == 'ne' ? 'ne_NP' : 'en_US';
   print('========================> $defaultLang');
 

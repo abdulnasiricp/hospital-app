@@ -42,9 +42,6 @@ class _Direct_billState extends State<Direct_bill> {
     setState(() {});
   }
 
-///////////////////////////////////////////////////////////////////////////////////////////////
-// Store the current data length
-  int currentDataLength = 0;
 
 // ///////////////////////////////////////////////////////////////////////////////////////////////
 //calculate total amount
@@ -63,14 +60,8 @@ class _Direct_billState extends State<Direct_bill> {
   getData() async {
     await LoadData();
     await fetchData();
-    ///////////////////////////////////////////////////////////////////////
 
-    // Schedule a periodic task to check the API every minute
-    const duration = Duration(minutes: 1);
-    Timer.periodic(duration, (Timer t) {
-      checkForNewData();
-    });
-    // Initialize currentDataLength with the length of the initial data
+  
 
     calculateTotalAmount();
 
@@ -83,31 +74,8 @@ class _Direct_billState extends State<Direct_bill> {
     getData();
   }
 
-  void checkForNewData() async {
-    // try {
-    //   final newData = await fetchData();
-    //   print('old data length: ${newData.length}');
-    //   print('New data length: ${filteredData?.length}');
-    //   if (newData.length < filteredData!.length) {
-    //     print("===============>");
-    //     print('New data added, showing notification');
-    //     // Store the notification data in shared preferences
-    //     final prefs = await SharedPreferences.getInstance();
-    //     final notifications = prefs.getStringList('notifications') ?? [];
-    //     notifications.add('New data are added please check your direct Bill');
-    //     prefs.setStringList('notifications', notifications);
-
-    //     notificationServies.showNotification(
-    //         11,
-    //         'Direct Bill',
-    //         'New data are added please check your direct Bill',
-    //         'navigate_to_direct_bill');
-    //     currentDataLength = newData.length;
-    //   }
-    // } catch (error) {
-    //   print('Error while checking for new data: $error');
-    // }
-  }
+ 
+  
 
   ////////////////////////////////////////////////////////////////////////////////////////////
 // Get pathology data

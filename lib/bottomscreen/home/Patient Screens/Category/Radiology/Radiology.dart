@@ -59,12 +59,7 @@ class _RadiologyState extends State<Radiology> {
   getData() async {
     await LoadData();
     await fetchData();
-    // // Schedule a periodic task to check the API every minute
-    // const duration = Duration(seconds: 30);
-    // Timer.periodic(duration, (Timer t) {
-    //   checkForNewData();
-    //   print("1 Radiology ===============>");
-    // });
+   
     calculateTotalAmount();
   }
 
@@ -73,38 +68,8 @@ class _RadiologyState extends State<Radiology> {
     super.initState();
     getData();
 
-    // Initialize currentDataLength with the length of the initial data
   }
 
-////////////////////////////////////////////////////////////////////////////////////////
-// Store the current data length
-  int currentDataLength = 0;
-
-  void checkForNewData() async {
-    try {
-      final newData = await fetchData();
-
-      if (newData.length > currentDataLength) {
-        print("2 Radiology ===============>");
-
-        // Store the notification data in shared preferences
-        final prefs = await SharedPreferences.getInstance();
-        final notifications = prefs.getStringList('notifications') ?? [];
-        notifications
-            .add('New data are added please check your Radiology bill');
-        prefs.setStringList('notifications', notifications);
-
-        notificationServies.showNotification(
-            5,
-            'Radiology bill',
-            'New data are added please check your Radiology bill',
-            'navigate_to_Radiology_bill');
-        currentDataLength = newData.length;
-      }
-    } catch (error) {
-      print('Error while checking for new data: $error');
-    }
-  }
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 // Get Radiology data
@@ -156,7 +121,6 @@ class _RadiologyState extends State<Radiology> {
 
 ////////////////////////////////////////////////////////////////////////////////////
   TextEditingController searchController = TextEditingController();
-  NotificationServies notificationServies = NotificationServies();
 
 ////////////////////////////////////////////////////////////////////////////////////////
 // filter data
