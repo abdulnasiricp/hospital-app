@@ -23,7 +23,7 @@ import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SelectPaymentMethod extends StatefulWidget {
-  final num totalAmountInRs;
+  final int totalAmountInRs;
   final int totalAmountInpaisa;
   final num path_Amount;
   final num total_Amount;
@@ -104,7 +104,6 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
     super.initState();
   }
 
-  String referenceId = "";
   String refId = '';
   String hasError = '';
   void payWithKhaltiInApp() {
@@ -149,7 +148,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
         merchantCode: "MERCHANT_CODE",
         merchantName: "username",
         merchantUrl: "MERCHANT_URL",
-        amount: widget.totalAmountInpaisa,
+        amount: widget.totalAmountInRs,
         refId: patientID,
         module: "MODULE",
         user: "USER",
@@ -172,12 +171,11 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
           // .live for live
           su: 'https://www.marvel.com/hello',
           // amt: widget.totalAmountInpaisa,
-          amt: 1000,
+          amt: widget.totalAmountInRs,
           fu: 'https://www.marvel.com/hello',
           pid: patientID,
           // scd: dotenv.env['ESEWA_SCD']!
         ));
-    // final result = await fakeEsewa();
     if (result.hasData) {
       final response = result.data!;
       if (kDebugMode) {
@@ -197,7 +195,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
   }
 
   void onSuccess(PaymentSuccessModel success) {
-    Get.to(() => PaymentSuccessfullScreen());
+    Get.to(() => const PaymentSuccessfullScreen(paymentMode: '',));
     // showDialog(
     //   context: context,
     //   builder: (context) {
@@ -317,7 +315,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          const Padding(
+                                         const Padding(
                                             padding: EdgeInsets.all(10.0),
                                             child: Column(
                                               crossAxisAlignment:
@@ -623,7 +621,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                    "${widget.totalAmountInRs}",
+                                                    "${widget.total_Amount}",
                                                     style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold)),
@@ -632,7 +630,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                           ),
                                         ],
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 20,
                                       )
                                     ],
@@ -738,7 +736,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                 child: MyButton(
                                   title: Text('success'.tr),
                                   onPressed: () {
-                                    Get.to(()=> PaymentSuccessfullScreen());
+                                    Get.to(()=> const PaymentSuccessfullScreen(paymentMode: '',));
                                   },
                                 ),
                               ),

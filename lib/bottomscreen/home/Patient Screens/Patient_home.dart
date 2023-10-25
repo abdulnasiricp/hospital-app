@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace, deprecated_member_use, avoid_unnecessary_containers, unused_element, unnecessary_null_comparison
+// ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace, deprecated_member_use, avoid_unnecessary_containers, unused_element, unnecessary_null_comparison, prefer_collection_literals
 
 import 'dart:convert';
 import 'package:TezHealthCare/Services/notificationServies.dart';
@@ -52,13 +52,17 @@ class _PatientHomePageState extends State<PatientHomePage> {
   /////////////////////////////////////////
   //convert rupess to paisa
   late num rupeesAmount = totalDues;
+  late int rupeesAmountInt = rupeesAmount.toInt();
+
   late num pathalogyAmount = pathodues;
 
   num rupeesToPaisa(num rupees) {
     return rupees * 100.0;
   }
-
+ 
   late int paisaAmount = rupeesToPaisa(rupeesAmount).round();
+
+  
 
   ///////////////////////////////////////////////////////////////
   // show more catogory
@@ -460,7 +464,7 @@ int getUnreadNotificationCount() {
 
                                         Get.off(
                                           () => SelectPaymentMethod(
-                                            totalAmountInRs: rupeesAmount,
+                                            totalAmountInRs: rupeesAmountInt,
                                             totalAmountInpaisa: paisaAmount,
                                             ambulance_Amount: ambulancedues,
                                             total_Amount: totalDues,

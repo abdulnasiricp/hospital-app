@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace, non_constant_identifier_names
+// ignore_for_file: sized_box_for_whitespace, non_constant_identifier_names, avoid_print
 
 import 'dart:convert';
 
@@ -13,8 +13,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 class PaymentSuccessfullScreen extends StatefulWidget {
+    final String paymentMode;
+
   const PaymentSuccessfullScreen({
-    Key? key,
+    Key? key, required this.paymentMode,
   }) : super(key: key);
 
   @override
@@ -45,7 +47,7 @@ await getDues();
 
   /////////////////////////////////////////////////////////////////////////////
   // get Due amount
-  late num totalDues = 0.00;
+  late num totalDues = 0;
   late num blooddues = 0;
   late num ambulancedues = 0;
   late num pharmadues = 0;
@@ -129,7 +131,7 @@ await getDues();
                      Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Padding(
+                         const Padding(
                           padding: EdgeInsets.all(15.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -310,9 +312,5 @@ await getDues();
     );
   }
 
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    throw UnimplementedError();
-  }
+
 }
