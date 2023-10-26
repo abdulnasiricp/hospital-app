@@ -92,7 +92,7 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Payment Successful!'),
+        title: const Text('Payment Successful!'),
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
@@ -130,15 +130,15 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
                         height: 5,
                       ),
                       Container(
-                          width: width / 2,
-                          height: height / 4,
+                          width: width / 3,
+                          height: height / 6,
                           child: SvgPicture.asset(
                             'assets/done.svg',
                           )),
                       const SizedBox(
                         height: 25,
                       ),
-                      Row(
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
@@ -160,7 +160,7 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
                       const SizedBox(
                         height: 5,
                       ),
-                      DottedLineDivider(),
+                      const DottedLineDivider(),
                       if (pathodues > 0)
                         PaymentItem(
                           title: 'Pathology Dues',
@@ -194,7 +194,7 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
                       const SizedBox(
                         height: 25,
                       ),
-                      DottedLineDivider(),
+                      const DottedLineDivider(),
                       PaymentItem(
                         title: 'Total Hospital Due Amount',
                         amount: totalDues,
@@ -208,8 +208,8 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
+                      const Padding(
+                        padding: EdgeInsets.only(right: 8.0),
                         child: Text("Payment Mode", style: TextStyle(fontSize: 12)),
                       ),
                       Container(
