@@ -1,16 +1,17 @@
+// ignore_for_file: non_constant_identifier_names, avoid_print, avoid_print, avoid_print, sized_box_for_whitespace, duplicate_ignore, avoid_unnecessary_containers
+
 import 'dart:convert';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PaymentSuccessfullScreen extends StatefulWidget {
-  final String paymentMode;
+  final List paymentMode;
 
   const PaymentSuccessfullScreen({
     Key? key,
@@ -90,7 +91,7 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Payment Successful!'),
+        title: Text('Payment Successfully!'),
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
@@ -102,123 +103,78 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
             end: Alignment.bottomCenter,
           ),
         ),
-        child: SingleChildScrollView(
-          child: Card(
-            elevation: 20,
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 1.0),
-                        child: Container(
-                          child: const Text(
-                            'Payment Successful!',
-                            style: TextStyle(
-                              fontSize: 28,
-                              color: Colors.green,
-                              fontWeight: FontWeight.bold,
-                            ),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 20),
+              Card(
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Container(
+                        child: const Text(
+                          'Payment Successfully!',
+                          style: TextStyle(
+                            fontSize: 28,
+                            color: Colors.green,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Container(
-                          width: width / 2,
-                          height: height / 4,
-                          child: SvgPicture.asset(
-                            'assets/done.svg',
-                          )),
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Transaction Id",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
-                          ),
-                          Text(
-                            "#85482165258",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      DottedLineDivider(),
-                      if (pathodues > 0)
-                        PaymentItem(
-                          title: 'Pathology Dues',
-                          amount: pathodues,
-                        ),
-                      if (radiodues > 0)
-                        PaymentItem(
-                          title: 'Radiology Dues',
-                          amount: radiodues,
-                        ),
-                      if (diredues > 0)
-                        PaymentItem(
-                          title: 'Direct Dues',
-                          amount: diredues,
-                        ),
-                      if (pharmadues > 0)
-                        PaymentItem(
-                          title: 'Pharmacy Dues',
-                          amount: pharmadues,
-                        ),
-                      if (ambulancedues > 0)
-                        PaymentItem(
-                          title: 'Ambulance Dues',
-                          amount: ambulancedues,
-                        ),
-                      if (blooddues > 0)
-                        PaymentItem(
-                          title: 'Blood Bank Dues',
-                          amount: blooddues,
-                        ),
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      DottedLineDivider(),
+                    ),
+                    Container(
+                      width: width / 2,
+                      height: height / 4,
+                      child: Lottie.asset('assets/done.json'),
+                    ),
+                    DottedLineDivider(),
+                    if (pathodues > 0)
                       PaymentItem(
-                        title: 'Total Hospital Due Amount',
-                        amount: totalDues,
-                        isTotal: true,
+                        title: 'Pathology Dues',
+                        amount: pathodues,
                       ),
-                    ],
-                  ),
+                    if (radiodues > 0)
+                      PaymentItem(
+                        title: 'Radiology Dues',
+                        amount: radiodues,
+                      ),
+                    if (diredues > 0)
+                      PaymentItem(
+                        title: 'Direct Dues',
+                        amount: diredues,
+                      ),
+                    if (pharmadues > 0)
+                      PaymentItem(
+                        title: 'Pharmacy Dues',
+                        amount: pharmadues,
+                      ),
+                    if (ambulancedues > 0)
+                      PaymentItem(
+                        title: 'Ambulance Dues',
+                        amount: ambulancedues,
+                      ),
+                    if (blooddues > 0)
+                      PaymentItem(
+                        title: 'Blood Bank Dues',
+                        amount: blooddues,
+                      ),
+                    DottedLineDivider(),
+                    PaymentItem(
+                      title: 'Total Hospital Due Amount',
+                      amount: totalDues,
+                      isTotal: true,
+                    ),
+                  ],
                 ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: Text("Payment Mode", style: TextStyle(fontSize: 12)),
-                      ),
-                      Container(
-                        child: Image.asset('assets/khalti.png',
-                            height: 30, width: 60),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -231,11 +187,11 @@ class PaymentItem extends StatelessWidget {
   final num amount;
   final bool isTotal;
 
-  const PaymentItem({
+  const PaymentItem({Key? key, 
     required this.title,
     required this.amount,
     this.isTotal = false,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -246,7 +202,7 @@ class PaymentItem extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,
             ),
@@ -266,6 +222,8 @@ class PaymentItem extends StatelessWidget {
 }
 
 class DottedLineDivider extends StatelessWidget {
+  const DottedLineDivider({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -2,7 +2,6 @@
 
 import 'dart:async';
 
-import 'package:TezHealthCare/Services/notificationServies.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Billview.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Radiology/Reportbiew.dart';

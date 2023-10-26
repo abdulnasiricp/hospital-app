@@ -196,8 +196,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
   }
 
   void onSuccess(PaymentSuccessModel success) {
-    Get.to(() => const PaymentSuccessfullScreen(
-          paymentMode: '',
+    Get.to(() =>  PaymentSuccessfullScreen(
+          paymentMode: paymentMethods,
         ));
     // showDialog(
     //   context: context,
@@ -738,8 +738,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                 child: MyButton(
                                   title: Text('success'.tr),
                                   onPressed: () {
-                                    Get.to(() => const PaymentSuccessfullScreen(
-                                          paymentMode: '',
+                                    Get.to(() =>  PaymentSuccessfullScreen(
+                                          paymentMode:paymentMethods ,
                                         ));
                                   },
                                 ),

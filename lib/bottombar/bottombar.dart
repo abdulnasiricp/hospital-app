@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, deprecated_member_use
 
+import 'package:TezHealthCare/Payment_gateway/payment_seccessfull.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/profile.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Card/Card.dart';
@@ -156,7 +157,7 @@ class _BottomhomeState extends State<Bottomhome> {
           const PatientHomePage(payload: ''),
           const HomeTransactionBill(payload: 'payload'),
           // const CardScreen(),
-          const CardScreen(),
+          const NotificationCount(),
           const Profile(),
         ].elementAt(index);
       },
