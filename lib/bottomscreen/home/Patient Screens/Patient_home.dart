@@ -404,6 +404,20 @@ class _PatientHomePageState extends State<PatientHomePage> {
     }
   }
   ////////////////////////////////////////////////////////////////////////////////////
+  Future<void> _saveReadNotifications() async {
+    final prefs = await SharedPreferences.getInstance();
+    final readIndices = notifications
+        .where((item) => item.isRead)
+        .map((item) => item.text)
+        .toList();
+    prefs.setStringList('notifications', readIndices);
+  }
+
+  int getUnreadNotificationCount() {
+    return notifications.where((item) => !item.isRead).length;
+  }
+
+  ///
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names, avoid_print, avoid_print, avoid_print, sized_box_for_whitespace, duplicate_ignore, avoid_unnecessary_containers
 
 import 'dart:convert';
+import 'package:TezHealthCare/Payment_gateway/Select_Payment_Method.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -12,11 +13,9 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PaymentSuccessfullScreen extends StatefulWidget {
-  final List paymentMode;
-
+  
   const PaymentSuccessfullScreen({
-    Key? key,
-    required this.paymentMode,
+    Key? key, 
   }) : super(key: key);
 
   @override
@@ -25,6 +24,9 @@ class PaymentSuccessfullScreen extends StatefulWidget {
 }
 
 class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
+
+  
+  
   late String Patient_id = '';
   late num totalDues = 0;
   late num blooddues = 0;
@@ -87,141 +89,136 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
       print(error);
     }
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue[50],
       appBar: AppBar(
         title: const Text('Payment Successful!'),
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.red[200]!, Colors.blue[100]!],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: SingleChildScrollView(
-          child: Card(
-            elevation: 20,
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 1.0),
-                        child: Container(
-                          child: const Text(
-                            'Payment Successful!',
-                            style: TextStyle(
-                              fontSize: 28,
-                              color: Colors.green,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+      body: Card(
+        elevation: 20,
+        child: Column(
+         
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 1.0),
+                    child: Container(
+                      child: const Text(
+                        'Payment Successful!',
+                        style: TextStyle(
+                          fontSize: 28,
+                          color: Colors.green,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Container(
-                          width: width / 3,
-                          height: height / 6,
-                          child: SvgPicture.asset(
-                            'assets/done.svg',
-                          )),
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Transaction Id",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
-                          ),
-                          Text(
-                            "#85482165258",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      const DottedLineDivider(),
-                      if (pathodues > 0)
-                        PaymentItem(
-                          title: 'Pathology Dues',
-                          amount: pathodues,
-                        ),
-                      if (radiodues > 0)
-                        PaymentItem(
-                          title: 'Radiology Dues',
-                          amount: radiodues,
-                        ),
-                      if (diredues > 0)
-                        PaymentItem(
-                          title: 'Direct Dues',
-                          amount: diredues,
-                        ),
-                      if (pharmadues > 0)
-                        PaymentItem(
-                          title: 'Pharmacy Dues',
-                          amount: pharmadues,
-                        ),
-                      if (ambulancedues > 0)
-                        PaymentItem(
-                          title: 'Ambulance Dues',
-                          amount: ambulancedues,
-                        ),
-                      if (blooddues > 0)
-                        PaymentItem(
-                          title: 'Blood Bank Dues',
-                          amount: blooddues,
-                        ),
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      const DottedLineDivider(),
-                      PaymentItem(
-                        title: 'Total Hospital Due Amount',
-                        amount: totalDues,
-                        isTotal: true,
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(right: 8.0),
-                        child: Text("Payment Mode", style: TextStyle(fontSize: 12)),
-                      ),
-                      Container(
-                        child: Image.asset('assets/khalti.png',
-                            height: 30, width: 60),
-                      ),
-                    ],
+                  const SizedBox(
+                    height: 5,
                   ),
-                ),
-              ],
+                  Container(
+                      width: width / 3,
+                      height: height / 6,
+                      child: SvgPicture.asset(
+                        'assets/done.svg',
+                      )),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Transaction Id",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                        Text(
+                          "#85482165258",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  const DottedLineDivider(),
+                  if (pathodues > 0)
+                    PaymentItem(
+                      title: 'Pathology Dues',
+                      amount: pathodues,
+                    ),
+                  if (radiodues > 0)
+                    PaymentItem(
+                      title: 'Radiology Dues',
+                      amount: radiodues,
+                    ),
+                  if (diredues > 0)
+                    PaymentItem(
+                      title: 'Direct Dues',
+                      amount: diredues,
+                    ),
+                  if (pharmadues > 0)
+                    PaymentItem(
+                      title: 'Pharmacy Dues',
+                      amount: pharmadues,
+                    ),
+                  if (ambulancedues > 0)
+                    PaymentItem(
+                      title: 'Ambulance Dues',
+                      amount: ambulancedues,
+                    ),
+                  if (blooddues > 0)
+                    PaymentItem(
+                      title: 'Blood Bank Dues',
+                      amount: blooddues,
+                    ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  const DottedLineDivider(),
+                  PaymentItem(
+                    title: 'Total Hospital Due Amount',
+                    amount: totalDues,
+                    isTotal: true,
+                  ),
+                ],
+              ),
             ),
-          ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(right: 8.0),
+                    child: Text("Payment Mode", style: TextStyle(fontSize: 12)),
+                  ),
+                  Container(
+                    child: 
+                    Image.asset('assets/khalti.png',
+                        height: 30, width: 60),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
