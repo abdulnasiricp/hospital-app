@@ -94,15 +94,15 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.red[200]!, Colors.blue[100]!],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+      body: SingleChildScrollView(
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.red[200]!, Colors.blue[100]!],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
           ),
-        ),
-        child: SingleChildScrollView(
           child: Card(
             elevation: 20,
             child: Column(
