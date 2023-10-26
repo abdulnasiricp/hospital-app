@@ -71,6 +71,7 @@ dependencies:
   webview_flutter:
   flutter_local_notifications: ^16.1.0
   animation_search_bar: ^0.0.10
+  workmanager: ^0.5.2
   
   badges: ^3.1.2
 

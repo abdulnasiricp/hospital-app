@@ -196,8 +196,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
   }
 
   void onSuccess(PaymentSuccessModel success) {
-    Get.to(() => PaymentSuccessfullScreen(
-        // paymentMode: paymentMethods,
+    Get.to(() => PaymentSuccessfullScreen(paymentMethod: selectedPaymentMethod,
+        
         ));
     // showDialog(
     //   context: context,
@@ -296,6 +296,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                       onTap: () {
                                         setState(() {
                                           selectedMethodIndex = index;
+
                                         });
                                       },
                                       child: PaymentMethodTile(
@@ -745,7 +746,9 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                 child: MyButton(
                                   title: Text('success'.tr),
                                   onPressed: () {
-                                    Get.to(() =>  PaymentSuccessfullScreen(
+                                    navigateToSelectedPage();
+                                    
+                                    Get.to(() =>  PaymentSuccessfullScreen(paymentMethod: selectedPaymentMethod,
                                          
                                         ));
                                   },
@@ -768,16 +771,23 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
     );
   }
 
+  String selectedPaymentMethod = "";
+
   void navigateToSelectedPage() {
     final selectedMethod = paymentMethods[selectedMethodIndex].logoPath;
     if (selectedMethod.isNotEmpty) {
       if (selectedMethod == 'assets/khalti.png') {
+        selectedPaymentMethod = "Khalti";
+
         payWithKhaltiInApp();
       } else if (selectedMethod == 'assets/esewa.png') {
+        selectedPaymentMethod = "eSewa";
         payWithEsawaInApp();
       } else if (selectedMethod == 'assets/ips.png') {
+        selectedPaymentMethod = "IPS";
         payWithConnectIPSInApp();
       } else if (selectedMethod == 'assets/ime.png') {
+        selectedPaymentMethod = "IME";
         payWithImepayInApp();
       }
     } else {

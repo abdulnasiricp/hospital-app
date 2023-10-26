@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, camel_case_types, duplicate_ignore, avoid_print, sized_box_for_whitespace
+
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +8,10 @@ import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+// ignore: camel_case_types
 class General_Opd_Tickets_Form extends StatefulWidget {
+  const General_Opd_Tickets_Form({Key? key}) : super(key: key);
+
   ///const General_Opd_Tickets_Form({super.key});
 
   @override

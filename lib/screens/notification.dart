@@ -13,14 +13,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Notif extends StatefulWidget {
   final String payload;
-  const Notif({Key? key, required this.payload, }) : super(key: key);
+  const Notif({Key? key, required this.payload,}) : super(key: key);
 
   @override
   _NotifState createState() => _NotifState();
 }
 
-
-  class _NotifState extends State<Notif> {
+class _NotifState extends State<Notif> {
   List<NotificationItem> notifications = [];
 
   @override
@@ -29,31 +28,34 @@ class Notif extends StatefulWidget {
     _loadNotifications();
   }
 
-Future<void> _loadNotifications() async {
-  final prefs = await SharedPreferences.getInstance();
-  final storedNotifications = prefs.getStringList('notifications') ?? [];
-  final newNotifications = storedNotifications.map((text) {
-    return NotificationItem(text: text, isRead: true); // Mark all notifications as read by default
-  }).toList();
+  Future<void> _loadNotifications() async {
+    final prefs = await SharedPreferences.getInstance();
+    final storedNotifications = prefs.getStringList('notifications') ?? [];
+    final newNotifications = storedNotifications.map((text) {
+      return NotificationItem(text: text, isRead: prefs.getBool(text) ?? false);
+    }).toList();
 
-  setState(() {
-    notifications = newNotifications.reversed.toList(); // Reverse the order
-  });
-}
+    setState(() {
+      notifications = newNotifications.reversed.toList(); // Reverse the order
+    });
+  }
 
+  // Method to mark a notification as read and persist the `isRead` state in SharedPreferences
+  void markNotificationAsRead(NotificationItem item) async{
+    item.isRead = true;
 
+    // Save the updated notification to SharedPreferences
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool(item.text, item.isRead);
+  }
 
   // Function to navigate to the desired screen based on the notification text
-  void _navigateToScreen(NotificationItem item)async {
-     if (!item.isRead) {
-    item.isRead = true;
-    // Save the updated list to SharedPreferences
-    final prefs = await SharedPreferences.getInstance();
-    final notificationsTexts = notifications.map((item) => item.text).toList();
-    await prefs.setStringList('notifications', notificationsTexts);
-  }
-    
+  void _navigateToScreen(NotificationItem item) async {
+    if (!item.isRead) {
+      markNotificationAsRead(item);
+    }
 
+    // Navigate to the desired screen
     if (item.text == 'New data are added please check your Direct Bill') {
       Get.to(() => const Direct_bill());
     } else if (item.text == 'New data are added please check your Radiology Bill') {
@@ -117,5 +119,5 @@ class NotificationItem {
   final String text;
  bool isRead;
 
-  NotificationItem({required this.text,this.isRead = false, });
+  NotificationItem({required this.text,this.isRead = true, });
 }

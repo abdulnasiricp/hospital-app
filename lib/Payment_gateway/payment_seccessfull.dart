@@ -1,22 +1,19 @@
-// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace
+// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, non_constant_identifier_names, avoid_print
 
 import 'dart:convert';
-import 'package:TezHealthCare/Payment_gateway/Select_Payment_Method.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PaymentSuccessfullScreen extends StatefulWidget {
-  // final String paymentMode;
+  final String paymentMethod;
 
   const PaymentSuccessfullScreen({
-    Key? key,
+    Key? key, required this.paymentMethod,
     //  required this.paymentMode,
   }) : super(key: key);
 
@@ -24,6 +21,7 @@ class PaymentSuccessfullScreen extends StatefulWidget {
   State<PaymentSuccessfullScreen> createState() =>
       _PaymentSuccessfullScreenState();
 }
+
 
 class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
 
@@ -121,7 +119,7 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
                           Padding(
                             padding: const EdgeInsets.only(top: 1.0),
                             child: Container(
-                              child: const Text(
+                              child:  const Text(
                                 'Payment Successful!',
                                 style: TextStyle(
                                   fontSize: 28,
@@ -168,7 +166,7 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
                           const SizedBox(
                             height: 5,
                           ),
-                           DottedLineDivider(),
+                           const DottedLineDivider(),
                           if (pathodues > 0)
                             PaymentItem(
                               title: 'Pathology Dues',
@@ -202,7 +200,7 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
                           const SizedBox(
                             height: 25,
                           ),
-                         DottedLineDivider(),
+                         const DottedLineDivider(),
                           PaymentItem(
                             title: 'Total Hospital Due Amount',
                             amount: totalDues,
@@ -211,23 +209,21 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
                         ],
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(right: 8.0),
-                            child: Text("Payment Mode", style: TextStyle(fontSize: 12)),
-                          ),
-                          Container(
-                            child: 
-                            Image.asset('assets/khalti.png',
-                                height: 30, width: 60),
-                          ),
-                        ],
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(right: 8.0),
+                          child: Text("Payment Mode :", style: TextStyle(fontSize: 12)),
+                        ),
+                        Container(
+                          child: 
+                          Text(widget.paymentMethod,style: const TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
+                             ),
+                        
+                      ],
                     ),
+                    const SizedBox(height: 20,)
                   ],
                 ),
               ),
@@ -244,11 +240,11 @@ class PaymentItem extends StatelessWidget {
   final num amount;
   final bool isTotal;
 
-  const PaymentItem({
+  const PaymentItem({Key? key, 
     required this.title,
     required this.amount,
     this.isTotal = false,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -259,7 +255,7 @@ class PaymentItem extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,
             ),
@@ -279,6 +275,8 @@ class PaymentItem extends StatelessWidget {
 }
 
 class DottedLineDivider extends StatelessWidget {
+  const DottedLineDivider({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -2,7 +2,6 @@
 
 import 'dart:async';
 
-import 'package:TezHealthCare/Services/notificationServies.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pharmacy/Pharmacybillprint.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
@@ -42,12 +41,7 @@ class _PharmacyState extends State<Pharmacy> {
   getData() async {
     await LoadData();
     await fetchData();
-    // Schedule a periodic task to check the API every minute
-    const duration = Duration(seconds: 30);
-    Timer.periodic(duration, (Timer t) {
-      checkForNewData();
-      print("1 pharmacy ===============>");
-    });
+    
     calculateTotalAmount();
 
     isLoading = false;
@@ -59,36 +53,7 @@ class _PharmacyState extends State<Pharmacy> {
     getData();
   }
 
-  ////////////////////////////////////////////////////////////////////////////////////////
-// Store the current data length
-
-  int currentDataLength = 0;
-
-  void checkForNewData() async {
-    try {
-      final newData = await fetchData();
-      print('old data length: ${newData.length}');
-      print('New data length: ${filteredData?.length}');
-      if (newData.length < filteredData!.length) {
-        print("2 pharmacy ===============>");
-        print('New data added, showing notification');
-        // Store the notification data in shared preferences
-        final prefs = await SharedPreferences.getInstance();
-        final notifications = prefs.getStringList('notifications') ?? [];
-        notifications.add('New data are added please check your pharmacy Bill');
-        prefs.setStringList('notifications', notifications);
-
-        notificationServies.showNotification(
-            11,
-            'pharmacy Bill',
-            'New data are added please check your pharmacy Bill',
-            'navigate_to_pharmacy_bill');
-        currentDataLength = newData.length;
-      }
-    } catch (error) {
-      print('Error while checking for new data: $error');
-    }
-  }
+ 
 
 // ///////////////////////////////////////////////////////////////////////////////////////////////
 //calculate total amount
@@ -155,7 +120,6 @@ class _PharmacyState extends State<Pharmacy> {
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
-  NotificationServies notificationServies = NotificationServies();
   TextEditingController searchController = TextEditingController();
 
 ////////////////////////////////////////////////////////////////////////////////////////

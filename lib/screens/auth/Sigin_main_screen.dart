@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, sized_box_for_whitespace
+
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/General_Opd_Tickets_Form.dart';
 import 'package:TezHealthCare/screens/auth/Patient_login.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -38,7 +40,7 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
                     Tab(
                       child: InkWell(
                         onTap: () {
-                          Get.to(() => General_Opd_Tickets_Form());
+                          Get.to(() => const General_Opd_Tickets_Form());
                         },
                         child: Container(
                           width: width / 1.2,
@@ -46,9 +48,9 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
                             child: Shimmer.fromColors(
                               baseColor: Colors.white,
                               highlightColor: Colors.grey,
-                              child: Text(
+                              child: const Text(
                                 "OPD Ticket",
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),

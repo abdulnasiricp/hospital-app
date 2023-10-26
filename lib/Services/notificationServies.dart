@@ -2,12 +2,13 @@
 
 import 'dart:developer';
 
-// import 'package:TezHealthCare/Services/notification_worker.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationServies {
   FlutterLocalNotificationsPlugin notificationsPlugin =
       FlutterLocalNotificationsPlugin();
+
+      
 
   // Notification
   AndroidInitializationSettings androidSettings =
@@ -58,3 +59,5 @@ class NotificationServies {
 
   
 }
+
+
