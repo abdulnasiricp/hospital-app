@@ -1,5 +1,3 @@
-// ignore_for_file: non_constant_identifier_names, avoid_print, avoid_print, avoid_print, sized_box_for_whitespace, duplicate_ignore, avoid_unnecessary_containers
-
 import 'dart:convert';
 import 'package:TezHealthCare/Payment_gateway/Select_Payment_Method.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
@@ -13,9 +11,11 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PaymentSuccessfullScreen extends StatefulWidget {
-  
+  // final String paymentMode;
+
   const PaymentSuccessfullScreen({
-    Key? key, 
+    Key? key,
+    //  required this.paymentMode,
   }) : super(key: key);
 
   @override
@@ -158,7 +158,7 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
                   const SizedBox(
                     height: 5,
                   ),
-                  const DottedLineDivider(),
+                   DottedLineDivider(),
                   if (pathodues > 0)
                     PaymentItem(
                       title: 'Pathology Dues',
@@ -192,7 +192,7 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
                   const SizedBox(
                     height: 25,
                   ),
-                  const DottedLineDivider(),
+                 DottedLineDivider(),
                   PaymentItem(
                     title: 'Total Hospital Due Amount',
                     amount: totalDues,
@@ -230,11 +230,11 @@ class PaymentItem extends StatelessWidget {
   final num amount;
   final bool isTotal;
 
-  const PaymentItem({Key? key, 
+  const PaymentItem({
     required this.title,
     required this.amount,
     this.isTotal = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -245,7 +245,7 @@ class PaymentItem extends StatelessWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,
             ),
@@ -265,8 +265,6 @@ class PaymentItem extends StatelessWidget {
 }
 
 class DottedLineDivider extends StatelessWidget {
-  const DottedLineDivider({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Container(
