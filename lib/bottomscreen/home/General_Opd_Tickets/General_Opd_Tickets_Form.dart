@@ -1,6 +1,7 @@
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -107,7 +108,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
     return Scaffold(
         backgroundColor: Colors.lightBlue[50],
         appBar: AppBar(
-          title: const Text('Add New Member'),
+          title: const Text('OPD Ticket'),
           centerTitle: true,
           backgroundColor: darkYellow,
         ),
@@ -117,6 +118,45 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Container(
+                  width: width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      RichText(
+                        text: const TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "Select Ticket Date",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                            TextSpan(
+                              text: '*',
+                              style: TextStyle(
+                                color: Colors.red,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      TextFormField(
+                        onTapOutside: (event) =>
+                            FocusScope.of(context).unfocus(),
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Enter First Name',
+                            fillColor: Colors.white,
+                            filled: true),
+                      ),
+                    ],
+                  ),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -125,9 +165,24 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            ' First Name',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                          RichText(
+                            text: const TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: "  First Name",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: '*',
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           const SizedBox(
                             height: 5,
@@ -149,8 +204,25 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(' Last Name',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          RichText(
+                            text: const TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: "Last Name",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: '*',
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                           const SizedBox(
                             height: 5,
                           ),
@@ -171,9 +243,24 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                 const SizedBox(
                   height: 5,
                 ),
-                const Text(
-                  " Gender",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                RichText(
+                  text: const TextSpan(
+                    children: [
+                      TextSpan(
+                        text: " Gender",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      TextSpan(
+                        text: '*',
+                        style: TextStyle(
+                          color: Colors.red,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -199,67 +286,54 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                 const SizedBox(
                   height: 5,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: width / 3,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            ' Age',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          TextFormField(
-                            onTapOutside: (event) =>
-                                FocusScope.of(context).unfocus(),
-                            keyboardType: TextInputType.number,
-                            decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: 'Enter Age',
-                                fillColor: Colors.white,
-                                filled: true),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: width / 1.7,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(' Date of Birth',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          InkWell(
-                            child: TextFormField(
-                              onTapOutside: (event) =>
-                                  FocusScope.of(context).unfocus(),
-                              controller: dateController,
-                              decoration: InputDecoration(
-                                  suffixIcon: IconButton(
-                                      icon: const Icon(Icons.calendar_month),
-                                      onPressed: () {
-                                        _selectDate(context);
-                                      }),
-                                  border: const OutlineInputBorder(),
-                                  hintText: 'Enter Date of Births',
-                                  fillColor: Colors.white,
-                                  filled: true),
-                              readOnly: true,
-                              onTap: () => _selectDate(context),
+                Container(
+                  width: width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      RichText(
+                        text: const TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "Date of Birth",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
                             ),
-                          ),
-                        ],
+                            TextSpan(
+                              text: '*',
+                              style: TextStyle(
+                                color: Colors.red,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    )
-                  ],
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      InkWell(
+                        child: TextFormField(
+                          onTapOutside: (event) =>
+                              FocusScope.of(context).unfocus(),
+                          controller: dateController,
+                          decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                  icon: const Icon(Icons.calendar_month),
+                                  onPressed: () {
+                                    _selectDate(context);
+                                  }),
+                              border: const OutlineInputBorder(),
+                              hintText: 'Enter Date of Births',
+                              fillColor: Colors.white,
+                              filled: true),
+                          readOnly: true,
+                          onTap: () => _selectDate(context),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 5,
@@ -269,8 +343,25 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(' Phone (optional)',
-                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      RichText(
+                        text: const TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "Phone Number",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                            TextSpan(
+                              text: '*',
+                              style: TextStyle(
+                                color: Colors.red,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                       const SizedBox(
                         height: 5,
                       ),
@@ -321,8 +412,25 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(' Relationship',
-                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      RichText(
+                        text: const TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "Address",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                            TextSpan(
+                              text: '*',
+                              style: TextStyle(
+                                color: Colors.red,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                       const SizedBox(
                         height: 5,
                       ),
@@ -332,7 +440,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                         controller: dateController,
                         decoration: const InputDecoration(
                             border: OutlineInputBorder(),
-                            hintText: 'other',
+                            hintText: 'Enter Your Full Address',
                             fillColor: Colors.white,
                             filled: true),
                       ),
@@ -342,126 +450,18 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                 const SizedBox(
                   height: 5,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: width / 2.2,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            ' Select district',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          TextFormField(
-                            onTapOutside: (event) =>
-                                FocusScope.of(context).unfocus(),
-                            decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: 'Select district',
-                                fillColor: Colors.white,
-                                filled: true),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Container(
-                      width: width / 2.2,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(' Select VDC/Municipality',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          TextFormField(
-                            onTapOutside: (event) =>
-                                FocusScope.of(context).unfocus(),
-                            decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: 'Select VDC/Municipality',
-                                fillColor: Colors.white,
-                                filled: true),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: width / 2.2,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            ' Ward',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          TextFormField(
-                            onTapOutside: (event) =>
-                                FocusScope.of(context).unfocus(),
-                            decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: 'Enter Ward No.',
-                                fillColor: Colors.white,
-                                filled: true),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: width / 2.2,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(' Tole',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          TextFormField(
-                            onTapOutside: (event) =>
-                                FocusScope.of(context).unfocus(),
-                            decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: 'Enter Tole Name',
-                                fillColor: Colors.white,
-                                filled: true),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
                 const SizedBox(
                   height: 20,
                 ),
                 Center(
                     child: Container(
-                  width: width / 1.7,
+                  width: width,
                   height: height / 15,
                   child: ElevatedButton(
-                    child: const Text('Save'),
+                    child: Text('proceed'.tr),
                     onPressed: () {},
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(darkYellow),
+                      backgroundColor: MaterialStateProperty.all(yellow),
                     ),
                   ),
                 ))
@@ -478,6 +478,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
         selectGender(gender);
       },
       child: Container(
+        color: selectedGender == gender ? darkYellow : Colors.blue[50],
         width: width / 4,
         child: Card(
           color: Colors.white,
@@ -489,14 +490,14 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                 Icon(
                   icon,
                   size: 30,
-                  color: selectedGender == gender ? Colors.blue : Colors.grey,
+                  color: selectedGender == gender ? darkYellow : Colors.grey,
                 ),
                 const SizedBox(height: 5),
                 Text(
                   label,
                   style: TextStyle(
                     fontSize: 15,
-                    color: selectedGender == gender ? Colors.blue : Colors.grey,
+                    color: selectedGender == gender ? darkYellow : Colors.grey,
                   ),
                 ),
               ],
@@ -507,13 +508,3 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
     );
   }
 }
-// DropdownButtonFormField<String>(
-//   decoration: InputDecoration(labelText: 'Gender'),
-//   value: _gender,
-//   items: [
-//     DropdownMenuItem(child: Text('Male'), value: 'Male'),
-//     DropdownMenuItem(child: Text('Female'), value: 'Female'),
-//     DropdownMenuItem(child: Text('Other'), value: 'Other'),
-//   ],
-//   onChanged: (value) => setState(() => _gender = value!),
-// ),
