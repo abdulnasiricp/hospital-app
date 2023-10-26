@@ -5,6 +5,7 @@ import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -90,7 +91,7 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Payment Successfully!'),
+        title: Text('Payment Successfully!'),
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
@@ -133,7 +134,7 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
                       height: height / 4,
                       child: Lottie.asset('assets/done.json'),
                     ),
-                    const DottedLineDivider(),
+                    DottedLineDivider(),
                     if (pathodues > 0)
                       PaymentItem(
                         title: 'Pathology Dues',
@@ -164,7 +165,7 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
                         title: 'Blood Bank Dues',
                         amount: blooddues,
                       ),
-                    const DottedLineDivider(),
+                    DottedLineDivider(),
                     PaymentItem(
                       title: 'Total Hospital Due Amount',
                       amount: totalDues,
@@ -239,7 +240,7 @@ class DottedLinePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.black // Change the color as needed
+      ..color = Colors.grey // Change the color as needed
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 1.0; // Adjust the width as needed
     const dashWidth = 5; // Adjust the length of dashes as needed
