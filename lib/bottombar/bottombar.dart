@@ -156,8 +156,7 @@ class _BottomhomeState extends State<Bottomhome> {
         return [
           const PatientHomePage(payload: ''),
           const HomeTransactionBill(payload: 'payload'),
-          // const CardScreen(),
-          const PaymentSuccessfullScreen(paymentMode: []),
+          const CardScreen(),
           const Profile(),
         ].elementAt(index);
       },
