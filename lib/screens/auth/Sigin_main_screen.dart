@@ -1,18 +1,17 @@
-// ignore_for_file: file_names, sized_box_for_whitespace
-
-import 'package:TezHealthCare/screens/auth/Doctor_Login.dart';
+import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/General_Opd_Tickets_Form.dart';
 import 'package:TezHealthCare/screens/auth/Patient_login.dart';
-import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/colors.dart';
+import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
+import 'package:shimmer/shimmer.dart';
 
 class MainSiginScreen extends StatefulWidget {
   const MainSiginScreen({Key? key}) : super(key: key);
   @override
   State<MainSiginScreen> createState() => _MainSiginScreenState();
 }
-
 class _MainSiginScreenState extends State<MainSiginScreen> {
   @override
   Widget build(BuildContext context) {
@@ -20,7 +19,7 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
       child: Scaffold(
         backgroundColor: darkblue,
         body: DefaultTabController(
-          length: 2,
+          length: 1,
           child: Column(children: [
             Padding(
               padding: const EdgeInsets.only(top: 20),
@@ -34,34 +33,26 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                   borderWidth: 1,
-
-                  //  elevation: 30,
-
                   tabs: [
                     Tab(
-                      child: Container(
-                        width: 150,
-                        child: const Center(
-                          child: Text(
-                            EnString.patientLogin,
-                            style: TextStyle(
-                                wordSpacing: 5,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Tab(
-                      child: Container(
-                        width: 150,
-                        child: const Center(
-                          child: Text(
-                            EnString.doctorLogin,
-                            style: TextStyle(
-                                wordSpacing: 5,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
+                      child: InkWell(
+                        onTap: () {
+                          Get.to(() => General_Opd_Tickets_Form());
+                        },
+                        child: Container(
+                          width: width / 1.2,
+                          child: Center(
+                            child: Shimmer.fromColors(
+                              baseColor: Colors.white,
+                              highlightColor: Colors.grey,
+                              child: Text(
+                                "OPD Ticket",
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -72,7 +63,6 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
               child: TabBarView(
                 children: [
                   PatientLogin(),
-                  DoctorLogin(),
                 ],
               ),
             ),
@@ -83,7 +73,7 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
                   bottom: 5,
                 ),
                 child: Text(
-                  '©2023 Tez Care. All Right Reserved',
+                  '©2023 Tez Health Care. All Right Reserved',
                   style: TextStyle(
                       fontSize: 8, fontWeight: FontWeight.bold, color: yellow),
                 ),
