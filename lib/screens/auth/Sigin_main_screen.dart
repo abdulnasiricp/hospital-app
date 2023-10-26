@@ -6,6 +6,7 @@ import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
+
 class MainSiginScreen extends StatefulWidget {
   const MainSiginScreen({Key? key}) : super(key: key);
   @override
@@ -25,7 +26,6 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
               padding: const EdgeInsets.only(top: 20),
               child: ButtonsTabBar(
                   height: 50,
-                  
                   unselectedLabelStyle: const TextStyle(color: Colors.white),
                   backgroundColor: yellow,
                   unselectedBackgroundColor: whitecolor.withOpacity(0.5),
@@ -37,34 +37,35 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
 
                   //  elevation: 30,
 
-                  tabs:  [
+                  tabs: [
                     Tab(
                       child: Container(
                         width: 150,
                         child: const Center(
-                          child: Text(EnString.patientLogin,style: TextStyle(
-                              wordSpacing: 5,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold),),
+                          child: Text(
+                            EnString.patientLogin,
+                            style: TextStyle(
+                                wordSpacing: 5,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
-
-
                     ),
                     Tab(
                       child: Container(
                         width: 150,
                         child: const Center(
-                          child: Text(EnString.doctorLogin,style: TextStyle(
-                              wordSpacing: 5,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold),),
+                          child: Text(
+                            EnString.doctorLogin,
+                            style: TextStyle(
+                                wordSpacing: 5,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
-
-
                     ),
-
                   ]),
             ),
             const Expanded(
@@ -78,7 +79,9 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: const EdgeInsets.only(bottom: 5,),
+                padding: const EdgeInsets.only(
+                  bottom: 5,
+                ),
                 child: Text(
                   '©2023 Tez Care. All Right Reserved',
                   style: TextStyle(
@@ -88,15 +91,7 @@ class _MainSiginScreenState extends State<MainSiginScreen> {
             ),
           ]),
         ),
-      
       ),
     );
   }
 }
-
-
-
-
-
-
-
