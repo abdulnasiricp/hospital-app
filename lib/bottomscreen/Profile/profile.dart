@@ -446,7 +446,7 @@ class _ProfileState extends State<Profile> {
                                           MainAxisAlignment.center,
                                       children: [
                                         SvgPicture.asset(
-                                          'assets/done.svg',
+                                          'assets/Done1.svg',
                                           width: width / 40,
                                           height: height / 40,
                                           // color: darkYellow

@@ -133,7 +133,7 @@ class _NotificationCountState extends State<NotificationCount> {
               'navigate_to_Pharmacy_bill');
         }
 
-         if (newradiologyLength > radiologyLength) {
+        if (newradiologyLength > radiologyLength) {
           sharedPreferences.setInt('radiologyLength', newradiologyLength);
           final notifications =
               sharedPreferences.getStringList('notifications') ?? [];
@@ -148,12 +148,11 @@ class _NotificationCountState extends State<NotificationCount> {
               'navigate_to_Radiology_bill');
         }
 
-         if (newdirectLangth > directLangth) {
+        if (newdirectLangth > directLangth) {
           sharedPreferences.setInt('directLangth', newdirectLangth);
           final notifications =
               sharedPreferences.getStringList('notifications') ?? [];
-          notifications
-              .add('New data are added please check your Direct Bill');
+          notifications.add('New data are added please check your Direct Bill');
           sharedPreferences.setStringList('notifications', notifications);
 
           notificationServies.showNotification(
@@ -163,7 +162,7 @@ class _NotificationCountState extends State<NotificationCount> {
               'navigate_to_direct_bill');
         }
 
-         if (newblood_bankLength > blood_bankLength) {
+        if (newblood_bankLength > blood_bankLength) {
           sharedPreferences.setInt('blood_bankLength', newblood_bankLength);
           final notifications =
               sharedPreferences.getStringList('notifications') ?? [];
@@ -178,7 +177,7 @@ class _NotificationCountState extends State<NotificationCount> {
               'navigate_to_Blood_bank_bill');
         }
 
-            if (newambulanceLength > ambulanceLength) {
+        if (newambulanceLength > ambulanceLength) {
           sharedPreferences.setInt('ambulanceLength', newambulanceLength);
           final notifications =
               sharedPreferences.getStringList('notifications') ?? [];
@@ -192,8 +191,6 @@ class _NotificationCountState extends State<NotificationCount> {
               'New data are added please check your Ambulance Bill',
               'navigate_to_Ambulance Bill');
         }
-
-      
 
         // Set the state to rebuild the widget
         setState(() {});

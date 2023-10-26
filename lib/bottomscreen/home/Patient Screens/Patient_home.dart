@@ -230,7 +230,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
 //////////////////////////////////////////////////////////////////////////////////////
   List<NotificationItem> notifications = [];
 
-Future<void> _loadNotifications() async {
+  Future<void> _loadNotifications() async {
     final prefs = await SharedPreferences.getInstance();
     final storedNotifications = prefs.getStringList('notifications') ?? [];
     final newNotifications = storedNotifications.map((text) {
@@ -243,14 +243,16 @@ Future<void> _loadNotifications() async {
 
   Future<void> _saveReadNotifications() async {
     final prefs = await SharedPreferences.getInstance();
-    final readIndices = notifications.where((item) => item.isRead).map((item) => item.text).toList();
+    final readIndices = notifications
+        .where((item) => item.isRead)
+        .map((item) => item.text)
+        .toList();
     prefs.setStringList('notifications', readIndices);
   }
 
   int getUnreadNotificationCount() {
     return notifications.where((item) => !item.isRead).length;
   }
-
 
   ///
 
