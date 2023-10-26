@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace
+
 import 'dart:convert';
 import 'package:TezHealthCare/Payment_gateway/Select_Payment_Method.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
@@ -99,123 +101,135 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
-      body: Card(
-        elevation: 20,
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Column(
-         
+          crossAxisAlignment:CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 1.0),
-                    child: Container(
-                      child: const Text(
-                        'Payment Successful!',
-                        style: TextStyle(
-                          fontSize: 28,
-                          color: Colors.green,
-                          fontWeight: FontWeight.bold,
-                        ),
+            Card(
+              
+              elevation: 20,
+              child: SingleChildScrollView(
+                child: Column(
+                 
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 1.0),
+                            child: Container(
+                              child: const Text(
+                                'Payment Successful!',
+                                style: TextStyle(
+                                  fontSize: 28,
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Container(
+                              width: width / 3,
+                              height: height / 6,
+                              child: SvgPicture.asset(
+                                'assets/done.svg',
+                              )),
+                          const SizedBox(
+                            height: 25,
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Transaction Id",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                Text(
+                                  "#85482165258",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                           DottedLineDivider(),
+                          if (pathodues > 0)
+                            PaymentItem(
+                              title: 'Pathology Dues',
+                              amount: pathodues,
+                            ),
+                          if (radiodues > 0)
+                            PaymentItem(
+                              title: 'Radiology Dues',
+                              amount: radiodues,
+                            ),
+                          if (diredues > 0)
+                            PaymentItem(
+                              title: 'Direct Dues',
+                              amount: diredues,
+                            ),
+                          if (pharmadues > 0)
+                            PaymentItem(
+                              title: 'Pharmacy Dues',
+                              amount: pharmadues,
+                            ),
+                          if (ambulancedues > 0)
+                            PaymentItem(
+                              title: 'Ambulance Dues',
+                              amount: ambulancedues,
+                            ),
+                          if (blooddues > 0)
+                            PaymentItem(
+                              title: 'Blood Bank Dues',
+                              amount: blooddues,
+                            ),
+                          const SizedBox(
+                            height: 25,
+                          ),
+                         DottedLineDivider(),
+                          PaymentItem(
+                            title: 'Total Hospital Due Amount',
+                            amount: totalDues,
+                            isTotal: true,
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                      width: width / 3,
-                      height: height / 6,
-                      child: SvgPicture.asset(
-                        'assets/done.svg',
-                      )),
-                  const SizedBox(
-                    height: 25,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Transaction Id",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.only(right: 8.0),
+                            child: Text("Payment Mode", style: TextStyle(fontSize: 12)),
                           ),
-                        ),
-                        Text(
-                          "#85482165258",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
+                          Container(
+                            child: 
+                            Image.asset('assets/khalti.png',
+                                height: 30, width: 60),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                   DottedLineDivider(),
-                  if (pathodues > 0)
-                    PaymentItem(
-                      title: 'Pathology Dues',
-                      amount: pathodues,
-                    ),
-                  if (radiodues > 0)
-                    PaymentItem(
-                      title: 'Radiology Dues',
-                      amount: radiodues,
-                    ),
-                  if (diredues > 0)
-                    PaymentItem(
-                      title: 'Direct Dues',
-                      amount: diredues,
-                    ),
-                  if (pharmadues > 0)
-                    PaymentItem(
-                      title: 'Pharmacy Dues',
-                      amount: pharmadues,
-                    ),
-                  if (ambulancedues > 0)
-                    PaymentItem(
-                      title: 'Ambulance Dues',
-                      amount: ambulancedues,
-                    ),
-                  if (blooddues > 0)
-                    PaymentItem(
-                      title: 'Blood Bank Dues',
-                      amount: blooddues,
-                    ),
-                  const SizedBox(
-                    height: 25,
-                  ),
-                 DottedLineDivider(),
-                  PaymentItem(
-                    title: 'Total Hospital Due Amount',
-                    amount: totalDues,
-                    isTotal: true,
-                  ),
-                ],
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(right: 8.0),
-                    child: Text("Payment Mode", style: TextStyle(fontSize: 12)),
-                  ),
-                  Container(
-                    child: 
-                    Image.asset('assets/khalti.png',
-                        height: 30, width: 60),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],
