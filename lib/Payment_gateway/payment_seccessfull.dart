@@ -1,15 +1,16 @@
+// ignore_for_file: non_constant_identifier_names, avoid_print, avoid_print, avoid_print, sized_box_for_whitespace, duplicate_ignore, avoid_unnecessary_containers
+
 import 'dart:convert';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PaymentSuccessfullScreen extends StatefulWidget {
-  final String paymentMode;
+  final List paymentMode;
 
   const PaymentSuccessfullScreen({
     Key? key,
@@ -89,7 +90,7 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Payment Successfully!'),
+        title: const Text('Payment Successfully!'),
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
@@ -132,7 +133,7 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
                       height: height / 4,
                       child: Lottie.asset('assets/done.json'),
                     ),
-                    DottedLineDivider(),
+                    const DottedLineDivider(),
                     if (pathodues > 0)
                       PaymentItem(
                         title: 'Pathology Dues',
@@ -163,7 +164,7 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
                         title: 'Blood Bank Dues',
                         amount: blooddues,
                       ),
-                    DottedLineDivider(),
+                    const DottedLineDivider(),
                     PaymentItem(
                       title: 'Total Hospital Due Amount',
                       amount: totalDues,
@@ -185,11 +186,11 @@ class PaymentItem extends StatelessWidget {
   final num amount;
   final bool isTotal;
 
-  const PaymentItem({
+  const PaymentItem({Key? key, 
     required this.title,
     required this.amount,
     this.isTotal = false,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -200,7 +201,7 @@ class PaymentItem extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,
             ),
@@ -220,6 +221,8 @@ class PaymentItem extends StatelessWidget {
 }
 
 class DottedLineDivider extends StatelessWidget {
+  const DottedLineDivider({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(

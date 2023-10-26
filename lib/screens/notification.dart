@@ -29,31 +29,30 @@ class Notif extends StatefulWidget {
     _loadNotifications();
   }
 
-  Future<void> _loadNotifications() async {
-    final prefs = await SharedPreferences.getInstance();
-    final storedNotifications = prefs.getStringList('notifications') ?? [];
-    final newNotifications = storedNotifications.map((text) {
-      return NotificationItem(text: text, isRead: false);
-    }).toList();
-    setState(() {
-      notifications = newNotifications.reversed.toList(); // Reverse the order
-    });
-  }
+Future<void> _loadNotifications() async {
+  final prefs = await SharedPreferences.getInstance();
+  final storedNotifications = prefs.getStringList('notifications') ?? [];
+  final newNotifications = storedNotifications.map((text) {
+    return NotificationItem(text: text, isRead: true); // Mark all notifications as read by default
+  }).toList();
 
-  Future<void> _saveReadNotifications() async {
-    final prefs = await SharedPreferences.getInstance();
-    final readIndices = notifications.where((item) => item.isRead).map((item) => item.text).toList();
-    prefs.setStringList('notifications', readIndices);
-  }
+  setState(() {
+    notifications = newNotifications.reversed.toList(); // Reverse the order
+  });
+}
 
-  int getUnreadNotificationCount() {
-    return notifications.where((item) => !item.isRead).length;
-  }
+
 
   // Function to navigate to the desired screen based on the notification text
-  void _navigateToScreen(NotificationItem item) {
+  void _navigateToScreen(NotificationItem item)async {
+     if (!item.isRead) {
     item.isRead = true;
-    _saveReadNotifications();
+    // Save the updated list to SharedPreferences
+    final prefs = await SharedPreferences.getInstance();
+    final notificationsTexts = notifications.map((item) => item.text).toList();
+    await prefs.setStringList('notifications', notificationsTexts);
+  }
+    
 
     if (item.text == 'New data are added please check your Direct Bill') {
       Get.to(() => const Direct_bill());
@@ -75,9 +74,10 @@ class Notif extends StatefulWidget {
     return Scaffold(
       backgroundColor: Colors.lightBlue[50],
       appBar: AppBar(
-        title: Text('Notification (${getUnreadNotificationCount()} unread)'),
+        title: Text('Notification'"(${notifications.where((item) => !item.isRead).length.toString()}" 'Unread)',),
         centerTitle: true,
         backgroundColor: darkYellow,
+         
       ),
          body: ListView.builder(
         itemCount: notifications.length,
@@ -90,8 +90,7 @@ class Notif extends StatefulWidget {
               child: ListTile(
                 onTap: () {
                   _navigateToScreen(item);
-                  item.isRead = true; // Mark as read
-                  _saveReadNotifications();
+                  
                   setState(() {}); // Force the widget to rebuild for UI update
                 },
                 title: Column(
@@ -100,7 +99,7 @@ class Notif extends StatefulWidget {
                       item.text,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: item.isRead ? Colors.grey : Colors.black,
+                        color: item.isRead?Colors.grey:Colors.black
                       ),
                     ),
                   ],
@@ -116,7 +115,7 @@ class Notif extends StatefulWidget {
 
 class NotificationItem {
   final String text;
-  bool isRead;
+ bool isRead;
 
-  NotificationItem({required this.text, required this.isRead});
+  NotificationItem({required this.text,this.isRead = false, });
 }
