@@ -1,6 +1,4 @@
-
-
-                  // ignore_for_file: prefer_collection_literals
+  // ignore_for_file: prefer_collection_literals
 
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Ambulance/Ambulance.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Blood_Bank/Blood_Bank.dart';

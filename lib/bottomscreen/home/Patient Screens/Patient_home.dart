@@ -81,6 +81,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
     await getDues();
     await notificationListLength();
+    await _loadNotifications();
 
   }
 
@@ -230,7 +231,19 @@ class _PatientHomePageState extends State<PatientHomePage> {
   }
 
 //////////////////////////////////////////////////////////////////////////////////////
+  List<NotificationItem> notifications = [];
+///
+  Future<void> _loadNotifications() async {
+    final prefs = await SharedPreferences.getInstance();
+    final storedNotifications = prefs.getStringList('notifications') ?? [];
+    final newNotifications = storedNotifications.map((text) {
+      return NotificationItem(text: text, isRead: prefs.getBool(text) ?? false);
+    }).toList();
 
+    setState(() {
+      notifications = newNotifications.reversed.toList(); // Reverse the order
+    });
+  }
   
 
  
@@ -424,11 +437,11 @@ class _PatientHomePageState extends State<PatientHomePage> {
                 icon: Stack(
                   children: [
                     badges.Badge(
-                      badgeContent: Text('',
-                        // notifications.where((item) => !item.isRead).length >
-                            //     90
-                            // ? '99+'
-                            // : notifications.where((item) => !item.isRead).length.toString(),
+                      badgeContent: Text(
+                        notifications.where((item) => !item.isRead).length >
+                                90
+                            ? '99+'
+                            : notifications.where((item) => !item.isRead).length.toString(),
                         style: const TextStyle(
                           fontSize: 8,
                           fontWeight: FontWeight.bold,
