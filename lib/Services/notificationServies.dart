@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationService {
@@ -25,7 +27,7 @@ class NotificationService {
   notificationDetails() {
     return const NotificationDetails(
         android: AndroidNotificationDetails('1', 'channelName',
-            importance: Importance.high),
+            importance: Importance.max),
         iOS: DarwinNotificationDetails());
   }
 
@@ -36,8 +38,13 @@ class NotificationService {
   }
 }
 
+
+
+
 //   FlutterLocalNotificationsPlugin notificationsPlugin =
 //       FlutterLocalNotificationsPlugin();
+
+      
 
 //   // Notification
 //   AndroidInitializationSettings androidSettings =
@@ -81,8 +88,12 @@ class NotificationService {
 //       iOS: iosDetiles,
 //     );
 
+
 //     await notificationsPlugin.show(id, title, message, notificationDetails,
 //         payload: payload);
 //   }
 
+  
 // }
+
+

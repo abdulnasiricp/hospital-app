@@ -2,7 +2,6 @@
 
 import 'dart:async';
 
-import 'package:TezHealthCare/Services/notificationServies.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/view_bill.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';

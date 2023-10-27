@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, non_constant_identifier_names, avoid_print
+// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, non_constant_identifier_names, avoid_print, unnecessary_string_interpolations
 
 import 'dart:convert';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
@@ -30,9 +30,9 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
   String formattedDate =
       DateFormat('dd-MM-yyyy, hh:mm a').format(DateTime.now());
 
-  late int transactionId = 0;
+  // int transactionId = 0;
 
-  Future<void> makePostRequest() async {
+  Future<int> makePostRequest() async {
     print(formattedDate);
 
     const String url = 'https://uat.tez.hospital/xzy/webservice/duePayment';
@@ -55,25 +55,22 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
       body: jsonEncode(body),
     );
 
-    if (response.statusCode == 200) {
-      // If the server returns a 200 OK response, you can parse the response.
-      final Map<String, dynamic> data = jsonDecode(response.body);
-      transactionId = data['transaction_id'][0];
+     if (response.statusCode == 200) {
+    final Map<String, dynamic> data = jsonDecode(response.body);
+    int transactionId = data['transaction_id'][0];
 
-      if (data['status'] == '1') {
-        print("Payment added successfully");
-        print("Transaction ID: ${data['transaction_id'][0]}");
-        // transactionId = data['transaction_id'][0];
-        print("=============transactionId $transactionId");
-        print("=============transactionIddata ${data['transaction_id'][0]}");
-      } else {
-        print("Error: ${data['message']}");
-      }
+    if (data['status'] == '1') {
+      print("Payment added successfully");
+      print("Transaction ID: ${data['transaction_id'][0]}");
+      return transactionId;
     } else {
-      // If the server did not return a 200 OK response, throw an exception.
-      throw Exception('Failed to make a POST request');
+      print("Error: ${data['message']}");
+      throw Exception('Failed to add payment');
     }
+  } else {
+    throw Exception('Failed to make a POST request');
   }
+}
 
   late String Patient_id = '';
   late num totalDues = 0;
@@ -87,12 +84,12 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
   getData() async {
     await LoadData();
     await getDues();
-    await makePostRequest();
   }
 
   @override
   void initState() {
     getData();
+    makePostRequest();
     super.initState();
   }
 
@@ -231,13 +228,29 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
                                       fontSize: 16,
                                     ),
                                   ),
-                                  Text(
-                                    "#Tez$transactionId",
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
-                                  ),
+                             
+                                  FutureBuilder<int>(
+                                    future:
+                                        makePostRequest(), // Call makePostRequest and return the transactionId
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot<int> snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.done) {
+                                        int transactionId = snapshot.data ??
+                                            0; // Use the transactionId when it's available
+                                        return Text(
+                                          "#Tez$transactionId",
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                          ),
+                                        );
+                                      }  else {
+                                        // Display a loading indicator or return an empty container
+                                        return Container(); 
+                                      }
+                                    },
+                                  )
                                 ],
                               ),
                             ),

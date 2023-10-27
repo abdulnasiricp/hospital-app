@@ -1,8 +1,12 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class lomilomi extends StatefulWidget {
+  const lomilomi({Key? key}) : super(key: key);
+
   @override
   State<lomilomi> createState() => _lomilomiState();
 }
@@ -48,7 +52,7 @@ class _lomilomiState extends State<lomilomi> {
               isLoading = false;
             });
           } else {
-            throw FormatException('No department data found');
+            throw const FormatException('No department data found');
           }
         } catch (e) {
           if (isDisposed) {
@@ -78,10 +82,10 @@ class _lomilomiState extends State<lomilomi> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Department List'),
+        title: const Text('Department List'),
       ),
       body: isLoading
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : errorMessage.isNotEmpty
@@ -89,7 +93,7 @@ class _lomilomiState extends State<lomilomi> {
                   child: Text(errorMessage),
                 )
               : departmentData.isEmpty
-                  ? Center(
+                  ? const Center(
                       child: Text('No data found'),
                     )
                   : ListView.builder(
