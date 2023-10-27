@@ -42,14 +42,16 @@ class _NotifState extends State<Notif> {
     });
   }
 
-  // Method to mark a notification as read and persist the `isRead` state in SharedPreferences
-  void markNotificationAsRead(NotificationItem item) async{
-    item.isRead = true;
+ void markNotificationAsRead(NotificationItem item) async {
+  if (item.isRead) return; // Do nothing if the notification is already marked as read
 
-    // Save the updated notification to SharedPreferences
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setBool(item.text, item.isRead);
-  }
+  item.isRead = true; // Update the isRead status in the list
+
+  // Save the updated notification to SharedPreferences
+  final prefs = await SharedPreferences.getInstance();
+  prefs.setBool(item.text, true);
+}
+
 
   // Function to navigate to the desired screen based on the notification text
   void _navigateToScreen(NotificationItem item) async {
@@ -103,7 +105,7 @@ class _NotifState extends State<Notif> {
                       item.text,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: item.isRead?Colors.black:Colors.grey
+                        color: item.isRead?Colors.grey:Colors.black
                       ),
                     ),
                   ],

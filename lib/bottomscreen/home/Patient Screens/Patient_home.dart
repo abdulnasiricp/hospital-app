@@ -81,6 +81,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
     await getDues();
     await notificationListLength();
+
   }
 
   @override
@@ -90,7 +91,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
     Timer timer = Timer.periodic(const Duration(minutes: 1), (_) async {
       print('============ timer');
       await getdata();
-      // _loadNotifications();
     });
 
     getdata();
@@ -231,6 +231,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
 //////////////////////////////////////////////////////////////////////////////////////
 
+  
+
+ 
 
 // get Due amount
   late int pathologyLength = 0;
@@ -382,21 +385,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
     }
   }
 
-  ////////////////////////////////////////////////////////////////////////////////////
-  // Future<void> _saveReadNotifications() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   final readIndices = notifications
-  //       .where((item) => item.isRead)
-  //       .map((item) => item.text)
-  //       .toList();
-  //   prefs.setStringList('notifications', readIndices);
-  // }
-
-  // int getUnreadNotificationCount() {
-  //   return notifications.where((item) => !item.isRead).length;
-  // }
-
-  ///
+//////////////////////////////////////////////////////////////////////////////////
 
   @override
   Widget build(BuildContext context) {
@@ -436,16 +425,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                   children: [
                     badges.Badge(
                       badgeContent: Text('',
-                        // int.parse(notifications
-                        //             .where((item) => !item.isRead)
-                        //             .length
-                        //             .toString()) >
-                        //         90
-                        //     ? '99+'
-                        //     : notifications
-                        //         .where((item) => !item.isRead)
-                        //         .length
-                        //         .toString(),
+                        // notifications.where((item) => !item.isRead).length >
+                            //     90
+                            // ? '99+'
+                            // : notifications.where((item) => !item.isRead).length.toString(),
                         style: const TextStyle(
                           fontSize: 8,
                           fontWeight: FontWeight.bold,
