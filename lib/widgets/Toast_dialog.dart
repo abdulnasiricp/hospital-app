@@ -13,13 +13,16 @@ class ToastDialog extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 /////////////////////////////////////////////////////////////////////
-   // Define a key to store the selected language
+  // Define a key to store the selected language
   static const String selectedLanguageKey = 'selectedLanguage';
 
   // Function to save the selected language
   Future<void> saveSelectedLanguage(String languageCode) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(selectedLanguageKey, languageCode,);
+    await prefs.setString(
+      selectedLanguageKey,
+      languageCode,
+    );
   }
 
   // Function to retrieve the selected language
@@ -27,6 +30,7 @@ class ToastDialog extends StatelessWidget {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString(selectedLanguageKey);
   }
+
 ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
@@ -69,7 +73,7 @@ class ToastDialog extends StatelessWidget {
                   child: ListTile(
                     onTap: () {
                       // Save the selected language when tapped
-                    saveSelectedLanguage('en');
+                      saveSelectedLanguage('en');
                       Get.updateLocale(const Locale('en', 'US'));
                       Get.offAll(() => const Bottomhome());
                     },
@@ -94,7 +98,7 @@ class ToastDialog extends StatelessWidget {
                     hoverColor: whitecolor,
                     onTap: () {
                       // Save the selected language when tapped
-                    saveSelectedLanguage('ne');
+                      saveSelectedLanguage('ne');
                       Get.updateLocale(const Locale('ne', 'NP'));
                       Get.offAll(() => const Bottomhome());
                     },

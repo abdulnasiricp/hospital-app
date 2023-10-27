@@ -28,12 +28,11 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
   TextEditingController dobController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  TextEditingController relationshipController = TextEditingController();
-  TextEditingController districtController = TextEditingController();
-  TextEditingController vdcMunicipalityController = TextEditingController();
-  TextEditingController wardController = TextEditingController();
-  TextEditingController toleController = TextEditingController();
-
+  TextEditingController dateofbirthController = TextEditingController();
+  TextEditingController addresscontroller = TextEditingController();
+  TextEditingController Opdticketdate = TextEditingController();
+  TextEditingController departmentController = TextEditingController();
+  String selectedDepartment = '';
   String selectedGender = ''; // Stores the selected gender.
 
   // Function to handle gender selection.
@@ -42,11 +41,32 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
       selectedGender = gender;
     });
   }
+////////////////////////////// for select departmet
 
+  List<Map<String, String>> departmentList = [];
+  Future<void> fetchDepartmentData() async {
+    final response = await http
+        .get(Uri.parse('https://uat.tez.hospital/xzy/webservice/lists'));
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      if (data.containsKey('department')) {
+        final departments = data['department'];
+        if (departments is List) {
+          departmentList = List<Map<String, String>>.from(departments);
+          // Update the state to rebuild the widget with the department data
+          setState(() {});
+        }
+      }
+    }
+  }
+
+  /////////////////////////////
   @override
   void initState() {
     super.initState();
-    selectedDate = DateTime.now(); // Initialize in initState
+    selectedDate = DateTime.now();
+    fetchDepartmentData();
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -81,11 +101,6 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
       'date_of_birth': dateController.text,
       'phone': phoneController.text,
       'email': emailController.text,
-      'relationship': relationshipController.text,
-      'district': districtController.text,
-      'vdc_municipality': vdcMunicipalityController.text,
-      'ward': wardController.text,
-      'tole': toleController.text,
     };
 
     try {
@@ -129,6 +144,56 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "Select Department",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                            TextSpan(
+                              text: '*',
+                              style: TextStyle(
+                                color: Colors.red,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      InkWell(
+                        child: TextFormField(
+                          onTapOutside: (event) =>
+                              FocusScope.of(context).unfocus(),
+                          controller: departmentController,
+                          decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                              icon: Icon(Icons.calendar_month),
+                              onPressed: () {
+                                _showDepartmentSelection(context);
+                              },
+                            ),
+                            border: OutlineInputBorder(),
+                            hintText: 'Select Ticket Date',
+                            fillColor: Colors.white,
+                            filled: true,
+                          ),
+                          readOnly: true,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  width: width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      RichText(
                         text: const TextSpan(
                           children: [
                             TextSpan(
@@ -150,14 +215,24 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                       const SizedBox(
                         height: 5,
                       ),
-                      TextFormField(
-                        onTapOutside: (event) =>
-                            FocusScope.of(context).unfocus(),
-                        decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Enter First Name',
-                            fillColor: Colors.white,
-                            filled: true),
+                      InkWell(
+                        child: TextFormField(
+                          onTapOutside: (event) =>
+                              FocusScope.of(context).unfocus(),
+                          controller: dateofbirthController,
+                          decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                  icon: const Icon(Icons.calendar_month),
+                                  onPressed: () {
+                                    _selectDate(context);
+                                  }),
+                              border: const OutlineInputBorder(),
+                              hintText: 'Select Ticket Date',
+                              fillColor: Colors.white,
+                              filled: true),
+                          readOnly: true,
+                          onTap: () => _selectDate(context),
+                        ),
                       ),
                     ],
                   ),
@@ -322,7 +397,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                         child: TextFormField(
                           onTapOutside: (event) =>
                               FocusScope.of(context).unfocus(),
-                          controller: dateController,
+                          controller: dateofbirthController,
                           decoration: InputDecoration(
                               suffixIcon: IconButton(
                                   icon: const Icon(Icons.calendar_month),
@@ -373,7 +448,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                       TextFormField(
                         onTapOutside: (event) =>
                             FocusScope.of(context).unfocus(),
-                        controller: dateController,
+                        controller: phoneController,
                         decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: 'Enter phone Number',
@@ -399,7 +474,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                       TextFormField(
                         onTapOutside: (event) =>
                             FocusScope.of(context).unfocus(),
-                        controller: dateController,
+                        controller: addresscontroller,
                         decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: 'Enter Email Address',
@@ -442,7 +517,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                       TextFormField(
                         onTapOutside: (event) =>
                             FocusScope.of(context).unfocus(),
-                        controller: dateController,
+                        controller: emailController,
                         decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: 'Enter Your Full Address',
@@ -512,4 +587,45 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
       ),
     );
   }
+
+  ///////////////////////////// for select department
+
+  void _showDepartmentSelection(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          child: Column(
+            children: <Widget>[
+              Text(
+                'Select Department',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: departmentList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return ListTile(
+                      title: Text(departmentList[index]['name'] ?? ''),
+                      onTap: () {
+                        selectedDepartment =
+                            departmentList[index]['name'] ?? '';
+                        departmentController.text = selectedDepartment;
+                        Navigator.of(context).pop();
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  //////////////////////////////////////////////
 }

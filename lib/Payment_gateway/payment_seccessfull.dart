@@ -1,11 +1,13 @@
 // ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, non_constant_identifier_names, avoid_print
 
 import 'dart:convert';
+import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/route_manager.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,7 +15,8 @@ class PaymentSuccessfullScreen extends StatefulWidget {
   final String paymentMethod;
 
   const PaymentSuccessfullScreen({
-    Key? key, required this.paymentMethod,
+    Key? key,
+    required this.paymentMethod,
     //  required this.paymentMode,
   }) : super(key: key);
 
@@ -22,11 +25,7 @@ class PaymentSuccessfullScreen extends StatefulWidget {
       _PaymentSuccessfullScreenState();
 }
 
-
 class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
-
-  
-  
   late String Patient_id = '';
   late num totalDues = 0;
   late num blooddues = 0;
@@ -89,7 +88,7 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
       print(error);
     }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,18 +98,14 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment:CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Card(
-              
-              elevation: 20,
-              child: SingleChildScrollView(
-                child: Column(
-                 
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: Card(
+            elevation: 50,
+            child: Column(
+              children: [
+                Column(
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(10.0),
@@ -119,7 +114,7 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
                           Padding(
                             padding: const EdgeInsets.only(top: 1.0),
                             child: Container(
-                              child:  const Text(
+                              child: const Text(
                                 'Payment Successful!',
                                 style: TextStyle(
                                   fontSize: 28,
@@ -166,7 +161,7 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
                           const SizedBox(
                             height: 5,
                           ),
-                           const DottedLineDivider(),
+                          const DottedLineDivider(),
                           if (pathodues > 0)
                             PaymentItem(
                               title: 'Pathology Dues',
@@ -200,7 +195,7 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
                           const SizedBox(
                             height: 25,
                           ),
-                         const DottedLineDivider(),
+                          const DottedLineDivider(),
                           PaymentItem(
                             title: 'Total Hospital Due Amount',
                             amount: totalDues,
@@ -214,21 +209,72 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
                       children: [
                         const Padding(
                           padding: EdgeInsets.only(right: 8.0),
-                          child: Text("Payment Mode :", style: TextStyle(fontSize: 12)),
+                          child: Text("Payment Mode :",
+                              style: TextStyle(fontSize: 12)),
                         ),
                         Container(
-                          child: 
-                          Text(widget.paymentMethod,style: const TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
-                             ),
-                        
+                          child: Column(
+                            children: [
+                              if (widget.paymentMethod == 'Khalti')
+                                Container(
+                                  height: 30,
+                                  width: 60,
+                                  child: Image.asset('assets/khalti.png'),
+                                ) // Replace 'assets/khalti_image.png' with the actual path to your Khalti image.
+                              else if (widget.paymentMethod == 'eSewa')
+                                Container(
+                                  height: 30,
+                                  width: 60,
+                                  child: Image.asset('assets/esewa.png'),
+                                ) // Replace 'assets/esewa_image.png' with the actual path to your eSewa image.
+                              else if (widget.paymentMethod == 'IPS')
+                                Container(
+                                  height: 30,
+                                  width: 60,
+                                  child: Image.asset('assets/ips.png'),
+                                ) // Replace 'assets/ips_image.png' with the actual path to your IPS image.
+                              else if (widget.paymentMethod == 'IME')
+                                Container(
+                                  height: 30,
+                                  width: 60,
+                                  child: Image.asset('assets/ime.png'),
+                                ) // Replace 'assets/ime_image.png' with the actual path to your IME image.
+                            ],
+                          ),
+                        )
                       ],
                     ),
-                    const SizedBox(height: 20,)
+                    const SizedBox(
+                      height: 20,
+                    ),
                   ],
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10.0),
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                          child: Container(
+                        width: width,
+                        height: height / 15,
+                        child: ElevatedButton(
+                          child: Text("Dasboard"),
+                          onPressed: () {
+                            Get.to(() => const Bottomhome());
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(yellow),
+                          ),
+                        ),
+                      )),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -240,7 +286,8 @@ class PaymentItem extends StatelessWidget {
   final num amount;
   final bool isTotal;
 
-  const PaymentItem({Key? key, 
+  const PaymentItem({
+    Key? key,
     required this.title,
     required this.amount,
     this.isTotal = false,
