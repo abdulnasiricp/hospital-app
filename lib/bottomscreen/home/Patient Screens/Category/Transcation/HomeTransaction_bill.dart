@@ -115,7 +115,6 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
   }
 
   /////////////////////////////////////////////////////////////////////////////////////
-  NotificationServies notificationServies = NotificationServies();
 
   TextEditingController searchController = TextEditingController();
 

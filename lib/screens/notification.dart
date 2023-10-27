@@ -1,4 +1,6 @@
-// ignore_for_file: prefer_collection_literals
+
+
+                  // ignore_for_file: prefer_collection_literals
 
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Ambulance/Ambulance.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Blood_Bank/Blood_Bank.dart';
@@ -101,7 +103,7 @@ class _NotifState extends State<Notif> {
                       item.text,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: item.isRead?Colors.grey:Colors.black
+                        color: item.isRead?Colors.black:Colors.grey
                       ),
                     ),
                   ],
@@ -119,5 +121,5 @@ class NotificationItem {
   final String text;
  bool isRead;
 
-  NotificationItem({required this.text,this.isRead = true, });
+  NotificationItem({required this.text,this.isRead = false, });
 }
