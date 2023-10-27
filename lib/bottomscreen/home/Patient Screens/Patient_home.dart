@@ -82,7 +82,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
     await getDues();
     await notificationListLength();
     await _loadNotifications();
-
   }
 
   @override
@@ -232,7 +231,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
 //////////////////////////////////////////////////////////////////////////////////////
   List<NotificationItem> notifications = [];
-///
+
+  ///
   Future<void> _loadNotifications() async {
     final prefs = await SharedPreferences.getInstance();
     final storedNotifications = prefs.getStringList('notifications') ?? [];
@@ -244,9 +244,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
       notifications = newNotifications.reversed.toList(); // Reverse the order
     });
   }
-  
-
- 
 
 // get Due amount
   late int pathologyLength = 0;
@@ -306,7 +303,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
               .add('New data are added please check your pathology Bill');
           sharedPreferences.setStringList('notifications', notifications);
 
-         
           NotificationService().showNotification(
               id: 1,
               title: 'Pathology Bill',
@@ -323,9 +319,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
           sharedPreferences.setStringList('notifications', notifications);
 
           NotificationService().showNotification(
-             id: 1,
+              id: 1,
               title: 'Pharmacy Bill',
-             body:  'New data are added please check your Pharmacy Bill',
+              body: 'New data are added please check your Pharmacy Bill',
               payLoad: 'navigate_to_Pharmacy_bill');
         }
 
@@ -339,9 +335,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
           NotificationService().showNotification(
               id: 1,
-             title:  'Radiology Bill',
-            body:   'New data are added please check your Radiology Bill',
-             payLoad:  'navigate_to_Radiology_bill');
+              title: 'Radiology Bill',
+              body: 'New data are added please check your Radiology Bill',
+              payLoad: 'navigate_to_Radiology_bill');
         }
 
         if (newdirectLangth > directLangth) {
@@ -352,9 +348,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
           sharedPreferences.setStringList('notifications', notifications);
 
           NotificationService().showNotification(
-             id:  1,
-            title:   'Direct Bill',
-            body:   'New data are added please check your Direct Bill',
+              id: 1,
+              title: 'Direct Bill',
+              body: 'New data are added please check your Direct Bill',
               payLoad: 'navigate_to_direct_bill');
         }
 
@@ -367,8 +363,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
           sharedPreferences.setStringList('notifications', notifications);
 
           NotificationService().showNotification(
-             id:  1,
-              title:  'Blood_bank Bill',
+              id: 1,
+              title: 'Blood_bank Bill',
               body: 'New data are added please check your Blood_bank Bill',
               payLoad: 'navigate_to_Blood_bank_bill');
         }
@@ -382,10 +378,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
           sharedPreferences.setStringList('notifications', notifications);
 
           NotificationService().showNotification(
-             id:  1,
-           title:  'Ambulance Bill',
+              id: 1,
+              title: 'Ambulance Bill',
               body: 'New data are added please check your Ambulance Bill',
-             payLoad:  'navigate_to_Ambulance Bill');
+              payLoad: 'navigate_to_Ambulance Bill');
         }
 
         // Set the state to rebuild the widget
@@ -438,10 +434,12 @@ class _PatientHomePageState extends State<PatientHomePage> {
                   children: [
                     badges.Badge(
                       badgeContent: Text(
-                        notifications.where((item) => !item.isRead).length >
-                                90
+                        notifications.where((item) => !item.isRead).length > 90
                             ? '99+'
-                            : notifications.where((item) => !item.isRead).length.toString(),
+                            : notifications
+                                .where((item) => !item.isRead)
+                                .length
+                                .toString(),
                         style: const TextStyle(
                           fontSize: 8,
                           fontWeight: FontWeight.bold,

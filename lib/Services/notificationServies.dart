@@ -25,7 +25,7 @@ class NotificationService {
   notificationDetails() {
     return const NotificationDetails(
         android: AndroidNotificationDetails('1', 'channelName',
-            importance: Importance.max),
+            importance: Importance.high),
         iOS: DarwinNotificationDetails());
   }
 
@@ -36,13 +36,8 @@ class NotificationService {
   }
 }
 
-
-
-
 //   FlutterLocalNotificationsPlugin notificationsPlugin =
 //       FlutterLocalNotificationsPlugin();
-
-      
 
 //   // Notification
 //   AndroidInitializationSettings androidSettings =
@@ -86,12 +81,8 @@ class NotificationService {
 //       iOS: iosDetiles,
 //     );
 
-
 //     await notificationsPlugin.show(id, title, message, notificationDetails,
 //         payload: payload);
 //   }
 
-  
 // }
-
-

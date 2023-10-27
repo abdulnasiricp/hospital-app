@@ -51,7 +51,6 @@ class SelectPaymentMethod extends StatefulWidget {
 }
 
 class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
- 
   ////////////////////////////////////////////////////////////////////////////////
 
   var profileData;
@@ -592,14 +591,9 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                             ),
                                           ],
                                         ),
-                                      const Padding(
-                                        padding: EdgeInsets.only(
-                                          right: 20,
-                                          left: 10,
-                                        ),
-                                        child: Divider(
-                                          color: Colors.black54,
-                                        ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: const DottedLineDivider(),
                                       ),
                                       Row(
                                         mainAxisAlignment:
@@ -638,6 +632,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                               children: [
                                                 Text("${widget.total_Amount}",
                                                     style: const TextStyle(
+                                                        color: Colors.red,
                                                         fontWeight:
                                                             FontWeight.bold)),
                                               ],
@@ -739,22 +734,6 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                   title: Text('proceed'.tr),
                                   onPressed: () async {
                                     await navigateToSelectedPage();
-                                  },
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Container(
-                                width: double.infinity,
-                                height: 50,
-                                child: MyButton(
-                                  title: Text('success'.tr),
-                                  onPressed: () async {
-                                      navigateToSelectedPage();
-                                     await Get.to(() => PaymentSuccessfullScreen(
-                                          paymentMethod: selectedPaymentMethod,
-                                        ));
                                   },
                                 ),
                               ),
@@ -866,5 +845,43 @@ class PaymentMethodTile extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class DottedLineDivider extends StatelessWidget {
+  const DottedLineDivider({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 1, // Adjust the height of the divider as needed
+      width: double.infinity, // Takes the full width of the parent
+      child: CustomPaint(
+        painter: DottedLinePainter(),
+      ),
+    );
+  }
+}
+
+class DottedLinePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = Colors.grey // Change the color as needed
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = 1.0; // Adjust the width as needed
+    const dashWidth = 5; // Adjust the length of dashes as needed
+    const dashSpace = 5; // Adjust the space between dashes as needed
+
+    double startX = 0;
+    while (startX < size.width) {
+      canvas.drawLine(Offset(startX, 0), Offset(startX + dashWidth, 0), paint);
+      startX += dashWidth + dashSpace;
+    }
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return false;
   }
 }

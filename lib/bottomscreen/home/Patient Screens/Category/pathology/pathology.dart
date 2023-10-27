@@ -43,8 +43,6 @@ class _PathalogyState extends State<Pathalogy> {
     setState(() {});
   }
 
-
-
 // ///////////////////////////////////////////////////////////////////////////////////////////////
 //calculate total amount
   void calculateTotalAmount() {

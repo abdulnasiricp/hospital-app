@@ -17,7 +17,7 @@ class PaymentSuccessfullScreen extends StatefulWidget {
 
   const PaymentSuccessfullScreen({
     Key? key,
-    required this.paymentMethod,  
+    required this.paymentMethod,
     //  required this.paymentMode,
   }) : super(key: key);
 
@@ -27,11 +27,10 @@ class PaymentSuccessfullScreen extends StatefulWidget {
 }
 
 class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
+  String formattedDate =
+      DateFormat('dd-MM-yyyy, hh:mm a').format(DateTime.now());
 
-
- String formattedDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-
-  late int? transactionId = 0;
+  late int transactionId = 0;
 
   Future<void> makePostRequest() async {
     print(formattedDate);
@@ -59,7 +58,7 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
     if (response.statusCode == 200) {
       // If the server returns a 200 OK response, you can parse the response.
       final Map<String, dynamic> data = jsonDecode(response.body);
-        transactionId = data['transaction_id'][0];
+      transactionId = data['transaction_id'][0];
 
       if (data['status'] == '1') {
         print("Payment added successfully");
@@ -76,16 +75,6 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
     }
   }
 
-
-
-
-
-
-
-
-
-
-
   late String Patient_id = '';
   late num totalDues = 0;
   late num blooddues = 0;
@@ -98,7 +87,7 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
   getData() async {
     await LoadData();
     await getDues();
-   await makePostRequest();
+    await makePostRequest();
   }
 
   @override
@@ -163,6 +152,7 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
       child: Scaffold(
         backgroundColor: Colors.blue[50],
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: const Text('Payment Successful!'),
           centerTitle: true,
           backgroundColor: darkYellow,
@@ -205,10 +195,34 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
                             const SizedBox(
                               height: 25,
                             ),
-                             Padding(
+                            Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text(
+                                    "Date/Time",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  Text(
+                                    "$formattedDate",
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   const Text(
                                     "Transaction Id",
@@ -218,7 +232,7 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
                                     ),
                                   ),
                                   Text(
-                                    "$transactionId",
+                                    "#Tez$transactionId",
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
@@ -334,7 +348,8 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
                               Get.to(() => const Bottomhome());
                             },
                             style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(yellow),
+                              backgroundColor:
+                                  MaterialStateProperty.all(yellow),
                             ),
                           ),
                         )),

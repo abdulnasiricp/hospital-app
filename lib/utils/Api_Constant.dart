@@ -52,5 +52,20 @@ class ApiLinks {
       "https://uat.tez.hospital/xzy/webservice/getipdCardex";
         static const String getDirectDetails="https://uat.tez.hospital/xzy/webservice/getDirectDetails";
          static const String logout="'https://uat.tez.hospital/xzy/auth/patient_logout'";
+         static const String Departmentlist="https://uat.tez.hospital/xzy/webservice/lists";
         
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
