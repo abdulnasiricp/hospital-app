@@ -583,24 +583,24 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     ),
                                     ElevatedButton(
                                       onPressed: () async {
-                                        SharedPreferences sharedPreferences =
-                                            await SharedPreferences
-                                                .getInstance();
-                                        NotificationService().showNotification(
-                                            id: 1,
-                                            title: 'Pathology Bill',
-                                            body:
-                                                'New data are added please check your Pathology Bill',
-                                            payLoad:
-                                                'navigate_to_Pathology_bill');
-                                        final notifications =
-                                            sharedPreferences.getStringList(
-                                                    'notifications') ??
-                                                [];
-                                        notifications.add(
-                                            'New data are added please check your Ambulance Bill');
-                                        sharedPreferences.setStringList(
-                                            'notifications', notifications);
+                                        // SharedPreferences sharedPreferences =
+                                        //     await SharedPreferences
+                                        //         .getInstance();
+                                        // NotificationService().showNotification(
+                                        //     id: 1,
+                                        //     title: 'Pathology Bill',
+                                        //     body:
+                                        //         'New data are added please check your Pathology Bill',
+                                        //     payLoad:
+                                        //         'navigate_to_Pathology_bill');
+                                        // final notifications =
+                                        //     sharedPreferences.getStringList(
+                                        //             'notifications') ??
+                                        //         [];
+                                        // notifications.add(
+                                        //     'New data are added please check your Ambulance Bill');
+                                        // sharedPreferences.setStringList(
+                                        //     'notifications', notifications);
                                         Get.off(
                                           () => SelectPaymentMethod(
                                             totalAmountInRs: rupeesAmountInt,

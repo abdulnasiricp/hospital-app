@@ -19,6 +19,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:imepay_merchant_sdk/start_sdk.dart';
+import 'package:intl/intl.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -50,12 +51,17 @@ class SelectPaymentMethod extends StatefulWidget {
 }
 
 class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
+ 
+  ////////////////////////////////////////////////////////////////////////////////
+
   var profileData;
   late String patientID = '';
+  late String patientName = '';
   LoadData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
 
     patientID = sp.getString('patientidrecord') ?? '';
+    patientName = sp.getString('usernamerecord') ?? '';
 
     print(patientID);
     setState(() {});
@@ -113,7 +119,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
         amount: widget.totalAmountInpaisa, //in paisa
         // amount: 20000, //in paisa
         productIdentity: patientID,
-        productName: "username",
+        productName: patientName,
         mobileReadOnly: false,
       ),
       preferences: [
@@ -130,7 +136,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
       config: PaymentConfig(
         amount: widget.totalAmountInpaisa, //in paisa
         productIdentity: patientID,
-        productName: "username",
+        productName: patientName,
         mobileReadOnly: false,
       ),
       preferences: [
@@ -147,7 +153,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
     random.nextInt(15);
     var result = await StartSdk.callSdk(context,
         merchantCode: "MERCHANT_CODE",
-        merchantName: "username",
+        merchantName: patientName,
         merchantUrl: "MERCHANT_URL",
         amount: widget.totalAmountInRs,
         refId: patientID,
@@ -195,8 +201,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
     }
   }
 
-  void onSuccess(PaymentSuccessModel success) {
-    Get.to(() => PaymentSuccessfullScreen(
+  void onSuccess(PaymentSuccessModel success) async {
+    Get.off(() => PaymentSuccessfullScreen(
           paymentMethod: selectedPaymentMethod,
         ));
     // showDialog(
@@ -731,8 +737,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                 height: 50,
                                 child: MyButton(
                                   title: Text('proceed'.tr),
-                                  onPressed: () {
-                                    navigateToSelectedPage();
+                                  onPressed: () async {
+                                    await navigateToSelectedPage();
                                   },
                                 ),
                               ),
@@ -744,10 +750,9 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                 height: 50,
                                 child: MyButton(
                                   title: Text('success'.tr),
-                                  onPressed: () {
-                                    navigateToSelectedPage();
-
-                                    Get.to(() => PaymentSuccessfullScreen(
+                                  onPressed: () async {
+                                      navigateToSelectedPage();
+                                     await Get.to(() => PaymentSuccessfullScreen(
                                           paymentMethod: selectedPaymentMethod,
                                         ));
                                   },
@@ -772,7 +777,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
 
   String selectedPaymentMethod = "";
 
-  void navigateToSelectedPage() {
+  Future<void> navigateToSelectedPage() async {
     final selectedMethod = paymentMethods[selectedMethodIndex].logoPath;
     if (selectedMethod.isNotEmpty) {
       if (selectedMethod == 'assets/khalti.png') {
