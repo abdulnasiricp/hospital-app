@@ -196,8 +196,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
   }
 
   void onSuccess(PaymentSuccessModel success) {
-    Get.to(() => PaymentSuccessfullScreen(paymentMethod: selectedPaymentMethod,
-        
+    Get.to(() => PaymentSuccessfullScreen(
+          paymentMethod: selectedPaymentMethod,
         ));
     // showDialog(
     //   context: context,
@@ -296,7 +296,6 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                       onTap: () {
                                         setState(() {
                                           selectedMethodIndex = index;
-
                                         });
                                       },
                                       child: PaymentMethodTile(
@@ -747,9 +746,9 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                   title: Text('success'.tr),
                                   onPressed: () {
                                     navigateToSelectedPage();
-                                    
-                                    Get.to(() =>  PaymentSuccessfullScreen(paymentMethod: selectedPaymentMethod,
-                                         
+
+                                    Get.to(() => PaymentSuccessfullScreen(
+                                          paymentMethod: selectedPaymentMethod,
                                         ));
                                   },
                                 ),
