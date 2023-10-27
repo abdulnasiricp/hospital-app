@@ -22,6 +22,8 @@ class General_Opd_Tickets_Form extends StatefulWidget {
 }
 
 class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   late DateTime selectedDate;
   TextEditingController dateController = TextEditingController();
   TextEditingController firstNameController = TextEditingController();
@@ -34,8 +36,10 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
   TextEditingController addresscontroller = TextEditingController();
   TextEditingController Opdticketdate = TextEditingController();
   TextEditingController departmentController = TextEditingController();
+  TextEditingController maritalstatusController = TextEditingController();
   String selectedDepartment = '';
   String selectedDepartmentId = '';
+  String Maritalstatus = '';
   String selectedGender = ''; // Stores the selected gender.
 
   // Function to handle gender selection.
@@ -153,74 +157,306 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: width,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "Select Department",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
+          child: Form(
+            key: _formKey,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "Select Department",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
                               ),
-                            ),
-                            TextSpan(
-                              text: '*',
-                              style: TextStyle(
-                                color: Colors.red,
+                              TextSpan(
+                                text: '*',
+                                style: TextStyle(
+                                  color: Colors.red,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      InkWell(
+                        SizedBox(
+                          height: 5,
+                        ),
+                        InkWell(
+                            child: TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'This field is required';
+                            }
+                            return null;
+                          },
+                          readOnly:
+                              true, // Set this to true to disable the keyboard
+                          controller: departmentController,
+                          decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                Icons.arrow_drop_down_sharp,
+                                size: 40,
+                              ),
+                              onPressed: () {
+                                _showDepartmentSelection(context);
+                              },
+                            ),
+                            border: OutlineInputBorder(),
+                            hintText: 'Select department',
+                            fillColor: Colors.white,
+                            filled: true,
+                          ),
+                          onTap: () {
+                            _showDepartmentSelection(context);
+                          },
+                        )),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                    width: width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        RichText(
+                          text: const TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "Select Ticket Date",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              TextSpan(
+                                text: '*',
+                                style: TextStyle(
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        InkWell(
                           child: TextFormField(
-                        readOnly:
-                            true, // Set this to true to disable the keyboard
-                        controller: departmentController,
-                        decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              Icons.arrow_drop_down_sharp,
-                              size: 40,
-                            ),
-                            onPressed: () {
-                              _showDepartmentSelection(context);
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'This field is required';
+                              }
+                              return null;
                             },
+                            onTapOutside: (event) =>
+                                FocusScope.of(context).unfocus(),
+                            controller: dateofbirthController,
+                            decoration: InputDecoration(
+                                suffixIcon: IconButton(
+                                    icon: const Icon(Icons.calendar_month),
+                                    onPressed: () {
+                                      _selectDate(context);
+                                    }),
+                                border: const OutlineInputBorder(),
+                                hintText: 'Select Ticket Date',
+                                fillColor: Colors.white,
+                                filled: true),
+                            readOnly: true,
+                            onTap: () => _selectDate(context),
                           ),
-                          border: OutlineInputBorder(),
-                          hintText: 'Select department',
-                          fillColor: Colors.white,
-                          filled: true,
                         ),
-                        onTap: () {
-                          _showDepartmentSelection(context);
-                        },
-                      )),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                    width: width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "Marital Status",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              TextSpan(
+                                text: '*',
+                                style: TextStyle(
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        InkWell(
+                            child: TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'This field is required';
+                            }
+                            return null;
+                          },
+                          readOnly:
+                              true, // Set this to true to disable the keyboard
+                          controller: maritalstatusController,
+                          decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                Icons.arrow_drop_down_sharp,
+                                size: 40,
+                              ),
+                              onPressed: () {
+                                _showDepartmentSelection(context);
+                              },
+                            ),
+                            border: OutlineInputBorder(),
+                            hintText: 'Select Marital Status',
+                            fillColor: Colors.white,
+                            filled: true,
+                          ),
+                          onTap: () {
+                            _showDepartmentSelection(context);
+                          },
+                        )),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: width / 2.2,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: const TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: "First Name",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: '*',
+                                    style: TextStyle(
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            TextFormField(
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'This field is required';
+                                }
+                                return null;
+                              },
+                              onTapOutside: (event) =>
+                                  FocusScope.of(context).unfocus(),
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: 'Enter First Name',
+                                  fillColor: Colors.white,
+                                  filled: true),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: width / 2.2,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: const TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: "Last Name",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: '*',
+                                    style: TextStyle(
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            TextFormField(
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'This field is required';
+                                }
+                                return null;
+                              },
+                              onTapOutside: (event) =>
+                                  FocusScope.of(context).unfocus(),
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: 'Enter Last Name',
+                                  fillColor: Colors.white,
+                                  filled: true),
+                            ),
+                          ],
+                        ),
+                      )
                     ],
                   ),
-                ),
-                Container(
-                  width: width,
-                  child: Column(
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  // Other form fields...
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      const SizedBox(
+                        height: 5,
+                      ),
                       RichText(
                         text: const TextSpan(
                           children: [
                             TextSpan(
-                              text: "Select Ticket Date",
+                              text: " Gender",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
@@ -235,340 +471,243 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                           ],
                         ),
                       ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      InkWell(
-                        child: TextFormField(
-                          onTapOutside: (event) =>
-                              FocusScope.of(context).unfocus(),
-                          controller: dateofbirthController,
-                          decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                  icon: const Icon(Icons.calendar_month),
-                                  onPressed: () {
-                                    _selectDate(context);
-                                  }),
-                              border: const OutlineInputBorder(),
-                              hintText: 'Select Ticket Date',
-                              fillColor: Colors.white,
-                              filled: true),
-                          readOnly: true,
-                          onTap: () => _selectDate(context),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: width / 2.2,
-                      child: Column(
+                      Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          RichText(
-                            text: const TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: "  First Name",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: '*',
-                                  style: TextStyle(
-                                    color: Colors.red,
-                                  ),
-                                ),
-                              ],
-                            ),
+                          buildGenderCard(
+                            icon: Icons.male,
+                            label: 'Male',
+                            gender: 'male',
                           ),
-                          const SizedBox(
-                            height: 5,
+                          buildGenderCard(
+                            icon: Icons.female,
+                            label: 'Female',
+                            gender: 'female',
                           ),
-                          TextFormField(
-                            onTapOutside: (event) =>
-                                FocusScope.of(context).unfocus(),
-                            decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: 'Enter First Name',
-                                fillColor: Colors.white,
-                                filled: true),
+                          buildGenderCard(
+                            icon: Icons.circle_outlined,
+                            label: 'Other',
+                            gender: 'other',
                           ),
                         ],
                       ),
-                    ),
-                    Container(
-                      width: width / 2.2,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          RichText(
-                            text: const TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: "Last Name",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: '*',
-                                  style: TextStyle(
-                                    color: Colors.red,
-                                  ),
-                                ),
-                              ],
-                            ),
+                      if (selectedGender.isEmpty) // Add this condition
+                        Text(
+                          'Please select a gender', // Error message
+                          style: TextStyle(
+                            color: Colors.red,
                           ),
-                          const SizedBox(
-                            height: 5,
+                        ),
+
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                    width: width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        RichText(
+                          text: const TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "Date of Birth",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              TextSpan(
+                                text: '*',
+                                style: TextStyle(
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ],
                           ),
-                          TextFormField(
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        InkWell(
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'This field is required';
+                              }
+                              return null;
+                            },
                             onTapOutside: (event) =>
                                 FocusScope.of(context).unfocus(),
-                            decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: 'Enter Last Name',
+                            controller: dateofbirthController,
+                            decoration: InputDecoration(
+                                suffixIcon: IconButton(
+                                    icon: const Icon(Icons.calendar_month),
+                                    onPressed: () {
+                                      _selectDate(context);
+                                    }),
+                                border: const OutlineInputBorder(),
+                                hintText: 'Enter Date of Births',
                                 fillColor: Colors.white,
                                 filled: true),
+                            readOnly: true,
+                            onTap: () => _selectDate(context),
                           ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                RichText(
-                  text: const TextSpan(
-                    children: [
-                      TextSpan(
-                        text: " Gender",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
                         ),
-                      ),
-                      TextSpan(
-                        text: '*',
-                        style: TextStyle(
-                          color: Colors.red,
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  //  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    buildGenderCard(
-                      icon: Icons.male,
-                      label: 'Male',
-                      gender: 'male',
-                    ),
-                    buildGenderCard(
-                      icon: Icons.female,
-                      label: 'Female',
-                      gender: 'female',
-                    ),
-                    buildGenderCard(
-                      icon: Icons.circle_outlined,
-                      label: 'Other',
-                      gender: 'other',
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Container(
-                  width: width,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      RichText(
-                        text: const TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "Date of Birth",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                    width: width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        RichText(
+                          text: const TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "Phone Number",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
                               ),
-                            ),
-                            TextSpan(
-                              text: '*',
-                              style: TextStyle(
-                                color: Colors.red,
+                              TextSpan(
+                                text: '*',
+                                style: TextStyle(
+                                  color: Colors.red,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      InkWell(
-                        child: TextFormField(
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'This field is required';
+                            }
+                            return null;
+                          },
                           onTapOutside: (event) =>
                               FocusScope.of(context).unfocus(),
-                          controller: dateofbirthController,
-                          decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                  icon: const Icon(Icons.calendar_month),
-                                  onPressed: () {
-                                    _selectDate(context);
-                                  }),
-                              border: const OutlineInputBorder(),
-                              hintText: 'Enter Date of Births',
+                          controller: phoneController,
+                          decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Enter phone Number',
                               fillColor: Colors.white,
                               filled: true),
-                          readOnly: true,
-                          onTap: () => _selectDate(context),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Container(
-                  width: width,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      RichText(
-                        text: const TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "Phone Number",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                            ),
-                            TextSpan(
-                              text: '*',
-                              style: TextStyle(
-                                color: Colors.red,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      TextFormField(
-                        onTapOutside: (event) =>
-                            FocusScope.of(context).unfocus(),
-                        controller: phoneController,
-                        decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Enter phone Number',
-                            fillColor: Colors.white,
-                            filled: true),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Container(
-                  width: width,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(' Email Address (optional)',
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      TextFormField(
-                        onTapOutside: (event) =>
-                            FocusScope.of(context).unfocus(),
-                        controller: addresscontroller,
-                        decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Enter Email Address',
-                            fillColor: Colors.white,
-                            filled: true),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Container(
-                  width: width,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      RichText(
-                        text: const TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "Address",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                            ),
-                            TextSpan(
-                              text: '*',
-                              style: TextStyle(
-                                color: Colors.red,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      TextFormField(
-                        onTapOutside: (event) =>
-                            FocusScope.of(context).unfocus(),
-                        controller: emailController,
-                        decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Enter Your Full Address',
-                            fillColor: Colors.white,
-                            filled: true),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Center(
-                    child: Container(
-                  width: width,
-                  height: height / 15,
-                  child: ElevatedButton(
-                    child: Text('proceed'.tr),
-                    onPressed: () {},
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(yellow),
+                      ],
                     ),
                   ),
-                )),
-              ],
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                    width: width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(' Email Address (optional)',
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        TextFormField(
+                          onTapOutside: (event) =>
+                              FocusScope.of(context).unfocus(),
+                          controller: addresscontroller,
+                          decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Enter Email Address',
+                              fillColor: Colors.white,
+                              filled: true),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                    width: width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        RichText(
+                          text: const TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "Address",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              TextSpan(
+                                text: '*',
+                                style: TextStyle(
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'This field is required';
+                            }
+                            return null;
+                          },
+                          onTapOutside: (event) =>
+                              FocusScope.of(context).unfocus(),
+                          controller: emailController,
+                          decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Enter Your Full Address',
+                              fillColor: Colors.white,
+                              filled: true),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Center(
+                      child: Container(
+                    width: width,
+                    height: height / 15,
+                    child: ElevatedButton(
+                      child: Text('proceed'.tr),
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          // Form is valid, submit data to the API or perform other actions.
+                          // postDataToApi();
+                        }
+                      },
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(yellow),
+                      ),
+                    ),
+                  )),
+                ],
+              ),
             ),
           ),
         ));
