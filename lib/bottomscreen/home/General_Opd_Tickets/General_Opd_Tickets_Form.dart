@@ -1,9 +1,11 @@
-// ignore_for_file: file_names, camel_case_types, duplicate_ignore, avoid_print, sized_box_for_whitespace, non_constant_identifier_names, avoid_unnecessary_containers
+// ignore_for_file: file_names, camel_case_types, duplicate_ignore, avoid_print, sized_box_for_whitespace
 
+import 'package:TezHealthCare/check.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
+import 'package:get/route_manager.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -33,6 +35,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
   TextEditingController Opdticketdate = TextEditingController();
   TextEditingController departmentController = TextEditingController();
   String selectedDepartment = '';
+  String selectedDepartmentId = '';
   String selectedGender = ''; // Stores the selected gender.
 
   // Function to handle gender selection.
@@ -41,24 +44,40 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
       selectedGender = gender;
     });
   }
-////////////////////////////// for select departmet
 
+////////////////////////////// for select departmet
   List<Map<String, String>> departmentList = [];
+
+  bool isLoading = true;
+
   Future<void> fetchDepartmentData() async {
-    final response = await http
-        .get(Uri.parse('https://uat.tez.hospital/xzy/webservice/lists'));
+    final response = await http.get(Uri.parse(
+        'https://uat.tez.hospital/xzy/webservice/lists')); // Replace with your API endpoint
 
     if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      if (data.containsKey('department')) {
-        final departments = data['department'];
-        if (departments is List) {
-          departmentList = List<Map<String, String>>.from(departments);
-          // Update the state to rebuild the widget with the department data
-          setState(() {});
+      try {
+        final data = json.decode(response.body);
+        if (data is List) {
+          setState(() {
+            departmentList = List<Map<String, String>>.from(data);
+            isLoading = false;
+          });
+        } else {
+          handleNonJsonResponse();
         }
+      } catch (e) {
+        handleNonJsonResponse();
       }
+    } else {
+      handleNonJsonResponse();
     }
+  }
+
+  void handleNonJsonResponse() {
+    print('Non-JSON response or API error');
+    setState(() {
+      isLoading = false;
+    });
   }
 
   /////////////////////////////
@@ -144,7 +163,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       RichText(
-                        text: const TextSpan(
+                        text: TextSpan(
                           children: [
                             TextSpan(
                               text: "Select Department",
@@ -162,29 +181,33 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                           ],
                         ),
                       ),
-                      const SizedBox(
+                      SizedBox(
                         height: 5,
                       ),
                       InkWell(
-                        child: TextFormField(
-                          onTapOutside: (event) =>
-                              FocusScope.of(context).unfocus(),
-                          controller: departmentController,
-                          decoration: InputDecoration(
-                            suffixIcon: IconButton(
-                              icon: const Icon(Icons.calendar_month),
-                              onPressed: () {
-                                _showDepartmentSelection(context);
-                              },
+                          child: TextFormField(
+                        readOnly:
+                            true, // Set this to true to disable the keyboard
+                        controller: departmentController,
+                        decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              Icons.arrow_drop_down_sharp,
+                              size: 40,
                             ),
-                            border: const OutlineInputBorder(),
-                            hintText: 'Select Ticket Date',
-                            fillColor: Colors.white,
-                            filled: true,
+                            onPressed: () {
+                              _showDepartmentSelection(context);
+                            },
                           ),
-                          readOnly: true,
+                          border: OutlineInputBorder(),
+                          hintText: 'Select department',
+                          fillColor: Colors.white,
+                          filled: true,
                         ),
-                      ),
+                        onTap: () {
+                          _showDepartmentSelection(context);
+                        },
+                      )),
                     ],
                   ),
                 ),
@@ -544,7 +567,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                       backgroundColor: MaterialStateProperty.all(yellow),
                     ),
                   ),
-                ))
+                )),
               ],
             ),
           ),
@@ -597,35 +620,42 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
         return Container(
           child: Column(
             children: <Widget>[
-              const Text(
+              Text(
                 'Select Department',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: departmentList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return ListTile(
-                      title: Text(departmentList[index]['name'] ?? ''),
-                      onTap: () {
-                        selectedDepartment =
-                            departmentList[index]['name'] ?? '';
-                        departmentController.text = selectedDepartment;
-                        Navigator.of(context).pop();
-                      },
-                    );
-                  },
-                ),
-              ),
+              isLoading
+                  ? CircularProgressIndicator() // Show a loading indicator
+                  : departmentList.isEmpty
+                      ? Text('No data found')
+                      : Expanded(
+                          child: ListView.builder(
+                            itemCount: departmentList.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return ListTile(
+                                title:
+                                    Text(departmentList[index]['name'] ?? ''),
+                                onTap: () {
+                                  selectedDepartment =
+                                      departmentList[index]['name'] ?? '';
+                                  selectedDepartmentId =
+                                      departmentList[index]['id'] ?? '';
+                                  departmentController.text =
+                                      selectedDepartment;
+                                  Navigator.of(context).pop();
+                                },
+                              );
+                            },
+                          ),
+                        ),
             ],
           ),
         );
       },
     );
   }
-
-  //////////////////////////////////////////////
+//////////////////////////////////////////////
 }
