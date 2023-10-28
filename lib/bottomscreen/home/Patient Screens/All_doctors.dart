@@ -64,7 +64,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
     setState(() {
       filteredData = data
           ?.where((element) =>
-              element['name'].toLowerCase().contains(query.toLowerCase())||element['id'].toLowerCase().contains(query.toLowerCase()))
+              element['name'].toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }

@@ -49,10 +49,15 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
   }
 
 ////////////////////////////// for select departmet
-  Map<String, dynamic>? DataMap;
+  // Map<String, dynamic>? DataMap;
 
-  List<dynamic> departmentList = [];
-  List<dynamic> departmentListdata = [];
+  // List<dynamic> departmentList = [];
+  // List<dynamic> departmentListdata = [];
+
+   Map<String, dynamic>? DataMap;
+   Map<String, dynamic>? maritalStatus;
+  List<dynamic>? data = [];
+  List<dynamic>? filteredData = [];
 
   bool isLoading = true;
 
@@ -62,9 +67,11 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
 
     if (response.statusCode == 200) {
       final DataMap = json.decode(response.body);
-      departmentList = DataMap['department'];
-      departmentListdata=departmentList;
-      print(departmentListdata);
+      data = DataMap['department'];
+      maritalStatus = DataMap['marital_status'];
+      
+      filteredData=data;
+      print(filteredData);
 
       
     }
@@ -77,14 +84,22 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
     });
   }
 
-    void filterData(String query) {
-    setState(() {
-      departmentListdata = departmentList
-          .where((element) =>
-              element['name'].toLowerCase().contains(query.toLowerCase()))
+ void filterData(String query) {
+  setState(() {
+    if (query.isEmpty) {
+      // If the query is empty, show all departments.
+      filteredData = data;
+    } else {
+      // Filter departments based on the query.
+      filteredData = data
+          ?.where((element) =>
+              element['name'].toLowerCase().contains(query.toLowerCase()) 
+             )
           .toList();
-    });
-  }
+    }
+  });
+}
+
 TextEditingController searchController=TextEditingController();
 
   /////////////////////////////
@@ -93,6 +108,7 @@ TextEditingController searchController=TextEditingController();
     super.initState();
     selectedDate = DateTime.now();
     fetchDepartmentData();
+    searchController = TextEditingController();
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -332,7 +348,7 @@ TextEditingController searchController=TextEditingController();
                                 size: 40,
                               ),
                               onPressed: () {
-                                _showDepartmentSelection(context);
+                                _showMaritalSelection(context);
                               },
                             ),
                             border: const OutlineInputBorder(),
@@ -694,7 +710,7 @@ TextEditingController searchController=TextEditingController();
                   Center(
                       child: Container(
                     width: width,
-                    height: height / 15,
+                    height: height / 15,  
                     child: ElevatedButton(
                       child: Text('proceed'.tr),
                       onPressed: () {
@@ -788,7 +804,7 @@ TextEditingController searchController=TextEditingController();
                             hintText: 'Search Department',
                             border: OutlineInputBorder(),
                             suffixIcon: Icon(Icons.search)))),
-                departmentList.isEmpty
+                filteredData!.isEmpty
                     ? const Text('No data found')
                     : FutureBuilder(
                         future: fetchDepartmentData(),
@@ -796,22 +812,23 @@ TextEditingController searchController=TextEditingController();
                             (BuildContext context, AsyncSnapshot snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.done) {
-                            return Expanded(
+                            return
+                             Expanded(
                               child: ListView.builder(
-                                itemCount: departmentList.length,
+                                itemCount: filteredData?.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   // Use index + 1 to display 1-based numbers
-                                  int itemNumber = index + 1;
+                                  // int itemNumber = index + 1;
                                   return Card(
                                     color: Colors.white70.withOpacity(0.7),
                                     child: ListTile(
                                       title: Text(
-                                          '$itemNumber. ${departmentList[index]['name'] ?? ''}'),
+                                          ' ${filteredData?[index]['name'] ?? ''}'),
                                       onTap: () {
                                         selectedDepartment =
-                                            departmentList[index]['name'] ?? '';
+                                            filteredData?[index]['name'] ?? '';
                                         selectedDepartmentId =
-                                            departmentList[index]['id'] ?? '';
+                                            filteredData?[index]['id'] ?? '';
                                         departmentController.text =
                                             selectedDepartment;
                                         Navigator.of(context).pop();
@@ -847,4 +864,89 @@ TextEditingController searchController=TextEditingController();
   }
 
 //////////////////////////////////////////////
+///////////////////////////// for select marital status
+ 
+  void _showMaritalSelection(BuildContext context) {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+      ),
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: MediaQuery.of(context).size.height * 0.6,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: <Widget>[
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    'Select Marital Status',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+               
+                filteredData!.isEmpty
+                    ? const Text('No data found')
+                    : FutureBuilder(
+                        future: fetchDepartmentData(),
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return Expanded(
+                              child: ListView.builder(
+                                itemCount: maritalStatus?.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  // Use index + 1 to display 1-based numbers
+                                  // int itemNumber = index + 1;
+                                  return Card(
+                                    color: Colors.white70.withOpacity(0.7),
+                                    child: ListTile(
+                                      title: Text(
+                                          ' ${maritalStatus?[index]['name'] ?? ''}'),
+                                      onTap: () {
+                                        selectedDepartment =
+                                            maritalStatus?[index]['name'] ?? '';
+                                        selectedDepartmentId =
+                                            maritalStatus?[index]['id'] ?? '';
+                                        departmentController.text =
+                                            selectedDepartment;
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
+                            );
+                          } else if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Expanded(
+                                child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Container(
+                                height: 50,
+                                width: 50,
+                                color: Colors.transparent,
+                                child: const LoadingIndicatorWidget(),
+                              ),
+                            ));
+                          } else {
+                            return Container();
+                          }
+                        },
+                      ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
 }
