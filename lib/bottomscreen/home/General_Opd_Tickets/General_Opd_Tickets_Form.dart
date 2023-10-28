@@ -48,10 +48,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
   }
 
 ////////////////////////////// for select departmet
-  // Map<String, dynamic>? DataMap;
 
-  // List<dynamic> departmentList = [];
-  // List<dynamic> departmentListdata = [];
 
   Map<String, dynamic>? DataMap;
   Map<String, dynamic>? maritalStatus;
