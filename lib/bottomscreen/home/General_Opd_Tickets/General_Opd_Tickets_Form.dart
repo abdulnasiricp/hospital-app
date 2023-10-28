@@ -761,52 +761,60 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
 
   void _showDepartmentSelection(BuildContext context) {
     showModalBottomSheet(
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+      ),
       context: context,
       builder: (BuildContext context) {
-        return Column(
-          children: <Widget>[
-            const Text(
-              'Select Department',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+        return Container(
+          height: MediaQuery.of(context).size.height * 0.6,
+          child: Column(
+            children: <Widget>[
+              const Text(
+                'Select Department',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            // isLoading
-            //     ? const CircularProgressIndicator() // Show a loading indicator
-            //     :
-            departmentList.isEmpty
-                ? const Text('No data found')
-                : FutureBuilder(
-                    future: fetchDepartmentData(),
-                    builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        return Expanded(
-                          child: ListView.builder(
-                            itemCount: departmentList.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return ListTile(
-                                title:
-                                    Text(departmentList[index]['name'] ?? ''),
-                                onTap: () {
-                                  selectedDepartment =
-                                      departmentList[index]['name'] ?? '';
-                                  selectedDepartmentId =
-                                      departmentList[index]['id'] ?? '';
-                                  departmentController.text =
-                                      selectedDepartment;
-                                  Navigator.of(context).pop();
-                                },
-                              );
-                            },
-                          ),
-                        );
-                      }else{
-                        return Container();
-                      }
-                    }
-                   )
-          ],
+              departmentList.isEmpty
+                  ? const Text('No data found')
+                  : FutureBuilder(
+                      future: fetchDepartmentData(),
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return Expanded(
+                            child: ListView.builder(
+                              itemCount: departmentList.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                // Use index + 1 to display 1-based numbers
+                                int itemNumber = index + 1;
+                                return Card(
+                                  color: Colors.white70.withOpacity(0.7),
+                                  child: ListTile(
+                                    title: Text(
+                                        '$itemNumber. ${departmentList[index]['name'] ?? ''}'),
+                                    onTap: () {
+                                      selectedDepartment =
+                                          departmentList[index]['name'] ?? '';
+                                      selectedDepartmentId =
+                                          departmentList[index]['id'] ?? '';
+                                      departmentController.text =
+                                          selectedDepartment;
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                );
+                              },
+                            ),
+                          );
+                        } else {
+                          return Container();
+                        }
+                      })
+            ],
+          ),
         );
       },
     );
