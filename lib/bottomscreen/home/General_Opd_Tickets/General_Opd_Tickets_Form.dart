@@ -1,11 +1,9 @@
-// ignore_for_file: file_names, camel_case_types, duplicate_ignore, avoid_print, sized_box_for_whitespace
+// ignore_for_file: file_names, camel_case_types, duplicate_ignore, avoid_print, sized_box_for_whitespace, non_constant_identifier_names
 
-import 'package:TezHealthCare/check.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
-import 'package:get/route_manager.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -50,30 +48,40 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
   }
 
 ////////////////////////////// for select departmet
-  List<Map<String, String>> departmentList = [];
+  List<dynamic> departmentList = [];
 
   bool isLoading = true;
 
   Future<void> fetchDepartmentData() async {
-    final response = await http.get(Uri.parse(
+    final response = await http.post(Uri.parse(
         'https://uat.tez.hospital/xzy/webservice/lists')); // Replace with your API endpoint
 
     if (response.statusCode == 200) {
-      try {
-        final data = json.decode(response.body);
-        if (data is List) {
-          setState(() {
-            departmentList = List<Map<String, String>>.from(data);
-            isLoading = false;
-          });
-        } else {
-          handleNonJsonResponse();
-        }
-      } catch (e) {
-        handleNonJsonResponse();
-      }
-    } else {
-      handleNonJsonResponse();
+      final data = json.decode(response.body);
+      print(data);
+      departmentList = data['department'];
+      print(departmentList);
+
+      // if (data is List) {
+      //   setState(() {
+      //     // departmentList = List<Map<String, String>>.from(data);
+      //     isLoading = false;
+      //   });
+      // } else {
+      //   handleNonJsonResponse();
+      //     isLoading = false;
+
+      // }
+      // } catch (e) {
+      //   handleNonJsonResponse();
+      //       isLoading = false;
+
+      // }
+      // } else {
+      //   handleNonJsonResponse();
+      //         isLoading = false;
+
+      // }
     }
   }
 
@@ -169,7 +177,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         RichText(
-                          text: TextSpan(
+                          text: const TextSpan(
                             children: [
                               TextSpan(
                                 text: "Select Department",
@@ -187,7 +195,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                             ],
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 5,
                         ),
                         InkWell(
@@ -203,7 +211,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                           controller: departmentController,
                           decoration: InputDecoration(
                             suffixIcon: IconButton(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.arrow_drop_down_sharp,
                                 size: 40,
                               ),
@@ -211,7 +219,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                                 _showDepartmentSelection(context);
                               },
                             ),
-                            border: OutlineInputBorder(),
+                            border: const OutlineInputBorder(),
                             hintText: 'Select department',
                             fillColor: Colors.white,
                             filled: true,
@@ -290,7 +298,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         RichText(
-                          text: TextSpan(
+                          text: const TextSpan(
                             children: [
                               TextSpan(
                                 text: "Marital Status",
@@ -308,7 +316,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                             ],
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 5,
                         ),
                         InkWell(
@@ -324,7 +332,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                           controller: maritalstatusController,
                           decoration: InputDecoration(
                             suffixIcon: IconButton(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.arrow_drop_down_sharp,
                                 size: 40,
                               ),
@@ -332,7 +340,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                                 _showDepartmentSelection(context);
                               },
                             ),
-                            border: OutlineInputBorder(),
+                            border: const OutlineInputBorder(),
                             hintText: 'Select Marital Status',
                             fillColor: Colors.white,
                             filled: true,
@@ -492,13 +500,12 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                         ],
                       ),
                       if (selectedGender.isEmpty) // Add this condition
-                        Text(
+                        const Text(
                           'Please select a gender', // Error message
                           style: TextStyle(
                             color: Colors.red,
                           ),
                         ),
-
                     ],
                   ),
                   const SizedBox(
@@ -756,21 +763,25 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
-        return Container(
-          child: Column(
-            children: <Widget>[
-              Text(
-                'Select Department',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+        return Column(
+          children: <Widget>[
+            const Text(
+              'Select Department',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
               ),
-              isLoading
-                  ? CircularProgressIndicator() // Show a loading indicator
-                  : departmentList.isEmpty
-                      ? Text('No data found')
-                      : Expanded(
+            ),
+            // isLoading
+            //     ? const CircularProgressIndicator() // Show a loading indicator
+            //     :
+            departmentList.isEmpty
+                ? const Text('No data found')
+                : FutureBuilder(
+                    future: fetchDepartmentData(),
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        return Expanded(
                           child: ListView.builder(
                             itemCount: departmentList.length,
                             itemBuilder: (BuildContext context, int index) {
@@ -789,9 +800,13 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                               );
                             },
                           ),
-                        ),
-            ],
-          ),
+                        );
+                      }else{
+                        return Container();
+                      }
+                    }
+                   )
+          ],
         );
       },
     );

@@ -12,7 +12,6 @@ import 'package:http/http.dart' as http;
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/profile_model.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
-import 'package:TezHealthCare/utils/My_button.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/foundation.dart';
@@ -590,9 +589,9 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                             ),
                                           ],
                                         ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: const DottedLineDivider(),
+                                      const Padding(
+                                        padding: EdgeInsets.all(10.0),
+                                        child: DottedLineDivider(),
                                       ),
                                       Row(
                                         mainAxisAlignment:
