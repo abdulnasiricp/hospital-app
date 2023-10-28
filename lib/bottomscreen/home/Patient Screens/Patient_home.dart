@@ -237,12 +237,24 @@ class _PatientHomePageState extends State<PatientHomePage> {
     final prefs = await SharedPreferences.getInstance();
     final storedNotifications = prefs.getStringList('notifications') ?? [];
     final newNotifications = storedNotifications.map((text) {
-      return NotificationItem(text: text, isRead: prefs.getBool(text) ?? false);
+      final id =
+          storedNotifications.indexOf(text); // Unique ID for each notification
+      return NotificationItem(
+          id: id, text: text, isRead: prefs.getBool('isRead_$id') ?? false);
     }).toList();
 
     setState(() {
-      notifications = newNotifications.reversed.toList(); // Reverse the order
+      notifications = newNotifications.reversed.toList();
     });
+  }
+
+  void markNotificationAsRead(NotificationItem item) async {
+    if (item.isRead) return;
+
+    item.isRead = true;
+
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isRead_${item.id}', true);
   }
 
 // get Due amount
@@ -303,37 +315,61 @@ class _PatientHomePageState extends State<PatientHomePage> {
         //       .add('New data are added please check your pathology Bill');
         //   sharedPreferences.setStringList('notifications', notifications);
 
-        //   NotificationService().showNotification(
-        //       id: 1,
-        //       title: 'Pathology Bill',
-        //       body: 'New data are added please check your Pathology Bill',
-        //       payLoad: 'navigate_to_Pathology_bill');
+        // NotificationService().showNotification(
+        //     id: 1,
+        //     title: 'Pathology Bill',
+        //     body: 'New data are added please check your Pathology Bill',
+        //     payLoad: 'navigate_to_Pathology_bill');
         // }
+
         if (newPathologyLength > pathologyLength) {
-  sharedPreferences.setInt('pathologyLength', newPathologyLength);
-  final notifications = sharedPreferences.getStringList('notifications') ?? [];
-  const notificationText = 'New data are added please check your pathology Bill';
-  if (!notifications.contains(notificationText)) {
-    notifications.add(notificationText);
-    sharedPreferences.setStringList('notifications', notifications);
-  }
+          int notificationId = 1; // Initialize a notification ID
+          notificationId = sharedPreferences.getInt('notificationId') ??
+              1; // Retrieve the current ID
+          final notificationKey =
+              'notification_$notificationId'; // Create a key with the ID
+          sharedPreferences.setInt('pathologyLength', newPathologyLength);
 
-  NotificationService().showNotification(
-      id: 1,
-      title: 'Pathology Bill',
-      body: 'New data are added please check your Pathology Bill',
-      payLoad: 'navigate_to_Pathology_bill');
-}
+          final notifications =
+              sharedPreferences.getStringList(notificationKey) ?? [];
+          notifications
+              .add('New data are added please check your pathology Bill');
+          sharedPreferences.setStringList(notificationKey, notifications);
 
+          // Increment the notification ID for the next notification
+          sharedPreferences.setInt('notificationId', notificationId + 1);
+
+          // ... (showNotification code)
+          NotificationService().showNotification(
+              id: 1,
+              title: 'Pathology Bill',
+              body: 'New data are added please check your Pathology Bill',
+              payLoad: 'navigate_to_Pathology_bill');
+        }
 
         if (newPharmacyLength > PharmacyLangth) {
-          sharedPreferences.setInt('PharmacyLangth', newPharmacyLength);
-          final notifications =
-              sharedPreferences.getStringList('notifications') ?? [];
-          notifications
-              .add('New data are added please check your Pharmacy Bill');
-          sharedPreferences.setStringList('notifications', notifications);
+          // sharedPreferences.setInt('PharmacyLangth', newPharmacyLength);
+          // final notifications =
+          //     sharedPreferences.getStringList('notifications') ?? [];
+          // notifications
+          //     .add('New data are added please check your Pharmacy Bill');
+          // sharedPreferences.setStringList('notifications', notifications);
 
+          int notificationId = 1; // Initialize a notification ID
+          notificationId = sharedPreferences.getInt('notificationId') ??
+              1; // Retrieve the current ID
+          final notificationKey =
+              'notification_$notificationId'; // Create a key with the ID
+          sharedPreferences.setInt('PharmacyLangth', newPharmacyLength);
+
+          final notifications =
+              sharedPreferences.getStringList(notificationKey) ?? [];
+          notifications
+              .add('New data are added please check your pathology Bill');
+          sharedPreferences.setStringList(notificationKey, notifications);
+
+          // Increment the notification ID for the next notification
+          sharedPreferences.setInt('notificationId', notificationId + 1);
           NotificationService().showNotification(
               id: 1,
               title: 'Pharmacy Bill',
