@@ -327,66 +327,133 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                   const SizedBox(
                     height: 5,
                   ),
-                  Container(
-                    width: width,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        RichText(
-                          text: const TextSpan(
-                            children: [
-                              TextSpan(
-                                text: "Marital Status",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: width / 2.2,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: const TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: "Marital Status",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: '*',
+                                    style: TextStyle(
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            InkWell(
+                                child: TextFormField(
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'This field is required';
+                                }
+                                return null;
+                              },
+                              readOnly:
+                                  true, // Set this to true to disable the keyboard
+                              controller: maritalstatusController,
+                              decoration: InputDecoration(
+                                suffixIcon: IconButton(
+                                  icon: const Icon(
+                                    Icons.arrow_drop_down_sharp,
+                                    size: 40,
+                                  ),
+                                  onPressed: () {
+                                    _showMaritalSelection(context);
+                                  },
                                 ),
+                                border: const OutlineInputBorder(),
+                                hintText: 'Select Marital Status',
+                                fillColor: Colors.white,
+                                filled: true,
                               ),
-                              TextSpan(
-                                text: '*',
-                                style: TextStyle(
-                                  color: Colors.red,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        InkWell(
-                            child: TextFormField(
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'This field is required';
-                            }
-                            return null;
-                          },
-                          readOnly:
-                              true, // Set this to true to disable the keyboard
-                          controller: maritalstatusController,
-                          decoration: InputDecoration(
-                            suffixIcon: IconButton(
-                              icon: const Icon(
-                                Icons.arrow_drop_down_sharp,
-                                size: 40,
-                              ),
-                              onPressed: () {
+                              onTap: () {
                                 _showMaritalSelection(context);
                               },
+                            )),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: width / 2.2,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: const TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: "Blood Group",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: '*',
+                                    style: TextStyle(
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                            border: const OutlineInputBorder(),
-                            hintText: 'Select Marital Status',
-                            fillColor: Colors.white,
-                            filled: true,
-                          ),
-                          onTap: () {
-                            _showMaritalSelection(context);
-                          },
-                        )),
-                      ],
-                    ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            InkWell(
+                                child: TextFormField(
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'This field is required';
+                                }
+                                return null;
+                              },
+                              readOnly:
+                                  true, // Set this to true to disable the keyboard
+                              controller: maritalstatusController,
+                              decoration: InputDecoration(
+                                suffixIcon: IconButton(
+                                  icon: const Icon(
+                                    Icons.arrow_drop_down_sharp,
+                                    size: 40,
+                                  ),
+                                  onPressed: () {
+                                    _showMaritalSelection(context);
+                                  },
+                                ),
+                                border: const OutlineInputBorder(),
+                                hintText: 'Select Blood Grou',
+                                fillColor: Colors.white,
+                                filled: true,
+                              ),
+                              onTap: () {
+                                _showMaritalSelection(context);
+                              },
+                            )),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
+
                   const SizedBox(
                     height: 5,
                   ),
@@ -928,7 +995,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
             return Container(
-              height: MediaQuery.of(context).size.height * 0.8,
+              height: MediaQuery.of(context).size.height * 0.5,
               child: Column(
                 children: <Widget>[
                   const Padding(
@@ -938,26 +1005,6 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0, right: 8),
-                    child: Container(
-                      width: width / 0.8,
-                      height: 50,
-                      child: TextFormField(
-                        controller: searchController,
-                        onChanged: (query) {
-                          setState(() {
-                            filterData(query);
-                          });
-                        },
-                        decoration: const InputDecoration(
-                          hintText: 'Search Marital Status',
-                          border: OutlineInputBorder(),
-                          suffixIcon: Icon(Icons.search),
-                        ),
                       ),
                     ),
                   ),
