@@ -295,20 +295,36 @@ class _PatientHomePageState extends State<PatientHomePage> {
         int newblood_bankLength = data['blood_bank']['length'];
         int newradiologyLength = data['radiology']['length'];
 
-        if (newPathologyLength > pathologyLength) {
-          sharedPreferences.setInt('pathologyLength', newPathologyLength);
-          final notifications =
-              sharedPreferences.getStringList('notifications') ?? [];
-          notifications
-              .add('New data are added please check your pathology Bill');
-          sharedPreferences.setStringList('notifications', notifications);
+        // if (newPathologyLength > pathologyLength) {
+        //   sharedPreferences.setInt('pathologyLength', newPathologyLength);
+        //   final notifications =
+        //       sharedPreferences.getStringList('notifications') ?? [];
+        //   notifications
+        //       .add('New data are added please check your pathology Bill');
+        //   sharedPreferences.setStringList('notifications', notifications);
 
-          NotificationService().showNotification(
-              id: 1,
-              title: 'Pathology Bill',
-              body: 'New data are added please check your Pathology Bill',
-              payLoad: 'navigate_to_Pathology_bill');
-        }
+        //   NotificationService().showNotification(
+        //       id: 1,
+        //       title: 'Pathology Bill',
+        //       body: 'New data are added please check your Pathology Bill',
+        //       payLoad: 'navigate_to_Pathology_bill');
+        // }
+        if (newPathologyLength > pathologyLength) {
+  sharedPreferences.setInt('pathologyLength', newPathologyLength);
+  final notifications = sharedPreferences.getStringList('notifications') ?? [];
+  const notificationText = 'New data are added please check your pathology Bill';
+  if (!notifications.contains(notificationText)) {
+    notifications.add(notificationText);
+    sharedPreferences.setStringList('notifications', notifications);
+  }
+
+  NotificationService().showNotification(
+      id: 1,
+      title: 'Pathology Bill',
+      body: 'New data are added please check your Pathology Bill',
+      payLoad: 'navigate_to_Pathology_bill');
+}
+
 
         if (newPharmacyLength > PharmacyLangth) {
           sharedPreferences.setInt('PharmacyLangth', newPharmacyLength);
