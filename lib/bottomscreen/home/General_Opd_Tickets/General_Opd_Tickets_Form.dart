@@ -2,7 +2,6 @@
 
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
-import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:intl/intl.dart';
@@ -54,26 +53,25 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
   // List<dynamic> departmentList = [];
   // List<dynamic> departmentListdata = [];
 
-   Map<String, dynamic>? DataMap;
-   Map<String, dynamic>? maritalStatus;
+  Map<String, dynamic>? DataMap;
+  Map<String, dynamic>? maritalStatus;
   List<dynamic>? data = [];
   List<dynamic>? filteredData = [];
 
   bool isLoading = true;
-
   Future<void> fetchDepartmentData() async {
-    final response = await http.post(Uri.parse(
-        'https://uat.tez.hospital/xzy/webservice/lists')); // Replace with your API endpoint
+    final response = await http
+        .post(Uri.parse('https://uat.tez.hospital/xzy/webservice/lists'));
 
     if (response.statusCode == 200) {
-      final DataMap = json.decode(response.body);
-      data = DataMap['department'];
-      maritalStatus = DataMap['marital_status'];
-      
-      filteredData=data;
-      print(filteredData);
-
-      
+      final dataMap = json.decode(response.body);
+      setState(() {
+        data = dataMap['department'];
+        filteredData = data;
+        isLoading = false;
+      });
+    } else {
+      handleNonJsonResponse();
     }
   }
 
@@ -84,23 +82,17 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
     });
   }
 
- void filterData(String query) {
-  setState(() {
-    if (query.isEmpty) {
-      // If the query is empty, show all departments.
-      filteredData = data;
-    } else {
-      // Filter departments based on the query.
+  void filterData(String query) {
+    setState(() {
       filteredData = data
           ?.where((element) =>
-              element['name'].toLowerCase().contains(query.toLowerCase()) 
-             )
+              element['name'].toLowerCase().contains(query.toLowerCase()) ||
+              element['id'].toLowerCase().contains(query.toLowerCase()))
           .toList();
-    }
-  });
-}
+    });
+  }
 
-TextEditingController searchController=TextEditingController();
+  TextEditingController searchController = TextEditingController();
 
   /////////////////////////////
   @override
@@ -108,7 +100,10 @@ TextEditingController searchController=TextEditingController();
     super.initState();
     selectedDate = DateTime.now();
     fetchDepartmentData();
-    searchController = TextEditingController();
+    searchController =
+        TextEditingController(); // Initialize the search controller.
+    data = []; // Initialize data as an empty list.
+    filteredData = []; // Initialize filteredData as an empty list.
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -710,7 +705,7 @@ TextEditingController searchController=TextEditingController();
                   Center(
                       child: Container(
                     width: width,
-                    height: height / 15,  
+                    height: height / 15,
                     child: ElevatedButton(
                       child: Text('proceed'.tr),
                       onPressed: () {
@@ -769,7 +764,6 @@ TextEditingController searchController=TextEditingController();
   }
 
   ///////////////////////////// for select department
- 
   void _showDepartmentSelection(BuildContext context) {
     showModalBottomSheet(
       isScrollControlled: true,
@@ -778,86 +772,66 @@ TextEditingController searchController=TextEditingController();
       ),
       context: context,
       builder: (BuildContext context) {
-        return Container(
-          height: MediaQuery.of(context).size.height * 0.6,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: <Widget>[
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    'Select Department',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return Container(
+              height: MediaQuery.of(context).size.height * 0.8,
+              child: Column(
+                children: <Widget>[
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'Select Department',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-                Container(
+                  Container(
                     height: 50,
                     child: TextFormField(
                       controller: searchController,
-                      onChanged: (query) => filterData(query),
-
-                        decoration: const InputDecoration(
-                            hintText: 'Search Department',
-                            border: OutlineInputBorder(),
-                            suffixIcon: Icon(Icons.search)))),
-                filteredData!.isEmpty
-                    ? const Text('No data found')
-                    : FutureBuilder(
-                        future: fetchDepartmentData(),
-                        builder:
-                            (BuildContext context, AsyncSnapshot snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            return
-                             Expanded(
-                              child: ListView.builder(
-                                itemCount: filteredData?.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  // Use index + 1 to display 1-based numbers
-                                  // int itemNumber = index + 1;
-                                  return Card(
-                                    color: Colors.white70.withOpacity(0.7),
-                                    child: ListTile(
-                                      title: Text(
-                                          ' ${filteredData?[index]['name'] ?? ''}'),
-                                      onTap: () {
-                                        selectedDepartment =
-                                            filteredData?[index]['name'] ?? '';
-                                        selectedDepartmentId =
-                                            filteredData?[index]['id'] ?? '';
-                                        departmentController.text =
-                                            selectedDepartment;
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  );
-                                },
-                              ),
-                            );
-                          } else if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return Expanded(
-                                child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Container(
-                                height: 50,
-                                width: 50,
-                                color: Colors.transparent,
-                                child: const LoadingIndicatorWidget(),
-                              ),
-                            ));
-                          } else {
-                            return Container();
-                          }
-                        },
+                      onChanged: (query) {
+                        setState(() {
+                          filterData(query);
+                        });
+                      },
+                      decoration: const InputDecoration(
+                        hintText: 'Search Department',
+                        border: OutlineInputBorder(),
+                        suffixIcon: Icon(Icons.search),
                       ),
-              ],
-            ),
-          ),
+                    ),
+                  ),
+                  isLoading?const Center(child: CircularProgressIndicator()):
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: filteredData?.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Card(
+                          color: Colors.white70.withOpacity(0.7),
+                          child: ListTile(
+                            title: Text(
+                              ' ${filteredData?[index]['name'] ?? ''}',
+                            ),
+                            onTap: () {
+                              selectedDepartment =
+                                  filteredData?[index]['name'] ?? '';
+                              selectedDepartmentId =
+                                  filteredData?[index]['id'] ?? '';
+                              departmentController.text = selectedDepartment;
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
         );
       },
     );
@@ -865,88 +839,77 @@ TextEditingController searchController=TextEditingController();
 
 //////////////////////////////////////////////
 ///////////////////////////// for select marital status
- 
+
   void _showMaritalSelection(BuildContext context) {
-    showModalBottomSheet(
+     showModalBottomSheet(
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
       ),
       context: context,
       builder: (BuildContext context) {
-        return Container(
-          height: MediaQuery.of(context).size.height * 0.6,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: <Widget>[
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    'Select Marital Status',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return Container(
+              height: MediaQuery.of(context).size.height * 0.8,
+              child: Column(
+                children: <Widget>[
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'Select Marital Status',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-               
-                filteredData!.isEmpty
-                    ? const Text('No data found')
-                    : FutureBuilder(
-                        future: fetchDepartmentData(),
-                        builder:
-                            (BuildContext context, AsyncSnapshot snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            return Expanded(
-                              child: ListView.builder(
-                                itemCount: maritalStatus?.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  // Use index + 1 to display 1-based numbers
-                                  // int itemNumber = index + 1;
-                                  return Card(
-                                    color: Colors.white70.withOpacity(0.7),
-                                    child: ListTile(
-                                      title: Text(
-                                          ' ${maritalStatus?[index]['name'] ?? ''}'),
-                                      onTap: () {
-                                        selectedDepartment =
-                                            maritalStatus?[index]['name'] ?? '';
-                                        selectedDepartmentId =
-                                            maritalStatus?[index]['id'] ?? '';
-                                        departmentController.text =
-                                            selectedDepartment;
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  );
-                                },
-                              ),
-                            );
-                          } else if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return Expanded(
-                                child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Container(
-                                height: 50,
-                                width: 50,
-                                color: Colors.transparent,
-                                child: const LoadingIndicatorWidget(),
-                              ),
-                            ));
-                          } else {
-                            return Container();
-                          }
-                        },
+                  Container(
+                    height: 50,
+                    child: TextFormField(
+                      controller: searchController,
+                      onChanged: (query) {
+                        setState(() {
+                          filterData(query);
+                        });
+                      },
+                      decoration: const InputDecoration(
+                        hintText: 'Search Marital Status',
+                        border: OutlineInputBorder(),
+                        suffixIcon: Icon(Icons.search),
                       ),
-              ],
-            ),
-          ),
+                    ),
+                  ),
+                  isLoading?const Center(child: CircularProgressIndicator()):
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: filteredData?.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Card(
+                          color: Colors.white70.withOpacity(0.7),
+                          child: ListTile(
+                            title: Text(
+                              ' ${filteredData?[index]['name'] ?? ''}',
+                            ),
+                            onTap: () {
+                              selectedDepartment =
+                                  filteredData?[index]['name'] ?? '';
+                              selectedDepartmentId =
+                                  filteredData?[index]['id'] ?? '';
+                              departmentController.text = selectedDepartment;
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
         );
       },
     );
   }
-
 }
