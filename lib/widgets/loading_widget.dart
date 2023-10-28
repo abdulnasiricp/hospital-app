@@ -6,7 +6,7 @@ class LoadingIndicatorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.transparent,
       body: Center(
         child: LoadingIndicator(
             indicatorType: Indicator.lineScalePulseOut,

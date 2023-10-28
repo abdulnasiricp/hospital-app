@@ -49,7 +49,10 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
   }
 
 ////////////////////////////// for select departmet
+  Map<String, dynamic>? DataMap;
+
   List<dynamic> departmentList = [];
+  List<dynamic> departmentListdata = [];
 
   bool isLoading = true;
 
@@ -58,31 +61,12 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
         'https://uat.tez.hospital/xzy/webservice/lists')); // Replace with your API endpoint
 
     if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      print(data);
-      departmentList = data['department'];
-      print(departmentList);
+      final DataMap = json.decode(response.body);
+      departmentList = DataMap['department'];
+      departmentListdata=departmentList;
+      print(departmentListdata);
 
-      // if (data is List) {
-      //   setState(() {
-      //     // departmentList = List<Map<String, String>>.from(data);
-      //     isLoading = false;
-      //   });
-      // } else {
-      //   handleNonJsonResponse();
-      //     isLoading = false;
-
-      // }
-      // } catch (e) {
-      //   handleNonJsonResponse();
-      //       isLoading = false;
-
-      // }
-      // } else {
-      //   handleNonJsonResponse();
-      //         isLoading = false;
-
-      // }
+      
     }
   }
 
@@ -92,6 +76,16 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
       isLoading = false;
     });
   }
+
+    void filterData(String query) {
+    setState(() {
+      departmentListdata = departmentList
+          .where((element) =>
+              element['name'].toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    });
+  }
+TextEditingController searchController=TextEditingController();
 
   /////////////////////////////
   @override
@@ -759,7 +753,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
   }
 
   ///////////////////////////// for select department
-
+ 
   void _showDepartmentSelection(BuildContext context) {
     showModalBottomSheet(
       isScrollControlled: true,
@@ -770,64 +764,82 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
       builder: (BuildContext context) {
         return Container(
           height: MediaQuery.of(context).size.height * 0.6,
-          child: Column(
-            children: <Widget>[
-              const Text(
-                'Select Department',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              departmentList.isEmpty
-                  ? const Text('No data found')
-                  : FutureBuilder(
-                      future: fetchDepartmentData(),
-                      builder: (BuildContext context, AsyncSnapshot snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          return Expanded(
-                            child: ListView.builder(
-                              itemCount: departmentList.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                // Use index + 1 to display 1-based numbers
-                                int itemNumber = index + 1;
-                                return Card(
-                                  color: Colors.white70.withOpacity(0.7),
-                                  child: ListTile(
-                                    title: Text(
-                                        '$itemNumber. ${departmentList[index]['name'] ?? ''}'),
-                                    onTap: () {
-                                      selectedDepartment =
-                                          departmentList[index]['name'] ?? '';
-                                      selectedDepartmentId =
-                                          departmentList[index]['id'] ?? '';
-                                      departmentController.text =
-                                          selectedDepartment;
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                );
-                              },
-                            ),
-                          );
-                        } else if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Expanded(
-                              child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Container(
-                              height: 50,
-                              width: 50,
-                              color: Colors.transparent,
-                              child: const LoadingIndicatorWidget(),
-                            ),
-                          ));
-                        } else {
-                          return Container();
-                        }
-                      },
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: <Widget>[
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    'Select Department',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
-            ],
+                  ),
+                ),
+                Container(
+                    height: 50,
+                    child: TextFormField(
+                      controller: searchController,
+                      onChanged: (query) => filterData(query),
+
+                        decoration: const InputDecoration(
+                            hintText: 'Search Department',
+                            border: OutlineInputBorder(),
+                            suffixIcon: Icon(Icons.search)))),
+                departmentList.isEmpty
+                    ? const Text('No data found')
+                    : FutureBuilder(
+                        future: fetchDepartmentData(),
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return Expanded(
+                              child: ListView.builder(
+                                itemCount: departmentList.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  // Use index + 1 to display 1-based numbers
+                                  int itemNumber = index + 1;
+                                  return Card(
+                                    color: Colors.white70.withOpacity(0.7),
+                                    child: ListTile(
+                                      title: Text(
+                                          '$itemNumber. ${departmentList[index]['name'] ?? ''}'),
+                                      onTap: () {
+                                        selectedDepartment =
+                                            departmentList[index]['name'] ?? '';
+                                        selectedDepartmentId =
+                                            departmentList[index]['id'] ?? '';
+                                        departmentController.text =
+                                            selectedDepartment;
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
+                            );
+                          } else if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Expanded(
+                                child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Container(
+                                height: 50,
+                                width: 50,
+                                color: Colors.transparent,
+                                child: const LoadingIndicatorWidget(),
+                              ),
+                            ));
+                          } else {
+                            return Container();
+                          }
+                        },
+                      ),
+              ],
+            ),
           ),
         );
       },
