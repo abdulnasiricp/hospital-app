@@ -1,10 +1,12 @@
 // ignore_for_file: file_names, camel_case_types, duplicate_ignore, avoid_print, sized_box_for_whitespace, non_constant_identifier_names
 
+import 'package:TezHealthCare/check.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
+import 'package:get/route_manager.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -38,6 +40,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
   TextEditingController departmentController = TextEditingController();
   TextEditingController maritalstatusController = TextEditingController();
   String selectedDepartment = '';
+  String selectedMaritalstatus = '';
   String selectedDepartmentId = '';
   String Maritalstatus = '';
   String selectedGender = ''; // Stores the selected gender.
@@ -101,9 +104,37 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
     searchController =
         TextEditingController(); // Initialize the search controller.
     data = []; // Initialize data as an empty list.
-    filteredData = []; // Initialize filteredData as an empty list.
+    filteredData = [];
+    // Initialize filteredData as an empty list.
+    fetchMaritalStatusData();
   }
 
+  //////////////////////////////////////////////////////////////////////////// For Marital Status
+  List<String> maritalStatusList = [];
+  Future<void> fetchMaritalStatusData() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    final response = await http
+        .post(Uri.parse('https://uat.tez.hospital/xzy/webservice/lists'));
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      final maritalStatus = data['marital_status'];
+      setState(() {
+        maritalStatusList = maritalStatus.values.toList().cast<String>();
+        isLoading = false;
+      });
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      throw Exception('Failed to load marital status data');
+    }
+  }
+
+//////////////////////////////////////////////////////////////////////////// For Marital Status
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -717,6 +748,26 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                       ),
                     ),
                   )),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Center(
+                      child: Container(
+                    width: width,
+                    height: height / 15,
+                    child: ElevatedButton(
+                      child: Text('proceed'.tr),
+                      onPressed: () {
+                        Get.to(() => MaritalStatusList());
+                      },
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(yellow),
+                      ),
+                    ),
+                  )),
                 ],
               ),
             ),
@@ -914,14 +965,16 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                       ? Expanded(
                           child: Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            height: 50,
-                            width: 50,
-                            color: Colors.transparent,
-                            child: const LoadingIndicatorWidget(),
+                          child: Center(
+                            child: Container(
+                              height: 50,
+                              width: 50,
+                              color: Colors.transparent,
+                              child: const LoadingIndicatorWidget(),
+                            ),
                           ),
                         ))
-                      : filteredData!.isEmpty
+                      : maritalStatusList.isEmpty
                           ? Expanded(
                               child: Center(
                               child: Container(
@@ -935,22 +988,20 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                             ))
                           : Expanded(
                               child: ListView.builder(
-                                itemCount: filteredData?.length,
+                                itemCount: maritalStatusList.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   int itemNumber = index + 1;
                                   return Card(
                                     color: Colors.white70.withOpacity(0.7),
                                     child: ListTile(
                                       title: Text(
-                                        '$itemNumber. ${filteredData?[index]['name'] ?? ''}',
+                                        '$itemNumber. ${maritalStatusList[index]}',
                                       ),
                                       onTap: () {
-                                        selectedDepartment =
-                                            filteredData?[index]['name'] ?? '';
-                                        selectedDepartmentId =
-                                            filteredData?[index]['id'] ?? '';
-                                        departmentController.text =
-                                            selectedDepartment;
+                                        selectedMaritalstatus =
+                                            maritalStatus?[index] ?? '';
+                                        maritalstatusController.text =
+                                            selectedMaritalstatus;
                                         Navigator.of(context).pop();
                                       },
                                     ),
