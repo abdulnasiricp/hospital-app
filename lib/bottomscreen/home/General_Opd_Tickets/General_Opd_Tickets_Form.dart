@@ -999,7 +999,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                                       ),
                                       onTap: () {
                                         selectedMaritalstatus =
-                                            maritalStatus?[index] ?? '';
+                                            maritalStatusList?[index] ?? '';
                                         maritalstatusController.text =
                                             selectedMaritalstatus;
                                         Navigator.of(context).pop();
