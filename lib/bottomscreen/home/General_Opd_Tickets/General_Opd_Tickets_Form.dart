@@ -2,6 +2,7 @@
 
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
+import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:intl/intl.dart';
@@ -809,15 +810,29 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                               },
                             ),
                           );
+                        } else if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Expanded(
+                              child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Container(
+                              height: 50,
+                              width: 50,
+                              color: Colors.transparent,
+                              child: const LoadingIndicatorWidget(),
+                            ),
+                          ));
                         } else {
                           return Container();
                         }
-                      })
+                      },
+                    ),
             ],
           ),
         );
       },
     );
   }
+
 //////////////////////////////////////////////
 }
