@@ -50,6 +50,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
   String selectedBloodGroup = '';
   String selectedBloodGroupId = '';
   String selectedDepartmentId = '';
+
   String Maritalstatus = '';
   String selectedGender = ''; // Stores the selected gender.
 
@@ -112,7 +113,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
     data = [];
     filteredData = [];
     fetchMaritalStatusData();
-    bloodGroupData();
+    fetchBloodgroupData();
   }
 
   //////////////////////////////////////////////////////////////////////////// For Marital Status
@@ -141,46 +142,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
   }
 
 /////////////////////////////////////
-  List<String> bloodGroupList = [];
-  Future<void> bloodGroupData() async {
-    setState(() {
-      isLoading = true;
-    });
 
-    try {
-      final response = await http
-          .post(Uri.parse('https://uat.tez.hospital/xzy/webservice/lists'));
-
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-
-        if (data.containsKey('bloodgroup')) {
-          final bloodGroupType = data['bloodgroup'];
-          print('==========$bloodGroupType');
-          setState(() {
-            bloodGroupList = bloodGroupType.values.toList().cast<String>();
-            print(bloodGroupList);
-            isLoading = false;
-          });
-        } else {}
-      } else {
-        // Handle non-200 status codes
-        setState(() {
-          isLoading = false;
-        });
-        throw Exception('Failed to load blood group data');
-      }
-    } catch (e) {
-      // Handle network or parsing errors
-      print('Error: $e');
-      setState(() {
-        isLoading = false;
-      });
-    }
-  }
-
-//////////////////////////////////////////////////////////////////////////// For Marital Status
-// ////////////////////////////////////////////////////////////////////////// For Marital Status
   List<String> BloodgroupList = [];
   Future<void> fetchBloodgroupData() async {
     setState(() {
@@ -204,6 +166,8 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
       throw Exception('Failed to load marital status data');
     }
   }
+
+//////////////////////////////////////////////////////////////////////////// For Marital Status
 
 //////////////////////////////////////////////////////////////////////////// For Marital Status
   Future<void> _selectTicketDate(BuildContext context) async {
@@ -248,7 +212,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
       'Auth-key': 'zbuks_ram859553467',
     };
     final body = {
-      "name": firstNameController.text +" "+ lastNameController.text,
+      "name": firstNameController.text + " " + lastNameController.text,
       "gender": selectedGender,
       "dob": DobController.text,
       "email": emailController.text,
@@ -845,7 +809,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                         TextFormField(
                           onTapOutside: (event) =>
                               FocusScope.of(context).unfocus(),
-                          controller: addresscontroller,
+                          controller: emailController,
                           decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               hintText: 'Enter Email Address',
@@ -894,7 +858,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                           },
                           onTapOutside: (event) =>
                               FocusScope.of(context).unfocus(),
-                          controller: emailController,
+                          controller: addresscontroller,
                           decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               hintText: 'Enter Your Full Address',
@@ -918,19 +882,23 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                       child: Text('proceed'.tr),
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          fetchOpdTicket();
+                          //  fetchOpdTicket();
                           Get.to(() => OPDTicketDetails(
-                                selectedDepartment:  departmentController.text,
+                                selectedDepartment: departmentController.text,
                                 ticketDate: TicketdateController.text,
                                 maritalStatus: maritalstatusController.text,
                                 bloodGroup: selectedBloodGroupId,
-                                patientName: firstNameController.text +" "+
+                                patientName: firstNameController.text +
+                                    " " +
                                     lastNameController.text,
                                 patientGender: selectedGender,
                                 patientDOB: DobController.text,
                                 patientMobile: phoneController.text,
                                 patientEmail: emailController.text,
-                                patientAddress: emailController.text,
+                                patientAddress: addresscontroller.text,
+                                Bloodgroupname: selectedBloodGroup,
+                                BloodgroupId: selectedBloodGroupId,
+                                DepartmentId: selectedDepartmentId,
                               ));
                         }
                       },
@@ -1067,7 +1035,6 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                                             filteredData?[index]['name'] ?? '';
                                         selectedDepartmentId =
                                             filteredData?[index]['id'] ?? '';
-
                                         departmentController.text =
                                             '($selectedDepartmentId) $selectedDepartment';
 
@@ -1188,7 +1155,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                   const Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text(
-                      'Select Blood Status',
+                      'Select Your Blood Group',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -1208,7 +1175,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                             ),
                           ),
                         ))
-                      : bloodGroupList.isEmpty
+                      : BloodgroupList.isEmpty
                           ? Expanded(
                               child: Center(
                               child: Container(
@@ -1222,27 +1189,28 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                             ))
                           : Expanded(
                               child: ListView.builder(
-                                itemCount: bloodGroupList.length,
+                                itemCount: BloodgroupList.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  int itemNumber = index + 1;
+                                  String bloodGroup =
+                                      BloodgroupList[index]; // Get the value
+                                  String bloodGroupId = (index + 1)
+                                      .toString(); // Create a key (e.g., 1-based index)
                                   return Card(
                                     color: Colors.white70.withOpacity(0.7),
                                     child: ListTile(
-                                      title: Text(
-                                        '$itemNumber. ${bloodGroupList[index]}',
-                                      ),
+                                      title: Text('$bloodGroupId. $bloodGroup'),
                                       onTap: () {
-                                        selectedBloodGroup =
-                                            bloodGroupList[index];
+                                        selectedBloodGroupId = bloodGroupId;
+                                        selectedBloodGroup = bloodGroup;
                                         BloodGroupController.text =
-                                            selectedBloodGroup;
+                                            '$selectedBloodGroupId. $selectedBloodGroup';
                                         Navigator.of(context).pop();
                                       },
                                     ),
                                   );
                                 },
                               ),
-                            ),
+                            )
                 ],
               ),
             );

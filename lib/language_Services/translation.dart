@@ -5,6 +5,7 @@ class Translation extends Translations {
   Map<String, Map<String, String>> get keys => {
         'en_US': {
           //Bottom Bar
+          'Ticketinfo': "Ticket's Information",
           'home': "Home",
           'transcation': "Transaction",
           'card': "Card",
@@ -72,14 +73,14 @@ class Translation extends Translations {
           //information Profile screen
           'informationProfile': "Information Profile",
           'patientID': "Patient ID",
-          'patientAge': "Age",
+          'patientAge': "Age:",
           'patientGender': "Gender",
-          'patientEmail': "Email",
-          'patientPhone': "Phone",
-          'patientBloodGroup': "Blood Group",
-          'patientAddress': "Address",
-          'patientMaritialStatus': "Maritial Status",
-          'patientGuardianName': "Guardian Name",
+          'patientEmail': "Email:",
+          'patientPhone': "Phone:",
+          'patientBloodGroup': "Blood Group:",
+          'patientAddress': "Address:",
+          'patientMaritialStatus': "Maritial Status:",
+          'patientGuardianName': "Guardian Name:",
 
           // Devices and Cridentials
           'devicesAndCredentials': "Devices and Credentials",
@@ -140,7 +141,7 @@ class Translation extends Translations {
           'patientDOB': "Date of Birth:",
           'patientPaymentAmount': "Payment amount:",
           'confirmationDesc':
-              "Please call and confirm at hospital if doctor is a availible at hospital on the day of appointment.",
+              "Please call and confirm at hospital if doctor is a availible at hospital on the day of Ticket.",
           'patientName': "Name:",
           'date': "Date:",
           'selectPaymentMethod': "Select Payment Method",
@@ -458,10 +459,12 @@ class Translation extends Translations {
           'Update_Available_question':
               'एपको लागि अपडेट उपलब्ध छ। के तपाई अहिले अपडेट गर्न चाहनुहुन्छ?',
           'Later': 'पछि',
-          'Updated_msg': 'तपाईंको एप अप टु डेट छ। कुनै अद्यावधिकहरू उपलब्ध छैनन्।',
+          'Updated_msg':
+              'तपाईंको एप अप टु डेट छ। कुनै अद्यावधिकहरू उपलब्ध छैनन्।',
           'Update_Now': 'अहिले अपडेट गर्नुहोस्',
           //maternity card
-          'Maternity': 'मातृत्व'
+          'Maternity': 'मातृत्व',
+          'Ticketinfo': "टिकट जानकारी",
         }
       };
 }
