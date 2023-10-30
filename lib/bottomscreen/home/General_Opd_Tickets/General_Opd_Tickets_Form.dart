@@ -38,13 +38,17 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
   TextEditingController Opdticketdate = TextEditingController();
   TextEditingController departmentController = TextEditingController();
   TextEditingController maritalstatusController = TextEditingController();
-  TextEditingController BloodGroupController = TextEditingController();
+
   TextEditingController TicketdateController = TextEditingController();
   TextEditingController DobController = TextEditingController();
   TextEditingController GenderController = TextEditingController();
+
+  TextEditingController BloodGroupController = TextEditingController();
+
   String selectedDepartment = '';
   String selectedMaritalstatus = '';
   String selectedBloodGroup = '';
+  String selectedBloodGroupId = '';
   String selectedDepartmentId = '';
   String Maritalstatus = '';
   String selectedGender = ''; // Stores the selected gender.
@@ -53,7 +57,6 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
   void selectGender(String gender) {
     setState(() {
       selectedGender = gender;
-      
     });
     GenderController;
   }
@@ -114,6 +117,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
     // Initialize filteredData as an empty list.
     fetchMaritalStatusData();
     OpdTicket();
+    fetchBloodgroupData();
   }
 
   //////////////////////////////////////////////////////////////////////////// For Marital Status
@@ -131,6 +135,32 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
       final maritalStatus = data['marital_status'];
       setState(() {
         maritalStatusList = maritalStatus.values.toList().cast<String>();
+        isLoading = false;
+      });
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      throw Exception('Failed to load marital status data');
+    }
+  }
+
+//////////////////////////////////////////////////////////////////////////// For Marital Status
+// ////////////////////////////////////////////////////////////////////////// For Marital Status
+  List<String> BloodgroupList = [];
+  Future<void> fetchBloodgroupData() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    final response = await http
+        .post(Uri.parse('https://uat.tez.hospital/xzy/webservice/lists'));
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      final maritalStatus = data['bloodgroup'];
+      setState(() {
+        BloodgroupList = maritalStatus.values.toList().cast<String>();
         isLoading = false;
       });
     } else {
@@ -177,7 +207,8 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
 
   // Function to send data to the API
   void OpdTicket() async {
-    const url = 'https://uat.tez.hospital/xzy/webservice/addopdticket'; // Replace with your API endpoint
+    const url =
+        'https://uat.tez.hospital/xzy/webservice/addopdticket'; // Replace with your API endpoint
     final headers = <String, String>{
       'Soft-service': 'TezHealthCare',
       'Auth-key': 'zbuks_ram859553467',
@@ -185,7 +216,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
 
     // Create a JSON payload with the data from the form fields
     final payload = {
-      "name": firstNameController.text + lastNameController.text, 
+      "name": firstNameController.text + lastNameController.text,
       "gender": GenderController.text,
       "dob": DobController.text,
       "address": addresscontroller.text,
@@ -472,7 +503,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                                     size: 40,
                                   ),
                                   onPressed: () {
-                                    _showBloodgroupSelection(context);
+                                    _showbloodgroupSelection(context);
                                   },
                                 ),
                                 border: const OutlineInputBorder(),
@@ -481,7 +512,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                                 filled: true,
                               ),
                               onTap: () {
-                                _showBloodgroupSelection(context);
+                                _showbloodgroupSelection(context);
                               },
                             )),
                           ],
@@ -571,7 +602,6 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                             ),
                             TextFormField(
                               controller: lastNameController,
-
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return 'This field is required';
@@ -873,9 +903,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
     return GestureDetector(
       onTap: () {
         selectGender(gender);
-        
       },
-      
       child: Container(
         color: selectedGender == gender ? darkYellow : Colors.blue[50],
         width: width / 4,
@@ -991,8 +1019,10 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                                             filteredData?[index]['name'] ?? '';
                                         selectedDepartmentId =
                                             filteredData?[index]['id'] ?? '';
+
                                         departmentController.text =
-                                            selectedDepartment;
+                                            '($selectedDepartmentId) $selectedDepartment';
+
                                         Navigator.of(context).pop();
                                       },
                                     ),
@@ -1074,7 +1104,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                                       ),
                                       onTap: () {
                                         selectedMaritalstatus =
-                                            maritalStatusList[index] ;
+                                            maritalStatusList[index];
                                         maritalstatusController.text =
                                             selectedMaritalstatus;
                                         Navigator.of(context).pop();
@@ -1093,7 +1123,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
     );
   }
 
-  void _showBloodgroupSelection(BuildContext context) {
+  void _showbloodgroupSelection(BuildContext context) {
     showModalBottomSheet(
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
@@ -1101,57 +1131,75 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
       ),
       context: context,
       builder: (BuildContext context) {
-        final Map<String, String> BloodGroup = {
-          "A+": "A+",
-          "A-": "A-",
-          "B+": "B+",
-          "B-": "B-",
-          "O+": "O+",
-          "O-": "O-",
-          "AB+": "AB+",
-          "AB-": "AB-",
-          "NA": "N/A",
-        };
-
-        return Container(
-          height: MediaQuery.of(context).size.height * 0.5,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  'Select Your Blood Group',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              Divider(),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: BloodGroup.length,
-                  itemBuilder: (context, index) {
-                    final statusKey = BloodGroup.keys.elementAt(index);
-                    final statusValue = BloodGroup[statusKey];
-                    int itemNumber = index + 1;
-                    return Card(
-                      color: Colors.white70.withOpacity(0.7),
-                      child: ListTile(
-                        title: Text("$itemNumber. $statusValue"),
-                        onTap: () {
-                          selectedBloodGroup = BloodGroup[statusKey]!;
-                          BloodGroupController.text = selectedBloodGroup;
-                          Navigator.of(context).pop();
-                        },
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return Container(
+              height: MediaQuery.of(context).size.height * 0.5,
+              child: Column(
+                children: <Widget>[
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'Select Your Blood Group',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  ),
+                  isLoading
+                      ? Expanded(
+                          child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Center(
+                            child: Container(
+                              height: 50,
+                              width: 50,
+                              color: Colors.transparent,
+                              child: const LoadingIndicatorWidget(),
+                            ),
+                          ),
+                        ))
+                      : BloodgroupList.isEmpty
+                          ? Expanded(
+                              child: Center(
+                              child: Container(
+                                height: 150,
+                                width: 150,
+                                child: Lottie.asset(
+                                  'assets/No_Data_Found.json',
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ))
+                          : Expanded(
+                              child: ListView.builder(
+                                itemCount: BloodgroupList.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  String bloodGroup =
+                                      BloodgroupList[index]; // Get the value
+                                  String bloodGroupId = (index + 1)
+                                      .toString(); // Create a key (e.g., 1-based index)
+                                  return Card(
+                                    color: Colors.white70.withOpacity(0.7),
+                                    child: ListTile(
+                                      title: Text('$bloodGroupId. $bloodGroup'),
+                                      onTap: () {
+                                        selectedBloodGroupId = bloodGroupId;
+                                        selectedBloodGroup = bloodGroup;
+                                        BloodGroupController.text =
+                                            '$selectedBloodGroupId. $selectedBloodGroup';
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
+                            )
+                ],
               ),
-            ],
-          ),
+            );
+          },
         );
       },
     );
