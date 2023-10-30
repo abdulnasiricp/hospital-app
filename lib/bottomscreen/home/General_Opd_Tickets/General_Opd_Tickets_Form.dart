@@ -1,10 +1,13 @@
 // ignore_for_file: file_names, camel_case_types, duplicate_ignore, avoid_print, sized_box_for_whitespace, non_constant_identifier_names
 
+import 'package:TezHealthCare/check.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
+import 'package:get/route_manager.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -37,7 +40,12 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
   TextEditingController Opdticketdate = TextEditingController();
   TextEditingController departmentController = TextEditingController();
   TextEditingController maritalstatusController = TextEditingController();
+  TextEditingController BloodGroupController = TextEditingController();
+  TextEditingController TicketdateController = TextEditingController();
+  TextEditingController DobController = TextEditingController();
   String selectedDepartment = '';
+  String selectedMaritalstatus = '';
+  String selectedBloodGroup = '';
   String selectedDepartmentId = '';
   String Maritalstatus = '';
   String selectedGender = ''; // Stores the selected gender.
@@ -101,10 +109,39 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
     searchController =
         TextEditingController(); // Initialize the search controller.
     data = []; // Initialize data as an empty list.
-    filteredData = []; // Initialize filteredData as an empty list.
+    filteredData = [];
+    // Initialize filteredData as an empty list.
+    fetchMaritalStatusData();
+    OpdTicket();
   }
 
-  Future<void> _selectDate(BuildContext context) async {
+  //////////////////////////////////////////////////////////////////////////// For Marital Status
+  List<String> maritalStatusList = [];
+  Future<void> fetchMaritalStatusData() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    final response = await http
+        .post(Uri.parse('https://uat.tez.hospital/xzy/webservice/lists'));
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      final maritalStatus = data['marital_status'];
+      setState(() {
+        maritalStatusList = maritalStatus.values.toList().cast<String>();
+        isLoading = false;
+      });
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      throw Exception('Failed to load marital status data');
+    }
+  }
+
+//////////////////////////////////////////////////////////////////////////// For Marital Status
+  Future<void> _selectTicketDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: selectedDate,
@@ -115,13 +152,30 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
     if (picked != null && picked != selectedDate) {
       setState(() {
         selectedDate = picked;
-        dateController.text = DateFormat('dd-MM-yyyy').format(selectedDate);
+        TicketdateController.text =
+            DateFormat('dd-MM-yyyy').format(selectedDate);
+      });
+    }
+  }
+
+  Future<void> _selectDob(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+        DobController.text = DateFormat('dd-MM-yyyy').format(selectedDate);
       });
     }
   }
 
   // Function to send data to the API
-  void postDataToApi() async {
+  void OpdTicket() async {
     const url = 'YOUR_API_ENDPOINT_HERE'; // Replace with your API endpoint
     final headers = <String, String>{
       'Content-Type': 'application/json',
@@ -129,13 +183,14 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
 
     // Create a JSON payload with the data from the form fields
     final payload = {
-      'first_name': firstNameController.text,
-      'last_name': lastNameController.text,
-      'gender': selectedGender,
-      'age': ageController.text,
-      'date_of_birth': dateController.text,
-      'phone': phoneController.text,
-      'email': emailController.text,
+      "name": firstNameController.text,
+      "gender": lastNameController.text,
+      "dob": DobController.text,
+      "address": addresscontroller.text,
+      "mobileno": phoneController.text,
+      "department_id": departmentController.text,
+      "date": TicketdateController.text,
+      "payment_mode": firstNameController.text,
     };
 
     try {
@@ -166,6 +221,16 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
           title: const Text('OPD Ticket'),
           centerTitle: true,
           backgroundColor: darkYellow,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  // Get.to(() => DoctorProfile(
+                  //
+                  // )
+                  // );
+                },
+                icon: const Icon(Icons.info))
+          ],
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -275,19 +340,19 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                             },
                             onTapOutside: (event) =>
                                 FocusScope.of(context).unfocus(),
-                            controller: dateofbirthController,
+                            controller: TicketdateController,
                             decoration: InputDecoration(
                                 suffixIcon: IconButton(
                                     icon: const Icon(Icons.calendar_month),
                                     onPressed: () {
-                                      _selectDate(context);
+                                      _selectTicketDate(context);
                                     }),
                                 border: const OutlineInputBorder(),
                                 hintText: 'Select Ticket Date',
                                 fillColor: Colors.white,
                                 filled: true),
                             readOnly: true,
-                            onTap: () => _selectDate(context),
+                            onTap: () => _selectTicketDate(context),
                           ),
                         ),
                       ],
@@ -296,66 +361,133 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                   const SizedBox(
                     height: 5,
                   ),
-                  Container(
-                    width: width,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        RichText(
-                          text: const TextSpan(
-                            children: [
-                              TextSpan(
-                                text: "Marital Status",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: width / 2.2,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: const TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: "Marital Status",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: '*',
+                                    style: TextStyle(
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            InkWell(
+                                child: TextFormField(
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'This field is required';
+                                }
+                                return null;
+                              },
+                              readOnly:
+                                  true, // Set this to true to disable the keyboard
+                              controller: maritalstatusController,
+                              decoration: InputDecoration(
+                                suffixIcon: IconButton(
+                                  icon: const Icon(
+                                    Icons.arrow_drop_down_sharp,
+                                    size: 40,
+                                  ),
+                                  onPressed: () {
+                                    _showMaritalSelection(context);
+                                  },
                                 ),
+                                border: const OutlineInputBorder(),
+                                hintText: 'Select Marital Status',
+                                fillColor: Colors.white,
+                                filled: true,
                               ),
-                              TextSpan(
-                                text: '*',
-                                style: TextStyle(
-                                  color: Colors.red,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        InkWell(
-                            child: TextFormField(
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'This field is required';
-                            }
-                            return null;
-                          },
-                          readOnly:
-                              true, // Set this to true to disable the keyboard
-                          controller: maritalstatusController,
-                          decoration: InputDecoration(
-                            suffixIcon: IconButton(
-                              icon: const Icon(
-                                Icons.arrow_drop_down_sharp,
-                                size: 40,
-                              ),
-                              onPressed: () {
+                              onTap: () {
                                 _showMaritalSelection(context);
                               },
+                            )),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: width / 2.2,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: const TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: "Blood Group",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: '*',
+                                    style: TextStyle(
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                            border: const OutlineInputBorder(),
-                            hintText: 'Select Marital Status',
-                            fillColor: Colors.white,
-                            filled: true,
-                          ),
-                          onTap: () {
-                            _showMaritalSelection(context);
-                          },
-                        )),
-                      ],
-                    ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            InkWell(
+                                child: TextFormField(
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'This field is required';
+                                }
+                                return null;
+                              },
+                              readOnly:
+                                  true, // Set this to true to disable the keyboard
+                              controller: BloodGroupController,
+                              decoration: InputDecoration(
+                                suffixIcon: IconButton(
+                                  icon: const Icon(
+                                    Icons.arrow_drop_down_sharp,
+                                    size: 40,
+                                  ),
+                                  onPressed: () {
+                                    _showBloodgroupSelection(context);
+                                  },
+                                ),
+                                border: const OutlineInputBorder(),
+                                hintText: 'Select Blood Grou',
+                                fillColor: Colors.white,
+                                filled: true,
+                              ),
+                              onTap: () {
+                                _showBloodgroupSelection(context);
+                              },
+                            )),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
+
                   const SizedBox(
                     height: 5,
                   ),
@@ -552,19 +684,19 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                             },
                             onTapOutside: (event) =>
                                 FocusScope.of(context).unfocus(),
-                            controller: dateofbirthController,
+                            controller: DobController,
                             decoration: InputDecoration(
                                 suffixIcon: IconButton(
                                     icon: const Icon(Icons.calendar_month),
                                     onPressed: () {
-                                      _selectDate(context);
+                                      _selectDob(context);
                                     }),
                                 border: const OutlineInputBorder(),
                                 hintText: 'Enter Date of Births',
                                 fillColor: Colors.white,
                                 filled: true),
                             readOnly: true,
-                            onTap: () => _selectDate(context),
+                            onTap: () => _selectDob(context),
                           ),
                         ),
                       ],
@@ -601,11 +733,18 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                           height: 5,
                         ),
                         TextFormField(
+                          keyboardType: TextInputType.number,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                          ],
                           validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'This field is required';
+                            if (value == null || value.isEmpty) {
+                              return 'This field is required'; // Display a message when the field is empty
+                            } else if (value.length != 10) {
+                              return 'Phone number must be 10 digits'; // Display a message for incorrect length
+                            } else {
+                              return null; // No error when the field has a valid 10-digit value
                             }
-                            return null;
                           },
                           onTapOutside: (event) =>
                               FocusScope.of(context).unfocus(),
@@ -877,7 +1016,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
             return Container(
-              height: MediaQuery.of(context).size.height * 0.8,
+              height: MediaQuery.of(context).size.height * 0.5,
               child: Column(
                 children: <Widget>[
                   const Padding(
@@ -890,38 +1029,20 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0, right: 8),
-                    child: Container(
-                      width: width / 0.8,
-                      height: 50,
-                      child: TextFormField(
-                        controller: searchController,
-                        onChanged: (query) {
-                          setState(() {
-                            filterData(query);
-                          });
-                        },
-                        decoration: const InputDecoration(
-                          hintText: 'Search Marital Status',
-                          border: OutlineInputBorder(),
-                          suffixIcon: Icon(Icons.search),
-                        ),
-                      ),
-                    ),
-                  ),
                   isLoading
                       ? Expanded(
                           child: Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            height: 50,
-                            width: 50,
-                            color: Colors.transparent,
-                            child: const LoadingIndicatorWidget(),
+                          child: Center(
+                            child: Container(
+                              height: 50,
+                              width: 50,
+                              color: Colors.transparent,
+                              child: const LoadingIndicatorWidget(),
+                            ),
                           ),
                         ))
-                      : filteredData!.isEmpty
+                      : maritalStatusList.isEmpty
                           ? Expanded(
                               child: Center(
                               child: Container(
@@ -935,22 +1056,20 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                             ))
                           : Expanded(
                               child: ListView.builder(
-                                itemCount: filteredData?.length,
+                                itemCount: maritalStatusList.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   int itemNumber = index + 1;
                                   return Card(
                                     color: Colors.white70.withOpacity(0.7),
                                     child: ListTile(
                                       title: Text(
-                                        '$itemNumber. ${filteredData?[index]['name'] ?? ''}',
+                                        '$itemNumber. ${maritalStatusList[index]}',
                                       ),
                                       onTap: () {
-                                        selectedDepartment =
-                                            filteredData?[index]['name'] ?? '';
-                                        selectedDepartmentId =
-                                            filteredData?[index]['id'] ?? '';
-                                        departmentController.text =
-                                            selectedDepartment;
+                                        selectedMaritalstatus =
+                                            maritalStatusList?[index] ?? '';
+                                        maritalstatusController.text =
+                                            selectedMaritalstatus;
                                         Navigator.of(context).pop();
                                       },
                                     ),
@@ -962,6 +1081,69 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
               ),
             );
           },
+        );
+      },
+    );
+  }
+
+  void _showBloodgroupSelection(BuildContext context) {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+      ),
+      context: context,
+      builder: (BuildContext context) {
+        final Map<String, String> BloodGroup = {
+          "A+": "A+",
+          "A-": "A-",
+          "B+": "B+",
+          "B-": "B-",
+          "O+": "O+",
+          "O-": "O-",
+          "AB+": "AB+",
+          "AB-": "AB-",
+        };
+
+        return Container(
+          height: MediaQuery.of(context).size.height * 0.5,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  'Select Your Blood Group',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              Divider(),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: BloodGroup.length,
+                  itemBuilder: (context, index) {
+                    final statusKey = BloodGroup.keys.elementAt(index);
+                    final statusValue = BloodGroup[statusKey];
+                    int itemNumber = index + 1;
+                    return Card(
+                      color: Colors.white70.withOpacity(0.7),
+                      child: ListTile(
+                        title: Text("$itemNumber. $statusValue"),
+                        onTap: () {
+                          selectedBloodGroup = BloodGroup[statusKey]!;
+                          BloodGroupController.text = selectedBloodGroup;
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         );
       },
     );
