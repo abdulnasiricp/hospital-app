@@ -28,27 +28,30 @@ class _NotifState extends State<Notif> {
     _loadNotifications();
   }
 
-  Future<void> _loadNotifications() async {
-    final prefs = await SharedPreferences.getInstance();
-    final storedNotifications = prefs.getStringList('notifications') ?? [];
-    final newNotifications = storedNotifications.map((text) {
-      return NotificationItem(text: text, isRead: prefs.getBool(text) ?? false);
-    }).toList();
+ Future<void> _loadNotifications() async {
+  final prefs = await SharedPreferences.getInstance();
+  final storedNotifications = prefs.getStringList('notifications') ?? [];
+  final newNotifications = storedNotifications.map((text) {
+    final key = 'notification_${text.hashCode}';
+    return NotificationItem(text: text, isRead: prefs.getBool(key) ?? false);
+  }).toList();
 
-    setState(() {
-      notifications = newNotifications.reversed.toList(); // Reverse the order
-    });
-  }
+  setState(() {
+    notifications = newNotifications.reversed.toList(); // Reverse the order
+  });
+}
 
- void markNotificationAsRead(NotificationItem item) async {
+
+void markNotificationAsRead(NotificationItem item) async {
   if (item.isRead) return; // Do nothing if the notification is already marked as read
 
   item.isRead = true; // Update the isRead status in the list
 
-  // Save the updated notification to SharedPreferences
+  // Use the unique key to save the updated notification to SharedPreferences
   final prefs = await SharedPreferences.getInstance();
-  prefs.setBool(item.text, true);
+  prefs.setBool('notification_${item.text.hashCode}', true);
 }
+
 
 
   // Function to navigate to the desired screen based on the notification text

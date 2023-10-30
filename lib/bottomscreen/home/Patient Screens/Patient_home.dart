@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace, deprecated_member_use, avoid_unnecessary_containers, unused_element, unnecessary_null_comparison, prefer_collection_literals, unused_local_variable
+// ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace, deprecated_member_use, avoid_unnecessary_containers, unused_element, unnecessary_null_comparison, prefer_collection_literals, unused_local_variable, prefer_adjacent_string_concatenation
 
 import 'dart:async';
 import 'dart:convert';
@@ -264,7 +264,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
     final body = {
       'patient_id': Patient_id,
     };
-    try {
+    
       // Make the POST request
       final response = await http.post(
         Uri.parse(
@@ -295,103 +295,140 @@ class _PatientHomePageState extends State<PatientHomePage> {
         int newblood_bankLength = data['blood_bank']['length'];
         int newradiologyLength = data['radiology']['length'];
 
-        if (newPathologyLength > pathologyLength) {
-          sharedPreferences.setInt('pathologyLength', newPathologyLength);
-          final notifications =
-              sharedPreferences.getStringList('notifications') ?? [];
-          notifications
-              .add('New data are added please check your pathology Bill');
-          sharedPreferences.setStringList('notifications', notifications);
+  //       if (newPathologyLength > pathologyLength) {
+  //         sharedPreferences.setInt('pathologyLength', newPathologyLength);
+  //         final notifications =
+  //             sharedPreferences.getStringList('notifications') ?? [];
+  //         notifications
+  //             .add('New data are added please check your pathology Bill');
+  //         sharedPreferences.setStringList('notifications', notifications);
 
-          NotificationService().showNotification(
-              id: 1,
-              title: 'Pathology Bill',
-              body: 'New data are added please check your Pathology Bill',
-              payLoad: 'navigate_to_Pathology_bill');
-        }
+  //         NotificationService().showNotification(
+  //             id: 1,
+  //             title: 'Pathology Bill',
+  //             body: 'New data are added please check your Pathology Bill',
+  //             payLoad: 'navigate_to_Pathology_bill');
+  //       }
        
-        if (newPharmacyLength > PharmacyLangth) {
-          sharedPreferences.setInt('PharmacyLangth', newPharmacyLength);
-          final notifications =
-              sharedPreferences.getStringList('notifications') ?? [];
-          notifications
-              .add('New data are added please check your Pharmacy Bill');
-          sharedPreferences.setStringList('notifications', notifications);
+  //       if (newPharmacyLength > PharmacyLangth) {
+  //         sharedPreferences.setInt('PharmacyLangth', newPharmacyLength);
+  //         final notifications =
+  //             sharedPreferences.getStringList('notifications') ?? [];
+  //         notifications
+  //             .add('New data are added please check your Pharmacy Bill');
+  //         sharedPreferences.setStringList('notifications', notifications);
 
-          NotificationService().showNotification(
-              id: 1,
-              title: 'Pharmacy Bill',
-              body: 'New data are added please check your Pharmacy Bill',
-              payLoad: 'navigate_to_Pharmacy_bill');
-        }
+  //         NotificationService().showNotification(
+  //             id: 1,
+  //             title: 'Pharmacy Bill',
+  //             body: 'New data are added please check your Pharmacy Bill',
+  //             payLoad: 'navigate_to_Pharmacy_bill');
+  //       }
 
-        if (newradiologyLength > radiologyLength) {
-          sharedPreferences.setInt('radiologyLength', newradiologyLength);
-          final notifications =
-              sharedPreferences.getStringList('notifications') ?? [];
-          notifications
-              .add('New data are added please check your Radiology Bill');
-          sharedPreferences.setStringList('notifications', notifications);
+  //       if (newradiologyLength > radiologyLength) {
+  //         sharedPreferences.setInt('radiologyLength', newradiologyLength);
+  //         final notifications =
+  //             sharedPreferences.getStringList('notifications') ?? [];
+  //         notifications
+  //             .add('New data are added please check your Radiology Bill');
+  //         sharedPreferences.setStringList('notifications', notifications);
 
-          NotificationService().showNotification(
-              id: 1,
-              title: 'Radiology Bill',
-              body: 'New data are added please check your Radiology Bill',
-              payLoad: 'navigate_to_Radiology_bill');
-        }
+  //         NotificationService().showNotification(
+  //             id: 1,
+  //             title: 'Radiology Bill',
+  //             body: 'New data are added please check your Radiology Bill',
+  //             payLoad: 'navigate_to_Radiology_bill');
+  //       }
 
-        if (newdirectLangth > directLangth) {
-          sharedPreferences.setInt('directLangth', newdirectLangth);
-          final notifications =
-              sharedPreferences.getStringList('notifications') ?? [];
-          notifications.add('New data are added please check your Direct Bill');
-          sharedPreferences.setStringList('notifications', notifications);
+  //       if (newdirectLangth > directLangth) {
+  //         sharedPreferences.setInt('directLangth', newdirectLangth);
+  //         final notifications =
+  //             sharedPreferences.getStringList('notifications') ?? [];
+  //         notifications.add('New data are added please check your Direct Bill');
+  //         sharedPreferences.setStringList('notifications', notifications);
 
-          NotificationService().showNotification(
-              id: 1,
-              title: 'Direct Bill',
-              body: 'New data are added please check your Direct Bill',
-              payLoad: 'navigate_to_direct_bill');
-        }
+  //         NotificationService().showNotification(
+  //             id: 1,
+  //             title: 'Direct Bill',
+  //             body: 'New data are added please check your Direct Bill',
+  //             payLoad: 'navigate_to_direct_bill');
+  //       }
 
-        if (newblood_bankLength > blood_bankLength) {
-          sharedPreferences.setInt('blood_bankLength', newblood_bankLength);
-          final notifications =
-              sharedPreferences.getStringList('notifications') ?? [];
-          notifications
-              .add('New data are added please check your Blood_bank Bill');
-          sharedPreferences.setStringList('notifications', notifications);
+  //       if (newblood_bankLength > blood_bankLength) {
+  //         sharedPreferences.setInt('blood_bankLength', newblood_bankLength);
+  //         final notifications =
+  //             sharedPreferences.getStringList('notifications') ?? [];
+  //         notifications
+  //             .add('New data are added please check your Blood_bank Bill');
+  //         sharedPreferences.setStringList('notifications', notifications);
 
-          NotificationService().showNotification(
-              id: 1,
-              title: 'Blood_bank Bill',
-              body: 'New data are added please check your Blood_bank Bill',
-              payLoad: 'navigate_to_Blood_bank_bill');
-        }
+  //         NotificationService().showNotification(
+  //             id: 1,
+  //             title: 'Blood_bank Bill',
+  //             body: 'New data are added please check your Blood_bank Bill',
+  //             payLoad: 'navigate_to_Blood_bank_bill');
+  //       }
 
-        if (newambulanceLength > ambulanceLength) {
-          sharedPreferences.setInt('ambulanceLength', newambulanceLength);
-          final notifications =
-              sharedPreferences.getStringList('notifications') ?? [];
-          notifications
-              .add('New data are added please check your Ambulance Bill');
-          sharedPreferences.setStringList('notifications', notifications);
+  //       if (newambulanceLength > ambulanceLength) {
+  //         sharedPreferences.setInt('ambulanceLength', newambulanceLength);
+  //         final notifications =
+  //             sharedPreferences.getStringList('notifications') ?? [];
+  //         notifications
+  //             .add('New data are added please check your Ambulance Bill');
+  //         sharedPreferences.setStringList('notifications', notifications);
 
-          NotificationService().showNotification(
-              id: 1,
-              title: 'Ambulance Bill',
-              body: 'New data are added please check your Ambulance Bill',
-              payLoad: 'navigate_to_Ambulance Bill');
-        }
+  //         NotificationService().showNotification(
+  //             id: 1,
+  //             title: 'Ambulance Bill',
+  //             body: 'New data are added please check your Ambulance Bill',
+  //             payLoad: 'navigate_to_Ambulance Bill');
+  //       }
 
-        // Set the state to rebuild the widget
-        setState(() {});
-      } else {
-        // Handle the error
-      }
-    } catch (error) {
-      print(error);
+  //       // Set the state to rebuild the widget
+  //       setState(() {});
+  //     } else {
+  //       // Handle the error
+  //     }
+  //   } catch (error) {
+  //     print(error);
+  //   }
+  // }
+
+  
+  // Iterate through your notification types and update them
+  Map<String, String> notificationTypes = {
+    'pathology': 'Pathology Bill',
+    'Pharmacy': 'Pharmacy Bill',
+    'radiology': 'Radiology Bill',
+    'direct': 'Direct Bill',
+    'blood_bank': 'Blood_bank Bill',
+    'ambulance': 'Ambulance Bill',
+  };
+
+  notificationTypes.forEach((type, title) {
+    int currentLength = sharedPreferences.getInt(type + 'Length') ?? 0;
+    int newLength = data[type]['length'];
+
+    if (newLength > currentLength) {
+      sharedPreferences.setInt(type + 'Length', newLength);
+
+      final notifications = sharedPreferences.getStringList('notifications') ?? [];
+      final notificationText = 'New data are added please check your $title';
+      notifications.add(notificationText);
+      sharedPreferences.setStringList('notifications', notifications);
+
+      NotificationService().showNotification(
+        id: notifications.length, // You can use a unique ID here
+        title: title,
+        body: notificationText,
+        payLoad: 'navigate_to_$type' + '_bill',
+      );
     }
+  });
+
+  // Set the state to rebuild the widget
+  setState(() {});
+}
   }
 
 //////////////////////////////////////////////////////////////////////////////////
