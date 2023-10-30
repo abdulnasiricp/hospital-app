@@ -1,10 +1,12 @@
 // ignore_for_file: file_names, camel_case_types, duplicate_ignore, avoid_print, sized_box_for_whitespace, non_constant_identifier_names
 
+import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/opd_tickets_details.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert';
@@ -30,7 +32,6 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController ageController = TextEditingController();
-  TextEditingController dobController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController dateofbirthController = TextEditingController();
@@ -56,8 +57,6 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
   void selectGender(String gender) {
     setState(() {
       selectedGender = gender;
-    
-
     });
   }
 
@@ -92,10 +91,6 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
     });
   }
   ////////////////////
-
-
- 
-
 
   void filterData(String query) {
     setState(() {
@@ -146,43 +141,43 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
   }
 
 /////////////////////////////////////
-List<String> bloodGroupList = [];
- Future<void> bloodGroupData() async {
-  setState(() {
-    isLoading = true;
-  });
+  List<String> bloodGroupList = [];
+  Future<void> bloodGroupData() async {
+    setState(() {
+      isLoading = true;
+    });
 
-  try {
-    final response = await http.post(Uri.parse('https://uat.tez.hospital/xzy/webservice/lists'));
+    try {
+      final response = await http
+          .post(Uri.parse('https://uat.tez.hospital/xzy/webservice/lists'));
 
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
 
-      if (data.containsKey('bloodgroup')) {
-        final bloodGroupType = data['bloodgroup'];
-        print('==========$bloodGroupType');
+        if (data.containsKey('bloodgroup')) {
+          final bloodGroupType = data['bloodgroup'];
+          print('==========$bloodGroupType');
+          setState(() {
+            bloodGroupList = bloodGroupType.values.toList().cast<String>();
+            print(bloodGroupList);
+            isLoading = false;
+          });
+        } else {}
+      } else {
+        // Handle non-200 status codes
         setState(() {
-          bloodGroupList = bloodGroupType.values.toList().cast<String>();
-          print(bloodGroupList);
           isLoading = false;
         });
-      } else {
+        throw Exception('Failed to load blood group data');
       }
-    } else {
-      // Handle non-200 status codes
+    } catch (e) {
+      // Handle network or parsing errors
+      print('Error: $e');
       setState(() {
         isLoading = false;
       });
-      throw Exception('Failed to load blood group data');
     }
-  } catch (e) {
-    // Handle network or parsing errors
-    print('Error: $e');
-    setState(() {
-      isLoading = false;
-    });
   }
-}
 
 //////////////////////////////////////////////////////////////////////////// For Marital Status
 // ////////////////////////////////////////////////////////////////////////// For Marital Status
@@ -245,61 +240,48 @@ List<String> bloodGroupList = [];
   }
 
   // Function to send data to the API
- void fetchOpdTicket() async {
-  const url = 'https://uat.tez.hospital/xzy/webservice/addopdticket'; // Replace with the actual URL
-  final headers = {
-    'Soft-service': 'TezHealthCare',
-    'Auth-key': 'zbuks_ram859553467',
-  };
-  final body = {
-          "name": firstNameController.text + lastNameController.text,
-        "gender": selectedGender,
-        "dob": dobController.text,
-        "email": emailController.text,
-        "address": addresscontroller.text,
-        "mobileno": phoneController.text,
-        "department_id": departmentController.text,
-        "doctor_id": "1",
-        "date": TicketdateController.text,
-        "blood_group": BloodGroupController.text,
-        "payment_mode": "Cash",
+  void fetchOpdTicket() async {
+    const url =
+        'https://uat.tez.hospital/xzy/webservice/addopdticket'; // Replace with the actual URL
+    final headers = {
+      'Soft-service': 'TezHealthCare',
+      'Auth-key': 'zbuks_ram859553467',
+    };
+    final body = {
+      "name": firstNameController.text +" "+ lastNameController.text,
+      "gender": selectedGender,
+      "dob": DobController.text,
+      "email": emailController.text,
+      "address": addresscontroller.text,
+      "mobileno": phoneController.text,
+      "department_id": selectedDepartmentId,
+      "doctor_id": "1",
+      "date": TicketdateController.text,
+      "blood_group": selectedBloodGroupId,
+      "payment_mode": "Cash",
     };
 
-  try {
-    final response = await http.post(
-      Uri.parse(url),
-      headers: headers,
-      body: jsonEncode(body)
-    //  body: {
-    //     "name": "rinu",
-    //     "gender": "female",
-    //     "dob": "25-10-1998",
-    //     "email": "a@gmail.com",
-    //     "address": "birgunj",
-    //     "mobileno": "9855014912",
-    //     "department_id": "4",
-    //     "doctor_id": "1",
-    //     "date": "25-10-2023",
-    //     "blood_group": "1",
-    //     "payment_mode": "Cash",
-    //   },
-    );
+    try {
+      final response = await http.post(Uri.parse(url),
+          headers: headers, body: jsonEncode(body));
 
-    if (response.statusCode == 200) {
-      final Map<String, dynamic> data = json.decode(response.body);
-      if (data.containsKey("opd_ticket")) {
-        final opdTicket = data["opd_ticket"];
-        print("opd_ticket: $opdTicket");
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = json.decode(response.body);
+        if (data.containsKey("opd_ticket")) {
+          final opdTicket = data["opd_ticket"];
+          print("opd_ticket: $opdTicket");
+        } else {
+          print("opd_ticket not found in the response.");
+        }
       } else {
-        print("opd_ticket not found in the response.");
+        print(
+            "Failed to fetch opd_ticket. Status code: ${response.statusCode}");
       }
-    } else {
-      print("Failed to fetch opd_ticket. Status code: ${response.statusCode}");
+    } catch (e) {
+      print("Error: $e");
     }
-  } catch (e) {
-    print("Error: $e");
   }
-}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -567,7 +549,6 @@ List<String> bloodGroupList = [];
                               ),
                               onTap: () {
                                 _showbloodgroupSelection(context);
-                                
                               },
                             )),
                           ],
@@ -936,11 +917,21 @@ List<String> bloodGroupList = [];
                     child: ElevatedButton(
                       child: Text('proceed'.tr),
                       onPressed: () {
-                        fetchOpdTicket();
-
                         if (_formKey.currentState!.validate()) {
-                          // Form is valid, submit data to the API or perform other actions.
-                          // postDataToApi();
+                          fetchOpdTicket();
+                          Get.to(() => OPDTicketDetails(
+                                selectedDepartment:  departmentController.text,
+                                ticketDate: TicketdateController.text,
+                                maritalStatus: maritalstatusController.text,
+                                bloodGroup: selectedBloodGroupId,
+                                patientName: firstNameController.text +" "+
+                                    lastNameController.text,
+                                patientGender: selectedGender,
+                                patientDOB: DobController.text,
+                                patientMobile: phoneController.text,
+                                patientEmail: emailController.text,
+                                patientAddress: emailController.text,
+                              ));
                         }
                       },
                       style: ButtonStyle(
@@ -1260,68 +1251,4 @@ List<String> bloodGroupList = [];
       },
     );
   }
-
-  // void _showBloodgroupSelection(BuildContext context) {
-  //   showModalBottomSheet(
-  //     isScrollControlled: true,
-  //     shape: const RoundedRectangleBorder(
-  //       borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
-  //     ),
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       final Map<String, String> BloodGroup = {
-  //         "A+": "A+",
-  //         "A-": "A-",
-  //         "B+": "B+",
-  //         "B-": "B-",
-  //         "O+": "O+",
-  //         "O-": "O-",
-  //         "AB+": "AB+",
-  //         "AB-": "AB-",
-  //         "NA": "N/A",
-  //       };
-
-  //       return Container(
-  //         height: MediaQuery.of(context).size.height * 0.5,
-  //         child: Column(
-  //           mainAxisSize: MainAxisSize.min,
-  //           children: <Widget>[
-  //             const Padding(
-  //               padding: EdgeInsets.all(8.0),
-  //               child: Text(
-  //                 'Select Your Blood Group',
-  //                 style: TextStyle(
-  //                   fontSize: 20,
-  //                   fontWeight: FontWeight.bold,
-  //                 ),
-  //               ),
-  //             ),
-  //             Divider(),
-  //             Expanded(
-  //               child: ListView.builder(
-  //                 itemCount: BloodGroup.length,
-  //                 itemBuilder: (context, index) {
-  //                   final statusKey = BloodGroup.keys.elementAt(index);
-  //                   final statusValue = BloodGroup[statusKey];
-  //                   int itemNumber = index + 1;
-  //                   return Card(
-  //                     color: Colors.white70.withOpacity(0.7),
-  //                     child: ListTile(
-  //                       title: Text("$itemNumber. $statusValue"),
-  //                       onTap: () {
-  //                         selectedBloodGroup = BloodGroup[statusKey]!;
-  //                         BloodGroupController.text = selectedBloodGroup;
-  //                         Navigator.of(context).pop();
-  //                       },
-  //                     ),
-  //                   );
-  //                 },
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
 }
