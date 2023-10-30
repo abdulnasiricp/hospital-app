@@ -38,14 +38,16 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
   TextEditingController Opdticketdate = TextEditingController();
   TextEditingController departmentController = TextEditingController();
   TextEditingController maritalstatusController = TextEditingController();
-  TextEditingController BloodGroupController = TextEditingController();
+
   TextEditingController TicketdateController = TextEditingController();
   TextEditingController DobController = TextEditingController();
   TextEditingController GenderController = TextEditingController();
+  TextEditingController BloodGroupController = TextEditingController();
   late DateTime selectedDate;
   String selectedDepartment = '';
   String selectedMaritalstatus = '';
   String selectedBloodGroup = '';
+  String selectedBloodGroupId = '';
   String selectedDepartmentId = '';
   String Maritalstatus = '';
   String selectedGender = ''; // Stores the selected gender.
@@ -181,6 +183,32 @@ List<String> bloodGroupList = [];
     });
   }
 }
+
+//////////////////////////////////////////////////////////////////////////// For Marital Status
+// ////////////////////////////////////////////////////////////////////////// For Marital Status
+  List<String> BloodgroupList = [];
+  Future<void> fetchBloodgroupData() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    final response = await http
+        .post(Uri.parse('https://uat.tez.hospital/xzy/webservice/lists'));
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      final maritalStatus = data['bloodgroup'];
+      setState(() {
+        BloodgroupList = maritalStatus.values.toList().cast<String>();
+        isLoading = false;
+      });
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      throw Exception('Failed to load marital status data');
+    }
+  }
 
 //////////////////////////////////////////////////////////////////////////// For Marital Status
   Future<void> _selectTicketDate(BuildContext context) async {
@@ -529,7 +557,7 @@ List<String> bloodGroupList = [];
                                     size: 40,
                                   ),
                                   onPressed: () {
-                                    _showBloodgroupSelection(context);
+                                    _showbloodgroupSelection(context);
                                   },
                                 ),
                                 border: const OutlineInputBorder(),
@@ -538,7 +566,7 @@ List<String> bloodGroupList = [];
                                 filled: true,
                               ),
                               onTap: () {
-                                _showBloodgroupSelection(context);
+                                _showbloodgroupSelection(context);
                                 
                               },
                             )),
@@ -1048,8 +1076,10 @@ List<String> bloodGroupList = [];
                                             filteredData?[index]['name'] ?? '';
                                         selectedDepartmentId =
                                             filteredData?[index]['id'] ?? '';
+
                                         departmentController.text =
-                                            selectedDepartment;
+                                            '($selectedDepartmentId) $selectedDepartment';
+
                                         Navigator.of(context).pop();
                                       },
                                     ),
@@ -1150,7 +1180,7 @@ List<String> bloodGroupList = [];
     );
   }
 
-  void _showBloodgroupSelection(BuildContext context) {
+  void _showbloodgroupSelection(BuildContext context) {
     showModalBottomSheet(
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
