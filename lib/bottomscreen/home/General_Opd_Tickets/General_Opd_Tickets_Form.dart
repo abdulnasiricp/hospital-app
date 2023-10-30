@@ -1,13 +1,11 @@
 // ignore_for_file: file_names, camel_case_types, duplicate_ignore, avoid_print, sized_box_for_whitespace, non_constant_identifier_names
 
-import 'package:TezHealthCare/check.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
-import 'package:get/route_manager.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -43,6 +41,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
   TextEditingController BloodGroupController = TextEditingController();
   TextEditingController TicketdateController = TextEditingController();
   TextEditingController DobController = TextEditingController();
+  TextEditingController GenderController = TextEditingController();
   String selectedDepartment = '';
   String selectedMaritalstatus = '';
   String selectedBloodGroup = '';
@@ -54,7 +53,9 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
   void selectGender(String gender) {
     setState(() {
       selectedGender = gender;
+      
     });
+    GenderController;
   }
 
 ////////////////////////////// for select departmet
@@ -176,15 +177,16 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
 
   // Function to send data to the API
   void OpdTicket() async {
-    const url = 'YOUR_API_ENDPOINT_HERE'; // Replace with your API endpoint
+    const url = 'https://uat.tez.hospital/xzy/webservice/addopdticket'; // Replace with your API endpoint
     final headers = <String, String>{
-      'Content-Type': 'application/json',
+      'Soft-service': 'TezHealthCare',
+      'Auth-key': 'zbuks_ram859553467',
     };
 
     // Create a JSON payload with the data from the form fields
     final payload = {
-      "name": firstNameController.text,
-      "gender": lastNameController.text,
+      "name": firstNameController.text + lastNameController.text, 
+      "gender": GenderController.text,
       "dob": DobController.text,
       "address": addresscontroller.text,
       "mobileno": phoneController.text,
@@ -522,6 +524,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                               height: 5,
                             ),
                             TextFormField(
+                              controller: firstNameController,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return 'This field is required';
@@ -567,6 +570,8 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                               height: 5,
                             ),
                             TextFormField(
+                              controller: lastNameController,
+
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return 'This field is required';
@@ -868,7 +873,9 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
     return GestureDetector(
       onTap: () {
         selectGender(gender);
+        
       },
+      
       child: Container(
         color: selectedGender == gender ? darkYellow : Colors.blue[50],
         width: width / 4,
@@ -1067,7 +1074,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                                       ),
                                       onTap: () {
                                         selectedMaritalstatus =
-                                            maritalStatusList?[index] ?? '';
+                                            maritalStatusList[index] ;
                                         maritalstatusController.text =
                                             selectedMaritalstatus;
                                         Navigator.of(context).pop();
@@ -1103,6 +1110,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
           "O-": "O-",
           "AB+": "AB+",
           "AB-": "AB-",
+          "NA": "N/A",
         };
 
         return Container(

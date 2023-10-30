@@ -111,6 +111,7 @@ void markNotificationAsRead(NotificationItem item) async {
                     ),
                   ],
                 ),
+                // subtitle: Text('click to navigate'),
               ),
             ),
           );
