@@ -84,16 +84,15 @@ class _InformationProfileState extends State<InformationProfile>
     notifier = Provider.of<ColorNotifier>(context, listen: true);
 
     return Scaffold(
-            backgroundColor: Colors.lightBlue[50],
-
+        backgroundColor: Colors.lightBlue[50],
         appBar: AppBar(
           backgroundColor: darkYellow,
-          title:  Text('informationProfile'.tr),
+          title: Text('informationProfile'.tr),
           centerTitle: true,
         ),
         body: profileData != null
             ? SingleChildScrollView(
-              child: Column(
+                child: Column(
                   children: [
                     Stack(children: [
                       Container(
@@ -112,7 +111,7 @@ class _InformationProfileState extends State<InformationProfile>
                               child: CircleAvatar(
                             backgroundImage:
                                 NetworkImage(profileData!.image ?? ""),
-                            radius: height/15,
+                            radius: height / 15,
                           )),
                         ),
                       ),
@@ -144,13 +143,14 @@ class _InformationProfileState extends State<InformationProfile>
                             child: Padding(
                               padding: const EdgeInsets.all(20),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
-                                       Text('patientID'.tr,
+                                      Text('patientID'.tr,
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold)),
                                       Text(
@@ -162,7 +162,7 @@ class _InformationProfileState extends State<InformationProfile>
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
-                                       Text('patientGender'.tr,
+                                      Text('patientGender'.tr,
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold)),
                                       Text(
@@ -174,7 +174,7 @@ class _InformationProfileState extends State<InformationProfile>
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
-                                       Text('patientAge'.tr,
+                                      Text('patientAge'.tr,
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold)),
                                       Text(
@@ -194,47 +194,53 @@ class _InformationProfileState extends State<InformationProfile>
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                           Column(
+                          Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 'patientEmail'.tr,
-                                style: const TextStyle(fontWeight: FontWeight.bold),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(
                                 height: 20,
                               ),
                               Text(
                                 'patientPhone'.tr,
-                                style: const TextStyle(fontWeight: FontWeight.bold),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(
                                 height: 20,
                               ),
                               Text(
                                 'patientBloodGroup'.tr,
-                                style: const TextStyle(fontWeight: FontWeight.bold),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(
                                 height: 20,
                               ),
                               Text(
                                 'patientAddress'.tr,
-                                style: const TextStyle(fontWeight: FontWeight.bold),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(
                                 height: 20,
                               ),
                               Text(
                                 'patientMaritialStatus'.tr,
-                                style: const TextStyle(fontWeight: FontWeight.bold),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(
                                 height: 20,
                               ),
                               Text(
                                 'patientGuardianName'.tr,
-                                style: const TextStyle(fontWeight: FontWeight.bold),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
@@ -272,14 +278,14 @@ class _InformationProfileState extends State<InformationProfile>
                     )
                   ],
                 ),
-            )
+              )
             : Center(
-              child: Container(
+                child: Container(
                   width: 50,
                   height: 50,
                   child: const LoadingIndicatorWidget(),
                 ),
-            )
+              )
         // :Center(child: Lottie.asset('assets/loading1.json'))
 
         );

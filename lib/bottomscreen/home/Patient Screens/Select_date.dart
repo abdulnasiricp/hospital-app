@@ -30,8 +30,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-              backgroundColor: Colors.lightBlue[50],
-
+      backgroundColor: Colors.lightBlue[50],
       appBar: AppBar(
         backgroundColor: darkYellow,
         title: Text('selectADate'.tr),
