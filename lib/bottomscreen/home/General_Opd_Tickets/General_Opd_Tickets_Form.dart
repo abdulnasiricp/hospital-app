@@ -6,12 +6,16 @@ import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 // ignore: camel_case_types
 class General_Opd_Tickets_Form extends StatefulWidget {
@@ -25,6 +29,8 @@ class General_Opd_Tickets_Form extends StatefulWidget {
 }
 
 class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
+  double _progress = 0.0; // Declare _progress here
+  InAppWebViewController? webView; // Declare webView here
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   TextEditingController searchController = TextEditingController();
@@ -257,10 +263,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
           actions: [
             IconButton(
                 onPressed: () {
-                  // Get.to(() => DoctorProfile(
-                  //
-                  // )
-                  // );
+                  _OpdTicketInfo(context);
                 },
                 icon: const Icon(Icons.info))
           ],
@@ -966,15 +969,28 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
               height: MediaQuery.of(context).size.height * 0.8,
               child: Column(
                 children: <Widget>[
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      'Select Department',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment
+                        .spaceBetween, // Align items at the ends
+                    children: <Widget>[
+                      Expanded(
+                        child: Center(
+                          child: Text(
+                            'Select Department',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                      IconButton(
+                        icon: Icon(Icons.close), // Close icon
+                        onPressed: () {
+                          Navigator.of(context).pop(); // Close the bottom sheet
+                        },
+                      ),
+                    ],
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8),
@@ -1071,15 +1087,28 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
               height: MediaQuery.of(context).size.height * 0.5,
               child: Column(
                 children: <Widget>[
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      'Select Marital Status',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment
+                        .spaceBetween, // Align items at the ends
+                    children: <Widget>[
+                      Expanded(
+                        child: Center(
+                          child: Text(
+                            'Select Marital Status',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                      IconButton(
+                        icon: Icon(Icons.close), // Close icon
+                        onPressed: () {
+                          Navigator.of(context).pop(); // Close the bottom sheet
+                        },
+                      ),
+                    ],
                   ),
                   isLoading
                       ? Expanded(
@@ -1152,15 +1181,28 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
               height: MediaQuery.of(context).size.height * 0.5,
               child: Column(
                 children: <Widget>[
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      'Select Your Blood Group',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment
+                        .spaceBetween, // Align items at the ends
+                    children: <Widget>[
+                      Expanded(
+                        child: Center(
+                          child: Text(
+                            'Select Your Blood Group',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                      IconButton(
+                        icon: Icon(Icons.close), // Close icon
+                        onPressed: () {
+                          Navigator.of(context).pop(); // Close the bottom sheet
+                        },
+                      ),
+                    ],
                   ),
                   isLoading
                       ? Expanded(
@@ -1211,6 +1253,63 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                                 },
                               ),
                             )
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void _OpdTicketInfo(BuildContext context) {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+      ),
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return Container(
+              height: MediaQuery.of(context).size.height * 0.9,
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment
+                        .spaceBetween, // Align items at the ends
+                    children: <Widget>[
+                      Expanded(
+                        child: Center(
+                          child: Text(
+                            'Process Of Ticket Booking',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.close), // Close icon
+                        onPressed: () {
+                          Navigator.of(context).pop(); // Close the bottom sheet
+                        },
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                        child: SfPdfViewer.network(
+                          'https://connectips.com/images/files/termsandconditionsenglish.pdf', // Replace with your PDF URL
+                          canShowPaginationDialog: false,
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             );
