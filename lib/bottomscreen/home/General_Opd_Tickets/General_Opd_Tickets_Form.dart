@@ -7,7 +7,6 @@ import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -1055,12 +1054,12 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                               child: ListView.builder(
                                 itemCount: filteredData?.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  int itemNumber = index + 1;
+                                  // int itemNumber = index + 1;
                                   return Card(
                                     color: Colors.white70.withOpacity(0.7),
                                     child: ListTile(
                                       title: Text(
-                                        '$itemNumber. ${filteredData?[index]['name'] ?? ''}',
+                                        '${filteredData?[index]['name'] ?? ''}',
                                       ),
                                       onTap: () {
                                         selectedDepartment =
