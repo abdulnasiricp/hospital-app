@@ -1,6 +1,4 @@
-
-
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, sized_box_for_whitespace, avoid_unnecessary_containers
 
 import 'dart:convert';
 import 'dart:math';
@@ -20,11 +18,36 @@ import 'package:khalti_flutter/khalti_flutter.dart';
 
 class CheckSelectPaymentMethod extends StatefulWidget {
   final int totalAmountInRs;
-  final String total_Amount;
+  final int total_AmountPaisa;
+  final String patientName;
+  final String DepartmentId;
+  final String BloodgroupId;
+  final String Bloodgroupname;
+  final String patientGender;
+  final String patientAddress;
+  final String patientDOB;
+  final String patientMobile;
+  final String ticketDate;
+  final String maritalStatus;
+  final String bloodGroup;
+  final String patientEmail;
+  final String selectedDepartment;
   const CheckSelectPaymentMethod(
       {Key? key,
       required this.totalAmountInRs,
-      required this.total_Amount})
+      required this.patientName,
+      required this.DepartmentId,
+      required this.BloodgroupId,
+      required this.Bloodgroupname,
+      required this.patientGender,
+      required this.patientAddress,
+      required this.patientDOB,
+      required this.patientMobile,
+      required this.ticketDate,
+      required this.maritalStatus,
+      required this.bloodGroup,
+      required this.patientEmail,
+      required this.selectedDepartment, required this.total_AmountPaisa})
       : super(key: key);
 
   @override
@@ -34,27 +57,12 @@ class CheckSelectPaymentMethod extends StatefulWidget {
 class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
 
 
- late String totalAmountString =widget.total_Amount;
- 
-
- late int totalAmountInt = int.parse(totalAmountString);
-
- 
- int rupeesToPaisa(int rupees) {
-    return rupees * 100;
-  }
-
-  late int paisaAmount = rupeesToPaisa(totalAmountInt).round();
-
-
- 
-
   String refId = '';
   String hasError = '';
   void payWithKhaltiInApp() {
     KhaltiScope.of(context).pay(
       config: PaymentConfig(
-        amount: paisaAmount, //in paisa
+        amount: widget.total_AmountPaisa, //in paisa
         // amount: 20000, //in paisa
         productIdentity: 'patientID',
         productName: 'patientName',
@@ -72,7 +80,7 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
   void payWithConnectIPSInApp() {
     KhaltiScope.of(context).pay(
       config: PaymentConfig(
-        amount: paisaAmount, //in paisa
+        amount: widget.total_AmountPaisa, //in paisa
         productIdentity: 'patientID',
         productName: 'patientName',
         mobileReadOnly: false,
@@ -93,7 +101,7 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
         merchantCode: "MERCHANT_CODE",
         merchantName: 'patientName',
         merchantUrl: "MERCHANT_URL",
-        amount: totalAmountInt,
+        amount: widget.totalAmountInRs,
         refId: 'patientID',
         module: "MODULE",
         user: "USER",
@@ -116,7 +124,7 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
           // .live for live
           su: 'https://www.marvel.com/hello',
           // amt: widget.totalAmountInpaisa,
-          amt: totalAmountInt,
+          amt: widget.totalAmountInRs,
           fu: 'https://www.marvel.com/hello',
           pid: 'patientID',
           // scd: dotenv.env['ESEWA_SCD']!
@@ -142,9 +150,20 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
   void onSuccess(PaymentSuccessModel success) async {
     Get.off(() => OpdPaymentSuccessfullScreen(
           paymentMethod: selectedPaymentMethod,
-          opdchargeAmount:totalAmountInt ,
+          opdchargeAmount: widget.totalAmountInRs,
+          BloodgroupId: widget.BloodgroupId,
+          DepartmentId: widget.DepartmentId,
+          patientAddress: widget.patientAddress,
+          patientDOB: widget.patientDOB,
+          patientEmail: widget.patientEmail,
+          patientGender: widget.patientGender,
+          patientMobile: widget.patientMobile,
+          patientName: widget.patientName,
+          ticketDate: widget.ticketDate,
+          totalAmountInRs: widget.totalAmountInRs,
+          total_AmountPaisa: widget.total_AmountPaisa,
+
         ));
- 
   }
 
   void onFailure(PaymentFailureModel failure) {
@@ -176,7 +195,6 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
   ];
   @override
   Widget build(BuildContext context) {
-    print('=============$totalAmountInt');
     return WillPopScope(
       onWillPop: () async {
         // Navigate to the Home Screen when the back button is pressed
@@ -254,7 +272,7 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            'OPd Charge Dues',
+                                            'OPD Charge Dues',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold),
                                           ),
@@ -273,7 +291,7 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(widget.total_Amount,
+                                          Text('${widget.totalAmountInRs}',
                                               style: const TextStyle(
                                                   fontWeight: FontWeight.bold)),
                                         ],
@@ -289,9 +307,9 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Padding(
+                                    const Padding(
                                       padding:
-                                          const EdgeInsets.only(left: 10.0),
+                                          EdgeInsets.only(left: 10.0),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -299,8 +317,8 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            'totalhospitalDueAmount'.tr,
-                                            style: const TextStyle(
+                                            'Total Ticket Charge',
+                                            style: TextStyle(
                                                 fontWeight: FontWeight.bold),
                                           ),
                                         ],
@@ -315,7 +333,7 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text("${widget.total_Amount}",
+                                          Text("${widget.totalAmountInRs}",
                                               style: const TextStyle(
                                                   fontWeight: FontWeight.bold)),
                                         ],
@@ -564,4 +582,3 @@ class DottedLinePainter extends CustomPainter {
     return false;
   }
 }
-

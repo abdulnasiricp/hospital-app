@@ -205,50 +205,6 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
   }
 
 
-  // Function to send data to the API
- String opdTicket='';
-  void fetchOpdTicket() async {
-    const url =
-        'https://uat.tez.hospital/xzy/webservice/addopdticket'; // Replace with the actual URL
-    final headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
-    final body = {
-      "name": firstNameController.text + " " + lastNameController.text,
-      "gender": selectedGender,
-      "dob": DobController.text,
-      "email": emailController.text,
-      "address": addresscontroller.text,
-      "mobileno": phoneController.text,
-      "department_id": selectedDepartmentId,
-      "doctor_id": "1",
-      "date": TicketdateController.text,
-      "blood_group": selectedBloodGroupId,
-      "payment_mode": "Cash",
-    };
-
-    try {
-      final response = await http.post(Uri.parse(url),
-          headers: headers, body: jsonEncode(body));
-
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> data = json.decode(response.body);
-        if (data.containsKey("opd_ticket")) {
-          final opdTicket = data["opd_ticket"];
-          print("opd_ticket: $opdTicket");
-        } else {
-          print("opd_ticket not found in the response.");
-        }
-      } else {
-        print(
-            "Failed to fetch opd_ticket. Status code: ${response.statusCode}");
-      }
-    } catch (e) {
-      print("Error: $e");
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -882,7 +838,6 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                       child: Text('proceed'.tr),
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                           fetchOpdTicket();
                           Get.to(() => OPDTicketDetails(
                                 selectedDepartment: departmentController.text,
                                 ticketDate: TicketdateController.text,
@@ -899,7 +854,6 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                                 Bloodgroupname: selectedBloodGroup,
                                 BloodgroupId: selectedBloodGroupId,
                                 DepartmentId: selectedDepartmentId,
-                                opdTicketLink: opdTicket,
                               ));
                         }
                       },

@@ -1,6 +1,8 @@
-// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, non_constant_identifier_names, avoid_print, unnecessary_string_interpolations
+// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, non_constant_identifier_names, avoid_print, unnecessary_string_interpolations, unused_field, deprecated_member_use
 
-import 'package:TezHealthCare/bottombar/bottombar.dart';
+import 'dart:convert';
+
+import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/General_Opd_Tickets_Form.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
@@ -9,14 +11,38 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:http/http.dart' as http;
 
 class OpdPaymentSuccessfullScreen extends StatefulWidget {
   final String paymentMethod;
   final int opdchargeAmount;
+  final int totalAmountInRs;
+  final int total_AmountPaisa;
+  final String patientName;
+  final String DepartmentId;
+  final String BloodgroupId;
+  final String patientGender;
+  final String patientAddress;
+  final String patientDOB;
+  final String patientMobile;
+  final String ticketDate;
+  final String patientEmail;
 
   const OpdPaymentSuccessfullScreen({
     Key? key,
-    required this.paymentMethod, required this.opdchargeAmount,
+    required this.paymentMethod,
+    required this.opdchargeAmount,
+    required this.totalAmountInRs,
+    required this.patientName,
+    required this.DepartmentId,
+    required this.BloodgroupId,
+    required this.patientGender,
+    required this.patientAddress,
+    required this.patientDOB,
+    required this.patientMobile,
+    required this.ticketDate,
+    required this.patientEmail,
+    required this.total_AmountPaisa,
   }) : super(key: key);
 
   @override
@@ -24,14 +50,66 @@ class OpdPaymentSuccessfullScreen extends StatefulWidget {
       _OpdPaymentSuccessfullScreenState();
 }
 
-class _OpdPaymentSuccessfullScreenState extends State<OpdPaymentSuccessfullScreen> {
+class _OpdPaymentSuccessfullScreenState
+    extends State<OpdPaymentSuccessfullScreen> {
+  // Function to send data to the API
+  String opdTicket='';
+  Future<void> fetchOpdTicket() async {
+    const url =
+        'https://uat.tez.hospital/xzy/webservice/addopdticket'; // Replace with the actual URL
+    final headers = {
+      'Soft-service': 'TezHealthCare',
+      'Auth-key': 'zbuks_ram859553467',
+    };
+    final body = {
+      "name": widget.patientName,
+      "gender": widget.patientGender,
+      "dob": widget.patientDOB,
+      "email": widget.patientEmail,
+      "address": widget.patientAddress,
+      "mobileno": widget.patientMobile,
+      "department_id": widget.DepartmentId,
+      "doctor_id": "1",
+      "date": widget.ticketDate,
+      "blood_group": widget.BloodgroupId,
+      "payment_mode": "Cash",
+    };
+
+    try {
+      final response = await http.post(Uri.parse(url),
+          headers: headers, body: jsonEncode(body));
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = json.decode(response.body);
+
+        if (data.containsKey("opd_id")) {
+          final opdId = data["opd_id"];
+          print("opd_Id: $opdId");
+          return opdId;
+        } else if(data.containsKey('opd_ticket')) {
+           final opdTicket = data["opd_ticket"];
+          print("opd_ticket: $opdTicket");
+          return opdTicket;
+          
+        }else {
+          print("opd_ticket not found in the response.");
+        }
+      } else {
+        print(
+            "Failed to fetch opd_ticket. Status code: ${response.statusCode}");
+      }
+    } catch (e) {
+      print("Error: $e");
+    }
+  }
+
   String formattedDate =
       DateFormat('dd-MM-yyyy, hh:mm a').format(DateTime.now());
 
-        double? _progress;
+  double? _progress;
   String? _downloadedFilePath; // Store the downloaded file path
 
-void showDownloadedFilePath(String path) {
+  void showDownloadedFilePath(String path) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -51,8 +129,7 @@ void showDownloadedFilePath(String path) {
                     print('Error opening file: ${result.message}');
                   }
                   // Launch a URL using url_launcher package
-                  await launch(
-                      'https://uat.tez.hospital/xzy/webservice/generateBillPrint/10673/OPD'); // Replace with your desired URL
+                  await launch('https://uat.tez.hospital/xzy/webservice/generateBillPrint/10920/OPD'); // Replace with your desired URL
                 }
               },
               child: const Text('Open'),
@@ -63,15 +140,14 @@ void showDownloadedFilePath(String path) {
     );
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
         // Navigate to the Home Screen when the back button is pressed
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const Bottomhome()),
+          MaterialPageRoute(
+              builder: (context) => const General_Opd_Tickets_Form()),
         );
         return false; // Prevent default back button behavior
       },
@@ -144,22 +220,61 @@ void showDownloadedFilePath(String path) {
                                 ],
                               ),
                             ),
-                            
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text(
+                                    "Transaction Id",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  FutureBuilder(
+                                    future:
+                                        fetchOpdTicket(), // Call fetchOpdTicket and return the transactionId
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.done) {
+                                        int transactionId = snapshot.data ??
+                                            0; // Use the transactionId when it's available
+                                        return Text(
+                                          "#Tez$transactionId",
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                          ),
+                                        );
+                                      } else {
+                                        // Display a loading indicator or return an empty container
+                                        return Container();
+                                      }
+                                    },
+                                  )
+                                ],
+                              ),
+                            ),
                             const SizedBox(
                               height: 5,
                             ),
                             const DottedLineDivider(),
-                           
-                              PaymentItem(
-                                title: ' OPD Ticket Charge',
-                                amount: widget.opdchargeAmount,
-                              ),
+                            PaymentItem(
+                              title: ' OPD Ticket Charge',
+                              amount: widget.opdchargeAmount,
+                            ),
                             const SizedBox(
                               height: 25,
                             ),
                             const DottedLineDivider(),
                             PaymentItem(
-                              title: 'Total  Ticket Charge',
+                              title: 'Total  Ticket Charge',
                               amount: widget.opdchargeAmount,
                               isTotal: true,
                             ),
@@ -224,26 +339,28 @@ void showDownloadedFilePath(String path) {
                           child: ElevatedButton(
                             child: const Text("Download Ticket"),
                             onPressed: () {
-                              // Get.to(() => const Bottomhome());
-                                   FileDownloader.downloadFile(
-                url: 'https://uat.tez.hospital/xzy/webservice/generateBillPrint/10673/OPD',
-                onProgress: (name, progress) {
-                  setState(() {
-                    _progress = progress;
-                  });
-                },
-                onDownloadCompleted: (path) {
-                  print('Downloaded path: $path');
-                  setState(() {
-                    _progress = null;
-                    _downloadedFilePath =
-                        path; // Store the downloaded file path
-                  });
+                               if (opdTicket.isNotEmpty) {
+                                FileDownloader.downloadFile(
+                                  url: opdTicket, // Use the opdTicket URL
+                                  onProgress: (name, progress) {
+                                    setState(() {
+                                      _progress = progress;
+                                    });
+                                  },
+                                  onDownloadCompleted: (path) {
+                                    print('Downloaded path: $path');
+                                    setState(() {
+                                      _progress = null;
+                                      _downloadedFilePath = path;
+                                    });
 
-                  // Show the downloaded file path in a popup
-                  showDownloadedFilePath(path);
-                },
-              );
+                                    // Show the downloaded file path in a popup
+                                    showDownloadedFilePath(path);
+                                  },
+                                );
+                              } else {
+                                print('opdTicket is empty or invalid.');
+                              }
                             },
                             style: ButtonStyle(
                               backgroundColor:
