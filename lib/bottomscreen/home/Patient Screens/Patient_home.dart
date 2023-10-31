@@ -55,7 +55,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
   late num rupeesAmount = totalDues;
   late int rupeesAmountInt = rupeesAmount.toInt();
 
-  late num pathalogyAmount = pathodues;
 
   num rupeesToPaisa(num rupees) {
     return rupees * 100.0;
