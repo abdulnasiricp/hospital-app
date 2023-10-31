@@ -292,6 +292,7 @@
 
 import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/PaymentMethod/OpdSuccessPayment.dart';
+import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/PaymentMethod/Select_Payment_Method_For_opd.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
