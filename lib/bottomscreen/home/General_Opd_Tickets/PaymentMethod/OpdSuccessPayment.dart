@@ -52,56 +52,110 @@ class OpdPaymentSuccessfullScreen extends StatefulWidget {
 
 class _OpdPaymentSuccessfullScreenState
     extends State<OpdPaymentSuccessfullScreen> {
-  // Function to send data to the API
-  String opdTicket='';
-  Future<void> fetchOpdTicket() async {
-    const url =
-        'https://uat.tez.hospital/xzy/webservice/addopdticket'; // Replace with the actual URL
-    final headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
-    final body = {
-      "name": widget.patientName,
-      "gender": widget.patientGender,
-      "dob": widget.patientDOB,
-      "email": widget.patientEmail,
-      "address": widget.patientAddress,
-      "mobileno": widget.patientMobile,
-      "department_id": widget.DepartmentId,
-      "doctor_id": "1",
-      "date": widget.ticketDate,
-      "blood_group": widget.BloodgroupId,
-      "payment_mode": "Cash",
-    };
-
-    try {
-      final response = await http.post(Uri.parse(url),
-          headers: headers, body: jsonEncode(body));
-
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> data = json.decode(response.body);
-
-        if (data.containsKey("opd_id")) {
-          final opdId = data["opd_id"];
-          print("opd_Id: $opdId");
-          return opdId;
-        } else if(data.containsKey('opd_ticket')) {
-           final opdTicket = data["opd_ticket"];
-          print("opd_ticket: $opdTicket");
-          return opdTicket;
-          
-        }else {
-          print("opd_ticket not found in the response.");
-        }
-      } else {
-        print(
-            "Failed to fetch opd_ticket. Status code: ${response.statusCode}");
-      }
-    } catch (e) {
-      print("Error: $e");
-    }
+  @override
+  void initState() {
+    makePostRequest();
+    super.initState();
   }
+
+  String? opdTicket;
+  int? opdId;
+  String? message;
+
+ Future<void> makePostRequest() async {
+  final url = Uri.parse('https://uat.tez.hospital/xzy/webservice/addopdticket');
+  final Map<String, String> headers = {
+    'Soft-service': 'TezHealthCare',
+    'Auth-key': 'zbuks_ram859553467',
+  };
+
+  final body = {
+    "name": widget.patientName,
+    "gender": widget.patientGender,
+    "dob": widget.patientDOB,
+    "email": widget.patientEmail,
+    "address": widget.patientAddress,
+    "mobileno": widget.patientMobile,
+    "department_id": widget.DepartmentId,
+    "doctor_id": "1",
+    "date": widget.ticketDate,
+    "blood_group": widget.BloodgroupId,
+    "payment_mode": "Cash",
+  };
+
+  final response = await http.post(url, headers: headers, body: body);
+
+  if (response.statusCode == 200) {
+    final jsonResponse = json.decode(response.body);
+    if (jsonResponse['status'] == '1') {
+      setState(() {
+        opdId = jsonResponse['opd_id'];
+        opdTicket = jsonResponse['opd_ticket'];
+        message = jsonResponse['message'];
+      });
+      print('========opdid $opdId');
+      print('========opdTicket $opdTicket');
+      print('========message $message');
+    } else {
+      // Handle the case where the 'status' is not '1'
+      print('Request was successful, but status is not 1.');
+    }
+  } else {
+    // Handle the HTTP request error here
+    print('Request failed with status: ${response.statusCode}');
+  }
+}
+
+  // // Function to send data to the API
+  // String opdTicket='';
+  // Future<void> fetchOpdTicket() async {
+  //   const url =
+  //       'https://uat.tez.hospital/xzy/webservice/addopdticket'; // Replace with the actual URL
+  //   final headers = {
+  //     'Soft-service': 'TezHealthCare',
+  //     'Auth-key': 'zbuks_ram859553467',
+  //   };
+    // final body = {
+    //   "name": widget.patientName,
+    //   "gender": widget.patientGender,
+    //   "dob": widget.patientDOB,
+    //   "email": widget.patientEmail,
+    //   "address": widget.patientAddress,
+    //   "mobileno": widget.patientMobile,
+    //   "department_id": widget.DepartmentId,
+    //   "doctor_id": "1",
+    //   "date": widget.ticketDate,
+    //   "blood_group": widget.BloodgroupId,
+    //   "payment_mode": "Cash",
+    // };
+
+  //   try {
+  //     final response = await http.post(Uri.parse(url),
+  //         headers: headers, body: jsonEncode(body));
+
+  //     if (response.statusCode == 200) {
+  //       final Map<String, dynamic> data = json.decode(response.body);
+
+  //       if (data.containsKey("opd_id")) {
+  //         final opdId = data["opd_id"];
+  //         print("opd_Id: $opdId");
+  //         return opdId;
+  //       } else if(data.containsKey('opd_ticket')) {
+  //          final opdTicket = data["opd_ticket"];
+  //         print("opd_ticket: $opdTicket");
+  //         return opdTicket;
+
+  //       }else {
+  //         print("opd_ticket not found in the response.");
+  //       }
+  //     } else {
+  //       print(
+  //           "Failed to fetch opd_ticket. Status code: ${response.statusCode}");
+  //     }
+  //   } catch (e) {
+  //     print("Error: $e");
+  //   }
+  // }
 
   String formattedDate =
       DateFormat('dd-MM-yyyy, hh:mm a').format(DateTime.now());
@@ -129,7 +183,8 @@ class _OpdPaymentSuccessfullScreenState
                     print('Error opening file: ${result.message}');
                   }
                   // Launch a URL using url_launcher package
-                  await launch('https://uat.tez.hospital/xzy/webservice/generateBillPrint/10920/OPD'); // Replace with your desired URL
+                  await launch(
+                      'https://uat.tez.hospital/xzy/webservice/generateBillPrint/10920/OPD'); // Replace with your desired URL
                 }
               },
               child: const Text('Open'),
@@ -142,16 +197,18 @@ class _OpdPaymentSuccessfullScreenState
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        // Navigate to the Home Screen when the back button is pressed
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-              builder: (context) => const General_Opd_Tickets_Form()),
-        );
-        return false; // Prevent default back button behavior
-      },
-      child: Scaffold(
+    return
+    //  WillPopScope(
+    //   onWillPop: () async {
+    //     // Navigate to the Home Screen when the back button is pressed
+    //     Navigator.of(context).pushReplacement(
+    //       MaterialPageRoute(
+    //           builder: (context) => const General_Opd_Tickets_Form()),
+    //     );
+    //     return false; // Prevent default back button behavior
+    //   },
+      // child: 
+      Scaffold(
         backgroundColor: Colors.blue[50],
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -236,28 +293,36 @@ class _OpdPaymentSuccessfullScreenState
                                       fontSize: 16,
                                     ),
                                   ),
-                                  FutureBuilder(
-                                    future:
-                                        fetchOpdTicket(), // Call fetchOpdTicket and return the transactionId
-                                    builder: (BuildContext context,
-                                        AsyncSnapshot snapshot) {
-                                      if (snapshot.connectionState ==
-                                          ConnectionState.done) {
-                                        int transactionId = snapshot.data ??
-                                            0; // Use the transactionId when it's available
-                                        return Text(
-                                          "#Tez$transactionId",
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16,
-                                          ),
-                                        );
-                                      } else {
-                                        // Display a loading indicator or return an empty container
-                                        return Container();
-                                      }
-                                    },
-                                  )
+                                  Text(
+                                    "#Tez ${opdId ?? 'N/A'}",
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+
+                                  // FutureBuilder(
+                                  //   future:
+                                  //       makePostRequest(), // Call fetchOpdTicket and return the transactionId
+                                  //   builder: (BuildContext context,
+                                  //       AsyncSnapshot snapshot) {
+                                  //     if (snapshot.connectionState ==
+                                  //         ConnectionState.done) {
+                                  //       int transactionId = snapshot.data ??
+                                  //           0; // Use the transactionId when it's available
+                                  //       return Text(
+                                  //         "#Tez$transactionId",
+                                  //         style: const TextStyle(
+                                  //           fontWeight: FontWeight.bold,
+                                  //           fontSize: 16,
+                                  //         ),
+                                  //       );
+                                  //     } else {
+                                  //       // Display a loading indicator or return an empty container
+                                  //       return Container();
+                                  //     }
+                                  //   },
+                                  // )
                                 ],
                               ),
                             ),
@@ -339,9 +404,9 @@ class _OpdPaymentSuccessfullScreenState
                           child: ElevatedButton(
                             child: const Text("Download Ticket"),
                             onPressed: () {
-                               if (opdTicket.isNotEmpty) {
+                              if (opdTicket != null) {
                                 FileDownloader.downloadFile(
-                                  url: opdTicket, // Use the opdTicket URL
+                                  url: opdTicket ?? "",
                                   onProgress: (name, progress) {
                                     setState(() {
                                       _progress = progress;
@@ -362,6 +427,7 @@ class _OpdPaymentSuccessfullScreenState
                                 print('opdTicket is empty or invalid.');
                               }
                             },
+                           
                             style: ButtonStyle(
                               backgroundColor:
                                   MaterialStateProperty.all(yellow),
@@ -376,7 +442,7 @@ class _OpdPaymentSuccessfullScreenState
             ),
           ),
         ),
-      ),
+    
     );
   }
 }
