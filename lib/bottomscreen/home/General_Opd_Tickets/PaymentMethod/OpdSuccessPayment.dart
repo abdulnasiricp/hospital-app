@@ -62,100 +62,55 @@ class _OpdPaymentSuccessfullScreenState
   int? opdId;
   String? message;
 
- Future<void> makePostRequest() async {
-  final url = Uri.parse('https://uat.tez.hospital/xzy/webservice/addopdticket');
-  final Map<String, String> headers = {
-    'Soft-service': 'TezHealthCare',
-    'Auth-key': 'zbuks_ram859553467',
-  };
+  Future<void> makePostRequest() async {
+    final url =
+        Uri.parse('https://uat.tez.hospital/xzy/webservice/addopdticket');
+    final headers = {
+      'Soft-service': 'TezHealthCare',
+      'Auth-key': 'zbuks_ram859553467',
+    };
 
-  final body = {
-    "name": widget.patientName,
-    "gender": widget.patientGender,
-    "dob": widget.patientDOB,
-    "email": widget.patientEmail,
-    "address": widget.patientAddress,
-    "mobileno": widget.patientMobile,
-    "department_id": widget.DepartmentId,
-    "doctor_id": "1",
-    "date": widget.ticketDate,
-    "blood_group": widget.BloodgroupId,
-    "payment_mode": "Cash",
-  };
+    final Map<String, String> body = {
+      "name": widget.patientName,
+      "gender": widget.patientGender,
+      "dob": widget.patientDOB,
+      "email": widget.patientEmail,
+      "address": widget.patientAddress,
+      "mobileno": widget.patientMobile,
+      "department_id": widget.DepartmentId,
+      "doctor_id": "",
+      "date": widget.ticketDate,
+      "blood_group": widget.BloodgroupId,
+      "payment_mode": "Cash",
+    };
 
-  final response = await http.post(url, headers: headers, body: body);
+    final response = await http.post(
+      url,
+      headers: headers,
+      body: jsonEncode(body),
+    );
 
-  if (response.statusCode == 200) {
-    final jsonResponse = json.decode(response.body);
-    if (jsonResponse['status'] == '1') {
-      setState(() {
-        opdId = jsonResponse['opd_id'];
-        opdTicket = jsonResponse['opd_ticket'];
-        message = jsonResponse['message'];
-      });
-      print('========opdid $opdId');
-      print('========opdTicket $opdTicket');
-      print('========message $message');
+    if (response.statusCode == 200) {
+      final jsonResponse = json.decode(response.body);
+      print('==========jsonResponse:$jsonResponse ');
+      if (jsonResponse['status'] == '1') {
+        setState(() {
+          opdId = jsonResponse['opd_id'];
+          opdTicket = jsonResponse['opd_ticket'];
+          message = jsonResponse['message'];
+        });
+        print('========opdid $opdId');
+        print('========opdTicket $opdTicket');
+        print('========message $message');
+      } else {
+        // Handle the case where the 'status' is not '1'
+        print('Request was successful, but status is not 1.');
+      }
     } else {
-      // Handle the case where the 'status' is not '1'
-      print('Request was successful, but status is not 1.');
+      // Handle the HTTP request error here
+      print('Request failed with status: ${response.statusCode}');
     }
-  } else {
-    // Handle the HTTP request error here
-    print('Request failed with status: ${response.statusCode}');
   }
-}
-
-  // // Function to send data to the API
-  // String opdTicket='';
-  // Future<void> fetchOpdTicket() async {
-  //   const url =
-  //       'https://uat.tez.hospital/xzy/webservice/addopdticket'; // Replace with the actual URL
-  //   final headers = {
-  //     'Soft-service': 'TezHealthCare',
-  //     'Auth-key': 'zbuks_ram859553467',
-  //   };
-    // final body = {
-    //   "name": widget.patientName,
-    //   "gender": widget.patientGender,
-    //   "dob": widget.patientDOB,
-    //   "email": widget.patientEmail,
-    //   "address": widget.patientAddress,
-    //   "mobileno": widget.patientMobile,
-    //   "department_id": widget.DepartmentId,
-    //   "doctor_id": "1",
-    //   "date": widget.ticketDate,
-    //   "blood_group": widget.BloodgroupId,
-    //   "payment_mode": "Cash",
-    // };
-
-  //   try {
-  //     final response = await http.post(Uri.parse(url),
-  //         headers: headers, body: jsonEncode(body));
-
-  //     if (response.statusCode == 200) {
-  //       final Map<String, dynamic> data = json.decode(response.body);
-
-  //       if (data.containsKey("opd_id")) {
-  //         final opdId = data["opd_id"];
-  //         print("opd_Id: $opdId");
-  //         return opdId;
-  //       } else if(data.containsKey('opd_ticket')) {
-  //          final opdTicket = data["opd_ticket"];
-  //         print("opd_ticket: $opdTicket");
-  //         return opdTicket;
-
-  //       }else {
-  //         print("opd_ticket not found in the response.");
-  //       }
-  //     } else {
-  //       print(
-  //           "Failed to fetch opd_ticket. Status code: ${response.statusCode}");
-  //     }
-  //   } catch (e) {
-  //     print("Error: $e");
-  //   }
-  // }
 
   String formattedDate =
       DateFormat('dd-MM-yyyy, hh:mm a').format(DateTime.now());
@@ -184,7 +139,7 @@ class _OpdPaymentSuccessfullScreenState
                   }
                   // Launch a URL using url_launcher package
                   await launch(
-                      'https://uat.tez.hospital/xzy/webservice/generateBillPrint/10920/OPD'); // Replace with your desired URL
+                      opdTicket ?? ""); // Replace with your desired URL
                 }
               },
               child: const Text('Open'),
@@ -197,253 +152,226 @@ class _OpdPaymentSuccessfullScreenState
 
   @override
   Widget build(BuildContext context) {
-    return
-    //  WillPopScope(
-    //   onWillPop: () async {
-    //     // Navigate to the Home Screen when the back button is pressed
-    //     Navigator.of(context).pushReplacement(
-    //       MaterialPageRoute(
-    //           builder: (context) => const General_Opd_Tickets_Form()),
-    //     );
-    //     return false; // Prevent default back button behavior
-    //   },
-      // child: 
-      Scaffold(
-        backgroundColor: Colors.blue[50],
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: const Text('Ticket Booking successful!'),
-          centerTitle: true,
-          backgroundColor: darkYellow,
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Card(
-              elevation: 50,
-              child: Column(
-                children: [
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 1.0),
-                              child: Container(
-                                child: const Text(
-                                  'Ticket Booking successful!',
-                                  style: TextStyle(
-                                    fontSize: 28,
-                                    color: Colors.green,
-                                    fontWeight: FontWeight.bold,
+    return WillPopScope(
+        onWillPop: () async {
+          // Navigate to the Home Screen when the back button is pressed
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+                builder: (context) => const General_Opd_Tickets_Form()),
+          );
+          return false; // Prevent default back button behavior
+        },
+        child: Scaffold(
+          backgroundColor: Colors.blue[50],
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            title: const Text('Ticket Booking successful!'),
+            centerTitle: true,
+            backgroundColor: darkYellow,
+          ),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Card(
+                elevation: 50,
+                child: Column(
+                  children: [
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 1.0),
+                                child: Container(
+                                  child: const Text(
+                                    'Ticket Booking successful!',
+                                    style: TextStyle(
+                                      fontSize: 28,
+                                      color: Colors.green,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 5,
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Container(
+                                  width: width / 3,
+                                  height: height / 6,
+                                  child: SvgPicture.asset(
+                                    'assets/done.svg',
+                                  )),
+                              const SizedBox(
+                                height: 25,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      "Date/Time",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    Text(
+                                      "$formattedDate",
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      "Transaction Id",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    Text(
+                                      "#Tez ${opdId ?? 'N/A'}",
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              const DottedLineDivider(),
+                              PaymentItem(
+                                title: ' OPD Ticket Charge',
+                                amount: widget.opdchargeAmount,
+                              ),
+                              const SizedBox(
+                                height: 25,
+                              ),
+                              const DottedLineDivider(),
+                              PaymentItem(
+                                title: 'Total  Ticket Charge',
+                                amount: widget.opdchargeAmount,
+                                isTotal: true,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.only(right: 8.0),
+                              child: Text("Payment Mode :",
+                                  style: TextStyle(fontSize: 12)),
                             ),
                             Container(
-                                width: width / 3,
-                                height: height / 6,
-                                child: SvgPicture.asset(
-                                  'assets/done.svg',
-                                )),
-                            const SizedBox(
-                              height: 25,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                              child: Column(
                                 children: [
-                                  const Text(
-                                    "Date/Time",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  Text(
-                                    "$formattedDate",
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
-                                  ),
+                                  if (widget.paymentMethod == 'Khalti')
+                                    Container(
+                                      height: 30,
+                                      width: 60,
+                                      child: Image.asset('assets/khalti.png'),
+                                    ) // Replace 'assets/khalti_image.png' with the actual path to your Khalti image.
+                                  else if (widget.paymentMethod == 'eSewa')
+                                    Container(
+                                      height: 30,
+                                      width: 60,
+                                      child: Image.asset('assets/esewa.png'),
+                                    ) // Replace 'assets/esewa_image.png' with the actual path to your eSewa image.
+                                  else if (widget.paymentMethod == 'IPS')
+                                    Container(
+                                      height: 30,
+                                      width: 60,
+                                      child: Image.asset('assets/ips.png'),
+                                    ) // Replace 'assets/ips_image.png' with the actual path to your IPS image.
+                                  else if (widget.paymentMethod == 'IME')
+                                    Container(
+                                      height: 30,
+                                      width: 60,
+                                      child: Image.asset('assets/ime.png'),
+                                    ) // Replace 'assets/ime_image.png' with the actual path to your IME image.
                                 ],
                               ),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Text(
-                                    "Transaction Id",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  Text(
-                                    "#Tez ${opdId ?? 'N/A'}",
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-
-                                  // FutureBuilder(
-                                  //   future:
-                                  //       makePostRequest(), // Call fetchOpdTicket and return the transactionId
-                                  //   builder: (BuildContext context,
-                                  //       AsyncSnapshot snapshot) {
-                                  //     if (snapshot.connectionState ==
-                                  //         ConnectionState.done) {
-                                  //       int transactionId = snapshot.data ??
-                                  //           0; // Use the transactionId when it's available
-                                  //       return Text(
-                                  //         "#Tez$transactionId",
-                                  //         style: const TextStyle(
-                                  //           fontWeight: FontWeight.bold,
-                                  //           fontSize: 16,
-                                  //         ),
-                                  //       );
-                                  //     } else {
-                                  //       // Display a loading indicator or return an empty container
-                                  //       return Container();
-                                  //     }
-                                  //   },
-                                  // )
-                                ],
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            const DottedLineDivider(),
-                            PaymentItem(
-                              title: ' OPD Ticket Charge',
-                              amount: widget.opdchargeAmount,
-                            ),
-                            const SizedBox(
-                              height: 25,
-                            ),
-                            const DottedLineDivider(),
-                            PaymentItem(
-                              title: 'Total  Ticket Charge',
-                              amount: widget.opdchargeAmount,
-                              isTotal: true,
-                            ),
+                            )
                           ],
                         ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(right: 8.0),
-                            child: Text("Payment Mode :",
-                                style: TextStyle(fontSize: 12)),
-                          ),
-                          Container(
-                            child: Column(
-                              children: [
-                                if (widget.paymentMethod == 'Khalti')
-                                  Container(
-                                    height: 30,
-                                    width: 60,
-                                    child: Image.asset('assets/khalti.png'),
-                                  ) // Replace 'assets/khalti_image.png' with the actual path to your Khalti image.
-                                else if (widget.paymentMethod == 'eSewa')
-                                  Container(
-                                    height: 30,
-                                    width: 60,
-                                    child: Image.asset('assets/esewa.png'),
-                                  ) // Replace 'assets/esewa_image.png' with the actual path to your eSewa image.
-                                else if (widget.paymentMethod == 'IPS')
-                                  Container(
-                                    height: 30,
-                                    width: 60,
-                                    child: Image.asset('assets/ips.png'),
-                                  ) // Replace 'assets/ips_image.png' with the actual path to your IPS image.
-                                else if (widget.paymentMethod == 'IME')
-                                  Container(
-                                    height: 30,
-                                    width: 60,
-                                    child: Image.asset('assets/ime.png'),
-                                  ) // Replace 'assets/ime_image.png' with the actual path to your IME image.
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10.0),
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Center(
-                            child: Container(
-                          width: width,
-                          height: height / 15,
-                          child: ElevatedButton(
-                            child: const Text("Download Ticket"),
-                            onPressed: () {
-                              if (opdTicket != null) {
-                                FileDownloader.downloadFile(
-                                  url: opdTicket ?? "",
-                                  onProgress: (name, progress) {
-                                    setState(() {
-                                      _progress = progress;
-                                    });
-                                  },
-                                  onDownloadCompleted: (path) {
-                                    print('Downloaded path: $path');
-                                    setState(() {
-                                      _progress = null;
-                                      _downloadedFilePath = path;
-                                    });
+                        const SizedBox(
+                          height: 20,
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Center(
+                              child: Container(
+                            width: width,
+                            height: height / 15,
+                            child: ElevatedButton(
+                              child: const Text("Download Ticket"),
+                              onPressed: () {
+                                if (opdTicket != null) {
+                                  FileDownloader.downloadFile(
+                                    url: opdTicket ?? "",
+                                    onProgress: (name, progress) {
+                                      setState(() {
+                                        _progress = progress;
+                                      });
+                                    },
+                                    onDownloadCompleted: (path) {
+                                      print('Downloaded path: $path');
+                                      setState(() {
+                                        _progress = null;
+                                        _downloadedFilePath = path;
+                                      });
 
-                                    // Show the downloaded file path in a popup
-                                    showDownloadedFilePath(path);
-                                  },
-                                );
-                              } else {
-                                print('opdTicket is empty or invalid.');
-                              }
-                            },
-                           
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(yellow),
+                                      // Show the downloaded file path in a popup
+                                      showDownloadedFilePath(path);
+                                    },
+                                  );
+                                } else {
+                                  print('opdTicket is empty or invalid.');
+                                }
+                              },
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(yellow),
+                              ),
                             ),
-                          ),
-                        )),
+                          )),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-    
-    );
+        ));
   }
 }
 
