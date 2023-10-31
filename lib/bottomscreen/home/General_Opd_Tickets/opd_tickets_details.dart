@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:TezHealthCare/Payment_gateway/Select_Payment_Method.dart';
 import 'package:TezHealthCare/check.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -258,9 +259,11 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
               ),
               InkWell(
                 onTap: () {
-                  Get.to(() =>  CheckSelectPaymentMethod(
-                        total_Amount: opdcharge,
+                  Get.to(() => const CheckSelectPaymentMethod(
+                        ambulance_Amount: 0, radio_Amount: 0,
+                        total_Amount: 0,
                         totalAmountInRs:0,
+                        totalAmountInpaisa: 0,
                       ));
                 },
                 child: Container(

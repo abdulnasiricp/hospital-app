@@ -6,11 +6,15 @@ import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 // ignore: camel_case_types
 class General_Opd_Tickets_Form extends StatefulWidget {
@@ -24,6 +28,8 @@ class General_Opd_Tickets_Form extends StatefulWidget {
 }
 
 class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
+  double _progress = 0.0; // Declare _progress here
+  InAppWebViewController? webView; // Declare webView here
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   TextEditingController searchController = TextEditingController();
@@ -49,6 +55,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
   String selectedBloodGroup = '';
   String selectedBloodGroupId = '';
   String selectedDepartmentId = '';
+
   String Maritalstatus = '';
   String selectedGender = ''; // Stores the selected gender.
 
@@ -111,7 +118,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
     data = [];
     filteredData = [];
     fetchMaritalStatusData();
-    bloodGroupData();
+    fetchBloodgroupData();
   }
 
   //////////////////////////////////////////////////////////////////////////// For Marital Status
@@ -140,46 +147,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
   }
 
 /////////////////////////////////////
-  List<String> bloodGroupList = [];
-  Future<void> bloodGroupData() async {
-    setState(() {
-      isLoading = true;
-    });
 
-    try {
-      final response = await http
-          .post(Uri.parse('https://uat.tez.hospital/xzy/webservice/lists'));
-
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-
-        if (data.containsKey('bloodgroup')) {
-          final bloodGroupType = data['bloodgroup'];
-          print('==========$bloodGroupType');
-          setState(() {
-            bloodGroupList = bloodGroupType.values.toList().cast<String>();
-            print(bloodGroupList);
-            isLoading = false;
-          });
-        } else {}
-      } else {
-        // Handle non-200 status codes
-        setState(() {
-          isLoading = false;
-        });
-        throw Exception('Failed to load blood group data');
-      }
-    } catch (e) {
-      // Handle network or parsing errors
-      print('Error: $e');
-      setState(() {
-        isLoading = false;
-      });
-    }
-  }
-
-//////////////////////////////////////////////////////////////////////////// For Marital Status
-// ////////////////////////////////////////////////////////////////////////// For Marital Status
   List<String> BloodgroupList = [];
   Future<void> fetchBloodgroupData() async {
     setState(() {
@@ -203,6 +171,8 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
       throw Exception('Failed to load marital status data');
     }
   }
+
+//////////////////////////////////////////////////////////////////////////// For Marital Status
 
 //////////////////////////////////////////////////////////////////////////// For Marital Status
   Future<void> _selectTicketDate(BuildContext context) async {
@@ -247,7 +217,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
       'Auth-key': 'zbuks_ram859553467',
     };
     final body = {
-      "name": firstNameController.text +" "+ lastNameController.text,
+      "name": firstNameController.text + " " + lastNameController.text,
       "gender": selectedGender,
       "dob": DobController.text,
       "email": emailController.text,
@@ -292,10 +262,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
           actions: [
             IconButton(
                 onPressed: () {
-                  // Get.to(() => DoctorProfile(
-                  //
-                  // )
-                  // );
+                  _OpdTicketInfo(context);
                 },
                 icon: const Icon(Icons.info))
           ],
@@ -844,7 +811,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                         TextFormField(
                           onTapOutside: (event) =>
                               FocusScope.of(context).unfocus(),
-                          controller: addresscontroller,
+                          controller: emailController,
                           decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               hintText: 'Enter Email Address',
@@ -893,7 +860,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                           },
                           onTapOutside: (event) =>
                               FocusScope.of(context).unfocus(),
-                          controller: emailController,
+                          controller: addresscontroller,
                           decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               hintText: 'Enter Your Full Address',
@@ -917,19 +884,23 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                       child: Text('proceed'.tr),
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          fetchOpdTicket();
+                          //  fetchOpdTicket();
                           Get.to(() => OPDTicketDetails(
-                                selectedDepartment:  departmentController.text,
+                                selectedDepartment: departmentController.text,
                                 ticketDate: TicketdateController.text,
                                 maritalStatus: maritalstatusController.text,
                                 bloodGroup: selectedBloodGroupId,
-                                patientName: firstNameController.text +" "+
+                                patientName: firstNameController.text +
+                                    " " +
                                     lastNameController.text,
                                 patientGender: selectedGender,
                                 patientDOB: DobController.text,
                                 patientMobile: phoneController.text,
                                 patientEmail: emailController.text,
-                                patientAddress: emailController.text,
+                                patientAddress: addresscontroller.text,
+                                Bloodgroupname: selectedBloodGroup,
+                                BloodgroupId: selectedBloodGroupId,
+                                DepartmentId: selectedDepartmentId,
                               ));
                         }
                       },
@@ -997,15 +968,28 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
               height: MediaQuery.of(context).size.height * 0.8,
               child: Column(
                 children: <Widget>[
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      'Select Department',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment
+                        .spaceBetween, // Align items at the ends
+                    children: <Widget>[
+                      Expanded(
+                        child: Center(
+                          child: Text(
+                            'Select Department',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                      IconButton(
+                        icon: Icon(Icons.close), // Close icon
+                        onPressed: () {
+                          Navigator.of(context).pop(); // Close the bottom sheet
+                        },
+                      ),
+                    ],
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8),
@@ -1066,7 +1050,6 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                                             filteredData?[index]['name'] ?? '';
                                         selectedDepartmentId =
                                             filteredData?[index]['id'] ?? '';
-
                                         departmentController.text =
                                             '($selectedDepartmentId) $selectedDepartment';
 
@@ -1103,15 +1086,28 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
               height: MediaQuery.of(context).size.height * 0.5,
               child: Column(
                 children: <Widget>[
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      'Select Marital Status',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment
+                        .spaceBetween, // Align items at the ends
+                    children: <Widget>[
+                      Expanded(
+                        child: Center(
+                          child: Text(
+                            'Select Marital Status',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                      IconButton(
+                        icon: Icon(Icons.close), // Close icon
+                        onPressed: () {
+                          Navigator.of(context).pop(); // Close the bottom sheet
+                        },
+                      ),
+                    ],
                   ),
                   isLoading
                       ? Expanded(
@@ -1184,15 +1180,28 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
               height: MediaQuery.of(context).size.height * 0.5,
               child: Column(
                 children: <Widget>[
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      'Select Blood Status',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment
+                        .spaceBetween, // Align items at the ends
+                    children: <Widget>[
+                      Expanded(
+                        child: Center(
+                          child: Text(
+                            'Select Your Blood Group',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                      IconButton(
+                        icon: Icon(Icons.close), // Close icon
+                        onPressed: () {
+                          Navigator.of(context).pop(); // Close the bottom sheet
+                        },
+                      ),
+                    ],
                   ),
                   isLoading
                       ? Expanded(
@@ -1207,7 +1216,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                             ),
                           ),
                         ))
-                      : bloodGroupList.isEmpty
+                      : BloodgroupList.isEmpty
                           ? Expanded(
                               child: Center(
                               child: Container(
@@ -1221,27 +1230,85 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                             ))
                           : Expanded(
                               child: ListView.builder(
-                                itemCount: bloodGroupList.length,
+                                itemCount: BloodgroupList.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  int itemNumber = index + 1;
+                                  String bloodGroup =
+                                      BloodgroupList[index]; // Get the value
+                                  String bloodGroupId = (index + 1)
+                                      .toString(); // Create a key (e.g., 1-based index)
                                   return Card(
                                     color: Colors.white70.withOpacity(0.7),
                                     child: ListTile(
-                                      title: Text(
-                                        '$itemNumber. ${bloodGroupList[index]}',
-                                      ),
+                                      title: Text('$bloodGroupId. $bloodGroup'),
                                       onTap: () {
-                                        selectedBloodGroup =
-                                            bloodGroupList[index];
+                                        selectedBloodGroupId = bloodGroupId;
+                                        selectedBloodGroup = bloodGroup;
                                         BloodGroupController.text =
-                                            selectedBloodGroup;
+                                            '$selectedBloodGroupId. $selectedBloodGroup';
                                         Navigator.of(context).pop();
                                       },
                                     ),
                                   );
                                 },
                               ),
+                            )
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void _OpdTicketInfo(BuildContext context) {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+      ),
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return Container(
+              height: MediaQuery.of(context).size.height * 0.9,
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment
+                        .spaceBetween, // Align items at the ends
+                    children: <Widget>[
+                      Expanded(
+                        child: Center(
+                          child: Text(
+                            'Process Of Ticket Booking',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
                             ),
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.close), // Close icon
+                        onPressed: () {
+                          Navigator.of(context).pop(); // Close the bottom sheet
+                        },
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                        child: SfPdfViewer.network(
+                          'https://connectips.com/images/files/termsandconditionsenglish.pdf', // Replace with your PDF URL
+                          canShowPaginationDialog: false,
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             );
