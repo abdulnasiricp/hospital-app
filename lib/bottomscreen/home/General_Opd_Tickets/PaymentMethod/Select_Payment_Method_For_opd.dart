@@ -1,3 +1,52 @@
+// import 'package:TezHealthCare/utils/colors.dart';
+// import 'package:flutter/material.dart';
+
+// class Select_Payment_Method_For_opd extends StatefulWidget {
+//   //const Select_Payment_Method_For_opd({super.key});
+
+//   @override
+//   State<Select_Payment_Method_For_opd> createState() =>
+//       _Select_Payment_Method_For_opdState();
+// }
+
+// class _Select_Payment_Method_For_opdState
+//     extends State<Select_Payment_Method_For_opd> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: Colors.lightBlue[50],
+//       appBar: AppBar(
+//         backgroundColor: darkYellow,
+//         title: const Text('OPT Ticket Details'),
+//         centerTitle: true,
+//       ),
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             Icon(
+//               Icons.build,
+//               size: 100,
+//               color: Colors.orange,
+//             ),
+//             SizedBox(height: 20),
+//             Text(
+//               'This page is under construction.',
+//               style: TextStyle(fontSize: 20),
+//             ),
+//             SizedBox(height: 10),
+//             Text(
+//               'We are working hard to bring it to you soon!',
+//               style: TextStyle(fontSize: 16, color: Colors.grey),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+
 
 
 // ignore_for_file: non_constant_identifier_names
@@ -5,10 +54,11 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:TezHealthCare/Payment_gateway/cancel_payment.dart';
+import 'package:TezHealthCare/Payment_gateway/payment_seccessfull.dart';
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/General_Opd_Tickets_Form.dart';
-import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/PaymentMethod/OpdSuccessPayment.dart';
 import 'package:esewa_flutter/esewa_flutter.dart';
 
+import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -32,21 +82,6 @@ class CheckSelectPaymentMethod extends StatefulWidget {
 }
 
 class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
-
-
- late String totalAmountString =widget.total_Amount;
- 
-
- late int totalAmountInt = int.parse(totalAmountString);
-
- 
- int rupeesToPaisa(int rupees) {
-    return rupees * 100;
-  }
-
-  late int paisaAmount = rupeesToPaisa(totalAmountInt).round();
-
-
  
 
   String refId = '';
@@ -54,7 +89,7 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
   void payWithKhaltiInApp() {
     KhaltiScope.of(context).pay(
       config: PaymentConfig(
-        amount: paisaAmount, //in paisa
+        amount: 0, //in paisa
         // amount: 20000, //in paisa
         productIdentity: 'patientID',
         productName: 'patientName',
@@ -72,7 +107,7 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
   void payWithConnectIPSInApp() {
     KhaltiScope.of(context).pay(
       config: PaymentConfig(
-        amount: paisaAmount, //in paisa
+        amount: 0, //in paisa
         productIdentity: 'patientID',
         productName: 'patientName',
         mobileReadOnly: false,
@@ -93,7 +128,7 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
         merchantCode: "MERCHANT_CODE",
         merchantName: 'patientName',
         merchantUrl: "MERCHANT_URL",
-        amount: totalAmountInt,
+        amount: widget.totalAmountInRs,
         refId: 'patientID',
         module: "MODULE",
         user: "USER",
@@ -116,7 +151,7 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
           // .live for live
           su: 'https://www.marvel.com/hello',
           // amt: widget.totalAmountInpaisa,
-          amt: totalAmountInt,
+          amt: widget.totalAmountInRs,
           fu: 'https://www.marvel.com/hello',
           pid: 'patientID',
           // scd: dotenv.env['ESEWA_SCD']!
@@ -140,9 +175,8 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
   }
 
   void onSuccess(PaymentSuccessModel success) async {
-    Get.off(() => OpdPaymentSuccessfullScreen(
+    Get.off(() => PaymentSuccessfullScreen(
           paymentMethod: selectedPaymentMethod,
-          opdchargeAmount:totalAmountInt ,
         ));
  
   }
@@ -176,7 +210,6 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
   ];
   @override
   Widget build(BuildContext context) {
-    print('=============$totalAmountInt');
     return WillPopScope(
       onWillPop: () async {
         // Navigate to the Home Screen when the back button is pressed

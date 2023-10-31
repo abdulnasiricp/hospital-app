@@ -9,20 +9,23 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ToastDialog extends StatelessWidget {
-  const ToastDialog({
-    Key? key,
-  }) : super(key: key);
-/////////////////////////////////////////////////////////////////////
+  String selectedLanguage = '';
+
+  ToastDialog() {
+    getSelectedLanguage().then((languageCode) {
+      if (languageCode != null) {
+        selectedLanguage = languageCode;
+      }
+    });
+  }
+
   // Define a key to store the selected language
   static const String selectedLanguageKey = 'selectedLanguage';
 
   // Function to save the selected language
   Future<void> saveSelectedLanguage(String languageCode) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(
-      selectedLanguageKey,
-      languageCode,
-    );
+    await prefs.setString(selectedLanguageKey, languageCode);
   }
 
   // Function to retrieve the selected language
@@ -31,7 +34,6 @@ class ToastDialog extends StatelessWidget {
     return prefs.getString(selectedLanguageKey);
   }
 
-///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -64,54 +66,73 @@ class ToastDialog extends StatelessWidget {
             children: <Widget>[
               const Text('Select Language'),
               const SizedBox(height: 20),
+              // English Language Option
               Container(
-                  width: width,
-                  height: 50,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: darkYellow),
-                  child: ListTile(
-                    onTap: () {
-                      // Save the selected language when tapped
-                      saveSelectedLanguage('en');
-                      Get.updateLocale(const Locale('en', 'US'));
-                      Get.offAll(() => const Bottomhome());
-                    },
-                    leading: SvgPicture.asset(
-                      'assets/usflag.svg',
-                      width: 30,
-                      height: 30,
-                    ),
-                    title: const Text(
-                      'English',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  )),
+                width: 300,
+                height: 50,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: darkYellow,
+                ),
+                child: ListTile(
+                  onTap: () {
+                    saveSelectedLanguage('en');
+                    Get.updateLocale(const Locale('en', 'US'));
+                    Get.offAll(() => const Bottomhome());
+                    selectedLanguage = 'en';
+                  },
+                  leading: SvgPicture.asset(
+                    'assets/usflag.svg',
+                    width: 30,
+                    height: 30,
+                  ),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        'English',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      if (selectedLanguage == 'en')
+                        Icon(Icons.check_circle, color: Colors.white),
+                    ],
+                  ),
+                ),
+              ),
               const SizedBox(height: 10),
+              // Nepali Language Option
               Container(
-                  width: width,
-                  height: 50,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: darkYellow),
-                  child: ListTile(
-                    hoverColor: whitecolor,
-                    onTap: () {
-                      // Save the selected language when tapped
-                      saveSelectedLanguage('ne');
-                      Get.updateLocale(const Locale('ne', 'NP'));
-                      Get.offAll(() => const Bottomhome());
-                    },
-                    leading: SvgPicture.asset(
-                      'assets/nepflag.svg',
-                      width: 30,
-                      height: 30,
-                    ),
-                    title: const Text(
-                      'नेपाली',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  )),
+                width: 300,
+                height: 50,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: darkYellow,
+                ),
+                child: ListTile(
+                  onTap: () {
+                    saveSelectedLanguage('ne');
+                    Get.updateLocale(const Locale('ne', 'NP'));
+                    Get.offAll(() => const Bottomhome());
+                    selectedLanguage = 'ne';
+                  },
+                  leading: SvgPicture.asset(
+                    'assets/nepflag.svg',
+                    width: 30,
+                    height: 30,
+                  ),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        'नेपाली',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      if (selectedLanguage == 'ne')
+                        Icon(Icons.check_circle, color: Colors.white),
+                    ],
+                  ),
+                ),
+              ),
               const SizedBox(height: 50),
             ],
           ),

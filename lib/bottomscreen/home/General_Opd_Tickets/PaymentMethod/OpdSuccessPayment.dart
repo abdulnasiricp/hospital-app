@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, non_constant_identifier_names, avoid_print, unnecessary_string_interpolations
-
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -16,7 +14,8 @@ class OpdPaymentSuccessfullScreen extends StatefulWidget {
 
   const OpdPaymentSuccessfullScreen({
     Key? key,
-    required this.paymentMethod, required this.opdchargeAmount,
+    required this.paymentMethod,
+    required this.opdchargeAmount,
   }) : super(key: key);
 
   @override
@@ -24,14 +23,14 @@ class OpdPaymentSuccessfullScreen extends StatefulWidget {
       _OpdPaymentSuccessfullScreenState();
 }
 
-class _OpdPaymentSuccessfullScreenState extends State<OpdPaymentSuccessfullScreen> {
-  String formattedDate =
-      DateFormat('dd-MM-yyyy, hh:mm a').format(DateTime.now());
+class _OpdPaymentSuccessfullScreenState
+    extends State<OpdPaymentSuccessfullScreen> {
+  String formattedDate = DateFormat('dd-MM-yyyy,').format(DateTime.now());
 
-        double? _progress;
+  double? _progress;
   String? _downloadedFilePath; // Store the downloaded file path
 
-void showDownloadedFilePath(String path) {
+  void showDownloadedFilePath(String path) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -62,8 +61,6 @@ void showDownloadedFilePath(String path) {
       },
     );
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -144,22 +141,20 @@ void showDownloadedFilePath(String path) {
                                 ],
                               ),
                             ),
-                            
                             const SizedBox(
                               height: 5,
                             ),
                             const DottedLineDivider(),
-                           
-                              PaymentItem(
-                                title: ' OPD Ticket Charge',
-                                amount: widget.opdchargeAmount,
-                              ),
+                            PaymentItem(
+                              title: ' OPD Ticket Charge',
+                              amount: widget.opdchargeAmount,
+                            ),
                             const SizedBox(
                               height: 25,
                             ),
                             const DottedLineDivider(),
                             PaymentItem(
-                              title: 'Total  Ticket Charge',
+                              title: 'Total  Ticket Charge',
                               amount: widget.opdchargeAmount,
                               isTotal: true,
                             ),
@@ -225,25 +220,26 @@ void showDownloadedFilePath(String path) {
                             child: const Text("Download Ticket"),
                             onPressed: () {
                               // Get.to(() => const Bottomhome());
-                                   FileDownloader.downloadFile(
-                url: 'https://uat.tez.hospital/xzy/webservice/generateBillPrint/10673/OPD',
-                onProgress: (name, progress) {
-                  setState(() {
-                    _progress = progress;
-                  });
-                },
-                onDownloadCompleted: (path) {
-                  print('Downloaded path: $path');
-                  setState(() {
-                    _progress = null;
-                    _downloadedFilePath =
-                        path; // Store the downloaded file path
-                  });
+                              FileDownloader.downloadFile(
+                                url:
+                                    'https://uat.tez.hospital/xzy/webservice/generateBillPrint/10673/OPD',
+                                onProgress: (name, progress) {
+                                  setState(() {
+                                    _progress = progress;
+                                  });
+                                },
+                                onDownloadCompleted: (path) {
+                                  print('Downloaded path: $path');
+                                  setState(() {
+                                    _progress = null;
+                                    _downloadedFilePath =
+                                        path; // Store the downloaded file path
+                                  });
 
-                  // Show the downloaded file path in a popup
-                  showDownloadedFilePath(path);
-                },
-              );
+                                  // Show the downloaded file path in a popup
+                                  showDownloadedFilePath(path);
+                                },
+                              );
                             },
                             style: ButtonStyle(
                               backgroundColor:

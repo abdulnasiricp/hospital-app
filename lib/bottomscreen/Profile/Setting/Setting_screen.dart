@@ -27,8 +27,7 @@ class _SettingScreenState extends State<SettingScreen> {
         return false; // Prevent default back button behavior
       },
       child: Scaffold(
-            backgroundColor: Colors.lightBlue[50],
-
+        backgroundColor: Colors.lightBlue[50],
         appBar: AppBar(
           backgroundColor: darkYellow,
           title: const Text('Setting'),
@@ -44,7 +43,7 @@ class _SettingScreenState extends State<SettingScreen> {
           children: [
             InkWell(
               onTap: () {
-                Get.to(()=> const Change_Password());
+                Get.to(() => const Change_Password());
               },
               child: Card(
                 child: ListTile(
@@ -59,7 +58,7 @@ class _SettingScreenState extends State<SettingScreen> {
             ),
             InkWell(
               onTap: () {
-                Get.dialog(const ToastDialog());
+                Get.dialog(ToastDialog());
               },
               child: Card(
                 child: ListTile(

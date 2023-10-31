@@ -6,13 +6,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DoctorProfile extends StatefulWidget {
-   final String doctorImage;
+  final String doctorImage;
   final String doctorId;
   final String doctorName;
   final String doctorSpecialization;
   final String workExp;
 
-  const DoctorProfile({Key? key, required this.doctorImage, required this.doctorId, required this.doctorName, required this.doctorSpecialization, required this.workExp}) : super(key: key);
+  const DoctorProfile(
+      {Key? key,
+      required this.doctorImage,
+      required this.doctorId,
+      required this.doctorName,
+      required this.doctorSpecialization,
+      required this.workExp})
+      : super(key: key);
   @override
   State<DoctorProfile> createState() => _DoctorProfileState();
 }
@@ -21,8 +28,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.lightBlue[50],
-
+      backgroundColor: Colors.lightBlue[50],
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: darkYellow,
@@ -59,7 +65,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                                     fit: BoxFit.cover,
                                   ))),
                         ),
-                         Padding(
+                        Padding(
                           padding: const EdgeInsets.only(left: 20, top: 20),
                           child: Text(
                             widget.doctorName,
@@ -68,7 +74,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
-                         Padding(
+                        Padding(
                           padding: const EdgeInsets.only(left: 20, top: 40),
                           child: Text(
                             widget.doctorSpecialization,
@@ -84,40 +90,45 @@ class _DoctorProfileState extends State<DoctorProfile> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                             Column(
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   'experience'.tr,
-                                  style: const TextStyle(fontWeight: FontWeight.bold),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(
                                   height: 10,
                                 ),
                                 Text(
                                   'specialist'.tr,
-                                  style: const TextStyle(fontWeight: FontWeight.bold),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(
                                   height: 10,
                                 ),
                                 Text(
                                   'hospital'.tr,
-                                  style: const TextStyle(fontWeight: FontWeight.bold),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(
                                   height: 10,
                                 ),
                                 Text(
                                   'location'.tr,
-                                  style: const TextStyle(fontWeight: FontWeight.bold),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(
                                   height: 10,
                                 ),
                                 Text(
                                   'nationality'.tr,
-                                  style: const TextStyle(fontWeight: FontWeight.bold),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
@@ -128,8 +139,8 @@ class _DoctorProfileState extends State<DoctorProfile> {
                                 children: [
                                   Text(
                                     widget.workExp,
-                                    style:
-                                        const TextStyle(fontWeight: FontWeight.bold),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
                                   ),
                                   const SizedBox(
                                     height: 10,
@@ -172,14 +183,15 @@ class _DoctorProfileState extends State<DoctorProfile> {
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
-                       Padding(
+                      Padding(
                         padding: const EdgeInsets.all(8),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               'about'.tr,
-                              style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
                             ),
                             const Text(
                               'Doctor On Demand is the trusted provider of 24/7 virtual healthcare for the mind and body, including urgent care, mental health, preventative, primary and chronic care, with access to board-certified physicians and licensed psychologists through a smartphone, tablet, or computer.our mission is to improve the world’s health through compassionate care and innovation. \nWe believe that everyone should have instant and affordable access to a board-certified doctor, whenever and wherever needed.',
