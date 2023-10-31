@@ -291,6 +291,7 @@
 // ignore_for_file: unused_local_variable, non_constant_identifier_names
 
 import 'dart:convert';
+import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/PaymentMethod/OpdSuccessPayment.dart';
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/PaymentMethod/Select_Payment_Method_For_opd.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -313,6 +314,7 @@ class OPDTicketDetails extends StatefulWidget {
   final String bloodGroup;
   final String patientEmail;
   final String selectedDepartment;
+  final String opdTicketLink;
 
   const OPDTicketDetails({
     Key? key,
@@ -328,7 +330,7 @@ class OPDTicketDetails extends StatefulWidget {
     required this.patientEmail,
     required this.BloodgroupId,
     required this.Bloodgroupname,
-    required this.selectedDepartment,
+    required this.selectedDepartment, required this.opdTicketLink,
   }) : super(key: key);
 
   @override
@@ -337,6 +339,7 @@ class OPDTicketDetails extends StatefulWidget {
 
 class _ConfirmationScreenState extends State<OPDTicketDetails> {
   String opdTicketCharge = "";
+  int opdTicketChargeInt = 0;
   bool isLoading = true; // Add a loading indicator variable
 
 Future<void>changeStringToInt()async{
@@ -344,13 +347,17 @@ Future<void>changeStringToInt()async{
 
 
 }
+
+getData()async{
+await  fetchOpdTicketCharge();
+await changeStringToInt();
+}
   @override
   void initState() {
     super.initState();
-    fetchOpdTicketCharge();
+    getData();
   }
 
-  List<String> BloodgroupList = [];
   Future<void> fetchOpdTicketCharge() async {
     setState(() {
       isLoading = true;
@@ -552,7 +559,8 @@ Future<void>changeStringToInt()async{
                         const SizedBox(
                           width: 10,
                         ),
-                        Text("RS. ${opdTicketCharge.toString()}",
+                        Text('$opdTicketChargeInt',
+                          // "RS. ${opdTicketCharge.toString()}",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.orange[900])),
@@ -578,7 +586,8 @@ Future<void>changeStringToInt()async{
                     ),
                     InkWell(
                       onTap: () {
-                        Get.to(() => const CheckSelectPaymentMethod(totalAmountInRs: 20, total_Amount: '',));
+                       Get.to(() =>  OpdPaymentSuccessfullScreen(opdchargeAmount:opdTicketChargeInt ,paymentMethod: 'khalti',));
+                        // Get.to(() =>  CheckSelectPaymentMethod(totalAmountInRs: 20, total_Amount: opdTicketCharge,));
                       },
                       child: Container(
                         width: width / 1,
