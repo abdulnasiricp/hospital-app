@@ -1,6 +1,7 @@
 // ignore_for_file: camel_case_types, file_names, unnecessary_new
 
 import 'dart:async';
+import 'package:TezHealthCare/onbonding/onboarding.dart';
 import 'package:TezHealthCare/onbonding/onbonding.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class _Splash_ScreenState extends State<Splash_Screen> {
 
   route() {
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => const Onbonding()));
+        context, MaterialPageRoute(builder: (context) => const Onboarding()));
   }
 
   @override
