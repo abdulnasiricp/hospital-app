@@ -1,4 +1,5 @@
 import 'package:TezHealthCare/screens/auth/Sigin_main_screen.dart';
+import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -76,7 +77,8 @@ class _OnboardingState extends State<Onboarding> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
                     Container(
-                      color: const Color(0xff2792f5),
+                      // color: const Color(0xff2792f5),
+                      color: darkYellow,
                       height: height,
                       child: PageView(
                         physics: const ClampingScrollPhysics(),
@@ -94,9 +96,9 @@ class _OnboardingState extends State<Onboarding> {
                                 Container(
                                   decoration: BoxDecoration(
                                     image: const DecorationImage(
-                                        image: AssetImage("assets/onimage.png"),
-                                        fit: BoxFit.fill),
-                                    color: const Color(0xff2792f5),
+                                        image: AssetImage("assets/docThree.png"),
+                                        fit: BoxFit.fitWidth),
+                                    // color: const Color(0xff2792f5),
                                     borderRadius: BorderRadius.only(
                                       topRight: Radius.circular(50.sp),
                                       topLeft: Radius.circular(50.sp),
@@ -106,7 +108,7 @@ class _OnboardingState extends State<Onboarding> {
                                   child: Center(
                                     child: Column(
                                       children: [
-                                        const SizedBox(height: 100),
+                                        const SizedBox(height: 600),
                                         Text(
                                           EnString.qualityReputations,
                                           style: TextStyle(
@@ -141,7 +143,7 @@ class _OnboardingState extends State<Onboarding> {
                                         image:
                                             AssetImage("assets/twoonbod.png"),
                                         fit: BoxFit.fill),
-                                    color: const Color(0xff2792f5),
+                                    // color: const Color(0xff2792f5),
                                     borderRadius: BorderRadius.only(
                                       topRight: Radius.circular(50.sp),
                                       topLeft: Radius.circular(50.sp),
@@ -186,7 +188,7 @@ class _OnboardingState extends State<Onboarding> {
                                         image: AssetImage(
                                             "assets/onbondingthree.png"),
                                         fit: BoxFit.fill),
-                                    color: const Color(0xff2792f5),
+                                    // color: const Color(0xff2792f5),
                                     borderRadius: BorderRadius.only(
                                       topRight: Radius.circular(50.sp),
                                       topLeft: Radius.circular(50.sp),
