@@ -43,7 +43,6 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
 
 //////////////////////////////////////////////////////////////////////
 // call init state
-
   getData() async {
     await LoadData();
     await fetchData().then((data) {
@@ -64,14 +63,10 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
   void initState() {
     super.initState();
     getData();
-
-   
   }
 
-  
 /////////////////////////////////////////////////////////////////////////////
 //  get all transaction bill
-
   Future<Map<String, dynamic>> fetchData() async {
     final url = Uri.parse(ApiLinks.getAllTransaction);
     final headers = {
@@ -112,11 +107,12 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
       isLoading = false; // Set isLoading to false after data is fetched
     });
   }
-
   /////////////////////////////////////////////////////////////////////////////////////
 
   TextEditingController searchController = TextEditingController();
 
+////////////////////////////////////////////////////////////////////////////////////////
+// filter data
   Map<String?, dynamic> apiData = {};
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -131,8 +127,7 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
         return false; // Prevent default back button behavior
       },
       child: Scaffold(
-      backgroundColor: Colors.lightBlue[50],
-
+        backgroundColor: Colors.lightBlue[50],
         appBar: PreferredSize(
             preferredSize: const Size(double.infinity, 65),
             child: SafeArea(
@@ -146,8 +141,10 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
               ]),
               alignment: Alignment.center,
               child: AnimationSearchBar(
-                  isBackButtonVisible: false,
-                  centerTitle: 'HometransactionBill'.tr,
+                  previousScreen: const Bottomhome(),
+                  isBackButtonVisible: true,
+                  backIconColor: whitecolor,
+                  centerTitle: 'transactionBill'.tr,
                   centerTitleStyle: TextStyle(color: whitecolor, fontSize: 20),
                   searchIconColor: whitecolor,
                   searchFieldDecoration: BoxDecoration(
@@ -168,7 +165,7 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
           child: Column(children: [
             Container(
               color: Colors.grey,
-              width: width,
+              width: double.infinity,
               height: 40,
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -264,102 +261,86 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
                                       ),
                                     );
                                   },
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 5.0, left: 5, right: 5),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors
-                                                .white70, // Background color
-                                            border: Border.all(
-                                              color:
-                                                  Colors.grey, // Border color
-                                              width: 1.0, // Border width
+                                  child: Card(
+                                    color: Colors.white70.withOpacity(0.7),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(10.0),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Container(
+                                                    width: width / 5,
+                                                    child: Text(
+                                                      "${transaction['id']}",
+                                                      style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                            borderRadius: BorderRadius.circular(
-                                                2.0), // Border radius
-                                          ),
-                                          width: width,
-                                          height: 40,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(5.0),
-                                            child: Row(
+                                            Column(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                                  MainAxisAlignment.center,
                                               children: [
-                                                Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Container(
-                                                      width: width / 5,
-                                                      child: Text(
-                                                        "${transaction['id']}",
-                                                        style: const TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      ),
+                                                Container(
+                                                  width: width / 6,
+                                                  child: Text(
+                                                    "${transaction['section']}",
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                     ),
-                                                  ],
-                                                ),
-                                                Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Container(
-                                                      width: width / 6,
-                                                      child: Text(
-                                                        "${transaction['section']}",
-                                                        style: const TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Container(
-                                                      width: width / 4,
-                                                      child: Text(
-                                                        "${transaction['bill_no']}",
-                                                        style: const TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Container(
-                                                      width: width / 6,
-                                                      child: Text(
-                                                        "${transaction['amount']}",
-                                                        style: const TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
+                                                  ),
                                                 ),
                                               ],
                                             ),
-                                          ),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: width / 4,
+                                                  child: Text(
+                                                    "${transaction['bill_no']}",
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: width / 6,
+                                                  child: Text(
+                                                    "${transaction['amount']}",
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 );
                               }

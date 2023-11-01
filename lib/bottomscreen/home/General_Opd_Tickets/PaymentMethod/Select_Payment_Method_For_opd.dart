@@ -32,6 +32,7 @@ class CheckSelectPaymentMethod extends StatefulWidget {
   final String bloodGroup;
   final String patientEmail;
   final String selectedDepartment;
+
   const CheckSelectPaymentMethod(
       {Key? key,
       required this.totalAmountInRs,
@@ -47,7 +48,8 @@ class CheckSelectPaymentMethod extends StatefulWidget {
       required this.maritalStatus,
       required this.bloodGroup,
       required this.patientEmail,
-      required this.selectedDepartment, required this.total_AmountPaisa})
+      required this.selectedDepartment,
+      required this.total_AmountPaisa})
       : super(key: key);
 
   @override
@@ -55,8 +57,6 @@ class CheckSelectPaymentMethod extends StatefulWidget {
 }
 
 class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
-
-
   String refId = '';
   String hasError = '';
   void payWithKhaltiInApp() {
@@ -162,7 +162,6 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
           ticketDate: widget.ticketDate,
           totalAmountInRs: widget.totalAmountInRs,
           total_AmountPaisa: widget.total_AmountPaisa,
-
         ));
   }
 
@@ -195,260 +194,245 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
   ];
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        // Navigate to the Home Screen when the back button is pressed
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-              builder: (context) => const General_Opd_Tickets_Form()),
-        );
-        return false;
-      }, // Prevent default back button behavior
-      child: Scaffold(
-          backgroundColor: Colors.lightBlue[50],
-          appBar: AppBar(
-            title: Text('selectAnyOnePayment'.tr),
-            centerTitle: true,
-            backgroundColor: darkYellow,
-            leading: IconButton(
-              onPressed: () {
-                Get.to(() => const General_Opd_Tickets_Form());
-              },
-              icon: const Icon(Icons.arrow_back),
-            ),
+    return Scaffold(
+        backgroundColor: Colors.lightBlue[50],
+        appBar: AppBar(
+          title: Text('selectAnyOnePayment'.tr),
+          centerTitle: true,
+          backgroundColor: darkYellow,
+          leading: IconButton(
+            onPressed: () {
+              Get.to(() => const General_Opd_Tickets_Form());
+            },
+            icon: const Icon(Icons.arrow_back),
           ),
-          body: SingleChildScrollView(
-            child: Container(
-              child: Card(
-                color: Colors.lightBlue[50],
-                elevation: 10,
-                child: Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: height / 5,
-                          child: GridView.builder(
-                            // physics: const NeverScrollableScrollPhysics(),
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              childAspectRatio: 2.5,
-                            ),
-                            itemCount: paymentMethods.length,
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    selectedMethodIndex = index;
-                                  });
-                                },
-                                child: PaymentMethodTile(
-                                  paymentMethod: paymentMethods[index],
-                                  isSelected: selectedMethodIndex == index,
-                                ),
-                              );
-                            },
+        ),
+        body: SingleChildScrollView(
+          child: Container(
+            child: Card(
+              color: Colors.lightBlue[50],
+              elevation: 10,
+              child: Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: height / 5,
+                        child: GridView.builder(
+                          // physics: const NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 2.5,
                           ),
-                        ),
-                        Container(
-                          width: width,
-                          // height: 150,
-                          child: Card(
-                            color: Colors.white,
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Padding(
-                                      padding: EdgeInsets.all(10.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            'OPD Charge Dues',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          right: 20,
-                                          top: 10,
-                                          left: 10,
-                                          bottom: 10),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text('${widget.totalAmountInRs}',
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold)),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const Padding(
-                                  padding: EdgeInsets.all(10.0),
-                                  child: DottedLineDivider(),
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Padding(
-                                      padding:
-                                          EdgeInsets.only(left: 10.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            'Total Ticket Charge',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          right: 20, left: 10, bottom: 10),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text("${widget.totalAmountInRs}",
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold)),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          child: Row(
-                            children: [
-                              Text(
-                                'askTermsAndCondition'.tr,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 12),
+                          itemCount: paymentMethods.length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  selectedMethodIndex = index;
+                                });
+                              },
+                              child: PaymentMethodTile(
+                                paymentMethod: paymentMethods[index],
+                                isSelected: selectedMethodIndex == index,
                               ),
-                              TextButton(
-                                  child: Text('termsAndCondition'.tr),
-                                  onPressed: () {
-                                    showModalBottomSheet<void>(
-                                      isScrollControlled: true,
-                                      shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.vertical(
-                                            top: Radius.circular(20.0)),
-                                      ),
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return FractionallySizedBox(
-                                          heightFactor: 0.5,
-                                          child: Container(
-                                            decoration: const BoxDecoration(
-                                                borderRadius: BorderRadius.only(
-                                                    topLeft:
-                                                        Radius.circular(10),
-                                                    topRight:
-                                                        Radius.circular(10))),
-                                            child: const Padding(
-                                              padding: EdgeInsets.all(8.0),
-                                              child: Column(
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsets.all(8.0),
-                                                    child: Text(
-                                                      EnString
-                                                          .termsAndCondition,
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 20),
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Text(
-                                                      EnString
-                                                          .termsAndConditionMsg,
-                                                      style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      )),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  }),
+                            );
+                          },
+                        ),
+                      ),
+                      Container(
+                        width: width,
+                        // height: 150,
+                        child: Card(
+                          color: Colors.white,
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.all(10.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'OPD Charge',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        right: 20,
+                                        top: 10,
+                                        left: 10,
+                                        bottom: 10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text('${widget.totalAmountInRs}',
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold)),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.all(10.0),
+                                child: DottedLineDivider(),
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.only(left: 10.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Total Ticket Charge',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        right: 20, left: 10, bottom: 10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text("${widget.totalAmountInRs}",
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold)),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              )
                             ],
                           ),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          width: double.infinity,
-                          height: 50,
-                          child: ElevatedButton(
-                            child: Text('proceed'.tr),
-                            onPressed: () async {
-                              await navigateToSelectedPage();
-                            },
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(yellow),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        child: Row(
+                          children: [
+                            Text(
+                              'askTermsAndCondition'.tr,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 12),
                             ),
+                            TextButton(
+                                child: Text('termsAndCondition'.tr),
+                                onPressed: () {
+                                  showModalBottomSheet<void>(
+                                    isScrollControlled: true,
+                                    shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.vertical(
+                                          top: Radius.circular(20.0)),
+                                    ),
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return FractionallySizedBox(
+                                        heightFactor: 0.5,
+                                        child: Container(
+                                          decoration: const BoxDecoration(
+                                              borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(10),
+                                                  topRight:
+                                                      Radius.circular(10))),
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(8.0),
+                                            child: Column(
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    EnString.termsAndCondition,
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 20),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Text(
+                                                    EnString
+                                                        .termsAndConditionMsg,
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    )),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                }),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        height: 50,
+                        child: ElevatedButton(
+                          child: Text('proceed'.tr),
+                          onPressed: () async {
+                            await navigateToSelectedPage();
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(yellow),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
             ),
-          )
-          // Center(
-          //     child: Container(
-          //       width: 50,
-          //       height: 50,
-          //       child: const LoadingIndicatorWidget(),
-          //     ),
-          //   )
           ),
-    );
+        )
+        // Center(
+        //     child: Container(
+        //       width: 50,
+        //       height: 50,
+        //       child: const LoadingIndicatorWidget(),
+        //     ),
+        //   )
+        );
   }
 
   String selectedPaymentMethod = "";

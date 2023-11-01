@@ -1,10 +1,11 @@
-// ignore_for_file: file_names, sized_box_for_whitespace
+// ignore_for_file: file_names, sized_box_for_whitespace, deprecated_member_use
 
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Doctor_profile.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Old_or_newPatient.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class SelectDateScreen extends StatefulWidget {
@@ -37,16 +38,22 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
         centerTitle: true,
         actions: [
           IconButton(
-              onPressed: () {
-                Get.to(() => DoctorProfile(
-                      doctorId: widget.doctorId,
-                      doctorImage: widget.doctorImage,
-                      doctorName: widget.doctorName,
-                      doctorSpecialization: widget.doctorSpecialization,
-                      workExp: widget.workExp,
-                    ));
-              },
-              icon: const Icon(Icons.info))
+            onPressed: () {
+              Get.to(() => DoctorProfile(
+                    doctorId: widget.doctorId,
+                    doctorImage: widget.doctorImage,
+                    doctorName: widget.doctorName,
+                    doctorSpecialization: widget.doctorSpecialization,
+                    workExp: widget.workExp,
+                  ));
+            },
+            icon: SvgPicture.asset(
+              'assets/info1.svg',
+              width: 25,
+              height: 25,
+              color: Colors.white,
+            ),
+          )
         ],
       ),
       body: SingleChildScrollView(
