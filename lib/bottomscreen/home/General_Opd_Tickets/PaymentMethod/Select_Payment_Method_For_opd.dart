@@ -94,26 +94,37 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
     );
   }
 
-  void payWithImepayInApp() async {
-    Random random = Random();
-    random.nextInt(15);
-    var result = await StartSdk.callSdk(context,
-        merchantCode: "MERCHANT_CODE",
-        merchantName: 'patientName',
-        merchantUrl: "MERCHANT_URL",
-        amount: widget.totalAmountInRs,
-        refId: 'patientID',
-        module: "MODULE",
-        user: "USER",
-        password: "PASSWORD",
-        deliveryUrl: "DELIVERY_URL",
-        buildType: BuildType.STAGE);
+  void payWithInternetbanking() {
+    KhaltiScope.of(context).pay(
+      config: PaymentConfig(
+        amount: widget.total_AmountPaisa, //in paisa
+        productIdentity: 'patientID',
+        productName: 'patientName',
+        mobileReadOnly: false,
+      ),
+      preferences: [
+        PaymentPreference.eBanking,
+      ],
+      onSuccess: onSuccess,
+      onFailure: onFailure,
+      onCancel: onCancel,
+    );
+  }
 
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(content: Text(json.encode(result)));
-      },
+  void payWithMobilebanking() async {
+    KhaltiScope.of(context).pay(
+      config: PaymentConfig(
+        amount: widget.total_AmountPaisa, //in paisa
+        productIdentity: 'patientID',
+        productName: 'patientName',
+        mobileReadOnly: false,
+      ),
+      preferences: [
+        PaymentPreference.mobileBanking,
+      ],
+      onSuccess: onSuccess,
+      onFailure: onFailure,
+      onCancel: onCancel,
     );
   }
 
@@ -190,7 +201,8 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
     PaymentMethod('assets/khalti.png'),
     PaymentMethod('assets/esewa.png'),
     PaymentMethod('assets/ips.png'),
-    PaymentMethod('assets/ime.png'),
+    PaymentMethod('assets/Mobilebanking.png'),
+    PaymentMethod('assets/internetbanking.png'),
   ];
   @override
   Widget build(BuildContext context) {
@@ -218,7 +230,7 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
                   child: Column(
                     children: [
                       SizedBox(
-                        height: height / 5,
+                        height: height / 3,
                         child: GridView.builder(
                           // physics: const NeverScrollableScrollPhysics(),
                           gridDelegate:
@@ -450,9 +462,12 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
       } else if (selectedMethod == 'assets/ips.png') {
         selectedPaymentMethod = "IPS";
         payWithConnectIPSInApp();
-      } else if (selectedMethod == 'assets/ime.png') {
-        selectedPaymentMethod = "IME";
-        payWithImepayInApp();
+      } else if (selectedMethod == 'assets/Mobilebanking.png') {
+        selectedPaymentMethod = "Mobilebanking";
+        payWithMobilebanking();
+      } else if (selectedMethod == 'assets/internetbanking.png') {
+        selectedPaymentMethod = "Internetbanking";
+        payWithInternetbanking();
       }
     } else {
       // Show an error or prompt to select a payment method
