@@ -263,7 +263,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                                 height: 5,
                                               ),
                                               Text(
-                                                '${filteredData![index]['name']} ${filteredData![index]['surname']}',
+                                                '${filteredData?[index]['name']} ${filteredData?[index]['surname']}'.isEmpty ? "N/A":'${filteredData?[index]['name']} ${filteredData?[index]['surname']}',
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
                                                 style: const TextStyle(
@@ -275,7 +275,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                                 height: 5,
                                               ),
                                               Text(
-                                                '${filteredData![index]['specialization']}',
+                                                '${filteredData?[index]['specialization']}'.isEmpty ? "N/A":'${filteredData?[index]['specialization']}',
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
                                               ),
@@ -283,7 +283,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                                 height: 5,
                                               ),
                                               Text(
-                                                '${filteredData![index]['qualification']} ',
+                                                '${filteredData?[index]['qualification']} '.isEmpty? "N/A":'${filteredData?[index]['qualification']} ',
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
                                               ),

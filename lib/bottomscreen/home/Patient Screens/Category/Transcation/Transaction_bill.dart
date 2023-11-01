@@ -249,9 +249,9 @@ class _TransactionBillState extends State<TransactionBill> {
                                     Get.to(
                                       () => ViewBillDetiles(
                                         pdf:
-                                            "${transaction['pdf']}", // Use 'id' as the transaction ID
+                                            "${transaction['pdf']}".isEmpty?"N/A":"${transaction['pdf']}", // Use 'id' as the transaction ID
                                         billname: '',
-                                        billNo: "${transaction['bill_no']}",
+                                        billNo: "${transaction['bill_no']}".isEmpty?"N/A":"${transaction['bill_no']}",
                                       ),
                                     );
                                   },
@@ -273,7 +273,7 @@ class _TransactionBillState extends State<TransactionBill> {
                                                   Container(
                                                     width: width / 5,
                                                     child: Text(
-                                                      "${transaction['id']}",
+                                                      "${transaction['id']}".isEmpty?"N/A":"${transaction['id']}",
                                                       style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -290,7 +290,7 @@ class _TransactionBillState extends State<TransactionBill> {
                                                 Container(
                                                   width: width / 6,
                                                   child: Text(
-                                                    "${transaction['section']}",
+                                                    "${transaction['section']}".isEmpty?"N/A":"${transaction['section']}",
                                                     style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -306,7 +306,7 @@ class _TransactionBillState extends State<TransactionBill> {
                                                 Container(
                                                   width: width / 4,
                                                   child: Text(
-                                                    "${transaction['bill_no']}",
+                                                    "${transaction['bill_no']}".isEmpty?"N/A":"${transaction['bill_no']}",
                                                     style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -322,7 +322,7 @@ class _TransactionBillState extends State<TransactionBill> {
                                                 Container(
                                                   width: width / 6,
                                                   child: Text(
-                                                    "${transaction['amount']}",
+                                                    "${transaction['amount']}".isEmpty?"N/A":"${transaction['amount']}",
                                                     style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -364,7 +364,7 @@ class _TransactionBillState extends State<TransactionBill> {
                         Shimmer.fromColors(
                           baseColor: Colors.red,
                           highlightColor: Colors.yellow,
-                          child: Text("Rs.$totalAmount",
+                          child: Text("Rs.$totalAmount".isEmpty?"N/A":"Rs.$totalAmount",
                               // $totalSum",
                               style: const TextStyle(
                                   color: Colors.red, fontSize: 20)),

@@ -497,7 +497,7 @@ class _IPDState extends State<IPD> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        PatientName,
+                                        PatientName.isEmpty?"N/A":PatientName,
                                         maxLines: 2,
                                         overflow: TextOverflow.fade,
                                         style: const TextStyle(
@@ -507,7 +507,7 @@ class _IPDState extends State<IPD> {
                                         height: 5,
                                       ),
                                       Text(
-                                        PatientAge,
+                                        PatientAge.isEmpty?"N/A":PatientAge,
                                         maxLines: 2,
                                         overflow: TextOverflow.fade,
                                         style: const TextStyle(
@@ -517,7 +517,7 @@ class _IPDState extends State<IPD> {
                                         height: 5,
                                       ),
                                       Text(
-                                        PatientGender,
+                                        PatientGender.isEmpty?"N/A":PatientGender,
                                         maxLines: 2,
                                         overflow: TextOverflow.fade,
                                         style: const TextStyle(
@@ -527,7 +527,7 @@ class _IPDState extends State<IPD> {
                                         height: 5,
                                       ),
                                       Text(
-                                        AdmissionDate,
+                                        AdmissionDate.isEmpty?"N/A":AdmissionDate,
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
@@ -551,17 +551,17 @@ class _IPDState extends State<IPD> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   buildVitalItem('Height',
-                                      "${vitalsData['Height'] ?? ""} "),
+                                      "${vitalsData['Height'] ?? "N/A"} "),
                                   buildVitalItem('Weight',
-                                      "${vitalsData['weight'] ?? ""} "),
+                                      "${vitalsData['weight'] ?? "N/A"} "),
                                   buildVitalItem(
-                                      'BP', "${vitalsData['bp'] ?? ""} "),
+                                      'BP', "${vitalsData['bp'] ?? "N/A"} "),
                                   buildVitalItem(
-                                      'Pulse', "${vitalsData['pulse'] ?? ""} "),
+                                      'Pulse', "${vitalsData['pulse'] ?? "N/A"} "),
                                   buildVitalItem('Temperature',
-                                      "${vitalsData['temprature'] ?? ""} "),
+                                      "${vitalsData['temprature'] ?? "N/A"} "),
                                   buildVitalItem('Respiration',
-                                      "${vitalsData['respiration'] ?? ""} "),
+                                      "${vitalsData['respiration'] ?? "N/A"} "),
                                   const SizedBox(height: 32),
                                   const Column(
                                     children: [
@@ -581,7 +581,7 @@ class _IPDState extends State<IPD> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "${consultansData['name'] ?? ""} ${consultansData['surname'] ?? ""} ",
+                                    "${consultansData['name'] ?? "N/A"} ${consultansData['surname'] ?? ""} ",
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -594,7 +594,7 @@ class _IPDState extends State<IPD> {
                                         (BuildContext context, int index) {
                                       final doctor = doctorsIPDData[index];
                                       return Text(
-                                        "${doctor['ipd_doctorname']} ${doctor['ipd_doctorsurname']}",
+                                        "${doctor['ipd_doctorname']} ${doctor['ipd_doctorsurname']}".isEmpty?"N/A":"${doctor['ipd_doctorname']} ${doctor['ipd_doctorsurname']}",
                                         style: const TextStyle(
                                             fontWeight: FontWeight.bold),
                                       );

@@ -477,7 +477,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     .end, // Aligns text to the end of the column
                                 children: [
                                   Text(
-                                    '${'patientId'.tr} $Patient_id',
+                                    '${'patientId'.tr} $Patient_id'.isEmpty ? "N/A":'${'patientId'.tr} $Patient_id',
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black,
@@ -486,7 +486,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     ),
                                   ),
                                   Text(
-                                    '${'hisNo'.tr} $caseId'.toString(),
+                                    '${'hisNo'.tr} $caseId'.toString().isEmpty ? 'N/A':'${'hisNo'.tr} $caseId'.toString(),
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontFamily: 'Gilroy_Bold',

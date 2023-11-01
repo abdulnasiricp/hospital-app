@@ -279,7 +279,7 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
                                                   Container(
                                                     width: width / 5,
                                                     child: Text(
-                                                      "${transaction['id']}",
+                                                      "${transaction['id']}".isEmpty?"N/A":"${transaction['id']}",
                                                       style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -296,7 +296,7 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
                                                 Container(
                                                   width: width / 6,
                                                   child: Text(
-                                                    "${transaction['section']}",
+                                                    "${transaction['section']}".isEmpty?"N/A":"${transaction['section']}",
                                                     style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -312,7 +312,7 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
                                                 Container(
                                                   width: width / 4,
                                                   child: Text(
-                                                    "${transaction['bill_no']}",
+                                                    "${transaction['bill_no']}".isEmpty?"N/A":"${transaction['bill_no']}",
                                                     style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -328,7 +328,7 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
                                                 Container(
                                                   width: width / 6,
                                                   child: Text(
-                                                    "${transaction['amount']}",
+                                                    "${transaction['amount']}".isEmpty?"N/A":"${transaction['amount']}",
                                                     style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -370,8 +370,8 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
                         Shimmer.fromColors(
                           baseColor: Colors.red,
                           highlightColor: Colors.yellow,
-                          child: Text("Rs.$totalAmount",
-                              // $totalSum",
+                          child: Text("Rs.$totalAmount".isEmpty?"N/A":"Rs.$totalAmount",
+                              
                               style: const TextStyle(
                                   color: Colors.red, fontSize: 20)),
                         ),
