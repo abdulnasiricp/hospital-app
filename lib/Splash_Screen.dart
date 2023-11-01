@@ -2,7 +2,6 @@
 
 import 'dart:async';
 import 'package:TezHealthCare/onbonding/onboarding.dart';
-import 'package:TezHealthCare/onbonding/onbonding.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
 

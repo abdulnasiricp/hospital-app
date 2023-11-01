@@ -40,8 +40,7 @@ void showLocalNotificationWithPayload(String payload) {
           payload: payload,
         ));
   } else if (payload == 'navigate_to_physiotherapy') {
-    Get.to(() => Physiotherapy(
-          payload: payload,
+    Get.to(() => const Physiotherapy(
         ));
   } else {
     // Handle other types of notifications or actions here

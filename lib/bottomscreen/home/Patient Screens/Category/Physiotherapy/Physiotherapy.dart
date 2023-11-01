@@ -18,9 +18,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class Physiotherapy extends StatefulWidget {
-  final String payload;
 
-  const Physiotherapy({Key? key, required this.payload}) : super(key: key);
+  const Physiotherapy({Key? key, }) : super(key: key);
   @override
   State<Physiotherapy> createState() => _PhysiotherapyState();
 }

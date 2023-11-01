@@ -227,30 +227,34 @@ class _PatientHomePageState extends State<PatientHomePage> {
       isLoading = false; // Set isLoading to false after data is fetched
     });
   }
+
   //////////////////////////////////////////////////
   List<NotificationItem> notifications = [];
   int unreadCount = 0;
 
-  
   Future<void> loadNotifications() async {
-  final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  final List<String> notificationList = sharedPreferences.getStringList('notifications') ?? [];
-  int newUnreadCount = 0; // Initialize a temporary variable
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    final List<String> notificationList =
+        sharedPreferences.getStringList('notifications') ?? [];
+    int newUnreadCount = 0; // Initialize a temporary variable
 
-  notifications = notificationList.reversed.map((message) {
-    final parts = message.split(": ");
-    final timestamp = DateTime.parse(parts[0]);
-    final isRead = sharedPreferences.getBool('isRead_${parts[1]}:${timestamp.toString()}') ?? false;
-    if (!isRead) {
-      newUnreadCount++; // Increment temporary unread count for each unread notification
-    }
-    return NotificationItem(parts[1], timestamp, isRead);
-  }).toList();
+    notifications = notificationList.reversed.map((message) {
+      final parts = message.split(": ");
+      final timestamp = DateTime.parse(parts[0]);
+      final isRead = sharedPreferences
+              .getBool('isRead_${parts[1]}:${timestamp.toString()}') ??
+          false;
+      if (!isRead) {
+        newUnreadCount++; // Increment temporary unread count for each unread notification
+      }
+      return NotificationItem(parts[1], timestamp, isRead);
+    }).toList();
 
-  setState(() {
-    unreadCount = newUnreadCount; // Update the unreadCount variable
-  });
-}
+    setState(() {
+      unreadCount = newUnreadCount; // Update the unreadCount variable
+    });
+  }
 
   ///
 
@@ -538,24 +542,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     ),
                                     ElevatedButton(
                                       onPressed: () async {
-                                        // SharedPreferences sharedPreferences =
-                                        //     await SharedPreferences
-                                        //         .getInstance();
-                                        // NotificationService().showNotification(
-                                        //     id: 1,
-                                        //     title: 'Pathology Bill',
-                                        //     body:
-                                        //         'New data are added please check your Pathology Bill',
-                                        //     payLoad:
-                                        //         'navigate_to_Pathology_bill');
-                                        // final notifications =
-                                        //     sharedPreferences.getStringList(
-                                        //             'notifications') ??
-                                        //         [];
-                                        // notifications.add(
-                                        //     'New data are added please check your Ambulance Bill');
-                                        // sharedPreferences.setStringList(
-                                        //     'notifications', notifications);
                                         Get.off(
                                           () => SelectPaymentMethod(
                                             totalAmountInRs: rupeesAmountInt,
@@ -962,22 +948,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                   ),
                                 ],
                               ),
-                              // Visibility(
-                              //   visible: !_showMore,
-                              //   child: Container(
-                              //     height: 30,
-                              //     //color: darkYellow,
-                              //     alignment: Alignment
-                              //         .centerRight, // Align child to the right
-                              //     child: TextButton(
-                              //       onPressed: toggleShowMore,
-                              //       child: Text(
-                              //         'Show More',
-                              //         style: TextStyle(color: darkYellow),
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
                               Visibility(
                                 /// visible: _showMore,
                                 child: GridView.count(
@@ -1022,9 +992,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     ),
                                     InkWell(
                                       onTap: () {
-                                        Get.offAll(() => const Physiotherapy(
-                                              payload: '',
-                                            ));
+                                        Get.offAll(() => const Physiotherapy());
                                       },
                                       child: Container(
                                         width: 100,
@@ -1287,7 +1255,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                                     .start,
                                                             children: [
                                                               Text(
-                                                                'Dr. ${DoneListData![index]['name']} ${DoneListData![index]['surname']}',
+                                                                'Dr. ${DoneListData?[index]['name']} ${DoneListData![index]['surname'] ?? ""}'
+                                                                        .isEmpty
+                                                                    ? "N/A"
+                                                                    : 'Dr. ${DoneListData?[index]['name']} ${DoneListData![index]['surname']}',
                                                                 maxLines: 1,
                                                                 overflow:
                                                                     TextOverflow
@@ -1297,24 +1268,35 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                                         FontWeight
                                                                             .bold),
                                                               ),
+                                                             
                                                               const SizedBox(
                                                                 height: 5,
                                                               ),
+                                                           
                                                               Text(
-                                                                '${DoneListData![index]['specialization']}',
+                                                                '${DoneListData?[index]['specialization'] ?? ""}'
+                                                                        .isEmpty
+                                                                    ? "N/A"
+                                                                    :' ${DoneListData?[index]['specialization']}',
                                                                 maxLines: 1,
                                                                 overflow:
                                                                     TextOverflow
                                                                         .ellipsis,
                                                                 style: const TextStyle(
-                                                                    color: Colors
-                                                                        .blue),
+                                                                  color: Colors.blue,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .normal),
                                                               ),
+                                                              
                                                               const SizedBox(
                                                                 height: 5,
                                                               ),
                                                               Text(
-                                                                '${DoneListData![index]['email']}',
+                                                                 '${DoneListData?[index]['email'] ?? ""}'
+                                                                        .isEmpty
+                                                                    ? "N/A"
+                                                                    :' ${DoneListData?[index]['email']}',
                                                                 maxLines: 1,
                                                                 overflow:
                                                                     TextOverflow
@@ -1328,7 +1310,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                                   Container(
                                                                       child:
                                                                           Text(
-                                                                    '${DoneListData![index]['qualification']}',
+                                                                    '${DoneListData?[index]['qualification'] ?? ""}'
+                                                                        .isEmpty
+                                                                    ? "N/A"
+                                                                    :' ${DoneListData?[index]['qualification']}',
                                                                     maxLines: 1,
                                                                     overflow:
                                                                         TextOverflow
@@ -1344,7 +1329,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                                     width: 10,
                                                                   ),
                                                                   Text(
-                                                                    '${DoneListData![index]['work_exp']}',
+                                                                     '${DoneListData?[index]['work_exp'] ?? ""}'
+                                                                        .isEmpty
+                                                                    ? "N/A"
+                                                                    :' ${DoneListData?[index]['work_exp']}',
                                                                     maxLines: 1,
                                                                     overflow:
                                                                         TextOverflow

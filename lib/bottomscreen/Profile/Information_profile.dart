@@ -110,7 +110,7 @@ class _InformationProfileState extends State<InformationProfile>
                           child: Center(
                               child: CircleAvatar(
                             backgroundImage:
-                                NetworkImage(profileData!.image ?? ""),
+                                NetworkImage(profileData!.image ?? 'N/A'),
                             radius: height / 15,
                           )),
                         ),
@@ -119,13 +119,16 @@ class _InformationProfileState extends State<InformationProfile>
                         child: Padding(
                           padding: EdgeInsets.only(top: height / 4.5),
                           child: Center(
-                              child: Text(
-                            profileData!.patientName ?? "",
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                fontSize: 20),
-                          )),
+                            child: Text(
+                              (profileData?.patientName ?? '').isEmpty
+                                  ? 'N/A'
+                                  : profileData!.patientName,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontSize: 20),
+                            ),
+                          ),
                         ),
                       ),
                       Padding(
@@ -154,7 +157,9 @@ class _InformationProfileState extends State<InformationProfile>
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold)),
                                       Text(
-                                        profileData!.id ?? "",
+                                        (profileData?.id ?? '').isEmpty
+                                            ? 'N/A'
+                                            : profileData!.id,
                                       ),
                                     ],
                                   ),
@@ -166,7 +171,9 @@ class _InformationProfileState extends State<InformationProfile>
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold)),
                                       Text(
-                                        profileData!.gender ?? "",
+                                        (profileData?.gender ?? '').isEmpty
+                                            ? 'N/A'
+                                            : profileData!.gender,
                                       ),
                                     ],
                                   ),
@@ -178,7 +185,9 @@ class _InformationProfileState extends State<InformationProfile>
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold)),
                                       Text(
-                                        profileData!.age ?? "",
+                                        (profileData?.age ?? '').isEmpty
+                                            ? 'N/A'
+                                            : profileData!.age,
                                       ),
                                     ],
                                   ),
@@ -249,27 +258,51 @@ class _InformationProfileState extends State<InformationProfile>
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(profileData!.email ?? ""),
+                                Text(
+                                  (profileData?.email ?? '').isEmpty
+                                      ? 'N/A'
+                                      : profileData!.email,
+                                ),
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                Text(profileData!.mobileNo ?? ""),
+                                Text(
+                                  (profileData?.mobileNo ?? '').isEmpty
+                                      ? 'N/A'
+                                      : profileData!.mobileNo,
+                                ),
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                Text(profileData!.bloodGroup ?? ""),
+                                Text(
+                                  (profileData?.bloodGroup ?? '').isEmpty
+                                      ? 'N/A'
+                                      : profileData!.bloodGroup,
+                                ),
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                Text(profileData!.address ?? ""),
+                                Text(
+                                  (profileData?.address ?? '').isEmpty
+                                      ? 'N/A'
+                                      : profileData!.address,
+                                ),
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                Text(profileData!.maritalStatus ?? ""),
+                                Text(
+                                  (profileData?.maritalStatus ?? '').isEmpty
+                                      ? 'N/A'
+                                      : profileData!.maritalStatus,
+                                ),
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                Text(profileData!.guardianName ?? ""),
+                                Text(
+                                  (profileData?.guardianName ?? '').isEmpty
+                                      ? 'N/A'
+                                      : profileData!.guardianName,
+                                ),
                               ],
                             ),
                           ),

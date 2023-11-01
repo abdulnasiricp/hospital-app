@@ -413,23 +413,29 @@ class _ProfileState extends State<Profile> {
                                 padding: EdgeInsets.only(top: height / 5.5),
                                 child: Center(
                                     child: Text(
-                                  profileData.patientName ?? "",
-                                  style: const TextStyle(
+                                  (profileData?.patientName ?? '').isEmpty
+                                      ? 'N/A'
+                                      : profileData!.patientName,
+                                      style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                       fontSize: 20),
-                                )),
+                                ),
+                                    ),
                               ),
                               Padding(
                                 padding: EdgeInsets.only(top: height / 4.7),
                                 child: Center(
                                     child: Text(
-                                  profileData.mobileNo ?? "",
-                                  style: const TextStyle(
+                                  (profileData?.mobileNo ?? '').isEmpty
+                                      ? 'N/A'
+                                      : profileData!.mobileNo,
+                                      style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                       fontSize: 20),
-                                )),
+                                ),
+                                   ),
                               ),
                               Padding(
                                 padding: EdgeInsets.only(top: height / 4),

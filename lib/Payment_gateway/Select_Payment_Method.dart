@@ -17,7 +17,6 @@ import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:imepay_merchant_sdk/start_sdk.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -183,17 +182,6 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
   void payWithImepayInApp() async {
     Random random = Random();
     random.nextInt(15);
-    var result = await StartSdk.callSdk(context,
-        merchantCode: "MERCHANT_CODE",
-        merchantName: patientName,
-        merchantUrl: "MERCHANT_URL",
-        amount: widget.totalAmountInRs,
-        refId: patientID,
-        module: "MODULE",
-        user: "USER",
-        password: "PASSWORD",
-        deliveryUrl: "DELIVERY_URL",
-        buildType: BuildType.STAGE);
 
     // showDialog(
     //   context: context,
