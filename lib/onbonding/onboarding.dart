@@ -92,12 +92,16 @@ class _OnboardingState extends State<Onboarding> {
                           SingleChildScrollView(
                             child: Center(
                               child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
+                                  SizedBox(height: 150,),
                                   Container(
-                                    height: 200.0,
+                                    height: 300.0,
+                                    width: double.infinity,
                                     child: Image.asset(
                                       "assets/docThree.png",
-                                      fit: BoxFit.fitWidth,
+                                      
                                     ),
                                   ),
                                   Padding(
