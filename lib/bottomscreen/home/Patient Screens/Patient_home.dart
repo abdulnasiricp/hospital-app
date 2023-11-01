@@ -33,6 +33,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
@@ -54,7 +55,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
   //convert rupess to paisa
   late num rupeesAmount = totalDues;
   late int rupeesAmountInt = rupeesAmount.toInt();
-
 
   num rupeesToPaisa(num rupees) {
     return rupees * 100.0;
@@ -80,7 +80,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
     await getDues();
     await notificationListLength();
-    await _loadNotifications();
+    await loadNotifications();
   }
 
   @override
@@ -227,30 +227,27 @@ class _PatientHomePageState extends State<PatientHomePage> {
       isLoading = false; // Set isLoading to false after data is fetched
     });
   }
-
-//////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////
   List<NotificationItem> notifications = [];
+  int unreadCount = 0;
 
-  ///
-  Future<void> _loadNotifications() async {
-    final prefs = await SharedPreferences.getInstance();
-    final storedNotifications = prefs.getStringList('notifications') ?? [];
-    final newNotifications = storedNotifications.map((text) {
-      return NotificationItem(text: text, isRead: prefs.getBool(text) ?? false);
+  
+  Future<void> loadNotifications() async {
+  final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  final List<String> notificationList = sharedPreferences.getStringList('notifications') ?? [];
+  setState(() {
+    notifications = notificationList.reversed.map((message) {
+      final parts = message.split(": ");
+      final timestamp = DateTime.parse(parts[0]);
+      final isRead = sharedPreferences.getBool('isRead_${parts[1]}:${timestamp.toString()}') ?? false;
+      if (!isRead) {
+        unreadCount++; // Increment unread count for each unread notification
+      }
+      return NotificationItem(parts[1], timestamp, isRead);
     }).toList();
-
-    setState(() {
-      notifications = newNotifications.reversed.toList(); // Reverse the order
-    });
-  }
-
-// get Due amount
-  late int pathologyLength = 0;
-  late int radiologyLength = 0;
-  late int PharmacyLangth = 0;
-  late int directLangth = 0;
-  late int ambulanceLength = 0;
-  late int blood_bankLength = 0;
+  });
+}
+  ///
 
   Future<void> notificationListLength() async {
     // Set the headers
@@ -263,136 +260,93 @@ class _PatientHomePageState extends State<PatientHomePage> {
     final body = {
       'patient_id': Patient_id,
     };
-    try {
-      // Make the POST request
-      final response = await http.post(
-        Uri.parse(
-            'https://uat.tez.hospital/xzy/webservice/getNotificationlistcount'),
-        headers: headers,
-        body: jsonEncode(body),
-      );
 
-      // Check if the response was successful
-      if (response.statusCode == 200) {
-        // Decode the JSON response
-        final data = jsonDecode(response.body);
-        SharedPreferences sharedPreferences =
-            await SharedPreferences.getInstance();
+    // Make the POST request
+    final response = await http.post(
+      Uri.parse(
+          'https://uat.tez.hospital/xzy/webservice/getNotificationlistcount'),
+      headers: headers,
+      body: jsonEncode(body),
+    );
+// Check if the response was successful
+    if (response.statusCode == 200) {
+      // Decode the JSON response
+      final data = jsonDecode(response.body);
 
-        // Get the total_dues and patho_dues values
-        pathologyLength = sharedPreferences.getInt('pathologyLength') ?? 0;
-        directLangth = sharedPreferences.getInt('directLangth') ?? 0;
-        ambulanceLength = sharedPreferences.getInt('ambulanceLength') ?? 0;
-        PharmacyLangth = sharedPreferences.getInt('PharmacyLangth') ?? 0;
-        blood_bankLength = sharedPreferences.getInt('blood_bankLength') ?? 0;
-        radiologyLength = sharedPreferences.getInt('radiologyLength') ?? 0;
+      final SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      final DateFormat formatter = DateFormat('yyyy-MM-dd HH:mm:ss');
 
-        int newPathologyLength = data['pathology']['length'];
-        int newPharmacyLength = data['pharmacy']['length'];
-        int newdirectLangth = data['direct']['length'];
-        int newambulanceLength = data['ambulance']['length'];
-        int newblood_bankLength = data['blood_bank']['length'];
-        int newradiologyLength = data['radiology']['length'];
+      Map<String, int> notificationLengths = {
+        'Pathology Bill': data['pathology']['length'],
+        'Pharmacy Bill': data['pharmacy']['length'],
+        'Radiology Bill': data['radiology']['length'],
+        'Direct Bill': data['direct']['length'],
+        'Blood_bank Bill': data['blood_bank']['length'],
+        'Ambulance Bill': data['ambulance']['length'],
+      };
 
-        if (newPathologyLength > pathologyLength) {
-          sharedPreferences.setInt('pathologyLength', newPathologyLength);
+      // Check if the length of any category has changed
+      for (var key in notificationLengths.keys) {
+        final int newLength = notificationLengths[key]!;
+        final int storedLength = sharedPreferences.getInt(key) ?? 0;
+
+        if (newLength > storedLength) {
+          // Notification message with date and time as a unique identifier
+          String notificationMessage = '';
+          switch (key) {
+            case 'Pathology Bill':
+              notificationMessage =
+                  'New data are added please check your Pathology Bill';
+              break;
+            case 'Pharmacy Bill':
+              notificationMessage =
+                  'New data are added please check your Pharmacy Bill';
+              break;
+            case 'Radiology Bill':
+              notificationMessage =
+                  'New data are added please check your Radiology Bill';
+              break;
+            case 'Direct Bill':
+              notificationMessage =
+                  'New data are added please check your Direct Bill';
+              break;
+            case 'Blood_bank Bill':
+              notificationMessage =
+                  'New data are added please check your Blood_bank Bill';
+              break;
+            case 'Ambulance Bill':
+              notificationMessage =
+                  'New data are added please check your Ambulance Bill';
+              break;
+          }
+
+          // Generate a unique identifier using the current date and time
+          String uniqueId = formatter.format(DateTime.now());
+
+          // Save the new length in SharedPreferences
+          sharedPreferences.setInt(key, newLength);
+
+          // Store the notification message with the unique identifier
           final notifications =
               sharedPreferences.getStringList('notifications') ?? [];
-          notifications
-              .add('New data are added please check your pathology Bill');
+          notifications.add("$uniqueId: $notificationMessage");
           sharedPreferences.setStringList('notifications', notifications);
 
+          // Show the notification
           NotificationService().showNotification(
-              id: 1,
-              title: 'Pathology Bill',
-              body: 'New data are added please check your Pathology Bill',
-              payLoad: 'navigate_to_Pathology_bill');
+            id: 1,
+            title: key,
+            body: notificationMessage,
+            payLoad: 'navigate_to_${key}_bill',
+          );
         }
-       
-        if (newPharmacyLength > PharmacyLangth) {
-          sharedPreferences.setInt('PharmacyLangth', newPharmacyLength);
-          final notifications =
-              sharedPreferences.getStringList('notifications') ?? [];
-          notifications
-              .add('New data are added please check your Pharmacy Bill');
-          sharedPreferences.setStringList('notifications', notifications);
-
-          NotificationService().showNotification(
-              id: 1,
-              title: 'Pharmacy Bill',
-              body: 'New data are added please check your Pharmacy Bill',
-              payLoad: 'navigate_to_Pharmacy_bill');
-        }
-
-        if (newradiologyLength > radiologyLength) {
-          sharedPreferences.setInt('radiologyLength', newradiologyLength);
-          final notifications =
-              sharedPreferences.getStringList('notifications') ?? [];
-          notifications
-              .add('New data are added please check your Radiology Bill');
-          sharedPreferences.setStringList('notifications', notifications);
-
-          NotificationService().showNotification(
-              id: 1,
-              title: 'Radiology Bill',
-              body: 'New data are added please check your Radiology Bill',
-              payLoad: 'navigate_to_Radiology_bill');
-        }
-
-        if (newdirectLangth > directLangth) {
-          sharedPreferences.setInt('directLangth', newdirectLangth);
-          final notifications =
-              sharedPreferences.getStringList('notifications') ?? [];
-          notifications.add('New data are added please check your Direct Bill');
-          sharedPreferences.setStringList('notifications', notifications);
-
-          NotificationService().showNotification(
-              id: 1,
-              title: 'Direct Bill',
-              body: 'New data are added please check your Direct Bill',
-              payLoad: 'navigate_to_direct_bill');
-        }
-
-        if (newblood_bankLength > blood_bankLength) {
-          sharedPreferences.setInt('blood_bankLength', newblood_bankLength);
-          final notifications =
-              sharedPreferences.getStringList('notifications') ?? [];
-          notifications
-              .add('New data are added please check your Blood_bank Bill');
-          sharedPreferences.setStringList('notifications', notifications);
-
-          NotificationService().showNotification(
-              id: 1,
-              title: 'Blood_bank Bill',
-              body: 'New data are added please check your Blood_bank Bill',
-              payLoad: 'navigate_to_Blood_bank_bill');
-        }
-
-        if (newambulanceLength > ambulanceLength) {
-          sharedPreferences.setInt('ambulanceLength', newambulanceLength);
-          final notifications =
-              sharedPreferences.getStringList('notifications') ?? [];
-          notifications
-              .add('New data are added please check your Ambulance Bill');
-          sharedPreferences.setStringList('notifications', notifications);
-
-          NotificationService().showNotification(
-              id: 1,
-              title: 'Ambulance Bill',
-              body: 'New data are added please check your Ambulance Bill',
-              payLoad: 'navigate_to_Ambulance Bill');
-        }
-
-        // Set the state to rebuild the widget
-        setState(() {});
-      } else {
-        // Handle the error
       }
-    } catch (error) {
-      print(error);
+
+      // Set the state to rebuild the widget
+      setState(() {});
     }
   }
-
 //////////////////////////////////////////////////////////////////////////////////
 
   @override
@@ -425,20 +379,19 @@ class _PatientHomePageState extends State<PatientHomePage> {
               child: IconButton(
                 color: Colors.blue,
                 onPressed: () {
-                  Get.to(() => const Notif(
-                        payload: '',
-                      ));
+                  Get.to(() => const Notif());
                 },
                 icon: Stack(
                   children: [
                     badges.Badge(
                       badgeContent: Text(
-                        notifications.where((item) => !item.isRead).length > 90
-                            ? '99+'
-                            : notifications
-                                .where((item) => !item.isRead)
-                                .length
-                                .toString(),
+                        '$unreadCount',
+                        // notifications.where((item) => !item.isRead).length > 90
+                        //     ? '99+'
+                        //     : notifications
+                        //         .where((item) => !item.isRead)
+                        //         .length
+                        //         .toString(),
                         style: const TextStyle(
                           fontSize: 8,
                           fontWeight: FontWeight.bold,

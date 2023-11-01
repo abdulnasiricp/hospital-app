@@ -1,8 +1,7 @@
-// ignore_for_file: file_names, sized_box_for_whitespace
+// ignore_for_file: file_names, sized_box_for_whitespace, must_be_immutable
 
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/utils/colors.dart';
-import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -11,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ToastDialog extends StatelessWidget {
   String selectedLanguage = '';
 
-  ToastDialog() {
+  ToastDialog({Key? key}) : super(key: key) {
     getSelectedLanguage().then((languageCode) {
       if (languageCode != null) {
         selectedLanguage = languageCode;
@@ -89,12 +88,12 @@ class ToastDialog extends StatelessWidget {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text(
+                      const Text(
                         'English',
                         style: TextStyle(color: Colors.white),
                       ),
                       if (selectedLanguage == 'en')
-                        Icon(Icons.check_circle, color: Colors.white),
+                        const Icon(Icons.check_circle, color: Colors.white),
                     ],
                   ),
                 ),
@@ -123,12 +122,12 @@ class ToastDialog extends StatelessWidget {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text(
+                      const Text(
                         'नेपाली',
                         style: TextStyle(color: Colors.white),
                       ),
                       if (selectedLanguage == 'ne')
-                        Icon(Icons.check_circle, color: Colors.white),
+                        const Icon(Icons.check_circle, color: Colors.white),
                     ],
                   ),
                 ),
