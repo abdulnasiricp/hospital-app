@@ -1,7 +1,5 @@
 // ignore_for_file: non_constant_identifier_names, sized_box_for_whitespace, avoid_unnecessary_containers, file_names
 
-import 'dart:convert';
-import 'dart:math';
 import 'package:TezHealthCare/Payment_gateway/cancel_payment.dart';
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/General_Opd_Tickets_Form.dart';
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/PaymentMethod/OpdSuccessPayment.dart';
@@ -13,7 +11,6 @@ import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:imepay_merchant_sdk/start_sdk.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 
 class CheckSelectPaymentMethod extends StatefulWidget {
@@ -148,6 +145,11 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
     } else {
       if (kDebugMode) {
         print(result.error);
+          Get.dialog(const CancelPaymentScreen(
+      title: 'Cancelled',
+      btnnName: "OK",
+      message: "payment Cancelled",
+    ));
       }
     }
     if (refId.isNotEmpty) {

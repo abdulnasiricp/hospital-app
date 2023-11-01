@@ -145,6 +145,41 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
     );
   }
 
+  void payWithInternetbanking() {
+    KhaltiScope.of(context).pay(
+      config: PaymentConfig(
+        amount: widget.totalAmountInpaisa, //in paisa
+        productIdentity: 'patientID',
+        productName: 'patientName',
+        mobileReadOnly: false,
+      ),
+      preferences: [
+        PaymentPreference.eBanking,
+      ],
+      onSuccess: onSuccess,
+      onFailure: onFailure,
+      onCancel: onCancel,
+    );
+  }
+
+  void payWithMobilebanking() async {
+    KhaltiScope.of(context).pay(
+      config: PaymentConfig(
+        amount: widget.totalAmountInpaisa, //in paisa
+        productIdentity: 'patientID',
+        productName: 'patientName',
+        mobileReadOnly: false,
+      ),
+      preferences: [
+        PaymentPreference.mobileBanking,
+      ],
+      onSuccess: onSuccess,
+      onFailure: onFailure,
+      onCancel: onCancel,
+    );
+  }
+
+
   void payWithImepayInApp() async {
     Random random = Random();
     random.nextInt(15);
@@ -160,12 +195,17 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
         deliveryUrl: "DELIVERY_URL",
         buildType: BuildType.STAGE);
 
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(content: Text(json.encode(result)));
-      },
-    );
+    // showDialog(
+    //   context: context,
+    //   builder: (BuildContext context) {
+    //     return AlertDialog(content: Text(json.encode(result)));
+    //   },
+    // );
+     Get.dialog(const CancelPaymentScreen(
+      title: 'Cancelled',
+      btnnName: "OK",
+      message: "payment Cancelled",
+    ));
   }
 
   void payWithEsawaInApp() async {
@@ -188,6 +228,11 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
     } else {
       if (kDebugMode) {
         print(result.error);
+         Get.dialog(const CancelPaymentScreen(
+      title: 'Cancelled',
+      btnnName: "OK",
+      message: "payment Cancelled",
+    ));
       }
     }
     if (refId.isNotEmpty) {
@@ -195,6 +240,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
     }
     if (hasError.isNotEmpty) {
       Text('Console: Payment Failed, Message: $hasError');
+       
+
     }
   }
 
@@ -202,25 +249,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
     Get.off(() => PaymentSuccessfullScreen(
           paymentMethod: selectedPaymentMethod,
         ));
-    // showDialog(
-    //   context: context,
-    //   builder: (context) {
-    //     return AlertDialog(
-    //       title: const Text('Payment Successful'),
-    //       actions: [
-    //         SimpleDialogOption(
-    //             child: const Text('OK'),
-    //             onPressed: () {
-    //               setState(() {
-    //                 referenceId = success.idx;
-    //               });
-
-    //               Navigator.pop(context);
-    //             })
-    //       ],
-    //     );
-    //   },
-    // );
+  
   }
 
   void onFailure(PaymentFailureModel failure) {
@@ -249,6 +278,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
     PaymentMethod('assets/esewa.png'),
     PaymentMethod('assets/ips.png'),
     PaymentMethod('assets/ime.png'),
+     PaymentMethod('assets/Mobilebanking.png'),
+    PaymentMethod('assets/internetbanking.png'),
   ];
   @override
   Widget build(BuildContext context) {
@@ -285,13 +316,13 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                           child: Column(
                             children: [
                               SizedBox(
-                                height: height / 5,
+                                height: height / 3,
                                 child: GridView.builder(
                                   // physics: const NeverScrollableScrollPhysics(),
                                   gridDelegate:
                                       const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
-                                    childAspectRatio: 2.5,
+                                    childAspectRatio: 2.3,
                                   ),
                                   itemCount: paymentMethods.length,
                                   itemBuilder: (context, index) {
@@ -773,6 +804,12 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
       } else if (selectedMethod == 'assets/ime.png') {
         selectedPaymentMethod = "IME";
         payWithImepayInApp();
+      }else if (selectedMethod == 'assets/Mobilebanking.png') {
+        selectedPaymentMethod = "Mobilebanking";
+        payWithMobilebanking();
+      } else if (selectedMethod == 'assets/internetbanking.png') {
+        selectedPaymentMethod = "Internetbanking";
+        payWithInternetbanking();
       }
     } else {
       // Show an error or prompt to select a payment method
