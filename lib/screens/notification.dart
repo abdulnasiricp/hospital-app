@@ -1,9 +1,11 @@
+import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/PaymentMethod/OpdSuccessPayment.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Ambulance/Ambulance.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Blood_Bank/Blood_Bank.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Directbill/Direct_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/pathology.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pharmacy/Pharmacy.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Radiology/Radiology.dart';
+import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -95,26 +97,37 @@ void navigateToScreen(int index) async {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Notifications Unread : $unreadCount'),
+        title: const Text('Notifications'),
+        centerTitle: true,
+        backgroundColor: darkYellow,
         
       ),
       body: ListView.builder(
         itemCount: notifications.length,
         itemBuilder: (context, index) {
           final notification = notifications[index];
-          return ListTile(
-            title: Text(
-              notification.message,
-              style: TextStyle(
-                fontWeight: notification.isRead ? FontWeight.normal : FontWeight.bold,
-                color: notification.isRead ? Colors.black : Colors.black,
+          return Column(
+            children: [
+              ListTile(
+                title: Text(
+                  notification.message,
+                  style: TextStyle(
+                    fontWeight: notification.isRead ? FontWeight.normal : FontWeight.bold,
+                    color: notification.isRead ? Colors.black : Colors.black,
+                  ),
+                ),
+                subtitle: Text("Added on: ${notification.timestamp.toLocal().toString()}"),
+                onTap: () {
+                  // Handle the notification tap
+                  navigateToScreen(index);
+                },
+                
               ),
-            ),
-            subtitle: Text("Added on: ${notification.timestamp.toLocal().toString()}"),
-            onTap: () {
-              // Handle the notification tap
-              navigateToScreen(index);
-            },
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: DottedLineDivider(),
+              )
+            ],
           );
         },
       ),

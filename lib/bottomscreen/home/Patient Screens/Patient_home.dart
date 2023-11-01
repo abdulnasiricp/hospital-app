@@ -235,18 +235,23 @@ class _PatientHomePageState extends State<PatientHomePage> {
   Future<void> loadNotifications() async {
   final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   final List<String> notificationList = sharedPreferences.getStringList('notifications') ?? [];
+  int newUnreadCount = 0; // Initialize a temporary variable
+
+  notifications = notificationList.reversed.map((message) {
+    final parts = message.split(": ");
+    final timestamp = DateTime.parse(parts[0]);
+    final isRead = sharedPreferences.getBool('isRead_${parts[1]}:${timestamp.toString()}') ?? false;
+    if (!isRead) {
+      newUnreadCount++; // Increment temporary unread count for each unread notification
+    }
+    return NotificationItem(parts[1], timestamp, isRead);
+  }).toList();
+
   setState(() {
-    notifications = notificationList.reversed.map((message) {
-      final parts = message.split(": ");
-      final timestamp = DateTime.parse(parts[0]);
-      final isRead = sharedPreferences.getBool('isRead_${parts[1]}:${timestamp.toString()}') ?? false;
-      if (!isRead) {
-        unreadCount++; // Increment unread count for each unread notification
-      }
-      return NotificationItem(parts[1], timestamp, isRead);
-    }).toList();
+    unreadCount = newUnreadCount; // Update the unreadCount variable
   });
 }
+
   ///
 
   Future<void> notificationListLength() async {
