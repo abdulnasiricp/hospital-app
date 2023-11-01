@@ -579,34 +579,11 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
                     const SizedBox(
                       height: 10,
                     ),
-                    // Center(
-                    //   child: Text('selectPaymentMethod'.tr,
-                    //       style: TextStyle(
-                    //           color: Colors.blue[400],
-                    //           fontWeight: FontWeight.bold,
-                    //           fontSize: 15)),
-                    // ),
                     const SizedBox(
                       height: 10,
                     ),
                     InkWell(
                       onTap: () {
-                        //                  Get.to(() => OpdPaymentSuccessfullScreen(
-                        //   paymentMethod: '0',
-                        //   opdchargeAmount: 0,
-                        //   BloodgroupId: widget.BloodgroupId,
-                        //   DepartmentId: widget.DepartmentId,
-                        //   patientAddress: widget.patientAddress,
-                        //   patientDOB: widget.patientDOB,
-                        //   patientEmail: widget.patientEmail,
-                        //   patientGender: widget.patientGender,
-                        //   patientMobile: widget.patientMobile,
-                        //   patientName: widget.patientName,
-                        //   ticketDate: widget.ticketDate,
-                        //   totalAmountInRs: 0,
-                        //   total_AmountPaisa: 0,
-
-                        // ));
                         Get.to(() => CheckSelectPaymentMethod(
                               totalAmountInRs: rupeesAmountInt,
                               total_AmountPaisa: OpdPaisaAmount,

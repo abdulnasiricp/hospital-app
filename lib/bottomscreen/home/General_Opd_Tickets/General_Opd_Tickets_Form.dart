@@ -174,7 +174,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
       context: context,
       initialDate: selectedDate,
       firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
+      lastDate: DateTime(2100),
     );
 
     if (picked != null && picked != selectedDate) {
@@ -191,7 +191,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
       context: context,
       initialDate: selectedDate,
       firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
+      lastDate: DateTime(2100),
     );
 
     if (picked != null && picked != selectedDate) {
@@ -897,7 +897,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                 Text(
                   label,
                   style: TextStyle(
-                    fontSize: 15,
+                    fontSize: 12,
                     color: selectedGender == gender ? darkYellow : Colors.grey,
                   ),
                 ),

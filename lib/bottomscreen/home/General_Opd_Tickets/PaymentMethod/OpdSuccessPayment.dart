@@ -5,9 +5,11 @@ import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/General_Opd_Tickets_Form.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
+import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/route_manager.dart';
 import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -155,10 +157,7 @@ class _OpdPaymentSuccessfullScreenState
     return WillPopScope(
         onWillPop: () async {
           // Navigate to the Home Screen when the back button is pressed
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-                builder: (context) => const General_Opd_Tickets_Form()),
-          );
+          Get.offAll(() => const General_Opd_Tickets_Form());
           return false; // Prevent default back button behavior
         },
         child: Scaffold(
@@ -169,208 +168,227 @@ class _OpdPaymentSuccessfullScreenState
             centerTitle: true,
             backgroundColor: darkYellow,
           ),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Card(
-                elevation: 50,
-                child: Column(
-                  children: [
-                    Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Column(
+          body: _progress != null
+              ? Center(
+                  child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Center(
+                        child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Container(
+                                height: 50,
+                                width: 50,
+                                color: Colors.transparent,
+                                child: const LoadingIndicatorWidget())),
+                      )),
+                )
+              : SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Card(
+                      elevation: 50,
+                      child: Column(
+                        children: [
+                          Column(
                             children: [
                               Padding(
-                                padding: const EdgeInsets.only(top: 1.0),
-                                child: Container(
-                                  child: const Text(
-                                    'Ticket Booking successful!',
-                                    style: TextStyle(
-                                      fontSize: 28,
-                                      color: Colors.green,
-                                      fontWeight: FontWeight.bold,
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 1.0),
+                                      child: Container(
+                                        child: const Text(
+                                          'Ticket Booking successful!',
+                                          style: TextStyle(
+                                            fontSize: 28,
+                                            color: Colors.green,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
                                     ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Container(
+                                        width: width / 3,
+                                        height: height / 6,
+                                        child: SvgPicture.asset(
+                                          'assets/done.svg',
+                                        )),
+                                    const SizedBox(
+                                      height: 25,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Text(
+                                            "Ticket Date",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                          Text(
+                                            "${widget.ticketDate}",
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Text(
+                                            "Transaction Id",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                          Text(
+                                            "#Tez ${opdId ?? 'N/A'}",
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    const DottedLineDivider(),
+                                    PaymentItem(
+                                      title: ' OPD Ticket Charge',
+                                      amount: widget.opdchargeAmount,
+                                    ),
+                                    const SizedBox(
+                                      height: 25,
+                                    ),
+                                    const DottedLineDivider(),
+                                    PaymentItem(
+                                      title: 'Total  Ticket Charge',
+                                      amount: widget.opdchargeAmount,
+                                      isTotal: true,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.only(right: 8.0),
+                                    child: Text("Payment Mode :",
+                                        style: TextStyle(fontSize: 12)),
                                   ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Container(
-                                  width: width / 3,
-                                  height: height / 6,
-                                  child: SvgPicture.asset(
-                                    'assets/done.svg',
-                                  )),
-                              const SizedBox(
-                                height: 25,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Text(
-                                      "Ticket Date",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
-                                      ),
+                                  Container(
+                                    child: Column(
+                                      children: [
+                                        if (widget.paymentMethod == 'Khalti')
+                                          Container(
+                                            height: 30,
+                                            width: 60,
+                                            child: Image.asset(
+                                                'assets/khalti.png'),
+                                          ) // Replace 'assets/khalti_image.png' with the actual path to your Khalti image.
+                                        else if (widget.paymentMethod ==
+                                            'eSewa')
+                                          Container(
+                                            height: 30,
+                                            width: 60,
+                                            child:
+                                                Image.asset('assets/esewa.png'),
+                                          ) // Replace 'assets/esewa_image.png' with the actual path to your eSewa image.
+                                        else if (widget.paymentMethod == 'IPS')
+                                          Container(
+                                            height: 30,
+                                            width: 60,
+                                            child:
+                                                Image.asset('assets/ips.png'),
+                                          ) // Replace 'assets/ips_image.png' with the actual path to your IPS image.
+                                        else if (widget.paymentMethod == 'IME')
+                                          Container(
+                                            height: 30,
+                                            width: 60,
+                                            child:
+                                                Image.asset('assets/ime.png'),
+                                          ) // Replace 'assets/ime_image.png' with the actual path to your IME image.
+                                      ],
                                     ),
-                                    Text(
-                                      "${widget.ticketDate}",
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                  )
+                                ],
                               ),
                               const SizedBox(
-                                height: 5,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Text(
-                                      "Transaction Id",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                    Text(
-                                      "#Tez ${opdId ?? 'N/A'}",
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              const DottedLineDivider(),
-                              PaymentItem(
-                                title: ' OPD Ticket Charge',
-                                amount: widget.opdchargeAmount,
-                              ),
-                              const SizedBox(
-                                height: 25,
-                              ),
-                              const DottedLineDivider(),
-                              PaymentItem(
-                                title: 'Total  Ticket Charge',
-                                amount: widget.opdchargeAmount,
-                                isTotal: true,
+                                height: 20,
                               ),
                             ],
                           ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.only(right: 8.0),
-                              child: Text("Payment Mode :",
-                                  style: TextStyle(fontSize: 12)),
-                            ),
-                            Container(
-                              child: Column(
-                                children: [
-                                  if (widget.paymentMethod == 'Khalti')
-                                    Container(
-                                      height: 30,
-                                      width: 60,
-                                      child: Image.asset('assets/khalti.png'),
-                                    ) // Replace 'assets/khalti_image.png' with the actual path to your Khalti image.
-                                  else if (widget.paymentMethod == 'eSewa')
-                                    Container(
-                                      height: 30,
-                                      width: 60,
-                                      child: Image.asset('assets/esewa.png'),
-                                    ) // Replace 'assets/esewa_image.png' with the actual path to your eSewa image.
-                                  else if (widget.paymentMethod == 'IPS')
-                                    Container(
-                                      height: 30,
-                                      width: 60,
-                                      child: Image.asset('assets/ips.png'),
-                                    ) // Replace 'assets/ips_image.png' with the actual path to your IPS image.
-                                  else if (widget.paymentMethod == 'IME')
-                                    Container(
-                                      height: 30,
-                                      width: 60,
-                                      child: Image.asset('assets/ime.png'),
-                                    ) // Replace 'assets/ime_image.png' with the actual path to your IME image.
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 10.0),
-                      child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Center(
-                              child: Container(
-                            width: width,
-                            height: height / 15,
-                            child: ElevatedButton(
-                              child: const Text("Download Ticket"),
-                              onPressed: () {
-                                if (opdTicket != null) {
-                                  FileDownloader.downloadFile(
-                                    url: opdTicket ?? "",
-                                    onProgress: (name, progress) {
-                                      setState(() {
-                                        _progress = progress;
-                                      });
-                                    },
-                                    onDownloadCompleted: (path) {
-                                      print('Downloaded path: $path');
-                                      setState(() {
-                                        _progress = null;
-                                        _downloadedFilePath = path;
-                                      });
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 10.0),
+                            child: Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Center(
+                                    child: Container(
+                                  width: width,
+                                  height: height / 15,
+                                  child: ElevatedButton(
+                                    child: const Text("Download Ticket"),
+                                    onPressed: () {
+                                      if (opdTicket != null) {
+                                        FileDownloader.downloadFile(
+                                          url: opdTicket ?? "",
+                                          onProgress: (name, progress) {
+                                            setState(() {
+                                              _progress = progress;
+                                            });
+                                          },
+                                          onDownloadCompleted: (path) {
+                                            print('Downloaded path: $path');
+                                            setState(() {
+                                              _progress = null;
+                                              _downloadedFilePath = path;
+                                            });
 
-                                      // Show the downloaded file path in a popup
-                                      showDownloadedFilePath(path);
+                                            // Show the downloaded file path in a popup
+                                            showDownloadedFilePath(path);
+                                          },
+                                        );
+                                      } else {
+                                        print('opdTicket is empty or invalid.');
+                                      }
                                     },
-                                  );
-                                } else {
-                                  print('opdTicket is empty or invalid.');
-                                }
-                              },
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all(yellow),
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(yellow),
+                                    ),
+                                  ),
+                                )),
                               ),
                             ),
-                          )),
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-          ),
         ));
   }
 }
