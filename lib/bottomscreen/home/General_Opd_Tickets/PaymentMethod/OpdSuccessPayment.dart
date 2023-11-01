@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/General_Opd_Tickets_Form.dart';
+import 'package:TezHealthCare/screens/auth/Sigin_main_screen.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
@@ -157,7 +158,7 @@ class _OpdPaymentSuccessfullScreenState
     return WillPopScope(
         onWillPop: () async {
           // Navigate to the Home Screen when the back button is pressed
-          Get.offAll(() => const General_Opd_Tickets_Form());
+          Get.offAll(() => const MainSiginScreen());
           return false; // Prevent default back button behavior
         },
         child: Scaffold(
