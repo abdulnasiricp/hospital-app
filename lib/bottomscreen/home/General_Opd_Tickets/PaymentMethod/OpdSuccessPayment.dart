@@ -1,8 +1,7 @@
-// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, non_constant_identifier_names, avoid_print, unnecessary_string_interpolations, unused_field, deprecated_member_use
+// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, non_constant_identifier_names, avoid_print, unnecessary_string_interpolations, unused_field, deprecated_member_use, file_names
 
 import 'dart:convert';
 
-import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/General_Opd_Tickets_Form.dart';
 import 'package:TezHealthCare/screens/auth/Sigin_main_screen.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';

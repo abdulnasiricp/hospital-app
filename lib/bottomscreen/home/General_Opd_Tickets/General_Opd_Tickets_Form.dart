@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, camel_case_types, duplicate_ignore, avoid_print, sized_box_for_whitespace, non_constant_identifier_names, unused_field
+// ignore_for_file: file_names, camel_case_types, duplicate_ignore, avoid_print, sized_box_for_whitespace, non_constant_identifier_names, unused_field, deprecated_member_use
 
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/opd_tickets_details.dart';
 import 'package:TezHealthCare/utils/colors.dart';
