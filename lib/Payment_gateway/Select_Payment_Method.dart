@@ -178,24 +178,6 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
     );
   }
 
-
-  void payWithImepayInApp() async {
-    Random random = Random();
-    random.nextInt(15);
-
-    // showDialog(
-    //   context: context,
-    //   builder: (BuildContext context) {
-    //     return AlertDialog(content: Text(json.encode(result)));
-    //   },
-    // );
-     Get.dialog(const CancelPaymentScreen(
-      title: 'Cancelled',
-      btnnName: "OK",
-      message: "payment Cancelled",
-    ));
-  }
-
   void payWithEsawaInApp() async {
     final result = await Esewa.i.init(
         context: context,
@@ -216,11 +198,11 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
     } else {
       if (kDebugMode) {
         print(result.error);
-         Get.dialog(const CancelPaymentScreen(
-      title: 'Cancelled',
-      btnnName: "OK",
-      message: "payment Cancelled",
-    ));
+        Get.dialog(const CancelPaymentScreen(
+          title: 'Cancelled',
+          btnnName: "OK",
+          message: "payment Cancelled",
+        ));
       }
     }
     if (refId.isNotEmpty) {
@@ -228,8 +210,6 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
     }
     if (hasError.isNotEmpty) {
       Text('Console: Payment Failed, Message: $hasError');
-       
-
     }
   }
 
@@ -237,7 +217,6 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
     Get.off(() => PaymentSuccessfullScreen(
           paymentMethod: selectedPaymentMethod,
         ));
-  
   }
 
   void onFailure(PaymentFailureModel failure) {
@@ -265,8 +244,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
     PaymentMethod('assets/khalti.png'),
     PaymentMethod('assets/esewa.png'),
     PaymentMethod('assets/ips.png'),
-    PaymentMethod('assets/ime.png'),
-     PaymentMethod('assets/Mobilebanking.png'),
+    PaymentMethod('assets/Mobilebanking.png'),
     PaymentMethod('assets/internetbanking.png'),
   ];
   @override
@@ -789,10 +767,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
       } else if (selectedMethod == 'assets/ips.png') {
         selectedPaymentMethod = "IPS";
         payWithConnectIPSInApp();
-      } else if (selectedMethod == 'assets/ime.png') {
-        selectedPaymentMethod = "IME";
-        payWithImepayInApp();
-      }else if (selectedMethod == 'assets/Mobilebanking.png') {
+      } else if (selectedMethod == 'assets/Mobilebanking.png') {
         selectedPaymentMethod = "Mobilebanking";
         payWithMobilebanking();
       } else if (selectedMethod == 'assets/internetbanking.png') {

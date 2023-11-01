@@ -90,47 +90,47 @@ class _OnboardingState extends State<Onboarding> {
                         },
                         children: [
                           SingleChildScrollView(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                    image: const DecorationImage(
-                                        image: AssetImage("assets/docThree.png"),
-                                        fit: BoxFit.fitWidth),
-                                    // color: const Color(0xff2792f5),
-                                    borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(50.sp),
-                                      topLeft: Radius.circular(50.sp),
+                            child: Center(
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: 200.0,
+                                    child: Image.asset(
+                                      "assets/docThree.png",
+                                      fit: BoxFit.fitWidth,
                                     ),
                                   ),
-                                  height: height,
-                                  child: Center(
+                                  Padding(
+                                    padding: const EdgeInsets.all(20.0),
                                     child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: [
-                                        const SizedBox(height: 600),
+                                        SizedBox(height: 20),
                                         Text(
                                           EnString.qualityReputations,
                                           style: TextStyle(
-                                              fontFamily: 'Gilroy_Bold',
-                                              color: notifire.getwihitecolor,
-                                              fontSize: 22.sp),
+                                            fontFamily: 'Gilroy_Bold',
+                                            color: notifire.getwihitecolor,
+                                            fontSize: 24.sp,
+                                          ),
                                         ),
-                                        const SizedBox(height: 10),
+                                        SizedBox(height: 10),
                                         Text(
                                           EnString
                                               .theteamofreputabledoctorshasmanyyearsofprofessionalexperience,
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
-                                              fontFamily: 'Gilroy_Medium',
-                                              color: notifire.getwihitecolor,
-                                              fontSize: 14.sp),
+                                            fontFamily: 'Gilroy_Medium',
+                                            color: notifire.getwihitecolor,
+                                            fontSize: 16.sp,
+                                          ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                )
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                           SingleChildScrollView(
