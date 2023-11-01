@@ -214,14 +214,14 @@ class _OpdPaymentSuccessfullScreenState
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     const Text(
-                                      "Date/Time",
+                                      "Ticket Date",
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 16,
                                       ),
                                     ),
                                     Text(
-                                      "$formattedDate",
+                                      "${widget.ticketDate}",
                                       style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 16,

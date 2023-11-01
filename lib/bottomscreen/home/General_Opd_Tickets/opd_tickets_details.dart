@@ -341,10 +341,9 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
 
   late num opdticketcharge = 0;
 
- //convert rupess to paisa
+  //convert rupess to paisa
   late num OPdRupeesAmount = opdticketcharge;
   late int rupeesAmountInt = OPdRupeesAmount.toInt();
-
 
   num rupeesToPaisa(num rupees) {
     return rupees * 100.0;
@@ -352,10 +351,11 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
 
   late int OpdPaisaAmount = rupeesToPaisa(OPdRupeesAmount).round();
 
-getData()async{
-await  fetchOpdTicketCharge();
+  getData() async {
+    await fetchOpdTicketCharge();
 // await changeStringToInt();
-}
+  }
+
   @override
   void initState() {
     super.initState();
@@ -372,7 +372,7 @@ await  fetchOpdTicketCharge();
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
-     opdticketcharge = data['opd_ticket_charge'];
+      opdticketcharge = data['opd_ticket_charge'];
       setState(() {
         isLoading = false;
       });
@@ -438,13 +438,13 @@ await  fetchOpdTicketCharge();
                                 children: [
                                   Text(
                                     'Ticket Date',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   Text(
                                     'Department',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
@@ -565,8 +565,7 @@ await  fetchOpdTicketCharge();
                         const SizedBox(
                           width: 10,
                         ),
-                        Text(
-                          "Rs. $opdticketcharge",
+                        Text("Rs. $opdticketcharge",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.orange[900])),
@@ -592,39 +591,39 @@ await  fetchOpdTicketCharge();
                     ),
                     InkWell(
                       onTap: () {
-        //                  Get.to(() => OpdPaymentSuccessfullScreen(
-        //   paymentMethod: '0',
-        //   opdchargeAmount: 0,
-        //   BloodgroupId: widget.BloodgroupId,
-        //   DepartmentId: widget.DepartmentId,
-        //   patientAddress: widget.patientAddress,
-        //   patientDOB: widget.patientDOB,
-        //   patientEmail: widget.patientEmail,
-        //   patientGender: widget.patientGender,
-        //   patientMobile: widget.patientMobile,
-        //   patientName: widget.patientName,
-        //   ticketDate: widget.ticketDate,
-        //   totalAmountInRs: 0,
-        //   total_AmountPaisa: 0,
+                        //                  Get.to(() => OpdPaymentSuccessfullScreen(
+                        //   paymentMethod: '0',
+                        //   opdchargeAmount: 0,
+                        //   BloodgroupId: widget.BloodgroupId,
+                        //   DepartmentId: widget.DepartmentId,
+                        //   patientAddress: widget.patientAddress,
+                        //   patientDOB: widget.patientDOB,
+                        //   patientEmail: widget.patientEmail,
+                        //   patientGender: widget.patientGender,
+                        //   patientMobile: widget.patientMobile,
+                        //   patientName: widget.patientName,
+                        //   ticketDate: widget.ticketDate,
+                        //   totalAmountInRs: 0,
+                        //   total_AmountPaisa: 0,
 
-        // ));
-                        Get.to(() =>  CheckSelectPaymentMethod(
-                          totalAmountInRs: rupeesAmountInt,
-                           total_AmountPaisa: OpdPaisaAmount,
-                           BloodgroupId: widget.BloodgroupId,
-                           Bloodgroupname: widget.Bloodgroupname,
-                           DepartmentId: widget.DepartmentId,
-                           bloodGroup: widget.bloodGroup,
-                           maritalStatus: widget.maritalStatus,
-                           patientAddress: widget.patientAddress,
-                           patientDOB: widget.patientDOB,
-                           patientEmail: widget.patientEmail,
-                           patientGender: widget.patientGender,
-                           patientMobile: widget.patientMobile,
-                           patientName: widget.patientName,
-                           selectedDepartment: widget.selectedDepartment,
-                           ticketDate: widget.ticketDate,
-                           ));
+                        // ));
+                        Get.to(() => CheckSelectPaymentMethod(
+                              totalAmountInRs: rupeesAmountInt,
+                              total_AmountPaisa: OpdPaisaAmount,
+                              BloodgroupId: widget.BloodgroupId,
+                              Bloodgroupname: widget.Bloodgroupname,
+                              DepartmentId: widget.DepartmentId,
+                              bloodGroup: widget.bloodGroup,
+                              maritalStatus: widget.maritalStatus,
+                              patientAddress: widget.patientAddress,
+                              patientDOB: widget.patientDOB,
+                              patientEmail: widget.patientEmail,
+                              patientGender: widget.patientGender,
+                              patientMobile: widget.patientMobile,
+                              patientName: widget.patientName,
+                              selectedDepartment: widget.selectedDepartment,
+                              ticketDate: widget.ticketDate,
+                            ));
                       },
                       child: Container(
                         width: width / 1,
@@ -645,7 +644,7 @@ await  fetchOpdTicketCharge();
                   ],
                 ),
               ),
-           ),
-);
-}
+            ),
+    );
+  }
 }

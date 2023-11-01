@@ -1,5 +1,3 @@
-
-
 // ignore_for_file: file_names, camel_case_types, duplicate_ignore, avoid_print, sized_box_for_whitespace, non_constant_identifier_names, unused_field
 
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/opd_tickets_details.dart';
@@ -9,6 +7,7 @@ import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert';
@@ -18,7 +17,6 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class General_Opd_Tickets_Form extends StatefulWidget {
   const General_Opd_Tickets_Form({Key? key}) : super(key: key);
-
 
   @override
   State<General_Opd_Tickets_Form> createState() =>
@@ -204,7 +202,6 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -215,10 +212,16 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
           backgroundColor: darkYellow,
           actions: [
             IconButton(
-                onPressed: () {
-                  _OpdTicketInfo(context);
-                },
-                icon: const Icon(Icons.info))
+              onPressed: () {
+                _OpdTicketInfo(context);
+              },
+              icon: SvgPicture.asset(
+                'assets/info1.svg',
+                width: 25,
+                height: 25,
+                color: Colors.white,
+              ),
+            )
           ],
         ),
         body: Padding(

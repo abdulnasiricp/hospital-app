@@ -32,6 +32,7 @@ class CheckSelectPaymentMethod extends StatefulWidget {
   final String bloodGroup;
   final String patientEmail;
   final String selectedDepartment;
+
   const CheckSelectPaymentMethod(
       {Key? key,
       required this.totalAmountInRs,
@@ -47,7 +48,8 @@ class CheckSelectPaymentMethod extends StatefulWidget {
       required this.maritalStatus,
       required this.bloodGroup,
       required this.patientEmail,
-      required this.selectedDepartment, required this.total_AmountPaisa})
+      required this.selectedDepartment,
+      required this.total_AmountPaisa})
       : super(key: key);
 
   @override
@@ -55,8 +57,6 @@ class CheckSelectPaymentMethod extends StatefulWidget {
 }
 
 class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
-
-
   String refId = '';
   String hasError = '';
   void payWithKhaltiInApp() {
@@ -162,7 +162,6 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
           ticketDate: widget.ticketDate,
           totalAmountInRs: widget.totalAmountInRs,
           total_AmountPaisa: widget.total_AmountPaisa,
-
         ));
   }
 
@@ -308,8 +307,7 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     const Padding(
-                                      padding:
-                                          EdgeInsets.only(left: 10.0),
+                                      padding: EdgeInsets.only(left: 10.0),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
