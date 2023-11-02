@@ -10,6 +10,7 @@ import 'package:TezHealthCare/stringfile/enstring.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:provider/provider.dart';
+
 class Onboarding extends StatefulWidget {
   const Onboarding({Key? key}) : super(key: key);
 
@@ -18,7 +19,7 @@ class Onboarding extends StatefulWidget {
 }
 
 class _OnboardingState extends State<Onboarding> {
-  final int _numPages = 3;
+  final int _numPages = 4;
 
   late ColorNotifier notifire;
   final PageController _pageController = PageController(initialPage: 0);
@@ -103,7 +104,7 @@ class _OnboardingState extends State<Onboarding> {
                                     height: 300.0,
                                     width: double.infinity,
                                     child: Image.asset(
-                                      "assets/onboarding-1.png",
+                                      "assets/Onboarding_1.png",
                                     ),
                                   ),
                                   Padding(
@@ -112,9 +113,9 @@ class _OnboardingState extends State<Onboarding> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        const SizedBox(height: 20),
+                                        const SizedBox(height: 10),
                                         Text(
-                                          EnString.qualityReputations,
+                                          "Online Report",
                                           style: TextStyle(
                                             fontFamily: 'Gilroy_Bold',
                                             color: notifire.getwihitecolor,
@@ -123,8 +124,7 @@ class _OnboardingState extends State<Onboarding> {
                                         ),
                                         const SizedBox(height: 10),
                                         Text(
-                                          EnString
-                                              .theteamofreputabledoctorshasmanyyearsofprofessionalexperience,
+                                          "Welcome to Tez Health Care, your gateway to a world of online reports; this document will guide you in accessing, understanding, and utilizing our extensive report repository.",
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontFamily: 'Gilroy_Medium',
@@ -152,7 +152,7 @@ class _OnboardingState extends State<Onboarding> {
                                     height: 300.0,
                                     width: double.infinity,
                                     child: Image.asset(
-                                      "assets/onboarding-1.png",
+                                      "assets/Onboarding_2.png",
                                     ),
                                   ),
                                   Padding(
@@ -163,7 +163,7 @@ class _OnboardingState extends State<Onboarding> {
                                       children: [
                                         const SizedBox(height: 20),
                                         Text(
-                                          EnString.qualityReputations,
+                                          "Online Transaction",
                                           style: TextStyle(
                                             fontFamily: 'Gilroy_Bold',
                                             color: notifire.getwihitecolor,
@@ -172,8 +172,7 @@ class _OnboardingState extends State<Onboarding> {
                                         ),
                                         const SizedBox(height: 10),
                                         Text(
-                                          EnString
-                                              .theteamofreputabledoctorshasmanyyearsofprofessionalexperience,
+                                          "Easily monitor all your transactions within our app, ensuring a seamless and efficient experience for your financial needs",
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontFamily: 'Gilroy_Medium',
@@ -201,7 +200,7 @@ class _OnboardingState extends State<Onboarding> {
                                     height: 300.0,
                                     width: double.infinity,
                                     child: Image.asset(
-                                      "assets/onboarding-1.png",
+                                      "assets/Onboarding_3.png",
                                     ),
                                   ),
                                   Padding(
@@ -212,7 +211,7 @@ class _OnboardingState extends State<Onboarding> {
                                       children: [
                                         const SizedBox(height: 20),
                                         Text(
-                                          EnString.qualityReputations,
+                                          "Online Tickets",
                                           style: TextStyle(
                                             fontFamily: 'Gilroy_Bold',
                                             color: notifire.getwihitecolor,
@@ -221,8 +220,55 @@ class _OnboardingState extends State<Onboarding> {
                                         ),
                                         const SizedBox(height: 10),
                                         Text(
-                                          EnString
-                                              .theteamofreputabledoctorshasmanyyearsofprofessionalexperience,
+                                          "Purchase tickets and schedule doctor appointments effortlessly through our app, offering a convenient and reliable platform for all your booking and healthcare needs",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy_Medium',
+                                            color: notifire.getwihitecolor,
+                                            fontSize: 16.sp,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SingleChildScrollView(
+                            child: Center(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const SizedBox(
+                                    height: 150,
+                                  ),
+                                  Container(
+                                    height: 300.0,
+                                    width: double.infinity,
+                                    child: Image.asset(
+                                      "assets/Onboarding_4.png",
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        const SizedBox(height: 20),
+                                        Text(
+                                          "Online Payment",
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy_Bold',
+                                            color: notifire.getwihitecolor,
+                                            fontSize: 24.sp,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Text(
+                                          "Access our secure online payment gateway to conveniently settle hospital bills and manage financial transactions within this app, simplifying your healthcare and financial management.",
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontFamily: 'Gilroy_Medium',

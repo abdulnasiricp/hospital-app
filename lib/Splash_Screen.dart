@@ -32,11 +32,10 @@ class _Splash_ScreenState extends State<Splash_Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lightBlue.withOpacity(0.5), // Background color
+      backgroundColor: darkYellow, // Background color
       body: Stack(
         fit: StackFit.expand,
         children: [
-          // Company logo at the center
           Center(
             child: Image.asset(
               'assets/hospital_logo.png',
