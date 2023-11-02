@@ -12,14 +12,26 @@ import 'package:http/http.dart' as http;
 class Insurance_Opd_Ticket_Details extends StatefulWidget {
   final String DepartmentId;
   final String ticketDate;
+  final String name;
   final String selectedDepartment;
+  final String dob;
+  final String gender;
   final String InsuranceorSSFid;
+  final String balance;
+  final String Phone;
+  final String contractDate;
   const Insurance_Opd_Ticket_Details({
     Key? key,
     required this.DepartmentId,
+    required this.contractDate,
+    required this.balance,
+    required this.name,
+    required this.gender,
     required this.ticketDate,
+    required this.dob,
     required this.selectedDepartment,
     required this.InsuranceorSSFid,
+    required this.Phone,
   }) : super(key: key);
 
   @override
@@ -130,8 +142,9 @@ class _Insurance_Opd_Ticket_DetailsState
                                 children: [
                                   Text(
                                     'Ticket Date',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold,),
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                   Text(
                                     'Department',
@@ -186,7 +199,7 @@ class _Insurance_Opd_Ticket_DetailsState
                         style: const TextStyle(fontWeight: FontWeight.bold)),
                     Container(
                       width: width,
-                      height: 200,
+                      height: 160,
                       child: Card(
                         color: Colors.white,
                         child: Row(
@@ -210,17 +223,7 @@ class _Insurance_Opd_Ticket_DetailsState
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    'patientEmail'.tr,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
                                     'patientGender'.tr,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    'patientBloodGroup'.tr,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -229,35 +232,24 @@ class _Insurance_Opd_Ticket_DetailsState
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  Text(
-                                    'patientAddress'.tr,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  ),
                                 ],
                               ),
                             ),
-                            // Padding(
-                            //   padding: const EdgeInsets.only(
-                            //       right: 40, top: 10, left: 10, bottom: 10),
-                            //   child: Column(
-                            //     crossAxisAlignment: CrossAxisAlignment.start,
-                            //     mainAxisAlignment:
-                            //         MainAxisAlignment.spaceBetween,
-                            //     children: [
-                            //       Text(widget.patientName),
-                            //       Text(widget.patientMobile),
-                            //       Text(widget.patientEmail),
-                            //       Text(widget.patientGender),
-                            //       Text(widget.Bloodgroupname),
-                            //       Text(widget.patientDOB),
-                            //       Text(
-                            //         widget.patientAddress,
-                            //         overflow: TextOverflow.fade,
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  right: 40, top: 10, left: 10, bottom: 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(widget.name),
+                                  Text(widget.Phone),
+                                  Text(widget.gender),
+                                  Text(widget.dob),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
