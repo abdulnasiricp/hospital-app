@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, non_constant_identifier_names, avoid_print, unnecessary_string_interpolations, unused_field, deprecated_member_use, file_names
+// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, non_constant_identifier_names, avoid_print, unnecessary_string_interpolations, unused_field, deprecated_member_use, file_names, camel_case_types
 
 import 'dart:convert';
 
@@ -6,11 +6,10 @@ import 'package:TezHealthCare/screens/auth/Sigin_main_screen.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
-import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -75,13 +74,15 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
       "gender": widget.gender,
       "dob": widget.dob,
       "email": widget.email,
-      "address": widget.pataddress,
+      "address": 'birgunj',
       "mobileno": widget.Phone,
       "department_id": widget.DepartmentId,
       "doctor_id": "",
       "date": widget.ticketDate,
-      "blood_group": "N/A",
+      "blood_group": "1",
       "payment_mode": widget.InsuranceorSSFid,
+
+   
     };
 
     final response = await http.post(
@@ -149,9 +150,20 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
 
   @override
   Widget build(BuildContext context) {
+    print(widget.DepartmentId);
+    print(widget.InsuranceorSSFid);
+    print(widget.Phone);
+    print(widget.balance);
+    print(widget.contractDate);
+    print(widget.dob);
+    print(widget.email);
+    print(widget.gender);
+    print(widget.name);
+    print(widget.pataddress);
+    print(widget.ticketDate);
     return WillPopScope(
       onWillPop: () async {
-        Get.offAll(() => const MainSiginScreen());
+        Get.to(() => const MainSiginScreen());
         return false;
       },
       child: Scaffold(
@@ -161,12 +173,14 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
           centerTitle: true,
           backgroundColor: darkYellow,
         ),
-        body: _progress != null
-            ? FutureBuilder(
+        body: 
+        // _progress != null
+        //     ? 
+            FutureBuilder(
                 future: _future,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
                     return Center(child: Text('Error: ${snapshot.error}'));
                   } else {
@@ -263,7 +277,7 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
                                           height: 5,
                                         ),
                                         const DottedLineDivider(),
-                                        PaymentItem(
+                                        const PaymentItem(
                                           title: ' OPD Ticket Charge',
                                           amount: "FREE",
                                         ),
@@ -271,7 +285,7 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
                                           height: 25,
                                         ),
                                         const DottedLineDivider(),
-                                        PaymentItem(
+                                        const PaymentItem(
                                           title: 'Total  Ticket Charge',
                                           amount: "FREE",
                                           isTotal: true,
@@ -279,10 +293,10 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
                                       ],
                                     ),
                                   ),
-                                  Row(
+                                  const Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      const Padding(
+                                      Padding(
                                         padding: EdgeInsets.only(right: 8.0),
                                         child: Text(
                                             "Payment Mode : Payment By Insurance Claimed",
@@ -351,22 +365,22 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
                   }
                 },
               )
-            : Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Container(
-                        height: 50,
-                        width: 50,
-                        color: Colors.transparent,
-                        child: const LoadingIndicatorWidget(),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+            // : Center(
+            //     child: Padding(
+            //       padding: const EdgeInsets.all(10.0),
+            //       child: Center(
+            //         child: Padding(
+            //           padding: const EdgeInsets.all(10.0),
+            //           child: Container(
+            //             height: 50,
+            //             width: 50,
+            //             color: Colors.transparent,
+            //             child: const LoadingIndicatorWidget(),
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
       ),
     );
   }

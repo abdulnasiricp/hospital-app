@@ -1,15 +1,12 @@
-// ignore_for_file: sized_box_for_whitespace
+// ignore_for_file: sized_box_for_whitespace, file_names, camel_case_types, deprecated_member_use
 
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/General_Opd_Tickets_Form.dart';
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/Insurance_opd_Ticket.dart';
-import 'package:TezHealthCare/check.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/route_manager.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class Opd_Main_Screen extends StatefulWidget {
@@ -62,7 +59,7 @@ class _Opd_Main_ScreenState extends State<Opd_Main_Screen> {
                 tabs: [
                   Tab(
                     child: Container(
-                      width: width / 2,
+                      width: width / 2.2,
                       child: const Center(
                         child: Text(
                           "General",
@@ -76,7 +73,7 @@ class _Opd_Main_ScreenState extends State<Opd_Main_Screen> {
                   ),
                   Tab(
                     child: Container(
-                      width: width / 2,
+                      width: width / 2.2,
                       child: const Center(
                         child: Text(
                           "Insurance",
@@ -90,10 +87,10 @@ class _Opd_Main_ScreenState extends State<Opd_Main_Screen> {
                   ),
                 ],
               ),
-              Expanded(
+              const Expanded(
                 child: TabBarView(
                   children: [
-                    const General_Opd_Tickets_Form(),
+                    General_Opd_Tickets_Form(),
                     Insurance_opd_Ticket(),
                   ],
                 ),

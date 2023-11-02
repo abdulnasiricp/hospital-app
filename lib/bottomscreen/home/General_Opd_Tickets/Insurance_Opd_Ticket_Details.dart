@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types, non_constant_identifier_names, file_names, sized_box_for_whitespace
+
 import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/OPD_Ticket_Booking_Successful_Insurance.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -307,10 +309,10 @@ class _Insurance_Opd_Ticket_DetailsState
                         decoration: BoxDecoration(
                             color: darkYellow,
                             borderRadius: BorderRadius.circular(10)),
-                        child: Center(
+                        child: const Center(
                             child: Text(
                           'Confirmation',
-                          style: const TextStyle(
+                          style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
                               color: Colors.white),

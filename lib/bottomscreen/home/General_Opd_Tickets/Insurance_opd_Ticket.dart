@@ -1,13 +1,11 @@
+// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, sized_box_for_whitespace, avoid_print, prefer_const_constructors_in_immutables
+
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/Insurance_opd_form.dart';
 import 'package:flutter/material.dart';
-import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/opd_tickets_details.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
@@ -69,6 +67,8 @@ class Organization {
 }
 
 class Insurance_opd_Ticket extends StatefulWidget {
+  const Insurance_opd_Ticket({Key? key}) : super(key: key);
+
   @override
   State<Insurance_opd_Ticket> createState() => _Insurance_opd_TicketState();
 }
@@ -212,12 +212,12 @@ class _Insurance_opd_TicketState extends State<Insurance_opd_Ticket> {
                                     text: selectedInsurancetypename == 'SSF'
                                         ? "SSF Id"
                                         : "Insurance  Id",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black,
                                     ),
                                   ),
-                                  TextSpan(
+                                  const TextSpan(
                                     text: '*',
                                     style: TextStyle(
                                       color: Colors.red,
@@ -240,7 +240,7 @@ class _Insurance_opd_TicketState extends State<Insurance_opd_Ticket> {
                                   FocusScope.of(context).unfocus(),
                               controller: InsurancenumberController,
                               decoration: InputDecoration(
-                                border: OutlineInputBorder(),
+                                border: const OutlineInputBorder(),
                                 hintText: selectedInsurancetypename == 'SSF'
                                     ? 'Enter SSF Id'
                                     : 'Enter Insurance Id',
@@ -259,7 +259,7 @@ class _Insurance_opd_TicketState extends State<Insurance_opd_Ticket> {
                         Center(
                             child: Container(
                                 height: 20,
-                                child: Text(
+                                child: const Text(
                                   "Insurance details not available.",
                                   style: TextStyle(color: Colors.red),
                                 ))),
@@ -278,7 +278,7 @@ class _Insurance_opd_TicketState extends State<Insurance_opd_Ticket> {
                             width: width,
                             height: height / 15,
                             child: ElevatedButton(
-                              child: Text("Check Status"),
+                              child: const Text("Check Status"),
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   fetchInsuranceDetails();
@@ -449,7 +449,7 @@ class _Insurance_opd_TicketState extends State<Insurance_opd_Ticket> {
       isLoading = true;
     });
 
-    final url =
+    const url =
         'https://uat.tez.hospital/xzy/webservice/get_insurance_details'; // Replace with your API endpoint
     final headers = {
       'Soft-service': 'TezHealthCare',
@@ -489,7 +489,7 @@ class _Insurance_opd_TicketState extends State<Insurance_opd_Ticket> {
 class InsuranceDetailsWidget extends StatelessWidget {
   final Map<String, dynamic> insuranceDetails;
 
-  InsuranceDetailsWidget({required this.insuranceDetails});
+  const InsuranceDetailsWidget({Key? key, required this.insuranceDetails}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -576,16 +576,16 @@ class InsuranceDetailsWidget extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        Row(
+        const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Center(
               child: Text(
                   "You are eligible for buy Ticket with Insurance .\n If you want to buy ticket click on PROCEED",
-                  style: const TextStyle(
+                  style: TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.green)),
             ),
-            const SizedBox(
+            SizedBox(
               width: 10,
             ),
           ],
