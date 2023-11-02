@@ -1,3 +1,4 @@
+import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/Insurance_Opd_Ticket_Details.dart';
 import 'package:flutter/material.dart';
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/opd_tickets_details.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -298,7 +299,7 @@ class _Insurance_opd_TicketState extends State<Insurance_opd_Ticket> {
                       child: Text('proceed'.tr),
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          fetchInsuranceDetails();
+                          fetchInsuranceDetails().then((value) => Get.to(()=>Insurance_Opd_Ticket_Details(DepartmentId: '',InsuranceorSSFid: '',selectedDepartment: '',ticketDate: '',)));
                         }
                       },
                       style: ButtonStyle(

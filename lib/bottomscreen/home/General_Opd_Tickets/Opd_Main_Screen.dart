@@ -1,3 +1,5 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/General_Opd_Tickets_Form.dart';
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/Insurance_opd_Ticket.dart';
 import 'package:TezHealthCare/check.dart';
@@ -61,8 +63,8 @@ class _Opd_Main_ScreenState extends State<Opd_Main_Screen> {
                   Tab(
                     child: Container(
                       width: width / 2,
-                      child: Center(
-                        child: const Text(
+                      child: const Center(
+                        child: Text(
                           "General",
                           style: TextStyle(
                               fontSize: 20,
@@ -75,8 +77,8 @@ class _Opd_Main_ScreenState extends State<Opd_Main_Screen> {
                   Tab(
                     child: Container(
                       width: width / 2,
-                      child: Center(
-                        child: const Text(
+                      child: const Center(
+                        child: Text(
                           "Insurance",
                           style: TextStyle(
                               fontSize: 20,
@@ -91,7 +93,7 @@ class _Opd_Main_ScreenState extends State<Opd_Main_Screen> {
               Expanded(
                 child: TabBarView(
                   children: [
-                    General_Opd_Tickets_Form(),
+                    const General_Opd_Tickets_Form(),
                     Insurance_opd_Ticket(),
                   ],
                 ),
