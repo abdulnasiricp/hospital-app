@@ -1,3 +1,4 @@
+import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/Insurance_opd_form.dart';
 import 'package:flutter/material.dart';
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/opd_tickets_details.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -102,11 +103,9 @@ class _Insurance_opd_TicketState extends State<Insurance_opd_Ticket> {
   TextEditingController InsurancenumberController = TextEditingController();
   String selectedInsurancetypename = '';
   String selectedInsurancetypeId = '';
-
   bool isLoading = false;
   String statusMessage = '';
   Map<String, dynamic> insuranceDetails = {};
-
   @override
   void initState() {
     super.initState();
@@ -259,7 +258,7 @@ class _Insurance_opd_TicketState extends State<Insurance_opd_Ticket> {
                             child: Container(
                                 height: 20,
                                 child: Text(
-                                  "Insurance details not available.",
+                                  "Insurance details not available or not eligible.",
                                   style: TextStyle(color: Colors.red),
                                 ))),
                       if (insuranceDetails.containsKey('status') &&
@@ -269,20 +268,70 @@ class _Insurance_opd_TicketState extends State<Insurance_opd_Ticket> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Center(
-                        child: Container(
-                          width: width,
-                          height: height / 15,
-                          child: ElevatedButton(
-                            child: Text('proceed'.tr),
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                fetchInsuranceDetails();
-                              }
-                            },
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(yellow),
+                      Visibility(
+                        visible: !(insuranceDetails.containsKey('status') &&
+                            insuranceDetails['status'] == "1"),
+                        child: Center(
+                          child: Container(
+                            width: width,
+                            height: height / 15,
+                            child: ElevatedButton(
+                              child: Text("Check Status"),
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  fetchInsuranceDetails();
+                                }
+                              },
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(yellow),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Visibility(
+                        visible: insuranceDetails.containsKey('status') &&
+                            insuranceDetails['status'] == "1",
+                        child: Center(
+                          child: Container(
+                            width: width,
+                            height: height / 15,
+                            child: ElevatedButton(
+                              child: Text('proceed'.tr),
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  fetchInsuranceDetails().then((_) {
+                                    if (insuranceDetails
+                                            .containsKey('status') &&
+                                        insuranceDetails['status'] == "1") {
+                                      // Navigate to the InsuranceOpdFormScreen and pass the data
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              Insurance_opd_form(
+                                            dob: insuranceDetails['dob'],
+                                            gender: insuranceDetails['gender'],
+                                            name: insuranceDetails['name'],
+
+                                            contractDate: insuranceDetails[
+                                                'contract_date'],
+                                            balance:
+                                                insuranceDetails['balance'],
+                                            InsuranceorSSFid:
+                                                InsurancenumberController.text,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                  });
+                                }
+                              },
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(yellow),
+                              ),
                             ),
                           ),
                         ),
@@ -516,11 +565,22 @@ class InsuranceDetailsWidget extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        Text("The OPD amount will be deducted from your insurance balance, ensuring a seamless and convenient process for your healthcare expenses.",
+        Text(
+            "The OPD amount will be deducted from your insurance balance, ensuring a seamless and convenient process for your healthcare expenses.",
             style: TextStyle(color: Colors.orange[900])),
         const SizedBox(
           height: 10,
-        )
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("If you Want to buy Ticket ? Click on PROCEED",
+                style: const TextStyle(fontWeight: FontWeight.bold)),
+            const SizedBox(
+              width: 10,
+            ),
+          ],
+        ),
       ],
     );
   }
