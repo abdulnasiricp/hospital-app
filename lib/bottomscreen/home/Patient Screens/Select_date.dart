@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, sized_box_for_whitespace, deprecated_member_use
+// ignore_for_file: file_names, sized_box_for_whitespace, deprecated_member_use, avoid_print
 
 import 'dart:convert';
 
@@ -180,10 +180,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                                 color: darkYellow,
                                                 fontSize: 30)),
                                          Text('  ${item['day'] ?? 'N/A'}',
-                                        //  style: TextStyle(
-                                        //         fontWeight: FontWeight.bold,
-                                        //         color: darkYellow,
-                                        //         )
+                                        
                                                 ),
                                       ],
                                     )),

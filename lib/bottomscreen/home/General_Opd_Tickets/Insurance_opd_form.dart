@@ -1,20 +1,16 @@
 // ignore_for_file: file_names, camel_case_types, duplicate_ignore, avoid_print, sized_box_for_whitespace, non_constant_identifier_names, unused_field, deprecated_member_use
 
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/Insurance_Opd_Ticket_Details.dart';
-import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/opd_tickets_details.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class Insurance_opd_form extends StatefulWidget {
   final String dob;
@@ -27,7 +23,8 @@ class Insurance_opd_form extends StatefulWidget {
   final String email;
   final String pataddress;
 
-  Insurance_opd_form({
+  const Insurance_opd_form({Key? key, 
+  
     required this.dob,
     required this.email,
     required this.gender,
@@ -37,7 +34,7 @@ class Insurance_opd_form extends StatefulWidget {
     required this.balance,
     required this.InsuranceorSSFid,
     required this.pataddress,
-  });
+  }) : super(key: key);
 
   @override
   State<Insurance_opd_form> createState() => _Insurance_opd_formState();
