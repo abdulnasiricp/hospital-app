@@ -1,7 +1,5 @@
-// ignore_for_file: unused_local_variable, non_constant_identifier_names, sized_box_for_whitespace
-
 import 'dart:convert';
-import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/PaymentMethod/Select_Payment_Method_For_opd.dart';
+import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/OPD_Ticket_Booking_Successful_Insurance.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
@@ -20,9 +18,13 @@ class Insurance_Opd_Ticket_Details extends StatefulWidget {
   final String balance;
   final String Phone;
   final String contractDate;
+  final String pataddress;
+  final String email;
   const Insurance_Opd_Ticket_Details({
     Key? key,
     required this.DepartmentId,
+    required this.pataddress,
+    required this.email,
     required this.contractDate,
     required this.balance,
     required this.name,
@@ -223,12 +225,22 @@ class _Insurance_Opd_Ticket_DetailsState
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
+                                    'email'.tr,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
                                     'patientGender'.tr,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
                                     'patientDOB'.tr,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    'Address'.tr,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -243,10 +255,22 @@ class _Insurance_Opd_Ticket_DetailsState
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(widget.name),
-                                  Text(widget.Phone),
-                                  Text(widget.gender),
-                                  Text(widget.dob),
+                                  Text(widget.name.isEmpty
+                                      ? 'N/A'
+                                      : widget.name),
+                                  Text(widget.Phone.isEmpty
+                                      ? 'N/A'
+                                      : widget.Phone),
+                                  Text(widget.email.isEmpty
+                                      ? 'N/A'
+                                      : widget.email),
+                                  Text(widget.gender.isEmpty
+                                      ? 'N/A'
+                                      : widget.gender),
+                                  Text(widget.dob.isEmpty ? 'N/A' : widget.dob),
+                                  Text(widget.pataddress.isEmpty
+                                      ? 'N/A'
+                                      : widget.pataddress),
                                 ],
                               ),
                             ),
@@ -262,12 +286,20 @@ class _Insurance_Opd_Ticket_DetailsState
                     ),
                     InkWell(
                       onTap: () {
-                        // Get.to(() => CheckSelectPaymentMethod(
-                        //       totalAmountInRs: rupeesAmountInt,
-                        //       total_AmountPaisa: OpdPaisaAmount,
-                        //       selectedDepartment: widget.selectedDepartment,
-                        //       ticketDate: widget.ticketDate,
-                        //     ));
+                        Get.to(() => OPD_Ticket_Booking_Successful_Insurance(
+                          ticketDate: widget.ticketDate,
+                          DepartmentId: widget.DepartmentId,
+                          InsuranceorSSFid: widget.InsuranceorSSFid,
+                          Phone: widget.Phone,
+                          name: widget.name,
+                          dob: widget.dob,
+                          gender: widget.gender,
+                          pataddress: widget.pataddress,
+                          email: widget.email,
+                          balance: widget.balance,
+                          contractDate: widget.contractDate,
+                            )
+                        );
                       },
                       child: Container(
                         width: width / 1,

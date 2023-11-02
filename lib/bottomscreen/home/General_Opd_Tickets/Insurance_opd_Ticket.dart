@@ -318,10 +318,14 @@ class _Insurance_opd_TicketState extends State<Insurance_opd_Ticket> {
                                             name: insuranceDetails['name'],
                                             contractDate: insuranceDetails[
                                                 'contract_date'],
-                                                Phone: insuranceDetails[
-                                                'phone'],
-                                            balance: insuranceDetails['balance'],
-                                            InsuranceorSSFid: InsurancenumberController.text,
+                                            Phone: insuranceDetails['phone'],
+                                            pataddress:
+                                                insuranceDetails['address'],
+                                            email: insuranceDetails['phone'],
+                                            balance:
+                                                insuranceDetails['balance'],
+                                            InsuranceorSSFid:
+                                                InsurancenumberController.text,
                                           ),
                                         ),
                                       );
@@ -576,7 +580,8 @@ class InsuranceDetailsWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Center(
-              child: Text("You are eligible for buy Ticket with Insurance .\n If you want to buy ticket click on PROCEED",
+              child: Text(
+                  "You are eligible for buy Ticket with Insurance .\n If you want to buy ticket click on PROCEED",
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.green)),
             ),
