@@ -1,12 +1,10 @@
+// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, avoid_print, sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
-import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/opd_tickets_details.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
@@ -68,6 +66,8 @@ class Organization {
 }
 
 class Insurance_opd_Ticket extends StatefulWidget {
+  const Insurance_opd_Ticket({Key? key}) : super(key: key);
+
   @override
   State<Insurance_opd_Ticket> createState() => _Insurance_opd_TicketState();
 }
@@ -113,7 +113,7 @@ class _Insurance_opd_TicketState extends State<Insurance_opd_Ticket> {
       isLoading = true;
     });
 
-    final url = 'https://uat.tez.hospital/xzy/webservice/get_insurance_details';
+    const url = 'https://uat.tez.hospital/xzy/webservice/get_insurance_details';
     final headers = {
       'Soft-service': 'TezHealthCare',
       'Auth-key': 'zbuks_ram859553467',
@@ -248,12 +248,12 @@ class _Insurance_opd_TicketState extends State<Insurance_opd_Ticket> {
                               text: selectedInsurancetypename == 'SSF'
                                   ? "SSF Id"
                                   : "Insurance  Id",
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
                               ),
                             ),
-                            TextSpan(
+                            const TextSpan(
                               text: '*',
                               style: TextStyle(
                                 color: Colors.red,
@@ -276,7 +276,7 @@ class _Insurance_opd_TicketState extends State<Insurance_opd_Ticket> {
                             FocusScope.of(context).unfocus(),
                         controller: InsurancenumberController,
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(),
+                          border: const OutlineInputBorder(),
                           hintText: selectedInsurancetypename == 'SSF'
                               ? 'Enter SSF Id'
                               : 'Enter Insurance Id',
@@ -312,7 +312,7 @@ class _Insurance_opd_TicketState extends State<Insurance_opd_Ticket> {
                 if (statusMessage.isNotEmpty)
                   Text(
                     statusMessage,
-                    style: TextStyle(color: Colors.red),
+                    style: const TextStyle(color: Colors.red),
                   ),
               ],
             ),

@@ -32,127 +32,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  //////////////////////////////////////////
-  // Future<String> getCurrentAppVersion() async {
-  //   // Replace 'your_package_name' with your app's package name
-  //   const packageInfo = 'com.tezash.msmenepal';
-  //   final String url =
-  //       'https://play.google.com/store/apps/details?id=$packageInfo';
-  //   final Uri uri = Uri.parse(url);
-  //
-  //   final response = await http.get(uri);
-  //
-  //   if (response.statusCode == 200) {
-  //     final playStoreVersion = getPlayStoreVersion(response.body);
-  //     if (playStoreVersion.isNotEmpty) {
-  //       return playStoreVersion;
-  //     }
-  //   }
-  //
-  //   return '';
-  // }
-  //
-  // Future<void> checkForUpdate(BuildContext context) async {
-  //   final currentVersion = await getCurrentAppVersion();
-  //   if (currentVersion.isNotEmpty) {
-  //     final latestVersion = await fetchLatestPlayStoreVersion();
-  //
-  //     if (latestVersion.isNotEmpty && currentVersion != latestVersion) {
-  //       // An update is available
-  //       showUpdateDialog(context);
-  //     } else {
-  //       // No updates are available
-  //       showSnackbar(context, 'You have the latest version.');
-  //     }
-  //   } else {
-  //     // Failed to get the app version from the Play Store
-  //     showSnackbar(context, 'Failed to check for updates.');
-  //   }
-  // }
-  //
-  // String getPlayStoreVersion(String responseBody) {
-  //   final startDelimiter = 'Current Version">';
-  //   final endDelimiter = '<';
-  //   final startIndex = responseBody.indexOf(startDelimiter);
-  //   final endIndex = responseBody.indexOf(endDelimiter, startIndex);
-  //
-  //   if (startIndex != -1 && endIndex != -1) {
-  //     return responseBody.substring(
-  //         startIndex + startDelimiter.length, endIndex);
-  //   }
-  //
-  //   return '';
-  // }
-  //
-  // Future<String> fetchLatestPlayStoreVersion() async {
-  //   // Replace 'your_package_name' with your app's package name
-  //   const packageInfo = 'com.tezash.msmenepal';
-  //   final String url =
-  //       'https://play.google.com/store/apps/details?id=$packageInfo';
-  //   final Uri uri = Uri.parse(url);
-  //
-  //   final response = await http.get(uri);
-  //
-  //   if (response.statusCode == 200) {
-  //     setState(() {
-  //       isLoading = false;
-  //     });
-  //     return getPlayStoreVersion(response.body);
-  //   }
-  //   setState(() {
-  //     isLoading = false;
-  //   });
-  //   return '';
-  // }
-  //
-  // void showUpdateDialog(BuildContext context) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) {
-  //       return AlertDialog(
-  //         title: Text('Update Available'),
-  //         content: Text(
-  //             'An update is available for your app. Would you like to update now?'),
-  //         actions: [
-  //           TextButton(
-  //             onPressed: () {
-  //               Navigator.of(context).pop();
-  //             },
-  //             child: Text('Later'),
-  //           ),
-  //           TextButton(
-  //             onPressed: () {
-  //               // Redirect to the Play Store for the update
-  //               redirectToPlayStore();
-  //               Navigator.of(context).pop();
-  //             },
-  //             child: Text('Update Now'),
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
-  //
-  // void showSnackbar(BuildContext context, String message) {
-  //   ScaffoldMessenger.of(context).showSnackBar(
-  //     SnackBar(
-  //       content: Text(message),
-  //       duration: const Duration(seconds: 3),
-  //     ),
-  //   );
-  // }
-  //
-  // void redirectToPlayStore() async {
-  //   // Replace 'your_package_name' with your app's package name
-  //   const packageInfo = 'com.tezash.msmenepal';
-  //   final url = 'https://play.google.com/store/apps/details?id=$packageInfo';
-  //   if (await canLaunch(url)) {
-  //     await launch(url);
-  //   }
-  // }
-
-  //////////////////////////////
+ 
 
   /////////////////////// For App Update
   void _checkForUpdate() async {
@@ -258,7 +138,7 @@ class _ProfileState extends State<Profile> {
     Get.offAll(() => const MainSiginScreen());
   }
 
-  String apiUrl ='https://uat.tez.hospital/xzy/auth/patient_logout'; // Replace with your logout API URL
+  String apiUrl =ApiLinks.logout; // Replace with your logout API URL
 
   Future<void> performLogout() async {
     setState(() {

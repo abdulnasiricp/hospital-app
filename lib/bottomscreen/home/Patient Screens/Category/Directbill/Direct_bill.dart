@@ -390,7 +390,7 @@ class _Direct_billState extends State<Direct_bill> {
                                                         child: Center(
                                                           child: Text(
                                                             // listName,
-                                                            "${Pathologybill['status']}",
+                                                            "${Pathologybill['status']}".isEmpty?'N/A':"${Pathologybill['status']}",
                                                             style:
                                                                 const TextStyle(
                                                               fontWeight:
@@ -485,7 +485,7 @@ class _Direct_billState extends State<Direct_bill> {
                                                   width: width / 7,
                                                   child: Center(
                                                     child: Text(
-                                                      "${Pathologybill['net_amount']}",
+                                                      "${Pathologybill['net_amount']}".isEmpty?'N/A':"${Pathologybill['net_amount']}",
                                                       style: const TextStyle(
                                                         color: Colors.red,
                                                         fontWeight:
