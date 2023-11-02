@@ -1,5 +1,6 @@
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/General_Opd_Tickets_Form.dart';
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/Insurance_opd_Ticket.dart';
+import 'package:TezHealthCare/check.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:buttons_tabbar/buttons_tabbar.dart';
@@ -30,6 +31,7 @@ class _Opd_Main_ScreenState extends State<Opd_Main_Screen> {
             IconButton(
               onPressed: () {
                 _opdTicketInfo(context);
+                //  Get.to(() => Ticket());
               },
               icon: SvgPicture.asset(
                 'assets/info1.svg',
