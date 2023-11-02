@@ -3,7 +3,7 @@ class EnString {
 
   static const String
       theteamofreputabledoctorshasmanyyearsofprofessionalexperience =
-      "The team of reputable doctors has many\nyears of professional experience.";
+      "The team of reputable doctors has many\nyears of professional experienceThe team of reputable doctors has many\nyears of professional ";
   static const String onlinehealthcheck = "Online health check";
   static const String easyandconvenientonlinecheckupsrightfromyourhome =
       "Easy and convenient online check-ups right\nfrom your home.";
@@ -124,19 +124,16 @@ class EnString {
 
   static const String schedules = "Schedule A Schedule";
 
-  static const String doNot =
-      "You do not have an appointment!";
+  static const String doNot = "You do not have an appointment!";
 
   static const String bookHealth =
       "Book a health care service right away\nfor you and your family!";
 
   static const String notification = "Notification";
 
-  static const String ended =
-      "The doctor has ended his consultation";
+  static const String ended = "The doctor has ended his consultation";
 
-  static const String
-      please =
+  static const String please =
       "Your consultation is timed and finished,\nplease rate us so we can serve you better!";
 
   static const String names = "Ramjinish Kushwaha";
@@ -181,8 +178,7 @@ class EnString {
   static const String howHealth =
       "How would you like us to\nadvise about your health?";
 
-  static const String howLike =
-      "How would you like us to advise…";
+  static const String howLike = "How would you like us to advise…";
 
   static const String doctorInformation = "Doctor Information";
 
@@ -193,8 +189,7 @@ class EnString {
 
   static const String thanks = "Thanks";
 
-  static const String chooseDoctor =
-      "Choose a consultation with a Doctor";
+  static const String chooseDoctor = "Choose a consultation with a Doctor";
 
   static const String doctorChat = "Chat with Doctor";
 
@@ -232,8 +227,7 @@ class EnString {
 
   static const String mayaHospital = "National Hospital";
 
-  static const String mumbaiMaharashtra =
-      "Nepal";
+  static const String mumbaiMaharashtra = "Nepal";
 
   static const String artemisHospital = "Artemis Hospital";
 
@@ -263,8 +257,7 @@ class EnString {
 
   static const String ward = "Ward";
 
-  static const String select =
-      "Select the address as default";
+  static const String select = "Select the address as default";
 
   static const String payment = "Payment ";
 

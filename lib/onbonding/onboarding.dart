@@ -8,7 +8,6 @@ import 'package:TezHealthCare/stringfile/enstring.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:provider/provider.dart';
-
 class Onboarding extends StatefulWidget {
   const Onboarding({Key? key}) : super(key: key);
 
@@ -95,13 +94,14 @@ class _OnboardingState extends State<Onboarding> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  SizedBox(height: 150,),
+                                  SizedBox(
+                                    height: 150,
+                                  ),
                                   Container(
                                     height: 300.0,
                                     width: double.infinity,
                                     child: Image.asset(
-                                      "assets/docThree.png",
-                                      
+                                      "assets/onboarding-1.png",
                                     ),
                                   ),
                                   Padding(
@@ -138,93 +138,101 @@ class _OnboardingState extends State<Onboarding> {
                             ),
                           ),
                           SingleChildScrollView(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                    image: const DecorationImage(
-                                        image:
-                                            AssetImage("assets/twoonbod.png"),
-                                        fit: BoxFit.fill),
-                                    // color: const Color(0xff2792f5),
-                                    borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(50.sp),
-                                      topLeft: Radius.circular(50.sp),
+                            child: Center(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 150,
+                                  ),
+                                  Container(
+                                    height: 300.0,
+                                    width: double.infinity,
+                                    child: Image.asset(
+                                      "assets/onboarding-1.png",
                                     ),
                                   ),
-                                  height: height,
-                                  child: Center(
+                                  Padding(
+                                    padding: const EdgeInsets.all(20.0),
                                     child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: [
-                                        const SizedBox(height: 100),
+                                        SizedBox(height: 20),
                                         Text(
-                                          EnString.onlinehealthcheck,
+                                          EnString.qualityReputations,
                                           style: TextStyle(
-                                              fontFamily: 'Gilroy_Bold',
-                                              color: notifire.getwihitecolor,
-                                              fontSize: 22.sp),
+                                            fontFamily: 'Gilroy_Bold',
+                                            color: notifire.getwihitecolor,
+                                            fontSize: 24.sp,
+                                          ),
                                         ),
-                                        const SizedBox(height: 10),
+                                        SizedBox(height: 10),
                                         Text(
                                           EnString
-                                              .easyandconvenientonlinecheckupsrightfromyourhome,
+                                              .theteamofreputabledoctorshasmanyyearsofprofessionalexperience,
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
-                                              fontFamily: 'Gilroy_Medium',
-                                              color: notifire.getwihitecolor,
-                                              fontSize: 14.sp),
+                                            fontFamily: 'Gilroy_Medium',
+                                            color: notifire.getwihitecolor,
+                                            fontSize: 16.sp,
+                                          ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                )
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                           SingleChildScrollView(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                    image: const DecorationImage(
-                                        image: AssetImage(
-                                            "assets/onbondingthree.png"),
-                                        fit: BoxFit.fill),
-                                    // color: const Color(0xff2792f5),
-                                    borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(50.sp),
-                                      topLeft: Radius.circular(50.sp),
+                            child: Center(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 150,
+                                  ),
+                                  Container(
+                                    height: 300.0,
+                                    width: double.infinity,
+                                    child: Image.asset(
+                                      "assets/onboarding-1.png",
                                     ),
                                   ),
-                                  height: height,
-                                  child: Center(
+                                  Padding(
+                                    padding: const EdgeInsets.all(20.0),
                                     child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: [
-                                        const SizedBox(height: 100),
+                                        SizedBox(height: 20),
                                         Text(
-                                          EnString.researchdeeptesting,
+                                          EnString.qualityReputations,
                                           style: TextStyle(
-                                              fontFamily: 'Gilroy_Bold',
-                                              color: notifire.getwihitecolor,
-                                              fontSize: 22.sp),
+                                            fontFamily: 'Gilroy_Bold',
+                                            color: notifire.getwihitecolor,
+                                            fontSize: 24.sp,
+                                          ),
                                         ),
-                                        const SizedBox(height: 10),
+                                        SizedBox(height: 10),
                                         Text(
                                           EnString
-                                              .ensurethemostaccurateresultsforthehealthofyouandyourfamily,
+                                              .theteamofreputabledoctorshasmanyyearsofprofessionalexperience,
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
-                                              fontFamily: 'Gilroy_Medium',
-                                              color: notifire.getwihitecolor,
-                                              fontSize: 14.sp),
+                                            fontFamily: 'Gilroy_Medium',
+                                            color: notifire.getwihitecolor,
+                                            fontSize: 16.sp,
+                                          ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                )
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ],

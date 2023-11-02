@@ -205,25 +205,6 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.lightBlue[50],
-        appBar: AppBar(
-          title: const Text('OPD Ticket'),
-          centerTitle: true,
-          backgroundColor: darkYellow,
-          actions: [
-            IconButton(
-              onPressed: () {
-                _OpdTicketInfo(context);
-              },
-              icon: SvgPicture.asset(
-                'assets/info1.svg',
-                width: 25,
-                height: 25,
-                color: Colors.white,
-              ),
-            )
-          ],
-        ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Form(
@@ -879,11 +860,10 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
         selectGender(gender);
       },
       child: Container(
-        color: selectedGender == gender ? darkYellow : Colors.blue[50],
+        color: selectedGender == gender ? darkYellow : Colors.white,
         width: width / 4,
         child: Card(
           color: Colors.white,
-          elevation: 3,
           child: Padding(
             padding: const EdgeInsets.all(15),
             child: Column(
@@ -1217,60 +1197,5 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
     );
   }
 
-  void _OpdTicketInfo(BuildContext context) {
-    showModalBottomSheet(
-      isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
-      ),
-      context: context,
-      builder: (BuildContext context) {
-        return StatefulBuilder(
-          builder: (BuildContext context, StateSetter setState) {
-            return Container(
-              height: MediaQuery.of(context).size.height * 0.9,
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment
-                        .spaceBetween, // Align items at the ends
-                    children: <Widget>[
-                      const Expanded(
-                        child: Center(
-                          child: Text(
-                            'Process Of Ticket Booking',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.close), // Close icon
-                        onPressed: () {
-                          Navigator.of(context).pop(); // Close the bottom sheet
-                        },
-                      ),
-                    ],
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Center(
-                        child: SfPdfViewer.network(
-                          'https://connectips.com/images/files/termsandconditionsenglish.pdf', // Replace with your PDF URL
-                          canShowPaginationDialog: false,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        );
-      },
-    );
-  }
+
 }
