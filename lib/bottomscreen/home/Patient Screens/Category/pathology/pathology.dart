@@ -327,7 +327,7 @@ class _PathalogyState extends State<Pathalogy> {
                                                   width: width / 8,
                                                   child: Center(
                                                     child: Text(
-                                                      "${Pathologybill['id']}",
+                                                      "${Pathologybill['id']}".isEmpty?'N/A':"${Pathologybill['id']}",
                                                       style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -386,8 +386,8 @@ class _PathalogyState extends State<Pathalogy> {
                                                                 .all(3.0),
                                                         child: Center(
                                                           child: Text(
-                                                            // listName,
-                                                            "${Pathologybill['status']}",
+                                                            
+                                                            "${Pathologybill['status']}".isEmpty?'N/A': "${Pathologybill['status']}",
                                                             style:
                                                                 const TextStyle(
                                                               fontWeight:
@@ -482,7 +482,7 @@ class _PathalogyState extends State<Pathalogy> {
                                                   width: width / 7,
                                                   child: Center(
                                                     child: Text(
-                                                      "${Pathologybill['net_amount']}",
+                                                      "${Pathologybill['net_amount']}".isEmpty?'N/A':"${Pathologybill['net_amount']}",
                                                       style: const TextStyle(
                                                         color: Colors.red,
                                                         fontWeight:

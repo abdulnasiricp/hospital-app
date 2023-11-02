@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:TezHealthCare/screens/auth/Sigin_main_screen.dart';
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
@@ -66,7 +67,7 @@ class _OpdPaymentSuccessfullScreenState
 
   Future<void> makePostRequest() async {
     final url =
-        Uri.parse('https://uat.tez.hospital/xzy/webservice/addopdticket');
+        Uri.parse(ApiLinks.addopdticket);
     final headers = {
       'Soft-service': 'TezHealthCare',
       'Auth-key': 'zbuks_ram859553467',

@@ -1,3 +1,5 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:TezHealthCare/screens/auth/Sigin_main_screen.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
@@ -94,7 +96,7 @@ class _OnboardingState extends State<Onboarding> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 150,
                                   ),
                                   Container(
@@ -110,7 +112,7 @@ class _OnboardingState extends State<Onboarding> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        SizedBox(height: 20),
+                                        const SizedBox(height: 20),
                                         Text(
                                           EnString.qualityReputations,
                                           style: TextStyle(
@@ -119,7 +121,7 @@ class _OnboardingState extends State<Onboarding> {
                                             fontSize: 24.sp,
                                           ),
                                         ),
-                                        SizedBox(height: 10),
+                                        const SizedBox(height: 10),
                                         Text(
                                           EnString
                                               .theteamofreputabledoctorshasmanyyearsofprofessionalexperience,
@@ -143,7 +145,7 @@ class _OnboardingState extends State<Onboarding> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 150,
                                   ),
                                   Container(
@@ -159,7 +161,7 @@ class _OnboardingState extends State<Onboarding> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        SizedBox(height: 20),
+                                        const SizedBox(height: 20),
                                         Text(
                                           EnString.qualityReputations,
                                           style: TextStyle(
@@ -168,7 +170,7 @@ class _OnboardingState extends State<Onboarding> {
                                             fontSize: 24.sp,
                                           ),
                                         ),
-                                        SizedBox(height: 10),
+                                        const SizedBox(height: 10),
                                         Text(
                                           EnString
                                               .theteamofreputabledoctorshasmanyyearsofprofessionalexperience,
@@ -192,7 +194,7 @@ class _OnboardingState extends State<Onboarding> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 150,
                                   ),
                                   Container(
@@ -208,7 +210,7 @@ class _OnboardingState extends State<Onboarding> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        SizedBox(height: 20),
+                                        const SizedBox(height: 20),
                                         Text(
                                           EnString.qualityReputations,
                                           style: TextStyle(
@@ -217,7 +219,7 @@ class _OnboardingState extends State<Onboarding> {
                                             fontSize: 24.sp,
                                           ),
                                         ),
-                                        SizedBox(height: 10),
+                                        const SizedBox(height: 10),
                                         Text(
                                           EnString
                                               .theteamofreputabledoctorshasmanyyearsofprofessionalexperience,

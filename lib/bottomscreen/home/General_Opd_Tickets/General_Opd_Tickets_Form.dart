@@ -1,19 +1,18 @@
 // ignore_for_file: file_names, camel_case_types, duplicate_ignore, avoid_print, sized_box_for_whitespace, non_constant_identifier_names, unused_field, deprecated_member_use
 
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/opd_tickets_details.dart';
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class General_Opd_Tickets_Form extends StatefulWidget {
   const General_Opd_Tickets_Form({Key? key}) : super(key: key);
@@ -72,7 +71,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
   bool isLoading = true;
   Future<void> fetchDepartmentData() async {
     final response = await http
-        .post(Uri.parse('https://uat.tez.hospital/xzy/webservice/lists'));
+        .post(Uri.parse(ApiLinks.OPDTicketList));
 
     if (response.statusCode == 200) {
       final dataMap = json.decode(response.body);
@@ -125,7 +124,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
     });
 
     final response = await http
-        .post(Uri.parse('https://uat.tez.hospital/xzy/webservice/lists'));
+        .post(Uri.parse(ApiLinks.OPDTicketList));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
@@ -151,7 +150,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
     });
 
     final response = await http
-        .post(Uri.parse('https://uat.tez.hospital/xzy/webservice/lists'));
+        .post(Uri.parse(ApiLinks.OPDTicketList));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);

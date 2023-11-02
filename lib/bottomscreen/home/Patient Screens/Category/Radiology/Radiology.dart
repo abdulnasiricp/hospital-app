@@ -314,7 +314,7 @@ class _RadiologyState extends State<Radiology> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              "${Pathologybill['id']}",
+                                              "${Pathologybill['id']}".isEmpty?'N/A': "${Pathologybill['id']}",
                                               style: const TextStyle(
                                                 fontWeight: FontWeight.bold,
                                               ),
@@ -370,7 +370,7 @@ class _RadiologyState extends State<Radiology> {
                                                         child: Center(
                                                           child: Text(
                                                             // listName,
-                                                            "${Pathologybill['status']}",
+                                                            "${Pathologybill['status']}".isEmpty?'N/A':"${Pathologybill['status']}",
                                                             style:
                                                                 const TextStyle(
                                                               fontWeight:
@@ -467,7 +467,7 @@ class _RadiologyState extends State<Radiology> {
                                                   child: Center(
                                                     child: Text(
                                                       // 'Rs.${item.total}',
-                                                      "${Pathologybill['net_amount']}", // Use 'net_amount' for the amount
+                                                      "${Pathologybill['net_amount']}".isEmpty?'N/A':"${Pathologybill['net_amount']}", // Use 'net_amount' for the amount
                                                       style: const TextStyle(
                                                         color: Colors.red,
                                                         fontWeight:

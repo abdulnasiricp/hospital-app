@@ -118,7 +118,6 @@ class _IPDState extends State<IPD> {
   }
   ////////////////////////////////////////////////////////////////////////////////
 
-  //////////////////////////////////////////////////////////////////////////////////
   // get vital data
 
 // Existing declaration of vitalsData
@@ -128,7 +127,7 @@ class _IPDState extends State<IPD> {
   Future<Map<String, dynamic>> fetchVitalsData() async {
     final response = await http.post(
       Uri.parse(
-          'https://uat.tez.hospital/xzy/webservice/getipdVitals'), // Replace with your API URL
+          ApiLinks.getipdVitals), // Replace with your API URL
       headers: {
         'Soft-service': 'TezHealthCare',
         'Auth-key': 'zbuks_ram859553467',
