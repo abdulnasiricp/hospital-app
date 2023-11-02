@@ -20,17 +20,23 @@ class Insurance_opd_form extends StatefulWidget {
   final String dob;
   final String gender;
   final String name;
+  final String Phone;
   final String contractDate;
   final String balance;
   final String InsuranceorSSFid;
+  final String email;
+  final String pataddress;
 
   Insurance_opd_form({
     required this.dob,
+    required this.email,
     required this.gender,
     required this.name,
+    required this.Phone,
     required this.contractDate,
     required this.balance,
     required this.InsuranceorSSFid,
+    required this.pataddress,
   });
 
   @override
@@ -283,6 +289,14 @@ class _Insurance_opd_formState extends State<Insurance_opd_form> {
                                 ticketDate: TicketdateController.text,
                                 DepartmentId: selectedDepartmentId,
                                 InsuranceorSSFid: widget.InsuranceorSSFid,
+                                Phone: widget.Phone,
+                                name: widget.name,
+                                dob: widget.dob,
+                                gender: widget.gender,
+                            pataddress: widget.pataddress,
+                            email: widget.email,
+                                balance: widget.balance,
+                                contractDate: widget.contractDate,
                               ));
                         }
                       },

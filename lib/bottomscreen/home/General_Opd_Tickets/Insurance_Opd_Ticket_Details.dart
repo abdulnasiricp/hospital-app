@@ -1,7 +1,5 @@
-// ignore_for_file: unused_local_variable, non_constant_identifier_names, sized_box_for_whitespace
-
 import 'dart:convert';
-import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/PaymentMethod/Select_Payment_Method_For_opd.dart';
+import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/OPD_Ticket_Booking_Successful_Insurance.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
@@ -12,14 +10,30 @@ import 'package:http/http.dart' as http;
 class Insurance_Opd_Ticket_Details extends StatefulWidget {
   final String DepartmentId;
   final String ticketDate;
+  final String name;
   final String selectedDepartment;
+  final String dob;
+  final String gender;
   final String InsuranceorSSFid;
+  final String balance;
+  final String Phone;
+  final String contractDate;
+  final String pataddress;
+  final String email;
   const Insurance_Opd_Ticket_Details({
     Key? key,
     required this.DepartmentId,
+    required this.pataddress,
+    required this.email,
+    required this.contractDate,
+    required this.balance,
+    required this.name,
+    required this.gender,
     required this.ticketDate,
+    required this.dob,
     required this.selectedDepartment,
     required this.InsuranceorSSFid,
+    required this.Phone,
   }) : super(key: key);
 
   @override
@@ -130,8 +144,9 @@ class _Insurance_Opd_Ticket_DetailsState
                                 children: [
                                   Text(
                                     'Ticket Date',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold,),
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                   Text(
                                     'Department',
@@ -186,7 +201,7 @@ class _Insurance_Opd_Ticket_DetailsState
                         style: const TextStyle(fontWeight: FontWeight.bold)),
                     Container(
                       width: width,
-                      height: 200,
+                      height: 160,
                       child: Card(
                         color: Colors.white,
                         child: Row(
@@ -210,7 +225,7 @@ class _Insurance_Opd_Ticket_DetailsState
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    'patientEmail'.tr,
+                                    'email'.tr,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -220,44 +235,45 @@ class _Insurance_Opd_Ticket_DetailsState
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    'patientBloodGroup'.tr,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
                                     'patientDOB'.tr,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    'patientAddress'.tr,
+                                    'Address'.tr,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
                             ),
-                            // Padding(
-                            //   padding: const EdgeInsets.only(
-                            //       right: 40, top: 10, left: 10, bottom: 10),
-                            //   child: Column(
-                            //     crossAxisAlignment: CrossAxisAlignment.start,
-                            //     mainAxisAlignment:
-                            //         MainAxisAlignment.spaceBetween,
-                            //     children: [
-                            //       Text(widget.patientName),
-                            //       Text(widget.patientMobile),
-                            //       Text(widget.patientEmail),
-                            //       Text(widget.patientGender),
-                            //       Text(widget.Bloodgroupname),
-                            //       Text(widget.patientDOB),
-                            //       Text(
-                            //         widget.patientAddress,
-                            //         overflow: TextOverflow.fade,
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  right: 40, top: 10, left: 10, bottom: 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(widget.name.isEmpty
+                                      ? 'N/A'
+                                      : widget.name),
+                                  Text(widget.Phone.isEmpty
+                                      ? 'N/A'
+                                      : widget.Phone),
+                                  Text(widget.email.isEmpty
+                                      ? 'N/A'
+                                      : widget.email),
+                                  Text(widget.gender.isEmpty
+                                      ? 'N/A'
+                                      : widget.gender),
+                                  Text(widget.dob.isEmpty ? 'N/A' : widget.dob),
+                                  Text(widget.pataddress.isEmpty
+                                      ? 'N/A'
+                                      : widget.pataddress),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -270,12 +286,20 @@ class _Insurance_Opd_Ticket_DetailsState
                     ),
                     InkWell(
                       onTap: () {
-                        // Get.to(() => CheckSelectPaymentMethod(
-                        //       totalAmountInRs: rupeesAmountInt,
-                        //       total_AmountPaisa: OpdPaisaAmount,
-                        //       selectedDepartment: widget.selectedDepartment,
-                        //       ticketDate: widget.ticketDate,
-                        //     ));
+                        Get.to(() => OPD_Ticket_Booking_Successful_Insurance(
+                          ticketDate: widget.ticketDate,
+                          DepartmentId: widget.DepartmentId,
+                          InsuranceorSSFid: widget.InsuranceorSSFid,
+                          Phone: widget.Phone,
+                          name: widget.name,
+                          dob: widget.dob,
+                          gender: widget.gender,
+                          pataddress: widget.pataddress,
+                          email: widget.email,
+                          balance: widget.balance,
+                          contractDate: widget.contractDate,
+                            )
+                        );
                       },
                       child: Container(
                         width: width / 1,
