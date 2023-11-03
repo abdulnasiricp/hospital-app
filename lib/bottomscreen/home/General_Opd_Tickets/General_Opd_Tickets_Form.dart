@@ -822,6 +822,7 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           Get.to(() => OPDTicketDetails(
+                            doctorName: 'N/A',
                                 selectedDepartment: departmentController.text,
                                 ticketDate: TicketdateController.text,
                                 maritalStatus: maritalstatusController.text,

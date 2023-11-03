@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, camel_case_types, deprecated_member_use, avoid_print, non_constant_identifier_names, prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -12,8 +14,6 @@ import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
-import 'package:TezHealthCare/widgets/loading_widget.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -23,6 +23,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Doctor_Profile extends StatefulWidget {
+  const Doctor_Profile({Key? key}) : super(key: key);
+
   @override
   State<Doctor_Profile> createState() => _Doctor_ProfileState();
 }
@@ -296,7 +298,7 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: height / 4.7),
-                        child: Center(
+                        child: const Center(
                             // child: Text(
                             //   (profileData?.mobileNo ?? '').isEmpty
                             //       ? 'N/A'

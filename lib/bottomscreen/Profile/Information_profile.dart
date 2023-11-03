@@ -110,7 +110,7 @@ class _InformationProfileState extends State<InformationProfile>
                           child: Center(
                               child: CircleAvatar(
                             backgroundImage:
-                                NetworkImage(profileData!.image ?? 'N/A'),
+                                NetworkImage(profileData?.image ?? 'N/A'),
                             radius: height / 15,
                           )),
                         ),

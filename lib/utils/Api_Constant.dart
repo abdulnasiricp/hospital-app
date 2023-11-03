@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, constant_identifier_names
+
 class ApiLinks {
   static const String getAllDoctor =
       "https://uat.tez.hospital/xzy/webservice/getAllDoctor";

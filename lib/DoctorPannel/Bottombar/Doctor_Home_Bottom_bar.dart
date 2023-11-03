@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, deprecated_member_use
+
 import 'package:TezHealthCare/DoctorPannel/Doctor_Pannel_Home/Doctor_Profile.dart';
 import 'package:TezHealthCare/DoctorPannel/Doctor_Pannel_Home/Home.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
@@ -13,6 +15,8 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Doctor_Home_Bottom_bar extends StatefulWidget {
+  const Doctor_Home_Bottom_bar({Key? key}) : super(key: key);
+
   @override
   State<Doctor_Home_Bottom_bar> createState() => _Doctor_Home_Bottom_barState();
 }
@@ -146,10 +150,10 @@ class _Doctor_Home_Bottom_barState extends State<Doctor_Home_Bottom_bar> {
     return {
       '/': (context) {
         return [
-          Doctor_Home_Page(),
-          Doctor_Home_Page(),
-          Doctor_Home_Page(),
-          Doctor_Profile(),
+          const Doctor_Home_Page(),
+          const Doctor_Home_Page(),
+          const Doctor_Home_Page(),
+          const Doctor_Profile(),
         ].elementAt(index);
       },
     };

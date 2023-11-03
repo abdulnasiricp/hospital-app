@@ -1,9 +1,11 @@
-// ignore_for_file: file_names, sized_box_for_whitespace, deprecated_member_use
+// ignore_for_file: file_names, sized_box_for_whitespace, deprecated_member_use, unused_local_variable, non_constant_identifier_names, avoid_print, prefer_if_null_operators, prefer_typing_uninitialized_variables
 
 import 'dart:convert';
 
+import 'package:TezHealthCare/bottomscreen/Profile/profile_model.dart';
+import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/opd_tickets_details.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Doctor_profile.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Old_or_newPatient.dart';
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
@@ -13,6 +15,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:nepali_utils/nepali_utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SelectDateScreen extends StatefulWidget {
   final String doctorImage;
@@ -72,6 +75,8 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
   }
 
   getData() async {
+    await LoadData();
+    await ProfileApi();
     await fetchDepartmentData();
   }
 
@@ -79,6 +84,48 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
   void initState() {
     getData();
     super.initState();
+  }
+
+  var profileData;
+  late String patientID = '';
+  LoadData() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+
+    patientID = sp.getString('patientidrecord') ?? '';
+
+    print(patientID);
+    setState(() {});
+  }
+
+  Future<void> ProfileApi() async {
+    const apiUrl = ApiLinks.getPatientprofile;
+    final headers = {
+      'Soft-service': 'TezHealthCare',
+      'Auth-key': 'zbuks_ram859553467',
+    };
+
+    final requestBody = jsonEncode({"patientId": patientID});
+
+    try {
+      final response = await http.post(Uri.parse(apiUrl),
+          headers: headers, body: requestBody);
+
+      if (response.statusCode == 200) {
+        final responseBody = jsonDecode(response.body);
+        final profileJson =
+            responseBody[0]; // Assuming your API returns a list with one item
+        setState(() {
+          profileData = ProfileData.fromJson(profileJson);
+        });
+      } else {
+        // Request failed with an error status code
+        print('Request failed with status: ${response.statusCode}');
+        print('Response body: ${response.body}');
+      }
+    } catch (e) {
+      // Handle any exceptions that occur during the request
+      print('Request error: $e');
+    }
   }
 
   @override
@@ -203,7 +250,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                       Container(
                         height: 500,
                         child: ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
+                            // ignore: prefer_const_constructors
                             itemCount: data?.length,
                             itemBuilder: (context, index) {
                               final item = data?[index];
@@ -257,7 +304,27 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                         .showSnackBar(snackBar);
                                   } else {
                                     // Navigate to the screen if the token is not 0 or null
-                                    Get.to(() => const OldorNewPatientScreen());
+                                    Get.to(() => OPDTicketDetails(
+                                      doctorName: widget.doctorName,
+                                          BloodgroupId:
+                                              profileData?.bloodGroup == null
+                                                  ? '1'
+                                                  : profileData?.bloodGroup,
+                                          Bloodgroupname: ''?? 'N/A',
+                                          DepartmentId:
+                                              widget.doctorSpecialization,
+                                          bloodGroup: ''?? 'N/A',
+                                          maritalStatus:
+                                              profileData?.maritalStatus ?? 'N/A',
+                                          patientAddress: profileData?.address?? 'N/A',
+                                          patientDOB: profileData?.dob?? 'N/A',
+                                          patientEmail: profileData?.email?? 'N/A',
+                                          patientGender: profileData?.gender?? 'N/A',
+                                          patientMobile: profileData?.mobileNo?? 'N/A',
+                                          patientName: profileData?.patientName?? 'N/A',
+                                          selectedDepartment: 'N/A',
+                                          ticketDate: item['created_at']?? 'N/A',
+                                        ));
                                   }
                                 },
                                 child: Card(
@@ -279,8 +346,9 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                               border: Border.all(
                                                   color: Colors.red,
                                                   width: 1), // Border
+                                              // ignore: prefer_const_constructors
                                               gradient: LinearGradient(
-                                                colors: [
+                                                colors: const [
                                                   Colors.grey,
                                                   Colors.white
                                                 ], // Gradient colors
@@ -299,7 +367,8 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                                         color: darkYellow,
                                                         fontSize: 30)),
                                                 Text(
-                                                  '${NepaliDateFormat('EEE,').format(nepaliDate)}',
+                                                  NepaliDateFormat('EEE,')
+                                                      .format(nepaliDate),
                                                 ),
                                               ],
                                             )),

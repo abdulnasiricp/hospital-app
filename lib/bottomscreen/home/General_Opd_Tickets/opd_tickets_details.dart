@@ -1,6 +1,8 @@
 // ignore_for_file: unused_local_variable, non_constant_identifier_names, sized_box_for_whitespace
 
 import 'dart:convert';
+import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/Insurance_Opd_Ticket_Details.dart';
+import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/Opd_Main_Screen.dart';
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/PaymentMethod/Select_Payment_Method_For_opd.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -24,6 +26,7 @@ class OPDTicketDetails extends StatefulWidget {
   final String bloodGroup;
   final String patientEmail;
   final String selectedDepartment;
+  final String doctorName;
 
   const OPDTicketDetails({
     Key? key,
@@ -39,7 +42,7 @@ class OPDTicketDetails extends StatefulWidget {
     required this.patientEmail,
     required this.BloodgroupId,
     required this.Bloodgroupname,
-    required this.selectedDepartment,
+    required this.selectedDepartment, required this.doctorName,
   }) : super(key: key);
 
   @override
@@ -133,7 +136,7 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
                     ),
                     Container(
                       width: width,
-                      height: 80,
+                      height: 100,
                       child: Card(
                         color: Colors.white,
                         child: Row(
@@ -156,6 +159,11 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),
+                                   Text(
+                                    'Doctor Name',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
                                 ],
                               ),
                             ),
@@ -168,12 +176,20 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    widget.ticketDate,
+                                    widget.ticketDate.isEmpty?"N/A":widget.ticketDate,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 18),
+                                        fontSize: 15),
                                   ),
-                                  Text(widget.selectedDepartment),
+                                  Text(widget.selectedDepartment.isEmpty?"N/A":widget.selectedDepartment,style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),),
+                                    Text(
+                                    widget.doctorName.isEmpty?"N/A":widget.doctorName,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                                  ),
                                 ],
                               ),
                             ),
@@ -247,14 +263,14 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(widget.patientName),
-                                  Text(widget.patientMobile),
-                                  Text(widget.patientEmail),
-                                  Text(widget.patientGender),
-                                  Text(widget.Bloodgroupname),
-                                  Text(widget.patientDOB),
+                                  Text(widget.patientName.isEmpty?"N/A":widget.patientName),
+                                  Text(widget.patientMobile.isEmpty?"N/A":widget.patientMobile),
+                                  Text(widget.patientEmail.isEmpty?"N/A":widget.patientEmail),
+                                  Text(widget.patientGender.isEmpty?"N/A":widget.patientGender),
+                                  Text(widget.Bloodgroupname.isEmpty?"N/A":widget.Bloodgroupname),
+                                  Text(widget.patientDOB.isEmpty?"N/A":widget.patientDOB),
                                   Text(
-                                    widget.patientAddress,
+                                    widget.patientAddress.isEmpty?"N/A":widget.patientAddress,
                                     overflow: TextOverflow.fade,
                                   ),
                                 ],
@@ -297,18 +313,18 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
                         Get.to(() => CheckSelectPaymentMethod(
                               totalAmountInRs: rupeesAmountInt,
                               total_AmountPaisa: OpdPaisaAmount,
-                              BloodgroupId: widget.BloodgroupId,
-                              Bloodgroupname: widget.Bloodgroupname,
-                              DepartmentId: widget.DepartmentId,
+                              BloodgroupId: widget.BloodgroupId.isEmpty? "N/A":widget.BloodgroupId,
+                              Bloodgroupname: widget.Bloodgroupname.isEmpty? "N/A":widget.Bloodgroupname,
+                              DepartmentId: widget.DepartmentId.isEmpty? "N/A":widget.DepartmentId,
                               bloodGroup: widget.bloodGroup,
-                              maritalStatus: widget.maritalStatus,
-                              patientAddress: widget.patientAddress,
-                              patientDOB: widget.patientDOB,
-                              patientEmail: widget.patientEmail,
-                              patientGender: widget.patientGender,
-                              patientMobile: widget.patientMobile,
-                              patientName: widget.patientName,
-                              selectedDepartment: widget.selectedDepartment,
+                              maritalStatus: widget.maritalStatus.isEmpty? "N/A":widget.maritalStatus,
+                              patientAddress: widget.patientAddress.isEmpty? "N/A":widget.patientAddress,
+                              patientDOB: widget.patientDOB.isEmpty? "N/A":widget.patientDOB,
+                              patientEmail: widget.patientEmail.isEmpty? "N/A":widget.patientEmail,
+                              patientGender: widget.patientGender.isEmpty? "N/A":widget.patientGender,
+                              patientMobile: widget.patientMobile.isEmpty? "N/A":widget.patientMobile,
+                              patientName: widget.patientName.isEmpty? "N/A":widget.patientName,
+                              selectedDepartment: widget.selectedDepartment.isEmpty? "N/A":widget.selectedDepartment,
                               ticketDate: widget.ticketDate,
                             ));
                       },
@@ -322,6 +338,30 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
                             child: Text(
                           'selectPaymentMethod'.tr,
                           style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.white),
+                        )),
+                      ),
+                    ),
+                    const SizedBox(height: 20,),
+                    InkWell(
+                      onTap: () {
+                        Get.to(() => const Opd_Main_Screen(
+                             
+
+                            ));
+                      },
+                      child: Container(
+                        width: width / 1,
+                        height: 50,
+                        decoration: BoxDecoration(
+                            color: darkYellow,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: const Center(
+                            child: Text(
+                          'Select Insurance OPD Ticket',
+                          style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
                               color: Colors.white),

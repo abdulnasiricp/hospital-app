@@ -162,17 +162,17 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
 
   void onSuccess(PaymentSuccessModel success) async {
     Get.off(() => OpdPaymentSuccessfullScreen(
-          paymentMethod: selectedPaymentMethod,
+          paymentMethod: selectedPaymentMethod.isEmpty?"N/A":selectedPaymentMethod,
           opdchargeAmount: widget.totalAmountInRs,
-          BloodgroupId: widget.BloodgroupId,
-          DepartmentId: widget.DepartmentId,
-          patientAddress: widget.patientAddress,
-          patientDOB: widget.patientDOB,
-          patientEmail: widget.patientEmail,
-          patientGender: widget.patientGender,
-          patientMobile: widget.patientMobile,
-          patientName: widget.patientName,
-          ticketDate: widget.ticketDate,
+          BloodgroupId: widget.BloodgroupId.isEmpty?"N/A":widget.BloodgroupId,
+          DepartmentId: widget.DepartmentId.isEmpty?"N/A":widget.DepartmentId,
+          patientAddress: widget.patientAddress.isEmpty?"N/A":widget.patientAddress,
+          patientDOB: widget.patientDOB.isEmpty?"N/A":widget.patientDOB,
+          patientEmail: widget.patientEmail.isEmpty?"N/A":widget.patientEmail,
+          patientGender: widget.patientGender.isEmpty?"N/A":widget.patientGender,
+          patientMobile: widget.patientMobile.isEmpty?"N/A":widget.patientMobile,
+          patientName: widget.patientName.isEmpty?"N/A":widget.patientName,
+          ticketDate: widget.ticketDate.isEmpty?"N/A":widget.ticketDate,
           totalAmountInRs: widget.totalAmountInRs,
           total_AmountPaisa: widget.total_AmountPaisa,
         ));

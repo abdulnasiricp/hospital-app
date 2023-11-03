@@ -2,8 +2,6 @@
 
 import 'dart:convert';
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_Home_Bottom_bar.dart';
-import 'package:TezHealthCare/DoctorPannel/Doctor_Pannel_Home/Home.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Blood_Bank/Blood_Bank.dart';
 import 'package:TezHealthCare/screens/auth/Forgot_Password.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
@@ -92,7 +90,7 @@ class _PatientLoginState extends State<PatientLogin> {
         sp.setString('timezone', json['record']['timezone']);
         sp.setString('image', json['record']['image']);
         sp.setString('token', json['record']['token']);
-        Get.to(() => Doctor_Home_Bottom_bar());
+        Get.to(() => const Doctor_Home_Bottom_bar());
         setState(() {
           Fluttertoast.showToast(
             msg: 'Login Successfully',

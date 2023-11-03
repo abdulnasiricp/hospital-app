@@ -317,7 +317,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                                           doctorName:
                                                               filteredData![
                                                                           index]
-                                                                      ['name'] +
+                                                                      ['name'] + " "+
                                                                  
                                                                   filteredData![
                                                                           index]

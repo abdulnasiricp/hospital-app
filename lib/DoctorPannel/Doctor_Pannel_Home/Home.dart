@@ -1,7 +1,11 @@
+// ignore_for_file: file_names, camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Doctor_Home_Page extends StatefulWidget {
+  const Doctor_Home_Page({Key? key}) : super(key: key);
+
   @override
   State<Doctor_Home_Page> createState() => _Doctor_Home_PageState();
 }
@@ -54,18 +58,17 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Container(
-            child: Text(
+        title: Text(
           'Welcome Mr. $username',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
-        )),
+          style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
+        ),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(welcomeMessage),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text('Doctor Role: $doctorRole'),
             Text('Employee ID: $employeeId'),
             Text('ID: $id'),

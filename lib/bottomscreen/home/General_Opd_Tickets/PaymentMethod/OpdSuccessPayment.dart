@@ -2,6 +2,8 @@
 
 import 'dart:convert';
 
+import 'package:TezHealthCare/bottombar/bottombar.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Patient_home.dart';
 import 'package:TezHealthCare/screens/auth/Sigin_main_screen.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -74,17 +76,20 @@ class _OpdPaymentSuccessfullScreenState
     };
 
     final Map<String, String> body = {
-      "name": widget.patientName,
-      "gender": widget.patientGender,
-      "dob": widget.patientDOB,
-      "email": widget.patientEmail,
-      "address": widget.patientAddress,
-      "mobileno": widget.patientMobile,
-      "department_id": widget.DepartmentId,
-      "doctor_id": "",
-      "date": widget.ticketDate,
-      "blood_group": widget.BloodgroupId,
-      "payment_mode": "Cash",
+      "name": "${widget.patientName}".isEmpty?"N/A":"${widget.patientName}",
+      "gender": "${widget.patientGender}".isEmpty?"N/A":"${widget.patientGender}",
+      "dob": "${widget.patientDOB}".isEmpty?"N/A":"${widget.patientDOB}",
+      "email": "${widget.patientEmail}".isEmpty?"N/A":"${widget.patientEmail}",
+      "address": "${widget.patientAddress}".isEmpty?"N/A":"${widget.patientAddress}",
+      "mobileno": "${widget.patientMobile}".isEmpty?"N/A":"${widget.patientMobile}",
+      "department_id": "${widget.DepartmentId}".isEmpty?"N/A":"${widget.DepartmentId}",
+      "doctor_id": "1",
+      "date": "${widget.ticketDate}".isEmpty?"N/A":"${widget.ticketDate}",
+      "blood_group": "1",
+      "payment_mode": "${widget.paymentMethod}".isEmpty?"N/A":"${widget.paymentMethod}",
+      
+    
+
     };
 
     final response = await http.post(
@@ -93,26 +98,30 @@ class _OpdPaymentSuccessfullScreenState
       body: jsonEncode(body),
     );
 
-    if (response.statusCode == 200) {
-      final jsonResponse = json.decode(response.body);
-      print('==========jsonResponse:$jsonResponse ');
-      if (jsonResponse['status'] == '1') {
-        setState(() {
-          opdId = jsonResponse['opd_id'];
-          opdTicket = jsonResponse['opd_ticket'];
-          message = jsonResponse['message'];
-        });
-        print('========opdid $opdId');
-        print('========opdTicket $opdTicket');
-        print('========message $message');
-      } else {
-        // Handle the case where the 'status' is not '1'
-        print('Request was successful, but status is not 1.');
-      }
+  if (response.statusCode == 200) {
+  final jsonResponse = json.decode(response.body);
+  if (jsonResponse != null) {
+    if (jsonResponse['status'] == '1') {
+      setState(() {
+        opdId = jsonResponse['opd_id'];
+        opdTicket = jsonResponse['opd_ticket'];
+        message = jsonResponse['message'];
+      });
+      print('========opdid $opdId');
+      print('========opdTicket $opdTicket');
+      print('========message $message');
     } else {
-      // Handle the HTTP request error here
-      print('Request failed with status: ${response.statusCode}');
+      // Handle the case where the 'status' is not '1'
+      print('Request was successful, but status is not 1.');
     }
+  } else {
+    // Handle the case where the JSON response is null or invalid.
+    print('JSON response is null or invalid.');
+  }
+} else {
+  // Handle the HTTP request error here
+  print('Request failed with status: ${response.statusCode}');
+}
   }
 
   String formattedDate =
@@ -155,13 +164,31 @@ class _OpdPaymentSuccessfullScreenState
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
+    print(widget.BloodgroupId.isEmpty?"1":widget.BloodgroupId);
+    print(widget.DepartmentId);
+    print(widget.opdchargeAmount);
+    print(widget.patientAddress);
+    print(widget.patientDOB);
+    print(widget.patientEmail);
+    print(widget.patientGender);
+    print(widget.patientMobile);
+    print(widget.patientName);
+    print(widget.paymentMethod);
+    print(widget.ticketDate);
+    print(widget.totalAmountInRs);
+
+
+
+
+    return 
+    WillPopScope(
         onWillPop: () async {
           // Navigate to the Home Screen when the back button is pressed
-          Get.offAll(() => const MainSiginScreen());
+          Get.to(() => const Bottomhome());
           return false; // Prevent default back button behavior
         },
-        child: Scaffold(
+        child:
+         Scaffold(
           backgroundColor: Colors.blue[50],
           appBar: AppBar(
             automaticallyImplyLeading: false,
@@ -390,7 +417,8 @@ class _OpdPaymentSuccessfullScreenState
                     ),
                   ),
                 ),
-        ));
+        )
+        );
   }
 }
 

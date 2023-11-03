@@ -29,6 +29,7 @@ android {
     namespace "tez.hospital.siraha"
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
+    compileSdkVersion rootProject.ext.compileSdkVersion
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -53,6 +54,7 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
+        targetSdkVersion rootProject.ext.targetSdkVersion
     }
 
     buildTypes {
