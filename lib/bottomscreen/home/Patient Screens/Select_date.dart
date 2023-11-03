@@ -310,10 +310,10 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                               profileData?.bloodGroup == null
                                                   ? '1'
                                                   : profileData?.bloodGroup,
-                                          Bloodgroupname: ''?? 'N/A',
+                                          Bloodgroupname: '',
                                           DepartmentId:
                                               widget.doctorSpecialization,
-                                          bloodGroup: ''?? 'N/A',
+                                          bloodGroup: '',
                                           maritalStatus:
                                               profileData?.maritalStatus ?? 'N/A',
                                           patientAddress: profileData?.address?? 'N/A',

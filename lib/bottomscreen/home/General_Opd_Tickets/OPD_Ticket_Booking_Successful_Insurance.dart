@@ -185,7 +185,7 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
                   child: Container(
                     height: 100,
                     width: 50,
-                    child: LoadingIndicatorWidget(),
+                    child: const LoadingIndicatorWidget(),
                   ),
                 );
               } else if (snapshot.hasError) {
