@@ -273,7 +273,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
     // Make the POST request
     final response = await http.post(
       Uri.parse(
-          ApiLinks.getNotificationlistcount),
+          'https://uat.tez.hospital/xzy/webservice/getNotificationlistcount'),
       headers: headers,
       body: jsonEncode(body),
     );
