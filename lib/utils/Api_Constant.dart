@@ -54,6 +54,7 @@ class ApiLinks {
          static const String logout="https://uat.tez.hospital/xzy/auth/patient_logout";
          static const String OPDTicketList="https://uat.tez.hospital/xzy/webservice/lists";
          static const String addopdticket="https://uat.tez.hospital/xzy/webservice/addopdticket";
+         static const String getNotificationlistcount='https://uat.tez.hospital/xzy/webservice/getNotificationlistcount';
         
 }
 

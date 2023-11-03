@@ -74,7 +74,7 @@ dependencies:
   workmanager: ^0.5.2
   uuid: ^3.0.7
   badges: ^3.1.2
-syncfusion_flutter_pdfviewer:
+  background_fetch: ^1.2.1
 
 
 
