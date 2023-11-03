@@ -241,9 +241,24 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                               String end_time12Hour =
                                   convertTo12HourFormat(endtime24Hour);
 
-                              return InkWell(
+                              return GestureDetector(
                                 onTap: () {
-                                  Get.to(() => const OldorNewPatientScreen());
+                                  final token = item['token'];
+                                  if (token == 0 || token == null) {
+                                    // Show a snackbar message if the token is 0 or null
+                                    final snackBar = SnackBar(
+                                      content: Text(
+                                        token == 0
+                                            ? 'Your token is 0. You cannot book this appointment.'
+                                            : 'No token information available. You cannot book this appointment.',
+                                      ),
+                                    );
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(snackBar);
+                                  } else {
+                                    // Navigate to the screen if the token is not 0 or null
+                                    Get.to(() => const OldorNewPatientScreen());
+                                  }
                                 },
                                 child: Card(
                                   color: Colors.grey[200],
