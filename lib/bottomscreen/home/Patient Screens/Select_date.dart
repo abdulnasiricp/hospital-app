@@ -195,7 +195,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                   ),
                                   child: Image.network(
                                     widget.doctorImage,
-                                    fit: BoxFit.cover,
+                                    fit: BoxFit.fill,
                                   ),
                                 ),
                               ),
