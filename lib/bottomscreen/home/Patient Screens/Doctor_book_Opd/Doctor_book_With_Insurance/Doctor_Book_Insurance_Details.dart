@@ -1,9 +1,8 @@
-// ignore_for_file: unused_local_variable, non_constant_identifier_names, sized_box_for_whitespace
+// ignore_for_file: camel_case_types, non_constant_identifier_names, file_names, sized_box_for_whitespace
 
 import 'dart:convert';
-import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/Opd_Main_Screen.dart';
-import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/PaymentMethod/Select_Payment_Method_For_opd.dart';
-import 'package:TezHealthCare/utils/Api_Constant.dart';
+import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/OPD_Ticket_Booking_Successful_Insurance.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Doctor_book_Opd/Doctor_book_With_Insurance/Doctor_Book_Successfull_Insurance.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
@@ -11,45 +10,46 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-class OPDTicketDetails extends StatefulWidget {
-  final String patientName;
-  final String DepartmentId;
-  final String BloodgroupId;
-  final String Bloodgroupname;
-  final String patientGender;
-  final String patientAddress;
-  final String patientDOB;
-  final String patientMobile;
+class Doctor_book_insurance_details extends StatefulWidget {
   final String ticketDate;
-  final String maritalStatus;
-  final String bloodGroup;
-  final String patientEmail;
+  final String name;
   final String selectedDepartment;
+  final String dob;
+  final String gender;
+  final String InsuranceorSSFid;
+  final String balance;
+  final String Phone;
+  final String contractDate;
+  final String pataddress;
+  final String email;
+  final String department_id;
+  final String doctorId;
   final String doctorName;
-
-  const OPDTicketDetails({
+  const Doctor_book_insurance_details({
     Key? key,
-    required this.patientName,
-    required this.DepartmentId,
-    required this.patientGender,
-    required this.patientAddress,
-    required this.patientDOB,
-    required this.patientMobile,
+    required this.pataddress,
+    required this.email,
+    required this.contractDate,
+    required this.balance,
+    required this.name,
+    required this.gender,
     required this.ticketDate,
-    required this.maritalStatus,
-    required this.bloodGroup,
-    required this.patientEmail,
-    required this.BloodgroupId,
-    required this.Bloodgroupname,
+    required this.dob,
     required this.selectedDepartment,
+    required this.InsuranceorSSFid,
+    required this.Phone,
+    required this.department_id,
+    required this.doctorId,
     required this.doctorName,
   }) : super(key: key);
 
   @override
-  State<OPDTicketDetails> createState() => _ConfirmationScreenState();
+  State<Doctor_book_insurance_details> createState() =>
+      _Insurance_Opd_Ticket_DetailsState();
 }
 
-class _ConfirmationScreenState extends State<OPDTicketDetails> {
+class _Insurance_Opd_Ticket_DetailsState
+    extends State<Doctor_book_insurance_details> {
   bool isLoading = true; // Add a loading indicator variable
 
   late num opdticketcharge = 0;
@@ -80,7 +80,8 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
       isLoading = true;
     });
 
-    final response = await http.post(Uri.parse(ApiLinks.OPDTicketList));
+    final response = await http
+        .post(Uri.parse('https://uat.tez.hospital/xzy/webservice/lists'));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
@@ -135,7 +136,7 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
                     ),
                     Container(
                       width: width,
-                      height: 100,
+                      height: 110,
                       child: Card(
                         color: Colors.white,
                         child: Row(
@@ -150,8 +151,9 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
                                 children: [
                                   Text(
                                     'Ticket Date',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                   Text(
                                     'Department',
@@ -160,6 +162,11 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
                                   ),
                                   Text(
                                     'Doctor Name',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    'Insurance Or SSf Id',
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),
@@ -175,28 +182,28 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    widget.ticketDate.isEmpty
-                                        ? "N/A"
-                                        : widget.ticketDate,
+                                    widget.ticketDate,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 15),
+                                        fontSize: 14),
                                   ),
                                   Text(
-                                    widget.selectedDepartment.isEmpty
-                                        ? "N/A"
-                                        : widget.selectedDepartment,
+                                    widget.selectedDepartment,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 15),
+                                        fontSize: 14),
                                   ),
                                   Text(
-                                    widget.doctorName.isEmpty
-                                        ? "N/A"
-                                        : widget.doctorName,
+                                    widget.doctorName,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 15),
+                                        fontSize: 14),
+                                  ),
+                                  Text(
+                                    widget.InsuranceorSSFid,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14),
                                   ),
                                 ],
                               ),
@@ -212,7 +219,7 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
                         style: const TextStyle(fontWeight: FontWeight.bold)),
                     Container(
                       width: width,
-                      height: 200,
+                      height: 160,
                       child: Card(
                         color: Colors.white,
                         child: Row(
@@ -236,7 +243,7 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    'patientEmail'.tr,
+                                    'email'.tr,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -246,17 +253,12 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    'patientBloodGroup'.tr,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
                                     'patientDOB'.tr,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    'patientAddress'.tr,
+                                    'Address'.tr,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -271,30 +273,22 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(widget.patientName.isEmpty
-                                      ? "N/A"
-                                      : widget.patientName),
-                                  Text(widget.patientMobile.isEmpty
-                                      ? "N/A"
-                                      : widget.patientMobile),
-                                  Text(widget.patientEmail.isEmpty
-                                      ? "N/A"
-                                      : widget.patientEmail),
-                                  Text(widget.patientGender.isEmpty
-                                      ? "N/A"
-                                      : widget.patientGender),
-                                  Text(widget.Bloodgroupname.isEmpty
-                                      ? "N/A"
-                                      : widget.Bloodgroupname),
-                                  Text(widget.patientDOB.isEmpty
-                                      ? "N/A"
-                                      : widget.patientDOB),
-                                  Text(
-                                    widget.patientAddress.isEmpty
-                                        ? "N/A"
-                                        : widget.patientAddress,
-                                    overflow: TextOverflow.fade,
-                                  ),
+                                  Text(widget.name.isEmpty
+                                      ? 'N/A'
+                                      : widget.name),
+                                  Text(widget.Phone.isEmpty
+                                      ? 'N/A'
+                                      : widget.Phone),
+                                  Text(widget.email.isEmpty
+                                      ? 'N/A'
+                                      : widget.email),
+                                  Text(widget.gender.isEmpty
+                                      ? 'N/A'
+                                      : widget.gender),
+                                  Text(widget.dob.isEmpty ? 'N/A' : widget.dob),
+                                  Text(widget.pataddress.isEmpty
+                                      ? 'N/A'
+                                      : widget.pataddress),
                                 ],
                               ),
                             ),
@@ -305,72 +299,24 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Row(
-                      children: [
-                        Text('patientPaymentAmount'.tr,
-                            style:
-                                const TextStyle(fontWeight: FontWeight.bold)),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Text("Rs. $opdticketcharge",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.orange[900])),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text('confirmationDesc'.tr,
-                        style: TextStyle(color: Colors.orange[900])),
-                    const SizedBox(
-                      height: 10,
-                    ),
                     const SizedBox(
                       height: 10,
                     ),
                     InkWell(
                       onTap: () {
-                        Get.to(() => CheckSelectPaymentMethod(
-                              totalAmountInRs: rupeesAmountInt,
-                              total_AmountPaisa: OpdPaisaAmount,
-                              BloodgroupId: widget.BloodgroupId.isEmpty
-                                  ? "N/A"
-                                  : widget.BloodgroupId,
-                              Bloodgroupname: widget.Bloodgroupname.isEmpty
-                                  ? "N/A"
-                                  : widget.Bloodgroupname,
-                              DepartmentId: widget.DepartmentId.isEmpty
-                                  ? "N/A"
-                                  : widget.DepartmentId,
-                              bloodGroup: widget.bloodGroup,
-                              maritalStatus: widget.maritalStatus.isEmpty
-                                  ? "N/A"
-                                  : widget.maritalStatus,
-                              patientAddress: widget.patientAddress.isEmpty
-                                  ? "N/A"
-                                  : widget.patientAddress,
-                              patientDOB: widget.patientDOB.isEmpty
-                                  ? "N/A"
-                                  : widget.patientDOB,
-                              patientEmail: widget.patientEmail.isEmpty
-                                  ? "N/A"
-                                  : widget.patientEmail,
-                              patientGender: widget.patientGender.isEmpty
-                                  ? "N/A"
-                                  : widget.patientGender,
-                              patientMobile: widget.patientMobile.isEmpty
-                                  ? "N/A"
-                                  : widget.patientMobile,
-                              patientName: widget.patientName.isEmpty
-                                  ? "N/A"
-                                  : widget.patientName,
-                              selectedDepartment:
-                                  widget.selectedDepartment.isEmpty
-                                      ? "N/A"
-                                      : widget.selectedDepartment,
+                        Get.to(() => Doctor_Book_Successfull_Insurance(
                               ticketDate: widget.ticketDate,
+                              department_id: widget.department_id,
+                              InsuranceorSSFid: widget.InsuranceorSSFid,
+                              Phone: widget.Phone,
+                              doctorId: widget.doctorId,
+                              name: widget.name,
+                              dob: widget.dob,
+                              gender: widget.gender,
+                              pataddress: widget.pataddress,
+                              email: widget.email,
+                              balance: widget.balance,
+                              contractDate: widget.contractDate,
                             ));
                       },
                       child: Container(
@@ -379,10 +325,10 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
                         decoration: BoxDecoration(
                             color: darkYellow,
                             borderRadius: BorderRadius.circular(10)),
-                        child: Center(
+                        child: const Center(
                             child: Text(
-                          'selectPaymentMethod'.tr,
-                          style: const TextStyle(
+                          'Confirmation',
+                          style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
                               color: Colors.white),

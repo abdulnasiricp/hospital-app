@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-class OPDTicketDetails extends StatefulWidget {
+class Doctor_Book_Details extends StatefulWidget {
   final String patientName;
   final String DepartmentId;
   final String BloodgroupId;
@@ -24,10 +24,12 @@ class OPDTicketDetails extends StatefulWidget {
   final String maritalStatus;
   final String bloodGroup;
   final String patientEmail;
-  final String selectedDepartment;
+  final String selectedDepartmentname;
   final String doctorName;
+  final String department_id;
+  final String doctorId;
 
-  const OPDTicketDetails({
+  const Doctor_Book_Details({
     Key? key,
     required this.patientName,
     required this.DepartmentId,
@@ -41,29 +43,26 @@ class OPDTicketDetails extends StatefulWidget {
     required this.patientEmail,
     required this.BloodgroupId,
     required this.Bloodgroupname,
-    required this.selectedDepartment,
+    required this.selectedDepartmentname,
     required this.doctorName,
+    required this.department_id,
+    required this.doctorId,
   }) : super(key: key);
-
   @override
-  State<OPDTicketDetails> createState() => _ConfirmationScreenState();
+  State<Doctor_Book_Details> createState() => _Doctor_Book_DetailsState();
 }
 
-class _ConfirmationScreenState extends State<OPDTicketDetails> {
+class _Doctor_Book_DetailsState extends State<Doctor_Book_Details> {
   bool isLoading = true; // Add a loading indicator variable
-
   late num opdticketcharge = 0;
-
   //convert rupess to paisa
   late num OPdRupeesAmount = opdticketcharge;
   late int rupeesAmountInt = OPdRupeesAmount.toInt();
-
   num rupeesToPaisa(num rupees) {
     return rupees * 100.0;
   }
 
   late int OpdPaisaAmount = rupeesToPaisa(OPdRupeesAmount).round();
-
   getData() async {
     await fetchOpdTicketCharge();
 // await changeStringToInt();
@@ -79,9 +78,7 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
     setState(() {
       isLoading = true;
     });
-
     final response = await http.post(Uri.parse(ApiLinks.OPDTicketList));
-
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       opdticketcharge = data['opd_ticket_charge'];
@@ -102,7 +99,7 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
       backgroundColor: Colors.lightBlue[50],
       appBar: AppBar(
         backgroundColor: darkYellow,
-        title: const Text('OPT Ticket Details'),
+        title: const Text(' Ticket Details'),
         centerTitle: true,
       ),
       body: isLoading
@@ -163,6 +160,11 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),
+                                  Text(
+                                    'Doctor Id',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
                                 ],
                               ),
                             ),
@@ -183,9 +185,9 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
                                         fontSize: 15),
                                   ),
                                   Text(
-                                    widget.selectedDepartment.isEmpty
+                                    widget.selectedDepartmentname.isEmpty
                                         ? "N/A"
-                                        : widget.selectedDepartment,
+                                        : widget.selectedDepartmentname,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 15),
@@ -194,6 +196,14 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
                                     widget.doctorName.isEmpty
                                         ? "N/A"
                                         : widget.doctorName,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                                  ),
+                                  Text(
+                                    widget.doctorId.isEmpty
+                                        ? "N/A"
+                                        : widget.doctorId,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 15),
@@ -366,10 +376,9 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
                               patientName: widget.patientName.isEmpty
                                   ? "N/A"
                                   : widget.patientName,
-                              selectedDepartment:
-                                  widget.selectedDepartment.isEmpty
-                                      ? "N/A"
-                                      : widget.selectedDepartment,
+                              selectedDepartment: widget.department_id.isEmpty
+                                  ? "N/A"
+                                  : widget.department_id,
                               ticketDate: widget.ticketDate,
                             ));
                       },

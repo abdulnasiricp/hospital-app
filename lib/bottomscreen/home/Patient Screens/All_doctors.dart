@@ -93,8 +93,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
         return false; // Prevent default back button behavior
       },
       child: Scaffold(
-                backgroundColor: Colors.lightBlue[50],
-
+        backgroundColor: Colors.lightBlue[50],
         appBar: PreferredSize(
             preferredSize: const Size(double.infinity, 65),
             child: SafeArea(
@@ -263,7 +262,10 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                                 height: 5,
                                               ),
                                               Text(
-                                                '${filteredData?[index]['name']} ${filteredData?[index]['surname']}'.isEmpty ? "N/A":'${filteredData?[index]['name']} ${filteredData?[index]['surname']}',
+                                                '${filteredData?[index]['name']} ${filteredData?[index]['surname']}'
+                                                        .isEmpty
+                                                    ? "N/A"
+                                                    : '${filteredData?[index]['name']} ${filteredData?[index]['surname']}',
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
                                                 style: const TextStyle(
@@ -275,7 +277,10 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                                 height: 5,
                                               ),
                                               Text(
-                                                '${filteredData?[index]['specialization']}'.isEmpty ? "N/A":'${filteredData?[index]['specialization']}',
+                                                '${filteredData?[index]['specialization']}'
+                                                        .isEmpty
+                                                    ? "N/A"
+                                                    : '${filteredData?[index]['specialization']}',
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
                                               ),
@@ -283,7 +288,10 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                                 height: 5,
                                               ),
                                               Text(
-                                                '${filteredData?[index]['qualification']} '.isEmpty? "N/A":'${filteredData?[index]['qualification']} ',
+                                                '${filteredData?[index]['qualification']} '
+                                                        .isEmpty
+                                                    ? "N/A"
+                                                    : '${filteredData?[index]['qualification']} ',
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
                                               ),
@@ -317,8 +325,8 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                                           doctorName:
                                                               filteredData![
                                                                           index]
-                                                                      ['name'] + " "+
-                                                                 
+                                                                      ['name'] +
+                                                                  " " +
                                                                   filteredData![
                                                                           index]
                                                                       [
@@ -327,6 +335,10 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                                               filteredData![
                                                                       index][
                                                                   'specialization'],
+                                                          department_id:
+                                                              filteredData![
+                                                                      index][
+                                                                  'department_id'],
                                                         ));
                                                   },
                                                   child: Center(

@@ -5,6 +5,8 @@ import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/Profile/profile_model.dart';
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/opd_tickets_details.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Doctor_profile.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Doctor_book_Opd/Doctor_book_Opd.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Doctor_book_Opd/Doctor_book_With_Insurance/Insurance_Validity.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -24,12 +26,14 @@ class SelectDateScreen extends StatefulWidget {
   final String doctorName;
   final String doctorSpecialization;
   final String workExp;
+  final String department_id;
   const SelectDateScreen(
       {Key? key,
       required this.doctorImage,
       required this.doctorName,
       required this.doctorSpecialization,
       required this.doctorId,
+      required this.department_id,
       required this.workExp})
       : super(key: key);
 
@@ -251,70 +255,131 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                       Container(
                         height: 500,
                         child: ListView.builder(
-                            // ignore: prefer_const_constructors
                             itemCount: data?.length,
                             itemBuilder: (context, index) {
                               final item = data?[index];
-
-                              String dateTimeString =item['created_at'] as String;
-
-                              // Parse the date-time string into a DateTime object
-                              DateTime dateTime =DateTime.parse(dateTimeString);
-
-                              String formattedDate = DateFormat('yyyy-MM-dd HH:mm:a').format(dateTime);
-                              NepaliDateFormat dateFormat =NepaliDateFormat('yyyy-MM-dd HH:mm:a');
-                              DateTime englishDate =DateTime.parse(item['created_at']);
-                              NepaliDateTime nepaliDate =NepaliDateTime.fromDateTime(englishDate);
+                              String dateTimeString =
+                                  item['created_at'] as String;
+                              DateTime dateTime =
+                                  DateTime.parse(dateTimeString);
+                              String formattedDate =
+                                  DateFormat('yyyy-MM-dd').format(dateTime);
+                              NepaliDateFormat dateFormat =
+                                  NepaliDateFormat('yyyy-MM-dd HH:mm:a');
+                              DateTime englishDate =
+                                  DateTime.parse(item['created_at']);
+                              NepaliDateTime nepaliDate =
+                                  NepaliDateTime.fromDateTime(englishDate);
                               String convertTo12HourFormat(String time24Hour) {
-                                final parsedTime = DateFormat('HH:mm:ss').parse(time24Hour);
-                                final formattedTime = DateFormat('hh:mm a').format(parsedTime);
+                                final parsedTime =
+                                    DateFormat('HH:mm:ss').parse(time24Hour);
+                                final formattedTime =
+                                    DateFormat('hh:mm a').format(parsedTime);
                                 return formattedTime;
                               }
 
                               String time24Hour = (item['start_time']);
-                              String starttime12Hour = convertTo12HourFormat(time24Hour);
+                              String starttime12Hour =
+                                  convertTo12HourFormat(time24Hour);
                               String endtime24Hour = (item['end_time']);
-                              String end_time12Hour =convertTo12HourFormat(endtime24Hour);
-
+                              String end_time12Hour =
+                                  convertTo12HourFormat(endtime24Hour);
                               return GestureDetector(
                                 onTap: () {
                                   final token = item['token'];
-                                  if (item['token'] == '0' ||
-                                      item['token'] == null) {
+                                  if (token == '0' || token == null) {
                                     // Show a snackbar message if the token is 0 or null
                                     Fluttertoast.showToast(
-                                        msg: token == '0'
-                                            ? 'Your token is 0. You cannot book this appointment.'
-                                            : 'No token information available. You cannot book this appointment.');
+                                      msg: token == '0'
+                                          ? 'Token is 0. You cannot book this appointment.'
+                                          : 'No token information available. You cannot book this appointment.',
+                                    );
                                   } else {
-                                    // Navigate to the screen if the token is not 0 or null
-                                    Get.to(() => OPDTicketDetails(
-                                          doctorName: widget.doctorName,
-                                          BloodgroupId:
-                                              profileData?.bloodGroup == null
-                                                  ? '1'
-                                                  : profileData?.bloodGroup,
-                                          Bloodgroupname: '',
-                                          DepartmentId:
-                                              widget.doctorSpecialization,
-                                          bloodGroup: '',
-                                          maritalStatus:
-                                              profileData?.maritalStatus ??
-                                                  'N/A',
-                                          patientAddress:
-                                              profileData?.address ?? 'N/A',
-                                          patientDOB: profileData?.dob ?? 'N/A',
-                                          patientEmail:
-                                              profileData?.email ?? 'N/A',
-                                          patientGender:
-                                              profileData?.gender ?? 'N/A',
-                                          patientMobile:
-                                              profileData?.mobileNo ?? 'N/A',
-                                          patientName:
-                                              profileData?.patientName ?? 'N/A',
-                                          selectedDepartment: 'N/A',
-                                          ticketDate: '$formattedDate',
-                                        ));
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: Text('Choose Booking Type'),
+                                          content: Text(
+                                              'Do you want to book insurance or general?'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(
+                                                    context); // Close the dialog
+                                                // Navigate to the Doctor_Book_Details screen with the choice
+                                                Get.to(() => Insurance_Validity(
+                                                      doctorName:
+                                                          widget.doctorName,
+                                                      department_id:
+                                                          widget.department_id,
+                                                      Departmentname: widget
+                                                          .doctorSpecialization,
+                                                  doctorId: widget
+                                                          .doctorId,
+                                                      ticketDate:
+                                                          '$formattedDate',
+
+                                                    ));
+                                              },
+                                              child: Text('Book Insurance'),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                Get.to(() =>
+                                                    Doctor_Book_Details(
+                                                      doctorName:
+                                                          widget.doctorName,
+                                                      BloodgroupId: profileData
+                                                                  ?.bloodGroup ==
+                                                              null
+                                                          ? '1'
+                                                          : profileData
+                                                              ?.bloodGroup,
+                                                      Bloodgroupname: '',
+                                                      DepartmentId: widget
+                                                          .doctorSpecialization,
+                                                      bloodGroup: '',
+                                                      maritalStatus: profileData
+                                                              ?.maritalStatus ??
+                                                          'N/A',
+                                                      patientAddress:
+                                                          profileData
+                                                                  ?.address ??
+                                                              'N/A',
+                                                      patientDOB:
+                                                          profileData?.dob ??
+                                                              'N/A',
+                                                      patientEmail:
+                                                          profileData?.email ??
+                                                              'N/A',
+                                                      patientGender:
+                                                          profileData?.gender ??
+                                                              'N/A',
+                                                      patientMobile: profileData
+                                                              ?.mobileNo ??
+                                                          'N/A',
+                                                      patientName: profileData
+                                                              ?.patientName ??
+                                                          'N/A',
+                                                      selectedDepartmentname: widget
+                                                          .doctorSpecialization,
+                                                      department_id:
+                                                          widget.department_id,
+                                                      doctorId:
+                                                          widget.doctorId,
+                                                      ticketDate:
+                                                          '$formattedDate',
+                                                      // Pass the choice here
+                                                    ));
+                                              },
+                                              child: Text('Book General'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
                                   }
                                 },
                                 child: Card(
@@ -378,7 +443,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                                     style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        fontSize: 15),
+                                                        fontSize: 12),
                                                   ),
                                                 ],
                                               ),

@@ -285,7 +285,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
       final SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
       final DateFormat formatter = DateFormat('yyyy-MM-dd HH:mm:a');
-     
 
       Map<String, int> notificationLengths = {
         'Pathology Bill': data['pathology']['length'],
@@ -1204,6 +1203,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                       doctorSpecialization:
                                                           DoneListData![index][
                                                               'specialization'],
+                                                      department_id:
+                                                          DoneListData![index]
+                                                              ['department_id'],
                                                     ));
                                               },
                                               child: Container(
@@ -1233,7 +1235,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                                 height:
                                                                     200.0, // Set the height (optional)
                                                                 fit: BoxFit
-                                                                    .cover, // Set the BoxFit (optional)
+                                                                    .fill, // Set the BoxFit (optional)
                                                                 loadingBuilder:
                                                                     (context,
                                                                         child,

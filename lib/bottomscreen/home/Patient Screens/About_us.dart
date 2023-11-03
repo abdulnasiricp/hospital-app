@@ -431,7 +431,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                                       height:
                                                           100.0, // Set the height (optional)
                                                       fit: BoxFit
-                                                          .cover, // Set the BoxFit (optional)
+                                                          .fill, // Set the BoxFit (optional)
                                                       loadingBuilder: (context,
                                                           child,
                                                           loadingProgress) {
@@ -522,6 +522,11 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                                                           index]
                                                                       [
                                                                       'specialization'],
+                                                              department_id:
+                                                                  DoneListData![
+                                                                          index]
+                                                                      [
+                                                                      'department_id'],
                                                             )
                                                         );
                                                       },
