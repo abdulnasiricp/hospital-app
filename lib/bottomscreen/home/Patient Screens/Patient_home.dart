@@ -35,6 +35,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
+import 'package:nepali_utils/nepali_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:badges/badges.dart' as badges;
@@ -272,8 +273,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
     // Make the POST request
     final response = await http.post(
-      Uri.parse(
-          ApiLinks.getNotificationlistcount),
+      Uri.parse(ApiLinks.getNotificationlistcount),
       headers: headers,
       body: jsonEncode(body),
     );
@@ -285,6 +285,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
       final SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
       final DateFormat formatter = DateFormat('yyyy-MM-dd HH:mm:a');
+     
 
       Map<String, int> notificationLengths = {
         'Pathology Bill': data['pathology']['length'],
@@ -332,6 +333,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
           // Generate a unique identifier using the current date and time
           String uniqueId = formatter.format(DateTime.now());
+          // NepaliDateFormat dateFormat =
+          //                         NepaliDateFormat('yyyy-MM-dd');
 
           // Save the new length in SharedPreferences
           sharedPreferences.setInt(key, newLength);
@@ -477,7 +480,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     .end, // Aligns text to the end of the column
                                 children: [
                                   Text(
-                                    '${'patientId'.tr} $Patient_id'.isEmpty ? "N/A":'${'patientId'.tr} $Patient_id',
+                                    '${'patientId'.tr} $Patient_id'.isEmpty
+                                        ? "N/A"
+                                        : '${'patientId'.tr} $Patient_id',
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black,
@@ -486,7 +491,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     ),
                                   ),
                                   Text(
-                                    '${'hisNo'.tr} $caseId'.toString().isEmpty ? 'N/A':'${'hisNo'.tr} $caseId'.toString(),
+                                    '${'hisNo'.tr} $caseId'.toString().isEmpty
+                                        ? 'N/A'
+                                        : '${'hisNo'.tr} $caseId'.toString(),
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontFamily: 'Gilroy_Bold',
@@ -1268,35 +1275,33 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                                         FontWeight
                                                                             .bold),
                                                               ),
-                                                             
                                                               const SizedBox(
                                                                 height: 5,
                                                               ),
-                                                           
                                                               Text(
                                                                 '${DoneListData?[index]['specialization'] ?? ""}'
                                                                         .isEmpty
                                                                     ? "N/A"
-                                                                    :' ${DoneListData?[index]['specialization']}',
+                                                                    : ' ${DoneListData?[index]['specialization']}',
                                                                 maxLines: 1,
                                                                 overflow:
                                                                     TextOverflow
                                                                         .ellipsis,
                                                                 style: const TextStyle(
-                                                                  color: Colors.blue,
+                                                                    color: Colors
+                                                                        .blue,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .normal),
                                                               ),
-                                                              
                                                               const SizedBox(
                                                                 height: 5,
                                                               ),
                                                               Text(
-                                                                 '${DoneListData?[index]['email'] ?? ""}'
+                                                                '${DoneListData?[index]['email'] ?? ""}'
                                                                         .isEmpty
                                                                     ? "N/A"
-                                                                    :' ${DoneListData?[index]['email']}',
+                                                                    : ' ${DoneListData?[index]['email']}',
                                                                 maxLines: 1,
                                                                 overflow:
                                                                     TextOverflow
@@ -1311,9 +1316,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                                       child:
                                                                           Text(
                                                                     '${DoneListData?[index]['qualification'] ?? ""}'
-                                                                        .isEmpty
-                                                                    ? "N/A"
-                                                                    :' ${DoneListData?[index]['qualification']}',
+                                                                            .isEmpty
+                                                                        ? "N/A"
+                                                                        : ' ${DoneListData?[index]['qualification']}',
                                                                     maxLines: 1,
                                                                     overflow:
                                                                         TextOverflow
@@ -1329,10 +1334,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                                     width: 10,
                                                                   ),
                                                                   Text(
-                                                                     '${DoneListData?[index]['work_exp'] ?? ""}'
-                                                                        .isEmpty
-                                                                    ? "N/A"
-                                                                    :' ${DoneListData?[index]['work_exp']}',
+                                                                    '${DoneListData?[index]['work_exp'] ?? ""}'
+                                                                            .isEmpty
+                                                                        ? "N/A"
+                                                                        : ' ${DoneListData?[index]['work_exp']}',
                                                                     maxLines: 1,
                                                                     overflow:
                                                                         TextOverflow

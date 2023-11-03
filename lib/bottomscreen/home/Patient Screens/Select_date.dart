@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, sized_box_for_whitespace, deprecated_member_use, unused_local_variable, non_constant_identifier_names, avoid_print, prefer_if_null_operators, prefer_typing_uninitialized_variables
+// ignore_for_file: file_names, sized_box_for_whitespace, deprecated_member_use, unused_local_variable, non_constant_identifier_names, avoid_print, prefer_if_null_operators, prefer_typing_uninitialized_variables, unnecessary_string_interpolations
 
 import 'dart:convert';
 
@@ -11,6 +11,7 @@ import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -254,54 +255,37 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                             itemCount: data?.length,
                             itemBuilder: (context, index) {
                               final item = data?[index];
-                              final createdDate = item['created_at'] as String;
-                              final createdDateTime =
-                                  DateTime.parse(createdDate);
 
-                              String dateTimeString =
-                                  item['created_at'] as String;
+                              String dateTimeString =item['created_at'] as String;
 
                               // Parse the date-time string into a DateTime object
-                              DateTime dateTime =
-                                  DateTime.parse(dateTimeString);
+                              DateTime dateTime =DateTime.parse(dateTimeString);
 
-                              String formattedDate =
-                                  DateFormat('yyyy-MM-dd').format(dateTime);
-                              NepaliDateFormat dateFormat =
-                                  NepaliDateFormat('yyyy-MM-dd');
-                              DateTime englishDate =
-                                  DateTime.parse(item['created_at']);
-                              NepaliDateTime nepaliDate =
-                                  NepaliDateTime.fromDateTime(englishDate);
+                              String formattedDate = DateFormat('yyyy-MM-dd HH:mm:a').format(dateTime);
+                              NepaliDateFormat dateFormat =NepaliDateFormat('yyyy-MM-dd HH:mm:a');
+                              DateTime englishDate =DateTime.parse(item['created_at']);
+                              NepaliDateTime nepaliDate =NepaliDateTime.fromDateTime(englishDate);
                               String convertTo12HourFormat(String time24Hour) {
-                                final parsedTime =
-                                    DateFormat('HH:mm:ss').parse(time24Hour);
-                                final formattedTime =
-                                    DateFormat('hh:mm a').format(parsedTime);
+                                final parsedTime = DateFormat('HH:mm:ss').parse(time24Hour);
+                                final formattedTime = DateFormat('hh:mm a').format(parsedTime);
                                 return formattedTime;
                               }
 
                               String time24Hour = (item['start_time']);
-                              String starttime12Hour =
-                                  convertTo12HourFormat(time24Hour);
+                              String starttime12Hour = convertTo12HourFormat(time24Hour);
                               String endtime24Hour = (item['end_time']);
-                              String end_time12Hour =
-                                  convertTo12HourFormat(endtime24Hour);
+                              String end_time12Hour =convertTo12HourFormat(endtime24Hour);
 
                               return GestureDetector(
                                 onTap: () {
                                   final token = item['token'];
-                                  if (token == 0 || token == null) {
+                                  if (item['token'] == '0' ||
+                                      item['token'] == null) {
                                     // Show a snackbar message if the token is 0 or null
-                                    final snackBar = SnackBar(
-                                      content: Text(
-                                        token == 0
+                                    Fluttertoast.showToast(
+                                        msg: token == '0'
                                             ? 'Your token is 0. You cannot book this appointment.'
-                                            : 'No token information available. You cannot book this appointment.',
-                                      ),
-                                    );
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(snackBar);
+                                            : 'No token information available. You cannot book this appointment.');
                                   } else {
                                     // Navigate to the screen if the token is not 0 or null
                                     Get.to(() => OPDTicketDetails(
@@ -366,7 +350,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
-                                                Text('${createdDateTime.day}',
+                                                Text('${dateTime.day}',
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
