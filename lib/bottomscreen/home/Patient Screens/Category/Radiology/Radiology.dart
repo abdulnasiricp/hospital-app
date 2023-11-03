@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Billview.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Radiology/Billview.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Radiology/Reportbiew.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -58,7 +59,7 @@ class _RadiologyState extends State<Radiology> {
   getData() async {
     await LoadData();
     await fetchData();
-   
+
     calculateTotalAmount();
   }
 
@@ -66,9 +67,7 @@ class _RadiologyState extends State<Radiology> {
   void initState() {
     super.initState();
     getData();
-
   }
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 // Get Radiology data
@@ -301,8 +300,8 @@ class _RadiologyState extends State<Radiology> {
                         : ListView.builder(
                             itemCount: filteredData?.length,
                             itemBuilder: (context, index) {
-                              final Pathologybill = filteredData?[index];
-                              if (Pathologybill.containsKey('id')) {
+                              final Radiologybill = filteredData?[index];
+                              if (Radiologybill.containsKey('id')) {
                                 return Column(
                                   children: [
                                     Card(
@@ -314,7 +313,9 @@ class _RadiologyState extends State<Radiology> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              "${Pathologybill['id']}".isEmpty?'N/A': "${Pathologybill['id']}",
+                                              "${Radiologybill['id']}".isEmpty
+                                                  ? 'N/A'
+                                                  : "${Radiologybill['id']}",
                                               style: const TextStyle(
                                                 fontWeight: FontWeight.bold,
                                               ),
@@ -329,32 +330,32 @@ class _RadiologyState extends State<Radiology> {
                                                   width: width / 8,
                                                   child: InkWell(
                                                     onTap: () {
-                                                      if (Pathologybill[
+                                                      if (Radiologybill[
                                                               'status'] ==
                                                           'Paid') {
                                                         Get.to(
                                                           () =>
-                                                              pathologyBillview(
+                                                              RadiologyBillview(
                                                             bill_pdf:
-                                                                "${Pathologybill['bill_pdf']}", // Use 'id' as the Pathologybill ID
-                                                            id: "${Pathologybill['id']}",
+                                                                "${Radiologybill['bill_pdf']}", // Use 'id' as the Pathologybill ID
+                                                            id: "${Radiologybill['id']}",
                                                           ),
                                                         );
                                                       } else {
                                                         // Handle the tap event for 'UnPaid' status
                                                         Get.to(
                                                           () =>
-                                                              pathologyBillview(
+                                                              RadiologyBillview(
                                                             bill_pdf:
-                                                                "${Pathologybill['bill_pdf']}", // Use 'id' as the Pathologybill ID
-                                                            id: "${Pathologybill['id']}",
+                                                                "${Radiologybill['bill_pdf']}", // Use 'id' as the Pathologybill ID
+                                                            id: "${Radiologybill['id']}",
                                                           ),
                                                         );
                                                       }
                                                     },
                                                     child: Container(
                                                       decoration: BoxDecoration(
-                                                        color: Pathologybill[
+                                                        color: Radiologybill[
                                                                     'status'] ==
                                                                 'Paid'
                                                             ? Colors.green
@@ -370,7 +371,10 @@ class _RadiologyState extends State<Radiology> {
                                                         child: Center(
                                                           child: Text(
                                                             // listName,
-                                                            "${Pathologybill['status']}".isEmpty?'N/A':"${Pathologybill['status']}",
+                                                            "${Radiologybill['status']}"
+                                                                    .isEmpty
+                                                                ? 'N/A'
+                                                                : "${Radiologybill['status']}",
                                                             style:
                                                                 const TextStyle(
                                                               fontWeight:
@@ -395,15 +399,15 @@ class _RadiologyState extends State<Radiology> {
                                                   width: width / 4,
                                                   child: InkWell(
                                                     onTap: () {
-                                                      if (Pathologybill[
+                                                      if (Radiologybill[
                                                               'is_printed'] ==
                                                           '1') {
                                                         Get.to(
                                                           () =>
                                                               RadiologyReportview(
                                                             report_pdf:
-                                                                "${Pathologybill['report_pdf']}",
-                                                            id: "${Pathologybill['id']}",
+                                                                "${Radiologybill['report_pdf']}",
+                                                            id: "${Radiologybill['id']}",
                                                           ),
                                                         );
                                                       } else {
@@ -421,7 +425,7 @@ class _RadiologyState extends State<Radiology> {
                                                     },
                                                     child: Container(
                                                       decoration: BoxDecoration(
-                                                        color: Pathologybill[
+                                                        color: Radiologybill[
                                                                     'is_printed'] ==
                                                                 '1'
                                                             ? Colors.green
@@ -437,7 +441,7 @@ class _RadiologyState extends State<Radiology> {
                                                                 .all(3.0),
                                                         child: Center(
                                                           child: Text(
-                                                            Pathologybill[
+                                                            Radiologybill[
                                                                         'is_printed'] ==
                                                                     '1'
                                                                 ? 'Report Printed'
@@ -467,7 +471,10 @@ class _RadiologyState extends State<Radiology> {
                                                   child: Center(
                                                     child: Text(
                                                       // 'Rs.${item.total}',
-                                                      "${Pathologybill['net_amount']}".isEmpty?'N/A':"${Pathologybill['net_amount']}", // Use 'net_amount' for the amount
+                                                      "${Radiologybill['net_amount']}"
+                                                              .isEmpty
+                                                          ? 'N/A'
+                                                          : "${Radiologybill['net_amount']}", // Use 'net_amount' for the amount
                                                       style: const TextStyle(
                                                         color: Colors.red,
                                                         fontWeight:

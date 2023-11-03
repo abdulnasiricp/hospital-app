@@ -13,6 +13,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/route_manager.dart';
 import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 
@@ -66,8 +67,7 @@ class _OpdPaymentSuccessfullScreenState
   String? message;
 
   Future<void> makePostRequest() async {
-    final url =
-        Uri.parse(ApiLinks.addopdticket);
+    final url = Uri.parse(ApiLinks.addopdticket);
     final headers = {
       'Soft-service': 'TezHealthCare',
       'Auth-key': 'zbuks_ram859553467',
@@ -352,9 +352,13 @@ class _OpdPaymentSuccessfullScreenState
                                   height: height / 15,
                                   child: ElevatedButton(
                                     child: const Text("Download Ticket"),
-                                    onPressed: () {
-                                      if (opdTicket != null) {
+                                    onPressed: () async {
+                                      final status =
+                                          await Permission.storage.request();
+                                      if (status.isGranted) {
                                         FileDownloader.downloadFile(
+                                          name:
+                                              'Tez_Health_Care-${widget.ticketDate}.pdf',
                                           url: opdTicket ?? "",
                                           onProgress: (name, progress) {
                                             setState(() {
@@ -365,15 +369,17 @@ class _OpdPaymentSuccessfullScreenState
                                             print('Downloaded path: $path');
                                             setState(() {
                                               _progress = null;
-                                              _downloadedFilePath = path;
+                                              _downloadedFilePath =
+                                                  path; // Store the downloaded file path
                                             });
 
-                                            // Show the downloaded file path in a popup
-                                            showDownloadedFilePath(path);
+                                            // Automatically open the downloaded file
+                                            _openDownloadedFile(path);
                                           },
                                         );
                                       } else {
-                                        print('opdTicket is empty or invalid.');
+                                        print('Permission denied');
+                                        // Handle permission denial here
                                       }
                                     },
                                     style: ButtonStyle(
@@ -391,6 +397,21 @@ class _OpdPaymentSuccessfullScreenState
                   ),
                 ),
         ));
+  }
+
+  void _openDownloadedFile(String filePath) async {
+    if (_downloadedFilePath != null) {
+      final result = await OpenFile.open(
+        filePath,
+        type: 'application/pdf', // Specify the content type as PDF
+      );
+
+      if (result.type == ResultType.done) {
+        print('File opened with success');
+      } else {
+        print('Error opening file: ${result.message}');
+      }
+    }
   }
 }
 

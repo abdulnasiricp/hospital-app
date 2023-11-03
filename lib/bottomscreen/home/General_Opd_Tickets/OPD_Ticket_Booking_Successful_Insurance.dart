@@ -6,12 +6,14 @@ import 'package:TezHealthCare/screens/auth/Sigin_main_screen.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
+import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 
@@ -81,8 +83,6 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
       "date": widget.ticketDate,
       "blood_group": "1",
       "payment_mode": widget.InsuranceorSSFid,
-
-   
     };
 
     final response = await http.post(
@@ -163,226 +163,235 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
     print(widget.ticketDate);
     return WillPopScope(
       onWillPop: () async {
-        Get.to(() => const MainSiginScreen());
+        Get.offAll(() => const MainSiginScreen());
         return false;
       },
       child: Scaffold(
-        backgroundColor: Colors.blue[50],
-        appBar: AppBar(
-          title: const Text('Ticket Booking successful!'),
-          centerTitle: true,
-          backgroundColor: darkYellow,
-        ),
-        body: 
-        // _progress != null
-        //     ? 
-            FutureBuilder(
-                future: _future,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
-                  } else {
-                    return SingleChildScrollView(
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Card(
-                          elevation: 50,
-                          child: Column(
+          backgroundColor: Colors.blue[50],
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            title: const Text('Ticket Booking successful!'),
+            centerTitle: true,
+            backgroundColor: darkYellow,
+          ),
+          body:
+              // _progress != null
+              //     ?
+              FutureBuilder(
+            future: _future,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: Container(
+                    height: 100,
+                    width: 50,
+                    child: LoadingIndicatorWidget(),
+                  ),
+                );
+              } else if (snapshot.hasError) {
+                return Center(child: Text('Error: ${snapshot.error}'));
+              } else {
+                return SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Card(
+                      elevation: 50,
+                      child: Column(
+                        children: [
+                          Column(
                             children: [
-                              Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Column(
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 1.0),
-                                          child: Container(
-                                            child: const Text(
-                                              'Ticket Booking successful!',
-                                              style: TextStyle(
-                                                fontSize: 28,
-                                                color: Colors.green,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 1.0),
+                                      child: Container(
+                                        child: const Text(
+                                          'Ticket Booking successful!',
+                                          style: TextStyle(
+                                            fontSize: 28,
+                                            color: Colors.green,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Container(
+                                      width: width / 3,
+                                      height: height / 6,
+                                      child: SvgPicture.asset(
+                                        'assets/done.svg',
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 25,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Text(
+                                            "Ticket Date",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
                                             ),
                                           ),
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Container(
-                                          width: width / 3,
-                                          height: height / 6,
-                                          child: SvgPicture.asset(
-                                            'assets/done.svg',
+                                          Text(
+                                            "${widget.ticketDate}",
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
+                                            ),
                                           ),
-                                        ),
-                                        const SizedBox(
-                                          height: 25,
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(10.0),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              const Text(
-                                                "Ticket Date",
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                              Text(
-                                                "${widget.ticketDate}",
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(10.0),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              const Text(
-                                                "Transaction Id",
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                              Text(
-                                                "#Tez ${opdId ?? 'N/A'}",
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        const DottedLineDivider(),
-                                        const PaymentItem(
-                                          title: ' OPD Ticket Charge',
-                                          amount: "FREE",
-                                        ),
-                                        const SizedBox(
-                                          height: 25,
-                                        ),
-                                        const DottedLineDivider(),
-                                        const PaymentItem(
-                                          title: 'Total  Ticket Charge',
-                                          amount: "FREE",
-                                          isTotal: true,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(right: 8.0),
-                                        child: Text(
-                                            "Payment Mode : Payment By Insurance Claimed",
-                                            style: TextStyle(fontSize: 12)),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 20,
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Text(
+                                            "Transaction Id",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                          Text(
+                                            "#Tez ${opdId ?? 'N/A'}",
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    const DottedLineDivider(),
+                                    const PaymentItem(
+                                      title: ' OPD Ticket Charge',
+                                      amount: "FREE",
+                                    ),
+                                    const SizedBox(
+                                      height: 25,
+                                    ),
+                                    const DottedLineDivider(),
+                                    const PaymentItem(
+                                      title: 'Total  Ticket Charge',
+                                      amount: "FREE",
+                                      isTotal: true,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 8.0),
+                                    child: Text(
+                                        "Payment Mode : Payment By Insurance Claimed",
+                                        style: TextStyle(fontSize: 12)),
                                   ),
                                 ],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 10.0),
-                                child: Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Center(
-                                      child: Container(
-                                        width: width,
-                                        height: height / 15,
-                                        child: ElevatedButton(
-                                          child: const Text("Download Ticket"),
-                                          onPressed: () {
-                                            if (opdTicket != null) {
-                                              FileDownloader.downloadFile(
-                                                url: opdTicket ?? "",
-                                                onProgress: (name, progress) {
-                                                  setState(() {
-                                                    _progress = progress;
-                                                  });
-                                                },
-                                                onDownloadCompleted: (path) {
-                                                  print(
-                                                      'Downloaded path: $path');
-                                                  setState(() {
-                                                    _progress = null;
-                                                    _downloadedFilePath = path;
-                                                  });
+                              const SizedBox(
+                                height: 20,
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 10.0),
+                            child: Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Center(
+                                  child: Container(
+                                    width: width,
+                                    height: height / 15,
+                                    child: ElevatedButton(
+                                      child: const Text("Download Ticket"),
+                                      onPressed: () async {
+                                        final status =
+                                            await Permission.storage.request();
+                                        if (status.isGranted) {
+                                          FileDownloader.downloadFile(
+                                            name:
+                                                'Tez_Health_Care-${widget.ticketDate}.pdf',
+                                            url: opdTicket ?? "",
+                                            onProgress: (name, progress) {
+                                              setState(() {
+                                                _progress = progress;
+                                              });
+                                            },
+                                            onDownloadCompleted: (path) {
+                                              print('Downloaded path: $path');
+                                              setState(() {
+                                                _progress = null;
+                                                _downloadedFilePath =
+                                                    path; // Store the downloaded file path
+                                              });
 
-                                                  showDownloadedFilePath(path);
-                                                },
-                                              );
-                                            } else {
-                                              print(
-                                                  'opdTicket is empty or invalid.');
-                                            }
-                                          },
-                                          style: ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStateProperty.all(
-                                                    yellow),
-                                          ),
-                                        ),
+                                              // Automatically open the downloaded file
+                                              _openDownloadedFile(path);
+                                            },
+                                          );
+                                        } else {
+                                          print(
+                                              'opdTicket is empty or invalid.');
+                                          // Handle permission denial here
+                                        }
+                                      },
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all(yellow),
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ],
+                            ),
                           ),
-                        ),
+                        ],
                       ),
-                    );
-                  }
-                },
-              )
-            // : Center(
-            //     child: Padding(
-            //       padding: const EdgeInsets.all(10.0),
-            //       child: Center(
-            //         child: Padding(
-            //           padding: const EdgeInsets.all(10.0),
-            //           child: Container(
-            //             height: 50,
-            //             width: 50,
-            //             color: Colors.transparent,
-            //             child: const LoadingIndicatorWidget(),
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-      ),
+                    ),
+                  ),
+                );
+              }
+            },
+          )),
     );
+  }
+
+  void _openDownloadedFile(String filePath) async {
+    if (_downloadedFilePath != null) {
+      final result = await OpenFile.open(
+        filePath,
+        type: 'application/pdf', // Specify the content type as PDF
+      );
+
+      if (result.type == ResultType.done) {
+        print('File opened with success');
+      } else {
+        print('Error opening file: ${result.message}');
+      }
+    }
   }
 }
 
