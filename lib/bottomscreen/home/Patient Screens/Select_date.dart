@@ -305,25 +305,31 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                   } else {
                                     // Navigate to the screen if the token is not 0 or null
                                     Get.to(() => OPDTicketDetails(
-                                      doctorName: widget.doctorName,
+                                          doctorName: widget.doctorName,
                                           BloodgroupId:
                                               profileData?.bloodGroup == null
                                                   ? '1'
                                                   : profileData?.bloodGroup,
-                                          Bloodgroupname: ''?? 'N/A',
+                                          Bloodgroupname: '' ?? 'N/A',
                                           DepartmentId:
                                               widget.doctorSpecialization,
-                                          bloodGroup: ''?? 'N/A',
+                                          bloodGroup: '' ?? 'N/A',
                                           maritalStatus:
-                                              profileData?.maritalStatus ?? 'N/A',
-                                          patientAddress: profileData?.address?? 'N/A',
-                                          patientDOB: profileData?.dob?? 'N/A',
-                                          patientEmail: profileData?.email?? 'N/A',
-                                          patientGender: profileData?.gender?? 'N/A',
-                                          patientMobile: profileData?.mobileNo?? 'N/A',
-                                          patientName: profileData?.patientName?? 'N/A',
+                                              profileData?.maritalStatus ??
+                                                  'N/A',
+                                          patientAddress:
+                                              profileData?.address ?? 'N/A',
+                                          patientDOB: profileData?.dob ?? 'N/A',
+                                          patientEmail:
+                                              profileData?.email ?? 'N/A',
+                                          patientGender:
+                                              profileData?.gender ?? 'N/A',
+                                          patientMobile:
+                                              profileData?.mobileNo ?? 'N/A',
+                                          patientName:
+                                              profileData?.patientName ?? 'N/A',
                                           selectedDepartment: 'N/A',
-                                          ticketDate: item['created_at']?? 'N/A',
+                                          ticketDate: '$formattedDate',
                                         ));
                                   }
                                 },
@@ -384,7 +390,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                               Row(
                                                 children: [
                                                   Text(
-                                                    '$formattedDate/ ${NepaliDateFormat('EEE, MMM d, ' 'yyyy').format(nepaliDate)}',
+                                                    '$formattedDate/ ${NepaliDateFormat('EE, MMMM d, ' 'yyyy').format(nepaliDate)}',
                                                     style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
