@@ -147,6 +147,7 @@ class _CardScreenState extends State<CardScreen> {
             ),
     );
   }
+
   void _openDownloadedFile(String filePath) async {
     if (_downloadedFilePath != null) {
       final result = await OpenFile.open(
