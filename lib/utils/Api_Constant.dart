@@ -57,4 +57,6 @@ class ApiLinks {
       "https://uat.tez.hospital/xzy/webservice/lists";
   static const String addopdticket =
       "https://uat.tez.hospital/xzy/webservice/addopdticket";
+  static const String getNotificationlistcount =
+      "https://uat.tez.hospital/xzy/webservice/addopdticket";
 }

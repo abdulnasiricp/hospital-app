@@ -284,7 +284,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
       final SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
-      final DateFormat formatter = DateFormat('yyyy-MM-dd HH:mm:ss');
+      final DateFormat formatter = DateFormat('yyyy-MM-dd HH:mm:a');
 
       Map<String, int> notificationLengths = {
         'Pathology Bill': data['pathology']['length'],
