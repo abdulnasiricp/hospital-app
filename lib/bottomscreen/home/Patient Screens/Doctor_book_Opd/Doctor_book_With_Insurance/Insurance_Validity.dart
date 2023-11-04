@@ -1,6 +1,5 @@
 // ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, sized_box_for_whitespace, avoid_print, prefer_const_constructors_in_immutables
 
-import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/Insurance_opd_form.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Doctor_book_Opd/Doctor_book_With_Insurance/Doctor_Book_Insurance_Details.dart';
 import 'package:flutter/material.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -327,25 +326,47 @@ class _Insurance_ValidityState extends State<Insurance_Validity> {
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               Doctor_book_insurance_details(
-                                            dob: insuranceDetails['dob'],
-                                            gender: insuranceDetails['gender'],
-                                            name: insuranceDetails['name'],
+                                            dob: insuranceDetails['dob'] ??
+                                                "N/A",
+                                            gender:
+                                                insuranceDetails['gender'] ??
+                                                    "N/A",
+                                            name: insuranceDetails['name'] ??
+                                                "N/A",
                                             contractDate: insuranceDetails[
-                                                'contract_date'],
-                                            Phone: insuranceDetails['phone'],
+                                                    'contract_date'] ??
+                                                "N/A",
+                                            Phone: insuranceDetails['phone'] ??
+                                                "N/A",
                                             pataddress:
-                                                insuranceDetails['address'],
-                                            email: insuranceDetails['phone'],
+                                                insuranceDetails['address'] ??
+                                                    "N/A",
+                                            email: insuranceDetails['phone'] ??
+                                                "N/A",
                                             balance:
-                                                insuranceDetails['balance'],
+                                                insuranceDetails['balance'] ??
+                                                    "N/A",
                                             InsuranceorSSFid:
                                                 InsurancenumberController.text,
-                                            ticketDate: widget.ticketDate,
+                                            ticketDate:
+                                                widget.ticketDate.isEmpty
+                                                    ? "N/A"
+                                                    : widget.ticketDate,
                                             selectedDepartment:
-                                                widget.Departmentname,
-                                            department_id: widget.department_id,
-                                            doctorId: widget.doctorId,
-                                            doctorName: widget.doctorName,
+                                                widget.Departmentname.isEmpty
+                                                    ? "N/A"
+                                                    : widget.Departmentname,
+                                            department_id:
+                                                widget.department_id.isEmpty
+                                                    ? "N/A"
+                                                    : widget.department_id,
+                                            doctorId: widget.doctorId.isEmpty
+                                                ? "N/A"
+                                                : widget.doctorId,
+                                            doctorName:
+                                                widget.doctorName.isEmpty
+                                                    ? "N/A"
+                                                    : widget.doctorName,
                                           ),
                                         ),
                                       );
@@ -474,7 +495,6 @@ class _Insurance_ValidityState extends State<Insurance_Validity> {
     final headers = {
       'Soft-service': 'TezHealthCare',
       'Auth-key': 'zbuks_ram859553467',
-      'Content-Type': 'application/json',
     };
 
     final body = jsonEncode({

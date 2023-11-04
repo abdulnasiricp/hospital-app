@@ -35,7 +35,6 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
-import 'package:nepali_utils/nepali_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:badges/badges.dart' as badges;
@@ -284,7 +283,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
       final SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
-      final DateFormat formatter = DateFormat('yyyy-MM-dd HH:mm:a');
+      final DateFormat formatter = DateFormat('yyyy-MM-dd HH:mm');
+      // NepaliDateFormat dateFormat =NepaliDateFormat('yyyy-MM-dd HH:mm:a');
 
       Map<String, int> notificationLengths = {
         'Pathology Bill': data['pathology']['length'],
@@ -332,8 +332,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
           // Generate a unique identifier using the current date and time
           String uniqueId = formatter.format(DateTime.now());
-          // NepaliDateFormat dateFormat =
-          //                         NepaliDateFormat('yyyy-MM-dd');
 
           // Save the new length in SharedPreferences
           sharedPreferences.setInt(key, newLength);
@@ -341,6 +339,21 @@ class _PatientHomePageState extends State<PatientHomePage> {
           // Store the notification message with the unique identifier
           final notifications =
               sharedPreferences.getStringList('notifications') ?? [];
+          // Store the notification message with the unique identifier
+
+          // Check if there are already notifications in SharedPreferences
+          if (notifications.isNotEmpty) {
+            // Skip the first notification, which is already stored
+            final existingNotification = notifications.first;
+            final parts = existingNotification.split(": ");
+            final timestamp = DateTime.parse(parts[0]);
+            final isRead = sharedPreferences
+                    .getBool('isRead_${parts[1]}:${timestamp.toString()}') ??
+                false;
+            if (isRead) {
+              notifications.removeAt(0);
+            }
+          }
           notifications.add("$uniqueId: $notificationMessage");
           sharedPreferences.setStringList('notifications', notifications);
 
@@ -358,6 +371,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
       setState(() {});
     }
   }
+//////////////////////////////////////////////////////////////////////////////////
+
 //////////////////////////////////////////////////////////////////////////////////
 
   @override

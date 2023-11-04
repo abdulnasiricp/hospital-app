@@ -259,6 +259,10 @@ class _ProfileState extends State<Profile> {
           title: Text('profile'.tr),
           centerTitle: true,
           backgroundColor: notifier.getdarkyellow,
+          actions: [IconButton(onPressed: (){
+            performLogout();
+
+          }, icon: const Icon(Icons.logout))],
         ),
                 backgroundColor: Colors.lightBlue[50],
 

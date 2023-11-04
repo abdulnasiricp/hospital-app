@@ -1,7 +1,6 @@
 // ignore_for_file: unused_local_variable, non_constant_identifier_names, sized_box_for_whitespace
 
 import 'dart:convert';
-import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/Opd_Main_Screen.dart';
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/PaymentMethod/Select_Payment_Method_For_opd.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';

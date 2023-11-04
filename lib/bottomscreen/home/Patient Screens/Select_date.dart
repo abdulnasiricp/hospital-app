@@ -3,7 +3,6 @@
 import 'dart:convert';
 
 import 'package:TezHealthCare/bottomscreen/Profile/profile_model.dart';
-import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/opd_tickets_details.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Doctor_profile.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Doctor_book_Opd/Doctor_book_Opd.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Doctor_book_Opd/Doctor_book_With_Insurance/Insurance_Validity.dart';
@@ -265,7 +264,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                               String formattedDate =
                                   DateFormat('yyyy-MM-dd').format(dateTime);
                               NepaliDateFormat dateFormat =
-                                  NepaliDateFormat('yyyy-MM-dd HH:mm:a');
+                                  NepaliDateFormat('yyyy-MM-dd');
                               DateTime englishDate =
                                   DateTime.parse(item['created_at']);
                               NepaliDateTime nepaliDate =
@@ -299,8 +298,8 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                       context: context,
                                       builder: (context) {
                                         return AlertDialog(
-                                          title: Text('Choose Booking Type'),
-                                          content: Text(
+                                          title: const Text('Choose Booking Type'),
+                                          content: const Text(
                                               'Do you want to book insurance or general?'),
                                           actions: [
                                             TextButton(
@@ -322,7 +321,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
 
                                                     ));
                                               },
-                                              child: Text('Book Insurance'),
+                                              child: const Text('Book Insurance'),
                                             ),
                                             TextButton(
                                               onPressed: () {
@@ -374,7 +373,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                                       // Pass the choice here
                                                     ));
                                               },
-                                              child: Text('Book General'),
+                                              child: const Text('Book General'),
                                             ),
                                           ],
                                         );

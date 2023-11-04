@@ -490,8 +490,7 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    _logout(
-                                        context); // Call _logout with the 'context'
+                                   performLogout(); // Call _logout with the 'context'
                                   },
                                   child: ListTile(
                                     leading: SvgPicture.asset(
