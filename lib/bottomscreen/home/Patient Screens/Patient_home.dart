@@ -22,6 +22,7 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Radio
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Surgery/SurgeryPrescriptionList.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Transaction_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/USG/usg.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Re-OPD/Generalreopd.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Select_date.dart';
 import 'package:TezHealthCare/screens/notification.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
@@ -31,6 +32,7 @@ import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -1142,6 +1144,91 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                 height: 10,
                                               ),
                                               Text('liveConsultations'.tr,
+                                                  style: const TextStyle(
+                                                    fontSize: 7,
+                                                    fontWeight: FontWeight.bold,
+                                                  ))
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              title: const Text('Booking Type'),
+                                              content: const Text(
+                                                  'Do you want to book insurance or general?'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(
+                                                        context); // Close the dialog
+                                                    // Get.offAll(() => Insurance_Validity(
+                                                    //   // doctorName: widget.doctorName,
+                                                    //   // department_id: widget.department_id,
+                                                    //   // Departmentname: widget.doctorSpecialization,
+                                                    //   // doctorId: widget.doctorId,
+                                                    //   // ticketDate: '$formattedDate',
+                                                    // ));
+                                                  },
+                                                  child: const Text(
+                                                      'Book Insurance'),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                    // Get.to(() => Re_OPD(
+                                                    //     // BloodgroupId: profileData?.bloodGroup == null ? '1' : profileData?.bloodGroup,
+                                                    //     // Bloodgroupname: '',
+                                                    //     // DepartmentId: widget.doctorSpecialization,
+                                                    //     // bloodGroup: '',
+                                                    //     // maritalStatus: profileData?.maritalStatus ?? 'N/A',
+                                                    //     // patientAddress: profileData?.address ?? 'N/A',
+                                                    //     // patientDOB: profileData?.dob ?? 'N/A',
+                                                    //     // patientEmail: profileData?.email ?? 'N/A',
+                                                    //     // patientGender: profileData?.gender ?? 'N/A',
+                                                    //     // patientMobile: profileData?.mobileNo ?? 'N/A',
+                                                    //     // patientName: profileData?.patientName ?? 'N/A',
+                                                    //     // Pass the choice here
+                                                    //
+                                                    //
+                                                    //
+                                                    //     ));
+                                                  },
+                                                  child: const Text(
+                                                      'Book General'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      },
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        child: Card(
+                                          child: Column(
+                                            children: [
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Container(
+                                                width: 30,
+                                                height: 30,
+                                                child: SvgPicture.asset(
+                                                    'assets/reopd.svg',
+                                                    width: 15,
+                                                    height: 15,
+                                                    color: yellow),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text("Re-OPD",
                                                   style: const TextStyle(
                                                     fontSize: 7,
                                                     fontWeight: FontWeight.bold,

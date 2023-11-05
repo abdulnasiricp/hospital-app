@@ -32,8 +32,6 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
- 
-
   /////////////////////// For App Update
   void _checkForUpdate() async {
     const packageName = 'tez.hospital.siraha';
@@ -138,7 +136,7 @@ class _ProfileState extends State<Profile> {
     Get.offAll(() => const MainSiginScreen());
   }
 
-  String apiUrl =ApiLinks.logout; // Replace with your logout API URL
+  String apiUrl = ApiLinks.logout; // Replace with your logout API URL
 
   Future<void> performLogout() async {
     setState(() {
@@ -254,18 +252,19 @@ class _ProfileState extends State<Profile> {
 
     return ScreenUtilInit(
       builder: (_, child) => Scaffold(
-        
         appBar: AppBar(
           title: Text('profile'.tr),
           centerTitle: true,
           backgroundColor: notifier.getdarkyellow,
-          actions: [IconButton(onPressed: (){
-            performLogout();
-
-          }, icon: const Icon(Icons.logout))],
+          actions: [
+            IconButton(
+                onPressed: () {
+                  performLogout();
+                },
+                icon: const Icon(Icons.logout))
+          ],
         ),
-                backgroundColor: Colors.lightBlue[50],
-
+        backgroundColor: Colors.lightBlue[50],
         body: Stack(
           children: [
             // Background content (Profile information, etc.)
@@ -296,30 +295,30 @@ class _ProfileState extends State<Profile> {
                               Padding(
                                 padding: EdgeInsets.only(top: height / 5.5),
                                 child: Center(
-                                    child: Text(
-                                  (profileData?.patientName ?? '').isEmpty
-                                      ? 'N/A'
-                                      : profileData!.patientName,
-                                      style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                      fontSize: 20),
+                                  child: Text(
+                                    (profileData?.patientName ?? '').isEmpty
+                                        ? 'N/A'
+                                        : profileData!.patientName,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                        fontSize: 20),
+                                  ),
                                 ),
-                                    ),
                               ),
                               Padding(
                                 padding: EdgeInsets.only(top: height / 4.7),
                                 child: Center(
-                                    child: Text(
-                                  (profileData?.mobileNo ?? '').isEmpty
-                                      ? 'N/A'
-                                      : profileData!.mobileNo,
-                                      style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                      fontSize: 20),
+                                  child: Text(
+                                    (profileData?.mobileNo ?? '').isEmpty
+                                        ? 'N/A'
+                                        : profileData!.mobileNo,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                        fontSize: 20),
+                                  ),
                                 ),
-                                   ),
                               ),
                               Padding(
                                 padding: EdgeInsets.only(top: height / 4),

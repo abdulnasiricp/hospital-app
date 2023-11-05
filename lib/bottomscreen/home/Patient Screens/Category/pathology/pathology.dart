@@ -211,6 +211,10 @@ class _PathalogyState extends State<Pathalogy> {
                             child: Center(
                               child: Text(
                                 'billno'.tr,
+                                overflow: TextOverflow
+                                    .ellipsis, // Use ellipsis to cut off the text
+                                maxLines: 1,
+
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 15),
                               ),
@@ -224,6 +228,9 @@ class _PathalogyState extends State<Pathalogy> {
                             width: width / 7,
                             child: Text(
                               'Payment'.tr,
+                              overflow: TextOverflow
+                                  .ellipsis, // Use ellipsis to cut off the text
+                              maxLines: 1,
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 15),
                             ),
@@ -236,6 +243,9 @@ class _PathalogyState extends State<Pathalogy> {
                             width: width / 7,
                             child: Text(
                               'Report'.tr,
+                              overflow: TextOverflow
+                                  .ellipsis, // Use ellipsis to cut off the text
+                              maxLines: 1,
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 15),
                             ),
@@ -248,6 +258,9 @@ class _PathalogyState extends State<Pathalogy> {
                             width: width / 7,
                             child: Text(
                               'amount'.tr,
+                              overflow: TextOverflow
+                                  .ellipsis, // Use ellipsis to cut off the text
+                              maxLines: 1,
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 15),
                             ),
@@ -327,7 +340,13 @@ class _PathalogyState extends State<Pathalogy> {
                                                   width: width / 8,
                                                   child: Center(
                                                     child: Text(
-                                                      "${Pathologybill['id']}".isEmpty?'N/A':"${Pathologybill['id']}",
+                                                      "${Pathologybill['id']}"
+                                                              .isEmpty
+                                                          ? 'N/A'
+                                                          : "${Pathologybill['id']}",
+                                                      overflow: TextOverflow
+                                                          .ellipsis, // Use ellipsis to cut off the text
+                                                      maxLines: 1,
                                                       style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -386,8 +405,13 @@ class _PathalogyState extends State<Pathalogy> {
                                                                 .all(3.0),
                                                         child: Center(
                                                           child: Text(
-                                                            
-                                                            "${Pathologybill['status']}".isEmpty?'N/A': "${Pathologybill['status']}",
+                                                            "${Pathologybill['status']}"
+                                                                    .isEmpty
+                                                                ? 'N/A'
+                                                                : "${Pathologybill['status']}",
+                                                            overflow: TextOverflow
+                                                                .ellipsis, // Use ellipsis to cut off the text
+                                                            maxLines: 1,
                                                             style:
                                                                 const TextStyle(
                                                               fontWeight:
@@ -458,6 +482,9 @@ class _PathalogyState extends State<Pathalogy> {
                                                                     '1'
                                                                 ? 'Report Printed'
                                                                 : 'Processing',
+                                                            overflow: TextOverflow
+                                                                .ellipsis, // Use ellipsis to cut off the text
+                                                            maxLines: 1,
                                                             style:
                                                                 const TextStyle(
                                                               fontWeight:
@@ -482,7 +509,10 @@ class _PathalogyState extends State<Pathalogy> {
                                                   width: width / 7,
                                                   child: Center(
                                                     child: Text(
-                                                      "${Pathologybill['net_amount']}".isEmpty?'N/A':"${Pathologybill['net_amount']}",
+                                                      "${Pathologybill['net_amount']}"
+                                                              .isEmpty
+                                                          ? 'N/A'
+                                                          : "${Pathologybill['net_amount']}",
                                                       style: const TextStyle(
                                                         color: Colors.red,
                                                         fontWeight:

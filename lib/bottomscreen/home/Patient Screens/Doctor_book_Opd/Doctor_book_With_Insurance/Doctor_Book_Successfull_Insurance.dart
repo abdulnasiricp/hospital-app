@@ -1,6 +1,4 @@
-// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, non_constant_identifier_names, avoid_print, unnecessary_string_interpolations, unused_field, deprecated_member_use, file_names, camel_case_types
-
-import 'dart:convert';
+// Add your necessary imports here
 
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
@@ -10,12 +8,13 @@ import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:intl/intl.dart';
+import 'package:get/route_manager.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'package:open_file/open_file.dart';
+import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:http/http.dart' as http;
 
 class Doctor_Book_Successfull_Insurance extends StatefulWidget {
   final String name;
@@ -53,6 +52,8 @@ class Doctor_Book_Successfull_Insurance extends StatefulWidget {
 
 class _OPD_Ticket_Booking_Successful_InsuranceState
     extends State<Doctor_Book_Successfull_Insurance> {
+  bool loading = true; // Add a loading state variable
+
   @override
   void initState() {
     super.initState();
@@ -114,6 +115,10 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
       // Handle the HTTP request error here
       print('Request failed with status: ${response.statusCode}');
     }
+
+    setState(() {
+      loading = false;
+    });
   }
 
   String formattedDate =
@@ -153,49 +158,22 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
 
   @override
   Widget build(BuildContext context) {
-    print(widget.department_id);
-    print(widget.InsuranceorSSFid);
-    print(widget.Phone);
-    print(widget.balance);
-    print(widget.contractDate);
-    print(widget.dob);
-    print(widget.email);
-    print(widget.gender);
-    print(widget.name);
-    print(widget.pataddress);
-    print(widget.ticketDate);
     return WillPopScope(
-        onWillPop: () async {
-          Get.offAll(() => const Bottomhome());
-          return false;
-        },
-        child: Scaffold(
-            backgroundColor: Colors.blue[50],
-            appBar: AppBar(
-              automaticallyImplyLeading: false,
-              title: const Text('Ticket Booking successful!'),
-              centerTitle: true,
-              backgroundColor: darkYellow,
-            ),
-            body:
-                // _progress != null
-                //     ?
-                //   FutureBuilder(
-                // future: makePostRequest(),
-                // builder: (context, snapshot) {
-                //   if (snapshot.connectionState == ConnectionState.waiting) {
-                //     return Center(
-                //       child: Container(
-                //         height: 100,
-                //         width: 50,
-                //         child: const LoadingIndicatorWidget(),
-                //       ),
-                //     );
-                //   } else if (snapshot.hasError) {
-                //     return Center(child: Text('Error: ${snapshot.error}'));
-                //   } else {
-                //     return
-                SingleChildScrollView(
+      onWillPop: () async {
+        Get.offAll(() => const Bottomhome());
+        return false;
+      },
+      child: Scaffold(
+        backgroundColor: Colors.blue[50],
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: const Text('Ticket Booking successful!'),
+          centerTitle: true,
+          backgroundColor: darkYellow,
+        ),
+        body: Stack(
+          children: [
+            SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Card(
@@ -375,11 +353,22 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
                   ),
                 ),
               ),
-            )));
-    //             }
-    //           },
-    //         )),
-    //   );
+            ),
+            if (loading)
+              Container(
+                color: Colors.black.withOpacity(0.5),
+                child: Center(
+                  child: Container(
+                      height: 50,
+                      width: 50,
+                      color: Colors.transparent,
+                      child: LoadingIndicatorWidget()),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
   }
 
   void _openDownloadedFile(String filePath) async {
@@ -397,8 +386,6 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
     }
   }
 }
-
-// ... Rest of your code ...
 
 class PaymentItem extends StatelessWidget {
   final String title;
@@ -477,3 +464,5 @@ class DottedLinePainter extends CustomPainter {
     return false;
   }
 }
+
+// ... Rest of your code ...

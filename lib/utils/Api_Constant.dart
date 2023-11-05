@@ -1,62 +1,37 @@
-// ignore_for_file: file_names, constant_identifier_names
-
 class ApiLinks {
-  static const String getAllDoctor =
-      "https://uat.tez.hospital/xzy/webservice/getAllDoctor";
-  static const String getAllPayment =
-      "https://uat.tez.hospital/xzy/webservice/getAllPayment";
-  static const String generateBillPrint =
-      "https://uat.tez.hospital/xzy/webservice/generateBillPrint";
-  static const String generateIdcard =
-      "https://uat.tez.hospital/xzy/webservice/generateIdcard";
-  static const String getPatientprofile =
-      "https://uat.tez.hospital/xzy/webservice/getPatientprofile";
+  static const String BASE_URL = "https://uat.tez.hospital/xzy/webservice";
   static const String Loginapiforboth =
       "https://uat.tez.hospital/xzy/auth/login";
-  static const String pathology =
-      "https://uat.tez.hospital/xzy/webservice/getPathologyDetails";
-  static const String radiology =
-      "https://uat.tez.hospital/xzy/webservice/getRadiologyDetails";
-  static const String pharmacy =
-      "https://uat.tez.hospital/xzy/webservice/getPharmacyDetails";
-  static const String getAllUsgBill =
-      "https://uat.tez.hospital/xzy/webservice/getAllUsgBill";
-  static const String Therapy =
-      "https://uat.tez.hospital/xzy/webservice/getPhysiotherapyDetails";
-  static const String getIPDMedication =
-      "https://uat.tez.hospital/xzy/webservice/getIpdMedication";
-  static const String getDues =
-      "https://uat.tez.hospital/xzy/webservice/get_dues";
-  static const String getAllTransaction =
-      "https://uat.tez.hospital/xzy/webservice/getAllTransaction";
-  static const String getAmbulanceDetails =
-      "https://uat.tez.hospital/xzy/webservice/getAmbulanceDetails";
-  static const String getbloodbankDetails =
-      "https://uat.tez.hospital/xzy/webservice/getAllTransaction";
-  static const String getpatientDetails =
-      "https://uat.tez.hospital/xzy/webservice/getpatientDetails";
-  static const String getipdVitals =
-      "https://uat.tez.hospital/xzy/webservice/getipdVitals";
-  static const String aboutUs =
-      "https://uat.tez.hospital/xzy/webservice/AboutUs";
+  static const String logout =
+      "https://uat.tez.hospital/xzy/auth/patient_logout";
   static const String update_password =
       "https://uat.tez.hospital/xzy/auth/update_password";
   static const String forget_password =
       "https://uat.tez.hospital/xzy/auth/forget_password";
-  static const String Maternity =
-      "https://uat.tez.hospital/xzy/webservice/getipdMaternity";
-  static const String surgery =
-      "https://uat.tez.hospital/xzy/webservice/getipdSurgeryPrescription";
-  static const String Cardex =
-      "https://uat.tez.hospital/xzy/webservice/getipdCardex";
-  static const String getDirectDetails =
-      "https://uat.tez.hospital/xzy/webservice/getDirectDetails";
-  static const String logout =
-      "https://uat.tez.hospital/xzy/auth/patient_logout";
-  static const String OPDTicketList =
-      "https://uat.tez.hospital/xzy/webservice/lists";
-  static const String addopdticket =
-      "https://uat.tez.hospital/xzy/webservice/addopdticket";
+  static const String getAllDoctor = "$BASE_URL/getAllDoctor";
+  static const String getAllPayment = "$BASE_URL/getAllPayment";
+  static const String generateBillPrint = "$BASE_URL/generateBillPrint";
+  static const String generateIdcard = "$BASE_URL/generateIdcard";
+  static const String getPatientprofile = "$BASE_URL/getPatientprofile";
+  static const String pathology = "$BASE_URL/getPathologyDetails";
+  static const String radiology = "$BASE_URL/getRadiologyDetails";
+  static const String pharmacy = "$BASE_URL/getPharmacyDetails";
+  static const String getAllUsgBill = "$BASE_URL/getAllUsgBill";
+  static const String Therapy = "$BASE_URL/getPhysiotherapyDetails";
+  static const String getIPDMedication = "$BASE_URL/getIpdMedication";
+  static const String getDues = "$BASE_URL/get_dues";
+  static const String getAllTransaction = "$BASE_URL/getAllTransaction";
+  static const String getAmbulanceDetails = "$BASE_URL/getAmbulanceDetails";
+  static const String getbloodbankDetails = "$BASE_URL/getAllTransaction";
+  static const String getpatientDetails = "$BASE_URL/getpatientDetails";
+  static const String getipdVitals = "$BASE_URL/getipdVitals";
+  static const String aboutUs = "$BASE_URL/AboutUs";
+  static const String Maternity = "$BASE_URL/getipdMaternity";
+  static const String surgery = "$BASE_URL/getipdSurgeryPrescription";
+  static const String Cardex = "$BASE_URL/getipdCardex";
+  static const String getDirectDetails = "$BASE_URL/getDirectDetails";
+  static const String OPDTicketList = "$BASE_URL/lists";
+  static const String addopdticket = "$BASE_URL/addopdticket";
   static const String getNotificationlistcount =
-      "https://uat.tez.hospital/xzy/webservice/getNotificationlistcount";
+      "$BASE_URL/getNotificationlistcount";
 }

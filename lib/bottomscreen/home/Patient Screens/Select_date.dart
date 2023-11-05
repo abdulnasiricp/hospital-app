@@ -35,14 +35,12 @@ class SelectDateScreen extends StatefulWidget {
       required this.department_id,
       required this.workExp})
       : super(key: key);
-
   @override
   State<SelectDateScreen> createState() => _SelectDateScreenState();
 }
 
 class _SelectDateScreenState extends State<SelectDateScreen> {
   List<dynamic>? data = [];
-
   bool isLoading = true;
   Future<void> fetchDepartmentData() async {
     final headers = {
@@ -53,12 +51,10 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
       "table": "doctor_shift",
       "where": {"staff_id": widget.doctorId}
     };
-
     final response = await http.post(
         Uri.parse('https://uat.tez.hospital/xzy/webservice/db_table'),
         headers: headers,
         body: jsonEncode(body));
-
     if (response.statusCode == 200) {
       final dataMap = json.decode(response.body);
       setState(() {
@@ -94,9 +90,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
   late String patientID = '';
   LoadData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
-
     patientID = sp.getString('patientidrecord') ?? '';
-
     print(patientID);
     setState(() {});
   }
@@ -298,7 +292,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                       context: context,
                                       builder: (context) {
                                         return AlertDialog(
-                                          title: const Text('Choose Booking Type'),
+                                          title: const Text('Booking Type'),
                                           content: const Text(
                                               'Do you want to book insurance or general?'),
                                           actions: [
@@ -307,21 +301,21 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                                 Navigator.pop(
                                                     context); // Close the dialog
                                                 // Navigate to the Doctor_Book_Details screen with the choice
-                                                Get.to(() => Insurance_Validity(
+                                                Get.offAll(() =>
+                                                    Insurance_Validity(
                                                       doctorName:
                                                           widget.doctorName,
                                                       department_id:
                                                           widget.department_id,
                                                       Departmentname: widget
                                                           .doctorSpecialization,
-                                                  doctorId: widget
-                                                          .doctorId,
+                                                      doctorId: widget.doctorId,
                                                       ticketDate:
                                                           '$formattedDate',
-
                                                     ));
                                               },
-                                              child: const Text('Book Insurance'),
+                                              child:
+                                                  const Text('Book Insurance'),
                                             ),
                                             TextButton(
                                               onPressed: () {
@@ -366,8 +360,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                                           .doctorSpecialization,
                                                       department_id:
                                                           widget.department_id,
-                                                      doctorId:
-                                                          widget.doctorId,
+                                                      doctorId: widget.doctorId,
                                                       ticketDate:
                                                           '$formattedDate',
                                                       // Pass the choice here

@@ -65,7 +65,7 @@ class ToastDialog extends StatelessWidget {
             children: <Widget>[
               const Text('Select Language'),
               const SizedBox(height: 20),
-              // English Language Option
+              // English Language Option (selected by default)
               Container(
                 width: 300,
                 height: 50,
@@ -74,6 +74,7 @@ class ToastDialog extends StatelessWidget {
                   color: darkYellow,
                 ),
                 child: ListTile(
+                  // Set this option as the default
                   onTap: () {
                     saveSelectedLanguage('en');
                     Get.updateLocale(const Locale('en', 'US'));
@@ -139,4 +140,5 @@ class ToastDialog extends StatelessWidget {
       ],
     );
   }
+
 }
