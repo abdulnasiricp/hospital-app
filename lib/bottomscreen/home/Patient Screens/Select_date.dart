@@ -294,7 +294,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                         return AlertDialog(
                                           title: const Text('Booking Type'),
                                           content: const Text(
-                                              'Do you want to book insurance or general?'),
+                                              'Do you want to book with insurance or general?'),
                                           actions: [
                                             TextButton(
                                               onPressed: () {
@@ -314,8 +314,23 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                                           '$formattedDate',
                                                     ));
                                               },
-                                              child:
-                                                  const Text('Book Insurance'),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  color: Colors
+                                                      .green, // Background color
+                                                  borderRadius:
+                                                      BorderRadius.circular(4),
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      10.0),
+                                                  child: Text(
+                                                    'Insurance or SSF',
+                                                    style: TextStyle(
+                                                        color: Colors.black),
+                                                  ),
+                                                ),
+                                              ),
                                             ),
                                             TextButton(
                                               onPressed: () {
@@ -361,12 +376,32 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                                       department_id:
                                                           widget.department_id,
                                                       doctorId: widget.doctorId,
+                                                      // blood_group: profileData
+                                                      //         ?.blood_group ??
+                                                      //     'N/A',
                                                       ticketDate:
                                                           '$formattedDate',
                                                       // Pass the choice here
                                                     ));
                                               },
-                                              child: const Text('Book General'),
+                                              child: Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Colors
+                                                        .red, // Background color
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            4),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            10.0),
+                                                    child: Text(
+                                                      'General',
+                                                      style: TextStyle(
+                                                          color: Colors.black),
+                                                    ),
+                                                  )),
                                             ),
                                           ],
                                         );

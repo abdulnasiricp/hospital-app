@@ -3,6 +3,7 @@
 
 import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/PaymentMethod/Select_Payment_Method_For_opd.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Doctor_book_Opd/CheckSelectPaymentMethod.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -342,7 +343,7 @@ class _Doctor_Book_DetailsState extends State<Doctor_Book_Details> {
                     ),
                     InkWell(
                       onTap: () {
-                        Get.to(() => CheckSelectPaymentMethod(
+                        Get.to(() => SelectPaymentmethodfordoctorbooking(
                               totalAmountInRs: rupeesAmountInt,
                               total_AmountPaisa: OpdPaisaAmount,
                               BloodgroupId: widget.BloodgroupId.isEmpty
@@ -380,6 +381,7 @@ class _Doctor_Book_DetailsState extends State<Doctor_Book_Details> {
                                   ? "N/A"
                                   : widget.department_id,
                               ticketDate: widget.ticketDate,
+                              doctorId: widget.doctorId,
                             ));
                       },
                       child: Container(

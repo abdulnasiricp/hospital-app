@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/OPD_Ticket_Booking_Successful_Insurance.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Doctor_book_Opd/Doctor_book_With_Insurance/Doctor_Book_Successfull_Insurance.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
@@ -9,11 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-class Insurance_Opd_Ticket_Details extends StatefulWidget {
-  final String DepartmentId;
+class doctor_book_iinsurance_detals extends StatefulWidget {
   final String ticketDate;
   final String name;
-  final String selectedDepartment;
   final String dob;
   final String gender;
   final String InsuranceorSSFid;
@@ -21,15 +20,19 @@ class Insurance_Opd_Ticket_Details extends StatefulWidget {
   final String Phone;
   final String contractDate;
   final String pataddress;
+  final String Departmentname;
   final String email;
-  final String selectedTicketType;
-  final String selectedTicketTypeId;
-  const Insurance_Opd_Ticket_Details({
+  final String doctorName;
+  final String doctorId;
+  final String department_id;
+
+  const doctor_book_iinsurance_detals({
     Key? key,
-    required this.DepartmentId,
-    required this.selectedTicketTypeId,
-    required this.selectedTicketType,
     required this.pataddress,
+    required this.Departmentname,
+    required this.doctorName,
+    required this.doctorId,
+    required this.department_id,
     required this.email,
     required this.contractDate,
     required this.balance,
@@ -37,18 +40,17 @@ class Insurance_Opd_Ticket_Details extends StatefulWidget {
     required this.gender,
     required this.ticketDate,
     required this.dob,
-    required this.selectedDepartment,
     required this.InsuranceorSSFid,
     required this.Phone,
   }) : super(key: key);
 
   @override
-  State<Insurance_Opd_Ticket_Details> createState() =>
-      _Insurance_Opd_Ticket_DetailsState();
+  State<doctor_book_iinsurance_detals> createState() =>
+      _doctor_book_iinsurance_detalsState();
 }
 
-class _Insurance_Opd_Ticket_DetailsState
-    extends State<Insurance_Opd_Ticket_Details> {
+class _doctor_book_iinsurance_detalsState
+    extends State<doctor_book_iinsurance_detals> {
   bool isLoading = true; // Add a loading indicator variable
 
   late num opdticketcharge = 0;
@@ -102,7 +104,7 @@ class _Insurance_Opd_Ticket_DetailsState
       backgroundColor: Colors.lightBlue[50],
       appBar: AppBar(
         backgroundColor: darkYellow,
-        title: const Text('OPT Ticket Details'),
+        title: const Text(' Booking Details'),
         centerTitle: true,
       ),
       body: isLoading
@@ -149,12 +151,6 @@ class _Insurance_Opd_Ticket_DetailsState
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Ticket Type',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Text(
                                     'Ticket Date',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -162,6 +158,11 @@ class _Insurance_Opd_Ticket_DetailsState
                                   ),
                                   Text(
                                     'Department',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    'Doctor Name',
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),
@@ -182,19 +183,19 @@ class _Insurance_Opd_Ticket_DetailsState
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    widget.selectedTicketType,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14),
-                                  ),
-                                  Text(
                                     widget.ticketDate,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 14),
                                   ),
                                   Text(
-                                    widget.selectedDepartment,
+                                    widget.Departmentname,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14),
+                                  ),
+                                  Text(
+                                    widget.doctorName,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 14),
@@ -304,9 +305,9 @@ class _Insurance_Opd_Ticket_DetailsState
                     ),
                     InkWell(
                       onTap: () {
-                        Get.to(() => OPD_Ticket_Booking_Successful_Insurance(
+                        Get.to(() => Doctor_Book_Successfull_Insurance(
                               ticketDate: widget.ticketDate,
-                              DepartmentId: widget.DepartmentId,
+                              DepartmentId: widget.department_id,
                               InsuranceorSSFid: widget.InsuranceorSSFid,
                               Phone: widget.Phone,
                               name: widget.name,
@@ -316,7 +317,7 @@ class _Insurance_Opd_Ticket_DetailsState
                               email: widget.email,
                               balance: widget.balance,
                               contractDate: widget.contractDate,
-                              selectedTicketTypeId: widget.selectedTicketTypeId,
+                              doctorId: widget.doctorId,
                             ));
                       },
                       child: Container(

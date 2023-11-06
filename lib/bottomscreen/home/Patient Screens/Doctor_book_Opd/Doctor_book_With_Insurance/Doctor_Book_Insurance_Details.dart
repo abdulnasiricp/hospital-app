@@ -181,19 +181,25 @@ class _Insurance_Opd_Ticket_DetailsState
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    widget.ticketDate.isEmpty?"N/A": widget.ticketDate,
+                                    widget.ticketDate.isEmpty
+                                        ? "N/A"
+                                        : widget.ticketDate,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 14),
                                   ),
                                   Text(
-                                    widget.selectedDepartment.isEmpty?"N/A":widget.selectedDepartment,
+                                    widget.selectedDepartment.isEmpty
+                                        ? "N/A"
+                                        : widget.selectedDepartment,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 14),
                                   ),
                                   Text(
-                                    widget.doctorName.isEmpty?"N/A":widget.doctorName,
+                                    widget.doctorName.isEmpty
+                                        ? "N/A"
+                                        : widget.doctorName,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 14),
@@ -305,7 +311,6 @@ class _Insurance_Opd_Ticket_DetailsState
                       onTap: () {
                         Get.offAll(() => Doctor_Book_Successfull_Insurance(
                               ticketDate: widget.ticketDate,
-                              department_id: widget.department_id,
                               InsuranceorSSFid: widget.InsuranceorSSFid,
                               Phone: widget.Phone,
                               doctorId: widget.doctorId,
@@ -316,6 +321,7 @@ class _Insurance_Opd_Ticket_DetailsState
                               email: widget.email,
                               balance: widget.balance,
                               contractDate: widget.contractDate,
+                              DepartmentId: widget.department_id,
                             ));
                       },
                       child: Container(

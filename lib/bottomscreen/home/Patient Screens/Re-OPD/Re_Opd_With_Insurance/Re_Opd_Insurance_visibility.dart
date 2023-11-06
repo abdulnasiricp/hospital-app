@@ -1,7 +1,7 @@
 // ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, sized_box_for_whitespace, avoid_print, prefer_const_constructors_in_immutables
 
 import 'package:TezHealthCare/bottombar/bottombar.dart';
-import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/Insurance_opd_form.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Doctor_book_Opd/Doctor_book_With_Insurance/Doctor_book_insurance_form.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Doctor_book_Opd/Doctor_book_With_Insurance/doctor_book_iinsurance_detals.dart';
 import 'package:flutter/material.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -67,13 +67,13 @@ class Organization {
   }
 }
 
-class Insurance_Validity extends StatefulWidget {
+class Re_Opd_Insurance_visibility extends StatefulWidget {
   final String doctorName;
   final String Departmentname;
   final String ticketDate;
   final String department_id;
   final String doctorId;
-  const Insurance_Validity({
+  const Re_Opd_Insurance_visibility({
     Key? key,
     required this.doctorName,
     required this.Departmentname,
@@ -82,10 +82,11 @@ class Insurance_Validity extends StatefulWidget {
     required this.doctorId,
   }) : super(key: key);
   @override
-  State<Insurance_Validity> createState() => _Insurance_ValidityState();
+  State<Re_Opd_Insurance_visibility> createState() =>
+      _Insurance_ValidityState();
 }
 
-class _Insurance_ValidityState extends State<Insurance_Validity> {
+class _Insurance_ValidityState extends State<Re_Opd_Insurance_visibility> {
   List<Organization> organizations = [];
   Future<void> fetchData() async {
     final response = await http.post(

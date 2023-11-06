@@ -36,4 +36,6 @@ class ApiLinks {
   static const String addopdticket = "$BASE_URL/addopdticket";
   static const String getNotificationlistcount =
       "$BASE_URL/getNotificationlistcount";
+  static const String OpdHistory =
+      "$BASE_URL/db_table";
 }

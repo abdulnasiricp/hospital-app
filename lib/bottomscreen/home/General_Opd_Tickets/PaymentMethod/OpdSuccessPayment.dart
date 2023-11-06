@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:TezHealthCare/bottombar/bottombar.dart';
+import 'package:TezHealthCare/screens/auth/Sigin_main_screen.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -31,10 +32,12 @@ class OpdPaymentSuccessfullScreen extends StatefulWidget {
   final String patientMobile;
   final String ticketDate;
   final String patientEmail;
-
+  final String selectedTicketType;
+  final String selectedTicketTypeId;
   const OpdPaymentSuccessfullScreen({
     Key? key,
     required this.paymentMethod,
+    required this.selectedTicketType,
     required this.opdchargeAmount,
     required this.totalAmountInRs,
     required this.patientName,
@@ -47,6 +50,7 @@ class OpdPaymentSuccessfullScreen extends StatefulWidget {
     required this.ticketDate,
     required this.patientEmail,
     required this.total_AmountPaisa,
+    required this.selectedTicketTypeId,
   }) : super(key: key);
 
   @override
@@ -74,20 +78,27 @@ class _OpdPaymentSuccessfullScreenState
     };
 
     final Map<String, String> body = {
-      "name": "${widget.patientName}".isEmpty?"N/A":"${widget.patientName}",
-      "gender": "${widget.patientGender}".isEmpty?"N/A":"${widget.patientGender}",
-      "dob": "${widget.patientDOB}".isEmpty?"N/A":"${widget.patientDOB}",
-      "email": "${widget.patientEmail}".isEmpty?"N/A":"${widget.patientEmail}",
-      "address": "${widget.patientAddress}".isEmpty?"N/A":"${widget.patientAddress}",
-      "mobileno": "${widget.patientMobile}".isEmpty?"N/A":"${widget.patientMobile}",
-      "department_id": "${widget.DepartmentId}".isEmpty?"N/A":"${widget.DepartmentId}",
-      "doctor_id": "1",
-      "date": "${widget.ticketDate}".isEmpty?"N/A":"${widget.ticketDate}",
-      "blood_group": "1",
-      "payment_mode": "${widget.paymentMethod}".isEmpty?"N/A":"${widget.paymentMethod}",
-      
-    
-
+      "name": "${widget.patientName}".isEmpty ? "N/A" : "${widget.patientName}",
+      "gender":
+          "${widget.patientGender}".isEmpty ? "N/A" : "${widget.patientGender}",
+      "dob": "${widget.patientDOB}".isEmpty ? "N/A" : "${widget.patientDOB}",
+      "email":
+          "${widget.patientEmail}".isEmpty ? "N/A" : "${widget.patientEmail}",
+      "address": "${widget.patientAddress}".isEmpty
+          ? "N/A"
+          : "${widget.patientAddress}",
+      "mobileno":
+          "${widget.patientMobile}".isEmpty ? "N/A" : "${widget.patientMobile}",
+      "department_id":
+          "${widget.DepartmentId}".isEmpty ? "N/A" : "${widget.DepartmentId}",
+      "doctor_id": "",
+      "date": "${widget.ticketDate}".isEmpty ? "N/A" : "${widget.ticketDate}",
+      "blood_group": widget.BloodgroupId,
+      "is_emergency": "${widget.selectedTicketTypeId}".isEmpty
+          ? "N/A"
+          : "${widget.selectedTicketTypeId}",
+      "payment_mode":
+          "${widget.paymentMethod}".isEmpty ? "N/A" : "${widget.paymentMethod}",
     };
 
     final response = await http.post(
@@ -96,30 +107,30 @@ class _OpdPaymentSuccessfullScreenState
       body: jsonEncode(body),
     );
 
-  if (response.statusCode == 200) {
-  final jsonResponse = json.decode(response.body);
-  if (jsonResponse != null) {
-    if (jsonResponse['status'] == '1') {
-      setState(() {
-        opdId = jsonResponse['opd_id'];
-        opdTicket = jsonResponse['opd_ticket'];
-        message = jsonResponse['message'];
-      });
-      print('========opdid $opdId');
-      print('========opdTicket $opdTicket');
-      print('========message $message');
+    if (response.statusCode == 200) {
+      final jsonResponse = json.decode(response.body);
+      if (jsonResponse != null) {
+        if (jsonResponse['status'] == '1') {
+          setState(() {
+            opdId = jsonResponse['opd_id'];
+            opdTicket = jsonResponse['opd_ticket'];
+            message = jsonResponse['message'];
+          });
+          print('========opdid $opdId');
+          print('========opdTicket $opdTicket');
+          print('========message $message');
+        } else {
+          // Handle the case where the 'status' is not '1'
+          print('Request was successful, but status is not 1.');
+        }
+      } else {
+        // Handle the case where the JSON response is null or invalid.
+        print('JSON response is null or invalid.');
+      }
     } else {
-      // Handle the case where the 'status' is not '1'
-      print('Request was successful, but status is not 1.');
+      // Handle the HTTP request error here
+      print('Request failed with status: ${response.statusCode}');
     }
-  } else {
-    // Handle the case where the JSON response is null or invalid.
-    print('JSON response is null or invalid.');
-  }
-} else {
-  // Handle the HTTP request error here
-  print('Request failed with status: ${response.statusCode}');
-}
   }
 
   String formattedDate =
@@ -162,7 +173,7 @@ class _OpdPaymentSuccessfullScreenState
 
   @override
   Widget build(BuildContext context) {
-    print(widget.BloodgroupId.isEmpty?"1":widget.BloodgroupId);
+    print(widget.BloodgroupId.isEmpty ? "1" : widget.BloodgroupId);
     print(widget.DepartmentId);
     print(widget.opdchargeAmount);
     print(widget.patientAddress);
@@ -174,19 +185,12 @@ class _OpdPaymentSuccessfullScreenState
     print(widget.paymentMethod);
     print(widget.ticketDate);
     print(widget.totalAmountInRs);
-
-
-
-
-    return 
-    WillPopScope(
+    return WillPopScope(
         onWillPop: () async {
-          // Navigate to the Home Screen when the back button is pressed
-          Get.to(() => const Bottomhome());
-          return false; // Prevent default back button behavior
+          Get.to(() => const MainSiginScreen());
+          return false;
         },
-        child:
-         Scaffold(
+        child: Scaffold(
           backgroundColor: Colors.blue[50],
           appBar: AppBar(
             automaticallyImplyLeading: false,
@@ -421,8 +425,7 @@ class _OpdPaymentSuccessfullScreenState
                     ),
                   ),
                 ),
-        )
-        );
+        ));
   }
 
   void _openDownloadedFile(String filePath) async {

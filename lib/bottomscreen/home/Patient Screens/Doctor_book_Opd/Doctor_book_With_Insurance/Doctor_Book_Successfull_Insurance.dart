@@ -2,8 +2,6 @@
 
 // ignore_for_file: unused_field, duplicate_ignore, file_names, camel_case_types, non_constant_identifier_names, unnecessary_string_interpolations, avoid_print, deprecated_member_use, avoid_unnecessary_containers, sized_box_for_whitespace
 
-
-
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -22,7 +20,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class Doctor_Book_Successfull_Insurance extends StatefulWidget {
   final String name;
-  final String department_id;
+  final String DepartmentId;
   final String InsuranceorSSFid;
   final String gender;
   final String pataddress;
@@ -36,7 +34,7 @@ class Doctor_Book_Successfull_Insurance extends StatefulWidget {
   const Doctor_Book_Successfull_Insurance({
     Key? key,
     required this.name,
-    required this.department_id,
+    required this.DepartmentId,
     required this.InsuranceorSSFid,
     required this.gender,
     required this.pataddress,
@@ -84,13 +82,12 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
           "${widget.pataddress}".isEmpty ? "N/A" : "${widget.pataddress}",
       "mobileno": "${widget.Phone}".isEmpty ? "N/A" : "${widget.Phone}",
       "department_id":
-          "${widget.department_id}".isEmpty ? "N/A" : "${widget.department_id}",
+          "${widget.DepartmentId}".isEmpty ? "N/A" : "${widget.DepartmentId}",
       "doctor_id": "${widget.doctorId}".isEmpty ? "N/A" : "${widget.doctorId}",
       "date": "${widget.ticketDate}".isEmpty ? "N/A" : "${widget.ticketDate}",
-      "blood_group": "1",
-      "payment_mode": "${widget.InsuranceorSSFid}".isEmpty
-          ? "N/A"
-          : "${widget.InsuranceorSSFid}",
+      "blood_group": "",
+      "payment_mode": "cheque",
+      "insurance_no": widget.InsuranceorSSFid,
     };
 
     final response = await http.post(
@@ -360,7 +357,7 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
             ),
             if (loading)
               Container(
-                color: Colors.black.withOpacity(0.5),
+                color: Colors.white,
                 child: Center(
                   child: Container(
                       height: 50,

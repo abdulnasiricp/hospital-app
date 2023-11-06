@@ -15,6 +15,7 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Certi
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Directbill/Direct_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/IPD.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Liveconsultation/Liveconsultation.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Opdhistory/Opd_History.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Pathology.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pharmacy/Pharmacy.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Physiotherapy/Physiotherapy.dart';
@@ -23,6 +24,7 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Surge
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Transaction_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/USG/usg.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Doctor_book_Opd/Doctor_book_With_Insurance/Insurance_Validity.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Re-OPD/Re_Opd_With_Insurance/Re_Opd_Insurance_visibility.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Select_date.dart';
 import 'package:TezHealthCare/screens/notification.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
@@ -1156,6 +1158,41 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     ),
                                     InkWell(
                                       onTap: () {
+                                        Get.to(() => Opd_History());
+                                      },
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        child: Card(
+                                          child: Column(
+                                            children: [
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Container(
+                                                width: 30,
+                                                height: 30,
+                                                child: SvgPicture.asset(
+                                                    'assets/opd.svg',
+                                                    width: 15,
+                                                    height: 15,
+                                                    color: darkYellow),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text("OPD History",
+                                                  style: const TextStyle(
+                                                    fontSize: 7,
+                                                    fontWeight: FontWeight.bold,
+                                                  ))
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
                                         showDialog(
                                           context: context,
                                           builder: (context) {
@@ -1168,13 +1205,14 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                   onPressed: () {
                                                     Navigator.pop(
                                                         context); // Close the dialog
-                                                    Get.offAll(() => const Insurance_Validity(
-                                                      doctorName: 'N/A',
-                                                      department_id: 'N/A',
-                                                      Departmentname: 'N/A',
-                                                      doctorId: 'N/A',
-                                                      ticketDate: 'N/A',
-                                                    ));
+                                                    Get.offAll(() =>
+                                                        const Re_Opd_Insurance_visibility(
+                                                          doctorName: 'N/A',
+                                                          department_id: 'N/A',
+                                                          Departmentname: 'N/A',
+                                                          doctorId: 'N/A',
+                                                          ticketDate: 'N/A',
+                                                        ));
                                                   },
                                                   child: const Text(
                                                       'Book Insurance'),
@@ -1273,11 +1311,11 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                 children: [
                                   Container(
                                     width: width,
-                                    height: height,
+                                    height: height/1.1,
                                     child: ListView.builder(
                                         physics:
                                             const NeverScrollableScrollPhysics(),
-                                        itemCount: DoneListData!.length,
+                                        itemCount: 5,
                                         itemBuilder: (context, index) {
                                           if (DoneListData == null ||
                                               DoneListData!.isEmpty) {
