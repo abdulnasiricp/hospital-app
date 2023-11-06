@@ -1,11 +1,13 @@
 // ignore_for_file: file_names, sized_box_for_whitespace
 
 import 'dart:convert';
+import 'dart:io';
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_Home_Bottom_bar.dart';
 import 'package:TezHealthCare/screens/auth/Forgot_Password.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:http/http.dart' as http;
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -14,11 +16,13 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 class PatientLogin extends StatefulWidget {
   const PatientLogin({Key? key}) : super(key: key);
   @override
   State<PatientLogin> createState() => _PatientLoginState();
 }
+
 class _PatientLoginState extends State<PatientLogin> {
   bool _rememberMeFlag = false;
   String id = '';
@@ -29,19 +33,37 @@ class _PatientLoginState extends State<PatientLogin> {
       _isPasswordVisible = !_isPasswordVisible;
     });
   }
+
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   var isloading = false;
 
+  Future<String> getDeviceId() async {
+    String deviceId = '';
+    final deviceInfo = DeviceInfoPlugin();
+    if (Platform.isAndroid) {
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      deviceId = androidInfo.id;
+    } else if (Platform.isIOS) {
+      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      deviceId = iosInfo.identifierForVendor!;
+    }
+    return deviceId;
+  }
+
   Future<void> _login() async {
     final String username = usernameController.text;
     final String password = _passwordController.text;
-
-    // Perform API call to authenticate the user
+    final String deviceId = await getDeviceId();
+    print('Device ID: ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++$deviceId');
     final response = await http.post(
       Uri.parse(ApiLinks.Loginapiforboth),
-      body: json.encode({'username': username, 'password': password}),
+      body: json.encode({
+        'username': username,
+        'password': password,
+        "deviceToken": deviceId,
+      }),
       headers: {
         'Soft-service': 'TezHealthCare',
         'Auth-key': 'zbuks_ram859553467',
@@ -121,12 +143,14 @@ class _PatientLoginState extends State<PatientLogin> {
       });
     }
   }
+
   _loadLoginDateTime() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       loginDateTime = prefs.getString('loginDateTime') ?? '';
     });
   }
+
   _saveLoginDateTime() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String now = DateTime.now().toString();
