@@ -1,5 +1,9 @@
 // Add your necessary imports here
 
+// ignore_for_file: unused_field, duplicate_ignore, file_names, camel_case_types, non_constant_identifier_names, unnecessary_string_interpolations, avoid_print, deprecated_member_use, avoid_unnecessary_containers, sized_box_for_whitespace
+
+
+
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -362,7 +366,7 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
                       height: 50,
                       width: 50,
                       color: Colors.transparent,
-                      child: LoadingIndicatorWidget()),
+                      child: const LoadingIndicatorWidget()),
                 ),
               ),
           ],

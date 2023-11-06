@@ -81,7 +81,6 @@ class _Insurance_opd_TicketState extends State<Insurance_opd_Ticket> {
       headers: {
         'Soft-service': 'TezHealthCare',
         'Auth-key': 'zbuks_ram859553467',
-        'Content-Type': 'application/json',
       },
       body: jsonEncode({
         "table": "organisation",

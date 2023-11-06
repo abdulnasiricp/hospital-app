@@ -22,7 +22,7 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Radio
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Surgery/SurgeryPrescriptionList.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Transaction_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/USG/usg.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Re-OPD/Generalreopd.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Doctor_book_Opd/Doctor_book_With_Insurance/Insurance_Validity.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Select_date.dart';
 import 'package:TezHealthCare/screens/notification.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
@@ -32,7 +32,6 @@ import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -1167,13 +1166,13 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                   onPressed: () {
                                                     Navigator.pop(
                                                         context); // Close the dialog
-                                                    // Get.offAll(() => Insurance_Validity(
-                                                    //   // doctorName: widget.doctorName,
-                                                    //   // department_id: widget.department_id,
-                                                    //   // Departmentname: widget.doctorSpecialization,
-                                                    //   // doctorId: widget.doctorId,
-                                                    //   // ticketDate: '$formattedDate',
-                                                    // ));
+                                                    Get.offAll(() => const Insurance_Validity(
+                                                      doctorName: 'N/A',
+                                                      department_id: 'N/A',
+                                                      Departmentname: 'N/A',
+                                                      doctorId: 'N/A',
+                                                      ticketDate: 'N/A',
+                                                    ));
                                                   },
                                                   child: const Text(
                                                       'Book Insurance'),
@@ -1228,8 +1227,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               const SizedBox(
                                                 height: 10,
                                               ),
-                                              Text("Re-OPD",
-                                                  style: const TextStyle(
+                                              const Text("Re-OPD",
+                                                  style: TextStyle(
                                                     fontSize: 7,
                                                     fontWeight: FontWeight.bold,
                                                   ))

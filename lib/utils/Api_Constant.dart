@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, constant_identifier_names
+
 class ApiLinks {
   static const String BASE_URL = "https://uat.tez.hospital/xzy/webservice";
   static const String Loginapiforboth =

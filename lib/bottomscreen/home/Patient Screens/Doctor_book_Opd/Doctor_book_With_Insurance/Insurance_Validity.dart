@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, sized_box_for_whitespace, avoid_print, prefer_const_constructors_in_immutables
 
 import 'package:TezHealthCare/bottombar/bottombar.dart';
+import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/Insurance_opd_form.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Doctor_book_Opd/Doctor_book_With_Insurance/Doctor_Book_Insurance_Details.dart';
 import 'package:flutter/material.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -92,7 +93,6 @@ class _Insurance_ValidityState extends State<Insurance_Validity> {
       headers: {
         'Soft-service': 'TezHealthCare',
         'Auth-key': 'zbuks_ram859553467',
-        'Content-Type': 'application/json',
       },
       body: jsonEncode({
         "table": "organisation",
@@ -126,7 +126,7 @@ class _Insurance_ValidityState extends State<Insurance_Validity> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Get.offAll(() => Bottomhome());
+        Get.offAll(() => const Bottomhome());
         return false;
       },
       child: Scaffold(
@@ -336,7 +336,7 @@ class _Insurance_ValidityState extends State<Insurance_Validity> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                Doctor_book_insurance_details(
+                                            Insurance_opd_form(
                                               dob: insuranceDetails['dob'] ??
                                                   "N/A",
                                               gender:
@@ -362,26 +362,9 @@ class _Insurance_ValidityState extends State<Insurance_Validity> {
                                               InsuranceorSSFid:
                                                   InsurancenumberController
                                                       .text,
-                                              ticketDate:
-                                                  widget.ticketDate.isEmpty
-                                                      ? "N/A"
-                                                      : widget.ticketDate,
-                                              selectedDepartment:
-                                                  widget.Departmentname.isEmpty
-                                                      ? "N/A"
-                                                      : widget.Departmentname,
-                                              department_id:
-                                                  widget.department_id.isEmpty
-                                                      ? "N/A"
-                                                      : widget.department_id,
-                                              doctorId: widget.doctorId.isEmpty
-                                                  ? "N/A"
-                                                  : widget.doctorId,
-                                              doctorName:
-                                                  widget.doctorName.isEmpty
-                                                      ? "N/A"
-                                                      : widget.doctorName,
+                                            
                                             ),
+                                               
                                           ),
                                         );
                                       }
