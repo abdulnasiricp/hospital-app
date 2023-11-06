@@ -85,6 +85,7 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
       "date": widget.ticketDate,
       "blood_group": "",
       "payment_mode": "cheque",
+      "insurance_no": widget.InsuranceorSSFid,
       "is_emergency": widget.selectedTicketTypeId,
     };
 

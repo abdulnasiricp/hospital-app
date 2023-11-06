@@ -315,7 +315,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                                     ));
                                               },
                                               child:
-                                                  const Text('Book Insurance'),
+                                                  const Text('Insurance or SSF'),
                                             ),
                                             TextButton(
                                               onPressed: () {
@@ -369,7 +369,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                                       // Pass the choice here
                                                     ));
                                               },
-                                              child: const Text('Book General'),
+                                              child: const Text('General'),
                                             ),
                                           ],
                                         );
