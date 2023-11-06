@@ -98,6 +98,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
     hitApi();
   }
 
+
+
 ///////////////////////////////////////////////////////////////////
   //get Shared preferance data
 

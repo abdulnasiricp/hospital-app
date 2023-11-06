@@ -75,6 +75,9 @@ dependencies:
   uuid: ^3.0.7
   badges: ^3.1.2
   nepali_utils: ^3.0.3
+  onesignal_flutter: ^5.0.0
+
+
 
 
 
