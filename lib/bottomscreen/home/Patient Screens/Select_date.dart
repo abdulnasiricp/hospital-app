@@ -361,6 +361,9 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                                       department_id:
                                                           widget.department_id,
                                                       doctorId: widget.doctorId,
+                                                      // blood_group: profileData
+                                                      //         ?.blood_group ??
+                                                      //     'N/A',
                                                       ticketDate:
                                                           '$formattedDate',
                                                       // Pass the choice here

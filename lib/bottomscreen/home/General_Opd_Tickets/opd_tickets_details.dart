@@ -24,11 +24,14 @@ class OPDTicketDetails extends StatefulWidget {
   final String bloodGroup;
   final String patientEmail;
   final String selectedDepartment;
-  final String doctorName;
+
+  final String selectedTicketType;
+  final String selectedTicketTypeId;
 
   const OPDTicketDetails({
     Key? key,
     required this.patientName,
+    required this.selectedTicketType,
     required this.DepartmentId,
     required this.patientGender,
     required this.patientAddress,
@@ -41,7 +44,7 @@ class OPDTicketDetails extends StatefulWidget {
     required this.BloodgroupId,
     required this.Bloodgroupname,
     required this.selectedDepartment,
-    required this.doctorName,
+    required this.selectedTicketTypeId,
   }) : super(key: key);
 
   @override
@@ -148,17 +151,17 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
+                                    'Ticket Type',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
                                     'Ticket Date',
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   Text(
                                     'Department',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    'Doctor Name',
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),
@@ -174,6 +177,14 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
+                                    widget.selectedTicketType.isEmpty
+                                        ? "N/A"
+                                        : widget.selectedTicketType,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                                  ),
+                                  Text(
                                     widget.ticketDate.isEmpty
                                         ? "N/A"
                                         : widget.ticketDate,
@@ -185,14 +196,6 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
                                     widget.selectedDepartment.isEmpty
                                         ? "N/A"
                                         : widget.selectedDepartment,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15),
-                                  ),
-                                  Text(
-                                    widget.doctorName.isEmpty
-                                        ? "N/A"
-                                        : widget.doctorName,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 15),
@@ -370,6 +373,8 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
                                       ? "N/A"
                                       : widget.selectedDepartment,
                               ticketDate: widget.ticketDate,
+                          selectedTicketType: widget.selectedTicketType,
+                          selectedTicketTypeId: widget.selectedTicketTypeId,
                             ));
                       },
                       child: Container(

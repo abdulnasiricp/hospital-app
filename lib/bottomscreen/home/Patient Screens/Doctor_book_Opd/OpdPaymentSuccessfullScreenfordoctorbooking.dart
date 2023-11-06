@@ -1,7 +1,8 @@
-// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, non_constant_identifier_names, avoid_print, unnecessary_string_interpolations, unused_field, deprecated_member_use, file_names, camel_case_types
+// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, non_constant_identifier_names, avoid_print, unnecessary_string_interpolations, unused_field, deprecated_member_use, file_names
 
 import 'dart:convert';
 
+import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/screens/auth/Sigin_main_screen.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -10,56 +11,58 @@ import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
+import 'package:get/route_manager.dart';
 import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 
-class OPD_Ticket_Booking_Successful_Insurance extends StatefulWidget {
-  final String name;
+class OpdPaymentSuccessfullScreenfordoctorbooking extends StatefulWidget {
+  final String paymentMethod;
+  final int opdchargeAmount;
+  final int totalAmountInRs;
+  final int total_AmountPaisa;
+  final String patientName;
   final String DepartmentId;
-  final String InsuranceorSSFid;
-  final String gender;
-  final String pataddress;
-  final String dob;
-  final String Phone;
+  final String BloodgroupId;
+  final String patientGender;
+  final String patientAddress;
+  final String patientDOB;
+  final String patientMobile;
   final String ticketDate;
-  final String email;
-  final String balance;
-  final String contractDate;
-  final String selectedTicketTypeId;
+  final String patientEmail;
+  final String doctorId;
 
-  const OPD_Ticket_Booking_Successful_Insurance({
+  const OpdPaymentSuccessfullScreenfordoctorbooking({
     Key? key,
-    required this.name,
+    required this.paymentMethod,
+    required this.doctorId,
+    required this.opdchargeAmount,
+    required this.totalAmountInRs,
+    required this.patientName,
     required this.DepartmentId,
-    required this.selectedTicketTypeId,
-    required this.InsuranceorSSFid,
-    required this.gender,
-    required this.pataddress,
-    required this.dob,
-    required this.Phone,
+    required this.BloodgroupId,
+    required this.patientGender,
+    required this.patientAddress,
+    required this.patientDOB,
+    required this.patientMobile,
     required this.ticketDate,
-    required this.email,
-    required this.balance,
-    required this.contractDate,
+    required this.patientEmail,
+    required this.total_AmountPaisa,
   }) : super(key: key);
 
   @override
-  State<OPD_Ticket_Booking_Successful_Insurance> createState() =>
-      _OPD_Ticket_Booking_Successful_InsuranceState();
+  State<OpdPaymentSuccessfullScreenfordoctorbooking> createState() =>
+      _OpdPaymentSuccessfullScreenfordoctorbookingState();
 }
 
-class _OPD_Ticket_Booking_Successful_InsuranceState
-    extends State<OPD_Ticket_Booking_Successful_Insurance> {
-  Future? _future;
-
+class _OpdPaymentSuccessfullScreenfordoctorbookingState
+    extends State<OpdPaymentSuccessfullScreenfordoctorbooking> {
   @override
   void initState() {
+    makePostRequest();
     super.initState();
-    _future = makePostRequest();
   }
 
   String? opdTicket;
@@ -74,18 +77,25 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
     };
 
     final Map<String, String> body = {
-      "name": widget.name,
-      "gender": widget.gender,
-      "dob": widget.dob,
-      "email": widget.email,
-      "address": widget.pataddress,
-      "mobileno": widget.Phone,
-      "department_id": widget.DepartmentId,
-      "doctor_id": "",
-      "date": widget.ticketDate,
+      "name": "${widget.patientName}".isEmpty ? "N/A" : "${widget.patientName}",
+      "gender":
+          "${widget.patientGender}".isEmpty ? "N/A" : "${widget.patientGender}",
+      "dob": "${widget.patientDOB}".isEmpty ? "N/A" : "${widget.patientDOB}",
+      "email":
+          "${widget.patientEmail}".isEmpty ? "N/A" : "${widget.patientEmail}",
+      "address": "${widget.patientAddress}".isEmpty
+          ? "N/A"
+          : "${widget.patientAddress}",
+      "mobileno":
+          "${widget.patientMobile}".isEmpty ? "N/A" : "${widget.patientMobile}",
+      "department_id":
+          "${widget.DepartmentId}".isEmpty ? "N/A" : "${widget.DepartmentId}",
+      "doctor_id": widget.doctorId,
+      "date": "${widget.ticketDate}".isEmpty ? "N/A" : "${widget.ticketDate}",
       "blood_group": "",
-      "payment_mode": "cheque",
-      "is_emergency": widget.selectedTicketTypeId,
+      "is_emergency": "",
+      "payment_mode":
+          "${widget.paymentMethod}".isEmpty ? "N/A" : "${widget.paymentMethod}",
     };
 
     final response = await http.post(
@@ -96,19 +106,23 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
 
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
-      print('==========jsonResponse:$jsonResponse ');
-      if (jsonResponse['status'] == '1') {
-        setState(() {
-          opdId = jsonResponse['opd_id'];
-          opdTicket = jsonResponse['opd_ticket'];
-          message = jsonResponse['message'];
-        });
-        print('========opdid $opdId');
-        print('========opdTicket $opdTicket');
-        print('========message $message');
+      if (jsonResponse != null) {
+        if (jsonResponse['status'] == '1') {
+          setState(() {
+            opdId = jsonResponse['opd_id'];
+            opdTicket = jsonResponse['opd_ticket'];
+            message = jsonResponse['message'];
+          });
+          print('========opdid $opdId');
+          print('========opdTicket $opdTicket');
+          print('========message $message');
+        } else {
+          // Handle the case where the 'status' is not '1'
+          print('Request was successful, but status is not 1.');
+        }
       } else {
-        // Handle the case where the 'status' is not '1'
-        print('Request was successful, but status is not 1.');
+        // Handle the case where the JSON response is null or invalid.
+        print('JSON response is null or invalid.');
       }
     } else {
       // Handle the HTTP request error here
@@ -120,7 +134,7 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
       DateFormat('dd-MM-yyyy, hh:mm a').format(DateTime.now());
 
   double? _progress;
-  String? _downloadedFilePath;
+  String? _downloadedFilePath; // Store the downloaded file path
 
   void showDownloadedFilePath(String path) {
     showDialog(
@@ -134,13 +148,16 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
               onPressed: () async {
                 Navigator.of(context).pop();
                 if (_downloadedFilePath != null) {
+                  // Open the downloaded PDF file using open_file package
                   final result = await OpenFile.open(_downloadedFilePath!);
                   if (result.type == ResultType.done) {
                     print('File opened with success');
                   } else {
                     print('Error opening file: ${result.message}');
                   }
-                  await launch(opdTicket ?? "");
+                  // Launch a URL using url_launcher package
+                  await launch(
+                      opdTicket ?? ""); // Replace with your desired URL
                 }
               },
               child: const Text('Open'),
@@ -153,23 +170,24 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
 
   @override
   Widget build(BuildContext context) {
+    print(widget.BloodgroupId.isEmpty ? "1" : widget.BloodgroupId);
     print(widget.DepartmentId);
-    print(widget.InsuranceorSSFid);
-    print(widget.Phone);
-    print(widget.balance);
-    print(widget.contractDate);
-    print(widget.dob);
-    print(widget.email);
-    print(widget.gender);
-    print(widget.name);
-    print(widget.pataddress);
+    print(widget.opdchargeAmount);
+    print(widget.patientAddress);
+    print(widget.patientDOB);
+    print(widget.patientEmail);
+    print(widget.patientGender);
+    print(widget.patientMobile);
+    print(widget.patientName);
+    print(widget.paymentMethod);
     print(widget.ticketDate);
+    print(widget.totalAmountInRs);
     return WillPopScope(
-      onWillPop: () async {
-        Get.offAll(() => const MainSiginScreen());
-        return false;
-      },
-      child: Scaffold(
+        onWillPop: () async {
+          Get.to(() => const MainSiginScreen());
+          return false;
+        },
+        child: Scaffold(
           backgroundColor: Colors.blue[50],
           appBar: AppBar(
             automaticallyImplyLeading: false,
@@ -177,24 +195,21 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
             centerTitle: true,
             backgroundColor: darkYellow,
           ),
-          body:
-              // _progress != null
-              //     ?
-              FutureBuilder(
-            future: _future,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: Container(
-                    height: 100,
-                    width: 50,
-                    child: const LoadingIndicatorWidget(),
-                  ),
-                );
-              } else if (snapshot.hasError) {
-                return Center(child: Text('Error: ${snapshot.error}'));
-              } else {
-                return SingleChildScrollView(
+          body: _progress != null
+              ? Center(
+                  child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Center(
+                        child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Container(
+                                height: 50,
+                                width: 50,
+                                color: Colors.transparent,
+                                child: const LoadingIndicatorWidget())),
+                      )),
+                )
+              : SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.all(5.0),
                     child: Card(
@@ -224,12 +239,11 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
                                       height: 5,
                                     ),
                                     Container(
-                                      width: width / 3,
-                                      height: height / 6,
-                                      child: SvgPicture.asset(
-                                        'assets/done.svg',
-                                      ),
-                                    ),
+                                        width: width / 3,
+                                        height: height / 6,
+                                        child: SvgPicture.asset(
+                                          'assets/done.svg',
+                                        )),
                                     const SizedBox(
                                       height: 25,
                                     ),
@@ -286,31 +300,65 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
                                       height: 5,
                                     ),
                                     const DottedLineDivider(),
-                                    const PaymentItem(
+                                    PaymentItem(
                                       title: ' OPD Ticket Charge',
-                                      amount: "FREE",
+                                      amount: widget.opdchargeAmount,
                                     ),
                                     const SizedBox(
                                       height: 25,
                                     ),
                                     const DottedLineDivider(),
-                                    const PaymentItem(
+                                    PaymentItem(
                                       title: 'Total  Ticket Charge',
-                                      amount: "FREE",
+                                      amount: widget.opdchargeAmount,
                                       isTotal: true,
                                     ),
                                   ],
                                 ),
                               ),
-                              const Row(
+                              Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Padding(
+                                  const Padding(
                                     padding: EdgeInsets.only(right: 8.0),
-                                    child: Text(
-                                        "Payment Mode : Payment By Insurance Claimed",
+                                    child: Text("Payment Mode :",
                                         style: TextStyle(fontSize: 12)),
                                   ),
+                                  Container(
+                                    child: Column(
+                                      children: [
+                                        if (widget.paymentMethod == 'Khalti')
+                                          Container(
+                                            height: 30,
+                                            width: 60,
+                                            child: Image.asset(
+                                                'assets/khalti.png'),
+                                          ) // Replace 'assets/khalti_image.png' with the actual path to your Khalti image.
+                                        else if (widget.paymentMethod ==
+                                            'eSewa')
+                                          Container(
+                                            height: 30,
+                                            width: 60,
+                                            child:
+                                                Image.asset('assets/esewa.png'),
+                                          ) // Replace 'assets/esewa_image.png' with the actual path to your eSewa image.
+                                        else if (widget.paymentMethod == 'IPS')
+                                          Container(
+                                            height: 30,
+                                            width: 60,
+                                            child:
+                                                Image.asset('assets/ips.png'),
+                                          ) // Replace 'assets/ips_image.png' with the actual path to your IPS image.
+                                        else if (widget.paymentMethod == 'IME')
+                                          Container(
+                                            height: 30,
+                                            width: 60,
+                                            child:
+                                                Image.asset('assets/ime.png'),
+                                          ) // Replace 'assets/ime_image.png' with the actual path to your IME image.
+                                      ],
+                                    ),
+                                  )
                                 ],
                               ),
                               const SizedBox(
@@ -325,49 +373,47 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Center(
-                                  child: Container(
-                                    width: width,
-                                    height: height / 15,
-                                    child: ElevatedButton(
-                                      child: const Text("Download Ticket"),
-                                      onPressed: () async {
-                                        final status =
-                                            await Permission.storage.request();
-                                        if (status.isGranted) {
-                                          FileDownloader.downloadFile(
-                                            name:
-                                                'Tez_Health_Care-${widget.ticketDate}.pdf',
-                                            url: opdTicket ?? "",
-                                            onProgress: (name, progress) {
-                                              setState(() {
-                                                _progress = progress;
-                                              });
-                                            },
-                                            onDownloadCompleted: (path) {
-                                              print('Downloaded path: $path');
-                                              setState(() {
-                                                _progress = null;
-                                                _downloadedFilePath =
-                                                    path; // Store the downloaded file path
-                                              });
+                                    child: Container(
+                                  width: width,
+                                  height: height / 15,
+                                  child: ElevatedButton(
+                                    child: const Text("Download Ticket"),
+                                    onPressed: () async {
+                                      final status =
+                                          await Permission.storage.request();
+                                      if (status.isGranted) {
+                                        FileDownloader.downloadFile(
+                                          name:
+                                              'Tez_Health_Care-${widget.ticketDate}.pdf',
+                                          url: opdTicket ?? "",
+                                          onProgress: (name, progress) {
+                                            setState(() {
+                                              _progress = progress;
+                                            });
+                                          },
+                                          onDownloadCompleted: (path) {
+                                            print('Downloaded path: $path');
+                                            setState(() {
+                                              _progress = null;
+                                              _downloadedFilePath =
+                                                  path; // Store the downloaded file path
+                                            });
 
-                                              // Automatically open the downloaded file
-                                              _openDownloadedFile(path);
-                                            },
-                                          );
-                                        } else {
-                                          print(
-                                              'opdTicket is empty or invalid.');
-                                          // Handle permission denial here
-                                        }
-                                      },
-                                      style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all(yellow),
-                                      ),
+                                            // Automatically open the downloaded file
+                                            _openDownloadedFile(path);
+                                          },
+                                        );
+                                      } else {
+                                        print('Permission denied');
+                                        // Handle permission denial here
+                                      }
+                                    },
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(yellow),
                                     ),
                                   ),
-                                ),
+                                )),
                               ),
                             ),
                           ),
@@ -375,11 +421,8 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
                       ),
                     ),
                   ),
-                );
-              }
-            },
-          )),
-    );
+                ),
+        ));
   }
 
   void _openDownloadedFile(String filePath) async {
@@ -398,11 +441,9 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
   }
 }
 
-// ... Rest of your code ...
-
 class PaymentItem extends StatelessWidget {
   final String title;
-  final String amount;
+  final int amount;
   final bool isTotal;
 
   const PaymentItem({

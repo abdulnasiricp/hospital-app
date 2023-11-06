@@ -3,6 +3,7 @@
 import 'package:TezHealthCare/Payment_gateway/cancel_payment.dart';
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/General_Opd_Tickets_Form.dart';
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/PaymentMethod/OpdSuccessPayment.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Doctor_book_Opd/OpdPaymentSuccessfullScreenfordoctorbooking.dart';
 import 'package:esewa_flutter/esewa_flutter.dart';
 
 import 'package:TezHealthCare/stringfile/All_string.dart';
@@ -13,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 
-class CheckSelectPaymentMethod extends StatefulWidget {
+class SelectPaymentmethodfordoctorbooking extends StatefulWidget {
   final int totalAmountInRs;
   final int total_AmountPaisa;
   final String patientName;
@@ -29,19 +30,18 @@ class CheckSelectPaymentMethod extends StatefulWidget {
   final String bloodGroup;
   final String patientEmail;
   final String selectedDepartment;
-  final String selectedTicketType;
-  final String selectedTicketTypeId;
+  final String doctorId;
 
-  const CheckSelectPaymentMethod({
+
+  const SelectPaymentmethodfordoctorbooking({
     Key? key,
     required this.totalAmountInRs,
-    required this.selectedTicketType,
+    required this.doctorId,
     required this.patientName,
     required this.DepartmentId,
     required this.BloodgroupId,
     required this.Bloodgroupname,
     required this.patientGender,
-    required this.selectedTicketTypeId,
     required this.patientAddress,
     required this.patientDOB,
     required this.patientMobile,
@@ -54,10 +54,12 @@ class CheckSelectPaymentMethod extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _SelectPaymentMethodState createState() => _SelectPaymentMethodState();
+  _SelectPaymentmethodfordoctorbookingState createState() =>
+      _SelectPaymentmethodfordoctorbookingState();
 }
 
-class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
+class _SelectPaymentmethodfordoctorbookingState
+    extends State<SelectPaymentmethodfordoctorbooking> {
   String refId = '';
   String hasError = '';
   void payWithKhaltiInApp() {
@@ -165,7 +167,7 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
   }
 
   void onSuccess(PaymentSuccessModel success) async {
-    Get.off(() => OpdPaymentSuccessfullScreen(
+    Get.off(() => OpdPaymentSuccessfullScreenfordoctorbooking(
           paymentMethod:
               selectedPaymentMethod.isEmpty ? "N/A" : selectedPaymentMethod,
           opdchargeAmount: widget.totalAmountInRs,
@@ -186,8 +188,7 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
           ticketDate: widget.ticketDate.isEmpty ? "N/A" : widget.ticketDate,
           totalAmountInRs: widget.totalAmountInRs,
           total_AmountPaisa: widget.total_AmountPaisa,
-      selectedTicketType: widget.selectedTicketType,
-      selectedTicketTypeId: widget.selectedTicketTypeId,
+          doctorId: widget.doctorId,
         ));
   }
 

@@ -22,9 +22,13 @@ class Insurance_Opd_Ticket_Details extends StatefulWidget {
   final String contractDate;
   final String pataddress;
   final String email;
+  final String selectedTicketType;
+  final String selectedTicketTypeId;
   const Insurance_Opd_Ticket_Details({
     Key? key,
     required this.DepartmentId,
+    required this.selectedTicketTypeId,
+    required this.selectedTicketType,
     required this.pataddress,
     required this.email,
     required this.contractDate,
@@ -131,7 +135,7 @@ class _Insurance_Opd_Ticket_DetailsState
                     ),
                     Container(
                       width: width,
-                      height: 100,
+                      height: 110,
                       child: Card(
                         color: Colors.white,
                         child: Row(
@@ -144,6 +148,12 @@ class _Insurance_Opd_Ticket_DetailsState
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
+                                  Text(
+                                    'Ticket Type',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                   Text(
                                     'Ticket Date',
                                     style: TextStyle(
@@ -171,6 +181,12 @@ class _Insurance_Opd_Ticket_DetailsState
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
+                                  Text(
+                                    widget.selectedTicketType,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14),
+                                  ),
                                   Text(
                                     widget.ticketDate,
                                     style: const TextStyle(
@@ -289,19 +305,19 @@ class _Insurance_Opd_Ticket_DetailsState
                     InkWell(
                       onTap: () {
                         Get.to(() => OPD_Ticket_Booking_Successful_Insurance(
-                          ticketDate: widget.ticketDate,
-                          DepartmentId: widget.DepartmentId,
-                          InsuranceorSSFid: widget.InsuranceorSSFid,
-                          Phone: widget.Phone,
-                          name: widget.name,
-                          dob: widget.dob,
-                          gender: widget.gender,
-                          pataddress: widget.pataddress,
-                          email: widget.email,
-                          balance: widget.balance,
-                          contractDate: widget.contractDate,
-                            )
-                        );
+                              ticketDate: widget.ticketDate,
+                              DepartmentId: widget.DepartmentId,
+                              InsuranceorSSFid: widget.InsuranceorSSFid,
+                              Phone: widget.Phone,
+                              name: widget.name,
+                              dob: widget.dob,
+                              gender: widget.gender,
+                              pataddress: widget.pataddress,
+                              email: widget.email,
+                              balance: widget.balance,
+                              contractDate: widget.contractDate,
+                              selectedTicketTypeId: widget.selectedTicketTypeId,
+                            ));
                       },
                       child: Container(
                         width: width / 1,

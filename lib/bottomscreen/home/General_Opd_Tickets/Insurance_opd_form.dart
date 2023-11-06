@@ -23,8 +23,8 @@ class Insurance_opd_form extends StatefulWidget {
   final String email;
   final String pataddress;
 
-  const Insurance_opd_form({Key? key, 
-  
+  const Insurance_opd_form({
+    Key? key,
     required this.dob,
     required this.email,
     required this.gender,
@@ -45,12 +45,13 @@ class _Insurance_opd_formState extends State<Insurance_opd_form> {
   TextEditingController searchController = TextEditingController();
   TextEditingController dateController = TextEditingController();
   TextEditingController departmentController = TextEditingController();
-
+  TextEditingController TickettypeController = TextEditingController();
   TextEditingController TicketdateController = TextEditingController();
   late DateTime selectedDate;
   String selectedDepartment = '';
   String selectedDepartmentId = '';
-
+  String selectedTicketType = '';
+  String selectedTicketTypeId = '';
 ////////////////////////////// for select departmet
 
   Map<String, dynamic>? DataMap;
@@ -129,20 +130,20 @@ class _Insurance_opd_formState extends State<Insurance_opd_form> {
           title: const Text('Insurance OPD Ticket'),
           centerTitle: true,
           backgroundColor: darkYellow,
-          actions: [
-            IconButton(
-              onPressed: () {
-                ///_opdTicketInfo(context);
-                //  Get.to(() => Ticket());
-              },
-              icon: SvgPicture.asset(
-                'assets/info1.svg',
-                width: 25,
-                height: 25,
-                color: Colors.white,
-              ),
-            )
-          ],
+          // actions: [
+          //   IconButton(
+          //     onPressed: () {
+          //       // /_opdTicketInfo(context);
+          //       //  Get.to(() => Ticket());
+          //     },
+          //     icon: SvgPicture.asset(
+          //       'assets/info1.svg',
+          //       width: 25,
+          //       height: 25,
+          //       color: Colors.white,
+          //     ),
+          //   )
+          // ],
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -152,6 +153,66 @@ class _Insurance_opd_formState extends State<Insurance_opd_form> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Container(
+                    width: width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        RichText(
+                          text: const TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "Ticket Type",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              TextSpan(
+                                text: '*',
+                                style: TextStyle(
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        InkWell(
+                            child: TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'This field is required';
+                            }
+                            return null;
+                          },
+                          readOnly:
+                              true, // Set this to true to disable the keyboard
+                          controller: TickettypeController,
+                          decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                              icon: const Icon(
+                                Icons.arrow_drop_down_sharp,
+                                size: 40,
+                              ),
+                              onPressed: () {
+                                _showTicketstypeSelection(context);
+                              },
+                            ),
+                            border: const OutlineInputBorder(),
+                            hintText: 'Select Ticket Type',
+                            fillColor: Colors.white,
+                            filled: true,
+                          ),
+                          onTap: () {
+                            _showTicketstypeSelection(context);
+                          },
+                        )),
+                      ],
+                    ),
+                  ),
                   Container(
                     width: width,
                     child: Column(
@@ -290,10 +351,13 @@ class _Insurance_opd_formState extends State<Insurance_opd_form> {
                                 name: widget.name,
                                 dob: widget.dob,
                                 gender: widget.gender,
-                            pataddress: widget.pataddress,
-                            email: widget.email,
+                                pataddress: widget.pataddress,
+                                email: widget.email,
                                 balance: widget.balance,
                                 contractDate: widget.contractDate,
+                               selectedTicketType: selectedTicketType,
+                               selectedTicketTypeId: selectedTicketTypeId,
+
                               ));
                         }
                       },
@@ -416,6 +480,98 @@ class _Insurance_opd_formState extends State<Insurance_opd_form> {
                                 },
                               ),
                             ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void _showTicketstypeSelection(BuildContext context) {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+      ),
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            // Create a list with "Emergency" and "General" only
+            List<Map<String, dynamic>> combinedData = [
+              {"id": 1, "name": "Emergency"},
+              {"id": 0, "name": "General"},
+            ];
+
+            return Container(
+              height: MediaQuery.of(context).size.height * 0.4,
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      const Expanded(
+                        child: Center(
+                          child: Text(
+                            'Select Your Blood Group',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.close),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  ),
+                  isLoading
+                      ? Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Center(
+                              child: Container(
+                                height: 50,
+                                width: 50,
+                                color: Colors.transparent,
+                                child: const LoadingIndicatorWidget(),
+                              ),
+                            ),
+                          ),
+                        )
+                      : Expanded(
+                          child: ListView.builder(
+                            itemCount: combinedData.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              int id = combinedData[index]["id"];
+                              String item = combinedData[index]["name"];
+                              return Card(
+                                color: Colors.white70.withOpacity(0.7),
+                                child: ListTile(
+                                  title: Text(
+                                    '$item',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  onTap: () {
+                                    selectedTicketTypeId =
+                                        id != null ? id.toString() : item;
+                                    selectedTicketType = item;
+                                    TickettypeController.text =
+                                        '$selectedTicketType';
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                        ),
                 ],
               ),
             );
