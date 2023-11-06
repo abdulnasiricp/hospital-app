@@ -321,8 +321,8 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                                   borderRadius:
                                                       BorderRadius.circular(4),
                                                 ),
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(
+                                                child: const Padding(
+                                                  padding: EdgeInsets.all(
                                                       10.0),
                                                   child: Text(
                                                     'Insurance or SSF',
@@ -392,9 +392,9 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                                         BorderRadius.circular(
                                                             4),
                                                   ),
-                                                  child: Padding(
+                                                  child: const Padding(
                                                     padding:
-                                                        const EdgeInsets.all(
+                                                        EdgeInsets.all(
                                                             10.0),
                                                     child: Text(
                                                       'General',

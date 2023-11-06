@@ -23,7 +23,6 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Radio
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Surgery/SurgeryPrescriptionList.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Transaction_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/USG/usg.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Doctor_book_Opd/Doctor_book_With_Insurance/Insurance_Validity.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Re-OPD/Re_Opd_With_Insurance/Re_Opd_Insurance_visibility.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Select_date.dart';
 import 'package:TezHealthCare/screens/notification.dart';
@@ -1158,7 +1157,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     ),
                                     InkWell(
                                       onTap: () {
-                                        Get.to(() => Opd_History());
+                                        Get.to(() => const Opd_History());
                                       },
                                       child: Container(
                                         width: 100,
@@ -1181,8 +1180,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               const SizedBox(
                                                 height: 10,
                                               ),
-                                              Text("OPD History",
-                                                  style: const TextStyle(
+                                              const Text("OPD History",
+                                                  style: TextStyle(
                                                     fontSize: 7,
                                                     fontWeight: FontWeight.bold,
                                                   ))

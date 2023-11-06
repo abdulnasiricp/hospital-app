@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:flutter/material.dart';
 // ignore_for_file: non_constant_identifier_names, avoid_print, sized_box_for_whitespace, file_names
@@ -8,7 +10,6 @@ import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:animation_search_bar/animation_search_bar.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
@@ -16,6 +17,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
 class Opd_History extends StatefulWidget {
+  const Opd_History({Key? key}) : super(key: key);
+
   @override
   State<Opd_History> createState() => _Opd_HistoryState();
 }
@@ -171,9 +174,9 @@ class _Opd_HistoryState extends State<Opd_History> {
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 15),
                     ),
-                    Text(
+                    const Text(
                       'Doctor Name',
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 15),
                     ),
                     Text(
@@ -330,7 +333,7 @@ class _Opd_HistoryState extends State<Opd_History> {
                                                   overflow: TextOverflow
                                                       .ellipsis, // Handling text overflow with ellipsis
                                                   maxLines: 1,
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       color: Colors.white),
                                                 ),
                                               ),
