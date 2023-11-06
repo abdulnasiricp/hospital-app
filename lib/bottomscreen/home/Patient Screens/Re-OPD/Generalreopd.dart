@@ -13,19 +13,15 @@ import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
-
 class Re_OPD extends StatefulWidget {
   const Re_OPD({Key? key}) : super(key: key);
-
   @override
   State<Re_OPD> createState() => _General_Opd_Tickets_FormState();
 }
-
 class _General_Opd_Tickets_FormState extends State<Re_OPD> {
   final double _progress = 0.0; // Declare _progress here
   InAppWebViewController? webView; // Declare webView here
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   TextEditingController searchController = TextEditingController();
   TextEditingController dateController = TextEditingController();
   TextEditingController firstNameController = TextEditingController();
@@ -38,7 +34,6 @@ class _General_Opd_Tickets_FormState extends State<Re_OPD> {
   TextEditingController Opdticketdate = TextEditingController();
   TextEditingController departmentController = TextEditingController();
   TextEditingController maritalstatusController = TextEditingController();
-
   TextEditingController TicketdateController = TextEditingController();
   TextEditingController DobController = TextEditingController();
   TextEditingController GenderController = TextEditingController();
@@ -54,16 +49,13 @@ class _General_Opd_Tickets_FormState extends State<Re_OPD> {
   String selectedTicketTypeId = '';
   String Maritalstatus = '';
   String selectedGender = ''; // Stores the selected gender.
-
   // Function to handle gender selection.
   void selectGender(String gender) {
     setState(() {
       selectedGender = gender;
     });
   }
-
 ////////////////////////////// for select departmet
-
   Map<String, dynamic>? DataMap;
   Map<String, dynamic>? maritalStatus;
   List<dynamic>? data = [];
