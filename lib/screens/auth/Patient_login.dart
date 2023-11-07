@@ -1,11 +1,13 @@
 // ignore_for_file: file_names, sized_box_for_whitespace
 
 import 'dart:convert';
+import 'dart:io';
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_Home_Bottom_bar.dart';
 import 'package:TezHealthCare/screens/auth/Forgot_Password.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:http/http.dart' as http;
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -17,11 +19,13 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
+
 class PatientLogin extends StatefulWidget {
   const PatientLogin({Key? key}) : super(key: key);
   @override
   State<PatientLogin> createState() => _PatientLoginState();
 }
+
 class _PatientLoginState extends State<PatientLogin> {
   bool _rememberMeFlag = false;
   String id = '';
@@ -32,6 +36,7 @@ class _PatientLoginState extends State<PatientLogin> {
       _isPasswordVisible = !_isPasswordVisible;
     });
   }
+
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
@@ -43,7 +48,6 @@ class _PatientLoginState extends State<PatientLogin> {
     OneSignal.initialize("01f97e4b-6814-42f6-942e-55112650f054");
     OneSignal.Notifications.requestPermission(true);
 
-
     WidgetsFlutterBinding.ensureInitialized();
     await Permission.notification.isDenied.then((value) {
       if (value) {
@@ -51,16 +55,38 @@ class _PatientLoginState extends State<PatientLogin> {
       }
     });
     await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-
   }
+
   Future<void> _login() async {
     final String username = usernameController.text;
     final String password = _passwordController.text;
 
     // Perform API call to authenticate the user
+
+    final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    String deviceID;
+
+    try {
+      if (Platform.isAndroid) {
+        AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+        deviceID = androidInfo.id;
+      } else if (Platform.isIOS) {
+        IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+        deviceID = iosInfo.identifierForVendor!;
+      } else {
+        deviceID = "Unknown";
+      }
+    } catch (e) {
+      deviceID = "Unknown";
+    }
+    print("Device id : +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++$deviceID");
     final response = await http.post(
       Uri.parse(ApiLinks.Loginapiforboth),
-      body: json.encode({'username': username, 'password': password}),
+      body: json.encode({
+        'username': username,
+        'password': password,
+        'deviceToken': deviceID,
+      }),
       headers: {
         'Soft-service': 'TezHealthCare',
         'Auth-key': 'zbuks_ram859553467',
@@ -69,8 +95,9 @@ class _PatientLoginState extends State<PatientLogin> {
     if (response.statusCode == 200) {
       initPlatformState();
       Map json = jsonDecode(response.body.toString());
-      var externalId = json['record']['app_key']; // You will supply the external id to the OneSignal SDK
-            OneSignal.login(externalId);
+      var externalId = json['record']
+          ['app_key']; // You will supply the external id to the OneSignal SDK
+      OneSignal.login(externalId);
       if (json['role'] is List && json['role'].contains('patient')) {
         final sp = await SharedPreferences.getInstance();
         sp.setString('username', username);
@@ -143,12 +170,14 @@ class _PatientLoginState extends State<PatientLogin> {
       });
     }
   }
+
   _loadLoginDateTime() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       loginDateTime = prefs.getString('loginDateTime') ?? '';
     });
   }
+
   _saveLoginDateTime() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String now = DateTime.now().toString();
