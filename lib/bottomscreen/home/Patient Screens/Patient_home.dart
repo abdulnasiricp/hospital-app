@@ -57,7 +57,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
   /////////////////////////////////////////
   //convert rupess to paisa
   late num rupeesAmount = totalDues;
-  late int rupeesAmountInt = rupeesAmount.toInt();
+  late double rupeesAmountInt = rupeesAmount.toDouble();
 
   num rupeesToPaisa(num rupees) {
     return rupees * 100.0;
@@ -99,8 +99,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
     hitApi();
   }
-
-
 
 ///////////////////////////////////////////////////////////////////
   //get Shared preferance data
@@ -346,7 +344,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
               sharedPreferences.getStringList('notifications') ?? [];
           // Store the notification message with the unique identifier
 
-     
           notifications.add("$uniqueId: $notificationMessage");
           sharedPreferences.setStringList('notifications', notifications);
 
@@ -365,7 +362,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
     }
   }
 //////////////////////////////////////////////////////////////////////////////////
-
 
   @override
   Widget build(BuildContext context) {
@@ -1168,7 +1164,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               const SizedBox(
                                                 height: 10,
                                               ),
-                                               Text("opdHistory".tr,
+                                              Text("opdHistory".tr,
                                                   style: const TextStyle(
                                                     fontSize: 7,
                                                     fontWeight: FontWeight.bold,
@@ -1185,8 +1181,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                           builder: (context) {
                                             return AlertDialog(
                                               title: Text('bookingType'.tr),
-                                              content:  Text(
-                                                  'askTicketType'.tr),
+                                              content: Text('askTicketType'.tr),
                                               actions: [
                                                 TextButton(
                                                   onPressed: () {
@@ -1201,8 +1196,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                           ticketDate: 'N/A',
                                                         ));
                                                   },
-                                                  child: Text(
-                                                      'bookInsurance'.tr),
+                                                  child:
+                                                      Text('bookInsurance'.tr),
                                                 ),
                                                 TextButton(
                                                   onPressed: () {
@@ -1220,13 +1215,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                         // patientMobile: profileData?.mobileNo ?? 'N/A',
                                                         // patientName: profileData?.patientName ?? 'N/A',
                                                         // Pass the choice here
-                                                    
-                                                    
-                                                    
+
                                                         ));
                                                   },
-                                                  child:  Text(
-                                                      'bookGeneral'.tr),
+                                                  child: Text('bookGeneral'.tr),
                                                 ),
                                               ],
                                             );
@@ -1254,7 +1246,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               const SizedBox(
                                                 height: 10,
                                               ),
-                                               Text("reopd".tr,
+                                              Text("reopd".tr,
                                                   style: const TextStyle(
                                                     fontSize: 7,
                                                     fontWeight: FontWeight.bold,
@@ -1298,7 +1290,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                 children: [
                                   Container(
                                     width: width,
-                                    height: height/1.1,
+                                    height: height / 1.1,
                                     child: ListView.builder(
                                         physics:
                                             const NeverScrollableScrollPhysics(),

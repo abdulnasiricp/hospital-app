@@ -79,7 +79,8 @@ class _PatientLoginState extends State<PatientLogin> {
     } catch (e) {
       deviceID = "Unknown";
     }
-    print("Device id : +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++$deviceID");
+    print(
+        "Device id : +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++$deviceID");
     final response = await http.post(
       Uri.parse(ApiLinks.Loginapiforboth),
       body: json.encode({

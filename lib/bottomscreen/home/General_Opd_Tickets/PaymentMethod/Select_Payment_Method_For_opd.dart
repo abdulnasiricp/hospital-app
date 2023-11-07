@@ -16,7 +16,7 @@ import 'package:get/get.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 
 class CheckSelectPaymentMethod extends StatefulWidget {
-  final int totalAmountInRs;
+  final double totalAmountInRs;
   final int total_AmountPaisa;
   final String patientName;
   final String DepartmentId;
