@@ -81,8 +81,7 @@ class _doctor_book_iinsurance_detalsState
       isLoading = true;
     });
 
-    final response = await http
-        .post(Uri.parse(ApiLinks.OPDTicketList));
+    final response = await http.post(Uri.parse(ApiLinks.OPDTicketList));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
@@ -104,7 +103,7 @@ class _doctor_book_iinsurance_detalsState
       backgroundColor: Colors.lightBlue[50],
       appBar: AppBar(
         backgroundColor: darkYellow,
-        title:  Text('Booking Details'.tr),
+        title: Text('Booking Details'.tr),
         centerTitle: true,
       ),
       body: isLoading
@@ -143,7 +142,7 @@ class _doctor_book_iinsurance_detalsState
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                             Padding(
+                            Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -158,18 +157,18 @@ class _doctor_book_iinsurance_detalsState
                                   ),
                                   Text(
                                     'Department'.tr,
-                                    style:
-                                        const TextStyle(fontWeight: FontWeight.bold),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
                                   ),
                                   Text(
                                     'Doctor Name'.tr,
-                                    style:
-                                        const TextStyle(fontWeight: FontWeight.bold),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
                                   ),
                                   Text(
                                     'Insurance Or SSf Id'.tr,
-                                    style:
-                                        const TextStyle(fontWeight: FontWeight.bold),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
@@ -307,7 +306,7 @@ class _doctor_book_iinsurance_detalsState
                       onTap: () {
                         Get.to(() => Doctor_Book_Successfull_Insurance(
                               ticketDate: widget.ticketDate,
-                              DepartmentId: widget.department_id,
+                              department_id: widget.department_id,
                               InsuranceorSSFid: widget.InsuranceorSSFid,
                               Phone: widget.Phone,
                               name: widget.name,
@@ -326,7 +325,7 @@ class _doctor_book_iinsurance_detalsState
                         decoration: BoxDecoration(
                             color: darkYellow,
                             borderRadius: BorderRadius.circular(10)),
-                        child:  Center(
+                        child: Center(
                             child: Text(
                           'Confirmation'.tr,
                           style: const TextStyle(

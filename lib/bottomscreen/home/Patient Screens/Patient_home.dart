@@ -58,10 +58,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
   String selectedInsurancetypeId = '';
   List<Organization> organizations = [];
 
- late StreamSubscription subscription;
+  late StreamSubscription subscription;
   bool isDeviceConnected = false;
   bool isAlertSet = false;
-
 
   getConnectivity() =>
       subscription = Connectivity().onConnectivityChanged.listen(
@@ -74,16 +73,16 @@ class _PatientHomePageState extends State<PatientHomePage> {
         },
       );
 
-
-      showDialogBox() => showCupertinoDialog<String>(
+  showDialogBox() => showCupertinoDialog<String>(
         context: context,
         builder: (BuildContext context) => CupertinoAlertDialog(
           title: Column(
             children: [
-              SvgPicture.asset( 'assets/nointernet.svg',
-                                                  width: 30,
-                                                  height: 30,
-                                                  ),
+              SvgPicture.asset(
+                'assets/nointernet.svg',
+                width: 30,
+                height: 30,
+              ),
               const Text('No Connection'),
             ],
           ),
@@ -111,16 +110,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
     subscription.cancel();
     super.dispose();
   }
-
-
-
-
-
-
-
-
-
-
 
   Future<void> fetchData() async {
     final response = await http.post(
@@ -168,7 +157,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
 // init state data and dispose
 
   getdata() async {
-   await getConnectivity();
+    await getConnectivity();
     await LoadData();
 
     await getDues();
@@ -1282,7 +1271,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                 child: Column(
                                                   children: <Widget>[
                                                     Container(
-                                                      decoration: const BoxDecoration(
+                                                      decoration:
+                                                          const BoxDecoration(
                                                         color: Colors.white,
                                                         borderRadius:
                                                             BorderRadius.only(
@@ -1301,8 +1291,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                         children: <Widget>[
                                                           const Padding(
                                                             padding:
-                                                                EdgeInsets
-                                                                    .all(20.0),
+                                                                EdgeInsets.all(
+                                                                    20.0),
                                                             child: Text(
                                                               'Select Criteria',
                                                               style: TextStyle(
@@ -1333,7 +1323,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                     Card(
                                                       child: ListTile(
                                                         contentPadding:
-                                                            const EdgeInsets.all(20),
+                                                            const EdgeInsets
+                                                                .all(20),
                                                         tileColor:
                                                             Colors.yellow,
                                                         title: const Text(
@@ -1424,8 +1415,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
                                                             return Card(
                                                               elevation: 4,
-                                                              margin: const EdgeInsets
-                                                                  .all(8),
+                                                              margin:
+                                                                  const EdgeInsets
+                                                                      .all(8),
                                                               shape:
                                                                   RoundedRectangleBorder(
                                                                 borderRadius:

@@ -20,8 +20,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 class Doctor_Book_Successfull_Insurance extends StatefulWidget {
   final String name;
-  final String DepartmentId;
-  final String InsuranceorSSFid;
+
+  final String InsuranceorSSFid; final String department_id;
   final String gender;
   final String pataddress;
   final String dob;
@@ -34,7 +34,7 @@ class Doctor_Book_Successfull_Insurance extends StatefulWidget {
   const Doctor_Book_Successfull_Insurance({
     Key? key,
     required this.name,
-    required this.DepartmentId,
+  required this.department_id,
     required this.InsuranceorSSFid,
     required this.gender,
     required this.pataddress,
@@ -83,7 +83,7 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
           "${widget.pataddress}".isEmpty ? "N/A" : "${widget.pataddress}",
       "mobileno": "${widget.Phone}".isEmpty ? "N/A" : "${widget.Phone}",
       "department_id":
-          "${widget.DepartmentId}".isEmpty ? "N/A" : "${widget.DepartmentId}",
+          "${widget.department_id}".isEmpty ? "N/A" : "${widget.department_id}",
       "doctor_id": "${widget.doctorId}".isEmpty ? "N/A" : "${widget.doctorId}",
       "date": "${widget.ticketDate}".isEmpty
           ? "$formattedDate"

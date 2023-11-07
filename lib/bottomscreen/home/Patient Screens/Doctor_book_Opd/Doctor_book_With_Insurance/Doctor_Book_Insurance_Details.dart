@@ -321,7 +321,7 @@ class _Insurance_Opd_Ticket_DetailsState
                               email: widget.email,
                               balance: widget.balance,
                               contractDate: widget.contractDate,
-                              DepartmentId: widget.department_id,
+                              department_id: widget.department_id,
                             ));
                       },
                       child: Container(
