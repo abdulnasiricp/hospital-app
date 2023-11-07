@@ -29,29 +29,20 @@ Future<void> main() async {
       sharedPreferences.getString('selectedLanguage') ?? 'en';
   String defaultLang = selectedLanguage == 'ne' ? 'ne_NP' : 'en_US';
   print('========================> $defaultLang');
-
-
-
-
-  
   runApp(MyApp(
     defaultLanguage: defaultLang,
   ));
 }
-
-
 class MyApp extends StatefulWidget {
   final String defaultLanguage;
   const MyApp({
     Key? key,
     required this.defaultLanguage,
   }) : super(key: key);
-
   @override
   State<MyApp> createState() => _MyAppState();
 }
 @override
-
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
@@ -63,7 +54,6 @@ class _MyAppState extends State<MyApp> {
     return sharedPreferences.containsKey('username') &&
         sharedPreferences.containsKey('password');
   }
-
 Future<void> initPlatformState() async {
     if (!mounted) return;
 
@@ -73,7 +63,6 @@ Future<void> initPlatformState() async {
 
     OneSignal.initialize("a2cbcc95-093d-4b87-8b9a-f116ba1105af");
 }
-
   @override
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
