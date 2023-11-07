@@ -57,7 +57,7 @@ class _Doctor_Book_DetailsState extends State<Doctor_Book_Details> {
   late num opdticketcharge = 0;
   //convert rupess to paisa
   late num OPdRupeesAmount = opdticketcharge;
-  late double rupeesAmountInt = OPdRupeesAmount.toDouble();
+  late int rupeesAmountInt = OPdRupeesAmount.toInt();
   num rupeesToPaisa(num rupees) {
     return rupees * 100.0;
   }

@@ -19,8 +19,8 @@ import 'package:http/http.dart' as http;
 
 class OpdPaymentSuccessfullScreen extends StatefulWidget {
   final String paymentMethod;
-  final double opdchargeAmount;
-  final double totalAmountInRs;
+  final int opdchargeAmount;
+  final int totalAmountInRs;
   final int total_AmountPaisa;
   final String patientName;
   final String DepartmentId;
@@ -445,7 +445,7 @@ class _OpdPaymentSuccessfullScreenState
 
 class PaymentItem extends StatelessWidget {
   final String title;
-  final double amount;
+  final int amount;
   final bool isTotal;
 
   const PaymentItem({
