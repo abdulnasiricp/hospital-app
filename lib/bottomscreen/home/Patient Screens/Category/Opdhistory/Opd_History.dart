@@ -171,7 +171,7 @@ class _Opd_HistoryState extends State<Opd_History> {
                           fontWeight: FontWeight.bold, fontSize: 15),
                     ),
                     Text(
-                      'department'.tr,
+                      'Department'.tr,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 15),
                     ),

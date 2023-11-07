@@ -343,6 +343,16 @@ class Translation extends Translations {
        'Diagnosis':'Diagnosis',
        'Medication':'Medication',
        'Bed History':'Bed History',
+
+        // live consult
+       'Doctor':'Doctor',
+       'Date':'Date',
+       'Duration':'Duration',
+       
+       // OPD History
+       'OPD History':'OPD History',
+       'OPD ID':'OPD ID',
+       'Type':'Type',
        
 
 
@@ -690,7 +700,17 @@ class Translation extends Translations {
        'Diagnosis':'निदान',
        'Medication':'औषधि',
        'Bed History':'ओछ्यान इतिहास',
-       
+
+       // live consult
+       'Doctor':'डाक्टर',
+       'Date':'मिति',
+       'Duration':'अवधि',
+        
+
+       // OPD History
+       'OPD History':'ओपीडी इतिहास',
+       'OPD ID':'ओपीडी आईडी',
+       'Type':'टाइप गर्नुहोस्',
 
 
 

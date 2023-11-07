@@ -9,7 +9,6 @@ import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:lottie/lottie.dart';
 
 class Organization {
   final String id;
@@ -203,13 +202,13 @@ class _Insurance_ValidityState extends State<Insurance_Validity> {
                             readOnly: true,
                             controller: TextEditingController(
                                 text: widget.selectedInsurancetypename),
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               filled: true,
                               fillColor: Colors.white,
                               errorStyle: TextStyle(color: Colors.red),
                             ),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 16,
                               color: Colors.black,
                             ),
