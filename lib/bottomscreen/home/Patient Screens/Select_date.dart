@@ -330,6 +330,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                                     .size
                                                     .height *
                                                 0.7,
+                                            width: width,
                                             child: Column(
                                               children: <Widget>[
                                                 Container(
@@ -390,7 +391,27 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                                       style: TextStyle(
                                                         color: Colors.black,
                                                         fontSize: 18,
+                                                        fontWeight: FontWeight
+                                                            .bold, // Apply a bold font weight
                                                       ),
+                                                    ),
+                                                    subtitle: const Text(
+                                                      "Tap to book an appointment", // Add a subtitle
+                                                      style: TextStyle(
+                                                        color: Colors.grey,
+                                                      ),
+                                                    ),
+                                                    leading: Icon(
+                                                      Icons
+                                                          .local_hospital, // Add an icon as a leading element
+                                                      color:
+                                                          darkYellow, // Set icon color
+                                                      size: 40, // Set icon size
+                                                    ),
+                                                    trailing: Icon(
+                                                      Icons
+                                                          .arrow_forward, // Add a forward arrow as a trailing element
+                                                      color: darkYellow,
                                                     ),
                                                     onTap: () {
                                                       Navigator.pop(context);
