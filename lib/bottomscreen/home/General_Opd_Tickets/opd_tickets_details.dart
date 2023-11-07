@@ -58,7 +58,7 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
 
   //convert rupess to paisa
   late num OPdRupeesAmount = opdticketcharge;
-  late double rupeesAmountInt = OPdRupeesAmount.toDouble();
+  late int rupeesAmountInt = OPdRupeesAmount.toInt();
 
   num rupeesToPaisa(num rupees) {
     return rupees * 100.0;
