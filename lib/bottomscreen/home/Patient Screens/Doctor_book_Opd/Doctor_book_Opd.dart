@@ -65,7 +65,6 @@ class _Doctor_Book_DetailsState extends State<Doctor_Book_Details> {
   late int OpdPaisaAmount = rupeesToPaisa(OPdRupeesAmount).round();
   getData() async {
     await fetchOpdTicketCharge();
-// await changeStringToInt();
   }
 
   @override

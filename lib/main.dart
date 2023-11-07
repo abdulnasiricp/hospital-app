@@ -73,6 +73,7 @@ Future<void> initPlatformState() async {
 
     OneSignal.initialize("a2cbcc95-093d-4b87-8b9a-f116ba1105af");
 }
+
   @override
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
