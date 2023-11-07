@@ -16,7 +16,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:lottie/lottie.dart';
 import 'package:nepali_utils/nepali_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -335,7 +334,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                             child: Column(
                                               children: <Widget>[
                                                 Container(
-                                                  decoration: BoxDecoration(
+                                                  decoration: const BoxDecoration(
                                                     color: Colors.white,
                                                     borderRadius:
                                                         BorderRadius.only(
@@ -350,9 +349,9 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                                         MainAxisAlignment
                                                             .spaceBetween,
                                                     children: <Widget>[
-                                                      Padding(
+                                                      const Padding(
                                                         padding:
-                                                            const EdgeInsets
+                                                            EdgeInsets
                                                                 .all(20.0),
                                                         child: Text(
                                                           'Select Criteria',
@@ -365,7 +364,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                                         ),
                                                       ),
                                                       IconButton(
-                                                        icon: Icon(
+                                                        icon: const Icon(
                                                           Icons.close,
                                                           color: Colors.black,
                                                         ),
@@ -378,12 +377,16 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                                   ),
                                                 ),
                                                 Card(
+                                                  color: Colors.grey,
+                                                  elevation: 4,
+                                                  margin: const EdgeInsets.all(8),
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                  ),
                                                   child: ListTile(
-                                                    contentPadding: EdgeInsets.all(
-                                                        20), // Add padding inside the ListTile
-                                                    tileColor: Colors
-                                                        .yellow, // Set a light background color
-                                                    title: Text(
+                                                    title: const Text(
                                                       "General Opd",
                                                       style: TextStyle(
                                                         color: Colors.black,
@@ -392,7 +395,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                                             .bold, // Apply a bold font weight
                                                       ),
                                                     ),
-                                                    subtitle: Text(
+                                                    subtitle: const Text(
                                                       "Tap to book an appointment", // Add a subtitle
                                                       style: TextStyle(
                                                         color: Colors.grey,
@@ -470,7 +473,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                                     },
                                                   ),
                                                 ),
-                                                SizedBox(height: 20),
+                                                const SizedBox(height: 20),
                                                 if (isLoading)
                                                   Center(
                                                     child: Padding(
@@ -486,7 +489,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                                                 const LoadingIndicatorWidget())),
                                                   )
                                                 else if (organizations.isEmpty)
-                                                  Text(
+                                                  const Text(
                                                     'No data found',
                                                     style: TextStyle(
                                                         fontSize: 16,
@@ -506,7 +509,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                                         return Card(
                                                           elevation: 4,
                                                           margin:
-                                                              EdgeInsets.all(8),
+                                                              const EdgeInsets.all(8),
                                                           shape:
                                                               RoundedRectangleBorder(
                                                             borderRadius:
@@ -518,7 +521,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                                             title: Text(
                                                               organization
                                                                   .organisationName,
-                                                              style: TextStyle(
+                                                              style: const TextStyle(
                                                                 color: Colors
                                                                     .black,
                                                                 fontSize: 18,

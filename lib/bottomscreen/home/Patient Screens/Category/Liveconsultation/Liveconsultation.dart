@@ -50,7 +50,7 @@ class _LiveconsultationState extends State<Liveconsultation> {
   }
 
   Future<void> fetchData() async {
-  final url = Uri.parse("https://uat.tez.hospital/xzy/webservice/getliveconsult");
+  final url = Uri.parse(ApiLinks.getliveconsult);
   final headers = {
     'Soft-service': 'TezHealthCare',
     'Auth-key': 'zbuks_ram859553467',
@@ -116,22 +116,22 @@ class _LiveconsultationState extends State<Liveconsultation> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                  
-                  const Text("Doctor",
+                   Text("Doctor".tr,
                     style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                        const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                   ),
                   Text(
                     'Date'.tr,
                     style:
                         const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                  ), const Text("Duration ",
+                  ),  Text("Duration".tr,
                     style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                        const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                   ),
-                  const Text(
-                    EnString.status,
+                   Text(
+                    'Status'.tr,
                     style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                        const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                   ),
                 ],
               ),

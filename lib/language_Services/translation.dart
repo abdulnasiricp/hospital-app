@@ -343,8 +343,36 @@ class Translation extends Translations {
        'Diagnosis':'Diagnosis',
        'Medication':'Medication',
        'Bed History':'Bed History',
+
+        // live consult
+       'Doctor':'Doctor',
+       'Date':'Date',
+       'Duration':'Duration',
+       
+       // OPD History
+       'OPD History':'OPD History',
+       'OPD ID':'OPD ID',
+       'Type':'Type',
        
 
+       //help center
+       'Contact us for assistance via phone or email. \n Were here to help.':'Contact us for assistance via phone or email. \n Were here to help.',
+       'Support Call':'Support Call',
+       'Call':'Call',
+       'Mail':'Mail',
+       'Website':'Website',
+       'Visit':'Visit',
+       
+       // change password
+       'Change Password':'Change Password',
+       'Current Password':'Current Password',
+       'Enter Current password':'Enter Current password',
+       'Enter Old password':'Enter Old password',
+       'New Password':'New Password',
+       'Password must be at least 8 characters long':'Password must be at least 8 characters long',
+       'Confirm New Password':'Confirm New Password',
+       'Enter confirm password':'Enter confirm password',
+       'Enter New password':'Enter New password',
 
 
 
@@ -690,7 +718,36 @@ class Translation extends Translations {
        'Diagnosis':'निदान',
        'Medication':'औषधि',
        'Bed History':'ओछ्यान इतिहास',
-       
+
+       // live consult
+       'Doctor':'डाक्टर',
+       'Date':'मिति',
+       'Duration':'अवधि',
+        
+
+       // OPD History
+       'OPD History':'ओपीडी इतिहास',
+       'OPD ID':'ओपीडी आईडी',
+       'Type':'टाइप गर्नुहोस्',
+
+       //help center
+       'Contact us for assistance via phone or email. \n Were here to help.':'फोन वा इमेल मार्फत सहयोगको लागि हामीलाई सम्पर्क गर्नुहोस्। \n र हामी मद्दत गर्न यहाँ छौं।',
+       'Support Call':'समर्थन कल',
+       'Call':'कल गर्नुहोस्',
+       'Mail':'मेल',
+       'Website':'वेबसाइट',
+       'Visit':'भ्रमण गर्नुहोस्',
+
+        // change password
+       'Change Password':'पासवर्ड परिवर्तन गर्नुहोस्',
+       'Current Password':'वर्तमान पासवर्ड',
+       'Enter Current password':'हालको पासवर्ड प्रविष्ट गर्नुहोस्',
+       'Enter Old password':'पुरानो पासवर्ड प्रविष्ट गर्नुहोस्',
+       'New Password':'नया पासवर्ड',
+       'Password must be at least 8 characters long':'पासवर्ड कम्तिमा 8 वर्ण लामो हुनुपर्छ',
+       'Confirm New Password':'नयाँ पासवर्ड पुष्टि गर्नुहोस्',
+       'Enter confirm password':'पुष्टि पासवर्ड प्रविष्ट गर्नुहोस्',
+       'Enter New password':'नयाँ पासवर्ड प्रविष्ट गर्नुहोस्',
 
 
 

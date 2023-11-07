@@ -166,8 +166,8 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
                       width: 10,
                     ),
                     Container(
-                      child: const Text(
-                          'Contact us for assistance via phone or email. \n Were here to help.'),
+                      child:  Text(
+                          'Contact us for assistance via phone or email. \n Were here to help.'.tr),
                     ),
                   ],
                 ),
@@ -190,9 +190,9 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
                             const SizedBox(
                               width: 10,
                             ),
-                            const Text(
-                              'Support Call',
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                            Text(
+                              'Support Call'.tr,
+                              style: const TextStyle(fontWeight: FontWeight.bold),
                             )
                           ],
                         ),
@@ -213,9 +213,9 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
                                 onTap: () {
                                   makePhoneCall('+977 51520012');
                                 },
-                                child: const Text(
-                                  'Call',
-                                  style: TextStyle(
+                                child: Text(
+                                  'Call'.tr,
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.blue),
                                 )),
@@ -249,9 +249,9 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
                                 onTap: () {
                                   makePhoneCall('+977 9855014812');
                                 },
-                                child: const Text(
-                                  'Call',
-                                  style: TextStyle(
+                                child:  Text(
+                                  'Call'.tr,
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.blue),
                                 )),
@@ -282,9 +282,9 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
                                 onTap: () {
                                   makePhoneCall('+977 9855013712');
                                 },
-                                child: const Text(
-                                  'Call',
-                                  style: TextStyle(
+                                child:  Text(
+                                  'Call'.tr,
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.blue),
                                 )),
@@ -313,9 +313,9 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
                             const SizedBox(
                               width: 10,
                             ),
-                            const Text(
-                              'Email',
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                             Text(
+                              'Email'.tr,
+                              style: const TextStyle(fontWeight: FontWeight.bold),
                             )
                           ],
                         ),
@@ -336,9 +336,9 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
                                 onTap: () {
                                   launchEmailClient('info@tezash.com');
                                 },
-                                child: const Text(
-                                  'Mail',
-                                  style: TextStyle(
+                                child: Text(
+                                  'Mail'.tr,
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.blue),
                                 )),
@@ -367,9 +367,9 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
                             const SizedBox(
                               width: 10,
                             ),
-                            const Text(
-                              'Email',
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                             Text(
+                              'Email'.tr,
+                              style: const TextStyle(fontWeight: FontWeight.bold),
                             )
                           ],
                         ),
@@ -390,9 +390,9 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
                                 onTap: () {
                                   launchEmailClient('Tezashtech@gmail.com');
                                 },
-                                child: const Text(
-                                  'Mail',
-                                  style: TextStyle(
+                                child:  Text(
+                                  'Mail'.tr,
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.blue),
                                 )),
@@ -421,9 +421,9 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
                             const SizedBox(
                               width: 10,
                             ),
-                            const Text(
-                              'Website',
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                             Text(
+                              'Website'.tr,
+                              style: const TextStyle(fontWeight: FontWeight.bold),
                             )
                           ],
                         ),
@@ -444,9 +444,9 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
                                 onTap: () {
                                   launchWebsite('https://tezash.com/');
                                 },
-                                child: const Text(
-                                  'Visit',
-                                  style: TextStyle(
+                                child: Text(
+                                  'Visit'.tr,
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.blue),
                                 )),

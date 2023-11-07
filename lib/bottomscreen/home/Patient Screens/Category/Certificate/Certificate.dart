@@ -4,6 +4,7 @@
 import 'dart:convert';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class Certificate extends StatefulWidget {
@@ -50,7 +51,7 @@ class _CertificateState extends State<Certificate> {
     return Scaffold(
       backgroundColor: Colors.lightBlue[50],
       appBar: AppBar(
-        title: const Text("Certificate"),
+        title: Text("Certificate".tr),
         centerTitle: true,
         backgroundColor: darkYellow,
       ),

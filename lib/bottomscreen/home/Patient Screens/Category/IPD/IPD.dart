@@ -250,7 +250,7 @@ class _IPDState extends State<IPD> {
                                               height: 10,
                                             ),
                                             Text("Medication".tr,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   fontSize: 8,
                                                   fontWeight: FontWeight.bold,
                                                 ))
@@ -286,7 +286,7 @@ class _IPDState extends State<IPD> {
                                               height: 10,
                                             ),
                                              Text("Cardex".tr,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   fontSize: 8,
                                                   fontWeight: FontWeight.bold,
                                                 ))
@@ -323,7 +323,7 @@ class _IPDState extends State<IPD> {
                                               height: 10,
                                             ),
                                              Text("Surgery".tr,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   fontSize: 8,
                                                   fontWeight: FontWeight.bold,
                                                 ))
@@ -359,7 +359,7 @@ class _IPDState extends State<IPD> {
                                               height: 10,
                                             ),
                                              Text("Diagnosis".tr,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   fontSize: 8,
                                                   fontWeight: FontWeight.bold,
                                                 ))
@@ -395,7 +395,7 @@ class _IPDState extends State<IPD> {
                                               height: 10,
                                             ),
                                              Text("Maternity".tr,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   fontSize: 8,
                                                   fontWeight: FontWeight.bold,
                                                 ))
@@ -431,7 +431,7 @@ class _IPDState extends State<IPD> {
                                               height: 10,
                                             ),
                                              Text("Bed History".tr,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   fontSize: 8,
                                                   fontWeight: FontWeight.bold,
                                                 ))
