@@ -70,6 +70,7 @@ class _PatientLoginState extends State<PatientLogin> {
       initPlatformState();
       Map json = jsonDecode(response.body.toString());
       var externalId = json['record']['app_key']; // You will supply the external id to the OneSignal SDK
+
       OneSignal.login(externalId);
       if (json['role'] is List && json['role'].contains('patient')) {
         final sp = await SharedPreferences.getInstance();
