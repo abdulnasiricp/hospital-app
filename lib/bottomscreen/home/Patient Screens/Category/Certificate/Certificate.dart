@@ -380,7 +380,7 @@ import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:lottie/lottie.dart';
 
 class Certificate extends StatefulWidget {
   const Certificate({Key? key}) : super(key: key);
@@ -390,43 +390,34 @@ class Certificate extends StatefulWidget {
 }
 
 class _CertificateState extends State<Certificate> {
-  Future<Map<String, dynamic>>? _data;
+  List<dynamic> deathData = [];
+  List<dynamic> birthData = [];
 
   @override
   void initState() {
     super.initState();
-    _data = _makePostRequest();
+    fetchData();
   }
 
-  Future<Map<String, dynamic>> _makePostRequest() async {
-    const url = 'https://uat.tez.hospital/xzy/webservice/generateCertificate';
-
-    // Define the request headers
+  Future<void> fetchData() async {
+    final url = Uri.parse(
+        "https://uat.tez.hospital/xzy/webservice/generateCertificate");
     final headers = {
       'Soft-service': 'TezHealthCare',
       'Auth-key': 'zbuks_ram859553467',
     };
+    final body = jsonEncode({'patient_id': '10814'});
 
-    // Define the request body
-    final body = {
-      "patient_id": "10814",
-    };
+    final response = await http.post(url, headers: headers, body: body);
 
-    try {
-      final response = await http.post(
-        Uri.parse(url),
-        headers: headers,
-        body: jsonEncode(body),
-      );
-
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body)['death'];
-        return data;
-      } else {
-        throw Exception('Failed to make the request. Status code: ${response.statusCode}');
-      }
-    } catch (e) {
-      throw Exception('Error: $e');
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      setState(() {
+        deathData = data['death'];
+        birthData = data['birth'];
+      });
+    } else {
+      // Handle the error
     }
   }
 
@@ -435,75 +426,82 @@ class _CertificateState extends State<Certificate> {
     return Scaffold(
       backgroundColor: Colors.lightBlue[50],
       appBar: AppBar(
-        title: Text('Certificate'.tr),
+        title: Text("Certificate"),
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
-      body: FutureBuilder<Map<String, dynamic>>(
-        future: _data,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  height: 50,
-                  width: 50,
-                  color: Colors.transparent,
-                  child: const LoadingIndicatorWidget(),
-                ),
+      body: ListView(
+        children: [
+          DataListWidget(
+            dataList: deathData,
+            title: 'Death',
+          ),
+          DataListWidget(
+            dataList: birthData,
+            title: 'Birth',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class DataListWidget extends StatelessWidget {
+  final List<dynamic> dataList;
+  final String title;
+  DataListWidget({required this.dataList, required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ListView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: dataList.length,
+          itemBuilder: (context, index) {
+            final item = dataList[index];
+            return Card(
+              child: Stack(
+                children: [
+                  ListTile(
+                    title: Text(item['patient_name']),
+                    subtitle: Text('Date: ${item['death_date']}'),
+                    onTap: () {},
+                  ),
+                  CornerBanner(title: title),
+                  // Add corner banner here
+                ],
               ),
             );
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (snapshot.hasData) {
-            final responseJson = snapshot.data!;
-            return Container(
-              height: 100,
-              child: Card(
-                margin: const EdgeInsets.all(8.0),
-                child: Stack(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ListTile(
-                          title: Text('Prescription ID: ${responseJson['id']}'.isEmpty?"N/A":'Prescription ID: ${responseJson['id']}'),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Date: ${responseJson['created_at']}'),
-                              Text('Patient Name: ${responseJson['patient_name']}'.isEmpty?"N/A":'Patient Name: ${responseJson['patient_name']}'),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    Positioned(
-                      right: 5,
-                      top: 10,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: yellow,
-                        ),
-                        onPressed: () {
-                          Get.to(
-                            () => Surgeryreport(
-                              prescripton_id: "${responseJson['id']}",
-                              prescription_report: "${responseJson['death_certificate']}",
-                            ),
-                          );
-                        },
-                        child: const Text('View Report'),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          }
-          return Container(); // Return an empty container by default
-        },
+          },
+        ),
+      ],
+    );
+  }
+}
+
+class CornerBanner extends StatelessWidget {
+  final String title;
+
+  CornerBanner({required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: 0,
+      left: 0,
+      child: Banner(
+        message: title,
+        location: BannerLocation.topStart,
+        color: title == 'Birth'
+            ? Colors.blue
+            : Colors.red, // Customize the colors as needed
+        textStyle: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }
