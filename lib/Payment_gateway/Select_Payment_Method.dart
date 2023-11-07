@@ -10,7 +10,6 @@ import 'package:http/http.dart' as http;
 
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/profile_model.dart';
-import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/foundation.dart';
@@ -318,8 +317,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            const Padding(
-                                              padding: EdgeInsets.all(10.0),
+                                            Padding(
+                                              padding: const EdgeInsets.all(10.0),
                                               child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
@@ -328,8 +327,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                                         .spaceBetween,
                                                 children: [
                                                   Text(
-                                                    'Pathology Dues',
-                                                    style: TextStyle(
+                                                    'Pathology Dues'.tr,
+                                                    style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold),
                                                   ),
@@ -363,8 +362,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            const Padding(
-                                              padding: EdgeInsets.all(10.0),
+                                             Padding(
+                                              padding: const EdgeInsets.all(10.0),
                                               child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
@@ -373,8 +372,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                                         .spaceBetween,
                                                 children: [
                                                   Text(
-                                                    'Radiology Dues',
-                                                    style: TextStyle(
+                                                    'Radiology Dues'.tr,
+                                                    style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold),
                                                   ),
@@ -408,8 +407,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            const Padding(
-                                              padding: EdgeInsets.all(10.0),
+                                            Padding(
+                                              padding: const EdgeInsets.all(10.0),
                                               child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
@@ -418,8 +417,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                                         .spaceBetween,
                                                 children: [
                                                   Text(
-                                                    'Direct Dues',
-                                                    style: TextStyle(
+                                                    'Direct Dues'.tr,
+                                                    style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold),
                                                   ),
@@ -454,8 +453,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            const Padding(
-                                              padding: EdgeInsets.all(10.0),
+                                           Padding(
+                                              padding: const EdgeInsets.all(10.0),
                                               child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
@@ -464,8 +463,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                                         .spaceBetween,
                                                 children: [
                                                   Text(
-                                                    'Pharmacy Dues',
-                                                    style: TextStyle(
+                                                    'Pharmacy Dues'.tr,
+                                                    style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold),
                                                   ),
@@ -499,8 +498,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            const Padding(
-                                              padding: EdgeInsets.all(10.0),
+                                            Padding(
+                                              padding: const EdgeInsets.all(10.0),
                                               child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
@@ -509,8 +508,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                                         .spaceBetween,
                                                 children: [
                                                   Text(
-                                                    'Ambulance Dues',
-                                                    style: TextStyle(
+                                                    'Ambulance Dues'.tr,
+                                                    style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold),
                                                   ),
@@ -545,8 +544,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            const Padding(
-                                              padding: EdgeInsets.all(10.0),
+                                            Padding(
+                                              padding: const EdgeInsets.all(10.0),
                                               child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
@@ -555,8 +554,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                                         .spaceBetween,
                                                 children: [
                                                   Text(
-                                                    'Blood Bank Dues',
-                                                    style: TextStyle(
+                                                    'Blood Bank Dues'.tr,
+                                                    style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold),
                                                   ),
@@ -676,32 +675,30 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                                               topRight: Radius
                                                                   .circular(
                                                                       10))),
-                                                  child: const Padding(
+                                                  child:  Padding(
                                                     padding:
-                                                        EdgeInsets.all(8.0),
+                                                        const EdgeInsets.all(8.0),
                                                     child: Column(
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              EdgeInsets.all(
+                                                              const EdgeInsets.all(
                                                                   8.0),
                                                           child: Text(
-                                                            EnString
-                                                                .termsAndCondition,
-                                                            style: TextStyle(
+                                                            'Terms and Conditions'.tr,
+                                                            style: const TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
                                                                 fontSize: 20),
                                                           ),
                                                         ),
-                                                        SizedBox(
+                                                        const SizedBox(
                                                           height: 5,
                                                         ),
                                                         Text(
-                                                            EnString
-                                                                .termsAndConditionMsg,
-                                                            style: TextStyle(
+                                                            '1.Payment Responsibility: Your responsibility includes the prompt settlement of all hospital dues through our mobile app.\n\n2. Accepted Payment Methods: The app offers multiple secure payment options for your convenience.\n\n3. Dispute Resolution: If you encounter any billing issues, please report them within 1 hour.'.tr,
+                                                            style: const TextStyle(
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,

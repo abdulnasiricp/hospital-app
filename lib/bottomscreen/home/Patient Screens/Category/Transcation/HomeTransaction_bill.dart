@@ -142,7 +142,7 @@ class _HomeTransactionBillState extends State<HomeTransactionBill> {
               alignment: Alignment.center,
               child: AnimationSearchBar(
                   previousScreen: const Bottomhome(),
-                  isBackButtonVisible: true,
+                  isBackButtonVisible: false,
                   backIconColor: whitecolor,
                   centerTitle: 'transactionBill'.tr,
                   centerTitleStyle: TextStyle(color: whitecolor, fontSize: 20),

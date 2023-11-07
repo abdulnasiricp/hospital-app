@@ -2,7 +2,6 @@
 
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Doctor_book_Opd/Doctor_book_With_Insurance/doctor_book_iinsurance_detals.dart';
-import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:flutter/material.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -90,7 +89,7 @@ class _Insurance_ValidityState extends State<Re_Opd_Insurance_visibility> {
   List<Organization> organizations = [];
   Future<void> fetchData() async {
     final response = await http.post(
-      Uri.parse(ApiLinks.OpdHistory),
+      Uri.parse('https://uat.tez.hospital/xzy/webservice/db_table'),
       headers: {
         'Soft-service': 'TezHealthCare',
         'Auth-key': 'zbuks_ram859553467',
@@ -495,7 +494,7 @@ class _Insurance_ValidityState extends State<Re_Opd_Insurance_visibility> {
     });
 
     const url =
-        ApiLinks.getpatientDetails; // Replace with your API endpoint
+        'https://uat.tez.hospital/xzy/webservice/get_insurance_details'; // Replace with your API endpoint
     final headers = {
       'Soft-service': 'TezHealthCare',
       'Auth-key': 'zbuks_ram859553467',

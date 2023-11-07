@@ -272,6 +272,83 @@ class Translation extends Translations {
           'Address':'Address',
           'Confirmation':'Confirmation',
 
+          //insurance ticket successful
+         'Ticket Booking successful!': 'Ticket Booking successful!',
+         'Transaction Id': 'Transaction Id',
+         'Total  Ticket Charge': 'Total  Ticket Charge',
+         'OPD Ticket Charge': 'OPD Ticket Charge',
+         'Download Ticket': 'Download Ticket',
+         'Payment Mode : Payment By Insurance Claimed': 'Payment Mode : Payment By Insurance Claimed',
+
+         //Re-OPD screen
+         'Ticket Type':'Ticket Type',
+         'Select Ticket Type':'Select Ticket Type',
+         'Select Department':'Select Department',
+         'Select Ticket Date':'Select Ticket Date',
+         'Male':'Male',
+         'Female':'Female',
+         'Other':'Other',
+         'Marital Status':'Marital Status',
+         'Select Marital Status':'Select Marital Status',
+         'Blood Group':'Blood Group',
+         'Select Blood Group':'Select Blood Group',
+         'First Name':'First Name',
+         'Enter First Name':'Enter First Name',
+         'Last Name':'Last Name',
+         'Enter Last Name':'Enter Last Name',
+         'Please select a gender':'Please select a gender',
+         'Enter Date of Birth':'Enter Date of Birth',
+         'Phone Number':'Phone Number',
+         'Enter phone Number':'Enter phone Number',
+         'Email Address (optional)':'Email Address (optional)',
+         'Phone number must be 10 digits':'Phone number must be 10 digits',
+         'Enter Email Address':'Enter Email Address',
+         'Enter Your Full Address':'Enter Your Full Address',
+         'Search Department':'Search Department',
+         'Select Your Blood Group':'Select Your Blood Group',
+         'Select Your Ticket Type':'Select Your Ticket Type',
+
+         //OPD ticket details
+         'OPD Ticket Details':'OPD Ticket Details',
+         'OPD Charge':'OPD Charge',
+         'Total Ticket Charge':'Total Ticket Charge',
+         'Pathology Dues':'Pathology Dues',
+         'Radiology Dues':'Radiology Dues',
+         'Direct Dues':'Direct Dues',
+         'Pharmacy Dues':'Pharmacy Dues',
+         'Ambulance Dues':'Ambulance Dues',
+         'Blood Bank Dues':'Blood Bank Dues',
+         
+
+         //term and conditions
+         '1.Payment Responsibility: Your responsibility includes the prompt settlement of all hospital dues through our mobile app.\n\n2. Accepted Payment Methods: The app offers multiple secure payment options for your convenience.\n\n3. Dispute Resolution: If you encounter any billing issues, please report them within 1 hour.':'1.Payment Responsibility: Your responsibility includes the prompt settlement of all hospital dues through our mobile app.\n\n2. Accepted Payment Methods: The app offers multiple secure payment options for your convenience.\n\n3. Dispute Resolution: If you encounter any billing issues, please report them within 1 hour.'
+        , 'Terms and Conditions':'Terms and Conditions',
+            
+       // Notification
+           'Notifications':'Notifications',
+
+       // IPD Screens
+       'Patient Information':'Patient Information',
+       'Patient Name: ':'Patient Name: ',
+       'Age: ':'Age: ',
+       'Gender: ':'Gender: ',
+       'Date of Admission: ':'Date of Admission: ',
+       'Vitals':'Vitals',
+       'Height':'Height',
+       'Weight':'Weight',
+       'Pulse':'Pulse',
+       'Temperature':'Temperature',
+       'Respiration':'Respiration',
+       'Consultants':'Consultants',
+       'Diagnosis':'Diagnosis',
+       'Medication':'Medication',
+       'Bed History':'Bed History',
+       
+
+
+
+
+
         },
         'ne_NP': {
           //Bottom Bar
@@ -541,6 +618,82 @@ class Translation extends Translations {
           'Email':'इमेल',
           'Address':'ठेगाना',
           'Confirmation':'पुष्टिकरण',
+
+            //insurance ticket successful
+         'Ticket Booking successful!': 'टिकट बुकिङ सफल भयो!',
+         'Transaction Id': 'कारोबार आईडी',
+         'Total  Ticket Charge': 'कुल टिकट शुल्क',
+         'OPD Ticket Charge': 'ओपीडी टिकट शुल्क',
+         'Download Ticket': 'टिकट डाउनलोड गर्नुहोस्',
+         'Payment Mode : Payment By Insurance Claimed': 'भुक्तानी मोड: बीमा दाबी द्वारा भुक्तानी',
+
+         //Re-OPD screen
+         'Select Ticket Type':'टिकट प्रकार चयन गर्नुहोस्',
+         'Select Department':'विभाग छान्नुहोस्',
+         'Select Ticket Date':'टिकट मिति चयन गर्नुहोस्',
+         'Male':'पुरुष',
+         'Female':'महिला',
+         'Other':'अन्य',
+         'Marital Status':'वैवाहिक स्थिति',
+         'Ticket Type':'टिकटको प्रकार',
+         'Select Marital Status':'वैवाहिक स्थिति चयन गर्नुहोस्',
+         'Blood Group':'रक्त समूह',
+         'Select Blood Group':'रक्त समूह चयन गर्नुहोस्',
+         'First Name':'पहिलो नाम',
+         'Enter First Name':'पहिलो नाम प्रविष्ट गर्नुहोस्',
+         'Last Name':'थर',
+         'Enter Last Name':'अन्तिम नाम प्रविष्ट गर्नुहोस्',
+         'Please select a gender':'कृपया लिङ्ग चयन गर्नुहोस्',
+         'Enter Date of Birth':'जन्म मिति प्रविष्ट गर्नुहोस्',
+         'Phone Number':'फोन नम्बर',
+         'Enter phone Number':'फोन नम्बर प्रविष्ट गर्नुहोस्',
+         'Email Address (optional)':'इमेल ठेगाना (वैकल्पिक)',
+         'Phone number must be 10 digits':'फोन नम्बर 10 अंकको हुनुपर्छ',
+         'Enter Email Address':'इमेल ठेगाना प्रविष्ट गर्नुहोस्',
+         'Enter Your Full Address':'आफ्नो पूरा ठेगाना प्रविष्ट गर्नुहोस्',
+         'Search Department':'खोज विभाग',
+         'Select Your Blood Group':'आफ्नो रक्त समूह चयन गर्नुहोस्',
+         'Select Your Ticket Type':'तपाईंको टिकट प्रकार चयन गर्नुहोस्',
+
+         //OPD ticket details
+         'OPD Ticket Details':'ओपीडी टिकट विवरण',
+         'OPD Charge':'ओपीडी चार्ज',
+         'Total Ticket Charge':'कुल टिकट शुल्क',
+         'Pathology Dues':'प्याथोलोजी शुल्क',
+         'Radiology Dues':'रेडियोलोजी देय',
+         'Direct Dues':'प्रत्यक्ष बक्यौता',
+         'Pharmacy Dues':'फार्मेसी बक्यौता',
+         'Ambulance Dues':'एम्बुलेन्स बक्यौता',
+         'Blood Bank Dues':'ब्लड बैंकको बक्यौता',
+         
+          //term and conditions
+         '1.Payment Responsibility: Your responsibility includes the prompt settlement of all hospital dues through our mobile app.\n\n2. Accepted Payment Methods: The app offers multiple secure payment options for your convenience.\n\n3. Dispute Resolution: If you encounter any billing issues, please report them within 1 hour.':'1.भुक्तानी जिम्मेवारी: तपाइँको जिम्मेवारीमा हाम्रो मोबाइल एप मार्फत अस्पतालको सबै बक्यौताको तुरुन्तै निपटान समावेश छ।\n\n 2. स्वीकृत भुक्तानी विधिहरू: एपले तपाइँको सुविधाको लागि धेरै सुरक्षित भुक्तानी विकल्पहरू प्रदान गर्दछ।\n\n 3. विवाद समाधान: यदि तपाईंले कुनै बिलिङ समस्याहरू सामना गर्नुभयो भने, कृपया तिनीहरूलाई 1 घण्टा भित्र रिपोर्ट गर्नुहोस्।'
+        , 'Terms and Conditions':'नियम र सर्तहरू',
+            
+
+         // Notification
+           'Notifications':'सूचनाहरू',
+
+        // IPD Screens
+       'Patient Information':'रोगी जानकारी',
+       'Patient Name: ':'बिरामीको नाम: ',
+       'Age: ':'उमेर: ',
+       'Gender: ':'लिङ्ग:',
+       'Date of Admission: ':'भर्ना मिति:',
+       'Vitals':'महत्त्वपूर्ण',
+       'Height':'उचाइ',
+       'Weight':'वजन',
+       'Pulse':'पल्स',
+       'Temperature':'तापक्रम',
+       'Respiration':'श्वासप्रश्वास',
+       'Consultants':'परामर्शदाताहरू',
+       'Diagnosis':'निदान',
+       'Medication':'औषधि',
+       'Bed History':'ओछ्यान इतिहास',
+       
+
+
+
 
         }
       };

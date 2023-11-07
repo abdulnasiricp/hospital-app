@@ -170,7 +170,7 @@ class _IPDState extends State<IPD> {
     return ScreenUtilInit(
       builder: (_, child) => Scaffold(
         appBar: AppBar(
-          title: const Text('IPD'),
+          title:  Text('IPD'.tr),
           centerTitle: true,
           backgroundColor: darkYellow,
         ),
@@ -249,7 +249,7 @@ class _IPDState extends State<IPD> {
                                             const SizedBox(
                                               height: 10,
                                             ),
-                                            const Text("Medication",
+                                            Text("Medication".tr,
                                                 style: TextStyle(
                                                   fontSize: 8,
                                                   fontWeight: FontWeight.bold,
@@ -285,7 +285,7 @@ class _IPDState extends State<IPD> {
                                             const SizedBox(
                                               height: 10,
                                             ),
-                                            const Text("Cardex",
+                                             Text("Cardex".tr,
                                                 style: TextStyle(
                                                   fontSize: 8,
                                                   fontWeight: FontWeight.bold,
@@ -322,7 +322,7 @@ class _IPDState extends State<IPD> {
                                             const SizedBox(
                                               height: 10,
                                             ),
-                                            const Text("Surgery",
+                                             Text("Surgery".tr,
                                                 style: TextStyle(
                                                   fontSize: 8,
                                                   fontWeight: FontWeight.bold,
@@ -358,7 +358,7 @@ class _IPDState extends State<IPD> {
                                             const SizedBox(
                                               height: 10,
                                             ),
-                                            const Text("Diagnosis",
+                                             Text("Diagnosis".tr,
                                                 style: TextStyle(
                                                   fontSize: 8,
                                                   fontWeight: FontWeight.bold,
@@ -394,7 +394,7 @@ class _IPDState extends State<IPD> {
                                             const SizedBox(
                                               height: 10,
                                             ),
-                                            const Text("Maternity",
+                                             Text("Maternity".tr,
                                                 style: TextStyle(
                                                   fontSize: 8,
                                                   fontWeight: FontWeight.bold,
@@ -430,7 +430,7 @@ class _IPDState extends State<IPD> {
                                             const SizedBox(
                                               height: 10,
                                             ),
-                                            const Text("Bed History",
+                                             Text("Bed History".tr,
                                                 style: TextStyle(
                                                   fontSize: 8,
                                                   fontWeight: FontWeight.bold,
@@ -460,9 +460,9 @@ class _IPDState extends State<IPD> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                'Patient Information',
-                                style: TextStyle(
+                              Text(
+                                'Patient Information'.tr,
+                                style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -472,23 +472,23 @@ class _IPDState extends State<IPD> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const Column(
+                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text('Patient Name: '),
-                                      SizedBox(
+                                      Text('Patient Name: '.tr),
+                                      const SizedBox(
                                         height: 5,
                                       ),
-                                      Text('Age: '),
-                                      SizedBox(
+                                      Text('Age: '.tr),
+                                      const SizedBox(
                                         height: 5,
                                       ),
-                                      Text('Gender: '),
-                                      SizedBox(
+                                      Text('Gender: '.tr),
+                                      const SizedBox(
                                         height: 5,
                                       ),
-                                      Text('Date of Admission: '),
+                                      Text('Date of Admission: '.tr),
                                     ],
                                   ),
                                   Column(
@@ -538,9 +538,9 @@ class _IPDState extends State<IPD> {
                                 ],
                               ),
                               const SizedBox(height: 32),
-                              const Text(
-                                'Vitals',
-                                style: TextStyle(
+                               Text(
+                                'Vitals'.tr,
+                                style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -549,23 +549,24 @@ class _IPDState extends State<IPD> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  buildVitalItem('Height',
+                                  buildVitalItem('Height'.tr,
                                       "${vitalsData['Height'] ?? "N/A"} "),
-                                  buildVitalItem('Weight',
+                                  buildVitalItem('Weight'.tr,
                                       "${vitalsData['weight'] ?? "N/A"} "),
                                   buildVitalItem(
                                       'BP', "${vitalsData['bp'] ?? "N/A"} "),
                                   buildVitalItem(
-                                      'Pulse', "${vitalsData['pulse'] ?? "N/A"} "),
-                                  buildVitalItem('Temperature',
+                                      'Pulse'.tr, "${vitalsData['pulse'] ?? "N/A"} "),
+                                  buildVitalItem('Temperature'..tr,
                                       "${vitalsData['temprature'] ?? "N/A"} "),
-                                  buildVitalItem('Respiration',
+                                  buildVitalItem('Respiration'.tr,
                                       "${vitalsData['respiration'] ?? "N/A"} "),
                                   const SizedBox(height: 32),
-                                  const Column(
+                                   Column(
                                     children: [
                                       Text(
-                                        'Consultants',
+                                        'Consultants'.tr,
+                                        // ignore: prefer_const_constructors
                                         style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,

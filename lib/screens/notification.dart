@@ -97,7 +97,7 @@ void navigateToScreen(int index) async {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Notifications'),
+        title:  Text('Notifications'.tr),
         centerTitle: true,
         backgroundColor: darkYellow,
         

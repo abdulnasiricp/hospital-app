@@ -7,7 +7,6 @@ import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/General_Opd_
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/PaymentMethod/OpdSuccessPayment.dart';
 import 'package:esewa_flutter/esewa_flutter.dart';
 
-import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/foundation.dart';
@@ -282,8 +281,8 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const Padding(
-                                    padding: EdgeInsets.all(10.0),
+                                   Padding(
+                                    padding: const EdgeInsets.all(10.0),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -291,8 +290,8 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          'OPD Charge',
-                                          style: TextStyle(
+                                          'OPD Charge'.tr,
+                                          style: const TextStyle(
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ],
@@ -326,8 +325,8 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const Padding(
-                                    padding: EdgeInsets.only(left: 10.0),
+                                   Padding(
+                                    padding: const EdgeInsets.only(left: 10.0),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -335,8 +334,8 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          'Total Ticket Charge',
-                                          style: TextStyle(
+                                          'Total Ticket Charge'.tr,
+                                          style: const TextStyle(
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ],
@@ -396,27 +395,26 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
                                                   topLeft: Radius.circular(10),
                                                   topRight:
                                                       Radius.circular(10))),
-                                          child: const Padding(
-                                            padding: EdgeInsets.all(8.0),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
                                             child: Column(
                                               children: [
                                                 Padding(
-                                                  padding: EdgeInsets.all(8.0),
+                                                  padding: const EdgeInsets.all(8.0),
                                                   child: Text(
-                                                    EnString.termsAndCondition,
-                                                    style: TextStyle(
+                                                    'Terms and Conditions'.tr,
+                                                    style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         fontSize: 20),
                                                   ),
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   height: 5,
                                                 ),
                                                 Text(
-                                                    EnString
-                                                        .termsAndConditionMsg,
-                                                    style: TextStyle(
+                                                    '1.Payment Responsibility: Your responsibility includes the prompt settlement of all hospital dues through our mobile app.\n\n2. Accepted Payment Methods: The app offers multiple secure payment options for your convenience.\n\n3. Dispute Resolution: If you encounter any billing issues, please report them within 1 hour.'.tr,
+                                                    style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
                                                     )),

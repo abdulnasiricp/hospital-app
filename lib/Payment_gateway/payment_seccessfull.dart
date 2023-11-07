@@ -7,7 +7,7 @@ import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -150,7 +150,7 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
         backgroundColor: Colors.blue[50],
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: const Text('Payment Successful!'),
+          title: Text('Payment Successful!'.tr),
           centerTitle: true,
           backgroundColor: darkYellow,
         ),
@@ -170,9 +170,9 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
                             Padding(
                               padding: const EdgeInsets.only(top: 1.0),
                               child: Container(
-                                child: const Text(
-                                  'Payment Successful!',
-                                  style: TextStyle(
+                                child:  Text(
+                                  'Payment Successful!'.tr,
+                                  style: const TextStyle(
                                     fontSize: 28,
                                     color: Colors.green,
                                     fontWeight: FontWeight.bold,
@@ -198,9 +198,9 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const Text(
-                                    "Date/Time",
-                                    style: TextStyle(
+                                   Text(
+                                    "Date/Time".tr,
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
                                     ),
@@ -221,9 +221,9 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const Text(
-                                    "Transaction Id",
-                                    style: TextStyle(
+                                   Text(
+                                    "Transaction Id".tr,
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
                                     ),
@@ -260,32 +260,32 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
                             const DottedLineDivider(),
                             if (pathodues > 0)
                               PaymentItem(
-                                title: 'Pathology Dues',
+                                title: 'Pathology Dues'.tr,
                                 amount: pathodues,
                               ),
                             if (radiodues > 0)
                               PaymentItem(
-                                title: 'Radiology Dues',
+                                title: 'Radiology Dues'.tr,
                                 amount: radiodues,
                               ),
                             if (diredues > 0)
                               PaymentItem(
-                                title: 'Direct Dues',
+                                title: 'Direct Dues'.tr,
                                 amount: diredues,
                               ),
                             if (pharmadues > 0)
                               PaymentItem(
-                                title: 'Pharmacy Dues',
+                                title: 'Pharmacy Dues'.tr,
                                 amount: pharmadues,
                               ),
                             if (ambulancedues > 0)
                               PaymentItem(
-                                title: 'Ambulance Dues',
+                                title: 'Ambulance Dues'.tr,
                                 amount: ambulancedues,
                               ),
                             if (blooddues > 0)
                               PaymentItem(
-                                title: 'Blood Bank Dues',
+                                title: 'Blood Bank Dues'.tr,
                                 amount: blooddues,
                               ),
                             const SizedBox(
@@ -293,7 +293,7 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
                             ),
                             const DottedLineDivider(),
                             PaymentItem(
-                              title: 'Total Hospital Due Amount',
+                              title: 'Total Hospital Due Amount'.tr,
                               amount: totalDues,
                               isTotal: true,
                             ),
@@ -356,7 +356,7 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
                           width: width,
                           height: height / 15,
                           child: ElevatedButton(
-                            child: const Text("Dasboard"),
+                            child: Text("Dasboard".tr),
                             onPressed: () {
                               Get.to(() => const Bottomhome());
                             },

@@ -203,7 +203,7 @@ class _Re_OPDState extends State<Re_OPD> {
         return false; // Prevent default back button behavior
       },
       child: Scaffold(
-        appBar: AppBar(title: const Text('Re-OPD'),centerTitle: true,backgroundColor: darkYellow,leading: IconButton(onPressed: (){
+        appBar: AppBar(title:  Text('reopd'.tr),centerTitle: true,backgroundColor: darkYellow,leading: IconButton(onPressed: (){
           Get.offAll(()=>const Bottomhome());
         }, icon: const Icon(Icons.arrow_back)),),
           body: Padding(
@@ -220,16 +220,16 @@ class _Re_OPDState extends State<Re_OPD> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       RichText(
-                        text: const TextSpan(
+                        text:  TextSpan(
                           children: [
                             TextSpan(
-                              text: "Ticket Type",
-                              style: TextStyle(
+                              text: "Ticket Type".tr,
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
                               ),
                             ),
-                            TextSpan(
+                            const TextSpan(
                               text: '*',
                               style: TextStyle(
                                 color: Colors.red,
@@ -245,7 +245,7 @@ class _Re_OPDState extends State<Re_OPD> {
                           child: TextFormField(
                         validator: (value) {
                           if (value!.isEmpty) {
-                            return 'This field is required';
+                            return 'This field is required'.tr;
                           }
                           return null;
                         },
@@ -263,7 +263,7 @@ class _Re_OPDState extends State<Re_OPD> {
                             },
                           ),
                           border: const OutlineInputBorder(),
-                          hintText: 'Select Ticket Type',
+                          hintText: 'Select Ticket Type'.tr,
                           fillColor: Colors.white,
                           filled: true,
                         ),
@@ -280,16 +280,16 @@ class _Re_OPDState extends State<Re_OPD> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       RichText(
-                        text: const TextSpan(
+                        text: TextSpan(
                           children: [
                             TextSpan(
-                              text: "Select Department",
-                              style: TextStyle(
+                              text: "Select Department".tr,
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
                               ),
                             ),
-                            TextSpan(
+                            const TextSpan(
                               text: '*',
                               style: TextStyle(
                                 color: Colors.red,
@@ -305,7 +305,7 @@ class _Re_OPDState extends State<Re_OPD> {
                           child: TextFormField(
                         validator: (value) {
                           if (value!.isEmpty) {
-                            return 'This field is required';
+                            return 'This field is required'.tr;
                           }
                           return null;
                         },
@@ -323,7 +323,7 @@ class _Re_OPDState extends State<Re_OPD> {
                             },
                           ),
                           border: const OutlineInputBorder(),
-                          hintText: 'Select department',
+                          hintText: 'Select department'.tr,
                           fillColor: Colors.white,
                           filled: true,
                         ),
@@ -343,16 +343,16 @@ class _Re_OPDState extends State<Re_OPD> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       RichText(
-                        text: const TextSpan(
+                        text:  TextSpan(
                           children: [
                             TextSpan(
-                              text: "Select Ticket Date",
-                              style: TextStyle(
+                              text: "Select Ticket Date".tr,
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
                               ),
                             ),
-                            TextSpan(
+                            const TextSpan(
                               text: '*',
                               style: TextStyle(
                                 color: Colors.red,
@@ -368,7 +368,7 @@ class _Re_OPDState extends State<Re_OPD> {
                         child: TextFormField(
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'This field is required';
+                              return 'This field is required'.tr;
                             }
                             return null;
                           },
@@ -382,7 +382,7 @@ class _Re_OPDState extends State<Re_OPD> {
                                     _selectTicketDate(context);
                                   }),
                               border: const OutlineInputBorder(),
-                              hintText: 'Select Ticket Date',
+                              hintText: 'Select Ticket Date'.tr,
                               fillColor: Colors.white,
                               filled: true),
                           readOnly: true,
@@ -405,16 +405,16 @@ class _Re_OPDState extends State<Re_OPD> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           RichText(
-                            text: const TextSpan(
+                            text:  TextSpan(
                               children: [
                                 TextSpan(
-                                  text: "Marital Status",
-                                  style: TextStyle(
+                                  text: "Marital Status".tr,
+                                  style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black,
                                   ),
                                 ),
-                                TextSpan(
+                                const TextSpan(
                                   text: '*',
                                   style: TextStyle(
                                     color: Colors.red,
@@ -430,7 +430,7 @@ class _Re_OPDState extends State<Re_OPD> {
                               child: TextFormField(
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return 'This field is required';
+                                return 'This field is required'.tr;
                               }
                               return null;
                             },
@@ -448,7 +448,7 @@ class _Re_OPDState extends State<Re_OPD> {
                                 },
                               ),
                               border: const OutlineInputBorder(),
-                              hintText: 'Select Marital Status',
+                              hintText: 'Select Marital Status'.tr,
                               fillColor: Colors.white,
                               filled: true,
                             ),
@@ -465,16 +465,16 @@ class _Re_OPDState extends State<Re_OPD> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           RichText(
-                            text: const TextSpan(
+                            text:  TextSpan(
                               children: [
                                 TextSpan(
-                                  text: "Blood Group",
-                                  style: TextStyle(
+                                  text: "Blood Group".tr,
+                                  style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black,
                                   ),
                                 ),
-                                TextSpan(
+                                const TextSpan(
                                   text: '*',
                                   style: TextStyle(
                                     color: Colors.red,
@@ -490,7 +490,7 @@ class _Re_OPDState extends State<Re_OPD> {
                               child: TextFormField(
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return 'This field is required';
+                                return 'This field is required'.tr;
                               }
                               return null;
                             },
@@ -508,7 +508,7 @@ class _Re_OPDState extends State<Re_OPD> {
                                 },
                               ),
                               border: const OutlineInputBorder(),
-                              hintText: 'Select Blood Group',
+                              hintText: 'Select Blood Group'.tr,
                               fillColor: Colors.white,
                               filled: true,
                             ),
@@ -534,16 +534,16 @@ class _Re_OPDState extends State<Re_OPD> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           RichText(
-                            text: const TextSpan(
+                            text:  TextSpan(
                               children: [
                                 TextSpan(
-                                  text: "First Name",
-                                  style: TextStyle(
+                                  text: "First Name".tr,
+                                  style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black,
                                   ),
                                 ),
-                                TextSpan(
+                                const TextSpan(
                                   text: '*',
                                   style: TextStyle(
                                     color: Colors.red,
@@ -559,15 +559,15 @@ class _Re_OPDState extends State<Re_OPD> {
                             controller: firstNameController,
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return 'This field is required';
+                                return 'This field is required'.tr;
                               }
                               return null;
                             },
                             onTapOutside: (event) =>
                                 FocusScope.of(context).unfocus(),
-                            decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: 'Enter First Name',
+                            decoration:  InputDecoration(
+                                border: const OutlineInputBorder(),
+                                hintText: 'Enter First Name'.tr,
                                 fillColor: Colors.white,
                                 filled: true),
                           ),
@@ -580,16 +580,16 @@ class _Re_OPDState extends State<Re_OPD> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           RichText(
-                            text: const TextSpan(
+                            text:  TextSpan(
                               children: [
                                 TextSpan(
-                                  text: "Last Name",
-                                  style: TextStyle(
+                                  text: "Last Name".tr,
+                                  style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black,
                                   ),
                                 ),
-                                TextSpan(
+                                const TextSpan(
                                   text: '*',
                                   style: TextStyle(
                                     color: Colors.red,
@@ -605,15 +605,15 @@ class _Re_OPDState extends State<Re_OPD> {
                             controller: lastNameController,
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return 'This field is required';
+                                return 'This field is required'.tr;
                               }
                               return null;
                             },
                             onTapOutside: (event) =>
                                 FocusScope.of(context).unfocus(),
-                            decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: 'Enter Last Name',
+                            decoration:  InputDecoration(
+                                border: const OutlineInputBorder(),
+                                hintText: 'Enter Last Name'.tr,
                                 fillColor: Colors.white,
                                 filled: true),
                           ),
@@ -633,16 +633,16 @@ class _Re_OPDState extends State<Re_OPD> {
                       height: 5,
                     ),
                     RichText(
-                      text: const TextSpan(
+                      text:  TextSpan(
                         children: [
                           TextSpan(
-                            text: " Gender",
-                            style: TextStyle(
+                            text: "Gender".tr,
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
                             ),
                           ),
-                          TextSpan(
+                          const TextSpan(
                             text: '*',
                             style: TextStyle(
                               color: Colors.red,
@@ -656,25 +656,25 @@ class _Re_OPDState extends State<Re_OPD> {
                       children: [
                         buildGenderCard(
                           icon: Icons.male,
-                          label: 'Male',
+                          label: 'Male'.tr,
                           gender: 'male',
                         ),
                         buildGenderCard(
                           icon: Icons.female,
-                          label: 'Female',
+                          label: 'Female'.tr,
                           gender: 'female',
                         ),
                         buildGenderCard(
                           icon: Icons.circle_outlined,
-                          label: 'Other',
+                          label: 'Other'.tr,
                           gender: 'other',
                         ),
                       ],
                     ),
                     if (selectedGender.isEmpty) // Add this condition
-                      const Text(
-                        'Please select a gender', // Error message
-                        style: TextStyle(
+                       Text(
+                        'Please select a gender'.tr, // Error message
+                        style: const TextStyle(
                           color: Colors.red,
                         ),
                       ),
@@ -689,16 +689,16 @@ class _Re_OPDState extends State<Re_OPD> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       RichText(
-                        text: const TextSpan(
+                        text:  TextSpan(
                           children: [
                             TextSpan(
-                              text: "Date of Birth",
-                              style: TextStyle(
+                              text: "Date of Birth".tr,
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
                               ),
                             ),
-                            TextSpan(
+                            const TextSpan(
                               text: '*',
                               style: TextStyle(
                                 color: Colors.red,
@@ -714,7 +714,7 @@ class _Re_OPDState extends State<Re_OPD> {
                         child: TextFormField(
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'This field is required';
+                              return 'This field is required'.tr;
                             }
                             return null;
                           },
@@ -728,7 +728,7 @@ class _Re_OPDState extends State<Re_OPD> {
                                     _selectDob(context);
                                   }),
                               border: const OutlineInputBorder(),
-                              hintText: 'Enter Date of Births',
+                              hintText: 'Enter Date of Birth'.tr,
                               fillColor: Colors.white,
                               filled: true),
                           readOnly: true,
@@ -747,16 +747,16 @@ class _Re_OPDState extends State<Re_OPD> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       RichText(
-                        text: const TextSpan(
+                        text:  TextSpan(
                           children: [
                             TextSpan(
-                              text: "Phone Number",
-                              style: TextStyle(
+                              text: "Phone Number".tr,
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
                               ),
                             ),
-                            TextSpan(
+                            const TextSpan(
                               text: '*',
                               style: TextStyle(
                                 color: Colors.red,
@@ -775,18 +775,18 @@ class _Re_OPDState extends State<Re_OPD> {
                         ],
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'This field is required'; // Display a message when the field is empty
+                            return 'This field is required'.tr; // Display a message when the field is empty
                           } else if (value.length != 10) {
-                            return 'Phone number must be 10 digits'; // Display a message for incorrect length
+                            return 'Phone number must be 10 digits'.tr; // Display a message for incorrect length
                           } else {
                             return null; // No error when the field has a valid 10-digit value
                           }
                         },
                         onTapOutside: (event) => FocusScope.of(context).unfocus(),
                         controller: phoneController,
-                        decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Enter phone Number',
+                        decoration:  InputDecoration(
+                            border: const OutlineInputBorder(),
+                            hintText: 'Enter phone Number'.tr,
                             fillColor: Colors.white,
                             filled: true),
                       ),
@@ -801,17 +801,17 @@ class _Re_OPDState extends State<Re_OPD> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(' Email Address (optional)',
-                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      Text('Email Address (optional)'.tr,
+                          style: const TextStyle(fontWeight: FontWeight.bold)),
                       const SizedBox(
                         height: 5,
                       ),
                       TextFormField(
                         onTapOutside: (event) => FocusScope.of(context).unfocus(),
                         controller: emailController,
-                        decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Enter Email Address',
+                        decoration:  InputDecoration(
+                            border: const OutlineInputBorder(),
+                            hintText: 'Enter Email Address'.tr,
                             fillColor: Colors.white,
                             filled: true),
                       ),
@@ -827,16 +827,16 @@ class _Re_OPDState extends State<Re_OPD> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       RichText(
-                        text: const TextSpan(
+                        text:  TextSpan(
                           children: [
                             TextSpan(
-                              text: "Address",
-                              style: TextStyle(
+                              text: "Address".tr,
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
                               ),
                             ),
-                            TextSpan(
+                            const TextSpan(
                               text: '*',
                               style: TextStyle(
                                 color: Colors.red,
@@ -851,15 +851,15 @@ class _Re_OPDState extends State<Re_OPD> {
                       TextFormField(
                         validator: (value) {
                           if (value!.isEmpty) {
-                            return 'This field is required';
+                            return 'This field is required'.tr;
                           }
                           return null;
                         },
                         onTapOutside: (event) => FocusScope.of(context).unfocus(),
                         controller: addresscontroller,
-                        decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Enter Your Full Address',
+                        decoration:  InputDecoration(
+                            border: const OutlineInputBorder(),
+                            hintText: 'Enter Your Full Address'.tr,
                             fillColor: Colors.white,
                             filled: true),
                       ),
@@ -969,11 +969,11 @@ class _Re_OPDState extends State<Re_OPD> {
                     mainAxisAlignment: MainAxisAlignment
                         .spaceBetween, // Align items at the ends
                     children: <Widget>[
-                      const Expanded(
+                       Expanded(
                         child: Center(
                           child: Text(
-                            'Select Department',
-                            style: TextStyle(
+                            'Select Department'.tr,
+                            style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
@@ -1000,10 +1000,10 @@ class _Re_OPDState extends State<Re_OPD> {
                             filterData(query);
                           });
                         },
-                        decoration: const InputDecoration(
-                          hintText: 'Search Department',
-                          border: OutlineInputBorder(),
-                          suffixIcon: Icon(Icons.search),
+                        decoration:  InputDecoration(
+                          hintText: 'Search Department'.tr,
+                          border: const OutlineInputBorder(),
+                          suffixIcon: const Icon(Icons.search),
                         ),
                       ),
                     ),
@@ -1067,7 +1067,7 @@ class _Re_OPDState extends State<Re_OPD> {
   }
 
 //////////////////////////////////////////////
-///////////////////////////// for select marital status
+// for select marital status
 
   void _showMaritalSelection(BuildContext context) {
     showModalBottomSheet(
@@ -1087,11 +1087,11 @@ class _Re_OPDState extends State<Re_OPD> {
                     mainAxisAlignment: MainAxisAlignment
                         .spaceBetween, // Align items at the ends
                     children: <Widget>[
-                      const Expanded(
+                     Expanded(
                         child: Center(
                           child: Text(
-                            'Select Marital Status',
-                            style: TextStyle(
+                            'Select Marital Status'.tr,
+                            style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
@@ -1181,11 +1181,11 @@ class _Re_OPDState extends State<Re_OPD> {
                     mainAxisAlignment: MainAxisAlignment
                         .spaceBetween, // Align items at the ends
                     children: <Widget>[
-                      const Expanded(
+                      Expanded(
                         child: Center(
                           child: Text(
-                            'Select Your Blood Group',
-                            style: TextStyle(
+                            'Select Your Blood Group'.tr,
+                            style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
@@ -1281,11 +1281,11 @@ class _Re_OPDState extends State<Re_OPD> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      const Expanded(
+                       Expanded(
                         child: Center(
                           child: Text(
-                            'Select Your Ticket Type',
-                            style: TextStyle(
+                            'Select Your Ticket Type'.tr,
+                            style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),

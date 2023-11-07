@@ -104,7 +104,7 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
       backgroundColor: Colors.lightBlue[50],
       appBar: AppBar(
         backgroundColor: darkYellow,
-        title: const Text('OPT Ticket Details'),
+        title:  Text('OPD Ticket Details'.tr),
         centerTitle: true,
       ),
       body: isLoading
@@ -143,27 +143,27 @@ class _ConfirmationScreenState extends State<OPDTicketDetails> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Padding(
-                              padding: EdgeInsets.all(10.0),
+                             Padding(
+                              padding: const EdgeInsets.all(10.0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Ticket Type',
+                                    'Ticket Type'.tr,
                                     style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                        const TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    'Ticket Date',
+                                    'Ticket Date'.tr,
                                     style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                        const TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    'Department',
+                                    'Department'.tr,
                                     style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                        const TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
