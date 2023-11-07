@@ -234,9 +234,9 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                                   borderRadius:
                                                       BorderRadius.circular(10),
                                                   child: Image.network(
-                                                    '${filteredData![index]['image']}', // Replace with your image URL
+                                                    '${filteredData![index]['image']}', 
                                                     width:
-                                                        200.0, // Set the width (optional)
+                                                        200.0, 
                                                     height:
                                                         200.0, // Set the height (optional)
                                                     fit: BoxFit

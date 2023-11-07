@@ -143,7 +143,7 @@ class _Change_PasswordState extends State<Change_Password> {
             backgroundColor: Colors.lightBlue[50],
 
       appBar: AppBar(
-        title: const Text('Change Password'),
+        title: Text('Change Password'.tr),
         centerTitle: true,
         backgroundColor: darkblue,
         foregroundColor: Utils.appbarForgroundColor,
@@ -189,16 +189,16 @@ class _Change_PasswordState extends State<Change_Password> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               RichText(
-                                text: const TextSpan(
+                                text:  TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: 'Current Password ',
-                                      style: TextStyle(
+                                      text: 'Current Password'.tr,
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black,
                                       ),
                                     ),
-                                    TextSpan(
+                                    const TextSpan(
                                       text: '*',
                                       style: TextStyle(
                                         color: Colors.red,
@@ -213,7 +213,7 @@ class _Change_PasswordState extends State<Change_Password> {
                               TextFormField(
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return 'Enter Current password';
+                                    return 'Enter Current password'.tr;
                                   } else {
                                     return null;
                                   }
@@ -224,7 +224,7 @@ class _Change_PasswordState extends State<Change_Password> {
                                 decoration: InputDecoration(
                                   fillColor: Colors.white,
                                   filled: true,
-                                  hintText: 'Enter Old password',
+                                  hintText: 'Enter Old password'.tr,
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
@@ -234,16 +234,16 @@ class _Change_PasswordState extends State<Change_Password> {
                                 height: 20,
                               ),
                               RichText(
-                                text: const TextSpan(
+                                text:  TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: 'New Password ',
-                                      style: TextStyle(
+                                      text: 'New Password'.tr,
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black,
                                       ),
                                     ),
-                                    TextSpan(
+                                    const TextSpan(
                                       text: '*',
                                       style: TextStyle(
                                         color: Colors.red,
@@ -258,9 +258,9 @@ class _Change_PasswordState extends State<Change_Password> {
                               TextFormField(
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return 'Enter New password';
+                                    return 'Enter New password'.tr;
                                   } else if (value.length < 8) {
-                                    return 'Password must be at least 8 characters long';
+                                    return 'Password must be at least 8 characters long'.tr;
                                   } else {
                                     return null;
                                   }
@@ -271,7 +271,7 @@ class _Change_PasswordState extends State<Change_Password> {
                                 decoration: InputDecoration(
                                   fillColor: Colors.white,
                                   filled: true,
-                                  hintText: 'Enter new password',
+                                  hintText: 'Enter new password'.tr,
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
@@ -281,16 +281,16 @@ class _Change_PasswordState extends State<Change_Password> {
                                 height: 20,
                               ),
                               RichText(
-                                text: const TextSpan(
+                                text:  TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: 'Confirm New Password ',
-                                      style: TextStyle(
+                                      text: 'Confirm New Password'.tr,
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black,
                                       ),
                                     ),
-                                    TextSpan(
+                                    const TextSpan(
                                       text: '*',
                                       style: TextStyle(
                                         color: Colors.red,
@@ -305,9 +305,9 @@ class _Change_PasswordState extends State<Change_Password> {
                               TextFormField(
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return 'Enter confirm password';
+                                    return 'Enter confirm password'.tr;
                                   } else if (value.length < 8) {
-                                    return 'Password must be at least 8 characters long';
+                                    return 'Password must be at least 8 characters long'.tr;
                                   } else {
                                     return null;
                                   }
@@ -318,7 +318,7 @@ class _Change_PasswordState extends State<Change_Password> {
                                 decoration: InputDecoration(
                                   fillColor: Colors.white,
                                   filled: true,
-                                  hintText: 'Enter confirm password',
+                                  hintText: 'Enter confirm password'.tr,
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
@@ -338,7 +338,7 @@ class _Change_PasswordState extends State<Change_Password> {
                                 width: double.infinity,
                                 height: 50,
                                 child: MyButton(
-                                  title: const Text('Change Password'),
+                                  title: Text('Change Password'.tr),
                                   onPressed: () {
                                     setState(() {
                                       isloading = true;
