@@ -2,6 +2,8 @@
 
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Doctor_book_Opd/Doctor_book_With_Insurance/doctor_book_iinsurance_detals.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Re-OPD/Re_Opd_With_Insurance/All_Details_With_Insurance.dart';
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:flutter/material.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -9,6 +11,7 @@ import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 
 class Organization {
@@ -81,6 +84,48 @@ class Re_Opd_Insurance_visibility extends StatefulWidget {
 
 class _Re_Opd_Insurance_visibilityState
     extends State<Re_Opd_Insurance_visibility> {
+  Future<void> fetchDepartmentData() async {
+    final response = await http.post(Uri.parse(ApiLinks.OPDTicketList));
+
+    if (response.statusCode == 200) {
+      final dataMap = json.decode(response.body);
+      setState(() {
+        data = dataMap['department'];
+        filteredData = data;
+        isLoading = false;
+      });
+    } else {
+      handleNonJsonResponse();
+    }
+  }
+
+  void handleNonJsonResponse() {
+    print('Non-JSON response or API error');
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  String selectedDepartmentId = '';
+  String selectedDepartment = '';
+  TextEditingController searchController = TextEditingController();
+  List<dynamic>? data = [];
+  List<dynamic>? filteredData = [];
+
+  void filterData(String query) {
+    setState(() {
+      filteredData = data
+          ?.where((element) =>
+              element['name'].toLowerCase().contains(query.toLowerCase()) ||
+              element['id'].toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    });
+  }
+
+  TextEditingController TickettypeController = TextEditingController();
+  String selectedTicketTypeId = '';
+  String selectedTicketType = '';
+  TextEditingController departmentController = TextEditingController();
   List<Organization> organizations = [];
   Future<void> fetchData() async {
     final response = await http.post(
@@ -103,6 +148,25 @@ class _Re_Opd_Insurance_visibilityState
     }
   }
 
+  TextEditingController TicketdateController = TextEditingController();
+  late DateTime selectedDate;
+  Future<void> _selectTicketDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2100),
+    );
+
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+        TicketdateController.text =
+            DateFormat('dd-MM-yyyy').format(selectedDate);
+      });
+    }
+  }
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController InsurancetypeController = TextEditingController();
   TextEditingController InsurancenumberController = TextEditingController();
@@ -112,7 +176,12 @@ class _Re_Opd_Insurance_visibilityState
   @override
   void initState() {
     super.initState();
+    selectedDate = DateTime.now();
     fetchData();
+    data = [];
+    filteredData = [];
+    searchController = TextEditingController();
+    fetchDepartmentData();
   }
 
   @override
@@ -198,6 +267,191 @@ class _Re_Opd_Insurance_visibilityState
                                     fillColor: Colors.white,
                                     filled: true,
                                   ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          width: width,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              RichText(
+                                text: const TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: "Ticket Type",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: '*',
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              InkWell(
+                                  child: TextFormField(
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'This field is required';
+                                  }
+                                  return null;
+                                },
+                                readOnly:
+                                    true, // Set this to true to disable the keyboard
+                                controller: TickettypeController,
+                                decoration: InputDecoration(
+                                  suffixIcon: IconButton(
+                                    icon: const Icon(
+                                      Icons.arrow_drop_down_sharp,
+                                      size: 40,
+                                    ),
+                                    onPressed: () {
+                                      _showTicketstypeSelection(context);
+                                    },
+                                  ),
+                                  border: const OutlineInputBorder(),
+                                  hintText: 'Select Ticket Type',
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                ),
+                                onTap: () {
+                                  _showTicketstypeSelection(context);
+                                },
+                              )),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          width: width,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              RichText(
+                                text: const TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: "Select Department",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: '*',
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              InkWell(
+                                  child: TextFormField(
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'This field is required';
+                                  }
+                                  return null;
+                                },
+                                readOnly:
+                                    true, // Set this to true to disable the keyboard
+                                controller: departmentController,
+                                decoration: InputDecoration(
+                                  suffixIcon: IconButton(
+                                    icon: const Icon(
+                                      Icons.arrow_drop_down_sharp,
+                                      size: 40,
+                                    ),
+                                    onPressed: () {
+                                      _showDepartmentSelection(context);
+                                    },
+                                  ),
+                                  border: const OutlineInputBorder(),
+                                  hintText: 'Select department',
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                ),
+                                onTap: () {
+                                  _showDepartmentSelection(context);
+                                },
+                              )),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          width: width,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              RichText(
+                                text: const TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: "Select Ticket Date",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: '*',
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              InkWell(
+                                child: TextFormField(
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'This field is required';
+                                    }
+                                    return null;
+                                  },
+                                  onTapOutside: (event) =>
+                                      FocusScope.of(context).unfocus(),
+                                  controller: TicketdateController,
+                                  decoration: InputDecoration(
+                                      suffixIcon: IconButton(
+                                          icon:
+                                              const Icon(Icons.calendar_month),
+                                          onPressed: () {
+                                            _selectTicketDate(context);
+                                          }),
+                                      border: const OutlineInputBorder(),
+                                      hintText: 'Select Ticket Date',
+                                      fillColor: Colors.white,
+                                      filled: true),
+                                  readOnly: true,
+                                  onTap: () => _selectTicketDate(context),
                                 ),
                               ),
                             ],
@@ -315,47 +569,48 @@ class _Re_Opd_Insurance_visibilityState
                                       if (insuranceDetails
                                               .containsKey('status') &&
                                           insuranceDetails['status'] == "1") {
-                                        // Navigate to the InsuranceOpdFormScreen and pass the data
-                                        // Navigator.push(
-                                        //   context,
-                                        //   MaterialPageRoute(
-                                        //     builder: (context) =>
-                                        //         doctor_book_iinsurance_detals(
-                                        //       dob: insuranceDetails['dob'] ??
-                                        //           "N/A",
-                                        //       gender:
-                                        //           insuranceDetails['gender'] ??
-                                        //               "N/A",
-                                        //       name: insuranceDetails['name'] ??
-                                        //           "N/A",
-                                        //       contractDate: insuranceDetails[
-                                        //               'contract_date'] ??
-                                        //           "N/A",
-                                        //       Phone:
-                                        //           insuranceDetails['phone'] ??
-                                        //               "N/A",
-                                        //       pataddress:
-                                        //           insuranceDetails['address'] ??
-                                        //               "N/A",
-                                        //       email:
-                                        //           insuranceDetails['phone'] ??
-                                        //               "N/A",
-                                        //       balance:
-                                        //           insuranceDetails['balance'] ??
-                                        //               "N/A",
-                                        //       InsuranceorSSFid:
-                                        //           InsurancenumberController
-                                        //               .text,
-                                        //       doctorName: widget.doctorName,
-                                        //       doctorId: widget.doctorId,
-                                        //       department_id:
-                                        //           widget.department_id,
-                                        //       Departmentname:
-                                        //           widget.Departmentname,
-                                        //       ticketDate: widget.ticketDate,
-                                        //     ),
-                                        //   ),
-                                        // );
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                All_Details_With_Insurance(
+                                              dob: insuranceDetails['dob'] ??
+                                                  "N/A",
+                                              gender:
+                                                  insuranceDetails['gender'] ??
+                                                      "N/A",
+                                              name: insuranceDetails['name'] ??
+                                                  "N/A",
+                                              contractDate: insuranceDetails[
+                                                      'contract_date'] ??
+                                                  "N/A",
+                                              Phone:
+                                                  insuranceDetails['phone'] ??
+                                                      "N/A",
+                                              pataddress:
+                                                  insuranceDetails['address'] ??
+                                                      "N/A",
+                                              email:
+                                                  insuranceDetails['phone'] ??
+                                                      "N/A",
+                                              balance:
+                                                  insuranceDetails['balance'] ??
+                                                      "N/A",
+                                              InsuranceorSSFid:
+                                                  InsurancenumberController
+                                                      .text,
+                                              department_id:
+                                                  selectedDepartmentId,
+                                              Departmentname:
+                                                  selectedDepartment,
+                                              ticketDate:
+                                                  TicketdateController.text,
+                                              Ticket_Type: selectedTicketType,
+                                              Ticket_TypeId:
+                                                  selectedTicketTypeId,
+                                            ),
+                                          ),
+                                        );
                                       }
                                     });
                                   }
@@ -374,6 +629,215 @@ class _Re_Opd_Insurance_visibilityState
                 ),
               ),
       ),
+    );
+  }
+
+  ///////////////////////////// for select department
+  void _showDepartmentSelection(BuildContext context) {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+      ),
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return Container(
+              height: MediaQuery.of(context).size.height * 0.8,
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment
+                        .spaceBetween, // Align items at the ends
+                    children: <Widget>[
+                      const Expanded(
+                        child: Center(
+                          child: Text(
+                            'Select Department',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.close), // Close icon
+                        onPressed: () {
+                          Navigator.of(context).pop(); // Close the bottom sheet
+                        },
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0, right: 8),
+                    child: Container(
+                      width: width / 0.8,
+                      height: 50,
+                      child: TextFormField(
+                        controller: searchController,
+                        onChanged: (query) {
+                          setState(() {
+                            filterData(query);
+                          });
+                        },
+                        decoration: const InputDecoration(
+                          hintText: 'Search Department',
+                          border: OutlineInputBorder(),
+                          suffixIcon: Icon(Icons.search),
+                        ),
+                      ),
+                    ),
+                  ),
+                  isLoading
+                      ? Expanded(
+                          child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Container(
+                            height: 50,
+                            width: 50,
+                            color: Colors.transparent,
+                            child: const LoadingIndicatorWidget(),
+                          ),
+                        ))
+                      : filteredData!.isEmpty
+                          ? Expanded(
+                              child: Center(
+                              child: Container(
+                                height: 150,
+                                width: 150,
+                                child: Lottie.asset(
+                                  'assets/No_Data_Found.json',
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ))
+                          : Expanded(
+                              child: ListView.builder(
+                                itemCount: filteredData?.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  int itemNumber = index + 1;
+                                  return Card(
+                                    color: Colors.white70.withOpacity(0.7),
+                                    child: ListTile(
+                                      title: Text(
+                                        '$itemNumber. ${filteredData?[index]['name'] ?? ''}',
+                                      ),
+                                      onTap: () {
+                                        selectedDepartment =
+                                            filteredData?[index]['name'] ?? '';
+                                        selectedDepartmentId =
+                                            filteredData?[index]['id'] ?? '';
+                                        departmentController.text =
+                                            '($selectedDepartmentId) $selectedDepartment';
+
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+//////////////////////////////////////////////
+  void _showTicketstypeSelection(BuildContext context) {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+      ),
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            // Create a list with "Emergency" and "General" only
+            List<Map<String, dynamic>> combinedData = [
+              {"id": 1, "name": "Emergency"},
+              {"id": 0, "name": "General"},
+            ];
+
+            return Container(
+              height: MediaQuery.of(context).size.height * 0.4,
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      const Expanded(
+                        child: Center(
+                          child: Text(
+                            'Select Your Blood Group',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.close),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  ),
+                  isLoading
+                      ? Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Center(
+                              child: Container(
+                                height: 50,
+                                width: 50,
+                                color: Colors.transparent,
+                                child: const LoadingIndicatorWidget(),
+                              ),
+                            ),
+                          ),
+                        )
+                      : Expanded(
+                          child: ListView.builder(
+                            itemCount: combinedData.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              int id = combinedData[index]["id"];
+                              String item = combinedData[index]["name"];
+                              return Card(
+                                color: Colors.white70.withOpacity(0.7),
+                                child: ListTile(
+                                  title: Text(
+                                    '$item',
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  onTap: () {
+                                    selectedTicketTypeId =
+                                        id != null ? id.toString() : item;
+                                    selectedTicketType = item;
+                                    TickettypeController.text =
+                                        '$selectedTicketType';
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                ],
+              ),
+            );
+          },
+        );
+      },
     );
   }
 
