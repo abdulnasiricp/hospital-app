@@ -78,13 +78,16 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
       "gender": "${widget.gender}".isEmpty ? "N/A" : "${widget.gender}",
       "dob": "${widget.dob}".isEmpty ? "N/A" : "${widget.dob}",
       "email": "${widget.email}".isEmpty ? "N/A" : "${widget.email}",
+      "is_emergency": "",
       "address":
           "${widget.pataddress}".isEmpty ? "N/A" : "${widget.pataddress}",
       "mobileno": "${widget.Phone}".isEmpty ? "N/A" : "${widget.Phone}",
       "department_id":
           "${widget.DepartmentId}".isEmpty ? "N/A" : "${widget.DepartmentId}",
       "doctor_id": "${widget.doctorId}".isEmpty ? "N/A" : "${widget.doctorId}",
-      "date": "${widget.ticketDate}".isEmpty ? "$formattedDate" : "${widget.ticketDate}",
+      "date": "${widget.ticketDate}".isEmpty
+          ? "$formattedDate"
+          : "${widget.ticketDate}",
       "blood_group": "",
       "payment_mode": "cheque",
       "insurance_no": widget.InsuranceorSSFid,
@@ -190,7 +193,7 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
                                 Padding(
                                   padding: const EdgeInsets.only(top: 1.0),
                                   child: Container(
-                                    child:  Text(
+                                    child: Text(
                                       'Ticket Booking successful!'.tr,
                                       style: const TextStyle(
                                         fontSize: 28,
@@ -219,7 +222,7 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                       Text(
+                                      Text(
                                         "Ticket Date".tr,
                                         style: const TextStyle(
                                           fontWeight: FontWeight.bold,
@@ -227,7 +230,9 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
                                         ),
                                       ),
                                       Text(
-                                        "${widget.ticketDate}".isEmpty? "$formattedDate":"${widget.ticketDate}",
+                                        "${widget.ticketDate}".isEmpty
+                                            ? "$formattedDate"
+                                            : "${widget.ticketDate}",
                                         style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16,
@@ -245,7 +250,7 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                       Text(
+                                      Text(
                                         "Transaction Id".tr,
                                         style: const TextStyle(
                                           fontWeight: FontWeight.bold,
@@ -266,7 +271,7 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
                                   height: 5,
                                 ),
                                 const DottedLineDivider(),
-                                 PaymentItem(
+                                PaymentItem(
                                   title: 'OPD Ticket Charge'.tr,
                                   amount: "FREE",
                                 ),
@@ -282,13 +287,14 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
                               ],
                             ),
                           ),
-                           Row(
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(right: 8.0),
                                 child: Text(
-                                    "Payment Mode : Payment By Insurance Claimed".tr,
+                                    "Payment Mode : Payment By Insurance Claimed"
+                                        .tr,
                                     style: const TextStyle(fontSize: 12)),
                               ),
                             ],
@@ -309,7 +315,7 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
                                 width: width,
                                 height: height / 15,
                                 child: ElevatedButton(
-                                  child:  Text("Download Ticket".tr),
+                                  child: Text("Download Ticket".tr),
                                   onPressed: () async {
                                     final status =
                                         await Permission.storage.request();

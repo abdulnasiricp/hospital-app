@@ -42,6 +42,7 @@ class SelectDateScreen extends StatefulWidget {
 
 class _SelectDateScreenState extends State<SelectDateScreen> {
 ////////////////////////////////////////////////////////////
+
   TextEditingController InsurancetypeController = TextEditingController();
   List<Organization> organizations = [];
   Future<void> fetchData() async {
@@ -107,7 +108,6 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
     await LoadData();
     await ProfileApi();
     await fetchDepartmentData();
-    await fetchData();
   }
 
   @override

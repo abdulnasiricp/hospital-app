@@ -2,7 +2,6 @@
 
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:TezHealthCare/Payment_gateway/Select_Payment_Method.dart';
 import 'package:TezHealthCare/Services/notificationServies.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
@@ -44,16 +43,39 @@ import 'package:badges/badges.dart' as badges;
 
 class PatientHomePage extends StatefulWidget {
   final String payload;
-
   final String? patientId;
   const PatientHomePage({Key? key, this.patientId, required this.payload})
       : super(key: key);
-
   @override
   State<PatientHomePage> createState() => _PatientHomePageState();
 }
 
 class _PatientHomePageState extends State<PatientHomePage> {
+  TextEditingController InsurancetypeController = TextEditingController();
+  String selectedInsurancetypename = '';
+  String selectedInsurancetypeId = '';
+  List<Organization> organizations = [];
+  Future<void> fetchData() async {
+    final response = await http.post(
+      Uri.parse('https://uat.tez.hospital/xzy/webservice/db_table'),
+      headers: {
+        'Soft-service': 'TezHealthCare',
+        'Auth-key': 'zbuks_ram859553467',
+      },
+      body: jsonEncode({
+        "table": "organisation",
+      }),
+    );
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      final result = data['result'];
+      setState(() {
+        organizations = List<Organization>.from(
+            result.map((org) => Organization.fromJson(org)));
+      });
+    }
+  }
+
   /////////////////////////////////////////
   //convert rupess to paisa
   late num rupeesAmount = totalDues;
@@ -94,10 +116,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
       print('============ timer');
       await getdata();
     });
-
     getdata();
-
     hitApi();
+    fetchData();
   }
 
 ///////////////////////////////////////////////////////////////////
@@ -1178,49 +1199,216 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                       onTap: () {
                                         showDialog(
                                           context: context,
-                                          builder: (context) {
-                                            return AlertDialog(
-                                              title: Text('bookingType'.tr),
-                                              content: Text('askTicketType'.tr),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () {
-                                                    Navigator.pop(
-                                                        context); // Close the dialog
-                                                    Get.offAll(() =>
-                                                        const Re_Opd_Insurance_visibility(
-                                                          doctorName: 'N/A',
-                                                          department_id: 'N/A',
-                                                          Departmentname: 'N/A',
-                                                          doctorId: 'N/A',
-                                                          ticketDate: 'N/A',
-                                                        ));
-                                                  },
-                                                  child:
-                                                      Text('bookInsurance'.tr),
-                                                ),
-                                                TextButton(
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                    Get.offAll(() => const Re_OPD(
-                                                        // BloodgroupId: profileData?.bloodGroup == null ? '1' : profileData?.bloodGroup,
-                                                        // Bloodgroupname: '',
-                                                        // DepartmentId: widget.doctorSpecialization,
-                                                        // bloodGroup: '',
-                                                        // maritalStatus: profileData?.maritalStatus ?? 'N/A',
-                                                        // patientAddress: profileData?.address ?? 'N/A',
-                                                        // patientDOB: profileData?.dob ?? 'N/A',
-                                                        // patientEmail: profileData?.email ?? 'N/A',
-                                                        // patientGender: profileData?.gender ?? 'N/A',
-                                                        // patientMobile: profileData?.mobileNo ?? 'N/A',
-                                                        // patientName: profileData?.patientName ?? 'N/A',
-                                                        // Pass the choice here
+                                          builder: (BuildContext context) {
+                                            return Dialog(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                              ),
+                                              child: Container(
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.7,
+                                                width: width,
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  20),
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  20),
+                                                        ),
+                                                      ),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: <Widget>[
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(20.0),
+                                                            child: Text(
+                                                              'Select Criteria',
+                                                              style: TextStyle(
+                                                                fontSize: 20,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .black,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          IconButton(
+                                                            icon: Icon(
+                                                              Icons.close,
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                            onPressed: () {
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                            },
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Card(
+                                                      child: ListTile(
+                                                        contentPadding:
+                                                            EdgeInsets.all(20),
+                                                        tileColor:
+                                                            Colors.yellow,
+                                                        title: Text(
+                                                          "General Opd",
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                        subtitle: Text(
+                                                          "Tap to book an appointment",
+                                                          style: TextStyle(
+                                                            color: Colors.grey,
+                                                          ),
+                                                        ),
+                                                        leading: Icon(
+                                                          Icons.local_hospital,
+                                                          color: darkYellow,
+                                                          size: 40,
+                                                        ),
+                                                        trailing: Icon(
+                                                          Icons.arrow_forward,
+                                                          color: darkYellow,
+                                                        ),
+                                                        onTap: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                          // Get.to(() => Doctor_Book_Details(
+                                                          //   doctorName: widget.doctorName,
+                                                          //   BloodgroupId: profileData?.bloodGroup == null ? '1' : profileData?.bloodGroup,
+                                                          //   Bloodgroupname: '',
+                                                          //   DepartmentId: widget.doctorSpecialization,
+                                                          //   bloodGroup: '',
+                                                          //   maritalStatus: profileData?.maritalStatus ?? 'N/A',
+                                                          //   patientAddress: profileData?.address ?? 'N/A',
+                                                          //   patientDOB: profileData?.dob ?? 'N/A',
+                                                          //   patientEmail: profileData?.email ?? 'N/A',
+                                                          //   patientGender: profileData?.gender ?? 'N/A',
+                                                          //   patientMobile: profileData?.mobileNo ?? 'N/A',
+                                                          //   patientName: profileData?.patientName ?? 'N/A',
+                                                          //   selectedDepartmentname: widget.doctorSpecialization,
+                                                          //   department_id: widget.department_id,
+                                                          //   doctorId: widget.doctorId,
+                                                          //   ticketDate: '$formattedDate',
+                                                          // ));
+                                                        },
+                                                      ),
+                                                    ),
+                                                    SizedBox(height: 20),
+                                                    if (isLoading)
+                                                      Center(
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(10.0),
+                                                          child: Container(
+                                                            height: 50,
+                                                            width: 50,
+                                                            color: Colors
+                                                                .transparent,
+                                                            child:
+                                                                const LoadingIndicatorWidget(),
+                                                          ),
+                                                        ),
+                                                      )
+                                                    else if (organizations
+                                                        .isEmpty)
+                                                      Text(
+                                                        'No data found',
+                                                        style: TextStyle(
+                                                            fontSize: 16,
+                                                            color:
+                                                                Colors.black),
+                                                      )
+                                                    else
+                                                      Expanded(
+                                                        child: ListView.builder(
+                                                          itemCount:
+                                                              organizations
+                                                                  .length,
+                                                          itemBuilder:
+                                                              (context, index) {
+                                                            final organization =
+                                                                organizations[
+                                                                    index];
 
-                                                        ));
-                                                  },
-                                                  child: Text('bookGeneral'.tr),
+                                                            return Card(
+                                                              elevation: 4,
+                                                              margin: EdgeInsets
+                                                                  .all(8),
+                                                              shape:
+                                                                  RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10),
+                                                              ),
+                                                              child: ListTile(
+                                                                title: Text(
+                                                                  organization
+                                                                      .organisationName,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        18,
+                                                                  ),
+                                                                ),
+                                                                onTap: () {
+                                                                  selectedInsurancetypename =
+                                                                      organization
+                                                                          .organisationName;
+                                                                  selectedInsurancetypeId =
+                                                                      organization
+                                                                          .id;
+                                                                  InsurancetypeController
+                                                                          .text =
+                                                                      selectedInsurancetypename;
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop();
+                                                                  print(
+                                                                      'selectedInsurancetypeId: $selectedInsurancetypeId');
+
+                                                                  Get.offAll(() =>
+                                                                      Re_Opd_Insurance_visibility(
+                                                                        selectedInsurancetypename:
+                                                                            selectedInsurancetypename,
+                                                                        selectedInsurancetypeId1:
+                                                                            selectedInsurancetypeId,
+                                                                      ));
+                                                                },
+                                                              ),
+                                                            );
+                                                          },
+                                                        ),
+                                                      ),
+                                                  ],
                                                 ),
-                                              ],
+                                              ),
                                             );
                                           },
                                         );

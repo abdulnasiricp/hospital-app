@@ -67,25 +67,20 @@ class Organization {
 }
 
 class Re_Opd_Insurance_visibility extends StatefulWidget {
-  final String doctorName;
-  final String Departmentname;
-  final String ticketDate;
-  final String department_id;
-  final String doctorId;
+  final String selectedInsurancetypename;
+  final String selectedInsurancetypeId1;
   const Re_Opd_Insurance_visibility({
     Key? key,
-    required this.doctorName,
-    required this.Departmentname,
-    required this.ticketDate,
-    required this.department_id,
-    required this.doctorId,
+    required this.selectedInsurancetypeId1,
+    required this.selectedInsurancetypename,
   }) : super(key: key);
   @override
   State<Re_Opd_Insurance_visibility> createState() =>
-      _Insurance_ValidityState();
+      _Re_Opd_Insurance_visibilityState();
 }
 
-class _Insurance_ValidityState extends State<Re_Opd_Insurance_visibility> {
+class _Re_Opd_Insurance_visibilityState
+    extends State<Re_Opd_Insurance_visibility> {
   List<Organization> organizations = [];
   Future<void> fetchData() async {
     final response = await http.post(
@@ -111,8 +106,6 @@ class _Insurance_ValidityState extends State<Re_Opd_Insurance_visibility> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController InsurancetypeController = TextEditingController();
   TextEditingController InsurancenumberController = TextEditingController();
-  String selectedInsurancetypename = '';
-  String selectedInsurancetypeId = '';
   bool isLoading = false;
   String statusMessage = '';
   Map<String, dynamic> insuranceDetails = {};
@@ -133,7 +126,7 @@ class _Insurance_ValidityState extends State<Re_Opd_Insurance_visibility> {
         backgroundColor: Colors.lightBlue[50],
         appBar: AppBar(
           backgroundColor: darkYellow,
-          title:  Text('Check Status Of Insurance'.tr),
+          title: const Text('Check Status Of Insurance'),
           centerTitle: true,
           leading: InkWell(
               onTap: () {
@@ -167,16 +160,16 @@ class _Insurance_ValidityState extends State<Re_Opd_Insurance_visibility> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               RichText(
-                                text: TextSpan(
+                                text: const TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: "Insurance Type".tr,
-                                      style: const TextStyle(
+                                      text: "Insurance Type",
+                                      style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black,
                                       ),
                                     ),
-                                    const TextSpan(
+                                    TextSpan(
                                       text: '*',
                                       style: TextStyle(
                                         color: Colors.red,
@@ -192,30 +185,19 @@ class _Insurance_ValidityState extends State<Re_Opd_Insurance_visibility> {
                                 child: TextFormField(
                                   validator: (value) {
                                     if (value!.isEmpty) {
-                                      return 'This field is required'.tr;
+                                      return 'This field is required';
                                     }
                                     return null;
                                   },
                                   readOnly: true,
-                                  controller: InsurancetypeController,
+                                  controller: TextEditingController(
+                                      text: widget.selectedInsurancetypename),
                                   decoration: InputDecoration(
-                                    suffixIcon: IconButton(
-                                      icon: const Icon(
-                                        Icons.arrow_drop_down_sharp,
-                                        size: 40,
-                                      ),
-                                      onPressed: () {
-                                        _showInsurancetypeSelection(context);
-                                      },
-                                    ),
                                     border: const OutlineInputBorder(),
-                                    hintText: 'Select Insurance Type'.tr,
+                                    hintText: 'Select Insurance Type',
                                     fillColor: Colors.white,
                                     filled: true,
                                   ),
-                                  onTap: () {
-                                    _showInsurancetypeSelection(context);
-                                  },
                                 ),
                               ),
                             ],
@@ -233,9 +215,10 @@ class _Insurance_ValidityState extends State<Re_Opd_Insurance_visibility> {
                                 text: TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: selectedInsurancetypename == 'SSF'
+                                      text: widget.selectedInsurancetypename ==
+                                              'SSF'
                                           ? "SSF Id"
-                                          : "Insurance  Id".tr,
+                                          : "Insurance  Id",
                                       style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black,
@@ -256,7 +239,7 @@ class _Insurance_ValidityState extends State<Re_Opd_Insurance_visibility> {
                               TextFormField(
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return 'This field is required'.tr;
+                                    return 'This field is required';
                                   }
                                   return null;
                                 },
@@ -265,9 +248,10 @@ class _Insurance_ValidityState extends State<Re_Opd_Insurance_visibility> {
                                 controller: InsurancenumberController,
                                 decoration: InputDecoration(
                                   border: const OutlineInputBorder(),
-                                  hintText: selectedInsurancetypename == 'SSF'
-                                      ? 'Enter SSF Id'
-                                      : 'Enter Insurance Id',
+                                  hintText:
+                                      widget.selectedInsurancetypename == 'SSF'
+                                          ? 'Enter SSF Id'
+                                          : 'Enter Insurance Id',
                                   fillColor: Colors.white,
                                   filled: true,
                                 ),
@@ -283,9 +267,9 @@ class _Insurance_ValidityState extends State<Re_Opd_Insurance_visibility> {
                           Center(
                               child: Container(
                                   height: 20,
-                                  child:  Text(
-                                    "Insurance details not available.".tr,
-                                    style: const TextStyle(color: Colors.red),
+                                  child: const Text(
+                                    "Insurance details not available.",
+                                    style: TextStyle(color: Colors.red),
                                   ))),
                         if (insuranceDetails.containsKey('status') &&
                             insuranceDetails['status'] == "1")
@@ -302,7 +286,7 @@ class _Insurance_ValidityState extends State<Re_Opd_Insurance_visibility> {
                               width: width,
                               height: height / 15,
                               child: ElevatedButton(
-                                child:  Text("Check Status".tr),
+                                child: const Text("Check Status"),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     fetchInsuranceDetails();
@@ -332,46 +316,46 @@ class _Insurance_ValidityState extends State<Re_Opd_Insurance_visibility> {
                                               .containsKey('status') &&
                                           insuranceDetails['status'] == "1") {
                                         // Navigate to the InsuranceOpdFormScreen and pass the data
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                doctor_book_iinsurance_detals(
-                                              dob: insuranceDetails['dob'] ??
-                                                  "N/A",
-                                              gender:
-                                                  insuranceDetails['gender'] ??
-                                                      "N/A",
-                                              name: insuranceDetails['name'] ??
-                                                  "N/A",
-                                              contractDate: insuranceDetails[
-                                                      'contract_date'] ??
-                                                  "N/A",
-                                              Phone:
-                                                  insuranceDetails['phone'] ??
-                                                      "N/A",
-                                              pataddress:
-                                                  insuranceDetails['address'] ??
-                                                      "N/A",
-                                              email:
-                                                  insuranceDetails['phone'] ??
-                                                      "N/A",
-                                              balance:
-                                                  insuranceDetails['balance'] ??
-                                                      "N/A",
-                                              InsuranceorSSFid:
-                                                  InsurancenumberController
-                                                      .text,
-                                              doctorName: widget.doctorName,
-                                              doctorId: widget.doctorId,
-                                              department_id:
-                                                  widget.department_id,
-                                              Departmentname:
-                                                  widget.Departmentname,
-                                              ticketDate: widget.ticketDate,
-                                            ),
-                                          ),
-                                        );
+                                        // Navigator.push(
+                                        //   context,
+                                        //   MaterialPageRoute(
+                                        //     builder: (context) =>
+                                        //         doctor_book_iinsurance_detals(
+                                        //       dob: insuranceDetails['dob'] ??
+                                        //           "N/A",
+                                        //       gender:
+                                        //           insuranceDetails['gender'] ??
+                                        //               "N/A",
+                                        //       name: insuranceDetails['name'] ??
+                                        //           "N/A",
+                                        //       contractDate: insuranceDetails[
+                                        //               'contract_date'] ??
+                                        //           "N/A",
+                                        //       Phone:
+                                        //           insuranceDetails['phone'] ??
+                                        //               "N/A",
+                                        //       pataddress:
+                                        //           insuranceDetails['address'] ??
+                                        //               "N/A",
+                                        //       email:
+                                        //           insuranceDetails['phone'] ??
+                                        //               "N/A",
+                                        //       balance:
+                                        //           insuranceDetails['balance'] ??
+                                        //               "N/A",
+                                        //       InsuranceorSSFid:
+                                        //           InsurancenumberController
+                                        //               .text,
+                                        //       doctorName: widget.doctorName,
+                                        //       doctorId: widget.doctorId,
+                                        //       department_id:
+                                        //           widget.department_id,
+                                        //       Departmentname:
+                                        //           widget.Departmentname,
+                                        //       ticketDate: widget.ticketDate,
+                                        //     ),
+                                        //   ),
+                                        // );
                                       }
                                     });
                                   }
@@ -393,101 +377,6 @@ class _Insurance_ValidityState extends State<Re_Opd_Insurance_visibility> {
     );
   }
 
-  void _showInsurancetypeSelection(BuildContext context) {
-    showModalBottomSheet(
-      isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
-      ),
-      context: context,
-      builder: (BuildContext context) {
-        return StatefulBuilder(
-          builder: (BuildContext context, StateSetter setState) {
-            return Container(
-              height: MediaQuery.of(context).size.height * 0.5,
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                       Expanded(
-                        child: Center(
-                          child: Text(
-                            'Select Insurance Type'.tr,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.close),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ],
-                  ),
-                  if (isLoading)
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                          height: 50,
-                          width: 50,
-                          color: Colors.transparent,
-                          child: const LoadingIndicatorWidget(),
-                        ),
-                      ),
-                    )
-                  else if (organizations.isEmpty)
-                    Expanded(
-                      child: Center(
-                        child: Container(
-                          height: 150,
-                          width: 150,
-                          child: Lottie.asset(
-                            'assets/No_Data_Found.json',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    )
-                  else
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: organizations.length,
-                        itemBuilder: (context, index) {
-                          final organization = organizations[index];
-                          return Card(
-                            color: Colors.white70.withOpacity(0.7),
-                            child: ListTile(
-                              title: Text(organization.organisationName),
-                              onTap: () {
-                                selectedInsurancetypename =
-                                    organization.organisationName;
-                                selectedInsurancetypeId = organization.id;
-                                InsurancetypeController.text =
-                                    selectedInsurancetypename;
-                                Navigator.of(context).pop();
-                                print(
-                                    'selectedInsurancetypeId: $selectedInsurancetypeId');
-                              },
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                ],
-              ),
-            );
-          },
-        );
-      },
-    );
-  }
-
   Future<void> fetchInsuranceDetails() async {
     setState(() {
       isLoading = true;
@@ -501,7 +390,7 @@ class _Insurance_ValidityState extends State<Re_Opd_Insurance_visibility> {
     };
 
     final body = jsonEncode({
-      "insurance_type": selectedInsurancetypeId,
+      "insurance_type": widget.selectedInsurancetypeId1,
       "insurance_id": InsurancenumberController.text,
     });
 
@@ -615,21 +504,21 @@ class InsuranceDetailsWidget extends StatelessWidget {
           height: 10,
         ),
         Text(
-            "The OPD amount will be deducted from your insurance balance, ensuring a seamless and convenient process for your healthcare expenses.".tr,
+            "The OPD amount will be deducted from your insurance balance, ensuring a seamless and convenient process for your healthcare expenses.",
             style: TextStyle(color: Colors.orange[900])),
         const SizedBox(
           height: 10,
         ),
-       Row(
+        const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Center(
               child: Text(
-                  "You are eligible for buy Ticket with Insurance .\n If you want to buy ticket click on PROCEED".tr,
-                  style: const TextStyle(
+                  "You are eligible for buy Ticket with Insurance .\n If you want to buy ticket click on PROCEED",
+                  style: TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.green)),
             ),
-            const SizedBox(
+            SizedBox(
               width: 10,
             ),
           ],
