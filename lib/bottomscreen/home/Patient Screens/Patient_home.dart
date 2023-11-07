@@ -23,6 +23,7 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Radio
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Surgery/SurgeryPrescriptionList.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Transaction_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/USG/usg.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Re-OPD/Generalreopd.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Re-OPD/Re_Opd_With_Insurance/Re_Opd_Insurance_visibility.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Select_date.dart';
 import 'package:TezHealthCare/screens/notification.dart';
@@ -56,7 +57,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
   /////////////////////////////////////////
   //convert rupess to paisa
   late num rupeesAmount = totalDues;
-  late double rupeesAmountInt = rupeesAmount.toDouble();
+  late int rupeesAmountInt = rupeesAmount.toInt();
 
   num rupeesToPaisa(num rupees) {
     return rupees * 100.0;
@@ -345,19 +346,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
               sharedPreferences.getStringList('notifications') ?? [];
           // Store the notification message with the unique identifier
 
-          // Check if there are already notifications in SharedPreferences
-          if (notifications.isNotEmpty) {
-            // Skip the first notification, which is already stored
-            final existingNotification = notifications.first;
-            final parts = existingNotification.split(": ");
-            final timestamp = DateTime.parse(parts[0]);
-            final isRead = sharedPreferences
-                    .getBool('isRead_${parts[1]}:${timestamp.toString()}') ??
-                false;
-            if (isRead) {
-              notifications.removeAt(0);
-            }
-          }
+     
           notifications.add("$uniqueId: $notificationMessage");
           sharedPreferences.setStringList('notifications', notifications);
 
@@ -377,7 +366,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
   }
 //////////////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////////////////
 
   @override
   Widget build(BuildContext context) {
@@ -1180,8 +1168,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               const SizedBox(
                                                 height: 10,
                                               ),
-                                              const Text("OPD History",
-                                                  style: TextStyle(
+                                               Text("opdHistory".tr,
+                                                  style: const TextStyle(
                                                     fontSize: 7,
                                                     fontWeight: FontWeight.bold,
                                                   ))
@@ -1196,9 +1184,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                           context: context,
                                           builder: (context) {
                                             return AlertDialog(
-                                              title: const Text('Booking Type'),
-                                              content: const Text(
-                                                  'Do you want to book insurance or general?'),
+                                              title: Text('bookingType'.tr),
+                                              content:  Text(
+                                                  'askTicketType'.tr),
                                               actions: [
                                                 TextButton(
                                                   onPressed: () {
@@ -1213,32 +1201,32 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                           ticketDate: 'N/A',
                                                         ));
                                                   },
-                                                  child: const Text(
-                                                      'Book Insurance'),
+                                                  child: Text(
+                                                      'bookInsurance'.tr),
                                                 ),
                                                 TextButton(
                                                   onPressed: () {
                                                     Navigator.pop(context);
-                                                    // Get.to(() => Re_OPD(
-                                                    //     // BloodgroupId: profileData?.bloodGroup == null ? '1' : profileData?.bloodGroup,
-                                                    //     // Bloodgroupname: '',
-                                                    //     // DepartmentId: widget.doctorSpecialization,
-                                                    //     // bloodGroup: '',
-                                                    //     // maritalStatus: profileData?.maritalStatus ?? 'N/A',
-                                                    //     // patientAddress: profileData?.address ?? 'N/A',
-                                                    //     // patientDOB: profileData?.dob ?? 'N/A',
-                                                    //     // patientEmail: profileData?.email ?? 'N/A',
-                                                    //     // patientGender: profileData?.gender ?? 'N/A',
-                                                    //     // patientMobile: profileData?.mobileNo ?? 'N/A',
-                                                    //     // patientName: profileData?.patientName ?? 'N/A',
-                                                    //     // Pass the choice here
-                                                    //
-                                                    //
-                                                    //
-                                                    //     ));
+                                                    Get.offAll(() => const Re_OPD(
+                                                        // BloodgroupId: profileData?.bloodGroup == null ? '1' : profileData?.bloodGroup,
+                                                        // Bloodgroupname: '',
+                                                        // DepartmentId: widget.doctorSpecialization,
+                                                        // bloodGroup: '',
+                                                        // maritalStatus: profileData?.maritalStatus ?? 'N/A',
+                                                        // patientAddress: profileData?.address ?? 'N/A',
+                                                        // patientDOB: profileData?.dob ?? 'N/A',
+                                                        // patientEmail: profileData?.email ?? 'N/A',
+                                                        // patientGender: profileData?.gender ?? 'N/A',
+                                                        // patientMobile: profileData?.mobileNo ?? 'N/A',
+                                                        // patientName: profileData?.patientName ?? 'N/A',
+                                                        // Pass the choice here
+                                                    
+                                                    
+                                                    
+                                                        ));
                                                   },
-                                                  child: const Text(
-                                                      'Book General'),
+                                                  child:  Text(
+                                                      'bookGeneral'.tr),
                                                 ),
                                               ],
                                             );
@@ -1266,8 +1254,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               const SizedBox(
                                                 height: 10,
                                               ),
-                                              const Text("Re-OPD",
-                                                  style: TextStyle(
+                                               Text("reopd".tr,
+                                                  style: const TextStyle(
                                                     fontSize: 7,
                                                     fontWeight: FontWeight.bold,
                                                   ))

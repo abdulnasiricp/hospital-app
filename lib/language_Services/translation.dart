@@ -37,6 +37,14 @@ class Translation extends Translations {
           'Ratussubtitle': "Rate Us: Your Feedback Matters",
           'Termsconditionubtitle': "App Rules & Regulations",
           'Updatesubtitle': "Never Miss an Update with Check Updates",
+          'reopd':'Re-OPD',
+          'opdHistory':'OPD History',
+          'bookingType':'Booking Type',
+          'askTicketType':'Do you want to book insurance or general?',
+          'bookGeneral':'Book General',
+          'bookInsurance':'Book Insurance',
+
+
           //View All Doctor list
           'selectADoctor': "Select a Doctor",
           'searchADoctor': "Search your doctor",
@@ -232,7 +240,12 @@ class Translation extends Translations {
 
           //maternity card
           'Maternity': 'Maternity'
+
+          // 
         },
+
+
+
         'ne_NP': {
           //Bottom Bar
           'home': "होम",
@@ -263,6 +276,13 @@ class Translation extends Translations {
           'doctors': "डाक्टरहरू",
           'viewAll': "सबै हेर्नुहोस्",
           'card': "कार्ड",
+          'reopd':'पुन ओपीडी',
+          'opdHistory':'ओपीडी इतिहास',
+          'bookingType':'बुकिंग प्रकार',
+          'askTicketType':'के तपाइँ बीमा वा सामान्य बुक गर्न चाहनुहुन्छ?',
+          'bookGeneral':'पुस्तक सामान्य',
+          'bookInsurance':'पुस्तक बीमा',
+
 
           //View All Doctor list
           'selectADoctor': "एक डाक्टर चयन गर्नुहोस्",

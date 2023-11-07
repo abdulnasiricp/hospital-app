@@ -1,3 +1,5 @@
+
+
 // ignore_for_file: non_constant_identifier_names, sized_box_for_whitespace, avoid_unnecessary_containers, file_names
 
 import 'package:TezHealthCare/Payment_gateway/cancel_payment.dart';
@@ -14,7 +16,7 @@ import 'package:get/get.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 
 class CheckSelectPaymentMethod extends StatefulWidget {
-  final double totalAmountInRs;
+  final int totalAmountInRs;
   final int total_AmountPaisa;
   final String patientName;
   final String DepartmentId;

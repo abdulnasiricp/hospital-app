@@ -14,7 +14,7 @@ import 'package:get/get.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 
 class SelectPaymentmethodfordoctorbooking extends StatefulWidget {
-  final double totalAmountInRs;
+  final int totalAmountInRs;
   final int total_AmountPaisa;
   final String patientName;
   final String DepartmentId;
