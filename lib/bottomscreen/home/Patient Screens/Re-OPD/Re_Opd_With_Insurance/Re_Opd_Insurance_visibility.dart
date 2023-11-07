@@ -1,7 +1,6 @@
 // ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, sized_box_for_whitespace, avoid_print, prefer_const_constructors_in_immutables
 
 import 'package:TezHealthCare/bottombar/bottombar.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Doctor_book_Opd/Doctor_book_With_Insurance/doctor_book_iinsurance_detals.dart';
 import 'package:flutter/material.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -9,7 +8,6 @@ import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:lottie/lottie.dart';
 
 class Organization {
   final String id;
@@ -192,8 +190,8 @@ class _Re_Opd_Insurance_visibilityState
                                   readOnly: true,
                                   controller: TextEditingController(
                                       text: widget.selectedInsurancetypename),
-                                  decoration: InputDecoration(
-                                    border: const OutlineInputBorder(),
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
                                     hintText: 'Select Insurance Type',
                                     fillColor: Colors.white,
                                     filled: true,

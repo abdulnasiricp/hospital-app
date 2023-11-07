@@ -22,7 +22,6 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Radio
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Surgery/SurgeryPrescriptionList.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Transaction_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/USG/usg.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Re-OPD/Generalreopd.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Re-OPD/Re_Opd_With_Insurance/Re_Opd_Insurance_visibility.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Select_date.dart';
 import 'package:TezHealthCare/screens/notification.dart';
@@ -31,10 +30,13 @@ import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -55,6 +57,71 @@ class _PatientHomePageState extends State<PatientHomePage> {
   String selectedInsurancetypename = '';
   String selectedInsurancetypeId = '';
   List<Organization> organizations = [];
+
+ late StreamSubscription subscription;
+  bool isDeviceConnected = false;
+  bool isAlertSet = false;
+
+
+  getConnectivity() =>
+      subscription = Connectivity().onConnectivityChanged.listen(
+        (ConnectivityResult result) async {
+          isDeviceConnected = await InternetConnectionChecker().hasConnection;
+          if (!isDeviceConnected && isAlertSet == false) {
+            showDialogBox();
+            setState(() => isAlertSet = true);
+          }
+        },
+      );
+
+
+      showDialogBox() => showCupertinoDialog<String>(
+        context: context,
+        builder: (BuildContext context) => CupertinoAlertDialog(
+          title: Column(
+            children: [
+              SvgPicture.asset( 'assets/nointernet.svg',
+                                                  width: 30,
+                                                  height: 30,
+                                                  ),
+              const Text('No Connection'),
+            ],
+          ),
+          content: const Text('Please check your internet connectivity'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () async {
+                Navigator.pop(context, 'Cancel');
+                setState(() => isAlertSet = false);
+                isDeviceConnected =
+                    await InternetConnectionChecker().hasConnection;
+                if (!isDeviceConnected && isAlertSet == false) {
+                  showDialogBox();
+                  setState(() => isAlertSet = true);
+                }
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+
+  @override
+  void dispose() {
+    subscription.cancel();
+    super.dispose();
+  }
+
+
+
+
+
+
+
+
+
+
+
   Future<void> fetchData() async {
     final response = await http.post(
       Uri.parse('https://uat.tez.hospital/xzy/webservice/db_table'),
@@ -101,6 +168,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
 // init state data and dispose
 
   getdata() async {
+   await getConnectivity();
     await LoadData();
 
     await getDues();
@@ -1214,7 +1282,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                 child: Column(
                                                   children: <Widget>[
                                                     Container(
-                                                      decoration: BoxDecoration(
+                                                      decoration: const BoxDecoration(
                                                         color: Colors.white,
                                                         borderRadius:
                                                             BorderRadius.only(
@@ -1231,9 +1299,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                             MainAxisAlignment
                                                                 .spaceBetween,
                                                         children: <Widget>[
-                                                          Padding(
+                                                          const Padding(
                                                             padding:
-                                                                const EdgeInsets
+                                                                EdgeInsets
                                                                     .all(20.0),
                                                             child: Text(
                                                               'Select Criteria',
@@ -1248,7 +1316,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                             ),
                                                           ),
                                                           IconButton(
-                                                            icon: Icon(
+                                                            icon: const Icon(
                                                               Icons.close,
                                                               color:
                                                                   Colors.black,
@@ -1265,10 +1333,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                     Card(
                                                       child: ListTile(
                                                         contentPadding:
-                                                            EdgeInsets.all(20),
+                                                            const EdgeInsets.all(20),
                                                         tileColor:
                                                             Colors.yellow,
-                                                        title: Text(
+                                                        title: const Text(
                                                           "General Opd",
                                                           style: TextStyle(
                                                             color: Colors.black,
@@ -1277,7 +1345,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                                 FontWeight.bold,
                                                           ),
                                                         ),
-                                                        subtitle: Text(
+                                                        subtitle: const Text(
                                                           "Tap to book an appointment",
                                                           style: TextStyle(
                                                             color: Colors.grey,
@@ -1316,7 +1384,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                         },
                                                       ),
                                                     ),
-                                                    SizedBox(height: 20),
+                                                    const SizedBox(height: 20),
                                                     if (isLoading)
                                                       Center(
                                                         child: Padding(
@@ -1335,7 +1403,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                       )
                                                     else if (organizations
                                                         .isEmpty)
-                                                      Text(
+                                                      const Text(
                                                         'No data found',
                                                         style: TextStyle(
                                                             fontSize: 16,
@@ -1356,7 +1424,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
                                                             return Card(
                                                               elevation: 4,
-                                                              margin: EdgeInsets
+                                                              margin: const EdgeInsets
                                                                   .all(8),
                                                               shape:
                                                                   RoundedRectangleBorder(
@@ -1370,7 +1438,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                                   organization
                                                                       .organisationName,
                                                                   style:
-                                                                      TextStyle(
+                                                                      const TextStyle(
                                                                     color: Colors
                                                                         .black,
                                                                     fontSize:

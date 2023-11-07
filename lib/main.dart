@@ -32,6 +32,7 @@ Future<void> main() async {
   runApp(MyApp(
     defaultLanguage: defaultLang,
   ));
+  
 }
 class MyApp extends StatefulWidget {
   final String defaultLanguage;
