@@ -66,7 +66,7 @@ class _Opd_HistoryState extends State<Opd_History> {
     final Map<String, dynamic> body = {
       "table": "opd_details",
       "where": {
-        "patient_id": "10909",
+        "patient_id": patient,
       }
     };
 
@@ -174,9 +174,9 @@ class _Opd_HistoryState extends State<Opd_History> {
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 15),
                     ),
-                    const Text(
-                      'Doctor Name',
-                      style: TextStyle(
+                     Text(
+                      'Doctor Name'.tr,
+                      style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 15),
                     ),
                     Text(

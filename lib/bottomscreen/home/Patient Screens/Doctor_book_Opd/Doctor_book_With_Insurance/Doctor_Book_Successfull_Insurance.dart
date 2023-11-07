@@ -74,7 +74,7 @@ class _OPD_Ticket_Booking_Successful_InsuranceState
     };
 
     final Map<String, String> body = {
-      "name": "${widget.name}".isEmpty ? "N/A" : "${widget.name}",
+      "name": "${widget.name}".isEmpty ? "$formattedDate" : "${widget.name}",
       "gender": "${widget.gender}".isEmpty ? "N/A" : "${widget.gender}",
       "dob": "${widget.dob}".isEmpty ? "N/A" : "${widget.dob}",
       "email": "${widget.email}".isEmpty ? "N/A" : "${widget.email}",

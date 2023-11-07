@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Doctor_book_Opd/Doctor_book_With_Insurance/Doctor_Book_Successfull_Insurance.dart';
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
@@ -81,7 +82,7 @@ class _doctor_book_iinsurance_detalsState
     });
 
     final response = await http
-        .post(Uri.parse('https://uat.tez.hospital/xzy/webservice/lists'));
+        .post(Uri.parse(ApiLinks.OPDTicketList));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
@@ -103,7 +104,7 @@ class _doctor_book_iinsurance_detalsState
       backgroundColor: Colors.lightBlue[50],
       appBar: AppBar(
         backgroundColor: darkYellow,
-        title: const Text(' Booking Details'),
+        title:  Text('Booking Details'.tr),
         centerTitle: true,
       ),
       body: isLoading
@@ -142,33 +143,33 @@ class _doctor_book_iinsurance_detalsState
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Padding(
-                              padding: EdgeInsets.all(10.0),
+                             Padding(
+                              padding: const EdgeInsets.all(10.0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Ticket Date',
-                                    style: TextStyle(
+                                    'Ticket Date'.tr,
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   Text(
-                                    'Department',
+                                    'Department'.tr,
                                     style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                        const TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    'Doctor Name',
+                                    'Doctor Name'.tr,
                                     style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                        const TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    'Insurance Or SSf Id',
+                                    'Insurance Or SSf Id'.tr,
                                     style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                        const TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
@@ -325,10 +326,10 @@ class _doctor_book_iinsurance_detalsState
                         decoration: BoxDecoration(
                             color: darkYellow,
                             borderRadius: BorderRadius.circular(10)),
-                        child: const Center(
+                        child:  Center(
                             child: Text(
-                          'Confirmation',
-                          style: TextStyle(
+                          'Confirmation'.tr,
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
                               color: Colors.white),

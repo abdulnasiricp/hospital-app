@@ -37,13 +37,12 @@ class Translation extends Translations {
           'Ratussubtitle': "Rate Us: Your Feedback Matters",
           'Termsconditionubtitle': "App Rules & Regulations",
           'Updatesubtitle': "Never Miss an Update with Check Updates",
-          'reopd':'Re-OPD',
-          'opdHistory':'OPD History',
-          'bookingType':'Booking Type',
-          'askTicketType':'Do you want to book insurance or general?',
-          'bookGeneral':'Book General',
-          'bookInsurance':'Book Insurance',
-
+          'reopd': 'Re-OPD',
+          'opdHistory': 'OPD History',
+          'bookingType': 'Booking Type',
+          'askTicketType': 'Do you want to book insurance or general?',
+          'bookGeneral': 'Book General',
+          'bookInsurance': 'Book Insurance',
 
           //View All Doctor list
           'selectADoctor': "Select a Doctor",
@@ -222,6 +221,7 @@ class Translation extends Translations {
           'Bloodbank': 'Bloodbank',
           'Surgery': 'Surgery Report',
           'HelpCenter': 'Help Center',
+
           ////////////////////////// For App Update
           'Update_Available': 'Update Available',
           'Update_Available_question':
@@ -239,13 +239,40 @@ class Translation extends Translations {
           'Directbill': 'Direct Bill',
 
           //maternity card
-          'Maternity': 'Maternity'
+          'Maternity': 'Maternity',
 
-          // 
+          // opd history
+          'Doctor Name': 'Doctor Name',
+
+          // check status of insurance
+          'Date of Birth':'Date of Birth',
+          'Gender':'Gender',
+          'Name':'Name',
+          'Contract Date':'Contract Date',
+          'Balance':'Balance',
+          'Check Status Of Insurance':'Check Status Of Insurance',
+          'Insurance  Id':'Insurance  Id',
+          'Insurance Type': 'Insurance Type',
+          'This field is required': 'This field is required',
+          'Select Insurance Type': 'Select Insurance Type',
+          'Insurance details not available.':
+              'Insurance details not available.',
+          'Check Status': 'Check Status',
+          'The OPD amount will be deducted from your insurance balance, ensuring a seamless and convenient process for your healthcare expenses.':
+              'The OPD amount will be deducted from your insurance balance, ensuring a seamless and convenient process for your healthcare expenses.',
+          'You are eligible for buy Ticket with Insurance .\n If you want to buy ticket click on PROCEED':
+              'You are eligible for buy Ticket with Insurance .\n If you want to buy ticket click on PROCEED',
+
+          //booking detials
+          'Booking Details':'Booking Details',
+          'Ticket Date':'Ticket Date',
+          'Department':'Department',
+          'Insurance Or SSf Id':'Insurance Or SSf Id',
+          'Email':'Email',
+          'Address':'Address',
+          'Confirmation':'Confirmation',
+
         },
-
-
-
         'ne_NP': {
           //Bottom Bar
           'home': "होम",
@@ -276,13 +303,12 @@ class Translation extends Translations {
           'doctors': "डाक्टरहरू",
           'viewAll': "सबै हेर्नुहोस्",
           'card': "कार्ड",
-          'reopd':'पुन ओपीडी',
-          'opdHistory':'ओपीडी इतिहास',
-          'bookingType':'बुकिंग प्रकार',
-          'askTicketType':'के तपाइँ बीमा वा सामान्य बुक गर्न चाहनुहुन्छ?',
-          'bookGeneral':'पुस्तक सामान्य',
-          'bookInsurance':'पुस्तक बीमा',
-
+          'reopd': 'पुन ओपीडी',
+          'opdHistory': 'ओपीडी इतिहास',
+          'bookingType': 'बुकिंग प्रकार',
+          'askTicketType': 'के तपाइँ बीमा वा सामान्य बुक गर्न चाहनुहुन्छ?',
+          'bookGeneral': 'पुस्तक सामान्य',
+          'bookInsurance': 'पुस्तक बीमा',
 
           //View All Doctor list
           'selectADoctor': "एक डाक्टर चयन गर्नुहोस्",
@@ -485,6 +511,37 @@ class Translation extends Translations {
           //maternity card
           'Maternity': 'मातृत्व',
           'Ticketinfo': "टिकट जानकारी",
+
+          // opd history
+          'Doctor Name': 'डाक्टरको नाम',
+
+          // check status of insurance
+          'Date of Birth':'जन्म मिति',
+          'Gender':'लिङ्ग',
+          'Name':'नाम',
+          'Contract Date':'सम्झौता मिति',
+          'Balance':'सन्तुलन',
+          'Check Status Of Insurance':'बीमा स्थिति जाँच गर्नुहोस्',
+          'Insurance  Id':'बीमा आईडी',
+          'Insurance Type': 'बीमा प्रकार',
+          'This field is required': 'यो क्षेत्र आवश्यक छ',
+          'Select Insurance Type': 'बीमा प्रकार चयन गर्नुहोस्',
+          'Insurance details not available.': 'बीमा विवरण उपलब्ध छैन।',
+          'Check Status': 'स्थिति जाँच गर्नुहोस्',
+          'The OPD amount will be deducted from your insurance balance, ensuring a seamless and convenient process for your healthcare expenses.':
+              'ओपीडी रकम तपाईंको बीमा ब्यालेन्सबाट कटौती गरिनेछ, तपाईंको स्वास्थ्य सेवा खर्चहरूको लागि सहज र सुविधाजनक प्रक्रिया सुनिश्चित गर्दै।',
+          'You are eligible for buy Ticket with Insurance .\n If you want to buy ticket click on PROCEED':
+              'तपाईं बीमा मार्फत टिकट किन्नको लागि योग्य हुनुहुन्छ।\n यदि तपाईं टिकट किन्न चाहनुहुन्छ भने PROCEED मा क्लिक गर्नुहोस्',
+
+           //booking detials
+          'Booking Details':'बुकिङ विवरण',
+          'Ticket Date':'टिकट मिति',
+          'Department':'विभाग',
+          'Insurance Or SSf Id':'बीमा वा SSf आईडी',
+          'Email':'इमेल',
+          'Address':'ठेगाना',
+          'Confirmation':'पुष्टिकरण',
+
         }
       };
 }

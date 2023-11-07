@@ -2,6 +2,7 @@
 
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Doctor_book_Opd/Doctor_book_With_Insurance/doctor_book_iinsurance_detals.dart';
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:flutter/material.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -89,7 +90,7 @@ class _Insurance_ValidityState extends State<Re_Opd_Insurance_visibility> {
   List<Organization> organizations = [];
   Future<void> fetchData() async {
     final response = await http.post(
-      Uri.parse('https://uat.tez.hospital/xzy/webservice/db_table'),
+      Uri.parse(ApiLinks.OpdHistory),
       headers: {
         'Soft-service': 'TezHealthCare',
         'Auth-key': 'zbuks_ram859553467',
@@ -133,7 +134,7 @@ class _Insurance_ValidityState extends State<Re_Opd_Insurance_visibility> {
         backgroundColor: Colors.lightBlue[50],
         appBar: AppBar(
           backgroundColor: darkYellow,
-          title: const Text('Check Status Of Insurance'),
+          title:  Text('Check Status Of Insurance'.tr),
           centerTitle: true,
           leading: InkWell(
               onTap: () {
@@ -167,16 +168,16 @@ class _Insurance_ValidityState extends State<Re_Opd_Insurance_visibility> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               RichText(
-                                text: const TextSpan(
+                                text: TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: "Insurance Type",
-                                      style: TextStyle(
+                                      text: "Insurance Type".tr,
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black,
                                       ),
                                     ),
-                                    TextSpan(
+                                    const TextSpan(
                                       text: '*',
                                       style: TextStyle(
                                         color: Colors.red,
@@ -192,7 +193,7 @@ class _Insurance_ValidityState extends State<Re_Opd_Insurance_visibility> {
                                 child: TextFormField(
                                   validator: (value) {
                                     if (value!.isEmpty) {
-                                      return 'This field is required';
+                                      return 'This field is required'.tr;
                                     }
                                     return null;
                                   },
@@ -209,7 +210,7 @@ class _Insurance_ValidityState extends State<Re_Opd_Insurance_visibility> {
                                       },
                                     ),
                                     border: const OutlineInputBorder(),
-                                    hintText: 'Select Insurance Type',
+                                    hintText: 'Select Insurance Type'.tr,
                                     fillColor: Colors.white,
                                     filled: true,
                                   ),
@@ -235,7 +236,7 @@ class _Insurance_ValidityState extends State<Re_Opd_Insurance_visibility> {
                                     TextSpan(
                                       text: selectedInsurancetypename == 'SSF'
                                           ? "SSF Id"
-                                          : "Insurance  Id",
+                                          : "Insurance  Id".tr,
                                       style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black,
@@ -256,7 +257,7 @@ class _Insurance_ValidityState extends State<Re_Opd_Insurance_visibility> {
                               TextFormField(
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return 'This field is required';
+                                    return 'This field is required'.tr;
                                   }
                                   return null;
                                 },
@@ -283,9 +284,9 @@ class _Insurance_ValidityState extends State<Re_Opd_Insurance_visibility> {
                           Center(
                               child: Container(
                                   height: 20,
-                                  child: const Text(
-                                    "Insurance details not available.",
-                                    style: TextStyle(color: Colors.red),
+                                  child:  Text(
+                                    "Insurance details not available.".tr,
+                                    style: const TextStyle(color: Colors.red),
                                   ))),
                         if (insuranceDetails.containsKey('status') &&
                             insuranceDetails['status'] == "1")
@@ -302,7 +303,7 @@ class _Insurance_ValidityState extends State<Re_Opd_Insurance_visibility> {
                               width: width,
                               height: height / 15,
                               child: ElevatedButton(
-                                child: const Text("Check Status"),
+                                child:  Text("Check Status".tr),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     fetchInsuranceDetails();
@@ -410,11 +411,11 @@ class _Insurance_ValidityState extends State<Re_Opd_Insurance_visibility> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      const Expanded(
+                       Expanded(
                         child: Center(
                           child: Text(
-                            'Select Insurance Type',
-                            style: TextStyle(
+                            'Select Insurance Type'.tr,
+                            style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
@@ -494,7 +495,7 @@ class _Insurance_ValidityState extends State<Re_Opd_Insurance_visibility> {
     });
 
     const url =
-        'https://uat.tez.hospital/xzy/webservice/get_insurance_details'; // Replace with your API endpoint
+        ApiLinks.getpatientDetails; // Replace with your API endpoint
     final headers = {
       'Soft-service': 'TezHealthCare',
       'Auth-key': 'zbuks_ram859553467',
@@ -615,21 +616,21 @@ class InsuranceDetailsWidget extends StatelessWidget {
           height: 10,
         ),
         Text(
-            "The OPD amount will be deducted from your insurance balance, ensuring a seamless and convenient process for your healthcare expenses.",
+            "The OPD amount will be deducted from your insurance balance, ensuring a seamless and convenient process for your healthcare expenses.".tr,
             style: TextStyle(color: Colors.orange[900])),
         const SizedBox(
           height: 10,
         ),
-        const Row(
+       Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Center(
               child: Text(
-                  "You are eligible for buy Ticket with Insurance .\n If you want to buy ticket click on PROCEED",
-                  style: TextStyle(
+                  "You are eligible for buy Ticket with Insurance .\n If you want to buy ticket click on PROCEED".tr,
+                  style: const TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.green)),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
           ],
