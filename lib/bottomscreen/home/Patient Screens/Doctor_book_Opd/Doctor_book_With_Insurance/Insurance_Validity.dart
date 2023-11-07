@@ -72,9 +72,13 @@ class Insurance_Validity extends StatefulWidget {
   final String ticketDate;
   final String department_id;
   final String doctorId;
+  final String selectedInsurancetypename;
+  final String selectedInsurancetypeId1;
   const Insurance_Validity({
     Key? key,
     required this.doctorName,
+    required this.selectedInsurancetypeId1,
+    required this.selectedInsurancetypename,
     required this.Departmentname,
     required this.ticketDate,
     required this.department_id,
@@ -110,8 +114,6 @@ class _Insurance_ValidityState extends State<Insurance_Validity> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController InsurancetypeController = TextEditingController();
   TextEditingController InsurancenumberController = TextEditingController();
-  String selectedInsurancetypename = '';
-  String selectedInsurancetypeId = '';
   bool isLoading = false;
   String statusMessage = '';
   Map<String, dynamic> insuranceDetails = {};
@@ -196,25 +198,14 @@ class _Insurance_ValidityState extends State<Insurance_Validity> {
                                     return null;
                                   },
                                   readOnly: true,
-                                  controller: InsurancetypeController,
+                                  controller: TextEditingController(
+                                      text: widget.selectedInsurancetypename),
                                   decoration: InputDecoration(
-                                    suffixIcon: IconButton(
-                                      icon: const Icon(
-                                        Icons.arrow_drop_down_sharp,
-                                        size: 40,
-                                      ),
-                                      onPressed: () {
-                                        _showInsurancetypeSelection(context);
-                                      },
-                                    ),
                                     border: const OutlineInputBorder(),
                                     hintText: 'Select Insurance Type',
                                     fillColor: Colors.white,
                                     filled: true,
                                   ),
-                                  onTap: () {
-                                    _showInsurancetypeSelection(context);
-                                  },
                                 ),
                               ),
                             ],
@@ -232,7 +223,8 @@ class _Insurance_ValidityState extends State<Insurance_Validity> {
                                 text: TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: selectedInsurancetypename == 'SSF'
+                                      text: widget.selectedInsurancetypename ==
+                                              'SSF'
                                           ? "SSF Id"
                                           : "Insurance  Id",
                                       style: const TextStyle(
@@ -264,9 +256,10 @@ class _Insurance_ValidityState extends State<Insurance_Validity> {
                                 controller: InsurancenumberController,
                                 decoration: InputDecoration(
                                   border: const OutlineInputBorder(),
-                                  hintText: selectedInsurancetypename == 'SSF'
-                                      ? 'Enter SSF Id'
-                                      : 'Enter Insurance Id',
+                                  hintText:
+                                      widget.selectedInsurancetypename == 'SSF'
+                                          ? 'Enter SSF Id'
+                                          : 'Enter Insurance Id',
                                   fillColor: Colors.white,
                                   filled: true,
                                 ),
@@ -392,101 +385,6 @@ class _Insurance_ValidityState extends State<Insurance_Validity> {
     );
   }
 
-  void _showInsurancetypeSelection(BuildContext context) {
-    showModalBottomSheet(
-      isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
-      ),
-      context: context,
-      builder: (BuildContext context) {
-        return StatefulBuilder(
-          builder: (BuildContext context, StateSetter setState) {
-            return Container(
-              height: MediaQuery.of(context).size.height * 0.5,
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      const Expanded(
-                        child: Center(
-                          child: Text(
-                            'Select Insurance Type',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.close),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ],
-                  ),
-                  if (isLoading)
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                          height: 50,
-                          width: 50,
-                          color: Colors.transparent,
-                          child: const LoadingIndicatorWidget(),
-                        ),
-                      ),
-                    )
-                  else if (organizations.isEmpty)
-                    Expanded(
-                      child: Center(
-                        child: Container(
-                          height: 150,
-                          width: 150,
-                          child: Lottie.asset(
-                            'assets/No_Data_Found.json',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    )
-                  else
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: organizations.length,
-                        itemBuilder: (context, index) {
-                          final organization = organizations[index];
-                          return Card(
-                            color: Colors.white70.withOpacity(0.7),
-                            child: ListTile(
-                              title: Text(organization.organisationName),
-                              onTap: () {
-                                selectedInsurancetypename =
-                                    organization.organisationName;
-                                selectedInsurancetypeId = organization.id;
-                                InsurancetypeController.text =
-                                    selectedInsurancetypename;
-                                Navigator.of(context).pop();
-                                print(
-                                    'selectedInsurancetypeId: $selectedInsurancetypeId');
-                              },
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                ],
-              ),
-            );
-          },
-        );
-      },
-    );
-  }
-
   Future<void> fetchInsuranceDetails() async {
     setState(() {
       isLoading = true;
@@ -500,7 +398,7 @@ class _Insurance_ValidityState extends State<Insurance_Validity> {
     };
 
     final body = jsonEncode({
-      "insurance_type": selectedInsurancetypeId,
+      "insurance_type": widget.selectedInsurancetypeId1,
       "insurance_id": InsurancenumberController.text,
     });
 

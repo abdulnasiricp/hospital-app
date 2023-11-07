@@ -16,6 +16,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import 'package:nepali_utils/nepali_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -40,6 +41,34 @@ class SelectDateScreen extends StatefulWidget {
 }
 
 class _SelectDateScreenState extends State<SelectDateScreen> {
+////////////////////////////////////////////////////////////
+  TextEditingController InsurancetypeController = TextEditingController();
+  List<Organization> organizations = [];
+  Future<void> fetchData() async {
+    final response = await http.post(
+      Uri.parse('https://uat.tez.hospital/xzy/webservice/db_table'),
+      headers: {
+        'Soft-service': 'TezHealthCare',
+        'Auth-key': 'zbuks_ram859553467',
+      },
+      body: jsonEncode({
+        "table": "organisation",
+      }),
+    );
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      final result = data['result'];
+      setState(() {
+        organizations = List<Organization>.from(
+            result.map((org) => Organization.fromJson(org)));
+      });
+    }
+  }
+
+  String selectedInsurancetypename = '';
+  String selectedInsurancetypeId = '';
+  bool isLoading1 = false;
+
   List<dynamic>? data = [];
   bool isLoading = true;
   Future<void> fetchDepartmentData() async {
@@ -78,6 +107,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
     await LoadData();
     await ProfileApi();
     await fetchDepartmentData();
+    await fetchData();
   }
 
   @override
@@ -290,120 +320,238 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                   } else {
                                     showDialog(
                                       context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: const Text('Booking Type'),
-                                          content: const Text(
-                                              'Do you want to book with insurance or general?'),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(
-                                                    context); // Close the dialog
-                                                // Navigate to the Doctor_Book_Details screen with the choice
-                                                Get.offAll(() =>
-                                                    Insurance_Validity(
-                                                      doctorName:
-                                                          widget.doctorName,
-                                                      department_id:
-                                                          widget.department_id,
-                                                      Departmentname: widget
-                                                          .doctorSpecialization,
-                                                      doctorId: widget.doctorId,
-                                                      ticketDate:
-                                                          '$formattedDate',
-                                                    ));
-                                              },
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  color: Colors
-                                                      .green, // Background color
-                                                  borderRadius:
-                                                      BorderRadius.circular(4),
-                                                ),
-                                                child: const Padding(
-                                                  padding: EdgeInsets.all(
-                                                      10.0),
-                                                  child: Text(
-                                                    'Insurance or SSF',
-                                                    style: TextStyle(
-                                                        color: Colors.black),
+                                      builder: (BuildContext context) {
+                                        return Dialog(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
+                                          child: Container(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.7,
+                                            child: Column(
+                                              children: <Widget>[
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                      topLeft:
+                                                          Radius.circular(20),
+                                                      topRight:
+                                                          Radius.circular(20),
+                                                    ),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: <Widget>[
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(20.0),
+                                                        child: Text(
+                                                          'Select Criteria',
+                                                          style: TextStyle(
+                                                            fontSize: 20,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: Colors.black,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      IconButton(
+                                                        icon: Icon(
+                                                          Icons.close,
+                                                          color: Colors.black,
+                                                        ),
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
-                                              ),
-                                            ),
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                                Get.to(() =>
-                                                    Doctor_Book_Details(
-                                                      doctorName:
-                                                          widget.doctorName,
-                                                      BloodgroupId: profileData
-                                                                  ?.bloodGroup ==
-                                                              null
-                                                          ? '1'
-                                                          : profileData
-                                                              ?.bloodGroup,
-                                                      Bloodgroupname: '',
-                                                      DepartmentId: widget
-                                                          .doctorSpecialization,
-                                                      bloodGroup: '',
-                                                      maritalStatus: profileData
-                                                              ?.maritalStatus ??
-                                                          'N/A',
-                                                      patientAddress:
-                                                          profileData
-                                                                  ?.address ??
-                                                              'N/A',
-                                                      patientDOB:
-                                                          profileData?.dob ??
-                                                              'N/A',
-                                                      patientEmail:
-                                                          profileData?.email ??
-                                                              'N/A',
-                                                      patientGender:
-                                                          profileData?.gender ??
-                                                              'N/A',
-                                                      patientMobile: profileData
-                                                              ?.mobileNo ??
-                                                          'N/A',
-                                                      patientName: profileData
-                                                              ?.patientName ??
-                                                          'N/A',
-                                                      selectedDepartmentname: widget
-                                                          .doctorSpecialization,
-                                                      department_id:
-                                                          widget.department_id,
-                                                      doctorId: widget.doctorId,
-                                                      // blood_group: profileData
-                                                      //         ?.blood_group ??
-                                                      //     'N/A',
-                                                      ticketDate:
-                                                          '$formattedDate',
-                                                      // Pass the choice here
-                                                    ));
-                                              },
-                                              child: Container(
-                                                  decoration: BoxDecoration(
-                                                    color: Colors
-                                                        .red, // Background color
+                                                Card(
+                                                  color: Colors.grey,
+                                                  elevation: 4,
+                                                  margin: EdgeInsets.all(8),
+                                                  shape: RoundedRectangleBorder(
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            4),
+                                                            10),
                                                   ),
-                                                  child: const Padding(
-                                                    padding:
-                                                        EdgeInsets.all(
-                                                            10.0),
-                                                    child: Text(
-                                                      'General',
+                                                  child: ListTile(
+                                                    title: Text(
+                                                      "General Opd",
                                                       style: TextStyle(
-                                                          color: Colors.black),
+                                                        color: Colors.black,
+                                                        fontSize: 18,
+                                                      ),
                                                     ),
-                                                  )),
+                                                    onTap: () {
+                                                      Navigator.pop(context);
+                                                      Get.to(() =>
+                                                          Doctor_Book_Details(
+                                                            doctorName: widget
+                                                                .doctorName,
+                                                            BloodgroupId: profileData
+                                                                        ?.bloodGroup ==
+                                                                    null
+                                                                ? '1'
+                                                                : profileData
+                                                                    ?.bloodGroup,
+                                                            Bloodgroupname: '',
+                                                            DepartmentId: widget
+                                                                .doctorSpecialization,
+                                                            bloodGroup: '',
+                                                            maritalStatus:
+                                                                profileData
+                                                                        ?.maritalStatus ??
+                                                                    'N/A',
+                                                            patientAddress:
+                                                                profileData
+                                                                        ?.address ??
+                                                                    'N/A',
+                                                            patientDOB:
+                                                                profileData
+                                                                        ?.dob ??
+                                                                    'N/A',
+                                                            patientEmail:
+                                                                profileData
+                                                                        ?.email ??
+                                                                    'N/A',
+                                                            patientGender:
+                                                                profileData
+                                                                        ?.gender ??
+                                                                    'N/A',
+                                                            patientMobile:
+                                                                profileData
+                                                                        ?.mobileNo ??
+                                                                    'N/A',
+                                                            patientName: profileData
+                                                                    ?.patientName ??
+                                                                'N/A',
+                                                            selectedDepartmentname:
+                                                                widget
+                                                                    .doctorSpecialization,
+                                                            department_id: widget
+                                                                .department_id,
+                                                            doctorId:
+                                                                widget.doctorId,
+                                                            // blood_group: profileData
+                                                            //         ?.blood_group ??
+                                                            //     'N/A',
+                                                            ticketDate:
+                                                                '$formattedDate',
+                                                            // Pass the choice here
+                                                          ));
+                                                    },
+                                                  ),
+                                                ),
+                                                SizedBox(height: 20),
+                                                if (isLoading)
+                                                  Center(
+                                                    child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(10.0),
+                                                        child: Container(
+                                                            height: 50,
+                                                            width: 50,
+                                                            color: Colors
+                                                                .transparent,
+                                                            child:
+                                                                const LoadingIndicatorWidget())),
+                                                  )
+                                                else if (organizations.isEmpty)
+                                                  Text(
+                                                    'No data found',
+                                                    style: TextStyle(
+                                                        fontSize: 16,
+                                                        color: Colors.black),
+                                                  )
+                                                else
+                                                  Expanded(
+                                                    child: ListView.builder(
+                                                      itemCount:
+                                                          organizations.length,
+                                                      itemBuilder:
+                                                          (context, index) {
+                                                        final organization =
+                                                            organizations[
+                                                                index];
+
+                                                        return Card(
+                                                          elevation: 4,
+                                                          margin:
+                                                              EdgeInsets.all(8),
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10),
+                                                          ),
+                                                          child: ListTile(
+                                                            title: Text(
+                                                              organization
+                                                                  .organisationName,
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontSize: 18,
+                                                              ),
+                                                            ),
+                                                            onTap: () {
+                                                              selectedInsurancetypename =
+                                                                  organization
+                                                                      .organisationName;
+                                                              selectedInsurancetypeId =
+                                                                  organization
+                                                                      .id;
+                                                              InsurancetypeController
+                                                                      .text =
+                                                                  selectedInsurancetypename;
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                              print(
+                                                                  'selectedInsurancetypeId: $selectedInsurancetypeId');
+
+                                                              Get.offAll(() =>
+                                                                  Insurance_Validity(
+                                                                    doctorName:
+                                                                        widget
+                                                                            .doctorName,
+                                                                    department_id:
+                                                                        widget
+                                                                            .department_id,
+                                                                    Departmentname:
+                                                                        widget
+                                                                            .doctorSpecialization,
+                                                                    doctorId: widget
+                                                                        .doctorId,
+                                                                    ticketDate:
+                                                                        '$formattedDate',
+                                                                    selectedInsurancetypename:
+                                                                        selectedInsurancetypename,
+                                                                    selectedInsurancetypeId1:
+                                                                        selectedInsurancetypeId,
+                                                                  ));
+                                                            },
+                                                          ),
+                                                        );
+                                                      },
+                                                    ),
+                                                  ),
+                                              ],
                                             ),
-                                          ],
+                                          ),
                                         );
                                       },
                                     );
