@@ -29,10 +29,11 @@ class _Opd_HistoryState extends State<Opd_History> {
 
   late String patient = '';
   late String totalAmount = "0.00"; // Initialize with a default value
-
+  late String patientID = '';
   LoadData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     patient = sp.getString('patientidrecord') ?? '';
+    patientID = sp.getString('patientidrecord') ?? '';
     print(patient);
     setState(() {});
   }

@@ -1,7 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, sized_box_for_whitespace, avoid_unnecessary_containers, file_names
 
 import 'package:TezHealthCare/Payment_gateway/cancel_payment.dart';
-import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/General_Opd_Tickets_Form.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Doctor_book_Opd/OpdPaymentSuccessfullScreenfordoctorbooking.dart';
 import 'package:esewa_flutter/esewa_flutter.dart';
 
@@ -30,7 +29,6 @@ class SelectPaymentmethodfordoctorbooking extends StatefulWidget {
   final String patientEmail;
   final String selectedDepartment;
   final String doctorId;
-
 
   const SelectPaymentmethodfordoctorbooking({
     Key? key,
@@ -227,12 +225,6 @@ class _SelectPaymentmethodfordoctorbookingState
           title: Text('selectAnyOnePayment'.tr),
           centerTitle: true,
           backgroundColor: darkYellow,
-          leading: IconButton(
-            onPressed: () {
-              Get.to(() => const General_Opd_Tickets_Form());
-            },
-            icon: const Icon(Icons.arrow_back),
-          ),
         ),
         body: SingleChildScrollView(
           child: Container(
