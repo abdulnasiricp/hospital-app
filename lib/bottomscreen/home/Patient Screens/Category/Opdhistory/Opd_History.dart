@@ -29,10 +29,11 @@ class _Opd_HistoryState extends State<Opd_History> {
 
   late String patient = '';
   late String totalAmount = "0.00"; // Initialize with a default value
-
+  late String patientID = '';
   LoadData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     patient = sp.getString('patientidrecord') ?? '';
+    patientID = sp.getString('patientidrecord') ?? '';
     print(patient);
     setState(() {});
   }
@@ -66,7 +67,7 @@ class _Opd_HistoryState extends State<Opd_History> {
     final Map<String, dynamic> body = {
       "table": "opd_details",
       "where": {
-        "patient_id": "10909",
+        "patient_id": patientID,
       }
     };
 
@@ -176,8 +177,8 @@ class _Opd_HistoryState extends State<Opd_History> {
                     ),
                     const Text(
                       'Doctor Name',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 15),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                     ),
                     Text(
                       'Type'.tr,

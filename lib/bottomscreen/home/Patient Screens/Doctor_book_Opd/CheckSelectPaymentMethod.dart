@@ -31,7 +31,6 @@ class SelectPaymentmethodfordoctorbooking extends StatefulWidget {
   final String selectedDepartment;
   final String doctorId;
 
-
   const SelectPaymentmethodfordoctorbooking({
     Key? key,
     required this.totalAmountInRs,
@@ -227,12 +226,6 @@ class _SelectPaymentmethodfordoctorbookingState
           title: Text('selectAnyOnePayment'.tr),
           centerTitle: true,
           backgroundColor: darkYellow,
-          leading: IconButton(
-            onPressed: () {
-              Get.to(() => const General_Opd_Tickets_Form());
-            },
-            icon: const Icon(Icons.arrow_back),
-          ),
         ),
         body: SingleChildScrollView(
           child: Container(
