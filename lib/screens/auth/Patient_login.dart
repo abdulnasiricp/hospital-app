@@ -13,7 +13,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
 class PatientLogin extends StatefulWidget {
   const PatientLogin({Key? key}) : super(key: key);
   @override
@@ -34,6 +37,22 @@ class _PatientLoginState extends State<PatientLogin> {
   final formKey = GlobalKey<FormState>();
   var isloading = false;
 
+  Future<void> initPlatformState() async {
+    if (!mounted) return;
+    OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+    OneSignal.initialize("01f97e4b-6814-42f6-942e-55112650f054");
+    OneSignal.Notifications.requestPermission(true);
+
+
+    WidgetsFlutterBinding.ensureInitialized();
+    await Permission.notification.isDenied.then((value) {
+      if (value) {
+        Permission.notification.request();
+      }
+    });
+    await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+  }
   Future<void> _login() async {
     final String username = usernameController.text;
     final String password = _passwordController.text;
@@ -48,7 +67,11 @@ class _PatientLoginState extends State<PatientLogin> {
       },
     );
     if (response.statusCode == 200) {
+      initPlatformState();
       Map json = jsonDecode(response.body.toString());
+      var externalId = json['record']['app_key']; // You will supply the external id to the OneSignal SDK
+
+      OneSignal.login(externalId);
       if (json['role'] is List && json['role'].contains('patient')) {
         final sp = await SharedPreferences.getInstance();
         sp.setString('username', username);
