@@ -175,7 +175,7 @@ class _Opd_HistoryState extends State<Opd_History> {
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 15),
                     ),
-                     Text(
+                    Text(
                       'Doctor Name'.tr,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 15),
