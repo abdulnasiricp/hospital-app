@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:TezHealthCare/language_Services/translation.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -14,11 +15,8 @@ import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,9 +27,6 @@ Future<void> main() async {
       sharedPreferences.getString('selectedLanguage') ?? 'en';
   String defaultLang = selectedLanguage == 'ne' ? 'ne_NP' : 'en_US';
   print('========================> $defaultLang');
-
-
-
 
   
   runApp(MyApp(
@@ -56,7 +51,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    initPlatformState();
   }
   Future<bool> _isLoggedIn() async {
     final sharedPreferences = await SharedPreferences.getInstance();
@@ -64,15 +58,7 @@ class _MyAppState extends State<MyApp> {
         sharedPreferences.containsKey('password');
   }
 
-Future<void> initPlatformState() async {
-    if (!mounted) return;
 
-    OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
-
-    OneSignal.Debug.setAlertLevel(OSLogLevel.none);
-
-    OneSignal.initialize("a2cbcc95-093d-4b87-8b9a-f116ba1105af");
-}
   @override
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;

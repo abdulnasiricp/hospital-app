@@ -56,7 +56,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
   /////////////////////////////////////////
   //convert rupess to paisa
   late num rupeesAmount = totalDues;
-  late int rupeesAmountInt = rupeesAmount.toInt();
+  late double rupeesAmountInt = rupeesAmount.toDouble();
 
   num rupeesToPaisa(num rupees) {
     return rupees * 100.0;
