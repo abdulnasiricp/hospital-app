@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1054826007837",
+    "project_id": "tez-health-care-4818f",
+    "storage_bucket": "tez-health-care-4818f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1054826007837:android:49fc6739cf59c1f0e925f4",
+        "android_client_info": {
+          "package_name": "tez.hospital.siraha"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDp2_Ssl-0DXbUVoTOhodq_kk-omceKKLE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

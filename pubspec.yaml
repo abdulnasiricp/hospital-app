@@ -77,6 +77,8 @@ dependencies:
   nepali_utils: ^3.0.3
   onesignal_flutter: ^5.0.0
   connectivity_plus: ^5.0.1
+  firebase_core: ^2.21.0
+  firebase_messaging: ^14.7.3
 
 
 
