@@ -1,5 +1,4 @@
 // ignore_for_file: avoid_print
-
 import 'dart:async';
 
 import 'package:TezHealthCare/language_Services/translation.dart';
@@ -17,7 +16,6 @@ import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterDownloader.initialize(debug: true); // Set to false in production
@@ -31,7 +29,6 @@ Future<void> main() async {
     defaultLanguage: defaultLang,
   ));
 }
-
 class MyApp extends StatefulWidget {
   final String defaultLanguage;
   const MyApp({
@@ -41,7 +38,6 @@ class MyApp extends StatefulWidget {
   @override
   State<MyApp> createState() => _MyAppState();
 }
-
 @override
 class _MyAppState extends State<MyApp> {
   @override
@@ -49,23 +45,17 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     initPlatformState();
   }
-
   Future<bool> _isLoggedIn() async {
     final sharedPreferences = await SharedPreferences.getInstance();
     return sharedPreferences.containsKey('username') &&
         sharedPreferences.containsKey('password');
   }
-
   Future<void> initPlatformState() async {
     if (!mounted) return;
-
     OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
-
     OneSignal.Debug.setAlertLevel(OSLogLevel.none);
-
     OneSignal.initialize("a2cbcc95-093d-4b87-8b9a-f116ba1105af");
   }
-
   @override
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
