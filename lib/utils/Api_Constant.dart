@@ -38,6 +38,6 @@ class ApiLinks {
       "$BASE_URL/getNotificationlistcount";
   static const String OpdHistory =
       "$BASE_URL/db_table";
-   static const String getliveconsult=
-      "$BASE_URL/getliveconsult";
+   static const String getliveconsult="$BASE_URL/getliveconsult";
+   static const String generateCertificate="$BASE_URL/generateCertificate";
 }

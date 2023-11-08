@@ -7,9 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:lottie/lottie.dart';
 import 'package:open_file/open_file.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
 
 class Certificate extends StatefulWidget {
   const Certificate({Key? key}) : super(key: key);
@@ -19,7 +21,17 @@ class Certificate extends StatefulWidget {
 }
 
 class _CertificateState extends State<Certificate> {
+
+   late String patient = '';
+  LoadData() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    patient = sp.getString('patientidrecord') ?? '';
+    print(patient);
+    setState(() {});
+  }
+
   loadSP() async {
+    await LoadData();
     await fetchData();
   }
 
@@ -39,20 +51,37 @@ class _CertificateState extends State<Certificate> {
       'Soft-service': 'TezHealthCare',
       'Auth-key': 'zbuks_ram859553467',
     };
-    final body = jsonEncode({'patient_id': '10814'});
+    final body = jsonEncode({'patient_id': patient});
 
     final response = await http.post(url, headers: headers, body: body);
 
     if (response.statusCode == 200) {
+
       final data = jsonDecode(response.body);
       print(data);
       setState(() {
+        isLoading = false;
         deathData = data['death'];
         birthData = data['birth'];
       });
     } else {
       // Handle the error
     }
+  }
+
+  bool isLoading = true;
+
+  //refresh screen
+  Future<void> _handleRefresh() async {
+    setState(() {
+      isLoading = true; // Set isLoading to true when refreshing
+    });
+
+    await fetchData();
+
+    setState(() {
+      isLoading = false; // Set isLoading to false after data is fetched
+    });
   }
 
   @override
@@ -64,19 +93,63 @@ class _CertificateState extends State<Certificate> {
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
-      body: ListView(
-        children: [
-          DataListWidget(
-            dataList: deathData,
-            title: 'Death',
-            link: 'death_certificate',
-          ),
-          DataListWidget(
-            dataList: birthData,
-            title: 'Birth',
-            link: 'death_certificate',
-          ),
-        ],
+      body: RefreshIndicator(
+        onRefresh: _handleRefresh,
+        child: isLoading
+            ? ListView.builder(
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return Shimmer.fromColors(
+                    baseColor: Colors.grey,
+                    highlightColor: Colors.blue.shade100,
+                    child: ListTile(
+                      leading: Container(
+                        width: 60,
+                        height: 60,
+                        color: Colors.white,
+                      ),
+                      title: Container(
+                        width: 150,
+                        height: 20,
+                        color: Colors.white,
+                      ),
+                      subtitle: Container(
+                        width: 100,
+                        height: 10,
+                        color: Colors.white,
+                      ),
+                      trailing: Container(
+                        width: 60,
+                        height: 30,
+                        color: Colors.white,
+                      ),
+                    ),
+                  );
+                },
+              )
+            : deathData!.isEmpty
+                ? Center(
+                    child: Container(
+                      height: 150,
+                      width: 150,
+                      child: Lottie.asset(
+                        'assets/No_Data_Found.json',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  )
+                : ListView(
+                    children: [
+                      DataListWidget(
+                        dataList: deathData,
+                        title: 'Death',
+                      ),
+                      DataListWidget(
+                        dataList: birthData,
+                        title: 'Birth',
+                      ),
+                    ],
+                  ),
       ),
     );
   }
@@ -85,12 +158,11 @@ class _CertificateState extends State<Certificate> {
 class DataListWidget extends StatefulWidget {
   final List<dynamic>? dataList;
   final String title;
-  final String link;
+
   const DataListWidget({
     Key? key,
     required this.dataList,
     required this.title,
-    required this.link,
   }) : super(key: key);
 
   @override
