@@ -27,14 +27,12 @@ class _Opd_HistoryState extends State<Opd_History> {
   bool isLoading = true;
   List<Map<String, dynamic>> apiData = []; // Initialize as a list
 
-  late String patient = '';
-  late String totalAmount = "0.00"; // Initialize with a default value
   late String patientID = '';
+  late String totalAmount = "0.00"; // Initialize with a default value
   LoadData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
-    patient = sp.getString('patientidrecord') ?? '';
     patientID = sp.getString('patientidrecord') ?? '';
-    print(patient);
+    print(patientID);
     setState(() {});
   }
 
@@ -67,7 +65,7 @@ class _Opd_HistoryState extends State<Opd_History> {
     final Map<String, dynamic> body = {
       "table": "opd_details",
       "where": {
-        "patient_id": patient,
+        "patient_id": patientID,
       }
     };
 
@@ -110,15 +108,18 @@ class _Opd_HistoryState extends State<Opd_History> {
 // filter data
 
   void filterData(String query) {
-    setState(() {
-      filteredData = data
-          ?.where((element) => element['medicine_name']
-              .toLowerCase()
-              .contains(query.toLowerCase()))
-          // element['status'].toLowerCase().contains(query.toLowerCase()))
-          .toList();
-    });
-  }
+  setState(() {
+    filteredData = data
+        ?.where((element) =>
+            element['opdid'].toLowerCase().contains(query.toLowerCase()) ||
+            (element['department_name'] != null &&
+                element['department_name']
+                    .toLowerCase()
+                    .contains(query.toLowerCase())))
+        .toList();
+  });
+}
+
 
 //////////////////////////////////////////////////////////////////////////////////////////
   @override

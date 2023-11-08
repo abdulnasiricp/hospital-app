@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 
-import 'package:TezHealthCare/screens/auth/Sigin_main_screen.dart';
+import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -186,7 +186,7 @@ class _OpdPaymentSuccessfullScreenState
     print(widget.totalAmountInRs);
     return WillPopScope(
         onWillPop: () async {
-          Get.to(() => const MainSiginScreen());
+          Get.to(() => const Bottomhome());
           return false;
         },
         child: Scaffold(

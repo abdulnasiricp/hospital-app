@@ -22,6 +22,7 @@ import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Radio
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Surgery/SurgeryPrescriptionList.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Transcation/Transaction_bill.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/USG/usg.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Re-OPD/Re_Opd_with_General/Generalreopd.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Re-OPD/Re_Opd_With_Insurance/Re_Opd_Insurance_visibility.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Select_date.dart';
 import 'package:TezHealthCare/screens/notification.dart';
@@ -53,7 +54,7 @@ class PatientHomePage extends StatefulWidget {
 }
 
 class _PatientHomePageState extends State<PatientHomePage> {
-  
+
 //=====================================================================
 // internet connection checker
   late StreamSubscription subscription;
@@ -1357,24 +1358,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                         onTap: () {
                                                           Navigator.pop(
                                                               context);
-                                                          // Get.to(() => Doctor_Book_Details(
-                                                          //   doctorName: widget.doctorName,
-                                                          //   BloodgroupId: profileData?.bloodGroup == null ? '1' : profileData?.bloodGroup,
-                                                          //   Bloodgroupname: '',
-                                                          //   DepartmentId: widget.doctorSpecialization,
-                                                          //   bloodGroup: '',
-                                                          //   maritalStatus: profileData?.maritalStatus ?? 'N/A',
-                                                          //   patientAddress: profileData?.address ?? 'N/A',
-                                                          //   patientDOB: profileData?.dob ?? 'N/A',
-                                                          //   patientEmail: profileData?.email ?? 'N/A',
-                                                          //   patientGender: profileData?.gender ?? 'N/A',
-                                                          //   patientMobile: profileData?.mobileNo ?? 'N/A',
-                                                          //   patientName: profileData?.patientName ?? 'N/A',
-                                                          //   selectedDepartmentname: widget.doctorSpecialization,
-                                                          //   department_id: widget.department_id,
-                                                          //   doctorId: widget.doctorId,
-                                                          //   ticketDate: '$formattedDate',
-                                                          // ));
+                                                              Get.to(()=>const Re_OPD());
+                                                         
                                                         },
                                                       ),
                                                     ),
