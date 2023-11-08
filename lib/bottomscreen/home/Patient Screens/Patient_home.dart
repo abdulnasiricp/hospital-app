@@ -54,7 +54,6 @@ class PatientHomePage extends StatefulWidget {
 }
 
 class _PatientHomePageState extends State<PatientHomePage> {
-
 //=====================================================================
 // internet connection checker
   late StreamSubscription subscription;
@@ -1358,8 +1357,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                         onTap: () {
                                                           Navigator.pop(
                                                               context);
-                                                              Get.to(()=>const Re_OPD());
-                                                         
+                                                          Get.to(() =>
+                                                              const Re_OPD());
                                                         },
                                                       ),
                                                     ),
@@ -1402,6 +1401,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                                     index];
 
                                                             return Card(
+                                                              color: Colors.grey[200],
                                                               elevation: 4,
                                                               margin:
                                                                   const EdgeInsets

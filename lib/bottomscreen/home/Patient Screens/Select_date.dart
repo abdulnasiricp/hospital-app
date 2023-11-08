@@ -513,6 +513,8 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                                                 index];
 
                                                         return Card(
+                                                          color:
+                                                              Colors.grey[200],
                                                           elevation: 4,
                                                           margin:
                                                               const EdgeInsets
