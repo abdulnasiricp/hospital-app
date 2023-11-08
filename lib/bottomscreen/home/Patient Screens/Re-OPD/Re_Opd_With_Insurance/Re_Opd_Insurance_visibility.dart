@@ -1,7 +1,6 @@
-// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, sized_box_for_whitespace, avoid_print, prefer_const_constructors_in_immutables
+// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, sized_box_for_whitespace, avoid_print, prefer_const_constructors_in_immutables, unnecessary_null_comparison, unnecessary_string_interpolations
 
 import 'package:TezHealthCare/bottombar/bottombar.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Doctor_book_Opd/Doctor_book_With_Insurance/doctor_book_iinsurance_detals.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Re-OPD/Re_Opd_With_Insurance/All_Details_With_Insurance.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:flutter/material.dart';
@@ -261,8 +260,8 @@ class _Re_Opd_Insurance_visibilityState
                                   readOnly: true,
                                   controller: TextEditingController(
                                       text: widget.selectedInsurancetypename),
-                                  decoration: InputDecoration(
-                                    border: const OutlineInputBorder(),
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
                                     hintText: 'Select Insurance Type',
                                     fillColor: Colors.white,
                                     filled: true,

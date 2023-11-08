@@ -53,11 +53,9 @@ class PatientHomePage extends StatefulWidget {
 }
 
 class _PatientHomePageState extends State<PatientHomePage> {
-  TextEditingController InsurancetypeController = TextEditingController();
-  String selectedInsurancetypename = '';
-  String selectedInsurancetypeId = '';
-  List<Organization> organizations = [];
-
+  
+//=====================================================================
+// internet connection checker
   late StreamSubscription subscription;
   bool isDeviceConnected = false;
   bool isAlertSet = false;
@@ -104,12 +102,17 @@ class _PatientHomePageState extends State<PatientHomePage> {
           ],
         ),
       );
-
   @override
   void dispose() {
     subscription.cancel();
     super.dispose();
   }
+//=====================================================================
+
+  TextEditingController InsurancetypeController = TextEditingController();
+  String selectedInsurancetypename = '';
+  String selectedInsurancetypeId = '';
+  List<Organization> organizations = [];
 
   Future<void> fetchData() async {
     final response = await http.post(
@@ -1033,474 +1036,480 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                       ),
                                     ),
                                   ),
-                                  InkWell(
-                                    onTap: () {
-                                      Get.to(() => const Ambulance());
-                                    },
-                                    child: Container(
-                                      width: 100,
-                                      height: 100,
-                                      child: Card(
-                                        child: Column(
-                                          children: [
-                                            const SizedBox(
-                                              height: 5,
-                                            ),
-                                            Container(
-                                              width: 30,
-                                              height: 30,
-                                              child: SvgPicture.asset(
-                                                  'assets/ambulance.svg',
-                                                  width: 15,
-                                                  height: 15,
-                                                  color: darkYellow),
-                                            ),
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text('ambulance'.tr,
-                                                style: const TextStyle(
-                                                  fontSize: 7,
-                                                  fontWeight: FontWeight.bold,
-                                                ))
-                                          ],
+                                ],
+                              ),
+                              Visibility(
+                                /// visible: _showMore,
+                                child: GridView.count(
+                                  crossAxisCount: 5,
+                                  shrinkWrap:
+                                      true, // Set to true to make the GridView scrollable within the Column
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        Get.to(() => const Ambulance());
+                                      },
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        child: Card(
+                                          child: Column(
+                                            children: [
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Container(
+                                                width: 30,
+                                                height: 30,
+                                                child: SvgPicture.asset(
+                                                    'assets/ambulance.svg',
+                                                    width: 15,
+                                                    height: 15,
+                                                    color: darkYellow),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text('ambulance'.tr,
+                                                  style: const TextStyle(
+                                                    fontSize: 7,
+                                                    fontWeight: FontWeight.bold,
+                                                  ))
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      Get.offAll(() => const Physiotherapy());
-                                    },
-                                    child: Container(
-                                      width: 100,
-                                      height: 100,
-                                      child: Card(
-                                        child: Column(
-                                          children: [
-                                            const SizedBox(
-                                              height: 5,
-                                            ),
-                                            Container(
-                                              width: 30,
-                                              height: 30,
-                                              child: SvgPicture.asset(
-                                                  'assets/therapy.svg',
-                                                  width: 15,
-                                                  height: 15,
-                                                  color: darkYellow),
-                                            ),
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text('physioTherapy'.tr,
-                                                style: const TextStyle(
-                                                  fontSize: 7,
-                                                  fontWeight: FontWeight.bold,
-                                                ))
-                                          ],
+                                    InkWell(
+                                      onTap: () {
+                                        Get.offAll(() => const Physiotherapy());
+                                      },
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        child: Card(
+                                          child: Column(
+                                            children: [
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Container(
+                                                width: 30,
+                                                height: 30,
+                                                child: SvgPicture.asset(
+                                                    'assets/therapy.svg',
+                                                    width: 15,
+                                                    height: 15,
+                                                    color: darkYellow),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text('physioTherapy'.tr,
+                                                  style: const TextStyle(
+                                                    fontSize: 7,
+                                                    fontWeight: FontWeight.bold,
+                                                  ))
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      Get.to(() => const Certificate());
-                                    },
-                                    child: Container(
-                                      width: 100,
-                                      height: 100,
-                                      child: Card(
-                                        child: Column(
-                                          children: [
-                                            const SizedBox(
-                                              height: 5,
-                                            ),
-                                            Container(
-                                              width: 30,
-                                              height: 30,
-                                              child: SvgPicture.asset(
-                                                  'assets/certificate.svg',
-                                                  width: 15,
-                                                  height: 15,
-                                                  color: darkYellow),
-                                            ),
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text('certificates'.tr,
-                                                style: const TextStyle(
-                                                  fontSize: 7,
-                                                  fontWeight: FontWeight.bold,
-                                                ))
-                                          ],
+                                    InkWell(
+                                      onTap: () {
+                                        Get.to(() => const Certificate());
+                                      },
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        child: Card(
+                                          child: Column(
+                                            children: [
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Container(
+                                                width: 30,
+                                                height: 30,
+                                                child: SvgPicture.asset(
+                                                    'assets/certificate.svg',
+                                                    width: 15,
+                                                    height: 15,
+                                                    color: darkYellow),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text('certificates'.tr,
+                                                  style: const TextStyle(
+                                                    fontSize: 7,
+                                                    fontWeight: FontWeight.bold,
+                                                  ))
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      Get.to(() => const Bedhistory());
-                                    },
-                                    child: Container(
-                                      width: 100,
-                                      height: 100,
-                                      child: Card(
-                                        child: Column(
-                                          children: [
-                                            const SizedBox(
-                                              height: 5,
-                                            ),
-                                            Container(
-                                              width: 30,
-                                              height: 30,
-                                              child: SvgPicture.asset(
-                                                  'assets/bed_history.svg',
-                                                  width: 15,
-                                                  height: 15,
-                                                  color: darkYellow),
-                                            ),
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text('bedHistory'.tr,
-                                                style: const TextStyle(
-                                                  fontSize: 7,
-                                                  fontWeight: FontWeight.bold,
-                                                ))
-                                          ],
+                                    InkWell(
+                                      onTap: () {
+                                        Get.to(() => const Bedhistory());
+                                      },
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        child: Card(
+                                          child: Column(
+                                            children: [
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Container(
+                                                width: 30,
+                                                height: 30,
+                                                child: SvgPicture.asset(
+                                                    'assets/bed_history.svg',
+                                                    width: 15,
+                                                    height: 15,
+                                                    color: darkYellow),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text('bedHistory'.tr,
+                                                  style: const TextStyle(
+                                                    fontSize: 7,
+                                                    fontWeight: FontWeight.bold,
+                                                  ))
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      Get.to(() => const Liveconsultation());
-                                    },
-                                    child: Container(
-                                      width: 100,
-                                      height: 100,
-                                      child: Card(
-                                        child: Column(
-                                          children: [
-                                            const SizedBox(
-                                              height: 5,
-                                            ),
-                                            Container(
-                                              width: 30,
-                                              height: 30,
-                                              child: SvgPicture.asset(
-                                                  'assets/live_consult.svg',
-                                                  width: 15,
-                                                  height: 15,
-                                                  color: darkYellow),
-                                            ),
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text('liveConsultations'.tr,
-                                                style: const TextStyle(
-                                                  fontSize: 7,
-                                                  fontWeight: FontWeight.bold,
-                                                ))
-                                          ],
+                                    InkWell(
+                                      onTap: () {
+                                        Get.to(() => const Liveconsultation());
+                                      },
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        child: Card(
+                                          child: Column(
+                                            children: [
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Container(
+                                                width: 30,
+                                                height: 30,
+                                                child: SvgPicture.asset(
+                                                    'assets/live_consult.svg',
+                                                    width: 15,
+                                                    height: 15,
+                                                    color: darkYellow),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text('liveConsultations'.tr,
+                                                  style: const TextStyle(
+                                                    fontSize: 7,
+                                                    fontWeight: FontWeight.bold,
+                                                  ))
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      Get.to(() => const Opd_History());
-                                    },
-                                    child: Container(
-                                      width: 100,
-                                      height: 100,
-                                      child: Card(
-                                        child: Column(
-                                          children: [
-                                            const SizedBox(
-                                              height: 5,
-                                            ),
-                                            Container(
-                                              width: 30,
-                                              height: 30,
-                                              child: SvgPicture.asset(
-                                                  'assets/opd.svg',
-                                                  width: 15,
-                                                  height: 15,
-                                                  color: darkYellow),
-                                            ),
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text("opdHistory".tr,
-                                                style: const TextStyle(
-                                                  fontSize: 7,
-                                                  fontWeight: FontWeight.bold,
-                                                ))
-                                          ],
+                                    InkWell(
+                                      onTap: () {
+                                        Get.to(() => const Opd_History());
+                                      },
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        child: Card(
+                                          child: Column(
+                                            children: [
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Container(
+                                                width: 30,
+                                                height: 30,
+                                                child: SvgPicture.asset(
+                                                    'assets/opd.svg',
+                                                    width: 15,
+                                                    height: 15,
+                                                    color: darkYellow),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text("opdHistory".tr,
+                                                  style: const TextStyle(
+                                                    fontSize: 7,
+                                                    fontWeight: FontWeight.bold,
+                                                  ))
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return Dialog(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                            ),
-                                            child: Container(
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.7,
-                                              width: width,
-                                              child: Column(
-                                                children: <Widget>[
-                                                  Container(
-                                                    decoration:
-                                                        const BoxDecoration(
-                                                      color: Colors.white,
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                        topLeft:
-                                                            Radius.circular(20),
-                                                        topRight:
-                                                            Radius.circular(20),
+                                    InkWell(
+                                      onTap: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return Dialog(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                              ),
+                                              child: Container(
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.7,
+                                                width: width,
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    Container(
+                                                      decoration:
+                                                          const BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  20),
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  20),
+                                                        ),
                                                       ),
-                                                    ),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: <Widget>[
-                                                        const Padding(
-                                                          padding:
-                                                              EdgeInsets.all(
-                                                                  20.0),
-                                                          child: Text(
-                                                            'Select Criteria',
-                                                            style: TextStyle(
-                                                              fontSize: 20,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: <Widget>[
+                                                          const Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    20.0),
+                                                            child: Text(
+                                                              'Select Criteria',
+                                                              style: TextStyle(
+                                                                fontSize: 20,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .black,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          IconButton(
+                                                            icon: const Icon(
+                                                              Icons.close,
                                                               color:
                                                                   Colors.black,
                                                             ),
+                                                            onPressed: () {
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                            },
                                                           ),
-                                                        ),
-                                                        IconButton(
-                                                          icon: const Icon(
-                                                            Icons.close,
-                                                            color: Colors.black,
-                                                          ),
-                                                          onPressed: () {
-                                                            Navigator.of(
-                                                                    context)
-                                                                .pop();
-                                                          },
-                                                        ),
-                                                      ],
+                                                        ],
+                                                      ),
                                                     ),
-                                                  ),
-                                                  Card(
-                                                    child: ListTile(
-                                                      contentPadding:
-                                                          const EdgeInsets.all(
-                                                              20),
-                                                      tileColor: Colors.yellow,
-                                                      title: const Text(
-                                                        "General Opd",
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                      subtitle: const Text(
-                                                        "Tap to book an appointment",
-                                                        style: TextStyle(
-                                                          color: Colors.grey,
-                                                        ),
-                                                      ),
-                                                      leading: Icon(
-                                                        Icons.local_hospital,
-                                                        color: darkYellow,
-                                                        size: 40,
-                                                      ),
-                                                      trailing: Icon(
-                                                        Icons.arrow_forward,
-                                                        color: darkYellow,
-                                                      ),
-                                                      onTap: () {
-                                                        Navigator.pop(context);
-                                                        // Get.to(() => Doctor_Book_Details(
-                                                        //   doctorName: widget.doctorName,
-                                                        //   BloodgroupId: profileData?.bloodGroup == null ? '1' : profileData?.bloodGroup,
-                                                        //   Bloodgroupname: '',
-                                                        //   DepartmentId: widget.doctorSpecialization,
-                                                        //   bloodGroup: '',
-                                                        //   maritalStatus: profileData?.maritalStatus ?? 'N/A',
-                                                        //   patientAddress: profileData?.address ?? 'N/A',
-                                                        //   patientDOB: profileData?.dob ?? 'N/A',
-                                                        //   patientEmail: profileData?.email ?? 'N/A',
-                                                        //   patientGender: profileData?.gender ?? 'N/A',
-                                                        //   patientMobile: profileData?.mobileNo ?? 'N/A',
-                                                        //   patientName: profileData?.patientName ?? 'N/A',
-                                                        //   selectedDepartmentname: widget.doctorSpecialization,
-                                                        //   department_id: widget.department_id,
-                                                        //   doctorId: widget.doctorId,
-                                                        //   ticketDate: '$formattedDate',
-                                                        // ));
-                                                      },
-                                                    ),
-                                                  ),
-                                                  const SizedBox(height: 20),
-                                                  if (isLoading)
-                                                    Center(
-                                                      child: Padding(
-                                                        padding:
+                                                    Card(
+                                                      child: ListTile(
+                                                        contentPadding:
                                                             const EdgeInsets
-                                                                .all(10.0),
-                                                        child: Container(
-                                                          height: 50,
-                                                          width: 50,
-                                                          color: Colors
-                                                              .transparent,
-                                                          child:
-                                                              const LoadingIndicatorWidget(),
+                                                                .all(20),
+                                                        tileColor:
+                                                            Colors.yellow,
+                                                        title: const Text(
+                                                          "General Opd",
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
                                                         ),
-                                                      ),
-                                                    )
-                                                  else if (organizations
-                                                      .isEmpty)
-                                                    const Text(
-                                                      'No data found',
-                                                      style: TextStyle(
-                                                          fontSize: 16,
-                                                          color: Colors.black),
-                                                    )
-                                                  else
-                                                    Expanded(
-                                                      child: ListView.builder(
-                                                        itemCount: organizations
-                                                            .length,
-                                                        itemBuilder:
-                                                            (context, index) {
-                                                          final organization =
-                                                              organizations[
-                                                                  index];
-
-                                                          return Card(
-                                                            elevation: 4,
-                                                            margin:
-                                                                const EdgeInsets
-                                                                    .all(8),
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10),
-                                                            ),
-                                                            child: ListTile(
-                                                              title: Text(
-                                                                organization
-                                                                    .organisationName,
-                                                                style:
-                                                                    const TextStyle(
-                                                                  color: Colors
-                                                                      .black,
-                                                                  fontSize: 18,
-                                                                ),
-                                                              ),
-                                                              onTap: () {
-                                                                selectedInsurancetypename =
-                                                                    organization
-                                                                        .organisationName;
-                                                                selectedInsurancetypeId =
-                                                                    organization
-                                                                        .id;
-                                                                InsurancetypeController
-                                                                        .text =
-                                                                    selectedInsurancetypename;
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
-                                                                print(
-                                                                    'selectedInsurancetypeId: $selectedInsurancetypeId');
-
-                                                                Get.offAll(() =>
-                                                                    Re_Opd_Insurance_visibility(
-                                                                      selectedInsurancetypename:
-                                                                          selectedInsurancetypename,
-                                                                      selectedInsurancetypeId1:
-                                                                          selectedInsurancetypeId,
-                                                                    ));
-                                                              },
-                                                            ),
-                                                          );
+                                                        subtitle: const Text(
+                                                          "Tap to book an appointment",
+                                                          style: TextStyle(
+                                                            color: Colors.grey,
+                                                          ),
+                                                        ),
+                                                        leading: Icon(
+                                                          Icons.local_hospital,
+                                                          color: darkYellow,
+                                                          size: 40,
+                                                        ),
+                                                        trailing: Icon(
+                                                          Icons.arrow_forward,
+                                                          color: darkYellow,
+                                                        ),
+                                                        onTap: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                          // Get.to(() => Doctor_Book_Details(
+                                                          //   doctorName: widget.doctorName,
+                                                          //   BloodgroupId: profileData?.bloodGroup == null ? '1' : profileData?.bloodGroup,
+                                                          //   Bloodgroupname: '',
+                                                          //   DepartmentId: widget.doctorSpecialization,
+                                                          //   bloodGroup: '',
+                                                          //   maritalStatus: profileData?.maritalStatus ?? 'N/A',
+                                                          //   patientAddress: profileData?.address ?? 'N/A',
+                                                          //   patientDOB: profileData?.dob ?? 'N/A',
+                                                          //   patientEmail: profileData?.email ?? 'N/A',
+                                                          //   patientGender: profileData?.gender ?? 'N/A',
+                                                          //   patientMobile: profileData?.mobileNo ?? 'N/A',
+                                                          //   patientName: profileData?.patientName ?? 'N/A',
+                                                          //   selectedDepartmentname: widget.doctorSpecialization,
+                                                          //   department_id: widget.department_id,
+                                                          //   doctorId: widget.doctorId,
+                                                          //   ticketDate: '$formattedDate',
+                                                          // ));
                                                         },
                                                       ),
                                                     ),
-                                                ],
+                                                    const SizedBox(height: 20),
+                                                    if (isLoading)
+                                                      Center(
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(10.0),
+                                                          child: Container(
+                                                            height: 50,
+                                                            width: 50,
+                                                            color: Colors
+                                                                .transparent,
+                                                            child:
+                                                                const LoadingIndicatorWidget(),
+                                                          ),
+                                                        ),
+                                                      )
+                                                    else if (organizations
+                                                        .isEmpty)
+                                                      const Text(
+                                                        'No data found',
+                                                        style: TextStyle(
+                                                            fontSize: 16,
+                                                            color:
+                                                                Colors.black),
+                                                      )
+                                                    else
+                                                      Expanded(
+                                                        child: ListView.builder(
+                                                          itemCount:
+                                                              organizations
+                                                                  .length,
+                                                          itemBuilder:
+                                                              (context, index) {
+                                                            final organization =
+                                                                organizations[
+                                                                    index];
+
+                                                            return Card(
+                                                              elevation: 4,
+                                                              margin:
+                                                                  const EdgeInsets
+                                                                      .all(8),
+                                                              shape:
+                                                                  RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10),
+                                                              ),
+                                                              child: ListTile(
+                                                                title: Text(
+                                                                  organization
+                                                                      .organisationName,
+                                                                  style:
+                                                                      const TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        18,
+                                                                  ),
+                                                                ),
+                                                                onTap: () {
+                                                                  selectedInsurancetypename =
+                                                                      organization
+                                                                          .organisationName;
+                                                                  selectedInsurancetypeId =
+                                                                      organization
+                                                                          .id;
+                                                                  InsurancetypeController
+                                                                          .text =
+                                                                      selectedInsurancetypename;
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop();
+                                                                  print(
+                                                                      'selectedInsurancetypeId: $selectedInsurancetypeId');
+
+                                                                  Get.offAll(() =>
+                                                                      Re_Opd_Insurance_visibility(
+                                                                        selectedInsurancetypename:
+                                                                            selectedInsurancetypename,
+                                                                        selectedInsurancetypeId1:
+                                                                            selectedInsurancetypeId,
+                                                                      ));
+                                                                },
+                                                              ),
+                                                            );
+                                                          },
+                                                        ),
+                                                      ),
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                          );
-                                        },
-                                      );
-                                    },
-                                    child: Container(
-                                      width: 100,
-                                      height: 100,
-                                      child: Card(
-                                        child: Column(
-                                          children: [
-                                            const SizedBox(
-                                              height: 5,
-                                            ),
-                                            Container(
-                                              width: 30,
-                                              height: 30,
-                                              child: SvgPicture.asset(
-                                                  'assets/reopd.svg',
-                                                  width: 15,
-                                                  height: 15,
-                                                  color: yellow),
-                                            ),
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text("reopd".tr,
-                                                style: const TextStyle(
-                                                  fontSize: 7,
-                                                  fontWeight: FontWeight.bold,
-                                                ))
-                                          ],
+                                            );
+                                          },
+                                        );
+                                      },
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        child: Card(
+                                          child: Column(
+                                            children: [
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Container(
+                                                width: 30,
+                                                height: 30,
+                                                child: SvgPicture.asset(
+                                                    'assets/reopd.svg',
+                                                    width: 15,
+                                                    height: 15,
+                                                    color: yellow),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text("reopd".tr,
+                                                  style: const TextStyle(
+                                                    fontSize: 7,
+                                                    fontWeight: FontWeight.bold,
+                                                  ))
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                              // Visibility(
-                              //   /// visible: _showMore,
-                              //   child: GridView.count(
-                              //     crossAxisCount: 5,
-                              //     shrinkWrap:
-                              //         true, // Set to true to make the GridView scrollable within the Column
-                              //     children: [
-                              //
-                              //
-                              //     ],
-                              //   ),
-                              // ),
                               Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Row(
