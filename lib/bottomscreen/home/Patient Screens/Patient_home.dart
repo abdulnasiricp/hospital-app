@@ -1401,7 +1401,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                                     index];
 
                                                             return Card(
-                                                              color: Colors.grey[200],
+                                                              color: Colors
+                                                                  .grey[200],
                                                               elevation: 4,
                                                               margin:
                                                                   const EdgeInsets
