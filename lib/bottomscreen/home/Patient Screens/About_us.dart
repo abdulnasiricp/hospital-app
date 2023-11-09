@@ -37,8 +37,6 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
   // SliderImages
 
   Future<void> getpatientDetails() async {
- 
-
     try {
       // Make the POST request
       final response = await http.post(
@@ -103,7 +101,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
   Future hitApi() async {
     final response = await http.post(
       Uri.parse(ApiLinks.getAllDoctor),
-      headers:ApiLinks.MainHeader,
+      headers: ApiLinks.MainHeader,
     );
     if (response.statusCode == 200) {
       setState(() {
@@ -417,29 +415,41 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             10),
-                                                    child: Image.network(
-                                                      '${DoneListData![index]['image']}', // Replace with your image URL
-                                                      width:
-                                                          100.0, // Set the width (optional)
-                                                      height:
-                                                          100.0, // Set the height (optional)
-                                                      fit: BoxFit
-                                                          .fill, // Set the BoxFit (optional)
-                                                      loadingBuilder: (context,
-                                                          child,
-                                                          loadingProgress) {
-                                                        if (loadingProgress ==
-                                                            null) {
-                                                          return child;
-                                                        } else {
-                                                          return CircularProgressIndicator(
-                                                            color: darkYellow,
-                                                            backgroundColor:
-                                                                yellow,
-                                                          );
-                                                        }
-                                                      },
-                                                    ),
+                                                    child: '${DoneListData![index]['image']}' !=
+                                                                null &&
+                                                            '${DoneListData![index]['image']}' !=
+                                                                ''
+                                                        ? Image.network(
+                                                            '${DoneListData![index]['image']}',
+                                                            width: 100.0,
+                                                            height: 100.0,
+                                                            fit: BoxFit.fill,
+                                                            loadingBuilder:
+                                                                (context, child,
+                                                                    loadingProgress) {
+                                                              if (loadingProgress ==
+                                                                  null) {
+                                                                return child;
+                                                              } else {
+                                                                return CircularProgressIndicator(
+                                                                  color:
+                                                                      darkYellow,
+                                                                  backgroundColor:
+                                                                      yellow,
+                                                                );
+                                                              }
+                                                            },
+                                                          )
+                                                        : Center(
+                                                            child: SvgPicture.asset(
+                                                                'assets/Noimagedoctor.svg',
+                                                                width: 100.0,
+                                                                height: 100.0,
+                                                                fit:
+                                                                    BoxFit.fill,
+                                                                color:
+                                                                    darkYellow),
+                                                          ),
                                                   ),
                                                   const SizedBox(
                                                     height: 10,
@@ -520,8 +530,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                                                           index]
                                                                       [
                                                                       'department_id'],
-                                                            )
-                                                        );
+                                                            ));
                                                       },
                                                       child: Center(
                                                         child: Text(

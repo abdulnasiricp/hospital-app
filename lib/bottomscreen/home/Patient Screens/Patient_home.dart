@@ -664,14 +664,17 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     padding: const EdgeInsets.all(3.0),
                                     child: InkWell(
                                       onTap: () {
-                                        Get.offAll(() => const TransactionBill());
+                                        Get.offAll(
+                                            () => const TransactionBill());
                                       },
                                       child: Container(
                                         width: 120,
                                         height: 150,
                                         decoration: BoxDecoration(
-                                          color: Colors.white, // Background color
-                                          borderRadius: BorderRadius.circular(15),
+                                          color:
+                                              Colors.white, // Background color
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                         ),
                                         child: Column(
                                           mainAxisAlignment:
@@ -719,8 +722,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         width: 120,
                                         height: 150,
                                         decoration: BoxDecoration(
-                                          color: Colors.white, // Background color
-                                          borderRadius: BorderRadius.circular(15),
+                                          color:
+                                              Colors.white, // Background color
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                         ),
                                         child: Column(
                                           mainAxisAlignment:
@@ -768,8 +773,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         width: 120,
                                         height: 150,
                                         decoration: BoxDecoration(
-                                          color: Colors.white, // Background color
-                                          borderRadius: BorderRadius.circular(15),
+                                          color:
+                                              Colors.white, // Background color
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                         ),
                                         child: Column(
                                           mainAxisAlignment:
@@ -816,8 +823,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         width: 120,
                                         height: 150,
                                         decoration: BoxDecoration(
-                                          color: Colors.white, // Background color
-                                          borderRadius: BorderRadius.circular(15),
+                                          color:
+                                              Colors.white, // Background color
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                         ),
                                         child: Column(
                                           mainAxisAlignment:
@@ -863,8 +872,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         width: 120,
                                         height: 150,
                                         decoration: BoxDecoration(
-                                          color: Colors.white, // Background color
-                                          borderRadius: BorderRadius.circular(15),
+                                          color:
+                                              Colors.white, // Background color
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                         ),
                                         child: Column(
                                           mainAxisAlignment:
@@ -911,8 +922,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         width: 120,
                                         height: 150,
                                         decoration: BoxDecoration(
-                                          color: Colors.white, // Background color
-                                          borderRadius: BorderRadius.circular(15),
+                                          color:
+                                              Colors.white, // Background color
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                         ),
                                         child: Column(
                                           mainAxisAlignment:
@@ -959,8 +972,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         width: 120,
                                         height: 150,
                                         decoration: BoxDecoration(
-                                          color: Colors.white, // Background color
-                                          borderRadius: BorderRadius.circular(15),
+                                          color:
+                                              Colors.white, // Background color
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                         ),
                                         child: Column(
                                           mainAxisAlignment:
@@ -1007,8 +1022,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         width: 120,
                                         height: 150,
                                         decoration: BoxDecoration(
-                                          color: Colors.white, // Background color
-                                          borderRadius: BorderRadius.circular(15),
+                                          color:
+                                              Colors.white, // Background color
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                         ),
                                         child: Column(
                                           mainAxisAlignment:
@@ -1056,8 +1073,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         width: 120,
                                         height: 150,
                                         decoration: BoxDecoration(
-                                          color: Colors.white, // Background color
-                                          borderRadius: BorderRadius.circular(15),
+                                          color:
+                                              Colors.white, // Background color
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                         ),
                                         child: Column(
                                           mainAxisAlignment:
@@ -1104,8 +1123,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         width: 120,
                                         height: 150,
                                         decoration: BoxDecoration(
-                                          color: Colors.white, // Background color
-                                          borderRadius: BorderRadius.circular(15),
+                                          color:
+                                              Colors.white, // Background color
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                         ),
                                         child: Column(
                                           mainAxisAlignment:
@@ -1152,8 +1173,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         width: 120,
                                         height: 150,
                                         decoration: BoxDecoration(
-                                          color: Colors.white, // Background color
-                                          borderRadius: BorderRadius.circular(15),
+                                          color:
+                                              Colors.white, // Background color
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                         ),
                                         child: Column(
                                           mainAxisAlignment:
@@ -1200,8 +1223,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         width: 120,
                                         height: 150,
                                         decoration: BoxDecoration(
-                                          color: Colors.white, // Background color
-                                          borderRadius: BorderRadius.circular(15),
+                                          color:
+                                              Colors.white, // Background color
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                         ),
                                         child: Column(
                                           mainAxisAlignment:
@@ -1248,8 +1273,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         width: 120,
                                         height: 150,
                                         decoration: BoxDecoration(
-                                          color: Colors.white, // Background color
-                                          borderRadius: BorderRadius.circular(15),
+                                          color:
+                                              Colors.white, // Background color
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                         ),
                                         child: Column(
                                           mainAxisAlignment:
@@ -1296,8 +1323,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         width: 120,
                                         height: 150,
                                         decoration: BoxDecoration(
-                                          color: Colors.white, // Background color
-                                          borderRadius: BorderRadius.circular(15),
+                                          color:
+                                              Colors.white, // Background color
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                         ),
                                         child: Column(
                                           mainAxisAlignment:
@@ -1344,8 +1373,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         width: 120,
                                         height: 150,
                                         decoration: BoxDecoration(
-                                          color: Colors.white, // Background color
-                                          borderRadius: BorderRadius.circular(15),
+                                          color:
+                                              Colors.white, // Background color
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                         ),
                                         child: Column(
                                           mainAxisAlignment:
@@ -1391,8 +1422,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         width: 120,
                                         height: 150,
                                         decoration: BoxDecoration(
-                                          color: Colors.white, // Background color
-                                          borderRadius: BorderRadius.circular(15),
+                                          color:
+                                              Colors.white, // Background color
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                         ),
                                         child: Column(
                                           mainAxisAlignment:
@@ -1456,9 +1489,11 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                         borderRadius:
                                                             BorderRadius.only(
                                                           topLeft:
-                                                              Radius.circular(20),
+                                                              Radius.circular(
+                                                                  20),
                                                           topRight:
-                                                              Radius.circular(20),
+                                                              Radius.circular(
+                                                                  20),
                                                         ),
                                                       ),
                                                       child: Row(
@@ -1477,15 +1512,16 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
-                                                                color:
-                                                                    Colors.black,
+                                                                color: Colors
+                                                                    .black,
                                                               ),
                                                             ),
                                                           ),
                                                           IconButton(
                                                             icon: const Icon(
                                                               Icons.close,
-                                                              color: Colors.black,
+                                                              color:
+                                                                  Colors.black,
                                                             ),
                                                             onPressed: () {
                                                               Navigator.of(
@@ -1499,9 +1535,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                     Card(
                                                       child: ListTile(
                                                         contentPadding:
-                                                            const EdgeInsets.all(
-                                                                20),
-                                                        tileColor: Colors.yellow,
+                                                            const EdgeInsets
+                                                                .all(20),
+                                                        tileColor:
+                                                            Colors.yellow,
                                                         title: const Text(
                                                           "General Opd",
                                                           style: TextStyle(
@@ -1527,7 +1564,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                           color: darkYellow,
                                                         ),
                                                         onTap: () {
-                                                          Navigator.pop(context);
+                                                          Navigator.pop(
+                                                              context);
                                                           Get.to(() =>
                                                               const Re_OPD());
                                                         },
@@ -1564,8 +1602,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                     else
                                                       Expanded(
                                                         child: ListView.builder(
-                                                          itemCount: organizations
-                                                              .length,
+                                                          itemCount:
+                                                              organizations
+                                                                  .length,
                                                           itemBuilder:
                                                               (context, index) {
                                                             final organization =
@@ -1598,7 +1637,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                                       TextStyle(
                                                                     color: Colors
                                                                         .white, // Text color
-                                                                    fontSize: 18,
+                                                                    fontSize:
+                                                                        18,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold, // Make the text bold
@@ -1650,8 +1690,10 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                         width: 120,
                                         height: 150,
                                         decoration: BoxDecoration(
-                                          color: Colors.white, // Background color
-                                          borderRadius: BorderRadius.circular(15),
+                                          color:
+                                              Colors.white, // Background color
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                         ),
                                         child: Column(
                                           mainAxisAlignment:
@@ -1790,32 +1832,47 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                                   BorderRadius
                                                                       .circular(
                                                                           10),
-                                                              child:
-                                                                  Image.network(
-                                                                '${DoneListData![index]['image']}', // Replace with your image URL
-                                                                width:
-                                                                    200.0, // Set the width (optional)
-                                                                height:
-                                                                    200.0, // Set the height (optional)
-                                                                fit: BoxFit
-                                                                    .fill, // Set the BoxFit (optional)
-                                                                loadingBuilder:
-                                                                    (context,
-                                                                        child,
-                                                                        loadingProgress) {
-                                                                  if (loadingProgress ==
-                                                                      null) {
-                                                                    return child;
-                                                                  } else {
-                                                                    return CircularProgressIndicator(
-                                                                      color:
-                                                                          darkYellow,
-                                                                      backgroundColor:
-                                                                          yellow,
-                                                                    );
-                                                                  }
-                                                                },
-                                                              ),
+                                                              child: '${DoneListData![index]['image']}' !=
+                                                                          null &&
+                                                                      '${DoneListData![index]['image']}' !=
+                                                                          ''
+                                                                  ? Image
+                                                                      .network(
+                                                                      '${DoneListData![index]['image']}',
+                                                                      width:
+                                                                          200.0,
+                                                                      height:
+                                                                          200.0,
+                                                                      fit: BoxFit
+                                                                          .fill,
+                                                                      loadingBuilder: (context,
+                                                                          child,
+                                                                          loadingProgress) {
+                                                                        if (loadingProgress ==
+                                                                            null) {
+                                                                          return child;
+                                                                        } else {
+                                                                          return CircularProgressIndicator(
+                                                                            color:
+                                                                                darkYellow,
+                                                                            backgroundColor:
+                                                                                yellow,
+                                                                          );
+                                                                        }
+                                                                      },
+                                                                    )
+                                                                  : Center(
+                                                                      child: SvgPicture.asset(
+                                                                          'assets/Noimagedoctor.svg',
+                                                                          width:
+                                                                              200.0,
+                                                                          height:
+                                                                              200.0,
+                                                                          fit: BoxFit
+                                                                              .fill,
+                                                                          color:
+                                                                              darkYellow),
+                                                                    ),
                                                             ),
                                                           ),
                                                           const SizedBox(

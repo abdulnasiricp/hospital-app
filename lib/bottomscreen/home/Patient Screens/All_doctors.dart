@@ -7,6 +7,7 @@ import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:animation_search_bar/animation_search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
@@ -37,7 +38,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
     try {
       final response = await http.post(
         Uri.parse(ApiLinks.getAllDoctor),
-        headers:ApiLinks.MainHeader,
+        headers: ApiLinks.MainHeader,
       );
       if (response.statusCode == 200) {
         DataMap = json.decode(response.body);
@@ -230,29 +231,40 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
                                                 child: ClipRRect(
                                                   borderRadius:
                                                       BorderRadius.circular(10),
-                                                  child: Image.network(
-                                                    '${filteredData![index]['image']}', 
-                                                    width:
-                                                        200.0, 
-                                                    height:
-                                                        200.0, // Set the height (optional)
-                                                    fit: BoxFit
-                                                        .cover, // Set the BoxFit (optional)
-                                                    loadingBuilder: (context,
-                                                        child,
-                                                        loadingProgress) {
-                                                      if (loadingProgress ==
-                                                          null) {
-                                                        return child;
-                                                      } else {
-                                                        return CircularProgressIndicator(
-                                                          color: darkYellow,
-                                                          backgroundColor:
-                                                              yellow,
-                                                        );
-                                                      }
-                                                    },
-                                                  ),
+                                                  child: '${filteredData![index]['image']}' !=
+                                                              null &&
+                                                          '${filteredData![index]['image']}' !=
+                                                              ''
+                                                      ? Image.network(
+                                                          '${filteredData![index]['image']}',
+                                                          width: 200.0,
+                                                          height: 200.0,
+                                                          fit: BoxFit.cover,
+                                                          loadingBuilder: (context,
+                                                              child,
+                                                              loadingProgress) {
+                                                            if (loadingProgress ==
+                                                                null) {
+                                                              return child;
+                                                            } else {
+                                                              return CircularProgressIndicator(
+                                                                color:
+                                                                    darkYellow,
+                                                                backgroundColor:
+                                                                    yellow,
+                                                              );
+                                                            }
+                                                          },
+                                                        )
+                                                      : Center(
+                                                          child: SvgPicture.asset(
+                                                              'assets/Noimagedoctor.svg',
+                                                              width: 50.0,
+                                                              height: 50.0,
+                                                              fit: BoxFit.fill,
+                                                              color:
+                                                                  darkYellow),
+                                                        ),
                                                 ),
                                               ),
                                               const SizedBox(
