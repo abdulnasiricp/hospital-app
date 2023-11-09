@@ -1550,26 +1550,96 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                                 FontWeight.bold,
                                                           ),
                                                         ),
-                                                        subtitle: const Text(
-                                                          "Tap to book an appointment",
-                                                          style: TextStyle(
-                                                            color: Colors.grey,
-                                                          ),
-                                                        ),
-                                                        leading: Icon(
-                                                          Icons.local_hospital,
-                                                          color: darkYellow,
-                                                          size: 40,
-                                                        ),
-                                                        trailing: Icon(
-                                                          Icons.arrow_forward,
-                                                          color: darkYellow,
-                                                        ),
-                                                        onTap: () {
-                                                          Navigator.pop(
-                                                              context);
-                                                          Get.to(() =>
-                                                              const Re_OPD());
+                                                      ),
+                                                    )
+                                                  else if (organizations
+                                                      .isEmpty)
+                                                    const Center(
+                                                      child: Text(
+                                                        'No data found',
+                                                        style: TextStyle(
+                                                            fontSize: 16,
+                                                            color:
+                                                                Colors.black),
+                                                      ),
+                                                    )
+                                                  else
+                                                    Expanded(
+                                                      child: ListView.builder(
+                                                        itemCount: organizations
+                                                            .length,
+                                                        itemBuilder:
+                                                            (context, index) {
+                                                          final organization =
+                                                              organizations[
+                                                                  index];
+
+                                                          return Card(
+                                                            color: Colors
+                                                                .teal, // Set the background color of the card
+                                                            elevation:
+                                                                8, // Add a shadow to the card
+                                                            margin:
+                                                                const EdgeInsets
+                                                                    .all(8),
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10),
+                                                            ),
+                                                            child: ListTile(
+                                                              contentPadding:
+                                                                  const EdgeInsets
+                                                                      .all(
+                                                                      16), // Add padding inside the ListTile
+                                                              title: Text(
+                                                                organization
+                                                                    .organisationName,
+                                                                style:
+                                                                    const TextStyle(
+                                                                  color: Colors
+                                                                      .white, // Text color
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold, // Make the text bold
+                                                                ),
+                                                              ),
+                                                              trailing:
+                                                                  const Icon(
+                                                                Icons
+                                                                    .arrow_forward, // Add an arrow icon on the right side
+                                                                color: Colors
+                                                                    .white, // Icon color
+                                                              ),
+                                                              onTap: () {
+                                                                selectedInsurancetypename =
+                                                                    organization
+                                                                        .organisationName;
+                                                                selectedInsurancetypeId =
+                                                                    organization
+                                                                        .id;
+                                                                InsurancetypeController
+                                                                        .text =
+                                                                    selectedInsurancetypename;
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                                print(
+                                                                    'selectedInsurancetypeId: $selectedInsurancetypeId');
+
+                                                                Get.offAll(() =>
+                                                                    Re_Opd_Insurance_visibility(
+                                                                      selectedInsurancetypename:
+                                                                          selectedInsurancetypename,
+                                                                      selectedInsurancetypeId1:
+                                                                          selectedInsurancetypeId,
+                                                                    ));
+                                                              },
+                                                            ),
+                                                          );
                                                         },
                                                       ),
                                                     ),
@@ -1592,8 +1662,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                       )
                                                     else if (organizations
                                                         .isEmpty)
-                                                      const Center(
-                                                        child: Text(
+                                                      Center(
+                                                        child: const Text(
                                                           'No data found',
                                                           style: TextStyle(
                                                               fontSize: 16,
