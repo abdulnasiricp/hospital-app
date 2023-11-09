@@ -43,20 +43,13 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    initPlatformState();
   }
   Future<bool> _isLoggedIn() async {
     final sharedPreferences = await SharedPreferences.getInstance();
     return sharedPreferences.containsKey('username') &&
         sharedPreferences.containsKey('password');
   }
-  Future<void> initPlatformState() async {
-    if (!mounted) return;
-    OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
-    OneSignal.Debug.setAlertLevel(OSLogLevel.none);
-    OneSignal.initialize("a2cbcc95-093d-4b87-8b9a-f116ba1105af");
-  }
-  @override
+    @override
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
