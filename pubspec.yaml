@@ -80,17 +80,6 @@ dependencies:
   firebase_core: ^2.21.0
   firebase_messaging: ^14.7.3
 
-
-
-
-
-
-
-
-
-
-
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
