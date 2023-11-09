@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, camel_case_types, duplicate_ignore, avoid_print, sized_box_for_whitespace, non_constant_identifier_names, unused_field, deprecated_member_use, unnecessary_null_comparison, unnecessary_string_interpolations
 
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/Insurance_Opd_Ticket_Details.dart';
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
@@ -61,7 +62,7 @@ class _Insurance_opd_formState extends State<Insurance_opd_form> {
   bool isLoading = true;
   Future<void> fetchDepartmentData() async {
     final response = await http
-        .post(Uri.parse('https://uat.tez.hospital/xzy/webservice/lists'));
+        .post(Uri.parse(ApiLinks.OPDTicketList));
 
     if (response.statusCode == 200) {
       final dataMap = json.decode(response.body);
@@ -129,20 +130,7 @@ class _Insurance_opd_formState extends State<Insurance_opd_form> {
           title: const Text('Insurance OPD Ticket'),
           centerTitle: true,
           backgroundColor: darkYellow,
-          // actions: [
-          //   IconButton(
-          //     onPressed: () {
-          //       // /_opdTicketInfo(context);
-          //       //  Get.to(() => Ticket());
-          //     },
-          //     icon: SvgPicture.asset(
-          //       'assets/info1.svg',
-          //       width: 25,
-          //       height: 25,
-          //       color: Colors.white,
-          //     ),
-          //   )
-          // ],
+      
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),

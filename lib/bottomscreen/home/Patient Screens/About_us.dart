@@ -37,17 +37,13 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
   // SliderImages
 
   Future<void> getpatientDetails() async {
-    // Set the headers
-    final headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
+ 
 
     try {
       // Make the POST request
       final response = await http.post(
         Uri.parse(ApiLinks.aboutUs),
-        headers: headers,
+        headers: ApiLinks.MainHeader,
       );
 
       // Check if the response was successful
@@ -107,10 +103,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
   Future hitApi() async {
     final response = await http.post(
       Uri.parse(ApiLinks.getAllDoctor),
-      headers: {
-        'Soft-service': 'TezHealthCare',
-        'Auth-key': 'zbuks_ram859553467'
-      },
+      headers:ApiLinks.MainHeader,
     );
     if (response.statusCode == 200) {
       setState(() {

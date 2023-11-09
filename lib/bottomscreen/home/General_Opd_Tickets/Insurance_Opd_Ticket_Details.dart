@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/OPD_Ticket_Booking_Successful_Insurance.dart';
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
@@ -80,7 +81,7 @@ class _Insurance_Opd_Ticket_DetailsState
     });
 
     final response = await http
-        .post(Uri.parse('https://uat.tez.hospital/xzy/webservice/lists'));
+        .post(Uri.parse(ApiLinks.OPDTicketList));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);

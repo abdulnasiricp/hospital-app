@@ -33,19 +33,17 @@ class _MedicationScreenState extends State<MedicationScreen> {
     print(patient);
     setState(() {});
   }
+//==============================================================================
 
-  ///////////////////////////////////////////////////////////////////////////////////////////
 
   getData() async {
     await LoadData();
+    await getpatientDetails();
     await fetchData();
+    
     calculateTotalAmount();
 
     isLoading = false;
-    // Check if the length of apiData has changed
-    // if (apiData.length != previousApiData.length) {
-    //   showNotification();
-    // }
   }
 
   @override
@@ -53,8 +51,8 @@ class _MedicationScreenState extends State<MedicationScreen> {
     super.initState();
     getData();
   }
+//==============================================================================
 
-// ///////////////////////////////////////////////////////////////////////////////////////////////
 //calculate total amount
   void calculateTotalAmount() {
     double total = 0.0;
@@ -66,8 +64,41 @@ class _MedicationScreenState extends State<MedicationScreen> {
           total.toStringAsFixed(2); // Format as a string with 2 decimal places
     });
   }
+//==============================================================================
 
-////////////////////////////////////////////////////////////////////////////////
+  late String ipdData = '';
+
+  Future<void> getpatientDetails() async {
+    // Set the body
+    final body = {
+      'patient_id': patient,
+    };
+    try {
+      // Make the POST request
+      final response = await http.post(
+        Uri.parse(ApiLinks.getpatientDetails),
+        headers: ApiLinks.MainHeader,
+        body: jsonEncode(body),
+      );
+
+      // Check if the response was successful
+      if (response.statusCode == 200) {
+        // Decode the JSON response
+        final data = jsonDecode(response.body);
+        ipdData = data['result']['ipdid'];
+        print('=============$ipdData');
+
+        // Set the state to rebuild the widget
+        setState(() {});
+      } else {
+        // Handle the error
+      }
+    } catch (error) {
+      print(error);
+    }
+  }
+//==============================================================================
+
 /////get medication data
   Map<String, dynamic>? DataMap;
   List<dynamic>? data = [];
@@ -75,15 +106,12 @@ class _MedicationScreenState extends State<MedicationScreen> {
 
   Future<Map<String, dynamic>> fetchData() async {
     Uri.parse(ApiLinks.getIPDMedication);
-    final headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
-    final body = {"ipd_id": "310"};
+
+    final body = {"ipd_id": ipdData};
 
     final response = await http.post(
       Uri.parse(ApiLinks.getIPDMedication),
-      headers: headers,
+      headers: ApiLinks.MainHeader,
       body: json.encode(body),
     );
 
@@ -112,11 +140,11 @@ class _MedicationScreenState extends State<MedicationScreen> {
     });
   }
 
-///////////////////////////////////////////////////////////////////////////////////////
+//==============================================================================
 
   TextEditingController searchController = TextEditingController();
 
-////////////////////////////////////////////////////////////////////////////////////////
+
 // filter data
 
   void filterData(String query) {
@@ -129,8 +157,8 @@ class _MedicationScreenState extends State<MedicationScreen> {
           .toList();
     });
   }
+//==============================================================================
 
-//////////////////////////////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -263,12 +291,7 @@ class _MedicationScreenState extends State<MedicationScreen> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          // Text(
-                                          // (index+1).toString(),
-                                          //   style: const TextStyle(
-                                          //     fontWeight: FontWeight.bold,
-                                          //   ),
-                                          // ),
+                                        
                                           Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,

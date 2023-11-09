@@ -199,16 +199,13 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
 
   Future<void> ProfileApi() async {
     const apiUrl = ApiLinks.getPatientprofile;
-    final headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
+   
 
     final requestBody = jsonEncode({"patientId": patientID});
 
     try {
       final response = await http.post(Uri.parse(apiUrl),
-          headers: headers, body: requestBody);
+          headers: ApiLinks.MainHeader, body: requestBody);
 
       if (response.statusCode == 200) {
         final responseBody = jsonDecode(response.body);

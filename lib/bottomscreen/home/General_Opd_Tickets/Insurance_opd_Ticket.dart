@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, sized_box_for_whitespace, avoid_print, prefer_const_constructors_in_immutables
 
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/Insurance_opd_form.dart';
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:flutter/material.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -77,11 +78,8 @@ class _Insurance_opd_TicketState extends State<Insurance_opd_Ticket> {
   List<Organization> organizations = [];
   Future<void> fetchData() async {
     final response = await http.post(
-      Uri.parse('https://uat.tez.hospital/xzy/webservice/db_table'),
-      headers: {
-        'Soft-service': 'TezHealthCare',
-        'Auth-key': 'zbuks_ram859553467',
-      },
+      Uri.parse(ApiLinks.OpdHistory),
+      headers:ApiLinks.MainHeader,
       body: jsonEncode({
         "table": "organisation",
       }),

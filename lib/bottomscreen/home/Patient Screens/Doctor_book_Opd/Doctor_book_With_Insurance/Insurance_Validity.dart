@@ -2,6 +2,7 @@
 
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Doctor_book_Opd/Doctor_book_With_Insurance/doctor_book_iinsurance_detals.dart';
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:flutter/material.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -95,10 +96,7 @@ class _Insurance_ValidityState extends State<Insurance_Validity> {
   Future<void> fetchData() async {
     final response = await http.post(
       Uri.parse('https://uat.tez.hospital/xzy/webservice/db_table'),
-      headers: {
-        'Soft-service': 'TezHealthCare',
-        'Auth-key': 'zbuks_ram859553467',
-      },
+      headers:ApiLinks.MainHeader,
       body: jsonEncode({
         "table": "organisation",
       }),

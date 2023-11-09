@@ -28,7 +28,8 @@ class IPD extends StatefulWidget {
 }
 
 class _IPDState extends State<IPD> {
-//////////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+
 // get Shared Prefernce data
 
   late String patientID = '';
@@ -43,7 +44,8 @@ class _IPDState extends State<IPD> {
     print(patientID);
     setState(() {});
   }
-///////////////////////////////////////////////////////////////////
+//==============================================================================
+
 
   getData() async {
     await LoadData();
@@ -67,8 +69,8 @@ class _IPDState extends State<IPD> {
 
     // fetchVitalsData();
   }
+//==============================================================================
 
-///////////////////////////////////////////////////////////////////
 // get Patinent Detials
   late String PatientName = '';
   late String PatientAge = '';
@@ -110,7 +112,7 @@ class _IPDState extends State<IPD> {
       print(error);
     }
   }
-  ////////////////////////////////////////////////////////////////////////////////
+ //==============================================================================
 
   // get vital data
 
@@ -134,8 +136,8 @@ class _IPDState extends State<IPD> {
       throw Exception('Failed to load vitals data');
     }
   }
+//==============================================================================
 
-  //////////////////////////////////////////////////////////////////////////////
   bool isLoading = true;
   Future<void> _handleRefresh() async {
     setState(() {
@@ -152,7 +154,7 @@ class _IPDState extends State<IPD> {
 
   late ColorNotifier notifier;
   TextEditingController dateinput = TextEditingController();
-  //////////////////////////////////////////////////////////////////////////////
+  //==============================================================================
 
   @override
   Widget build(BuildContext context) {

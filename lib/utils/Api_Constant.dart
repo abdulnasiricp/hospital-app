@@ -6,7 +6,7 @@ class ApiLinks {
       'Auth-key': 'zbuks_ram859553467',
   };
 
-  static const String BASE_URL = "https://uat.tez.hospital/xzy/webservice";
+  static const String BASE_URL = "https://uat.tez.hospital/xzy/webservice";  
   static const String Loginapiforboth =
       "https://uat.tez.hospital/xzy/auth/login";
   static const String logout =
@@ -39,10 +39,9 @@ class ApiLinks {
   static const String getDirectDetails = "$BASE_URL/getDirectDetails";
   static const String OPDTicketList = "$BASE_URL/lists";
   static const String addopdticket = "$BASE_URL/addopdticket";
-  static const String getNotificationlistcount =
-      "$BASE_URL/getNotificationlistcount";
-  static const String OpdHistory =
-      "$BASE_URL/db_table";
+  static const String getNotificationlistcount ="$BASE_URL/getNotificationlistcount";
+  static const String OpdHistory ="$BASE_URL/db_table";
    static const String getliveconsult="$BASE_URL/getliveconsult";
    static const String generateCertificate="$BASE_URL/generateCertificate";
+   static const String duePayment="$BASE_URL/duePayment";
 }

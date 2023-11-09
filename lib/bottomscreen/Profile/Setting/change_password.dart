@@ -88,10 +88,7 @@ class _Change_PasswordState extends State<Change_Password> {
           "confirm_password": confirmNewPassword,
           "old_password": currentPassword
         }),
-        headers: {
-          'Soft-service': 'TezHealthCare',
-          'Auth-key': 'zbuks_ram859553467',
-        },
+        headers:ApiLinks.MainHeader,
       );
 
       if (response.statusCode == 200) {

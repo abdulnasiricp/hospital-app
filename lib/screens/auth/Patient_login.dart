@@ -88,10 +88,7 @@ class _PatientLoginState extends State<PatientLogin> {
         'password': password,
         'deviceToken': deviceID,
       }),
-      headers: {
-        'Soft-service': 'TezHealthCare',
-        'Auth-key': 'zbuks_ram859553467',
-      },
+      headers: ApiLinks.MainHeader,
     );
     if (response.statusCode == 200) {
       initPlatformState();
@@ -255,9 +252,7 @@ class _PatientLoginState extends State<PatientLogin> {
                               if (value!.isEmpty) {
                                 return EnString.enterusername;
                               }
-                              //  else if (!value.contains('@')) {
-                              //   return 'please enter valid email';
-                              // }
+                             
                               else {
                                 return null;
                               }

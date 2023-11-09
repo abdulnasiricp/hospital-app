@@ -70,10 +70,7 @@ class _OpdPaymentSuccessfullScreenfordoctorbookingState
 
   Future<void> makePostRequest() async {
     final url = Uri.parse(ApiLinks.addopdticket);
-    final headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
+   
 
     final Map<String, String> body = {
       "name": "${widget.patientName}".isEmpty ? "N/A" : "${widget.patientName}",
@@ -99,7 +96,7 @@ class _OpdPaymentSuccessfullScreenfordoctorbookingState
 
     final response = await http.post(
       url,
-      headers: headers,
+      headers:ApiLinks.MainHeader,
       body: jsonEncode(body),
     );
 

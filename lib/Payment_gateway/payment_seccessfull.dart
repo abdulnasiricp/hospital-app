@@ -35,12 +35,9 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
   Future<int> makePostRequest() async {
     print(formattedDate);
 
-    const String url = 'https://uat.tez.hospital/xzy/webservice/duePayment';
+    const String url = ApiLinks.duePayment;
 
-    final Map<String, String> headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
+   
 
     final Map<String, dynamic> body = {
       "patient_id": Patient_id,
@@ -51,7 +48,7 @@ class _PaymentSuccessfullScreenState extends State<PaymentSuccessfullScreen> {
 
     final response = await http.post(
       Uri.parse(url),
-      headers: headers,
+      headers: ApiLinks.MainHeader,
       body: jsonEncode(body),
     );
 

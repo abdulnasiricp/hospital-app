@@ -52,10 +52,7 @@ class _ForgotpasswordState extends State<Forgotpassword> {
           "patient_id": PatientId,
           "mobile_no": Phonenumber,
         }),
-        headers: {
-          'Soft-service': 'TezHealthCare',
-          'Auth-key': 'zbuks_ram859553467',
-        },
+        headers:ApiLinks.MainHeader,
       );
 
       if (response.statusCode == 200) {

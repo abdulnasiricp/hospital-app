@@ -128,7 +128,7 @@ class _Re_Opd_Insurance_visibilityState
   List<Organization> organizations = [];
   Future<void> fetchData() async {
     final response = await http.post(
-      Uri.parse('https://uat.tez.hospital/xzy/webservice/db_table'),
+      Uri.parse(ApiLinks.OpdHistory),
       headers: ApiLinks.MainHeader,
       body: jsonEncode({
         "table": "organisation",
