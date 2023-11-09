@@ -649,6 +649,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                 ),
                               ),
                             )),
+
                         Padding(
                           padding: const EdgeInsets.all(1.0),
                           child: Column(
@@ -656,7 +657,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                             children: [
                               GridView.count(
                                 physics: const NeverScrollableScrollPhysics(),
-                                crossAxisCount: 6,
+                                crossAxisCount: 4,
                                 shrinkWrap:
                                     true, // Set to true to make the GridView scrollable within the Column
                                 children: [
@@ -700,7 +701,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             Text(
                                               'Transaction Bill',
                                               style: TextStyle(
-                                                fontSize: 12,
+                                                fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors
                                                     .black, // Adjust the text color
@@ -751,7 +752,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             Text(
                                               'card'.tr,
                                               style: TextStyle(
-                                                fontSize: 12,
+                                                fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors
                                                     .black, // Adjust the text color
@@ -801,7 +802,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             Text(
                                               EnString.idp,
                                               style: TextStyle(
-                                                fontSize: 12,
+                                                fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors
                                                     .black, // Adjust the text color
@@ -850,7 +851,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             Text(
                                               'Directbill'.tr,
                                               style: TextStyle(
-                                                fontSize: 12,
+                                                fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors
                                                     .black, // Adjust the text color
@@ -900,7 +901,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             Text(
                                               'pathology'.tr,
                                               style: TextStyle(
-                                                fontSize: 12,
+                                                fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors
                                                     .black, // Adjust the text color
@@ -950,7 +951,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             Text(
                                               'radiology'.tr,
                                               style: TextStyle(
-                                                fontSize: 12,
+                                                fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors
                                                     .black, // Adjust the text color
@@ -1000,7 +1001,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             Text(
                                               'pharmacy'.tr,
                                               style: TextStyle(
-                                                fontSize: 12,
+                                                fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors
                                                     .black, // Adjust the text color
@@ -1050,7 +1051,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             Text(
                                               EnString.usg,
                                               style: TextStyle(
-                                                fontSize: 12,
+                                                fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors
                                                     .black, // Adjust the text color
@@ -1101,7 +1102,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             Text(
                                               'surgery'.tr,
                                               style: TextStyle(
-                                                fontSize: 12,
+                                                fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors
                                                     .black, // Adjust the text color
@@ -1151,7 +1152,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             Text(
                                               'bloodBank'.tr,
                                               style: TextStyle(
-                                                fontSize: 12,
+                                                fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors
                                                     .black, // Adjust the text color
@@ -1201,7 +1202,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             Text(
                                               'ambulance'.tr,
                                               style: TextStyle(
-                                                fontSize: 12,
+                                                fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors
                                                     .black, // Adjust the text color
@@ -1251,7 +1252,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             Text(
                                               'physioTherapy'.tr,
                                               style: TextStyle(
-                                                fontSize: 12,
+                                                fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors
                                                     .black, // Adjust the text color
@@ -1301,7 +1302,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             Text(
                                               'certificates'.tr,
                                               style: TextStyle(
-                                                fontSize: 12,
+                                                fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors
                                                     .black, // Adjust the text color
@@ -1351,7 +1352,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             Text(
                                               'bedHistory'.tr,
                                               style: TextStyle(
-                                                fontSize: 12,
+                                                fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors
                                                     .black, // Adjust the text color
@@ -1400,7 +1401,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             Text(
                                               'liveConsultations'.tr,
                                               style: TextStyle(
-                                                fontSize: 12,
+                                                fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors
                                                     .black, // Adjust the text color
@@ -1450,7 +1451,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             Text(
                                               "opdHistory".tr,
                                               style: TextStyle(
-                                                fontSize: 12,
+                                                fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors
                                                     .black, // Adjust the text color
@@ -1718,7 +1719,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             Text(
                                               "reopd".tr,
                                               style: TextStyle(
-                                                fontSize: 12,
+                                                fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors
                                                     .black, // Adjust the text color
@@ -1870,7 +1871,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                                               200.0,
                                                                           fit: BoxFit
                                                                               .fill,
-                                                                          color:darkYellow),
+                                                                          color:
+                                                                              darkYellow),
                                                                     ),
                                                             ),
                                                           ),
