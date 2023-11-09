@@ -1870,8 +1870,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                                               200.0,
                                                                           fit: BoxFit
                                                                               .fill,
-                                                                          color:
-                                                                              darkYellow),
+                                                                          color:darkYellow),
                                                                     ),
                                                             ),
                                                           ),
