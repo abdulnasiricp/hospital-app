@@ -518,12 +518,12 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                                           ),
                                                           child: ListTile(
                                                             contentPadding:
-                                                                EdgeInsets.all(
+                                                                const EdgeInsets.all(
                                                                     16),
                                                             title: Text(
                                                               organization
                                                                   .organisationName,
-                                                              style: TextStyle(
+                                                              style: const TextStyle(
                                                                 color: Colors
                                                                     .white, // Text color
                                                                 fontSize: 18,
@@ -532,7 +532,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                                                         .bold, // Make the text bold
                                                               ),
                                                             ),
-                                                            trailing: Icon(
+                                                            trailing: const Icon(
                                                               Icons
                                                                   .arrow_forward, // Add an arrow icon on the right side
                                                               color: Colors

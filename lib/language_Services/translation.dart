@@ -375,6 +375,17 @@ class Translation extends Translations {
           'Confirm New Password': 'Confirm New Password',
           'Enter confirm password': 'Enter confirm password',
           'Enter New password': 'Enter New password',
+
+          //Doctor Panel
+
+          //Doctor panel Bottom Bar
+          'OPD':'OPD',
+          'IPD':'OPD',
+          'DoctorID':'DoctorID'
+
+
+
+
         },
         'ne_NP': {
           //Bottom Bar

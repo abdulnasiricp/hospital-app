@@ -139,6 +139,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue[50],
       appBar: AppBar(
         backgroundColor: darkYellow,
         title: Text(
@@ -154,31 +155,91 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
               icon: const Icon(Icons.logout))
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(welcomeMessage),
-            const SizedBox(height: 20),
-            Text('Doctor Role: $doctorRole'),
-            Text('Employee ID: $employeeId'),
-            Text('ID: $id'),
-            Text('Username: $username'),
-            Text('Mobile: $mobile'),
-            Text('Email: $email'),
-            Text('Gender: $gender'),
-            Text('Local Address: $localAddress'),
-            Text('Permanent Address: $permanentAddress'),
-            Text('Date Format: $dateFormat'),
-            Text('Time Format: $timeFormat'),
-            Text('Currency Symbol: $currencySymbol'),
-            Text('Timezone: $timezone'),
-            Text('Image: $image'),
-            Text('Token: $token'),
-          ],
-        ),
-      ),
+      body:SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment
+                              .spaceBetween, // Aligns children to the start and end of the row
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment
+                                  .start, // Aligns text to the start of the column
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 5.0),
+                                  child: Text(
+                                    '${'welcome'.tr} $username',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment
+                                    .end, // Aligns text to the end of the column
+                                children: [
+                                  Text(
+                                    '${'DoctorID'.tr} $id'.isEmpty
+                                        ? "N/A"
+                                        : '${'DoctorID'.tr} $id',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                      fontFamily: 'Gilroy_Bold',
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ]
+                    )
+                  ))
+      
+      
+      
+      
+      
+      // Center(
+      //   child: Column(
+      //     mainAxisAlignment: MainAxisAlignment.center,
+      //     crossAxisAlignment: CrossAxisAlignment.start,
+      //     children: <Widget>[
+      //       Text(welcomeMessage),
+      //       const SizedBox(height: 20),
+      //       Text('Doctor Role: $doctorRole'),
+      //       Text('Employee ID: $employeeId'),
+      //       Text('ID: $id'),
+      //       Text('Username: $username'),
+      //       Text('Mobile: $mobile'),
+      //       Text('Email: $email'),
+      //       Text('Gender: $gender'),
+      //       Text('Local Address: $localAddress'),
+      //       Text('Permanent Address: $permanentAddress'),
+      //       Text('Date Format: $dateFormat'),
+      //       Text('Time Format: $timeFormat'),
+      //       Text('Currency Symbol: $currencySymbol'),
+      //       Text('Timezone: $timezone'),
+      //       Text('Image: $image'),
+      //       Text('Token: $token'),
+      //     ],
+      //   ),
+      // ),
     );
   }
 }
+
+

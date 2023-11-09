@@ -1,7 +1,9 @@
 // ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, deprecated_member_use
 
-import 'package:TezHealthCare/DoctorPannel/Doctor_Pannel_Home/Doctor_Profile.dart';
-import 'package:TezHealthCare/DoctorPannel/Doctor_Pannel_Home/Home.dart';
+import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_IPD_Screens/IPD_Home.dart';
+import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Home.dart';
+import 'package:TezHealthCare/DoctorPannel/Doctor_Profile_Screens/Doctor_Profile.dart';
+import 'package:TezHealthCare/DoctorPannel/Doctor_Profile_Screens/DoctorHome.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
 import 'package:TezHealthCare/screens/notification.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
@@ -88,10 +90,10 @@ class _Doctor_Home_Bottom_barState extends State<Doctor_Home_Bottom_bar> {
                 selectedColor: notifier.getwihitecolor,
               ),
               SalomonBottomBarItem(
-                icon: SvgPicture.asset('assets/transaction.svg',
+                icon: SvgPicture.asset('assets/opd.svg',
                     height: 30, color: notifier.getwihitecolor),
                 title: Text(
-                  'transcation'.tr,
+                  'OPD'.tr,
                   style: TextStyle(
                       fontSize: 10.sp,
                       color: notifier.getwihitecolor,
@@ -99,11 +101,11 @@ class _Doctor_Home_Bottom_barState extends State<Doctor_Home_Bottom_bar> {
                 ),
                 selectedColor: notifier.getwihitecolor,
               ),
-              SalomonBottomBarItem(
-                icon: SvgPicture.asset('assets/card.svg',
+               SalomonBottomBarItem(
+                icon: SvgPicture.asset('assets/ipd.svg',
                     height: 30, color: notifier.getwihitecolor),
                 title: Text(
-                  'card'.tr,
+                  'IPD'.tr,
                   style: TextStyle(
                       fontSize: 10.sp,
                       color: notifier.getwihitecolor,
@@ -151,8 +153,8 @@ class _Doctor_Home_Bottom_barState extends State<Doctor_Home_Bottom_bar> {
       '/': (context) {
         return [
           const Doctor_Home_Page(),
-          const Doctor_Home_Page(),
-          const Doctor_Home_Page(),
+          const OpdHome(),
+          const IpdHome(),
           const Doctor_Profile(),
         ].elementAt(index);
       },
