@@ -53,11 +53,7 @@ class _MaternityState extends State<Maternity> {
   late String ipdData = '';
 
   Future<void> getpatientDetails() async {
-    // Set the headers
-    final headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
+   
 
     // Set the body
     final body = {
@@ -67,7 +63,7 @@ class _MaternityState extends State<Maternity> {
       // Make the POST request
       final response = await http.post(
         Uri.parse(ApiLinks.getpatientDetails),
-        headers: headers,
+        headers: ApiLinks.MainHeader,
         body: jsonEncode(body),
       );
 
@@ -94,11 +90,7 @@ class _MaternityState extends State<Maternity> {
   late String maternityReport = '';
 
   Future<void> getMternityData() async {
-    // Set the headers
-    final headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
+   
 
     // Set the body
     final body = {
@@ -109,7 +101,7 @@ class _MaternityState extends State<Maternity> {
       // Make the POST request
       final response = await http.post(
         Uri.parse(ApiLinks.Maternity),
-        headers: headers,
+        headers: ApiLinks.MainHeader,
         body: jsonEncode(body),
       );
 

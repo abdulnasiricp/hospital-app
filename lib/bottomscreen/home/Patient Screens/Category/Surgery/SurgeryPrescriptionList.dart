@@ -58,12 +58,6 @@ class _SurgeryPrescriptionListState extends State<SurgeryPrescriptionList> {
   late String ipdData = '';
 
   Future<void> getpatientDetails() async {
-    // Set the headers
-    final headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
-
     // Set the body
     final body = {
       'patient_id': patientID,
@@ -72,7 +66,7 @@ class _SurgeryPrescriptionListState extends State<SurgeryPrescriptionList> {
       // Make the POST request
       final response = await http.post(
         Uri.parse(ApiLinks.getpatientDetails),
-        headers: headers,
+        headers: ApiLinks.MainHeader,
         body: jsonEncode(body),
       );
 
@@ -102,20 +96,14 @@ class _SurgeryPrescriptionListState extends State<SurgeryPrescriptionList> {
 
   Future<List<Map<String, dynamic>>?> fetchData() async {
     try {
-      final Map<String, String> headers = {
-        'Soft-service': 'TezHealthCare',
-        'Auth-key': 'zbuks_ram859553467',
-      };
-
       final Map<String, dynamic> requestBody = {
         "ipd_id": ipdData,
         "patient_id": patientID,
       };
 
       final response = await http.post(
-        Uri.parse(
-            ApiLinks.surgery),
-        headers: headers,
+        Uri.parse(ApiLinks.surgery),
+        headers: ApiLinks.MainHeader,
         body: json.encode(requestBody),
       );
 

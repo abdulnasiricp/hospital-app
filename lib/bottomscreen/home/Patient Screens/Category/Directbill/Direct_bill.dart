@@ -84,17 +84,14 @@ class _Direct_billState extends State<Direct_bill> {
 
   Future<Map<String, dynamic>> fetchData() async {
     Uri.parse(ApiLinks.getDirectDetails);
-    final headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
+  
     final body = {
       "patient_id": patient,
     };
     try {
       final response = await http.post(
         Uri.parse(ApiLinks.getDirectDetails),
-        headers: headers,
+        headers: ApiLinks.MainHeader,
         body: json.encode(body),
       );
 

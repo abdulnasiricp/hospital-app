@@ -41,7 +41,7 @@ class _PharmacyState extends State<Pharmacy> {
   getData() async {
     await LoadData();
     await fetchData();
-    
+
     calculateTotalAmount();
 
     isLoading = false;
@@ -52,8 +52,6 @@ class _PharmacyState extends State<Pharmacy> {
     super.initState();
     getData();
   }
-
- 
 
 // ///////////////////////////////////////////////////////////////////////////////////////////////
 //calculate total amount
@@ -76,17 +74,14 @@ class _PharmacyState extends State<Pharmacy> {
 
   Future<Map<String, dynamic>> fetchData() async {
     Uri.parse(ApiLinks.pharmacy);
-    final headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
+
     final body = {
       "patient_id": patient,
     };
 
     final response = await http.post(
       Uri.parse(ApiLinks.pharmacy),
-      headers: headers,
+      headers: ApiLinks.MainHeader,
       body: json.encode(body),
     );
 

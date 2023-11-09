@@ -69,10 +69,7 @@ class _Reopd_Successfull_InsuranceState
 
   Future<void> makePostRequest() async {
     final url = Uri.parse(ApiLinks.addopdticket);
-    final headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
+   
 
     final Map<String, String> body = {
       "name": "${widget.name}".isEmpty ? "N/A" : "${widget.name}",
@@ -96,7 +93,7 @@ class _Reopd_Successfull_InsuranceState
 
     final response = await http.post(
       url,
-      headers: headers,
+      headers: ApiLinks.MainHeader,
       body: jsonEncode(body),
     );
 

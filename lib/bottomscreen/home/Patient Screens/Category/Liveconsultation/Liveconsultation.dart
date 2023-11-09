@@ -16,17 +16,14 @@ import 'package:url_launcher/url_launcher.dart';
 class Liveconsultation extends StatefulWidget {
   const Liveconsultation({Key? key}) : super(key: key);
 
-  // const Liveconsultation({super.key});
-
   @override
   State<Liveconsultation> createState() => _LiveconsultationState();
 }
 
 class _LiveconsultationState extends State<Liveconsultation> {
   bool isLoading = true;
-  // List<Map<String, dynamic>> apiData = []; // Initialize as a list
 
-    List<Map<String, dynamic>> resultList = [];
+  List<Map<String, dynamic>> resultList = [];
 
   late String patient = '';
 
@@ -50,57 +47,51 @@ class _LiveconsultationState extends State<Liveconsultation> {
   }
 
   Future<void> fetchData() async {
-  final url = Uri.parse(ApiLinks.getliveconsult);
-  final headers = {
-    'Soft-service': 'TezHealthCare',
-    'Auth-key': 'zbuks_ram859553467',
-  };
-  final body = {
-    "patient_id": patient,
-  };
+    final url = Uri.parse(ApiLinks.getliveconsult);
 
-  final response = await http.post(url, headers: headers, body: jsonEncode(body));
+    final body = {
+      "patient_id": patient,
+    };
 
-  if (response.statusCode == 200) {
-    final data = jsonDecode(response.body);
-    print('==============$data');
-   setState(() {
-      isLoading=false;
-   });
+    final response = await http.post(url,
+        headers: ApiLinks.MainHeader, body: jsonEncode(body));
 
-    // Extract the relevant data from the JSON response
-
-
-    final liveConsultData = data["liveconsult"];
-    liveConsultData.forEach((key, value) {
-      final joinUrl = value["join_url"];
-      final date = value["date"];
-      final doctor = value["doctor"];
-      final patientName = value["patient_name"];
-      resultList.add({
-        "join_url": joinUrl,
-        "date": date,
-        "doctor": doctor,
-        "patient_name": patientName,
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      print('==============$data');
+      setState(() {
+        isLoading = false;
       });
-    });
 
-    // Now, you have the required data in the resultList
-    print('========$resultList');
-  } else {
-    throw Exception('Failed to fetch data');
+      // Extract the relevant data from the JSON response
+
+      final liveConsultData = data["liveconsult"];
+      liveConsultData.forEach((key, value) {
+        final joinUrl = value["join_url"];
+        final date = value["date"];
+        final doctor = value["doctor"];
+        final patientName = value["patient_name"];
+        resultList.add({
+          "join_url": joinUrl,
+          "date": date,
+          "doctor": doctor,
+          "patient_name": patientName,
+        });
+      });
+
+      // Now, you have the required data in the resultList
+      print('========$resultList');
+    } else {
+      throw Exception('Failed to fetch data');
+    }
   }
-}
-
-
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       backgroundColor: Colors.lightBlue[50],
       appBar: AppBar(
-        title:  Text('Liveconsultation'.tr),
+        title: Text('Liveconsultation'.tr),
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
@@ -115,23 +106,25 @@ class _LiveconsultationState extends State<Liveconsultation> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                 
-                   Text("Doctor".tr,
-                    style:
-                        const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  Text(
+                    "Doctor".tr,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 15),
                   ),
                   Text(
                     'Date'.tr,
-                    style:
-                        const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                  ),  Text("Duration".tr,
-                    style:
-                        const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 15),
                   ),
-                   Text(
+                  Text(
+                    "Duration".tr,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 15),
+                  ),
+                  Text(
                     'Status'.tr,
-                    style:
-                        const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 15),
                   ),
                 ],
               ),
@@ -184,99 +177,91 @@ class _LiveconsultationState extends State<Liveconsultation> {
                     : ListView.builder(
                         itemCount: resultList.length,
                         itemBuilder: (context, index) {
-                         final liveConsultation = resultList[index];
-                          
-                            return Column(
-                              children: [
-                                Card(
-                                  color: Colors.white70.withOpacity(0.7),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                       
-                                         InkWell(
-                                          child: Padding(
-                                            padding:
-                                                const EdgeInsets.all(3.0),
-                                            child: Text(
-                                             
-                                             liveConsultation["doctor"]??"N/A",
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 8,
-                                              ),
+                          final liveConsultation = resultList[index];
+
+                          return Column(
+                            children: [
+                              Card(
+                                color: Colors.white70.withOpacity(0.7),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      InkWell(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(3.0),
+                                          child: Text(
+                                            liveConsultation["doctor"] ?? "N/A",
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 8,
                                             ),
                                           ),
                                         ),
-                                         InkWell(
-                                          child: Padding(
-                                            padding:
-                                                const EdgeInsets.all(3.0),
-                                            child: Text(
-                                              liveConsultation["date"]??"N/A",
-                                              style: const TextStyle(
+                                      ),
+                                      InkWell(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(3.0),
+                                          child: Text(
+                                            liveConsultation["date"] ?? "N/A",
+                                            style: const TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                  fontSize: 10
-                                              ),
-                                            ),
-                                          ),
-                                        ), const InkWell(
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsets.all(3.0),
-                                            child: Text(
-                                              "30 minutes",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                  fontSize: 10
-                                              ),
-                                            ),
+                                                fontSize: 10),
                                           ),
                                         ),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors
-                                                .green, // Background color
-                                            borderRadius:
-                                                BorderRadius.circular(
-                                                    2.0), // Rounded corners
+                                      ),
+                                      const InkWell(
+                                        child: Padding(
+                                          padding: EdgeInsets.all(3.0),
+                                          child: Text(
+                                            "30 minutes",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 10),
                                           ),
-                                          child:  Padding(
-                                            padding:
-                                                const EdgeInsets.all(1.0),
-                                            child: InkWell(
-                                              onTap: () {
-                                                launch(liveConsultation["join_url"],);
-                                              },
-                                              child: Row(
-                                                children: [
-                                                  const Icon(
-                                                    Icons.video_call,
+                                        ),
+                                      ),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          color:
+                                              Colors.green, // Background color
+                                          borderRadius: BorderRadius.circular(
+                                              2.0), // Rounded corners
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(1.0),
+                                          child: InkWell(
+                                            onTap: () {
+                                              launch(
+                                                liveConsultation["join_url"],
+                                              );
+                                            },
+                                            child: Row(
+                                              children: [
+                                                const Icon(
+                                                  Icons.video_call,
+                                                  color: Colors.white,
+                                                ),
+                                                Text(
+                                                  "Join".tr,
+                                                  style: const TextStyle(
                                                     color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
-                                                  Text(
-                                                    "Join".tr,
-                                                    style: const TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            );
-                          
+                              ),
+                            ],
+                          );
                         },
                       ),
           ),

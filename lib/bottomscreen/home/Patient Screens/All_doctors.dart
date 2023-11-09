@@ -37,10 +37,7 @@ class _AllDoctorsListState extends State<AllDoctorsList> {
     try {
       final response = await http.post(
         Uri.parse(ApiLinks.getAllDoctor),
-        headers: {
-          'Soft-service': 'TezHealthCare',
-          'Auth-key': 'zbuks_ram859553467',
-        },
+        headers:ApiLinks.MainHeader,
       );
       if (response.statusCode == 200) {
         DataMap = json.decode(response.body);

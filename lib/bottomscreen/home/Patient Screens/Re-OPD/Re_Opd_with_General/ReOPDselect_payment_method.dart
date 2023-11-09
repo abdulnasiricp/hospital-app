@@ -1,9 +1,7 @@
 // ignore_for_file: non_constant_identifier_names, sized_box_for_whitespace, avoid_unnecessary_containers, file_names
 
 import 'package:TezHealthCare/Payment_gateway/cancel_payment.dart';
-import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/General_Opd_Tickets_Form.dart';
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/PaymentMethod/OpdSuccessPayment.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Re-OPD/Re_Opd_with_General/GeneralReOPDdetails.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Re-OPD/Re_Opd_with_General/Generalreopd.dart';
 import 'package:esewa_flutter/esewa_flutter.dart';
 
@@ -225,7 +223,7 @@ class _SelectPaymentMethodState extends State<ReOPdCheckSelectPaymentMethod> {
     return WillPopScope(
       onWillPop: () async {
         // Navigate to the previous page when the back button is pressed
-        Get.to(() => Re_OPD());
+        Get.to(() => const Re_OPD());
         return false; // Return true to allow the back button press, or false to intercept it
       },
       child: Scaffold(
@@ -236,7 +234,7 @@ class _SelectPaymentMethodState extends State<ReOPdCheckSelectPaymentMethod> {
             backgroundColor: darkYellow,
             leading: IconButton(
               onPressed: () {
-                Get.to(() => Re_OPD());
+                Get.to(() => const Re_OPD());
               },
               icon: const Icon(Icons.arrow_back),
             ),

@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Certificate/view_certificate.dart';
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
@@ -46,14 +47,11 @@ class _CertificateState extends State<Certificate> {
 
   Future<void> fetchData() async {
     final url = Uri.parse(
-        "https://uat.tez.hospital/xzy/webservice/generateCertificate");
-    final headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
+        ApiLinks.generateCertificate,);
+  
     final body = jsonEncode({'patient_id': patient});
 
-    final response = await http.post(url, headers: headers, body: body);
+    final response = await http.post(url, headers: ApiLinks.MainHeader, body: body);
 
     if (response.statusCode == 200) {
 

@@ -1,6 +1,7 @@
 // ignore: unused_import
 // ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, avoid_print, sized_box_for_whitespace, unnecessary_string_interpolations
 
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
@@ -48,10 +49,7 @@ class _Blood_BankState extends State<Blood_Bank> {
   Future<void> fetchData() async {
     const String apiUrl =
         'https://uat.tez.hospital/xzy/webservice/getbloodbankDetails';
-    final Map<String, String> headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
+  
 
     final Map<String, dynamic> body = {
       "patient_id": PatientId,
@@ -62,7 +60,7 @@ class _Blood_BankState extends State<Blood_Bank> {
     try {
       final response = await http.post(
         Uri.parse(apiUrl),
-        headers: headers,
+        headers: ApiLinks.MainHeader,
         body: json.encode(body),
       );
 

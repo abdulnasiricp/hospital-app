@@ -1,6 +1,11 @@
 // ignore_for_file: file_names, constant_identifier_names
 
 class ApiLinks {
+  static const Map<String, String> MainHeader = {
+    'Soft-service': 'TezHealthCare',
+      'Auth-key': 'zbuks_ram859553467',
+  };
+
   static const String BASE_URL = "https://uat.tez.hospital/xzy/webservice";
   static const String Loginapiforboth =
       "https://uat.tez.hospital/xzy/auth/login";

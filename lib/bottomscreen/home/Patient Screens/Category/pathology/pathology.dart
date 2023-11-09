@@ -81,17 +81,14 @@ class _PathalogyState extends State<Pathalogy> {
 
   Future<Map<String, dynamic>> fetchData() async {
     Uri.parse(ApiLinks.pathology);
-    final headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
+    
     final body = {
       "patient_id": patient,
     };
     try {
       final response = await http.post(
         Uri.parse(ApiLinks.pathology),
-        headers: headers,
+        headers: ApiLinks.MainHeader,
         body: json.encode(body),
       );
 

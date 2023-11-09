@@ -59,17 +59,14 @@ class _USGScreenState extends State<USGScreen> {
 
   Future<Map<String, dynamic>> fetchData() async {
     Uri.parse(ApiLinks.getAllUsgBill);
-    final headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
+  
     final body = {
       "patient_id": patient,
     };
 
     final response = await http.post(
       Uri.parse(ApiLinks.getAllUsgBill),
-      headers: headers,
+      headers:ApiLinks.MainHeader,
       body: json.encode(body),
     );
 

@@ -1,11 +1,8 @@
 // ignore_for_file: camel_case_types
-
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:flutter/material.dart';
 // ignore_for_file: non_constant_identifier_names, avoid_print, sized_box_for_whitespace, file_names
-
 import 'dart:convert';
-
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -58,10 +55,7 @@ class _Opd_HistoryState extends State<Opd_History> {
 
   Future<Map<String, dynamic>> fetchData() async {
     Uri.parse(ApiLinks.OpdHistory);
-    final headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
+   
     final Map<String, dynamic> body = {
       "table": "opd_details",
       "where": {
@@ -71,7 +65,7 @@ class _Opd_HistoryState extends State<Opd_History> {
 
     final response = await http.post(
       Uri.parse(ApiLinks.OpdHistory),
-      headers: headers,
+      headers: ApiLinks.MainHeader,
       body: json.encode(body),
     );
 

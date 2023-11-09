@@ -53,11 +53,7 @@ class _DaignosisState extends State<Daignosis> {
   late String ipdData = '';
 
   Future<void> getpatientDetails() async {
-    // Set the headers
-    final headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
+  
 
     // Set the body
     final body = {
@@ -67,7 +63,7 @@ class _DaignosisState extends State<Daignosis> {
       // Make the POST request
       final response = await http.post(
         Uri.parse(ApiLinks.getpatientDetails),
-        headers: headers,
+        headers: ApiLinks.MainHeader,
         body: jsonEncode(body),
       );
 
@@ -97,17 +93,14 @@ class _DaignosisState extends State<Daignosis> {
   // Function to fetch bed history data from the API
   Future<void> fetchdaignosis() async {
     final apiUrl = Uri.parse(ApiLinks.getipdVitals);
-    final headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
+  
     final body = {
       "ipd_id": ipdData,
       "patient_id": patientID,
     };
 
     final response =
-        await http.post(apiUrl, headers: headers, body: jsonEncode(body));
+        await http.post(apiUrl, headers: ApiLinks.MainHeader, body: jsonEncode(body));
 
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);

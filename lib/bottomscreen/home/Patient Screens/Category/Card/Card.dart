@@ -130,8 +130,7 @@ class _CardScreenState extends State<CardScreen> {
             )
           :
 
-          // _progress != null ? Center(child: Lottie.asset('assets/loading1.json'))
-          //     :
+  
           Container(
               color: darkYellow,
               child: Padding(

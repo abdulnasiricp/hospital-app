@@ -53,12 +53,7 @@ class _BedhistoryState extends State<Bedhistory> {
   late String ipdData = '';
 
   Future<void> getpatientDetails() async {
-    // Set the headers
-    final headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
-
+  
     // Set the body
     final body = {
       'patient_id': patientID,
@@ -67,7 +62,7 @@ class _BedhistoryState extends State<Bedhistory> {
       // Make the POST request
       final response = await http.post(
         Uri.parse(ApiLinks.getpatientDetails),
-        headers: headers,
+        headers: ApiLinks.MainHeader,
         body: jsonEncode(body),
       );
 
@@ -97,17 +92,14 @@ class _BedhistoryState extends State<Bedhistory> {
   // Function to fetch bed history data from the API
   Future<void> fetchBedHistory() async {
     final apiUrl = Uri.parse(ApiLinks.getipdVitals);
-    final headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
+   
     final body = {
       "ipd_id": ipdData,
       "patient_id": patientID,
     };
 
     final response =
-        await http.post(apiUrl, headers: headers, body: jsonEncode(body));
+        await http.post(apiUrl, headers: ApiLinks.MainHeader, body: jsonEncode(body));
 
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
@@ -174,7 +166,7 @@ class _BedhistoryState extends State<Bedhistory> {
     return Scaffold(
       backgroundColor: Colors.lightBlue[50],
       appBar: AppBar(
-        title: Text('Bedhistory'.tr),
+        title: Text('Bed History'.tr),
         centerTitle: true,
         backgroundColor: darkYellow,
       ),

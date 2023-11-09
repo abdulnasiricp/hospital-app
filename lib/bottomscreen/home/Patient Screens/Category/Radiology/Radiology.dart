@@ -75,17 +75,14 @@ class _RadiologyState extends State<Radiology> {
   List<dynamic>? filteredData = [];
   Future<Map<String, dynamic>> fetchData() async {
     Uri.parse(ApiLinks.radiology);
-    final headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
+   
     final body = {
       "patient_id": patient,
     };
 
     final response = await http.post(
       Uri.parse(ApiLinks.radiology),
-      headers: headers,
+      headers: ApiLinks.MainHeader,
       body: json.encode(body),
     );
 

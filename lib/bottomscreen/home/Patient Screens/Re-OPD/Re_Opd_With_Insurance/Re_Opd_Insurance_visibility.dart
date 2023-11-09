@@ -129,10 +129,7 @@ class _Re_Opd_Insurance_visibilityState
   Future<void> fetchData() async {
     final response = await http.post(
       Uri.parse('https://uat.tez.hospital/xzy/webservice/db_table'),
-      headers: {
-        'Soft-service': 'TezHealthCare',
-        'Auth-key': 'zbuks_ram859553467',
-      },
+      headers: ApiLinks.MainHeader,
       body: jsonEncode({
         "table": "organisation",
       }),

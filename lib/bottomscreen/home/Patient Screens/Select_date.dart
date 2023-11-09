@@ -47,10 +47,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
   Future<void> fetchData() async {
     final response = await http.post(
       Uri.parse('https://uat.tez.hospital/xzy/webservice/db_table'),
-      headers: {
-        'Soft-service': 'TezHealthCare',
-        'Auth-key': 'zbuks_ram859553467',
-      },
+      headers: ApiLinks.MainHeader,
       body: jsonEncode({
         "table": "organisation",
       }),
@@ -72,17 +69,14 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
   List<dynamic>? data = [];
   bool isLoading = true;
   Future<void> fetchDepartmentData() async {
-    final headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
+   
     final body = {
       "table": "doctor_shift",
       "where": {"staff_id": widget.doctorId}
     };
     final response = await http.post(
         Uri.parse('https://uat.tez.hospital/xzy/webservice/db_table'),
-        headers: headers,
+        headers: ApiLinks.MainHeader,
         body: jsonEncode(body));
     if (response.statusCode == 200) {
       final dataMap = json.decode(response.body);
@@ -127,16 +121,13 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
 
   Future<void> ProfileApi() async {
     const apiUrl = ApiLinks.getPatientprofile;
-    final headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
+  
 
     final requestBody = jsonEncode({"patientId": patientID});
 
     try {
       final response = await http.post(Uri.parse(apiUrl),
-          headers: headers, body: requestBody);
+          headers: ApiLinks.MainHeader, body: requestBody);
 
       if (response.statusCode == 200) {
         final responseBody = jsonDecode(response.body);

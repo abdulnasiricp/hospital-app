@@ -77,12 +77,6 @@ class _IPDState extends State<IPD> {
   late String ipdData = '';
 
   Future<void> getpatientDetails() async {
-    // Set the headers
-    final headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
-
     // Set the body
     final body = {
       'patient_id': patientID,
@@ -91,7 +85,7 @@ class _IPDState extends State<IPD> {
       // Make the POST request
       final response = await http.post(
         Uri.parse(ApiLinks.getpatientDetails),
-        headers: headers,
+        headers: ApiLinks.MainHeader,
         body: jsonEncode(body),
       );
 
@@ -126,12 +120,8 @@ class _IPDState extends State<IPD> {
 
   Future<Map<String, dynamic>> fetchVitalsData() async {
     final response = await http.post(
-      Uri.parse(
-          ApiLinks.getipdVitals), // Replace with your API URL
-      headers: {
-        'Soft-service': 'TezHealthCare',
-        'Auth-key': 'zbuks_ram859553467',
-      },
+      Uri.parse(ApiLinks.getipdVitals), // Replace with your API URL
+     headers: ApiLinks.MainHeader,
       body: jsonEncode({
         "ipd_id": ipdData,
         "patient_id": patientID,
@@ -170,7 +160,7 @@ class _IPDState extends State<IPD> {
     return ScreenUtilInit(
       builder: (_, child) => Scaffold(
         appBar: AppBar(
-          title:  Text('IPD'.tr),
+          title: Text('IPD'.tr),
           centerTitle: true,
           backgroundColor: darkYellow,
         ),
@@ -285,7 +275,7 @@ class _IPDState extends State<IPD> {
                                             const SizedBox(
                                               height: 10,
                                             ),
-                                             Text("Cardex".tr,
+                                            Text("Cardex".tr,
                                                 style: const TextStyle(
                                                   fontSize: 8,
                                                   fontWeight: FontWeight.bold,
@@ -322,7 +312,7 @@ class _IPDState extends State<IPD> {
                                             const SizedBox(
                                               height: 10,
                                             ),
-                                             Text("Surgery".tr,
+                                            Text("Surgery".tr,
                                                 style: const TextStyle(
                                                   fontSize: 8,
                                                   fontWeight: FontWeight.bold,
@@ -358,7 +348,7 @@ class _IPDState extends State<IPD> {
                                             const SizedBox(
                                               height: 10,
                                             ),
-                                             Text("Diagnosis".tr,
+                                            Text("Diagnosis".tr,
                                                 style: const TextStyle(
                                                   fontSize: 8,
                                                   fontWeight: FontWeight.bold,
@@ -394,7 +384,7 @@ class _IPDState extends State<IPD> {
                                             const SizedBox(
                                               height: 10,
                                             ),
-                                             Text("Maternity".tr,
+                                            Text("Maternity".tr,
                                                 style: const TextStyle(
                                                   fontSize: 8,
                                                   fontWeight: FontWeight.bold,
@@ -430,7 +420,7 @@ class _IPDState extends State<IPD> {
                                             const SizedBox(
                                               height: 10,
                                             ),
-                                             Text("Bed History".tr,
+                                            Text("Bed History".tr,
                                                 style: const TextStyle(
                                                   fontSize: 8,
                                                   fontWeight: FontWeight.bold,
@@ -472,7 +462,7 @@ class _IPDState extends State<IPD> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                   Column(
+                                  Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
@@ -496,7 +486,9 @@ class _IPDState extends State<IPD> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        PatientName.isEmpty?"N/A":PatientName,
+                                        PatientName.isEmpty
+                                            ? "N/A"
+                                            : PatientName,
                                         maxLines: 2,
                                         overflow: TextOverflow.fade,
                                         style: const TextStyle(
@@ -506,7 +498,7 @@ class _IPDState extends State<IPD> {
                                         height: 5,
                                       ),
                                       Text(
-                                        PatientAge.isEmpty?"N/A":PatientAge,
+                                        PatientAge.isEmpty ? "N/A" : PatientAge,
                                         maxLines: 2,
                                         overflow: TextOverflow.fade,
                                         style: const TextStyle(
@@ -516,7 +508,9 @@ class _IPDState extends State<IPD> {
                                         height: 5,
                                       ),
                                       Text(
-                                        PatientGender.isEmpty?"N/A":PatientGender,
+                                        PatientGender.isEmpty
+                                            ? "N/A"
+                                            : PatientGender,
                                         maxLines: 2,
                                         overflow: TextOverflow.fade,
                                         style: const TextStyle(
@@ -526,7 +520,9 @@ class _IPDState extends State<IPD> {
                                         height: 5,
                                       ),
                                       Text(
-                                        AdmissionDate.isEmpty?"N/A":AdmissionDate,
+                                        AdmissionDate.isEmpty
+                                            ? "N/A"
+                                            : AdmissionDate,
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
@@ -538,7 +534,7 @@ class _IPDState extends State<IPD> {
                                 ],
                               ),
                               const SizedBox(height: 32),
-                               Text(
+                              Text(
                                 'Vitals'.tr,
                                 style: const TextStyle(
                                   fontSize: 20,
@@ -555,14 +551,14 @@ class _IPDState extends State<IPD> {
                                       "${vitalsData['weight'] ?? "N/A"} "),
                                   buildVitalItem(
                                       'BP', "${vitalsData['bp'] ?? "N/A"} "),
-                                  buildVitalItem(
-                                      'Pulse'.tr, "${vitalsData['pulse'] ?? "N/A"} "),
+                                  buildVitalItem('Pulse'.tr,
+                                      "${vitalsData['pulse'] ?? "N/A"} "),
                                   buildVitalItem('Temperature'..tr,
                                       "${vitalsData['temprature'] ?? "N/A"} "),
                                   buildVitalItem('Respiration'.tr,
                                       "${vitalsData['respiration'] ?? "N/A"} "),
                                   const SizedBox(height: 32),
-                                   Column(
+                                  Column(
                                     children: [
                                       Text(
                                         'Consultants'.tr,
@@ -594,7 +590,10 @@ class _IPDState extends State<IPD> {
                                         (BuildContext context, int index) {
                                       final doctor = doctorsIPDData[index];
                                       return Text(
-                                        "${doctor['ipd_doctorname']} ${doctor['ipd_doctorsurname']}".isEmpty?"N/A":"${doctor['ipd_doctorname']} ${doctor['ipd_doctorsurname']}",
+                                        "${doctor['ipd_doctorname']} ${doctor['ipd_doctorsurname']}"
+                                                .isEmpty
+                                            ? "N/A"
+                                            : "${doctor['ipd_doctorname']} ${doctor['ipd_doctorsurname']}",
                                         style: const TextStyle(
                                             fontWeight: FontWeight.bold),
                                       );

@@ -117,10 +117,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
   Future<void> fetchData() async {
     final response = await http.post(
       Uri.parse('https://uat.tez.hospital/xzy/webservice/db_table'),
-      headers: {
-        'Soft-service': 'TezHealthCare',
-        'Auth-key': 'zbuks_ram859553467',
-      },
+      headers: ApiLinks.MainHeader,
       body: jsonEncode({
         "table": "organisation",
       }),
@@ -215,12 +212,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
   late num pathodues = 0;
 
   Future<void> getDues() async {
-    // Set the headers
-    final headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
-
     // Set the body
     final body = {
       'patient_id': Patient_id,
@@ -229,7 +220,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
       // Make the POST request
       final response = await http.post(
         Uri.parse(ApiLinks.getDues),
-        headers: headers,
+        headers: ApiLinks.MainHeader,
         body: jsonEncode(body),
       );
 
@@ -265,13 +256,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
   Future<void> hitApi() async {
     try {
-      final response = await http.post(
-        Uri.parse(ApiLinks.getAllDoctor),
-        headers: {
-          'Soft-service': 'TezHealthCare',
-          'Auth-key': 'zbuks_ram859553467',
-        },
-      );
+      final response = await http.post(Uri.parse(ApiLinks.getAllDoctor),
+          headers: ApiLinks.MainHeader);
 
       if (response.statusCode == 200) {
         setState(() {});
@@ -343,12 +329,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
   ///
 
   Future<void> notificationListLength() async {
-    // Set the headers
-    final headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
-
     // Set the body
     final body = {
       'patient_id': Patient_id,
@@ -357,7 +337,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
     // Make the POST request
     final response = await http.post(
       Uri.parse(ApiLinks.getNotificationlistcount),
-      headers: headers,
+      headers: ApiLinks.MainHeader,
       body: jsonEncode(body),
     );
 // Check if the response was successful
@@ -511,13 +491,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
           backgroundColor: darkYellow,
           elevation: 0,
         ),
-        body:
-            //  ConnectivityBuilder(
-            //     interval: const Duration(seconds: 5),
-            //     builder: (ConnectivityStatus status) {
-            //       if (status == ConnectivityStatus.online) {
-            //         return
-            RefreshIndicator(
+        body: RefreshIndicator(
           onRefresh: _handleRefresh,
           child: isLoading
               ? Center(
@@ -1723,23 +1697,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
                     ),
                   ),
                 ),
-        )
-
-        // else if (status == ConnectivityStatus.offline) {
-        //   return const NoInternetScreen();
-        // } else {
-        //   // status == ConnectivityStatus.checking;
-        //   return Center(
-        //     child: SizedBox(
-        //       width: 100,
-        //       height: 100,
-        //       child: Lottie.asset('assets/loading1.json'),
-        //     ),
-        //   );
-        // }
-        //       }}
-        //      )
-
-        );
+        ));
   }
 }

@@ -80,17 +80,14 @@ class _PhysiotherapyState extends State<Physiotherapy> {
   List<dynamic>? filteredData = [];
 
   Future<Map<String, dynamic>> fetchData() async {
-    final headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
+   
     final body = {
       "patient_id": patient,
     };
 
     final response = await http.post(
       Uri.parse(ApiLinks.Therapy),
-      headers: headers,
+      headers: ApiLinks.MainHeader,
       body: json.encode(body),
     );
 

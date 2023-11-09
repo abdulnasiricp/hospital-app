@@ -71,17 +71,14 @@ class _AmbulanceState extends State<Ambulance> {
 
   Future<List<AmbulanceRequest>> fetchAmbulanceRequests() async {
     final apiUrl = Uri.parse(ApiLinks.getAmbulanceDetails);
-    final headers = {
-      'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
-    };
+   
     final body = {
       'patient_id': Patient_id,
     };
     print(
         "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ $Patient_id");
     final response =
-        await http.post(apiUrl, headers: headers, body: jsonEncode(body));
+        await http.post(apiUrl, headers: ApiLinks.MainHeader, body: jsonEncode(body));
 
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
