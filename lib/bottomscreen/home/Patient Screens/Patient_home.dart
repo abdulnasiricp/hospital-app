@@ -116,7 +116,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
   Future<void> fetchData() async {
     final response = await http.post(
-      Uri.parse(ApiLinks.OpdHistory),
+      Uri.parse('https://uat.tez.hospital/xzy/webservice/db_table'),
       headers: ApiLinks.MainHeader,
       body: jsonEncode({
         "table": "organisation",
@@ -262,9 +262,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
       if (response.statusCode == 200) {
         setState(() {});
         DataMap = jsonDecode(response.body);
-
         DoneListData = DataMap!['doctors'];
-
         isLoading = false; // Set isLoading to false after successful response
       } else if (response.statusCode == 500) {
         print('Internal Server Error: ${response.statusCode}');
@@ -1550,96 +1548,26 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                                 FontWeight.bold,
                                                           ),
                                                         ),
-                                                      ),
-                                                    )
-                                                  else if (organizations
-                                                      .isEmpty)
-                                                    const Center(
-                                                      child: Text(
-                                                        'No data found',
-                                                        style: TextStyle(
-                                                            fontSize: 16,
-                                                            color:
-                                                                Colors.black),
-                                                      ),
-                                                    )
-                                                  else
-                                                    Expanded(
-                                                      child: ListView.builder(
-                                                        itemCount: organizations
-                                                            .length,
-                                                        itemBuilder:
-                                                            (context, index) {
-                                                          final organization =
-                                                              organizations[
-                                                                  index];
-
-                                                          return Card(
-                                                            color: Colors
-                                                                .teal, // Set the background color of the card
-                                                            elevation:
-                                                                8, // Add a shadow to the card
-                                                            margin:
-                                                                const EdgeInsets
-                                                                    .all(8),
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10),
-                                                            ),
-                                                            child: ListTile(
-                                                              contentPadding:
-                                                                  const EdgeInsets
-                                                                      .all(
-                                                                      16), // Add padding inside the ListTile
-                                                              title: Text(
-                                                                organization
-                                                                    .organisationName,
-                                                                style:
-                                                                    const TextStyle(
-                                                                  color: Colors
-                                                                      .white, // Text color
-                                                                  fontSize: 18,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold, // Make the text bold
-                                                                ),
-                                                              ),
-                                                              trailing:
-                                                                  const Icon(
-                                                                Icons
-                                                                    .arrow_forward, // Add an arrow icon on the right side
-                                                                color: Colors
-                                                                    .white, // Icon color
-                                                              ),
-                                                              onTap: () {
-                                                                selectedInsurancetypename =
-                                                                    organization
-                                                                        .organisationName;
-                                                                selectedInsurancetypeId =
-                                                                    organization
-                                                                        .id;
-                                                                InsurancetypeController
-                                                                        .text =
-                                                                    selectedInsurancetypename;
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
-                                                                print(
-                                                                    'selectedInsurancetypeId: $selectedInsurancetypeId');
-
-                                                                Get.offAll(() =>
-                                                                    Re_Opd_Insurance_visibility(
-                                                                      selectedInsurancetypename:
-                                                                          selectedInsurancetypename,
-                                                                      selectedInsurancetypeId1:
-                                                                          selectedInsurancetypeId,
-                                                                    ));
-                                                              },
-                                                            ),
-                                                          );
+                                                        subtitle: const Text(
+                                                          "Tap to book an appointment",
+                                                          style: TextStyle(
+                                                            color: Colors.grey,
+                                                          ),
+                                                        ),
+                                                        leading: Icon(
+                                                          Icons.local_hospital,
+                                                          color: darkYellow,
+                                                          size: 40,
+                                                        ),
+                                                        trailing: Icon(
+                                                          Icons.arrow_forward,
+                                                          color: darkYellow,
+                                                        ),
+                                                        onTap: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                          Get.to(() =>
+                                                              const Re_OPD());
                                                         },
                                                       ),
                                                     ),
@@ -1847,198 +1775,206 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                   Container(
                                     width: width,
                                     height: height,
-                                    child: Expanded(
-                                      child: ListView.builder(
-                                          physics:
-                                              const NeverScrollableScrollPhysics(),
-                                          itemCount: DoneListData?.length,
-                                          itemBuilder: (context, index) {
-                                            if (DoneListData == null ||
-                                                DoneListData!.isEmpty) {
-                                              return Center(
-                                                  child: Center(
-                                                child: Lottie.asset(
-                                                    'assets/tez_spin.json'),
-                                              ));
-                                            } else {
-                                              return InkWell(
-                                                onTap: () {
-                                                  Get.to(() => SelectDateScreen(
-                                                        workExp:
-                                                            DoneListData![index]
-                                                                ['work_exp'],
-                                                        doctorId:
-                                                            DoneListData![index]
-                                                                ['id'],
-                                                        doctorImage:
-                                                            DoneListData![index]
-                                                                ['image'],
-                                                        doctorName:
-                                                            DoneListData![index]
-                                                                    ['name'] +
-                                                                DoneListData![
-                                                                        index]
-                                                                    ['surname'],
-                                                        doctorSpecialization:
-                                                            DoneListData![index]
-                                                                [
-                                                                'specialization'],
-                                                        department_id:
-                                                            DoneListData![index]
-                                                                [
-                                                                'department_id'],
-                                                      ));
-                                                },
-                                                child: Container(
-                                                  width: width,
-                                                  child: Card(
-                                                      color: Colors.white
-                                                          .withOpacity(0.7),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(10.0),
-                                                        child: Row(
-                                                          children: [
-                                                            Container(
-                                                              width: width / 5,
-                                                              height: 100,
-                                                              child: ClipRRect(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10),
-                                                                child: Image
-                                                                    .network(
-                                                                  '${DoneListData![index]['image']}', // Replace with your image URL
-                                                                  width:
-                                                                      200.0, // Set the width (optional)
-                                                                  height:
-                                                                      200.0, // Set the height (optional)
-                                                                  fit: BoxFit
-                                                                      .fill, // Set the BoxFit (optional)
-                                                                  loadingBuilder:
-                                                                      (context,
+                                    child: ListView.builder(
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        // itemCount: DoneListData!.length,
+                                        itemCount: 5,
+                                        itemBuilder: (context, index) {
+                                          if (DoneListData == null ||
+                                              DoneListData!.isEmpty) {
+                                            return Center(
+                                                child: Center(
+                                              child: Lottie.asset(
+                                                  'assets/tez_spin.json'),
+                                            ));
+                                          } else {
+                                            return InkWell(
+                                              onTap: () {
+                                                Get.to(() => SelectDateScreen(
+                                                      workExp:
+                                                          DoneListData![index]
+                                                              ['work_exp'],
+                                                      doctorId:
+                                                          DoneListData![index]
+                                                              ['id'],
+                                                      doctorImage:
+                                                          DoneListData![index]
+                                                              ['image'],
+                                                      doctorName: DoneListData![
+                                                              index]['name'] +
+                                                          DoneListData![index]
+                                                              ['surname'],
+                                                      doctorSpecialization:
+                                                          DoneListData![index][
+                                                              'specialization'],
+                                                      department_id:
+                                                          DoneListData![index]
+                                                              ['department_id'],
+                                                    ));
+                                              },
+                                              child: Container(
+                                                width: width,
+                                                child: Card(
+                                                    color: Colors.white
+                                                        .withOpacity(0.7),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10.0),
+                                                      child: Row(
+                                                        children: [
+                                                          Container(
+                                                            width: width / 5,
+                                                            height: 100,
+                                                            child: ClipRRect(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10),
+                                                              child: '${DoneListData![index]['image']}' !=
+                                                                          null &&
+                                                                      '${DoneListData![index]['image']}' !=
+                                                                          ''
+                                                                  ? Image
+                                                                      .network(
+                                                                      '${DoneListData![index]['image']}',
+                                                                      width:
+                                                                          200.0,
+                                                                      height:
+                                                                          200.0,
+                                                                      fit: BoxFit
+                                                                          .fill,
+                                                                      loadingBuilder: (context,
                                                                           child,
                                                                           loadingProgress) {
-                                                                    if (loadingProgress ==
-                                                                        null) {
-                                                                      return child;
-                                                                    } else {
-                                                                      return CircularProgressIndicator(
-                                                                        color:
-                                                                            darkYellow,
-                                                                        backgroundColor:
-                                                                            yellow,
-                                                                      );
-                                                                    }
-                                                                  },
-                                                                ),
+                                                                        if (loadingProgress ==
+                                                                            null) {
+                                                                          return child;
+                                                                        } else {
+                                                                          return CircularProgressIndicator(
+                                                                            color:
+                                                                                darkYellow,
+                                                                            backgroundColor:
+                                                                                yellow,
+                                                                          );
+                                                                        }
+                                                                      },
+                                                                    )
+                                                                  : Center(
+                                                                      child: SvgPicture.asset(
+                                                                          'assets/Noimagedoctor.svg',
+                                                                          width:
+                                                                              200.0,
+                                                                          height:
+                                                                              200.0,
+                                                                          fit: BoxFit
+                                                                              .fill,
+                                                                          color:darkYellow),
+                                                                    ),
+                                                            ),
+                                                          ),
+                                                          const SizedBox(
+                                                            width: 10,
+                                                          ),
+                                                          Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                'Dr. ${DoneListData?[index]['name']} ${DoneListData![index]['surname'] ?? ""}'
+                                                                        .isEmpty
+                                                                    ? "N/A"
+                                                                    : 'Dr. ${DoneListData?[index]['name']} ${DoneListData![index]['surname']}',
+                                                                maxLines: 1,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style: const TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
                                                               ),
-                                                            ),
-                                                            const SizedBox(
-                                                              width: 10,
-                                                            ),
-                                                            Column(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Text(
-                                                                  'Dr. ${DoneListData?[index]['name']} ${DoneListData![index]['surname'] ?? ""}'
-                                                                          .isEmpty
-                                                                      ? "N/A"
-                                                                      : 'Dr. ${DoneListData?[index]['name']} ${DoneListData![index]['surname']}',
-                                                                  maxLines: 1,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  style: const TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold),
-                                                                ),
-                                                                const SizedBox(
-                                                                  height: 5,
-                                                                ),
-                                                                Text(
-                                                                  '${DoneListData?[index]['specialization'] ?? ""}'
-                                                                          .isEmpty
-                                                                      ? "N/A"
-                                                                      : ' ${DoneListData?[index]['specialization']}',
-                                                                  maxLines: 1,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  style: const TextStyle(
-                                                                      color: Colors
-                                                                          .blue,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .normal),
-                                                                ),
-                                                                const SizedBox(
-                                                                  height: 5,
-                                                                ),
-                                                                Text(
-                                                                  '${DoneListData?[index]['email'] ?? ""}'
-                                                                          .isEmpty
-                                                                      ? "N/A"
-                                                                      : ' ${DoneListData?[index]['email']}',
-                                                                  maxLines: 1,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                ),
-                                                                const SizedBox(
-                                                                  height: 10,
-                                                                ),
-                                                                Row(
-                                                                  children: [
-                                                                    Container(
-                                                                        child:
-                                                                            Text(
-                                                                      '${DoneListData?[index]['qualification'] ?? ""}'
-                                                                              .isEmpty
-                                                                          ? "N/A"
-                                                                          : ' ${DoneListData?[index]['qualification']}',
-                                                                      maxLines:
-                                                                          1,
-                                                                      overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
-                                                                      style: const TextStyle(
-                                                                          fontWeight: FontWeight
-                                                                              .bold,
-                                                                          color:
-                                                                              Colors.green),
-                                                                    )),
-                                                                    const SizedBox(
-                                                                      width: 10,
-                                                                    ),
-                                                                    Text(
-                                                                      '${DoneListData?[index]['work_exp'] ?? ""}'
-                                                                              .isEmpty
-                                                                          ? "N/A"
-                                                                          : ' ${DoneListData?[index]['work_exp']}',
-                                                                      maxLines:
-                                                                          1,
-                                                                      overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
-                                                                    ),
-                                                                  ],
-                                                                )
-                                                              ],
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      )),
-                                                ),
-                                              );
-                                            }
-                                          }),
-                                    ),
+                                                              const SizedBox(
+                                                                height: 5,
+                                                              ),
+                                                              Text(
+                                                                '${DoneListData?[index]['specialization'] ?? ""}'
+                                                                        .isEmpty
+                                                                    ? "N/A"
+                                                                    : ' ${DoneListData?[index]['specialization']}',
+                                                                maxLines: 1,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style: const TextStyle(
+                                                                    color: Colors
+                                                                        .blue,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .normal),
+                                                              ),
+                                                              const SizedBox(
+                                                                height: 5,
+                                                              ),
+                                                              Text(
+                                                                '${DoneListData?[index]['email'] ?? ""}'
+                                                                        .isEmpty
+                                                                    ? "N/A"
+                                                                    : ' ${DoneListData?[index]['email']}',
+                                                                maxLines: 1,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                              ),
+                                                              const SizedBox(
+                                                                height: 10,
+                                                              ),
+                                                              Row(
+                                                                children: [
+                                                                  Container(
+                                                                      child:
+                                                                          Text(
+                                                                    '${DoneListData?[index]['qualification'] ?? ""}'
+                                                                            .isEmpty
+                                                                        ? "N/A"
+                                                                        : ' ${DoneListData?[index]['qualification']}',
+                                                                    maxLines: 1,
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                    style: const TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .bold,
+                                                                        color: Colors
+                                                                            .green),
+                                                                  )),
+                                                                  const SizedBox(
+                                                                    width: 10,
+                                                                  ),
+                                                                  Text(
+                                                                    '${DoneListData?[index]['work_exp'] ?? ""}'
+                                                                            .isEmpty
+                                                                        ? "N/A"
+                                                                        : ' ${DoneListData?[index]['work_exp']}',
+                                                                    maxLines: 1,
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                  ),
+                                                                ],
+                                                              )
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    )),
+                                              ),
+                                            );
+                                          }
+                                        }),
                                   ),
                                 ],
                               ),
