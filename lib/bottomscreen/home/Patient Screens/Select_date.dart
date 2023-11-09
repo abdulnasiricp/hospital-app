@@ -69,7 +69,6 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
   List<dynamic>? data = [];
   bool isLoading = true;
   Future<void> fetchDepartmentData() async {
-   
     final body = {
       "table": "doctor_shift",
       "where": {"staff_id": widget.doctorId}
@@ -121,7 +120,6 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
 
   Future<void> ProfileApi() async {
     const apiUrl = ApiLinks.getPatientprofile;
-  
 
     final requestBody = jsonEncode({"patientId": patientID});
 
@@ -504,9 +502,10 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                                                 index];
 
                                                         return Card(
-                                                          color:
-                                                              Colors.grey[200],
-                                                          elevation: 4,
+                                                          color: Colors
+                                                              .teal, // Set the background color of the card
+                                                          elevation:
+                                                              8, // Add a shadow to the card
                                                           margin:
                                                               const EdgeInsets
                                                                   .all(8),
@@ -518,15 +517,26 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                                                                         10),
                                                           ),
                                                           child: ListTile(
+                                                            contentPadding:
+                                                                EdgeInsets.all(
+                                                                    16),
                                                             title: Text(
                                                               organization
                                                                   .organisationName,
-                                                              style:
-                                                                  const TextStyle(
+                                                              style: TextStyle(
                                                                 color: Colors
-                                                                    .black,
+                                                                    .white, // Text color
                                                                 fontSize: 18,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold, // Make the text bold
                                                               ),
+                                                            ),
+                                                            trailing: Icon(
+                                                              Icons
+                                                                  .arrow_forward, // Add an arrow icon on the right side
+                                                              color: Colors
+                                                                  .white, // Icon color
                                                             ),
                                                             onTap: () {
                                                               selectedInsurancetypename =

@@ -655,6 +655,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               GridView.count(
+                                physics: const NeverScrollableScrollPhysics(),
                                 crossAxisCount: 5,
                                 shrinkWrap:
                                     true, // Set to true to make the GridView scrollable within the Column
@@ -1341,11 +1342,14 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                     )
                                                   else if (organizations
                                                       .isEmpty)
-                                                    const Text(
-                                                      'No data found',
-                                                      style: TextStyle(
-                                                          fontSize: 16,
-                                                          color: Colors.black),
+                                                    Center(
+                                                      child: const Text(
+                                                        'No data found',
+                                                        style: TextStyle(
+                                                            fontSize: 16,
+                                                            color:
+                                                                Colors.black),
+                                                      ),
                                                     )
                                                   else
                                                     Expanded(
@@ -1360,8 +1364,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
                                                           return Card(
                                                             color: Colors
-                                                                .grey[200],
-                                                            elevation: 4,
+                                                                .teal, // Set the background color of the card
+                                                            elevation:
+                                                                8, // Add a shadow to the card
                                                             margin:
                                                                 const EdgeInsets
                                                                     .all(8),
@@ -1373,15 +1378,27 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                                           10),
                                                             ),
                                                             child: ListTile(
+                                                              contentPadding:
+                                                                  EdgeInsets.all(
+                                                                      16), // Add padding inside the ListTile
                                                               title: Text(
                                                                 organization
                                                                     .organisationName,
                                                                 style:
-                                                                    const TextStyle(
+                                                                    TextStyle(
                                                                   color: Colors
-                                                                      .black,
+                                                                      .white, // Text color
                                                                   fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold, // Make the text bold
                                                                 ),
+                                                              ),
+                                                              trailing: Icon(
+                                                                Icons
+                                                                    .arrow_forward, // Add an arrow icon on the right side
+                                                                color: Colors
+                                                                    .white, // Icon color
                                                               ),
                                                               onTap: () {
                                                                 selectedInsurancetypename =
@@ -1411,7 +1428,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                           );
                                                         },
                                                       ),
-                                                    ),
+                                                    )
                                                 ],
                                               ),
                                             ),
@@ -1498,7 +1515,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     child: ListView.builder(
                                         physics:
                                             const NeverScrollableScrollPhysics(),
-                                        itemCount: 5,
+                                        itemCount: DoneListData?.length ?? 0,
                                         itemBuilder: (context, index) {
                                           if (DoneListData == null ||
                                               DoneListData!.isEmpty) {
