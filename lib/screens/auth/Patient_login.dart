@@ -1,5 +1,3 @@
-// ignore_for_file: file_names, sized_box_for_whitespace, avoid_print
-
 import 'dart:convert';
 import 'dart:io';
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_Home_Bottom_bar.dart';
@@ -19,7 +17,6 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
-
 class PatientLogin extends StatefulWidget {
   const PatientLogin({Key? key}) : super(key: key);
   @override
@@ -47,7 +44,6 @@ class _PatientLoginState extends State<PatientLogin> {
     OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
     OneSignal.initialize("01f97e4b-6814-42f6-942e-55112650f054");
     OneSignal.Notifications.requestPermission(true);
-
     WidgetsFlutterBinding.ensureInitialized();
     await Permission.notification.isDenied.then((value) {
       if (value) {
@@ -101,15 +97,13 @@ class _PatientLoginState extends State<PatientLogin> {
         sp.setString('username', username);
         sp.setString('password', password);
         sp.setString('role', 'patient');
+        sp.setString('NotificationToken', externalId);
         sp.setString('imagerecord', json['record']['image']);
         sp.setString('genderrecord', json['record']['gender']);
-        sp
-            .setString('patientidrecord', json['record']['patient_id'])
-            .toString();
+        sp.setString('patientidrecord', json['record']['patient_id']).toString();
         sp.setString('usernamerecord', json['record']['username']);
         sp.setString('mobilerecord', json['record']['mobile']).toString();
         sp.setString('caseId', json['record']['case_id']).toString();
-
         Get.off(() => const Bottomhome());
         setState(() {
           Fluttertoast.showToast(
