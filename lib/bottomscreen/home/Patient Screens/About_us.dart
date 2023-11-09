@@ -253,16 +253,17 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                             Text(HospitalAddress),
                                             Text(HospitalEmail),
                                             Container(
-                                              height: 50,
-                                              width: 175,
+                                              height: height/13,
+                                              width: width/2,
                                               child: const Card(
+                                                elevation: 2,
                                                 child: Row(
                                                   children: [
                                                     Padding(
                                                       padding:
                                                           EdgeInsets.all(8.0),
                                                       child: Text(
-                                                        '   200 \n General',
+                                                        '     200 \n General',
                                                         style: TextStyle(
                                                             fontSize: 10),
                                                       ),
@@ -271,7 +272,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                                       padding:
                                                           EdgeInsets.all(8.0),
                                                       child: Text(
-                                                        '     20 \n ICU/CCU',
+                                                        '      20 \n ICU/CCU',
                                                         style: TextStyle(
                                                             fontSize: 10),
                                                       ),
@@ -280,7 +281,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                                       padding:
                                                           EdgeInsets.all(8.0),
                                                       child: Text(
-                                                        '     20 \n Emergency',
+                                                        '      20 \n Emergency',
                                                         style: TextStyle(
                                                             fontSize: 10),
                                                       ),
