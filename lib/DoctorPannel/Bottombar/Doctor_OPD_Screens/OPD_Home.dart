@@ -108,7 +108,7 @@ class _OpdHomeState extends State<OpdHome> {
                                     onTap: () {
                                       // Get.to(() => const OpdPreChecking());
                                       Get.to(() => const OpdExamination());
-                                      Get.to(() => const OpdExamination());
+                                      // Get.to(() => const OpdExamination());
                                     },
                                     child: Container(
                                       width: width / 8,
