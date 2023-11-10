@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace, unnecessary_string_interpolations, unnecessary_null_comparison
+// ignore_for_file: sized_box_for_whitespace, unnecessary_string_interpolations, unnecessary_null_comparison, file_names
 
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -18,252 +18,699 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Investigation'),
-        centerTitle: true,
-        backgroundColor: darkYellow,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Diagnosis',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Container(
-                      width: width / 2.2,
-                      height: 30,
-                      color: Colors.green[300],
-                      child: const Center(
-                          child: Text(
+        appBar: AppBar(
+          title: const Text('Investigation'),
+          centerTitle: true,
+          backgroundColor: darkYellow,
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SingleChildScrollView(
+            child: Column(children: [
+              Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
                         'Diagnosis',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 15),
-                      )),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Container(
-                      width: width / 2.2,
-                      height: 30,
-                      child: Center(
-                        child: InkWell(
-                            child: TextFormField(
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'This field is required';
-                            }
-                            return null;
-                          },
-                          readOnly:
-                              true, // Set this to true to disable the keyboard
-                          controller: diagnosisController,
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Select options',
-                            fillColor: Colors.white,
-                            filled: true,
-                          ),
-                          onTap: () {
-                            selectDiagnosisOptions(context);
-                          },
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        width: width / 2.2,
+                        height: 30,
+                        color: Colors.green[300],
+                        child: const Center(
+                            child: Text(
+                          'Diagnosis',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 15),
                         )),
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Pathology',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Container(
-                      width: width / 2.2,
-                      height: 30,
-                      color: Colors.green[300],
-                      child: const Center(
-                          child: Text(
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        width: width / 2.2,
+                        height: 30,
+                        child: Center(
+                          child: InkWell(
+                              child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'This field is required';
+                              }
+                              return null;
+                            },
+                            readOnly:
+                                true, // Set this to true to disable the keyboard
+                            controller: diagnosisController,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Select options',
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10),
+                              fillColor: Colors.white,
+                              filled: true,
+                            ),
+                            onTap: () {
+                              selectDiagnosisOptions(context);
+                            },
+                          )),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
                         'Pathology',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 15),
-                      )),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Container(
-                      width: width / 2.2,
-                      height: 30,
-                      child: Center(
-                        child: InkWell(
-                            child: TextFormField(
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'This field is required';
-                            }
-                            return null;
-                          },
-                          readOnly:
-                              true, // Set this to true to disable the keyboard
-                          controller: diagnosisController,
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Select options',
-                            fillColor: Colors.white,
-                            filled: true,
-                          ),
-                          onTap: () {
-                            selectDiagnosisOptions(context);
-                          },
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        width: width / 2.2,
+                        height: 30,
+                        color: Colors.green[300],
+                        child: const Center(
+                            child: Text(
+                          'Pathology',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 15),
                         )),
                       ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Other Test',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Container(
-                      width: width / 2.2,
-                      height: 30,
-                      color: Colors.green[300],
-                      child: const Center(
-                          child: Text(
-                        'Select Other Test',
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        width: width / 2.2,
+                        height: 30,
+                        child: Center(
+                          child: InkWell(
+                              child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'This field is required';
+                              }
+                              return null;
+                            },
+                            readOnly:
+                                true, // Set this to true to disable the keyboard
+                            controller: diagnosisController,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Select options',
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10),
+                              fillColor: Colors.white,
+                              filled: true,
+                            ),
+                            onTap: () {
+                              selectDiagnosisOptions(context);
+                            },
+                          )),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Other Test',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 15),
-                      )),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Container(
-                      width: width / 2.2,
-                      height: 30,
-                      child: Center(
-                        child: InkWell(
-                            child: TextFormField(
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'This field is required';
-                            }
-                            return null;
-                          },
-                          readOnly:
-                              true, // Set this to true to disable the keyboard
-                          controller: diagnosisController,
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Select options',
-                            fillColor: Colors.white,
-                            filled: true,
-                          ),
-                          onTap: () {
-                            selectDiagnosisOptions(context);
-                          },
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        width: width / 2.2,
+                        height: 30,
+                        color: Colors.green[300],
+                        child: const Center(
+                            child: Text(
+                          'Select Other Test',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 15),
                         )),
                       ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        width: width / 2.2,
+                        height: 30,
+                        child: Center(
+                          child: InkWell(
+                              child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'This field is required';
+                              }
+                              return null;
+                            },
+                            readOnly:
+                                true, // Set this to true to disable the keyboard
+                            controller: diagnosisController,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Select options',
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10),
+                              fillColor: Colors.white,
+                              filled: true,
+                            ),
+                            onTap: () {
+                              selectDiagnosisOptions(context);
+                            },
+                          )),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Radiology',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 30,
+                    color: Colors.green[300],
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Radiology',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                          // SizedBox(width: 10,),
+                          Text(
+                            'Qty',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                          // SizedBox(width: 10,),
+
+                          Text(
+                            'Radiology Note',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                        ],
+                      ),
                     ),
-                  ],
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                
-              ],
-            ),
-            Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Radiology',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Container(
-                      width: double.infinity,
-                      height: 30,
-                      color: Colors.green[300],
-                      child: Text(
-                        'Radiology',
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        width: width / 3,
+                        height: 30,
+                        child: Center(
+                          child: InkWell(
+                              child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'This field is required';
+                              }
+                              return null;
+                            },
+                            readOnly:
+                                true, // Set this to true to disable the keyboard
+                            controller: diagnosisController,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Select options',
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10),
+                              fillColor: Colors.white,
+                              filled: true,
+                            ),
+                            onTap: () {
+                              selectDiagnosisOptions(context);
+                            },
+                          )),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Container(
+                        width: width / 6,
+                        height: 30,
+                        child: Center(
+                          child: InkWell(
+                              child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'This field is required';
+                              }
+                              return null;
+                            },
+                            readOnly:
+                                true, // Set this to true to disable the keyboard
+                            controller: diagnosisController,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Select options',
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10),
+                              fillColor: Colors.white,
+                              filled: true,
+                            ),
+                            onTap: () {
+                              selectDiagnosisOptions(context);
+                            },
+                          )),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Container(
+                        width: width / 2.5,
+                        height: 30,
+                        child: Center(
+                          child: InkWell(
+                              child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'This field is required';
+                              }
+                              return null;
+                            },
+                            // Set this to true to disable the keyboard
+                            // controller: diagnosisController,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Additional note',
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10),
+                            ),
+                          )),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Surgery',
                         style: TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 15),
+                            fontWeight: FontWeight.bold, fontSize: 20),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Container(
-                      width: double.infinity,
-                      height: 30,
-                      child: Center(
-                        child: InkWell(
-                            child: TextFormField(
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'This field is required';
-                            }
-                            return null;
-                          },
-                          readOnly:
-                              true, // Set this to true to disable the keyboard
-                          controller: diagnosisController,
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Select options',
-                            fillColor: Colors.white,
-                            filled: true,
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        height: 30,
+                        color: Colors.green[300],
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Surgery advised',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
+                              Text(
+                                'Note for surgery',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
+                            ],
                           ),
-                          onTap: () {
-                            selectDiagnosisOptions(context);
-                          },
-                        )),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            width: width / 3,
+                            height: 30,
+                            child: Center(
+                              child: InkWell(
+                                  child: TextFormField(
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'This field is required';
+                                  }
+                                  return null;
+                                },
+                                readOnly:
+                                    true, // Set this to true to disable the keyboard
+                                controller: diagnosisController,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: 'Select options',
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 10),
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                ),
+                                onTap: () {
+                                  selectDiagnosisOptions(context);
+                                },
+                              )),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Container(
+                            width: width / 1.7,
+                            height: 30,
+                            child: Center(
+                              child: InkWell(
+                                  child: TextFormField(
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'This field is required';
+                                  }
+                                  return null;
+                                },
+                                // Set this to true to disable the keyboard
+                                // controller: diagnosisController,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: 'Additional note',
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 10),
+                                ),
+                              )),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Medicine',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        height: 30,
+                        color: Colors.green[300],
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Medicine',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
+                              Text(
+                                'Dose',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
+                              Text(
+                                'Interval',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
+                              Text(
+                                'Duration',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
+                              Text(
+                                'Route',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
+                              Text(
+                                'Qty',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            width: width / 6,
+                            height: 30,
+                            child: Center(
+                              child: InkWell(
+                                  child: TextFormField(
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'This field is required';
+                                  }
+                                  return null;
+                                },
+                                readOnly:
+                                    true, // Set this to true to disable the keyboard
+                                controller: diagnosisController,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: 'Select options',
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 10),
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                ),
+                                onTap: () {
+                                  selectDiagnosisOptions(context);
+                                },
+                              )),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Container(
+                            width: width / 7,
+                            height: 30,
+                            child: Center(
+                              child: InkWell(
+                                  child: TextFormField(
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'This field is required';
+                                  }
+                                  return null;
+                                },
+                                // Set this to true to disable the keyboard
+                                // controller: diagnosisController,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: 'Additional note',
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 10),
+                                ),
+                              )),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Container(
+                            width: width / 7,
+                            height: 30,
+                            child: Center(
+                              child: InkWell(
+                                  child: TextFormField(
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'This field is required';
+                                  }
+                                  return null;
+                                },
+                                // Set this to true to disable the keyboard
+                                // controller: diagnosisController,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: 'Additional note',
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 10),
+                                ),
+                              )),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Container(
+                            width: width / 7,
+                            height: 30,
+                            child: Center(
+                              child: InkWell(
+                                  child: TextFormField(
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'This field is required';
+                                  }
+                                  return null;
+                                },
+                                // Set this to true to disable the keyboard
+                                // controller: diagnosisController,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: 'Additional note',
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 10),
+                                ),
+                              )),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Container(
+                            width: width / 7,
+                            height: 30,
+                            child: Center(
+                              child: InkWell(
+                                  child: TextFormField(
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'This field is required';
+                                  }
+                                  return null;
+                                },
+                                // Set this to true to disable the keyboard
+                                // controller: diagnosisController,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: 'Additional note',
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 10),
+                                ),
+                              )),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Container(
+                            width: width / 7,
+                            height: 30,
+                            child: Center(
+                              child: InkWell(
+                                  child: TextFormField(
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'This field is required';
+                                  }
+                                  return null;
+                                },
+                                // Set this to true to disable the keyboard
+                                // controller: diagnosisController,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: 'Additional note',
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 10),
+                                ),
+                              )),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Follow up & Advice',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      Container(
+                          height: 50,
+                          child: const TextField(
+                            decoration:
+                                InputDecoration(border: OutlineInputBorder()),
+                          ))
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Center(
+                    child: Container(
+                      width: double.infinity,
+                      height: 40,
+                      child: ElevatedButton(
+                        child: const Text('Save'),
+                        onPressed: () {},
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(yellow),
+                        ),
                       ),
                     ),
-                  ],
-                ),
-          ],
-        ),
-      ),
-    );
+                  ),
+                ],
+              ),
+            ]),
+          ),
+        ));
   }
 
   void selectDiagnosisOptions(BuildContext context) {

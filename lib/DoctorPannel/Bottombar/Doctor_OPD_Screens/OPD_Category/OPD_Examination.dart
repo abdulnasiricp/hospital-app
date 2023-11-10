@@ -1,7 +1,6 @@
 // ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace
 
 import 'package:TezHealthCare/utils/colors.dart';
-import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 
 class OpdExamination extends StatefulWidget {
@@ -111,7 +110,7 @@ class _OpdExaminationState extends State<OpdExamination> {
                 Container(
                   height: 40,
                   width: 100,
-                  child: Card(
+                  child: const Card(
                     child: Center(child: Text('Respiratory')),
                   ),
                 ),

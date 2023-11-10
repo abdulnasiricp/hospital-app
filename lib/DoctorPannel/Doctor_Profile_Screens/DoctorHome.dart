@@ -1,19 +1,12 @@
 // ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, avoid_print
 
-import 'dart:convert';
 
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
-import 'package:TezHealthCare/screens/auth/Sigin_main_screen.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
-import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
-import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
 import 'package:badges/badges.dart' as badges;
 
 class Doctor_Home_Page extends StatefulWidget {
@@ -225,7 +218,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                             color: Colors.grey.withOpacity(0.5),
                                             spreadRadius: 2,
                                             blurRadius: 5,
-                                            offset: Offset(0, 2),
+                                            offset: const Offset(0, 2),
                                           ),
                                         ],
                                       ),
@@ -235,7 +228,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            SizedBox(height: 16),
+                                            const SizedBox(height: 16),
                                             Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
@@ -262,7 +255,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                             color: Colors.grey.withOpacity(0.5),
                                             spreadRadius: 2,
                                             blurRadius: 5,
-                                            offset: Offset(0, 2),
+                                            offset: const Offset(0, 2),
                                           ),
                                         ],
                                       ),
@@ -272,7 +265,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            SizedBox(height: 16),
+                                            const SizedBox(height: 16),
                                             Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
@@ -299,7 +292,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                             color: Colors.grey.withOpacity(0.5),
                                             spreadRadius: 2,
                                             blurRadius: 5,
-                                            offset: Offset(0, 2),
+                                            offset: const Offset(0, 2),
                                           ),
                                         ],
                                       ),
@@ -309,7 +302,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            SizedBox(height: 16),
+                                            const SizedBox(height: 16),
                                             Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
@@ -336,7 +329,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                             color: Colors.grey.withOpacity(0.5),
                                             spreadRadius: 2,
                                             blurRadius: 5,
-                                            offset: Offset(0, 2),
+                                            offset: const Offset(0, 2),
                                           ),
                                         ],
                                       ),
@@ -346,7 +339,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            SizedBox(height: 16),
+                                            const SizedBox(height: 16),
                                             Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
@@ -373,7 +366,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                             color: Colors.grey.withOpacity(0.5),
                                             spreadRadius: 2,
                                             blurRadius: 5,
-                                            offset: Offset(0, 2),
+                                            offset: const Offset(0, 2),
                                           ),
                                         ],
                                       ),
@@ -383,7 +376,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            SizedBox(height: 16),
+                                            const SizedBox(height: 16),
                                             Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
@@ -410,7 +403,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                             color: Colors.grey.withOpacity(0.5),
                                             spreadRadius: 2,
                                             blurRadius: 5,
-                                            offset: Offset(0, 2),
+                                            offset: const Offset(0, 2),
                                           ),
                                         ],
                                       ),
@@ -420,7 +413,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            SizedBox(height: 16),
+                                            const SizedBox(height: 16),
                                             Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
@@ -447,7 +440,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                             color: Colors.grey.withOpacity(0.5),
                                             spreadRadius: 2,
                                             blurRadius: 5,
-                                            offset: Offset(0, 2),
+                                            offset: const Offset(0, 2),
                                           ),
                                         ],
                                       ),
@@ -457,7 +450,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            SizedBox(height: 16),
+                                            const SizedBox(height: 16),
                                             Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
@@ -484,7 +477,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                             color: Colors.grey.withOpacity(0.5),
                                             spreadRadius: 2,
                                             blurRadius: 5,
-                                            offset: Offset(0, 2),
+                                            offset: const Offset(0, 2),
                                           ),
                                         ],
                                       ),
@@ -494,7 +487,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            SizedBox(height: 16),
+                                            const SizedBox(height: 16),
                                             Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
@@ -521,7 +514,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                             color: Colors.grey.withOpacity(0.5),
                                             spreadRadius: 2,
                                             blurRadius: 5,
-                                            offset: Offset(0, 2),
+                                            offset: const Offset(0, 2),
                                           ),
                                         ],
                                       ),
@@ -531,7 +524,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            SizedBox(height: 16),
+                                            const SizedBox(height: 16),
                                             Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
@@ -558,7 +551,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                             color: Colors.grey.withOpacity(0.5),
                                             spreadRadius: 2,
                                             blurRadius: 5,
-                                            offset: Offset(0, 2),
+                                            offset: const Offset(0, 2),
                                           ),
                                         ],
                                       ),
@@ -568,7 +561,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            SizedBox(height: 16),
+                                            const SizedBox(height: 16),
                                             Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
@@ -595,7 +588,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                             color: Colors.grey.withOpacity(0.5),
                                             spreadRadius: 2,
                                             blurRadius: 5,
-                                            offset: Offset(0, 2),
+                                            offset: const Offset(0, 2),
                                           ),
                                         ],
                                       ),
@@ -605,7 +598,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            SizedBox(height: 16),
+                                            const SizedBox(height: 16),
                                             Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
@@ -632,7 +625,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                             color: Colors.grey.withOpacity(0.5),
                                             spreadRadius: 2,
                                             blurRadius: 5,
-                                            offset: Offset(0, 2),
+                                            offset: const Offset(0, 2),
                                           ),
                                         ],
                                       ),
@@ -642,7 +635,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            SizedBox(height: 16),
+                                            const SizedBox(height: 16),
                                             Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
@@ -664,16 +657,16 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
       children: [
         Text(
           label,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.bold,
             color: Colors.black87,
           ),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Text(
           '$numerator / $denominator',
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 10,
             color: Colors.black54,
             fontWeight: FontWeight.bold,

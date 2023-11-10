@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Patient Info Container'),
+          title: const Text('Patient Info Container'),
         ),
         body: Center(
           child: Container(
             width: 200,
             decoration: BoxDecoration(
-              gradient: LinearGradient(
+              gradient: const LinearGradient(
                 colors: [
                   Color(0xFF4CAF50), // Dark Green
                   Color(0xFF8BC34A), // Light Green
@@ -30,7 +32,7 @@ class MyApp extends StatelessWidget {
                   color: Colors.grey.withOpacity(0.5),
                   spreadRadius: 2,
                   blurRadius: 5,
-                  offset: Offset(0, 2),
+                  offset: const Offset(0, 2),
                 ),
               ],
             ),
@@ -56,13 +58,13 @@ class MyApp extends StatelessWidget {
       children: [
         Text(
           label,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Container(
           height: 40,
           decoration: BoxDecoration(
@@ -80,12 +82,12 @@ class MyApp extends StatelessWidget {
                 right: 0,
                 child: Container(
                   height: 40,
-                  color: Color(0xFF2E7D32), // Darker Green
+                  color: const Color(0xFF2E7D32), // Darker Green
                   width: 40 * ratio,
                   alignment: Alignment.centerLeft,
                   child: Text(
                     '$numerator',
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
@@ -95,10 +97,10 @@ class MyApp extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Text(
           '$numerator / $denominator',
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 16,
             color: Colors.white,
             fontWeight: FontWeight.bold,
