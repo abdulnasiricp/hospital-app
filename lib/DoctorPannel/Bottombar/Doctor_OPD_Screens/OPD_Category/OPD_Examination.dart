@@ -114,9 +114,7 @@ class _OpdExaminationState extends State<OpdExamination> {
                   child: Card(
                     child: Center(child: Text('Respiratory')),
                   ),
-                  
                 ),
-                
               ],
             ),
             const SizedBox(height: 20),
@@ -128,7 +126,7 @@ class _OpdExaminationState extends State<OpdExamination> {
                   child: const Text('Save'),
                   onPressed: () {},
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(darkYellow),
+                    backgroundColor: MaterialStateProperty.all(yellow),
                   ),
                 ),
               ),

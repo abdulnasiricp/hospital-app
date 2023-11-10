@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers
 
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_Examination.dart';
+import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_Pre_Checking.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
@@ -108,7 +109,7 @@ class _OpdHomeState extends State<OpdHome> {
                                     onTap: () {
                                       // Get.to(() => const OpdPreChecking());
                                       Get.to(() => const OpdExamination());
-                                      Get.to(() => const OpdExamination());
+                                      // Get.to(() => const OpdExamination());
                                     },
                                     child: Container(
                                       width: width / 8,
@@ -134,11 +135,8 @@ class _OpdHomeState extends State<OpdHome> {
                                   Container(
                                     width: width / 7,
                                     child: InkWell(
-                                      onTap: () {
-                                   
-                                      },
+                                      onTap: () {},
                                       child: Container(
-                                        
                                         child: const Padding(
                                           padding: EdgeInsets.all(3.0),
                                           child: Center(
@@ -165,11 +163,8 @@ class _OpdHomeState extends State<OpdHome> {
                                   Container(
                                     width: width / 4,
                                     child: InkWell(
-                                      onTap: () {
-                                        
-                                      },
+                                      onTap: () {},
                                       child: Container(
-                                      
                                         child: const Padding(
                                           padding: EdgeInsets.all(3.0),
                                           child: Center(
