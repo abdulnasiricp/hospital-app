@@ -246,7 +246,8 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                         ),
                                       ),
                                     ),
-                                  ),     Padding(
+                                  ),
+                                  Padding(
                                     padding: const EdgeInsets.all(1.0),
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -282,7 +283,8 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                         ),
                                       ),
                                     ),
-                                  ),     Padding(
+                                  ),
+                                  Padding(
                                     padding: const EdgeInsets.all(1.0),
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -318,7 +320,8 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                         ),
                                       ),
                                     ),
-                                  ),     Padding(
+                                  ),
+                                  Padding(
                                     padding: const EdgeInsets.all(1.0),
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -354,7 +357,8 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                         ),
                                       ),
                                     ),
-                                  ),     Padding(
+                                  ),
+                                  Padding(
                                     padding: const EdgeInsets.all(1.0),
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -390,7 +394,8 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                         ),
                                       ),
                                     ),
-                                  ),     Padding(
+                                  ),
+                                  Padding(
                                     padding: const EdgeInsets.all(1.0),
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -426,7 +431,8 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                         ),
                                       ),
                                     ),
-                                  ),     Padding(
+                                  ),
+                                  Padding(
                                     padding: const EdgeInsets.all(1.0),
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -462,7 +468,8 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                         ),
                                       ),
                                     ),
-                                  ),     Padding(
+                                  ),
+                                  Padding(
                                     padding: const EdgeInsets.all(1.0),
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -498,7 +505,8 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                         ),
                                       ),
                                     ),
-                                  ),     Padding(
+                                  ),
+                                  Padding(
                                     padding: const EdgeInsets.all(1.0),
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -534,7 +542,8 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                         ),
                                       ),
                                     ),
-                                  ),     Padding(
+                                  ),
+                                  Padding(
                                     padding: const EdgeInsets.all(1.0),
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -570,7 +579,8 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                         ),
                                       ),
                                     ),
-                                  ),     Padding(
+                                  ),
+                                  Padding(
                                     padding: const EdgeInsets.all(1.0),
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -606,7 +616,8 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                         ),
                                       ),
                                     ),
-                                  ),     Padding(
+                                  ),
+                                  Padding(
                                     padding: const EdgeInsets.all(1.0),
                                     child: Container(
                                       decoration: BoxDecoration(
