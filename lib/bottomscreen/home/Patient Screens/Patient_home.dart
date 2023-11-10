@@ -698,7 +698,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               ),
                                             ),
                                             const SizedBox(height: 10),
-                                            Text(
+                                            const Text(
                                               'Transaction Bill',
                                               style: TextStyle(
                                                 fontSize: 10,
@@ -751,7 +751,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             const SizedBox(height: 10),
                                             Text(
                                               'card'.tr,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors
@@ -799,7 +799,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               ),
                                             ),
                                             const SizedBox(height: 10),
-                                            Text(
+                                            const Text(
                                               EnString.idp,
                                               style: TextStyle(
                                                 fontSize: 10,
@@ -850,7 +850,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             const SizedBox(height: 10),
                                             Text(
                                               'Directbill'.tr,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors
@@ -900,7 +900,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             const SizedBox(height: 10),
                                             Text(
                                               'pathology'.tr,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors
@@ -950,7 +950,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             const SizedBox(height: 10),
                                             Text(
                                               'radiology'.tr,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors
@@ -1000,7 +1000,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             const SizedBox(height: 10),
                                             Text(
                                               'pharmacy'.tr,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors
@@ -1048,7 +1048,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               ),
                                             ),
                                             const SizedBox(height: 10),
-                                            Text(
+                                            const Text(
                                               EnString.usg,
                                               style: TextStyle(
                                                 fontSize: 10,
@@ -1101,7 +1101,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             const SizedBox(height: 10),
                                             Text(
                                               'surgery'.tr,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors
@@ -1151,7 +1151,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             const SizedBox(height: 10),
                                             Text(
                                               'bloodBank'.tr,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors
@@ -1201,7 +1201,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             const SizedBox(height: 10),
                                             Text(
                                               'ambulance'.tr,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors
@@ -1251,7 +1251,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             const SizedBox(height: 10),
                                             Text(
                                               'physioTherapy'.tr,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors
@@ -1301,7 +1301,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             const SizedBox(height: 10),
                                             Text(
                                               'certificates'.tr,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors
@@ -1351,7 +1351,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             const SizedBox(height: 10),
                                             Text(
                                               'bedHistory'.tr,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors
@@ -1400,7 +1400,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             const SizedBox(height: 10),
                                             Text(
                                               'liveConsultations'.tr,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors
@@ -1450,7 +1450,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             const SizedBox(height: 10),
                                             Text(
                                               "opdHistory".tr,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors
@@ -1591,8 +1591,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                       )
                                                     else if (organizations
                                                         .isEmpty)
-                                                      Center(
-                                                        child: const Text(
+                                                      const Center(
+                                                        child: Text(
                                                           'No data found',
                                                           style: TextStyle(
                                                               fontSize: 16,
@@ -1629,13 +1629,13 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                               ),
                                                               child: ListTile(
                                                                 contentPadding:
-                                                                    EdgeInsets.all(
+                                                                    const EdgeInsets.all(
                                                                         16), // Add padding inside the ListTile
                                                                 title: Text(
                                                                   organization
                                                                       .organisationName,
                                                                   style:
-                                                                      TextStyle(
+                                                                      const TextStyle(
                                                                     color: Colors
                                                                         .white, // Text color
                                                                     fontSize:
@@ -1645,7 +1645,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                                             .bold, // Make the text bold
                                                                   ),
                                                                 ),
-                                                                trailing: Icon(
+                                                                trailing: const Icon(
                                                                   Icons
                                                                       .arrow_forward, // Add an arrow icon on the right side
                                                                   color: Colors
@@ -1718,7 +1718,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                             const SizedBox(height: 10),
                                             Text(
                                               "reopd".tr,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors

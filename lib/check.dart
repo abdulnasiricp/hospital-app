@@ -1343,8 +1343,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                               )
                                             else if (organizations
                                                 .isEmpty)
-                                              Center(
-                                                child: const Text(
+                                              const Center(
+                                                child: Text(
                                                   'No data found',
                                                   style: TextStyle(
                                                       fontSize: 16,
@@ -1380,13 +1380,13 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                       ),
                                                       child: ListTile(
                                                         contentPadding:
-                                                        EdgeInsets.all(
+                                                        const EdgeInsets.all(
                                                             16), // Add padding inside the ListTile
                                                         title: Text(
                                                           organization
                                                               .organisationName,
                                                           style:
-                                                          TextStyle(
+                                                          const TextStyle(
                                                             color: Colors
                                                                 .white, // Text color
                                                             fontSize: 18,
@@ -1395,7 +1395,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                                 .bold, // Make the text bold
                                                           ),
                                                         ),
-                                                        trailing: Icon(
+                                                        trailing: const Icon(
                                                           Icons
                                                               .arrow_forward, // Add an arrow icon on the right side
                                                           color: Colors

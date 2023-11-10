@@ -13,7 +13,6 @@ import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 Future<void> main() async {

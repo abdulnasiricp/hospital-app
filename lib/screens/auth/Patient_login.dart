@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, avoid_print, sized_box_for_whitespace
+
 import 'dart:convert';
 import 'dart:io';
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_Home_Bottom_bar.dart';
