@@ -380,8 +380,8 @@ class Translation extends Translations {
 
           //Doctor panel Bottom Bar
           'OPD':'OPD',
-          'IPD':'OPD',
-          'DoctorID':'DoctorID'
+          'IPD':'IPD',
+          'DoctorID':'DoctorID:-'
 
 
 

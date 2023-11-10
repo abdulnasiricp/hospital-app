@@ -111,7 +111,6 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
       print('Could not launch $url');
     }
   }
-
   ////////////////////Rateus End
   String role = '';
   String username = '';
@@ -124,7 +123,6 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
   Map<String, dynamic>? DoneDataMap;
   List<dynamic>? DoneListData = [];
   bool isLoggingOut = false; // Flag to check if logout process is in progress
-
   Future<void> _logout(BuildContext context) async {
     final sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.clear();
@@ -136,9 +134,7 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
     );
     Get.offAll(() => const MainSiginScreen());
   }
-
   String apiUrl = ApiLinks.logout; // Replace with your logout API URL
-
   Future<void> performLogout() async {
     setState(() {
       isLoggingOut = true;

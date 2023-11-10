@@ -11,32 +11,25 @@ class OpdPreChecking extends StatefulWidget {
   State<OpdPreChecking> createState() => _OpdPreCheckingState();
 }
 
-class _OpdPreCheckingState extends State<OpdPreChecking>{
-    late DateTime selectedDate;
+class _OpdPreCheckingState extends State<OpdPreChecking> {
+  late DateTime selectedDate;
   TextEditingController dateController = TextEditingController();
-  TextEditingController firstNameController=TextEditingController();
-  TextEditingController lastNameController=TextEditingController();
-  TextEditingController ageController=TextEditingController();
-  TextEditingController dobController=TextEditingController();
-  TextEditingController phoneController=TextEditingController();
-  TextEditingController emailController=TextEditingController();
-  TextEditingController relationshipController=TextEditingController();
-  TextEditingController districtController=TextEditingController();
-  TextEditingController vdcMunicipalityController=TextEditingController();
-  TextEditingController wardController=TextEditingController();
-  TextEditingController toleController=TextEditingController();
-  
- 
-
-
- 
-
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
+  TextEditingController dobController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController relationshipController = TextEditingController();
+  TextEditingController districtController = TextEditingController();
+  TextEditingController vdcMunicipalityController = TextEditingController();
+  TextEditingController wardController = TextEditingController();
+  TextEditingController toleController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-             backgroundColor: Colors.lightBlue[50],
-
+        backgroundColor: Colors.lightBlue[50],
         appBar: AppBar(
           title: const Text('Pre Checking'),
           centerTitle: true,
@@ -48,8 +41,13 @@ class _OpdPreCheckingState extends State<OpdPreChecking>{
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Vitals',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                const SizedBox(height: 10,),
+                const Text(
+                  'Vitals',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
                 Container(
                   width: double.infinity,
                   child: Column(
@@ -63,13 +61,12 @@ class _OpdPreCheckingState extends State<OpdPreChecking>{
                         height: 5,
                       ),
                       Container(
-                         height: 45,
+                        height: 45,
                         child: TextFormField(
                           onTapOutside: (event) =>
                               FocusScope.of(context).unfocus(),
                           decoration: const InputDecoration(
                               border: OutlineInputBorder(),
-                              
                               fillColor: Colors.white,
                               filled: true),
                         ),
@@ -77,7 +74,9 @@ class _OpdPreCheckingState extends State<OpdPreChecking>{
                     ],
                   ),
                 ),
-                const SizedBox(height: 10,),
+                const SizedBox(
+                  height: 10,
+                ),
                 Row(
                   children: [
                     Container(
@@ -91,7 +90,7 @@ class _OpdPreCheckingState extends State<OpdPreChecking>{
                             height: 5,
                           ),
                           Container(
-                             height: 45,
+                            height: 45,
                             child: TextFormField(
                               onTapOutside: (event) =>
                                   FocusScope.of(context).unfocus(),
@@ -104,7 +103,9 @@ class _OpdPreCheckingState extends State<OpdPreChecking>{
                         ],
                       ),
                     ),
-                    const SizedBox(width: 5,),
+                    const SizedBox(
+                      width: 5,
+                    ),
                     Container(
                       width: width / 4.7,
                       child: Column(
@@ -116,7 +117,7 @@ class _OpdPreCheckingState extends State<OpdPreChecking>{
                             height: 5,
                           ),
                           Container(
-                             height: 45,
+                            height: 45,
                             child: TextFormField(
                               onTapOutside: (event) =>
                                   FocusScope.of(context).unfocus(),
@@ -129,7 +130,9 @@ class _OpdPreCheckingState extends State<OpdPreChecking>{
                         ],
                       ),
                     ),
-                    const SizedBox(width: 5,),
+                    const SizedBox(
+                      width: 5,
+                    ),
                     Container(
                       width: width / 4.7,
                       child: Column(
@@ -141,7 +144,7 @@ class _OpdPreCheckingState extends State<OpdPreChecking>{
                             height: 5,
                           ),
                           Container(
-                             height: 45,
+                            height: 45,
                             child: TextFormField(
                               onTapOutside: (event) =>
                                   FocusScope.of(context).unfocus(),
@@ -154,7 +157,9 @@ class _OpdPreCheckingState extends State<OpdPreChecking>{
                         ],
                       ),
                     ),
-                    const SizedBox(width: 5,),
+                    const SizedBox(
+                      width: 5,
+                    ),
                     Container(
                       width: width / 4.7,
                       child: Column(
@@ -166,7 +171,7 @@ class _OpdPreCheckingState extends State<OpdPreChecking>{
                             height: 5,
                           ),
                           Container(
-                             height: 45,
+                            height: 45,
                             child: TextFormField(
                               onTapOutside: (event) =>
                                   FocusScope.of(context).unfocus(),
@@ -184,10 +189,10 @@ class _OpdPreCheckingState extends State<OpdPreChecking>{
                 const SizedBox(
                   height: 5,
                 ),
-                 Row(
-                   children: [
-                     Container(
-                      width: width/2.3,
+                Row(
+                  children: [
+                    Container(
+                      width: width / 2.3,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -199,25 +204,24 @@ class _OpdPreCheckingState extends State<OpdPreChecking>{
                             height: 5,
                           ),
                           Container(
-                             height: 45,
+                            height: 45,
                             child: TextFormField(
                               onTapOutside: (event) =>
                                   FocusScope.of(context).unfocus(),
                               decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
-                                  
                                   fillColor: Colors.white,
                                   filled: true),
                             ),
                           ),
                         ],
                       ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                 Container(
-                      width: width/2.3,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                      width: width / 2.3,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -231,33 +235,33 @@ class _OpdPreCheckingState extends State<OpdPreChecking>{
                           Container(
                             height: 45,
                             child: TextFormField(
-                              
                               onTapOutside: (event) =>
                                   FocusScope.of(context).unfocus(),
                               decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
-                                  
                                   fillColor: Colors.white,
                                   filled: true),
                             ),
                           ),
                         ],
                       ),
+                    ),
+                  ],
                 ),
-                   ],
-                 ),
-               
-                
                 const SizedBox(
                   height: 5,
                 ),
-                 const Text('Past History',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                const SizedBox(height: 10,),
-               
-                 Row(
-                   children: [
-                     Container(
-                      width: width/2.3,
+                const Text(
+                  'Past History',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  children: [
+                    Container(
+                      width: width / 2.3,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -269,25 +273,24 @@ class _OpdPreCheckingState extends State<OpdPreChecking>{
                             height: 5,
                           ),
                           Container(
-                             height: 45,
+                            height: 45,
                             child: TextFormField(
                               onTapOutside: (event) =>
                                   FocusScope.of(context).unfocus(),
                               decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
-                                  
                                   fillColor: Colors.white,
                                   filled: true),
                             ),
                           ),
                         ],
                       ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                 Container(
-                      width: width/2.3,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                      width: width / 2.3,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -301,29 +304,26 @@ class _OpdPreCheckingState extends State<OpdPreChecking>{
                           Container(
                             height: 45,
                             child: TextFormField(
-                              
                               onTapOutside: (event) =>
                                   FocusScope.of(context).unfocus(),
                               decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
-                                  
                                   fillColor: Colors.white,
                                   filled: true),
                             ),
                           ),
                         ],
                       ),
+                    ),
+                  ],
                 ),
-                   ],
-                 ),
-               
                 const SizedBox(
                   height: 5,
                 ),
                 Row(
-                   children: [
-                     Container(
-                      width: width/2.3,
+                  children: [
+                    Container(
+                      width: width / 2.3,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -335,26 +335,24 @@ class _OpdPreCheckingState extends State<OpdPreChecking>{
                             height: 5,
                           ),
                           Container(
-                             height: 45,
+                            height: 45,
                             child: TextFormField(
                               onTapOutside: (event) =>
                                   FocusScope.of(context).unfocus(),
                               decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
-                                  
                                   fillColor: Colors.white,
                                   filled: true),
                             ),
                           ),
                         ],
                       ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                
-                 Container(
-                      width: width/2.3,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                      width: width / 2.3,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -368,32 +366,33 @@ class _OpdPreCheckingState extends State<OpdPreChecking>{
                           Container(
                             height: 45,
                             child: TextFormField(
-                              
                               onTapOutside: (event) =>
                                   FocusScope.of(context).unfocus(),
                               decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
-                                  
                                   fillColor: Colors.white,
                                   filled: true),
                             ),
                           ),
                         ],
                       ),
+                    ),
+                  ],
                 ),
-                   ],
-                 ),
-               
                 const SizedBox(
                   height: 5,
                 ),
-                  const Text('General History',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                const SizedBox(height: 10,),
-               
-                 Row(
-                   children: [
-                     Container(
-                      width: width/2.3,
+                const Text(
+                  'General History',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  children: [
+                    Container(
+                      width: width / 2.3,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -405,25 +404,24 @@ class _OpdPreCheckingState extends State<OpdPreChecking>{
                             height: 5,
                           ),
                           Container(
-                             height: 45,
+                            height: 45,
                             child: TextFormField(
                               onTapOutside: (event) =>
                                   FocusScope.of(context).unfocus(),
                               decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
-                                  
                                   fillColor: Colors.white,
                                   filled: true),
                             ),
                           ),
                         ],
                       ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                 Container(
-                      width: width/2.3,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                      width: width / 2.3,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -437,29 +435,26 @@ class _OpdPreCheckingState extends State<OpdPreChecking>{
                           Container(
                             height: 45,
                             child: TextFormField(
-                              
                               onTapOutside: (event) =>
                                   FocusScope.of(context).unfocus(),
                               decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
-                                  
                                   fillColor: Colors.white,
                                   filled: true),
                             ),
                           ),
                         ],
                       ),
+                    ),
+                  ],
                 ),
-                   ],
-                 ),
-               
                 const SizedBox(
                   height: 5,
                 ),
                 Row(
-                   children: [
-                     Container(
-                      width: width/2.3,
+                  children: [
+                    Container(
+                      width: width / 2.3,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -471,26 +466,24 @@ class _OpdPreCheckingState extends State<OpdPreChecking>{
                             height: 5,
                           ),
                           Container(
-                             height: 45,
+                            height: 45,
                             child: TextFormField(
                               onTapOutside: (event) =>
                                   FocusScope.of(context).unfocus(),
                               decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
-                                  
                                   fillColor: Colors.white,
                                   filled: true),
                             ),
                           ),
                         ],
                       ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                
-                 Container(
-                      width: width/2.3,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                      width: width / 2.3,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -504,34 +497,34 @@ class _OpdPreCheckingState extends State<OpdPreChecking>{
                           Container(
                             height: 45,
                             child: TextFormField(
-                              
                               onTapOutside: (event) =>
                                   FocusScope.of(context).unfocus(),
                               decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
-                                  
                                   fillColor: Colors.white,
                                   filled: true),
                             ),
                           ),
                         ],
                       ),
+                    ),
+                  ],
                 ),
-                   ],
-                 ),
-                
-                const SizedBox(height: 20,),
+                const SizedBox(
+                  height: 20,
+                ),
                 Center(
-                    child: Container(width: width/1.2,
-                    height: height/15,
-                      child: ElevatedButton(
-                                      child: const Text('Save'),
-                                      onPressed: () {},
-                                      style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(darkYellow),
-                                      ),
-                                    ),
-                    ))
+                    child: Container(
+                  width: width / 1.2,
+                  height: height / 15,
+                  child: ElevatedButton(
+                    child: const Text('Save'),
+                    onPressed: () {},
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(yellow),
+                    ),
+                  ),
+                ))
               ],
             ),
           ),
@@ -541,9 +534,7 @@ class _OpdPreCheckingState extends State<OpdPreChecking>{
   Widget buildGenderCard(
       {required IconData icon, required String label, required String gender}) {
     return GestureDetector(
-      onTap: () {
-       
-      },
+      onTap: () {},
       child: Container(
         width: width / 4,
         child: Card(
@@ -556,14 +547,12 @@ class _OpdPreCheckingState extends State<OpdPreChecking>{
                 Icon(
                   icon,
                   size: 30,
-                 
                 ),
                 const SizedBox(height: 5),
                 Text(
                   label,
                   style: const TextStyle(
                     fontSize: 15,
-                   
                   ),
                 ),
               ],
