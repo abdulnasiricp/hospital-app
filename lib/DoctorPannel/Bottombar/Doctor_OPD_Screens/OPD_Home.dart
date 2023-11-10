@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers
 
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_Examination.dart';
+import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_investigation.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ class _OpdHomeState extends State<OpdHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue[50],
         appBar: AppBar(
           title: const Text('OPD Patient'),
           centerTitle: true,
@@ -94,7 +96,7 @@ class _OpdHomeState extends State<OpdHome> {
                   return Column(
                     children: [
                       Card(
-                        color: Colors.white70.withOpacity(0.7),
+                        color: Colors.white,
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Row(
@@ -107,8 +109,8 @@ class _OpdHomeState extends State<OpdHome> {
                                   InkWell(
                                     onTap: () {
                                       // Get.to(() => const OpdPreChecking());
-                                      Get.to(() => const OpdExamination());
                                       // Get.to(() => const OpdExamination());
+                                      Get.to(() => const OpdInvestigation());
                                     },
                                     child: Container(
                                       width: width / 8,
