@@ -28,7 +28,7 @@ xmlns:tools="http://schemas.android.com/tools"
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="kpg" android:host="tez.hospital.siraha" />
+				<data android:scheme="tez" android:host="tez.hospital" />
 			</intent-filter>
 		</activity>
 		<!--

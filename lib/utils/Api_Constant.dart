@@ -44,4 +44,5 @@ class ApiLinks {
    static const String getliveconsult="$BASE_URL/getliveconsult";
    static const String generateCertificate="$BASE_URL/generateCertificate";
    static const String duePayment="$BASE_URL/duePayment";
+   static const String notifier="$BASE_URL/notifier";
 }

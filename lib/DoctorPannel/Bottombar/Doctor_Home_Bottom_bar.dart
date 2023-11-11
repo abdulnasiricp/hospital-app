@@ -101,7 +101,7 @@ class _Doctor_Home_Bottom_barState extends State<Doctor_Home_Bottom_bar> {
                 ),
                 selectedColor: notifier.getwihitecolor,
               ),
-               SalomonBottomBarItem(
+              SalomonBottomBarItem(
                 icon: SvgPicture.asset('assets/ipd.svg',
                     height: 30, color: notifier.getwihitecolor),
                 title: Text(
