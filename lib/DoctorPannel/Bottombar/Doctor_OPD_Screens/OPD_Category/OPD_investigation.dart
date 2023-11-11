@@ -19,7 +19,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Investigation'),
+          title: const Text('OPD Investigation'),
           centerTitle: true,
           backgroundColor: darkYellow,
         ),

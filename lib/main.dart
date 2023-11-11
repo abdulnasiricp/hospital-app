@@ -6,7 +6,6 @@ import 'package:TezHealthCare/language_Services/translation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:TezHealthCare/Splash_Screen.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/themeService.dart';
@@ -19,7 +18,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterDownloader.initialize(debug: true); // Set to false in production
-  // Initialize SharedPreferences
+  // // Initialize SharedPreferences
   final sharedPreferences = await SharedPreferences.getInstance();
   String? selectedLanguage =
       sharedPreferences.getString('selectedLanguage') ?? 'en';
@@ -29,7 +28,6 @@ Future<void> main() async {
     defaultLanguage: defaultLang,
   ));
 }
-
 class MyApp extends StatefulWidget {
   final String defaultLanguage;
   const MyApp({
@@ -39,20 +37,40 @@ class MyApp extends StatefulWidget {
   @override
   State<MyApp> createState() => _MyAppState();
 }
-
 @override
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
   }
+ Future<bool> _isLoggedIn() async {
+  final sharedPreferences = await SharedPreferences.getInstance();
+  if (sharedPreferences.containsKey('username') &&
+      sharedPreferences.containsKey('password') &&
+      sharedPreferences.containsKey('role')) {
+    final String? role = sharedPreferences.getString('role');
+    print('==============================> Role: $role');
 
-  Future<String?> _getUserRole() async {
-    final sharedPreferences = await SharedPreferences.getInstance();
-    return sharedPreferences.getString('role');
+    switch (role) {
+      case 'patient':
+        print('========================> Navigating to Bottomhome()');
+        Get.off(() => const Bottomhome());
+        return true;
+      case '3':
+        print('===============================>Navigating to Doctor_Home_Bottom_bar()');
+        Get.off(() => const Doctor_Home_Bottom_bar());
+        return true;
+      default:
+        print('===================================>Role not recognized. Navigating to Splash_Screen()');
+        Get.off(() => const Splash_Screen());
+        return false;
+    }
   }
 
-  @override
+  return false;
+}
+
+    @override
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
@@ -71,18 +89,16 @@ class _MyAppState extends State<MyApp> {
               debugShowCheckedModeBanner: false,
               theme: Themes().lightTheme,
               darkTheme: Themes().darkTheme,
-              home: FutureBuilder<String?>(
-                future: _getUserRole(),
+              home: FutureBuilder<bool>(
+                future: _isLoggedIn(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
-                    final String? userRole = snapshot.data;
-                    if (userRole == 'patient') {
-                      return const Bottomhome();
-                    } else if (userRole == 'Doctor') {
-                      return const Doctor_Home_Bottom_bar();
-                    } else {
-                      return const Splash_Screen();
-                    }
+                    final bool isLoggedIn = snapshot.data ?? false;
+                    return isLoggedIn
+                    
+                        ? const Bottomhome()
+                        : const Splash_Screen();
+                        
                   } else {
                     return Container();
                   }

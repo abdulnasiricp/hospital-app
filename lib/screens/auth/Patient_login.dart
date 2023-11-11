@@ -118,7 +118,7 @@ class _PatientLoginState extends State<PatientLogin> {
         final sp = await SharedPreferences.getInstance();
         sp.setString('username', username);
         sp.setString('password', password);
-        sp.setString('Doctor', json['record']['role']['Doctor']);
+        sp.setString('role', json['record']['role']['Doctor']);
         sp.setString('employee_id', json['record']['employee_id']);
         sp.setString('id', json['record']['id']);
         sp.setString('username', json['record']['username']);
