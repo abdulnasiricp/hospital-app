@@ -661,807 +661,196 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                 shrinkWrap:
                                     true, // Set to true to make the GridView scrollable within the Column
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(3.0),
-                                    child: InkWell(
-                                      onTap: () {
-                                        Get.offAll(
-                                            () => const TransactionBill());
-                                      },
-                                      child: Container(
-                                        width: 120,
-                                        height: 150,
-                                        decoration: BoxDecoration(
-                                          color:
-                                              Colors.white, // Background color
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              width: 50,
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: darkYellow,
-                                              ),
-                                              child: Center(
-                                                child: SvgPicture.asset(
-                                                  'assets/transaction.svg',
-                                                  width: 30,
-                                                  height: 30,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ),
-                                            const SizedBox(height: 10),
-                                            const Text(
-                                              'Transaction Bill',
-                                              style: TextStyle(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors
-                                                    .black, // Adjust the text color
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ],
-                                        ),
+                                  patientHomeCategory(() {
+                                    Get.offAll(() => const TransactionBill());
+                                  },
+                                      SvgPicture.asset(
+                                        'assets/transaction.svg',
+                                        width: 30,
+                                        height: 30,
+                                        color: Colors.white,
                                       ),
+                                      'Transaction Bill'.tr),
+                                  patientHomeCategory(
+                                    () {
+                                      Get.to(() => const CardScreen());
+                                    },
+                                    SvgPicture.asset(
+                                      'assets/card.svg',
+                                      width: 30,
+                                      height: 30,
+                                      color: Colors.white,
                                     ),
+                                    'card'.tr,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(3.0),
-                                    child: InkWell(
-                                      onTap: () {
-                                        Get.to(() => const CardScreen());
-                                      },
-                                      child: Container(
-                                        width: 120,
-                                        height: 150,
-                                        decoration: BoxDecoration(
-                                          color:
-                                              Colors.white, // Background color
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              width: 50,
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: darkYellow,
-                                              ),
-                                              child: Center(
-                                                child: SvgPicture.asset(
-                                                  'assets/card.svg',
-                                                  width: 30,
-                                                  height: 30,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ),
-                                            const SizedBox(height: 10),
-                                            Text(
-                                              'card'.tr,
-                                              style: const TextStyle(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors
-                                                    .black, // Adjust the text color
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                                  patientHomeCategory(
+                                    () {
+                                      Get.to(() => const IPD());
+                                    },
+                                    SvgPicture.asset(
+                                      'assets/ipd.svg',
+                                      width: 30,
+                                      height: 30,
+                                      color: Colors.white,
                                     ),
+                                    'IPD'.tr,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(3.0),
-                                    child: InkWell(
-                                      onTap: () {
-                                        Get.to(() => const IPD());
-                                      },
-                                      child: Container(
-                                        width: 120,
-                                        height: 150,
-                                        decoration: BoxDecoration(
-                                          color:
-                                              Colors.white, // Background color
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              width: 50,
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: darkYellow,
-                                              ),
-                                              child: Center(
-                                                child: SvgPicture.asset(
-                                                    'assets/ipd.svg',
-                                                    width: 30,
-                                                    height: 30,
-                                                    color: Colors.white),
-                                              ),
-                                            ),
-                                            const SizedBox(height: 10),
-                                            const Text(
-                                              EnString.idp,
-                                              style: TextStyle(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors
-                                                    .black, // Adjust the text color
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                                  patientHomeCategory(
+                                    () {
+                                      Get.to(() => const Direct_bill());
+                                    },
+                                    SvgPicture.asset(
+                                      'assets/directbill.svg',
+                                      width: 30,
+                                      height: 30,
+                                      color: Colors.white,
                                     ),
+                                    'Directbill'.tr,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(3.0),
-                                    child: InkWell(
-                                      onTap: () {
-                                        Get.to(() => const Direct_bill());
-                                      },
-                                      child: Container(
-                                        width: 120,
-                                        height: 150,
-                                        decoration: BoxDecoration(
-                                          color:
-                                              Colors.white, // Background color
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              width: 50,
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: darkYellow,
-                                              ),
-                                              child: Center(
-                                                  child: SvgPicture.asset(
-                                                      'assets/directbill.svg',
-                                                      width: 30,
-                                                      height: 30,
-                                                      color: Colors.white)),
-                                            ),
-                                            const SizedBox(height: 10),
-                                            Text(
-                                              'Directbill'.tr,
-                                              style: const TextStyle(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors
-                                                    .black, // Adjust the text color
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                                  patientHomeCategory(
+                                    () {
+                                      Get.offAll(() => const Pathalogy());
+                                    },
+                                    SvgPicture.asset(
+                                      'assets/pathology.svg',
+                                      width: 30,
+                                      height: 30,
+                                      color: Colors.white,
                                     ),
+                                    'pathology'.tr,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(3.0),
-                                    child: InkWell(
-                                      onTap: () {
-                                        Get.offAll(() => const Pathalogy());
-                                      },
-                                      child: Container(
-                                        width: 120,
-                                        height: 150,
-                                        decoration: BoxDecoration(
-                                          color:
-                                              Colors.white, // Background color
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              width: 50,
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: darkYellow,
-                                              ),
-                                              child: Center(
-                                                child: SvgPicture.asset(
-                                                    'assets/pathology.svg',
-                                                    width: 30,
-                                                    height: 30,
-                                                    color: Colors.white),
-                                              ),
-                                            ),
-                                            const SizedBox(height: 10),
-                                            Text(
-                                              'pathology'.tr,
-                                              style: const TextStyle(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors
-                                                    .black, // Adjust the text color
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                                  patientHomeCategory(
+                                    () {
+                                      Get.offAll(() => const Radiology());
+                                    },
+                                    SvgPicture.asset(
+                                      'assets/radiology.svg',
+                                      width: 30,
+                                      height: 30,
+                                      color: Colors.white,
                                     ),
+                                    'radiology'.tr,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(3.0),
-                                    child: InkWell(
-                                      onTap: () {
-                                        Get.offAll(() => const Radiology());
-                                      },
-                                      child: Container(
-                                        width: 120,
-                                        height: 150,
-                                        decoration: BoxDecoration(
-                                          color:
-                                              Colors.white, // Background color
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              width: 50,
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: darkYellow,
-                                              ),
-                                              child: Center(
-                                                child: SvgPicture.asset(
-                                                    'assets/radiology.svg',
-                                                    width: 30,
-                                                    height: 30,
-                                                    color: Colors.white),
-                                              ),
-                                            ),
-                                            const SizedBox(height: 10),
-                                            Text(
-                                              'radiology'.tr,
-                                              style: const TextStyle(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors
-                                                    .black, // Adjust the text color
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                                  patientHomeCategory(
+                                    () {
+                                      Get.offAll(() => const Pharmacy());
+                                    },
+                                    SvgPicture.asset(
+                                      'assets/pharmacy.svg',
+                                      width: 30,
+                                      height: 30,
+                                      color: Colors.white,
                                     ),
+                                    'pharmacy'.tr,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(3.0),
-                                    child: InkWell(
-                                      onTap: () {
-                                        Get.offAll(() => const Pharmacy());
-                                      },
-                                      child: Container(
-                                        width: 120,
-                                        height: 150,
-                                        decoration: BoxDecoration(
-                                          color:
-                                              Colors.white, // Background color
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              width: 50,
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: darkYellow,
-                                              ),
-                                              child: Center(
-                                                child: SvgPicture.asset(
-                                                    'assets/pharmacy.svg',
-                                                    width: 30,
-                                                    height: 30,
-                                                    color: Colors.white),
-                                              ),
-                                            ),
-                                            const SizedBox(height: 10),
-                                            Text(
-                                              'pharmacy'.tr,
-                                              style: const TextStyle(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors
-                                                    .black, // Adjust the text color
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                                  patientHomeCategory(
+                                    () {
+                                      Get.to(() => const USGScreen());
+                                    },
+                                    SvgPicture.asset(
+                                       'assets/usg.svg',
+                                      width: 30,
+                                      height: 30,
+                                      color: Colors.white,
                                     ),
+                                    'USG'.tr,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(3.0),
-                                    child: InkWell(
-                                      onTap: () {
-                                        Get.to(() => const USGScreen());
-                                      },
-                                      child: Container(
-                                        width: 120,
-                                        height: 150,
-                                        decoration: BoxDecoration(
-                                          color:
-                                              Colors.white, // Background color
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              width: 50,
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: darkYellow,
-                                              ),
-                                              child: Center(
-                                                child: SvgPicture.asset(
-                                                    'assets/usg.svg',
-                                                    width: 30,
-                                                    height: 30,
-                                                    color: Colors.white),
-                                              ),
-                                            ),
-                                            const SizedBox(height: 10),
-                                            const Text(
-                                              EnString.usg,
-                                              style: TextStyle(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors
-                                                    .black, // Adjust the text color
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(3.0),
-                                    child: InkWell(
-                                      onTap: () {
-                                        Get.to(() =>
+                                   patientHomeCategory(
+                                    () {
+                                     Get.to(() =>
                                             const SurgeryPrescriptionList());
-                                      },
-                                      child: Container(
-                                        width: 120,
-                                        height: 150,
-                                        decoration: BoxDecoration(
-                                          color:
-                                              Colors.white, // Background color
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              width: 50,
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: darkYellow,
-                                              ),
-                                              child: Center(
-                                                child: SvgPicture.asset(
-                                                    'assets/surgery.svg',
-                                                    width: 30,
-                                                    height: 30,
-                                                    color: Colors.white),
-                                              ),
-                                            ),
-                                            const SizedBox(height: 10),
-                                            Text(
-                                              'surgery'.tr,
-                                              style: const TextStyle(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors
-                                                    .black, // Adjust the text color
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                                    },
+                                    SvgPicture.asset(
+                                       'assets/surgery.svg',
+                                      width: 30,
+                                      height: 30,
+                                      color: Colors.white,
                                     ),
+                                    'surgery'.tr,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(3.0),
-                                    child: InkWell(
-                                      onTap: () {
-                                        Get.to(() => const Blood_Bank());
-                                      },
-                                      child: Container(
-                                        width: 120,
-                                        height: 150,
-                                        decoration: BoxDecoration(
-                                          color:
-                                              Colors.white, // Background color
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              width: 50,
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: darkYellow,
-                                              ),
-                                              child: Center(
-                                                child: SvgPicture.asset(
-                                                    'assets/blood_bank.svg',
-                                                    width: 30,
-                                                    height: 30,
-                                                    color: Colors.white),
-                                              ),
-                                            ),
-                                            const SizedBox(height: 10),
-                                            Text(
-                                              'bloodBank'.tr,
-                                              style: const TextStyle(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors
-                                                    .black, // Adjust the text color
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                                   patientHomeCategory(
+                                    () {
+                                    Get.to(() => const Blood_Bank());
+                                    },
+                                    SvgPicture.asset(
+                                        'assets/blood_bank.svg',
+                                      width: 30,
+                                      height: 30,
+                                      color: Colors.white,
                                     ),
+                                    'bloodBank'.tr,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(3.0),
-                                    child: InkWell(
-                                      onTap: () {
-                                        Get.to(() => const Ambulance());
-                                      },
-                                      child: Container(
-                                        width: 120,
-                                        height: 150,
-                                        decoration: BoxDecoration(
-                                          color:
-                                              Colors.white, // Background color
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              width: 50,
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: darkYellow,
-                                              ),
-                                              child: Center(
-                                                child: SvgPicture.asset(
-                                                    'assets/ambulance.svg',
-                                                    width: 30,
-                                                    height: 30,
-                                                    color: Colors.white),
-                                              ),
-                                            ),
-                                            const SizedBox(height: 10),
-                                            Text(
-                                              'ambulance'.tr,
-                                              style: const TextStyle(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors
-                                                    .black, // Adjust the text color
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                                   patientHomeCategory(
+                                    () {
+                                    Get.to(() => const Ambulance());
+                                    },
+                                    SvgPicture.asset(
+                                         'assets/ambulance.svg',
+                                      width: 30,
+                                      height: 30,
+                                      color: Colors.white,
                                     ),
+                                    'ambulance'.tr,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(3.0),
-                                    child: InkWell(
-                                      onTap: () {
-                                        Get.offAll(() => const Physiotherapy());
-                                      },
-                                      child: Container(
-                                        width: 120,
-                                        height: 150,
-                                        decoration: BoxDecoration(
-                                          color:
-                                              Colors.white, // Background color
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              width: 50,
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: darkYellow,
-                                              ),
-                                              child: Center(
-                                                child: SvgPicture.asset(
-                                                    'assets/therapy.svg',
-                                                    width: 30,
-                                                    height: 30,
-                                                    color: Colors.white),
-                                              ),
-                                            ),
-                                            const SizedBox(height: 10),
-                                            Text(
-                                              'physioTherapy'.tr,
-                                              style: const TextStyle(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors
-                                                    .black, // Adjust the text color
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                                    patientHomeCategory(
+                                    () {
+                                    Get.offAll(() => const Physiotherapy());
+                                    },
+                                    SvgPicture.asset(
+                                          'assets/therapy.svg',
+                                      width: 30,
+                                      height: 30,
+                                      color: Colors.white,
                                     ),
+                                    'physioTherapy'.tr,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(3.0),
-                                    child: InkWell(
-                                      onTap: () {
-                                        Get.to(() => const Certificate());
-                                      },
-                                      child: Container(
-                                        width: 120,
-                                        height: 150,
-                                        decoration: BoxDecoration(
-                                          color:
-                                              Colors.white, // Background color
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              width: 50,
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: darkYellow,
-                                              ),
-                                              child: Center(
-                                                child: SvgPicture.asset(
-                                                    'assets/certificate.svg',
-                                                    width: 30,
-                                                    height: 30,
-                                                    color: Colors.white),
-                                              ),
-                                            ),
-                                            const SizedBox(height: 10),
-                                            Text(
-                                              'certificates'.tr,
-                                              style: const TextStyle(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors
-                                                    .black, // Adjust the text color
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                                    patientHomeCategory(
+                                    () {
+                                     Get.to(() => const Certificate());
+                                    },
+                                    SvgPicture.asset(
+                                         'assets/certificate.svg',
+                                      width: 30,
+                                      height: 30,
+                                      color: Colors.white,
                                     ),
+                                    'certificates'.tr,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(3.0),
-                                    child: InkWell(
-                                      onTap: () {
-                                        Get.to(() => const Bedhistory());
-                                      },
-                                      child: Container(
-                                        width: 120,
-                                        height: 150,
-                                        decoration: BoxDecoration(
-                                          color:
-                                              Colors.white, // Background color
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              width: 50,
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: darkYellow,
-                                              ),
-                                              child: Center(
-                                                child: SvgPicture.asset(
-                                                    'assets/bed_history.svg',
-                                                    width: 30,
-                                                    height: 30,
-                                                    color: Colors.white),
-                                              ),
-                                            ),
-                                            const SizedBox(height: 10),
-                                            Text(
-                                              'bedHistory'.tr,
-                                              style: const TextStyle(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors
-                                                    .black, // Adjust the text color
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                                    patientHomeCategory(
+                                    () {
+                                     Get.to(() => const Bedhistory());
+                                    },
+                                    SvgPicture.asset(
+                                         'assets/bed_history.svg',
+                                      width: 30,
+                                      height: 30,
+                                      color: Colors.white,
                                     ),
+                                    'bedHistory'.tr,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(3.0),
-                                    child: InkWell(
-                                      onTap: () {
-                                        Get.to(() => const Liveconsultation());
-                                      },
-                                      child: Container(
-                                        width: 120,
-                                        height: 150,
-                                        decoration: BoxDecoration(
-                                          color:
-                                              Colors.white, // Background color
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              width: 50,
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: darkYellow,
-                                              ),
-                                              child: Center(
-                                                  child: SvgPicture.asset(
-                                                      'assets/live_consult.svg',
-                                                      width: 30,
-                                                      height: 30,
-                                                      color: Colors.white)),
-                                            ),
-                                            const SizedBox(height: 10),
-                                            Text(
-                                              'liveConsultations'.tr,
-                                              style: const TextStyle(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors
-                                                    .black, // Adjust the text color
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                                     patientHomeCategory(
+                                    () {
+                                      Get.to(() => const Liveconsultation());
+                                    },
+                                    SvgPicture.asset(
+                                         'assets/live_consult.svg',
+                                      width: 30,
+                                      height: 30,
+                                      color: Colors.white,
                                     ),
+                                    'liveConsultations'.tr,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(3.0),
-                                    child: InkWell(
-                                      onTap: () {
+                                       patientHomeCategory(
+                                    () {
                                         Get.to(() => const Opd_History());
-                                      },
-                                      child: Container(
-                                        width: 120,
-                                        height: 150,
-                                        decoration: BoxDecoration(
-                                          color:
-                                              Colors.white, // Background color
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              width: 50,
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: darkYellow,
-                                              ),
-                                              child: Center(
-                                                child: SvgPicture.asset(
-                                                    'assets/opd.svg',
-                                                    width: 30,
-                                                    height: 30,
-                                                    color: Colors.white),
-                                              ),
-                                            ),
-                                            const SizedBox(height: 10),
-                                            Text(
-                                              "opdHistory".tr,
-                                              style: const TextStyle(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors
-                                                    .black, // Adjust the text color
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                                    },
+                                    SvgPicture.asset(
+                                         'assets/opd.svg',
+                                      width: 30,
+                                      height: 30,
+                                      color: Colors.white,
                                     ),
+                                     "opdHistory".tr,
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.all(3.0),
@@ -1629,7 +1018,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                               ),
                                                               child: ListTile(
                                                                 contentPadding:
-                                                                    const EdgeInsets.all(
+                                                                    const EdgeInsets
+                                                                        .all(
                                                                         16), // Add padding inside the ListTile
                                                                 title: Text(
                                                                   organization
@@ -1645,7 +1035,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                                             .bold, // Make the text bold
                                                                   ),
                                                                 ),
-                                                                trailing: const Icon(
+                                                                trailing:
+                                                                    const Icon(
                                                                   Icons
                                                                       .arrow_forward, // Add an arrow icon on the right side
                                                                   color: Colors
@@ -1733,17 +1124,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                   ),
                                 ],
                               ),
-                              // Visibility(
-                              //   /// visible: _showMore,
-                              //   child: GridView.count(
-                              //     crossAxisCount: 5,
-                              //     shrinkWrap:
-                              //         true, // Set to true to make the GridView scrollable within the Column
-                              //     children: [
-                              //
-                              //     ],
-                              //   ),
-                              // ),
+                         
                               Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Row(
@@ -1988,5 +1369,46 @@ class _PatientHomePageState extends State<PatientHomePage> {
                   ),
                 ),
         ));
+  }
+
+  Padding patientHomeCategory(ontap, iconWidget, iconName) {
+    return Padding(
+      padding: const EdgeInsets.all(3.0),
+      child: InkWell(
+        onTap: ontap,
+        child: Container(
+          width: 120,
+          height: 150,
+          decoration: BoxDecoration(
+            color: Colors.white, // Background color
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: darkYellow,
+                ),
+                child: Center(child: iconWidget),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                iconName,
+                style: const TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black, // Adjust the text color
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

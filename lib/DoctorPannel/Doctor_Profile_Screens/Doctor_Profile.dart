@@ -1,12 +1,11 @@
 // ignore_for_file: file_names, camel_case_types, deprecated_member_use, avoid_print, non_constant_identifier_names, prefer_typing_uninitialized_variables
 
+import 'package:TezHealthCare/DoctorPannel/Doctor_Profile_Screens/Doctor_informationProfile.dart';
 import 'package:TezHealthCare/DoctorPannel/Doctor_Profile_Screens/SettingScreen.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
-import 'package:TezHealthCare/bottomscreen/Profile/Information_profile.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/help_center.dart';
-import 'package:TezHealthCare/bottomscreen/Profile/profile_model.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/term_and_condition.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
 import 'package:TezHealthCare/screens/auth/Sigin_main_screen.dart';
@@ -149,7 +148,7 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
           'Auth-key': 'zbuks_ram859553467',
         },
         // You may need to pass additional data in the body if required by your API.
-        body: jsonEncode({"patient_id": patientID}),
+        body: jsonEncode({"patient_id": doctorId}),
       );
       if (response.statusCode == 200) {
         // Successful logout, clear user data or navigate to the login screen.
@@ -183,56 +182,27 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
   ////////////////////////////////////////////////////////////////////////////
   ///shared preference data
   var profileData;
-  late String patientID = '';
+  late String doctorId = '';
+  late String doctorName = '';
+  late String doctorImage = '';
   LoadData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
 
-    patientID = sp.getString('patientidrecord') ?? '';
+    doctorId = sp.getString('id') ?? '';
+    doctorName = sp.getString('username') ?? '';
+    doctorImage = sp.getString('image') ?? '';
 
-    print(patientID);
+    print('==========$doctorId');
+    print('============$doctorName');
     setState(() {});
   }
-////////////////////////////////////////////////////////////////////////////
-// get patient profile
+////////////////////////////////////////////
 
-  Future<void> ProfileApi() async {
-    const apiUrl = ApiLinks.getPatientprofile;
 
-    final requestBody = jsonEncode({"patientId": patientID});
-
-    try {
-      final response = await http.post(Uri.parse(apiUrl),
-          headers: ApiLinks.MainHeader, body: requestBody);
-
-      if (response.statusCode == 200) {
-        final responseBody = jsonDecode(response.body);
-        final profileJson =
-            responseBody[0]; // Assuming your API returns a list with one item
-        setState(() {
-          profileData = ProfileData.fromJson(profileJson);
-        });
-      } else {
-        // Request failed with an error status code
-        print('Request failed with status: ${response.statusCode}');
-        print('Response body: ${response.body}');
-      }
-    } catch (e) {
-      // Handle any exceptions that occur during the request
-      print('Request error: $e');
-    }
-  }
-////////////////////////////////////////////////////////////////////////////
-
-  getAllData() async {
-    await LoadData();
-
-    await ProfileApi();
-  }
 
   @override
   void initState() {
-    getAllData();
-
+   LoadData();
     super.initState();
   }
 ////////////////////////////////////////////////////////////////////////////
@@ -267,22 +237,21 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
                               borderRadius: const BorderRadius.only(
                                   bottomLeft: Radius.circular(60),
                                   bottomRight: Radius.circular(60)))),
-                      // Padding(
-                      //   padding: const EdgeInsets.only(top: 10),
-                      //   child: Center(
-                      //       child: CircleAvatar(
-                      //     backgroundImage:
-                      //         NetworkImage(profileData!.image ?? ""),
-                      //     radius: height / 15,
-                      //   )),
-                      // ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Center(
+                            child: CircleAvatar(
+                          backgroundImage:
+                              NetworkImage(doctorImage),
+                          radius: height / 15,
+                        )),
+                      ),
                       Padding(
                         padding: EdgeInsets.only(top: height / 5.5),
                         child: Center(
-                          child: Text(
-                            (profileData?.patientName ?? '').isEmpty
+                          child: Text(doctorName.isEmpty
                                 ? 'N/A'
-                                : profileData!.patientName,
+                                : doctorName,
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
@@ -290,20 +259,7 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(top: height / 4.7),
-                        child: const Center(
-                            // child: Text(
-                            //   (profileData?.mobileNo ?? '').isEmpty
-                            //       ? 'N/A'
-                            //       : profileData!.mobileNo,
-                            //   style: const TextStyle(
-                            //       fontWeight: FontWeight.bold,
-                            //       color: Colors.white,
-                            //       fontSize: 20),
-                            // ),
-                            ),
-                      ),
+                    
                       Padding(
                         padding: EdgeInsets.only(top: height / 4),
                         child: Center(
@@ -350,7 +306,7 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
                               children: [
                                 InkWell(
                                   onTap: () {
-                                    Get.to(() => const InformationProfile());
+                                    Get.to(() => const DoctorInformationProfile());
                                   },
                                   child: ListTile(
                                     leading: SvgPicture.asset('assets/info.svg',

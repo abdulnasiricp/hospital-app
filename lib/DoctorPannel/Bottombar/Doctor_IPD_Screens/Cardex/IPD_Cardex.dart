@@ -12,14 +12,10 @@ class IPDCardex extends StatefulWidget {
 }
 
 class _IPDCardexState extends State<IPDCardex> {
+  List<Widget> rows = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('IPD Cardex'),
-      //   centerTitle: true,
-      //   backgroundColor: darkYellow,
-      // ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
@@ -67,6 +63,11 @@ class _IPDCardexState extends State<IPDCardex> {
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 15),
                               ),
+                              Text(
+                                ' ',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
                             ],
                           ),
                         ),
@@ -103,7 +104,7 @@ class _IPDCardexState extends State<IPDCardex> {
                             width: 10,
                           ),
                           Container(
-                            width: width / 3.5,
+                            width: width / 4.5,
                             height: 40,
                             child: Center(
                               child: InkWell(
@@ -128,7 +129,7 @@ class _IPDCardexState extends State<IPDCardex> {
                             width: 10,
                           ),
                           Container(
-                            width: width / 3.5,
+                            width: width / 4.5,
                             height: 40,
                             child: Center(
                               child: InkWell(
@@ -149,6 +150,18 @@ class _IPDCardexState extends State<IPDCardex> {
                               )),
                             ),
                           ),
+                          Container(
+                            width: width / 6,
+                            height: 40,
+                            child: Center(
+                              child: CircleAvatar(
+                                child: IconButton(
+                                    onPressed: () {}, icon: const Icon(Icons.add)),
+                                radius: 20,
+                                backgroundColor: Colors.green,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                       Padding(
@@ -166,7 +179,6 @@ class _IPDCardexState extends State<IPDCardex> {
                               ),
                             )),
                       ),
-                     
                       const Center(
                         child: Text(
                           'Report',
@@ -601,20 +613,22 @@ class _IPDCardexState extends State<IPDCardex> {
                                 ],
                               ),
                               Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                            alignment: Alignment.bottomRight,
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              child: const Text('Save'),
-                              style: ButtonStyle(
-                                foregroundColor:
-                                    MaterialStateProperty.all(Colors.white),
-                                backgroundColor:
-                                    MaterialStateProperty.all(darkYellow),
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                    alignment: Alignment.bottomRight,
+                                    child: ElevatedButton(
+                                      onPressed: () {},
+                                      child: const Text('Save'),
+                                      style: ButtonStyle(
+                                        foregroundColor:
+                                            MaterialStateProperty.all(
+                                                Colors.white),
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                                darkYellow),
+                                      ),
+                                    )),
                               ),
-                            )),
-                      ),
                               const Center(
                                 child: Text(
                                   'Report',
@@ -769,21 +783,23 @@ class _IPDCardexState extends State<IPDCardex> {
                                   ),
                                 ],
                               ),
-                                Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                            alignment: Alignment.bottomRight,
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              child: const Text('Save'),
-                              style: ButtonStyle(
-                                foregroundColor:
-                                    MaterialStateProperty.all(Colors.white),
-                                backgroundColor:
-                                    MaterialStateProperty.all(darkYellow),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                    alignment: Alignment.bottomRight,
+                                    child: ElevatedButton(
+                                      onPressed: () {},
+                                      child: const Text('Save'),
+                                      style: ButtonStyle(
+                                        foregroundColor:
+                                            MaterialStateProperty.all(
+                                                Colors.white),
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                                darkYellow),
+                                      ),
+                                    )),
                               ),
-                            )),
-                      ),
                               const Center(
                                 child: Text(
                                   'Report',

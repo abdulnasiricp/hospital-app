@@ -115,12 +115,7 @@ class _ProfileState extends State<Profile> {
   }
 
   ////////////////////Rateus End
-  String role = '';
-  String username = '';
-  String record = '';
-  String image = '';
-  String genderrecord = '';
-  String mobilerecord = '';
+
   bool isLoading = false;
   Map<String, dynamic>? DataMap;
   Map<String, dynamic>? DoneDataMap;
