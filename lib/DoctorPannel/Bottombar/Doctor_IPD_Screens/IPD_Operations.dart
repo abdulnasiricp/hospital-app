@@ -15,11 +15,11 @@ class _IpdOperationsState extends State<IpdOperations> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('IPD Operations'),
-        centerTitle: true,
-        backgroundColor: darkYellow,
-      ),
+      // appBar: AppBar(
+      //   title: const Text('IPD Operations'),
+      //   centerTitle: true,
+      //   backgroundColor: darkYellow,
+      // ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(

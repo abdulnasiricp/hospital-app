@@ -57,7 +57,7 @@ class _Doctor_Home_Bottom_barState extends State<Doctor_Home_Bottom_bar> {
     super.initState();
   }
 
-  int _selectedIndex = 2;
+  int _selectedIndex = 0;
   late ColorNotifier notifier;
 
   @override

@@ -1,6 +1,5 @@
 // ignore_for_file: file_names
 
-import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class IpdBedHistory extends StatefulWidget {
@@ -14,10 +13,10 @@ class _IpdBedHistoryState extends State<IpdBedHistory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: const Text('IPD Bed History'),
-          centerTitle: true,
-          backgroundColor: darkYellow),
+      // appBar: AppBar(
+      //     title: const Text('IPD Bed History'),
+      //     centerTitle: true,
+      //     backgroundColor: darkYellow),
       body:  Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(

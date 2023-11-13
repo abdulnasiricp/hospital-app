@@ -30,11 +30,11 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.lightBlue[50],
-        appBar: AppBar(
-          title: const Text('Pre Checking'),
-          centerTitle: true,
-          backgroundColor: darkYellow,
-        ),
+        // appBar: AppBar(
+        //   title: const Text('Pre Checking'),
+        //   centerTitle: true,
+        //   backgroundColor: darkYellow,
+        // ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SingleChildScrollView(

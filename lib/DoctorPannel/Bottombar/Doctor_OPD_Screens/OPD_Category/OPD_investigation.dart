@@ -18,11 +18,11 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('OPD Investigation'),
-          centerTitle: true,
-          backgroundColor: darkYellow,
-        ),
+        // appBar: AppBar(
+        //   title: const Text('OPD Investigation'),
+        //   centerTitle: true,
+        //   backgroundColor: darkYellow,
+        // ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SingleChildScrollView(

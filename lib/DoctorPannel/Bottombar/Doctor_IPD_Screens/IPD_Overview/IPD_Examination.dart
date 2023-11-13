@@ -29,11 +29,7 @@ class _IpdExaminationState extends State<IpdExamination> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue[50],
-      appBar: AppBar(
-        title: const Text('IPD Examination'),
-        centerTitle: true,
-        backgroundColor: darkYellow, // Replace with your color
-      ),
+      
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(

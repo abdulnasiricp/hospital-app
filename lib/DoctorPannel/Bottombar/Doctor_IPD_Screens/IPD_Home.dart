@@ -1,6 +1,6 @@
 // ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers
 
-import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_IPD_Screens/Bed_History.dart';
+import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_IPD_Screens/IPD_MainScreens.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
@@ -101,7 +101,8 @@ class _IpdHomeState extends State<IpdHome> {
                                     // Get.to(() => const IPDCardex());
                                     // Get.to(() => const IpdMedication());
                                     // Get.to(() => const IpdOperations());
-                                    Get.to(() => const IpdBedHistory());
+                                    // Get.to(() => const IpdBedHistory());
+                                    Get.to(() => const IpdMainScreen());
 
 
                                   },
@@ -140,21 +141,18 @@ class _IpdHomeState extends State<IpdHome> {
                                 children: [
                                   Container(
                                     width: width / 7,
-                                    child: InkWell(
-                                      onTap: () {},
-                                      child: Container(
-                                        child: const Padding(
-                                          padding: EdgeInsets.all(3.0),
-                                          child: Center(
-                                            child: Text(
-                                              "chhotelal ram",
-                                              overflow: TextOverflow
-                                                  .ellipsis, // Use ellipsis to cut off the text
-                                              maxLines: 1,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 10),
-                                            ),
+                                    child: Container(
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(3.0),
+                                        child: Center(
+                                          child: Text(
+                                            "chhotelal ram",
+                                            overflow: TextOverflow
+                                                .ellipsis, // Use ellipsis to cut off the text
+                                            maxLines: 1,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 10),
                                           ),
                                         ),
                                       ),
@@ -168,21 +166,18 @@ class _IpdHomeState extends State<IpdHome> {
                                 children: [
                                   Container(
                                     width: width / 4,
-                                    child: InkWell(
-                                      onTap: () {},
-                                      child: Container(
-                                        child: const Padding(
-                                          padding: EdgeInsets.all(3.0),
-                                          child: Center(
-                                            child: Text(
-                                              'Madhurendra Tiwari (9001)',
-                                              overflow: TextOverflow
-                                                  .ellipsis, // Use ellipsis to cut off the text
-                                              maxLines: 1,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 10),
-                                            ),
+                                    child: Container(
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(3.0),
+                                        child: Center(
+                                          child: Text(
+                                            'Madhurendra Tiwari (9001)',
+                                            overflow: TextOverflow
+                                                .ellipsis, // Use ellipsis to cut off the text
+                                            maxLines: 1,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 10),
                                           ),
                                         ),
                                       ),
@@ -196,21 +191,18 @@ class _IpdHomeState extends State<IpdHome> {
                                 children: [
                                   Container(
                                     width: width / 4,
-                                    child: InkWell(
-                                      onTap: () {},
-                                      child: Container(
-                                        child: const Padding(
-                                          padding: EdgeInsets.all(3.0),
-                                          child: Center(
-                                            child: Text(
-                                              'Cardiology',
-                                              overflow: TextOverflow
-                                                  .ellipsis, // Use ellipsis to cut off the text
-                                              maxLines: 1,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 10),
-                                            ),
+                                    child: Container(
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(3.0),
+                                        child: Center(
+                                          child: Text(
+                                            'Cardiology',
+                                            overflow: TextOverflow
+                                                .ellipsis, // Use ellipsis to cut off the text
+                                            maxLines: 1,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 10),
                                           ),
                                         ),
                                       ),
