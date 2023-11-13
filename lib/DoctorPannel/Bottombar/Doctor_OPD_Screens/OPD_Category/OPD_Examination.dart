@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace
 
 import 'package:TezHealthCare/utils/colors.dart';
+import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 
 class OpdExamination extends StatefulWidget {
@@ -61,76 +62,256 @@ class _OpdExaminationState extends State<OpdExamination> {
       //   centerTitle: true,
       //   backgroundColor: darkYellow, // Replace with your color
       // ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              child: const Text(
-                'General Examination',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                child: const Text(
+                  'General Examination',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
               ),
-            ),
-            const SizedBox(height: 10),
-            Container(
-              height: 200,
-              child: Expanded(
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4),
-                  itemCount: generalCard.length,
-                  itemBuilder: (context, index) {
-                    return SelectableCard(
-                      text: generalCard[index],
-                      isSelected: generalCardText.contains(generalCard[index]),
+              const SizedBox(height: 10),
+              Container(
+                height: 200,
+                child: Expanded(
+                  child: GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 4),
+                    itemCount: generalCard.length,
+                    itemBuilder: (context, index) {
+                      return SelectableCard(
+                        text: generalCard[index],
+                        isSelected:
+                            generalCardText.contains(generalCard[index]),
+                        onSelect: () {
+                          setState(() {
+                            if (generalCardText.contains(generalCard[index])) {
+                              generalCardText.remove(generalCard[index]);
+                            } else {
+                              generalCardText.add(generalCard[index]);
+                            }
+                          });
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ),
+
+              Container(
+                child: const Text(
+                  'Systematic Examination',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              ),
+              const SizedBox(height: 10),
+              // Replacing Card with SelectableCard for each row
+              Row(
+                children: [
+                  Container(
+                    height: 50,
+                    width: 100,
+                    child: SelectableCard(
+                      text: 'Respiratory',
+                      isSelected: systematicCardText.contains('Respiratory'),
                       onSelect: () {
                         setState(() {
-                          if (generalCardText.contains(generalCard[index])) {
-                            generalCardText.remove(generalCard[index]);
+                          if (systematicCardText.contains('Respiratory')) {
+                            systematicCardText.remove('Respiratory');
                           } else {
-                            generalCardText.add(generalCard[index]);
+                            systematicCardText.add('Respiratory');
                           }
                         });
                       },
-                    );
-                  },
-                ),
+                    ),
+                  ),
+                  Container(
+                    height: 40,
+                    width: width / 1.5,
+                    child: const TextField(
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'write something'),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            Container(
-              child: const Text(
-                'Systematic Examination',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  Container(
+                    height: 50,
+                    width: 100,
+                    child: SelectableCard(
+                      text: 'Cardiovascular',
+                      isSelected: systematicCardText.contains('Cardiovascular'),
+                      onSelect: () {
+                        setState(() {
+                          if (systematicCardText.contains('Cardiovascular')) {
+                            systematicCardText.remove('Cardiovascular');
+                          } else {
+                            systematicCardText.add('Cardiovascular');
+                          }
+                        });
+                      },
+                    ),
+                  ),
+                  Container(
+                    height: 40,
+                    width: width / 1.5,
+                    child: const TextField(
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'write something'),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(height: 10),
-            Row(
-              children: [
-                Container(
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  Container(
+                    height: 50,
+                    width: 100,
+                    child: SelectableCard(
+                      text: 'Abdominal',
+                      isSelected: systematicCardText.contains('Abdominal'),
+                      onSelect: () {
+                        setState(() {
+                          if (systematicCardText.contains('Abdominal')) {
+                            systematicCardText.remove('Abdominal');
+                          } else {
+                            systematicCardText.add('Abdominal');
+                          }
+                        });
+                      },
+                    ),
+                  ),
+                  Container(
+                    height: 40,
+                    width: width / 1.5,
+                    child: const TextField(
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'write something'),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  Container(
+                    height: 50,
+                    width: 100,
+                    child: SelectableCard(
+                      text: 'Genitourinary',
+                      isSelected: systematicCardText.contains('Genitourinary'),
+                      onSelect: () {
+                        setState(() {
+                          if (systematicCardText.contains('Genitourinary')) {
+                            systematicCardText.remove('Genitourinary');
+                          } else {
+                            systematicCardText.add('Genitourinary');
+                          }
+                        });
+                      },
+                    ),
+                  ),
+                  Container(
+                    height: 40,
+                    width: width / 1.5,
+                    child: const TextField(
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'write something'),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  Container(
+                    height: 50,
+                    width: 100,
+                    child: SelectableCard(
+                      text: 'CNS',
+                      isSelected: systematicCardText.contains('CNS'),
+                      onSelect: () {
+                        setState(() {
+                          if (systematicCardText.contains('CNS')) {
+                            systematicCardText.remove('CNS');
+                          } else {
+                            systematicCardText.add('CNS');
+                          }
+                        });
+                      },
+                    ),
+                  ),
+                  Container(
+                    height: 40,
+                    width: width / 1.5,
+                    child: const TextField(
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'write something'),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  Container(
+                    height: 50,
+                    width: 100,
+                    child: SelectableCard(
+                      text: 'Local',
+                      isSelected: systematicCardText.contains('Local'),
+                      onSelect: () {
+                        setState(() {
+                          if (systematicCardText.contains('Local')) {
+                            systematicCardText.remove('Local');
+                          } else {
+                            systematicCardText.add('Local');
+                          }
+                        });
+                      },
+                    ),
+                  ),
+                  Container(
+                    height: 40,
+                    width: width / 1.5,
+                    child: const TextField(
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'write something'),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              Center(
+                child: Container(
+                  width: double.infinity,
                   height: 40,
-                  width: 100,
-                  child: const Card(
-                    child: Center(child: Text('Respiratory')),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Center(
-              child: Container(
-                width: double.infinity,
-                height: 40,
-                child: ElevatedButton(
-                  child: const Text('Save'),
-                  onPressed: () {},
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(yellow),
+                  child: ElevatedButton(
+                    child: const Text('Save'),
+                    onPressed: () {},
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(yellow),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -19,7 +19,7 @@ class _OpdHomeState extends State<OpdHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[50],
+        backgroundColor: Colors.blue[50],
         appBar: AppBar(
           title: const Text('OPD Patient'),
           centerTitle: true,
@@ -75,7 +75,7 @@ class _OpdHomeState extends State<OpdHome> {
                   Column(
                     children: [
                       Text(
-                        'Status'.tr,
+                        "Last Visit",
                         overflow: TextOverflow
                             .ellipsis, // Use ellipsis to cut off the text
                         maxLines: 1,
@@ -95,129 +95,152 @@ class _OpdHomeState extends State<OpdHome> {
                 itemBuilder: (context, index) {
                   return Column(
                     children: [
-                      InkWell(
-                        onTap: (){
-                          Get.to(()=>const OpdMainScreen());
-                        },
-                        child: Card(
-                          color: Colors.white,
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        
-                                        Get.to(() => const OpdInvestigation());
-                                      },
+                      Card(
+                        color: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      Get.to(() => const OpdMainScreen());
+                                    },
+                                    child: Container(
+                                      width: width / 8,
+                                      child: const Center(
+                                        child: Text(
+                                          "OPDN7695",
+                                          overflow: TextOverflow
+                                              .ellipsis, // Use ellipsis to cut off the text
+                                          maxLines: 1,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.blue,
+                                              fontSize: 10),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    width: width / 7,
+                                    child: InkWell(
+                                      onTap: () {},
                                       child: Container(
-                                        width: width / 8,
-                                        child: const Center(
-                                          child: Text(
-                                            "OPDN7695",
-                                            overflow: TextOverflow
-                                                .ellipsis, // Use ellipsis to cut off the text
-                                            maxLines: 1,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 10),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      width: width / 7,
-                                      child: InkWell(
-                                        onTap: () {},
-                                        child: Container(
-                                          child: const Padding(
-                                            padding: EdgeInsets.all(3.0),
-                                            child: Center(
-                                              child: Text(
-                                                "chhotelal ram",
-                                                overflow: TextOverflow
-                                                    .ellipsis, // Use ellipsis to cut off the text
-                                                maxLines: 1,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 10),
-                                              ),
+                                        child: const Padding(
+                                          padding: EdgeInsets.all(3.0),
+                                          child: Center(
+                                            child: Text(
+                                              "chhotelal ram",
+                                              overflow: TextOverflow
+                                                  .ellipsis, // Use ellipsis to cut off the text
+                                              maxLines: 1,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 10),
                                             ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ],
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      width: width / 4,
-                                      child: InkWell(
-                                        onTap: () {},
-                                        child: Container(
-                                          child: const Padding(
-                                            padding: EdgeInsets.all(3.0),
-                                            child: Center(
-                                              child: Text(
-                                                'Madhurendra Tiwari (9001)',
-                                                overflow: TextOverflow
-                                                    .ellipsis, // Use ellipsis to cut off the text
-                                                maxLines: 1,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 10),
-                                              ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    width: width / 4,
+                                    child: InkWell(
+                                      onTap: () {},
+                                      child: Container(
+                                        child: const Padding(
+                                          padding: EdgeInsets.all(3.0),
+                                          child: Center(
+                                            child: Text(
+                                              'Madhurendra Tiwari (9001)',
+                                              overflow: TextOverflow
+                                                  .ellipsis, // Use ellipsis to cut off the text
+                                              maxLines: 1,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 10),
                                             ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ],
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Center(
-                                        child: DropdownButton<String>(
-                                      value: selectedItem,
-                                      onChanged: (String? newValue) {
-                                        setState(() {
-                                          selectedItem = newValue!;
-                                        });
-                                      },
-                                      items: <String>[
-                                        'Registerted',
-                                        'Pre-Checking',
-                                        'Examination',
-                                        'investigation',
-                                        ' report',
-                                        'Checkout',
-                                      ].map((String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(value),
-                                        );
-                                      }).toList(),
-                                    )),
-                                  ],
-                                ),
-                              ],
-                            ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    width: width / 4,
+                                    child: InkWell(
+                                      onTap: () {},
+                                      child: Container(
+                                        child: const Padding(
+                                          padding: EdgeInsets.all(3.0),
+                                          child: Center(
+                                            child: Text(
+                                              '13/11/2023 11:58 AM',
+                                              overflow: TextOverflow
+                                                  .ellipsis, // Use ellipsis to cut off the text
+                                              maxLines: 1,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 10),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              // Column(
+                              //   crossAxisAlignment: CrossAxisAlignment.start,
+                              //   mainAxisAlignment: MainAxisAlignment.center,
+                              //   children: [
+                              //     Center(
+                              //         child: DropdownButton<String>(
+                              //       value: selectedItem,
+                              //       onChanged: (String? newValue) {
+                              //         setState(() {
+                              //           selectedItem = newValue!;
+                              //         });
+                              //       },
+                              //       items: <String>[
+                              //         'Registerted',
+                              //         'Pre-Checking',
+                              //         'Examination',
+                              //         'investigation',
+                              //         ' report',
+                              //         'Checkout',
+                              //       ].map((String value) {
+                              //         return DropdownMenuItem<String>(
+                              //           value: value,
+                              //           child: Text(value),
+                              //         );
+                              //       }).toList(),
+                              //     )),
+                              //   ],
+                              // ),
+                            ],
                           ),
                         ),
                       ),

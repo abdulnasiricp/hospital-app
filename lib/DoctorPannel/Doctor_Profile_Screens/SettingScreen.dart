@@ -1,7 +1,8 @@
 // ignore_for_file: file_names
 
-import 'package:TezHealthCare/DoctorPannel/Doctor_Profile_Screens/Change_Password.dart';
+import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_Home_Bottom_bar.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
+import 'package:TezHealthCare/bottomscreen/Profile/Setting/change_password.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/widgets/Toast_dialog.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,8 @@ class _SettingScreenState extends State<SettingScreen> {
       onWillPop: () async {
         // Navigate to the Home Screen when the back button is pressed
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const Bottomhome()),
+          MaterialPageRoute(
+              builder: (context) => const Doctor_Home_Bottom_bar()),
         );
         return false; // Prevent default back button behavior
       },
@@ -34,7 +36,7 @@ class _SettingScreenState extends State<SettingScreen> {
           centerTitle: true,
           leading: IconButton(
             onPressed: () {
-              Get.to(() => const Bottomhome());
+              Get.to(() => const Doctor_Home_Bottom_bar());
             },
             icon: const Icon(Icons.arrow_back),
           ),
@@ -43,7 +45,7 @@ class _SettingScreenState extends State<SettingScreen> {
           children: [
             InkWell(
               onTap: () {
-                Get.to(() => Change_Password());
+                Get.to(() => const Change_Password());
               },
               child: Card(
                 child: ListTile(
