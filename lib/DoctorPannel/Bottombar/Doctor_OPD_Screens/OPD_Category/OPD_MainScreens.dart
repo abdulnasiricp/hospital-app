@@ -1,4 +1,3 @@
-
 // ignore_for_file: file_names
 
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_Examination.dart';
@@ -51,7 +50,7 @@ class _OpdMainScreenState extends State<OpdMainScreen>
           OpdPreChecking(),
           OpdExamination(),
           OpdInvestigation(),
-          OpdCheckout(),
+          Opd_Check_Out(),
         ],
       ),
     );

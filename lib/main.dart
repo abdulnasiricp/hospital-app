@@ -27,6 +27,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
+
 bool _initialUriIsHandled = false;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -107,10 +108,7 @@ class _MyAppState extends State<MyApp> {
       // the foreground or in the background.
       _sub = uriLinkStream.listen((Uri? uri) {
         if (!mounted) return;
-        String? NotificationId= uri?.path.substring(1);
-
-
-
+        String? NotificationId = uri?.path.substring(1);
 
         setState(() {
           _latestUri = uri;
@@ -135,16 +133,13 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-
   /////////////////////////////////////////////////////
   late String NotificationData = '';
-  Future<void> getpatientDetails( NotificationId ) async {
+  Future<void> getpatientDetails(NotificationId) async {
     // Set the body
     final body = {
       'table': 'system_notification',
-      'where': {
-        'id':NotificationId
-      }
+      'where': {'id': NotificationId}
     };
     try {
       // Make the POST request
@@ -167,7 +162,7 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
- ////////////////////////////////////////////
+  ////////////////////////////////////////////
   Future<void> _handleInitialUri() async {
     // In this example app this is an almost useless guard, but it is here to
     // show we are not going to call getInitialUri multiple times, even if this
