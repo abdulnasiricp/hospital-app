@@ -1,7 +1,6 @@
 // ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers
 
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_MainScreens.dart';
-import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_investigation.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
@@ -72,14 +71,14 @@ class _OpdHomeState extends State<OpdHome> {
                       ),
                     ],
                   ),
-                  Column(
+                  const Column(
                     children: [
                       Text(
                         "Last Visit",
                         overflow: TextOverflow
                             .ellipsis, // Use ellipsis to cut off the text
                         maxLines: 1,
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 15),
                       ),
                     ],
