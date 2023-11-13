@@ -74,7 +74,8 @@ class _OpdHomeState extends State<OpdHome> {
                   ),
                   Column(
                     children: [
-                      Text("Last Visit",
+                      Text(
+                        "Last Visit",
                         overflow: TextOverflow
                             .ellipsis, // Use ellipsis to cut off the text
                         maxLines: 1,
@@ -107,8 +108,6 @@ class _OpdHomeState extends State<OpdHome> {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      // Get.to(() => const OpdPreChecking());
-                                      // Get.to(() => const OpdExamination());
                                       Get.to(() => const OpdMainScreen());
                                     },
                                     child: Container(
@@ -121,6 +120,7 @@ class _OpdHomeState extends State<OpdHome> {
                                           maxLines: 1,
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
+                                              color: Colors.blue,
                                               fontSize: 10),
                                         ),
                                       ),
@@ -183,7 +183,8 @@ class _OpdHomeState extends State<OpdHome> {
                                     ),
                                   ),
                                 ],
-                              ),      Column(
+                              ),
+                              Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [

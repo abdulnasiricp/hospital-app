@@ -497,12 +497,18 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                           Container(
                             height: 45,
                             child: TextFormField(
+                              keyboardType: TextInputType.text,
                               onTapOutside: (event) =>
                                   FocusScope.of(context).unfocus(),
                               decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
                                   fillColor: Colors.white,
                                   filled: true),
+                              onFieldSubmitted: (value) {
+                                // Handle form submission, e.g., validate and process the input
+                                // You can also manually close the keyboard if needed
+                                FocusScope.of(context).unfocus();
+                              },
                             ),
                           ),
                         ],

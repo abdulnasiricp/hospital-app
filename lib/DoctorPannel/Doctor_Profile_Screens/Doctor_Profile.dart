@@ -1,10 +1,10 @@
 // ignore_for_file: file_names, camel_case_types, deprecated_member_use, avoid_print, non_constant_identifier_names, prefer_typing_uninitialized_variables
 
+import 'package:TezHealthCare/DoctorPannel/Doctor_Profile_Screens/SettingScreen.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/Profile/Information_profile.dart';
-import 'package:TezHealthCare/bottomscreen/Profile/Setting/Setting_screen.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/help_center.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/profile_model.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/term_and_condition.dart';
@@ -111,6 +111,7 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
       print('Could not launch $url');
     }
   }
+
   ////////////////////Rateus End
   String role = '';
   String username = '';
@@ -134,6 +135,7 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
     );
     Get.offAll(() => const MainSiginScreen());
   }
+
   String apiUrl = ApiLinks.logout; // Replace with your logout API URL
   Future<void> performLogout() async {
     setState(() {
@@ -195,7 +197,6 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
 
   Future<void> ProfileApi() async {
     const apiUrl = ApiLinks.getPatientprofile;
-   
 
     final requestBody = jsonEncode({"patientId": patientID});
 
@@ -423,10 +424,6 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
                                 ),
                                 InkWell(
                                   onTap: () async {
-                                    // Get.to(() => const TermAndConditionsScreen());
-
-                                    //  launchUrl(Uri.parse('https://www.google.com/'),mode: LaunchMode.inAppWebView);
-
                                     Get.to(() => const TermAndConditionsScreen(
                                           url: 'https://www.google.com/',
                                         ));
@@ -483,7 +480,7 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
                                 ),
                                 InkWell(
                                   onTap: () {
-                                   performLogout(); // Call _logout with the 'context'
+                                    performLogout(); // Call _logout with the 'context'
                                   },
                                   child: ListTile(
                                     leading: SvgPicture.asset(
