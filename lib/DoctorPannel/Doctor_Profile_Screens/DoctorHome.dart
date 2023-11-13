@@ -204,20 +204,48 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                 shrinkWrap:
                                     true, // Set to true to make the GridView scrollable within the Column
                                 children: [
-                                  homeCard(SvgPicture.asset('assets/people.svg',color: darkYellow),
-                                      'Total Patients Served', '1233'),
-                                  homeCard(SvgPicture.asset('assets/opd.svg',color: darkYellow,),
-                                      'OPD Patients', '133'),
-                                  homeCard(SvgPicture.asset('assets/ipd.svg',color: darkYellow),
-                                      'IPD Patients', '223'),
-                                  homeCard(SvgPicture.asset('assets/emergency.svg'),
-                                      'Emergency Patients', '133'),
-                                  homeCard(SvgPicture.asset('assets/surgery.svg',color: darkYellow,),
-                                      'Surgery Performed', '13'),
-                                  homeCard(SvgPicture.asset('assets/pathology.svg',color: darkYellow,),
-                                      'Pathology', '120'),
-                                  homeCard(SvgPicture.asset('assets/radiology.svg',color: darkYellow,),
-                                      'Radiology', '120'),
+                                  homeCard(
+                                      SvgPicture.asset('assets/people.svg',
+                                          color: darkYellow),
+                                      'Total Patients Served',
+                                      '1233'),
+                                  homeCard(
+                                      SvgPicture.asset(
+                                        'assets/opd.svg',
+                                        color: darkYellow,
+                                      ),
+                                      'OPD Patients',
+                                      '133'),
+                                  homeCard(
+                                      SvgPicture.asset('assets/ipd.svg',
+                                          color: darkYellow),
+                                      'IPD Patients',
+                                      '223'),
+                                  homeCard(
+                                      SvgPicture.asset('assets/emergency.svg'),
+                                      'Emergency Patients',
+                                      '133'),
+                                  homeCard(
+                                      SvgPicture.asset(
+                                        'assets/surgery.svg',
+                                        color: darkYellow,
+                                      ),
+                                      'Surgery Performed',
+                                      '13'),
+                                  homeCard(
+                                      SvgPicture.asset(
+                                        'assets/pathology.svg',
+                                        color: darkYellow,
+                                      ),
+                                      'Pathology',
+                                      '120'),
+                                  homeCard(
+                                      SvgPicture.asset(
+                                        'assets/radiology.svg',
+                                        color: darkYellow,
+                                      ),
+                                      'Radiology',
+                                      '120'),
                                 ]),
                           ]),
                     ]))));
@@ -236,12 +264,16 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
               children: [
                 Text(
                   Namewidget,
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 15),
                 ),
-                const SizedBox(height: 5,),
+                const SizedBox(
+                  height: 5,
+                ),
                 Text(
                   itemwidget,
-                  style: const TextStyle(fontWeight: FontWeight.bold,color: Colors.green),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.green),
                 ),
               ],
             ),
