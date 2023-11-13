@@ -26,7 +26,7 @@ class Doctor_Home_Bottom_bar extends StatefulWidget {
 class _Doctor_Home_Bottom_barState extends State<Doctor_Home_Bottom_bar> {
   String Patient_id = '';
 
-  DateTime? currentBackPressTime; // Track back button press time
+  DateTime? currentBackPressTime; 
   Future<bool> _onBackPressed() {
     final now = DateTime.now();
     if (currentBackPressTime == null ||
