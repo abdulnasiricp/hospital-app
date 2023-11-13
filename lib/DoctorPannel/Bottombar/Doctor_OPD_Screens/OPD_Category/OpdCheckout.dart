@@ -1,18 +1,10 @@
 // ignore_for_file: file_names, camel_case_types, duplicate_ignore, avoid_print, sized_box_for_whitespace, non_constant_identifier_names, unused_field, deprecated_member_use, unnecessary_null_comparison, unnecessary_string_interpolations
 
-import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/opd_tickets_details.dart';
-import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
-import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'package:lottie/lottie.dart';
 
 class Opd_Check_Out extends StatefulWidget {
   const Opd_Check_Out({Key? key}) : super(key: key);
@@ -239,7 +231,7 @@ class _General_Opd_Tickets_FormState extends State<Opd_Check_Out> {
                 color: yellow,
                 width: width,
                 height: height / 15,
-                child: ElevatedButton(child: Text("Save"), onPressed: () {}),
+                child: ElevatedButton(child: const Text("Save"), onPressed: () {}),
               )),
             ],
           ),
