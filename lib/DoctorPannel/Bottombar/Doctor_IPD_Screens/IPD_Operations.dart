@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace, file_names
+// ignore_for_file: sized_box_for_whitespace, file_names, unused_local_variable
 
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -12,20 +12,16 @@ class IpdOperations extends StatefulWidget {
 }
 
 class _IpdOperationsState extends State<IpdOperations> {
+  List<Widget> surguryrows = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('IPD Operations'),
-      //   centerTitle: true,
-      //   backgroundColor: darkYellow,
-      // ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(5.0),
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(5.0),
               child: Row(
                 children: [
                   Column(
@@ -40,7 +36,7 @@ class _IpdOperationsState extends State<IpdOperations> {
                         height: 5,
                       ),
                       Container(
-                        width: width / 3,
+                        width: width / 3.5,
                         height: 40,
                         child: Center(
                           child: InkWell(
@@ -67,7 +63,7 @@ class _IpdOperationsState extends State<IpdOperations> {
                     ],
                   ),
                   const SizedBox(
-                    width: 10,
+                    width: 5,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,6 +99,59 @@ class _IpdOperationsState extends State<IpdOperations> {
                       ),
                     ],
                   ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        ' ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 12),
+                      ),
+                      Container(
+                        width: width / 9,
+                        // height: 40,
+                        child: Center(
+                          child: CircleAvatar(
+                            child: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  // Add a new row when the "Add" button is clicked
+                                  surguryrows.add(dragBuildRow());
+                                });
+                              },
+                              icon: Icon(
+                                Icons.add,
+                                color: whitecolor,
+                              ),
+                              
+                            ),
+                            backgroundColor: Colors.green,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Container(
+              height: 80,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: surguryrows.length,
+                      itemBuilder: (context, index) {
+                        return surguryrows[index];
+                      },
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -120,9 +169,10 @@ class _IpdOperationsState extends State<IpdOperations> {
                 ),
               ),
             ),
-            const SizedBox(height: 20,),
-
-             Padding(
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 width: double.infinity,
@@ -130,7 +180,7 @@ class _IpdOperationsState extends State<IpdOperations> {
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                     Column(
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -141,7 +191,6 @@ class _IpdOperationsState extends State<IpdOperations> {
                         SizedBox(
                           height: 5,
                         ),
-                 
                       ],
                     ),
                     SizedBox(
@@ -158,13 +207,12 @@ class _IpdOperationsState extends State<IpdOperations> {
                         SizedBox(
                           height: 5,
                         ),
-                      
                       ],
                     ),
                     SizedBox(
                       width: 10,
                     ),
-                     Column(
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -175,13 +223,12 @@ class _IpdOperationsState extends State<IpdOperations> {
                         SizedBox(
                           height: 5,
                         ),
-                        
                       ],
                     ),
                     SizedBox(
                       width: 10,
                     ),
-                     Column(
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -192,7 +239,6 @@ class _IpdOperationsState extends State<IpdOperations> {
                         SizedBox(
                           height: 5,
                         ),
-                        
                       ],
                     ),
                     SizedBox(
@@ -209,7 +255,6 @@ class _IpdOperationsState extends State<IpdOperations> {
                         SizedBox(
                           height: 5,
                         ),
-                        
                       ],
                     ),
                   ],
@@ -218,6 +263,87 @@ class _IpdOperationsState extends State<IpdOperations> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget dragBuildRow() {
+    TextEditingController textFieldController = TextEditingController();
+
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            width: width / 3.5,
+            height: 40,
+            child: Center(
+              child: InkWell(
+                  child: TextFormField(
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'This field is required';
+                  }
+                  return null;
+                },
+                readOnly: true, // Set this to true to disable the keyboard
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Select options',
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+                  fillColor: Colors.white,
+                  filled: true,
+                ),
+              )),
+            ),
+          ),
+         
+          Container(
+            width: width / 2,
+            height: 40,
+            child: Center(
+              child: TextFormField(
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'This field is required';
+                  }
+                  return null;
+                },
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+                  fillColor: Colors.white,
+                  filled: true,
+                ),
+              ),
+            ),
+          ),
+         
+          Container(
+            width: width / 9,
+            // height: 40,
+            child: Center(
+              child: CircleAvatar(
+                child: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        // Remove the row when the "Cancel" button is clicked
+                        surguryrows.removeLast();
+                      });
+                    },
+                    icon: Icon(
+                      Icons.cancel,
+                      color: whitecolor,
+                    )),
+                radius: 20,
+                backgroundColor: Colors.green,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

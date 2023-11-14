@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace, file_names
+// ignore_for_file: sized_box_for_whitespace, file_names, unused_local_variable
 
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -12,14 +12,10 @@ class IpdMedication extends StatefulWidget {
 }
 
 class _IpdMedicationState extends State<IpdMedication> {
+  List<Widget> addMedicationrows = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('IPD Medication'),
-      //   centerTitle: true,
-      //   backgroundColor: darkYellow,
-      // ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
@@ -28,13 +24,14 @@ class _IpdMedicationState extends State<IpdMedication> {
               Container(
                 // color: Colors.purple[100],
                 color: Colors.green[100],
-        
+
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
                       'Add Medication Dose',
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                     const SizedBox(
                       height: 10,
@@ -122,7 +119,7 @@ class _IpdMedicationState extends State<IpdMedication> {
                             children: [
                               const Text(
                                 'Medicine Name',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
                               ),
                               Container(
                                 width: width / 4,
@@ -152,10 +149,10 @@ class _IpdMedicationState extends State<IpdMedication> {
                             children: [
                               const Text(
                                 'Dosage',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
                               ),
                               Container(
-                                width: width / 6,
+                                width: width / 7,
                                 height: 30,
                                 child: Center(
                                   child: InkWell(
@@ -182,10 +179,10 @@ class _IpdMedicationState extends State<IpdMedication> {
                             children: [
                               const Text(
                                 'Friquency',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
                               ),
                               Container(
-                                width: width / 6,
+                                width: width / 7,
                                 height: 30,
                                 child: Center(
                                   child: InkWell(
@@ -212,10 +209,10 @@ class _IpdMedicationState extends State<IpdMedication> {
                             children: [
                               const Text(
                                 'No of Days',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
                               ),
                               Container(
-                                width: width / 6,
+                                width: width / 7,
                                 height: 30,
                                 child: Center(
                                   child: InkWell(
@@ -242,10 +239,10 @@ class _IpdMedicationState extends State<IpdMedication> {
                             children: [
                               const Text(
                                 'Qty',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
                               ),
                               Container(
-                                width: width / 6,
+                                width: width / 7,
                                 height: 30,
                                 child: Center(
                                   child: InkWell(
@@ -267,12 +264,63 @@ class _IpdMedicationState extends State<IpdMedication> {
                               ),
                             ],
                           ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                ' ',
+                                style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
+                              ),
+                              Container(
+                                width: width / 9,
+                                // height: 40,
+                                child: Center(
+                                  child: CircleAvatar(
+                                    child: IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            // Add a new row when the "Add" button is clicked
+                                            addMedicationrows
+                                                .add(observationBuildRow());
+                                          });
+                                        },
+                                        icon: Icon(
+                                          Icons.add,
+                                          color: whitecolor,
+                                        ),
+                                        ),
+                            backgroundColor: Colors.green,
+
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                     const SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        height: 80,
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: ListView.builder(
+                                itemCount: addMedicationrows.length,
+                                itemBuilder: (context, index) {
+                                  return addMedicationrows[index];
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+
+
+                   
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -289,8 +337,7 @@ class _IpdMedicationState extends State<IpdMedication> {
                                   fillColor: Colors.white,
                                   filled: true),
                             )),
-                      
-                     Padding(
+                        Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
                               alignment: Alignment.bottomRight,
@@ -305,36 +352,46 @@ class _IpdMedicationState extends State<IpdMedication> {
                                 ),
                               )),
                         ),
-                      
                         Container(
                           color: Colors.green[100],
                           child: const Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Medication Reports',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                              SizedBox(height: 10,),
+                              Text(
+                                'Medication Reports',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 20),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     'S.No',
-                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
                                   ),
-                                   Text(
+                                  Text(
                                     'MID No',
-                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
                                   ),
-                                   Text(
+                                  Text(
                                     'View',
-                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
                                   ),
-                                  
                                 ],
                               ),
                             ],
                           ),
                         ),
-                        const SizedBox(height: 20,),
+                        const SizedBox(
+                          height: 20,
+                        ),
                       ],
                     ),
                   ],
@@ -344,6 +401,149 @@ class _IpdMedicationState extends State<IpdMedication> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget observationBuildRow() {
+    TextEditingController textFieldController = TextEditingController();
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          width: width / 4,
+          height: 30,
+          child: Center(
+            child: InkWell(
+                child: TextFormField(
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'This field is required';
+                }
+                return null;
+              },
+              // Set this to true to disable the keyboard
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                fillColor: Colors.white,
+                filled: true,
+              ),
+            )),
+          ),
+        ),
+       const SizedBox(width: 2,),
+       
+        Container(
+          width: width / 7,
+          height: 30,
+          child: Center(
+            child: InkWell(
+                child: TextFormField(
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'This field is required';
+                }
+                return null;
+              },
+              // Set this to true to disable the keyboard
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                fillColor: Colors.white,
+                filled: true,
+              ),
+            )),
+          ),
+        ),
+       const SizedBox(width: 2,),
+       
+       Container(
+          width: width / 7,
+          height: 30,
+          child: Center(
+            child: InkWell(
+                child: TextFormField(
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'This field is required';
+                }
+                return null;
+              },
+              // Set this to true to disable the keyboard
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                fillColor: Colors.white,
+                filled: true,
+              ),
+            )),
+          ),
+        ),
+       const SizedBox(width: 2,),
+      
+       Container(
+          width: width / 7,
+          height: 30,
+          child: Center(
+            child: InkWell(
+                child: TextFormField(
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'This field is required';
+                }
+                return null;
+              },
+              // Set this to true to disable the keyboard
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                fillColor: Colors.white,
+                filled: true,
+              ),
+            )),
+          ),
+        ),
+       const SizedBox(width: 2,),
+        Container(
+          width: width / 7,
+          height: 30,
+          child: Center(
+            child: InkWell(
+                child: TextFormField(
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'This field is required';
+                }
+                return null;
+              },
+              // Set this to true to disable the keyboard
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                fillColor: Colors.white,
+                filled: true,
+              ),
+            )),
+          ),
+        ),
+        Container(
+          width: width / 9,
+          // height: 40,
+          child: Center(
+            child: CircleAvatar(
+              child: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      // Remove the row when the "Cancel" button is clicked
+                      addMedicationrows.removeLast();
+                    });
+                  },
+                  icon: Icon(
+                    Icons.cancel,
+                    color: whitecolor,
+                  )),
+              // radius: 17,
+              backgroundColor: Colors.green,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

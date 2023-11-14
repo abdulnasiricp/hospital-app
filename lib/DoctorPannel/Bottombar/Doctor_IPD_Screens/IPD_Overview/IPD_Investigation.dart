@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace, unnecessary_string_interpolations, unnecessary_null_comparison, file_names
+// ignore_for_file: sized_box_for_whitespace, unnecessary_string_interpolations, unnecessary_null_comparison, file_names, unused_local_variable
 
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -12,6 +12,7 @@ class IpdInvestigation extends StatefulWidget {
 }
 
 class _IpdInvestigationState extends State<IpdInvestigation> {
+  List<Widget> othertestrows = [];
   List<String> selectedDiagnosisOptions = [];
   TextEditingController diagnosisController = TextEditingController();
 
@@ -91,7 +92,7 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
                     height: 5,
                   ),
                   Container(
-                    width: width / 2.2,
+                    width: width / 2.5,
                     height: 30,
                     color: Colors.green[300],
                     child: const Center(
@@ -105,7 +106,7 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
                     height: 5,
                   ),
                   Container(
-                    width: width / 2.2,
+                    width: width / 2.5,
                     height: 30,
                     child: Center(
                       child: InkWell(
@@ -149,7 +150,7 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
                     height: 5,
                   ),
                   Container(
-                    width: width / 2.2,
+                    width: width / 2,
                     height: 30,
                     color: Colors.green[300],
                     child: const Center(
@@ -162,34 +163,62 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
                   const SizedBox(
                     height: 5,
                   ),
-                  Container(
-                    width: width / 2.2,
-                    height: 30,
-                    child: Center(
-                      child: InkWell(
-                          child: TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'This field is required';
-                          }
-                          return null;
-                        },
-                        readOnly:
-                            true, // Set this to true to disable the keyboard
-                        controller: diagnosisController,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'Select options',
-                          contentPadding: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 10),
-                          fillColor: Colors.white,
-                          filled: true,
+                  Row(
+                    children: [
+                      Container(
+                        width: width / 2.5,
+                        height: 30,
+                        child: Center(
+                          child: InkWell(
+                              child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'This field is required';
+                              }
+                              return null;
+                            },
+                            readOnly:
+                                true, // Set this to true to disable the keyboard
+                            controller: diagnosisController,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Select options',
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10),
+                              fillColor: Colors.white,
+                              filled: true,
+                            ),
+                            onTap: () {
+                              selectDiagnosisOptions(context);
+                            },
+                          )),
                         ),
-                        onTap: () {
-                          selectDiagnosisOptions(context);
-                        },
-                      )),
-                    ),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Container(
+                        width: width / 10,
+                        // height: 40,
+                        child: Center(
+                          child: CircleAvatar(
+                            child: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  // Add a new row when the "Add" button is clicked
+                                  othertestrows.add(dragBuildRow());
+                                });
+                              },
+                              icon: Icon(
+                                Icons.add,
+                                color: whitecolor,
+                              ),
+                            ),
+                            backgroundColor: Colors.green,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -197,6 +226,21 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
           ),
           const SizedBox(
             height: 10,
+          ),
+          Container(
+            height: 80,
+            child: Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: othertestrows.length,
+                    itemBuilder: (context, index) {
+                      return othertestrows[index];
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -442,6 +486,67 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
           },
         );
       },
+    );
+  }
+
+  Widget dragBuildRow() {
+    TextEditingController textFieldController = TextEditingController();
+
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: Row(
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            width: width / 1.5,
+            height: 40,
+            child: Center(
+              child: InkWell(
+                  child: TextFormField(
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'This field is required';
+                  }
+                  return null;
+                },
+                readOnly: true, // Set this to true to disable the keyboard
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Select options',
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+                  fillColor: Colors.white,
+                  filled: true,
+                ),
+              )),
+            ),
+          ),
+          SizedBox(
+            width: 5,
+          ),
+          Container(
+            width: width / 9,
+            // height: 40,
+            child: Center(
+              child: CircleAvatar(
+                child: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        // Remove the row when the "Cancel" button is clicked
+                        othertestrows.removeLast();
+                      });
+                    },
+                    icon: Icon(
+                      Icons.cancel,
+                      color: whitecolor,
+                    )),
+                // radius: 17,
+                backgroundColor: Colors.green,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

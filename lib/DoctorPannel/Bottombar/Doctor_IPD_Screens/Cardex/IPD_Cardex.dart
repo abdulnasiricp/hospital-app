@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace, file_names
+// ignore_for_file: sized_box_for_whitespace, file_names, dead_code
 
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -12,7 +12,9 @@ class IPDCardex extends StatefulWidget {
 }
 
 class _IPDCardexState extends State<IPDCardex> {
-  List<Widget> rows = [];
+  List<Widget> dragrows = [];
+  List<Widget> drainagegrows = [];
+  List<Widget> obesvationrows = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -156,13 +158,40 @@ class _IPDCardexState extends State<IPDCardex> {
                             child: Center(
                               child: CircleAvatar(
                                 child: IconButton(
-                                    onPressed: () {}, icon: const Icon(Icons.add)),
+                                    onPressed: () {
+                                      setState(() {
+                                        // Add a new row when the "Add" button is clicked
+                                        dragrows.add(dragBuildRow());
+                                      });
+                                    },
+                                    icon: Icon(
+                                      Icons.add,
+                                      color: whitecolor,
+                                    )),
                                 radius: 20,
                                 backgroundColor: Colors.green,
                               ),
                             ),
                           ),
                         ],
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        height: 80,
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: ListView.builder(
+                                itemCount: dragrows.length,
+                                itemBuilder: (context, index) {
+                                  return dragrows[index];
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -277,6 +306,11 @@ class _IPDCardexState extends State<IPDCardex> {
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 15),
                               ),
+                              Text(
+                                '   ',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
                             ],
                           ),
                         ),
@@ -288,7 +322,7 @@ class _IPDCardexState extends State<IPDCardex> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            width: width / 4,
+                            width: width / 4.5,
                             height: 40,
                             child: Center(
                               child: InkWell(
@@ -310,10 +344,10 @@ class _IPDCardexState extends State<IPDCardex> {
                             ),
                           ),
                           const SizedBox(
-                            width: 10,
+                            width: 5,
                           ),
                           Container(
-                            width: width / 7,
+                            width: width / 7.5,
                             height: 40,
                             child: Center(
                               child: InkWell(
@@ -335,10 +369,10 @@ class _IPDCardexState extends State<IPDCardex> {
                             ),
                           ),
                           const SizedBox(
-                            width: 10,
+                            width: 5,
                           ),
                           Container(
-                            width: width / 7,
+                            width: width / 7.5,
                             height: 40,
                             child: Center(
                               child: InkWell(
@@ -360,10 +394,10 @@ class _IPDCardexState extends State<IPDCardex> {
                             ),
                           ),
                           const SizedBox(
-                            width: 10,
+                            width: 5,
                           ),
                           Container(
-                            width: width / 7,
+                            width: width / 7.5,
                             height: 40,
                             child: Center(
                               child: InkWell(
@@ -385,10 +419,10 @@ class _IPDCardexState extends State<IPDCardex> {
                             ),
                           ),
                           const SizedBox(
-                            width: 10,
+                            width: 5,
                           ),
                           Container(
-                            width: width / 7,
+                            width: width / 7.5,
                             height: 40,
                             child: Center(
                               child: InkWell(
@@ -407,9 +441,48 @@ class _IPDCardexState extends State<IPDCardex> {
                                   filled: true,
                                 ),
                               )),
+                            ),
+                          ),
+                          Container(
+                            width: width / 7,
+                            height: 40,
+                            child: Center(
+                              child: CircleAvatar(
+                                child: IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        // Add a new row when the "Add" button is clicked
+                                        obesvationrows.add(observationBuildRow());
+                                      });
+                                    },
+                                    icon: Icon(
+                                      Icons.add,
+                                      color: whitecolor,
+                                    )),
+                                radius: 20,
+                                backgroundColor: Colors.green,
+                              ),
                             ),
                           ),
                         ],
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        height: 80,
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: ListView.builder(
+                                itemCount: obesvationrows.length,
+                                itemBuilder: (context, index) {
+                                  return obesvationrows[index];
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -527,6 +600,12 @@ class _IPDCardexState extends State<IPDCardex> {
                                             fontWeight: FontWeight.bold,
                                             fontSize: 15),
                                       ),
+                                      Text(
+                                        ' ',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -564,7 +643,7 @@ class _IPDCardexState extends State<IPDCardex> {
                                     width: 10,
                                   ),
                                   Container(
-                                    width: width / 3.5,
+                                    width: width / 4.5,
                                     height: 40,
                                     child: Center(
                                       child: InkWell(
@@ -589,7 +668,7 @@ class _IPDCardexState extends State<IPDCardex> {
                                     width: 10,
                                   ),
                                   Container(
-                                    width: width / 3.5,
+                                    width: width / 4.5,
                                     height: 40,
                                     child: Center(
                                       child: InkWell(
@@ -610,7 +689,46 @@ class _IPDCardexState extends State<IPDCardex> {
                                       )),
                                     ),
                                   ),
+                                  Container(
+                                    width: width / 6,
+                                    height: 40,
+                                    child: Center(
+                                      child: CircleAvatar(
+                                        child: IconButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                // Add a new row when the "Add" button is clicked
+                                                drainagegrows.add(drainageBuildRow());
+                                              });
+                                            },
+                                            icon: Icon(
+                                              Icons.add,
+                                              color: whitecolor,
+                                            )),
+                                        radius: 20,
+                                        backgroundColor: Colors.green,
+                                      ),
+                                    ),
+                                  ),
                                 ],
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Container(
+                                height: 80,
+                                child: Column(
+                                  children: [
+                                    Expanded(
+                                      child: ListView.builder(
+                                        itemCount: drainagegrows.length,
+                                        itemBuilder: (context, index) {
+                                          return drainagegrows[index];
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -848,6 +966,368 @@ class _IPDCardexState extends State<IPDCardex> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget dragBuildRow() {
+    TextEditingController textFieldController = TextEditingController();
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          width: width / 3.5,
+          height: 40,
+          child: Center(
+            child: InkWell(
+                child: TextFormField(
+              controller: textFieldController,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'This field is required';
+                }
+                return null;
+              },
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+                fillColor: Colors.white,
+                filled: true,
+              ),
+            )),
+          ),
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        Container(
+          width: width / 4.5,
+          height: 40,
+          child: Center(
+            child: InkWell(
+                child: TextFormField(
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'This field is required';
+                }
+                return null;
+              },
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+                fillColor: Colors.white,
+                filled: true,
+              ),
+            )),
+          ),
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        Container(
+          width: width / 4.5,
+          height: 40,
+          child: Center(
+            child: InkWell(
+                child: TextFormField(
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'This field is required';
+                }
+                return null;
+              },
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+                fillColor: Colors.white,
+                filled: true,
+              ),
+            )),
+          ),
+        ),
+        Container(
+          width: width / 6,
+          height: 40,
+          child: Center(
+            child: CircleAvatar(
+              child: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      // Remove the row when the "Cancel" button is clicked
+                      dragrows.removeLast();
+                    });
+                  },
+                  icon: Icon(
+                    Icons.cancel,
+                    color: whitecolor,
+                  )),
+              radius: 20,
+              backgroundColor: Colors.green,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget drainageBuildRow() {
+    TextEditingController textFieldController = TextEditingController();
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          width: width / 3.5,
+          height: 40,
+          child: Center(
+            child: InkWell(
+                child: TextFormField(
+              controller: textFieldController,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'This field is required';
+                }
+                return null;
+              },
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+                fillColor: Colors.white,
+                filled: true,
+              ),
+            )),
+          ),
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        Container(
+          width: width / 4.5,
+          height: 40,
+          child: Center(
+            child: InkWell(
+                child: TextFormField(
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'This field is required';
+                }
+                return null;
+              },
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+                fillColor: Colors.white,
+                filled: true,
+              ),
+            )),
+          ),
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        Container(
+          width: width / 4.5,
+          height: 40,
+          child: Center(
+            child: InkWell(
+                child: TextFormField(
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'This field is required';
+                }
+                return null;
+              },
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+                fillColor: Colors.white,
+                filled: true,
+              ),
+            )),
+          ),
+        ),
+        Container(
+          width: width / 6,
+          height: 40,
+          child: Center(
+            child: CircleAvatar(
+              child: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      // Remove the row when the "Cancel" button is clicked
+                      drainagegrows.removeLast();
+                    });
+                  },
+                  icon: Icon(
+                    Icons.cancel,
+                    color: whitecolor,
+                  )),
+              radius: 20,
+              backgroundColor: Colors.green,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget observationBuildRow() {
+    TextEditingController textFieldController = TextEditingController();
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          width: width / 4.5,
+          height: 40,
+          child: Center(
+            child: InkWell(
+                child: TextFormField(
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'This field is required';
+                }
+                return null;
+              },
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+                fillColor: Colors.white,
+                filled: true,
+              ),
+            )),
+          ),
+        ),
+        const SizedBox(
+          width: 5,
+        ),
+        Container(
+          width: width / 7.5,
+          height: 40,
+          child: Center(
+            child: InkWell(
+                child: TextFormField(
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'This field is required';
+                }
+                return null;
+              },
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+                fillColor: Colors.white,
+                filled: true,
+              ),
+            )),
+          ),
+        ),
+        const SizedBox(
+          width: 5,
+        ),
+        Container(
+          width: width / 7.5,
+          height: 40,
+          child: Center(
+            child: InkWell(
+                child: TextFormField(
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'This field is required';
+                }
+                return null;
+              },
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+                fillColor: Colors.white,
+                filled: true,
+              ),
+            )),
+          ),
+        ),
+        const SizedBox(
+          width: 5,
+        ),
+        Container(
+          width: width / 7.5,
+          height: 40,
+          child: Center(
+            child: InkWell(
+                child: TextFormField(
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'This field is required';
+                }
+                return null;
+              },
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+                fillColor: Colors.white,
+                filled: true,
+              ),
+            )),
+          ),
+        ),
+        const SizedBox(
+          width: 5,
+        ),
+        Container(
+          width: width / 7.5,
+          height: 40,
+          child: Center(
+            child: InkWell(
+                child: TextFormField(
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'This field is required';
+                }
+                return null;
+              },
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+                fillColor: Colors.white,
+                filled: true,
+              ),
+            )),
+          ),
+        ),
+      
+        Container(
+          width: width / 7,
+          height: 40,
+          child: Center(
+            child: CircleAvatar(
+              child: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      // Remove the row when the "Cancel" button is clicked
+                      obesvationrows.removeLast();
+                    });
+                  },
+                  icon: Icon(
+                    Icons.cancel,
+                    color: whitecolor,
+                  )),
+              radius: 20,
+              backgroundColor: Colors.green,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

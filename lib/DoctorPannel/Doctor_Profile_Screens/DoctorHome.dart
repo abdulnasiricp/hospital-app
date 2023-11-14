@@ -178,7 +178,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                   .end, // Aligns text to the end of the column
                               children: [
                                 Text(
-                                  '${'DoctorID'.tr} $id'.isEmpty
+                                  '${'Doctor ID'.tr} $id'.isEmpty
                                       ? "N/A"
                                       : '${'DoctorID'.tr} $id',
                                   style: const TextStyle(
