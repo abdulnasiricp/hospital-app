@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace, file_names, dead_code
+// ignore_for_file: sized_box_for_whitespace, file_names, dead_code, unused_local_variable
 
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -178,19 +178,18 @@ class _IPDCardexState extends State<IPDCardex> {
                       const SizedBox(
                         height: 5,
                       ),
+
                       Container(
-                        height: 80,
-                        child: Column(
-                          children: [
-                            Expanded(
-                              child: ListView.builder(
-                                itemCount: dragrows.length,
-                                itemBuilder: (context, index) {
-                                  return dragrows[index];
-                                },
-                              ),
-                            ),
-                          ],
+
+                        height: dragrows.isNotEmpty ? null : 0,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+
+                          itemCount: dragrows.length,
+                          itemBuilder: (context, index) {
+                            return dragrows[index];
+                          },
                         ),
                       ),
                       Padding(
@@ -469,19 +468,18 @@ class _IPDCardexState extends State<IPDCardex> {
                       const SizedBox(
                         height: 5,
                       ),
+
                       Container(
-                        height: 80,
-                        child: Column(
-                          children: [
-                            Expanded(
-                              child: ListView.builder(
-                                itemCount: obesvationrows.length,
-                                itemBuilder: (context, index) {
-                                  return obesvationrows[index];
-                                },
-                              ),
-                            ),
-                          ],
+
+                        height: obesvationrows.isNotEmpty ? null : 0,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+
+                          itemCount: obesvationrows.length,
+                          itemBuilder: (context, index) {
+                            return obesvationrows[index];
+                          },
                         ),
                       ),
                       Padding(
@@ -715,19 +713,18 @@ class _IPDCardexState extends State<IPDCardex> {
                               const SizedBox(
                                 height: 5,
                               ),
+
                               Container(
-                                height: 80,
-                                child: Column(
-                                  children: [
-                                    Expanded(
-                                      child: ListView.builder(
-                                        itemCount: drainagegrows.length,
-                                        itemBuilder: (context, index) {
-                                          return drainagegrows[index];
-                                        },
-                                      ),
-                                    ),
-                                  ],
+
+                                height: drainagegrows.isNotEmpty ? null : 0,
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+
+                                  itemCount: drainagegrows.length,
+                                  itemBuilder: (context, index) {
+                                    return drainagegrows[index];
+                                  },
                                 ),
                               ),
                               Padding(

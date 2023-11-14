@@ -13,6 +13,8 @@ class IpdInvestigation extends StatefulWidget {
 
 class _IpdInvestigationState extends State<IpdInvestigation> {
   List<Widget> othertestrows = [];
+  List<Widget> radiologyrows = [];
+
   List<String> selectedDiagnosisOptions = [];
   TextEditingController diagnosisController = TextEditingController();
 
@@ -227,19 +229,18 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
           const SizedBox(
             height: 10,
           ),
+
           Container(
-            height: 80,
-            child: Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: othertestrows.length,
-                    itemBuilder: (context, index) {
-                      return othertestrows[index];
-                    },
-                  ),
-                ),
-              ],
+
+            height: othertestrows.isNotEmpty ? null : 0,
+            child: ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+
+              itemCount: othertestrows.length,
+              itemBuilder: (context, index) {
+                return othertestrows[index];
+              },
             ),
           ),
           Column(
@@ -289,7 +290,7 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
               Row(
                 children: [
                   Container(
-                    width: width / 3,
+                    width: width / 4,
                     height: 30,
                     child: Center(
                       child: InkWell(
@@ -350,10 +351,10 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
                     ),
                   ),
                   const SizedBox(
-                    width: 10,
+                    width: 5,
                   ),
                   Container(
-                    width: width / 2.5,
+                    width: width / 3,
                     height: 30,
                     child: Center(
                       child: InkWell(
@@ -375,7 +376,43 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
                       )),
                     ),
                   ),
+                  SizedBox(width: 5,),
+                  Container(
+                    width: width / 9,
+                    height: 40,
+                    child: Center(
+                      child: CircleAvatar(
+                        child: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                // Add a new row when the "Add" button is clicked
+                                radiologyrows.add(radiologyBuildRow());
+                              });
+                            },
+                            icon: Icon(
+                              Icons.add,
+                              color: whitecolor,
+                            )),
+                        radius: 20,
+                        backgroundColor: Colors.green,
+                      ),
+                    ),
+                  ),
                 ],
+              ),
+              SizedBox(height: 5,),
+              Container(
+
+                height: radiologyrows.isNotEmpty ? null : 0,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+
+                  itemCount: radiologyrows.length,
+                  itemBuilder: (context, index) {
+                    return radiologyrows[index];
+                  },
+                ),
               ),
               const SizedBox(height: 20),
               Center(
@@ -534,6 +571,131 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
                       setState(() {
                         // Remove the row when the "Cancel" button is clicked
                         othertestrows.removeLast();
+                      });
+                    },
+                    icon: Icon(
+                      Icons.cancel,
+                      color: whitecolor,
+                    )),
+                // radius: 17,
+                backgroundColor: Colors.green,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+
+  Widget radiologyBuildRow() {
+    TextEditingController textFieldController = TextEditingController();
+
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: Row(
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            width: width / 4,
+            height: 30,
+            child: Center(
+              child: InkWell(
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'This field is required';
+                      }
+                      return null;
+                    },
+                    readOnly:
+                    true, // Set this to true to disable the keyboard
+                    controller: diagnosisController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Select options',
+                      contentPadding: EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 10),
+                      fillColor: Colors.white,
+                      filled: true,
+                    ),
+                    onTap: () {
+                      selectDiagnosisOptions(context);
+                    },
+                  )),
+            ),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Container(
+            width: width / 6,
+            height: 30,
+            child: Center(
+              child: InkWell(
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'This field is required';
+                      }
+                      return null;
+                    },
+                    readOnly:
+                    true, // Set this to true to disable the keyboard
+                    controller: diagnosisController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Select options',
+                      contentPadding: EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 10),
+                      fillColor: Colors.white,
+                      filled: true,
+                    ),
+                    onTap: () {
+                      selectDiagnosisOptions(context);
+                    },
+                  )),
+            ),
+          ),
+          const SizedBox(
+            width: 5,
+          ),
+          Container(
+            width: width / 3,
+            height: 30,
+            child: Center(
+              child: InkWell(
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'This field is required';
+                      }
+                      return null;
+                    },
+                    // Set this to true to disable the keyboard
+                    // controller: diagnosisController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Additional note',
+                      contentPadding: EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 10),
+                    ),
+                  )),
+            ),
+          ),
+          SizedBox(
+            width: 5,
+          ),
+          Container(
+            width: width / 9,
+            // height: 40,
+            child: Center(
+              child: CircleAvatar(
+                child: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        // Remove the row when the "Cancel" button is clicked
+                        radiologyrows.removeLast();
                       });
                     },
                     icon: Icon(
