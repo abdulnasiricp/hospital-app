@@ -133,7 +133,7 @@ class _PatientLoginState extends State<PatientLogin> {
         sp.setString('timezone', json['record']['timezone']);
         sp.setString('image', json['record']['image']);
         sp.setString('token', json['record']['token']);
-        Get.to(() => const Doctor_Home_Bottom_bar());
+        Get.offAll(() => const Doctor_Home_Bottom_bar());
         setState(() {
           Fluttertoast.showToast(
             msg: 'Login Successfully',

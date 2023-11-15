@@ -102,7 +102,8 @@ class _IpdHomeState extends State<IpdHome> {
                                     // Get.to(() => const IpdMedication());
                                     // Get.to(() => const IpdOperations());
                                     // Get.to(() => const IpdBedHistory());
-                                    Get.to(() => const IpdMainScreen());
+                                    Get.to(
+                                            () => const IpdMainScreen());
 
 
                                   },

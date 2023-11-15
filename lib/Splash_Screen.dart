@@ -13,15 +13,20 @@ class Splash_Screen extends StatefulWidget {
 }
 
 class _Splash_ScreenState extends State<Splash_Screen> {
+  late Timer _timer;
+
   @override
   void initState() {
     super.initState();
-    startTime();
+    _timer = Timer(Duration(seconds: 3), () {
+      route();
+    });
   }
 
-  startTime() async {
-    var duration = const Duration(seconds: 3);
-    return new Timer(duration, route);
+  @override
+  void dispose() {
+    _timer.cancel(); // Cancel the timer when the widget is disposed
+    super.dispose();
   }
 
   route() {

@@ -45,4 +45,6 @@ class ApiLinks {
    static const String generateCertificate="$BASE_URL/generateCertificate";
    static const String duePayment="$BASE_URL/duePayment";
    static const String notifier="$BASE_URL/notifier";
+  static const String singleTableDataDetector="$BASE_URL/db_table";
+
 }
