@@ -1322,8 +1322,8 @@ class _General_Opd_Tickets_FormState extends State<General_Opd_Tickets_Form> {
                                 child: ListTile(
                                   title: Text(
                                     '$item',
-                                    style:
-                                        const TextStyle(fontWeight: FontWeight.bold),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
                                   ),
                                   onTap: () {
                                     selectedTicketTypeId =

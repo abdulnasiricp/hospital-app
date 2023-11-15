@@ -4,6 +4,7 @@ import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:html_editor_enhanced/html_editor.dart';
 import 'package:intl/intl.dart';
 
 class Opd_Check_Out extends StatefulWidget {
@@ -14,6 +15,8 @@ class Opd_Check_Out extends StatefulWidget {
 }
 
 class _General_Opd_Tickets_FormState extends State<Opd_Check_Out> {
+  String selectedDischargeStatus = '';
+
   final double _progress = 0.0; // Declare _progress here
   InAppWebViewController? webView; // Declare webView here
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -43,6 +46,8 @@ class _General_Opd_Tickets_FormState extends State<Opd_Check_Out> {
       });
     }
   }
+
+  HtmlEditorController DischargeDetailController = HtmlEditorController();
 
   @override
   Widget build(BuildContext context) {
@@ -141,35 +146,39 @@ class _General_Opd_Tickets_FormState extends State<Opd_Check_Out> {
                           height: 5,
                         ),
                         InkWell(
-                            child: TextFormField(
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'This field is required';
-                            }
-                            return null;
-                          },
-                          readOnly:
-                              true, // Set this to true to disable the keyboard
-                          // controller: departmentController,
-                          decoration: InputDecoration(
-                            suffixIcon: IconButton(
-                              icon: const Icon(
-                                Icons.arrow_drop_down_sharp,
-                                size: 40,
-                              ),
-                              onPressed: () {
-                                // _showDepartmentSelection(context);
-                              },
-                            ),
-                            border: const OutlineInputBorder(),
-                            hintText: 'Select department',
-                            fillColor: Colors.white,
-                            filled: true,
-                          ),
                           onTap: () {
-                            // _showDepartmentSelection(context);
+                            _showDischargeStatusOptions(context);
                           },
-                        )),
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'This field is required';
+                              }
+                              return null;
+                            },
+                            readOnly: true,
+                            decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                icon: const Icon(
+                                  Icons.arrow_drop_down_sharp,
+                                  size: 40,
+                                ),
+                                onPressed: () {
+                                  _showDischargeStatusOptions(context);
+                                },
+                              ),
+                              border: const OutlineInputBorder(),
+                              hintText: 'Select discharge status',
+                              fillColor: Colors.white,
+                              filled: true,
+                            ),
+                            onTap: () {
+                              _showDischargeStatusOptions(context);
+                            },
+                            controller: TextEditingController(
+                                text: selectedDischargeStatus),
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -205,38 +214,103 @@ class _General_Opd_Tickets_FormState extends State<Opd_Check_Out> {
                     const SizedBox(
                       height: 5,
                     ),
-                    TextFormField(
-                      controller: DischargeDetail,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'This field is required';
-                        }
-                        return null;
-                      },
-                      onTapOutside: (event) => FocusScope.of(context).unfocus(),
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'Discharge Detail',
-                          fillColor: Colors.white,
-                          filled: true),
+                    Column(
+                      children: [
+                        HtmlEditor(
+                          controller: DischargeDetailController,
+                          htmlEditorOptions: HtmlEditorOptions(
+                            // Set initial text here
+                            initialText: "Your text here...",
+                          ),
+                          otherOptions: OtherOptions(
+                            height: 300,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ),
               const SizedBox(
-                height: 20,
+                height: 30,
               ),
               Center(
-                  child: Container(
-                color: yellow,
-                width: width,
-                height: height / 15,
-                child: ElevatedButton(child: const Text("Save"), onPressed: () {}),
-              )),
+                child: Container(
+                  width: double.infinity,
+                  height: 40,
+                  child: ElevatedButton(
+                    child: const Text('Save'),
+                    onPressed: () {},
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(yellow),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
       ),
     ));
+  }
+
+  void _showDischargeStatusOptions(BuildContext context) {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+      ),
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          child: Wrap(
+            children: <Widget>[
+              Row(
+                mainAxisAlignment:
+                    MainAxisAlignment.spaceBetween, // Align items at the ends
+                children: <Widget>[
+                  const Expanded(
+                    child: Center(
+                      child: Text(
+                        'Select discharge status',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.close), // Close icon
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Close the bottom sheet
+                    },
+                  ),
+                ],
+              ),
+              _buildOption('Death'),
+              _buildOption('Referral'),
+              _buildOption('Normal'),
+              _buildOption('DOPR'),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildOption(String value) {
+    return Card(
+      color: Colors.white70.withOpacity(0.7),
+      child: ListTile(
+        title: Text(value),
+        onTap: () {
+          setState(() {
+            selectedDischargeStatus = value;
+            Navigator.pop(context);
+          });
+        },
+      ),
+    );
   }
 }

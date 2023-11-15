@@ -76,7 +76,7 @@ class _OpdExaminationState extends State<OpdExamination> {
               ),
               const SizedBox(height: 10),
               Container(
-                height: 200,
+                height: height/3,
                 child: Expanded(
                   child: GridView.builder(
                     gridDelegate:
