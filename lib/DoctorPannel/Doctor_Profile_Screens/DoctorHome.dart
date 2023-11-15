@@ -3,6 +3,7 @@
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/colors.dart';
+import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -200,7 +201,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                             GridView.count(
                                 physics: const NeverScrollableScrollPhysics(),
                                 crossAxisCount: 2,
-                                childAspectRatio: 2.3,
+                                childAspectRatio: 2,
                                 shrinkWrap:
                                     true, // Set to true to make the GridView scrollable within the Column
                                 children: [
@@ -243,6 +244,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                       SvgPicture.asset(
                                         'assets/radiology.svg',
                                         color: darkYellow,
+                                        fit: BoxFit.fill,
                                       ),
                                       'Radiology',
                                       '120'),
@@ -258,7 +260,8 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
             borderRadius: BorderRadius.circular(12),
           ),
           child: ListTile(
-            leading: SizedBox(width: 30, height: 30, child: Iconwidget),
+            leading:
+                Container(height: height, width: width / 8, child: Iconwidget),
             title: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

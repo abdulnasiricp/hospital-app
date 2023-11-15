@@ -451,7 +451,8 @@ class _IPDCardexState extends State<IPDCardex> {
                                     onPressed: () {
                                       setState(() {
                                         // Add a new row when the "Add" button is clicked
-                                        obesvationrows.add(observationBuildRow());
+                                        obesvationrows
+                                            .add(observationBuildRow());
                                       });
                                     },
                                     icon: Icon(
@@ -696,7 +697,8 @@ class _IPDCardexState extends State<IPDCardex> {
                                             onPressed: () {
                                               setState(() {
                                                 // Add a new row when the "Add" button is clicked
-                                                drainagegrows.add(drainageBuildRow());
+                                                drainagegrows
+                                                    .add(drainageBuildRow());
                                               });
                                             },
                                             icon: Icon(
@@ -1302,7 +1304,6 @@ class _IPDCardexState extends State<IPDCardex> {
             )),
           ),
         ),
-      
         Container(
           width: width / 7,
           height: 40,

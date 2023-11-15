@@ -2072,7 +2072,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     return Row(
       children: [
         Container(
-          width: width / 7,
+      width: width / 7,
           height: 30,
           child: Center(
             child: InkWell(
