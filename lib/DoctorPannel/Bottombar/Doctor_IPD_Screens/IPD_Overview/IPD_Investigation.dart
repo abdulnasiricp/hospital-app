@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace, unnecessary_string_interpolations, unnecessary_null_comparison, file_names, unused_local_variable
+// ignore_for_file: sized_box_for_whitespace, unnecessary_string_interpolations, unnecessary_null_comparison, file_names, unused_local_variable, avoid_print
 
 import 'dart:convert';
 
@@ -352,7 +352,7 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
                           )),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
                       Container(
@@ -391,7 +391,7 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
             height: othertestrows.isNotEmpty ? null : 0,
             child: ListView.builder(
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
 
               itemCount: othertestrows.length,
               itemBuilder: (context, index) {
@@ -537,7 +537,7 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
                       )),
                     ),
                   ),
-                  SizedBox(width: 5,),
+                  const SizedBox(width: 5,),
                   Container(
                     width: width / 9,
                     height: 40,
@@ -561,13 +561,13 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
                   ),
                 ],
               ),
-              SizedBox(height: 5,),
+              const SizedBox(height: 5,),
               Container(
 
                 height: radiologyrows.isNotEmpty ? null : 0,
                 child: ListView.builder(
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
 
                   itemCount: radiologyrows.length,
                   itemBuilder: (context, index) {
@@ -719,7 +719,7 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
               )),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 5,
           ),
           Container(
@@ -845,7 +845,7 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
                   )),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 5,
           ),
           Container(
