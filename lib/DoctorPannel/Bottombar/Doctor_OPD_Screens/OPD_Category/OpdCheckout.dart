@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, camel_case_types, duplicate_ignore, avoid_print, sized_box_for_whitespace, non_constant_identifier_names, unused_field, deprecated_member_use, unnecessary_null_comparison, unnecessary_string_interpolations
+// ignore_for_file: file_names, camel_case_types, duplicate_ignore, avoid_print, sized_box_for_whitespace, non_constant_identifier_names, unused_field, deprecated_member_use, unnecessary_null_comparison, unnecessary_string_interpolations, avoid_unnecessary_containers
 
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -218,11 +218,11 @@ class _General_Opd_Tickets_FormState extends State<Opd_Check_Out> {
                       children: [
                         HtmlEditor(
                           controller: DischargeDetailController,
-                          htmlEditorOptions: HtmlEditorOptions(
+                          htmlEditorOptions: const HtmlEditorOptions(
                             // Set initial text here
                             initialText: "Your text here...",
                           ),
-                          otherOptions: OtherOptions(
+                          otherOptions: const OtherOptions(
                             height: 300,
                           ),
                         ),

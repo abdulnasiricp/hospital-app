@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, sized_box_for_whitespace
+// ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers
 
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -25,8 +25,8 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
   TextEditingController vdcMunicipalityController = TextEditingController();
   TextEditingController wardController = TextEditingController();
   TextEditingController toleController = TextEditingController();
-  FocusNode _focusNode = FocusNode();
-  FocusNode _unUsedFocusNode = FocusNode();
+  final FocusNode _focusNode = FocusNode();
+  final FocusNode _unUsedFocusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

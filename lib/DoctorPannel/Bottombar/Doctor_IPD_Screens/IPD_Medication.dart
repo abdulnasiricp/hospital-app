@@ -310,7 +310,7 @@ class _IpdMedicationState extends State<IpdMedication> {
                         height: addMedicationrows.isNotEmpty ? null : 0,
                         child: ListView.builder(
                           shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
 
                           itemCount: addMedicationrows.length,
                           itemBuilder: (context, index) {
