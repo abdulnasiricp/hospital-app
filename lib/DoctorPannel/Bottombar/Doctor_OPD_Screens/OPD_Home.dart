@@ -3,6 +3,7 @@
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_MainScreens.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
+import 'package:animation_search_bar/animation_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,15 +17,49 @@ class OpdHome extends StatefulWidget {
 class _OpdHomeState extends State<OpdHome> {
   int tappedIndex = -1;
   String selectedItem = 'Checkout'; // Default selected item
+  List<dynamic>? filteredData = [];
+  List<dynamic>? data = [];
+  TextEditingController searchController = TextEditingController();
+  void filterData(String query) {
+    setState(() {
+      filteredData = data
+          ?.where((element) =>
+              element['id'].toLowerCase().contains(query.toLowerCase()) ||
+              element['status'].toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.blue[50],
-        appBar: AppBar(
-          title: const Text('OPD Patient'),
-          centerTitle: true,
-          backgroundColor: darkYellow,
-        ),
+        backgroundColor: Colors.lightBlue[50],
+        appBar: PreferredSize(
+            preferredSize: const Size(double.infinity, 65),
+            child: SafeArea(
+                child: Container(
+              decoration: BoxDecoration(color: darkYellow, boxShadow: const [
+                BoxShadow(
+                    color: Colors.white,
+                    blurRadius: 5,
+                    spreadRadius: 0,
+                    offset: Offset(0, 5)),
+              ]),
+              alignment: Alignment.center,
+              child: AnimationSearchBar(
+                  isBackButtonVisible: false,
+                  backIconColor: whitecolor,
+                  centerTitle: "OPD Patient",
+                  centerTitleStyle: TextStyle(color: whitecolor, fontSize: 20),
+                  searchIconColor: whitecolor,
+                  searchFieldDecoration: BoxDecoration(
+                      color: whitecolor.withOpacity(0.8),
+                      borderRadius: BorderRadius.circular(10)),
+                  closeIconColor: whitecolor,
+                  onChanged: (query) => filterData(query),
+                  searchTextEditingController: searchController,
+                  horizontalPadding: 5),
+            ))),
         body: Column(children: [
           Container(
             color: Colors.grey,
