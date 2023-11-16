@@ -126,7 +126,7 @@ class _OpdHomeState extends State<OpdHome> {
                     children: [
                       Container(
                         width: width / 4,
-                        child: Center(
+                        child: const Center(
                           child: Text(
                             "Last Visit",
                             overflow: TextOverflow
@@ -149,7 +149,7 @@ class _OpdHomeState extends State<OpdHome> {
                             overflow: TextOverflow
                                 .ellipsis, // Use ellipsis to cut off the text
                             maxLines: 1,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 15),
                           ),
                         ),

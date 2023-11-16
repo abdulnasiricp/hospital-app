@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace, unnecessary_string_interpolations, unnecessary_null_comparison, file_names, unused_local_variable, avoid_print
+// ignore_for_file: sized_box_for_whitespace, unnecessary_string_interpolations, unnecessary_null_comparison, file_names, unused_local_variable, avoid_print, unnecessary_brace_in_string_interps, non_constant_identifier_names
 
 import 'dart:convert';
 

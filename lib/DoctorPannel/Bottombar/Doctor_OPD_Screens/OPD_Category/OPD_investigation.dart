@@ -626,8 +626,8 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                         readOnly: true,
                         // Set this to true to disable the keyboard
                         // controller: diagnosisController,
-                        decoration: InputDecoration(
-                          border: const OutlineInputBorder(),
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
                           hintText: 'Select Qty',
                           fillColor: Colors.white,
                           filled: true,

@@ -1,10 +1,15 @@
+// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class YourWidget extends StatefulWidget {
+  const YourWidget({Key? key}) : super(key: key);
+
   @override
   _YourWidgetState createState() => _YourWidgetState();
 }
+//kkkkkkkkkkkkkkkkkkkkkkkkk
 
 class _YourWidgetState extends State<YourWidget> {
   String selectedItem = 'Registered';
@@ -18,7 +23,7 @@ class _YourWidgetState extends State<YourWidget> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
@@ -27,7 +32,7 @@ class _YourWidgetState extends State<YourWidget> {
                       'OPD ID',
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 15,
                       ),
@@ -40,7 +45,7 @@ class _YourWidgetState extends State<YourWidget> {
                       'Patient Name',
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 15,
                       ),
@@ -53,14 +58,14 @@ class _YourWidgetState extends State<YourWidget> {
                       'Consultant',
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 15,
                       ),
                     ),
                   ],
                 ),
-                const Column(
+                Column(
                   children: [
                     Text(
                       "Last Visit",

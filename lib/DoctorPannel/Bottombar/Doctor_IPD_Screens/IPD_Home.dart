@@ -109,7 +109,7 @@ class _IpdHomeState extends State<IpdHome> {
                     children: [
                       Container(
                         width: width / 12,
-                        child: Center(
+                        child: const Center(
                           child: Text(
                             "Gender",
                             overflow: TextOverflow
@@ -149,7 +149,7 @@ class _IpdHomeState extends State<IpdHome> {
                             overflow: TextOverflow
                                 .ellipsis, // Use ellipsis to cut off the text
                             maxLines: 1,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 15),
                           ),
                         ),
