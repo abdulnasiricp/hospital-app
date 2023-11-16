@@ -1849,7 +1849,13 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                                 .add(itemName);
                                           }
                                           DiagnosisController.text =
-                                              selecteddiagnosisItems.join(', ');
+                                              selecteddiagnosisItems
+                                                  .map((itemName) {
+                                            var itemData = otherfilteredData
+                                                ?.firstWhere((data) =>
+                                                    data['name'] == itemName);
+                                            return '(${itemData['id']}).${itemName}';
+                                          }).join(', ');
 
                                           // Update the selectedOtherItemsId based on selectedOtherItems
                                           selecteddiagnosisItemsId =
