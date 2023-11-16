@@ -7,11 +7,13 @@ import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutUSScreen extends StatefulWidget {
@@ -219,7 +221,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                             right: width / 25,
                           ),
                           child: Container(
-                            height: 200,
+                            height: height / 5.5,
                             width: width,
                             child: Card(
                               // color: Colors.grey[200],
@@ -253,8 +255,8 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                             Text(HospitalAddress),
                                             Text(HospitalEmail),
                                             Container(
-                                              height: height/13,
-                                              width: width/2,
+                                              height: height / 13,
+                                              width: width / 2,
                                               child: const Card(
                                                 elevation: 2,
                                                 child: Row(
@@ -498,40 +500,75 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                                               10),
                                                     ),
                                                     child: InkWell(
-                                                      onTap: () {
-                                                        Get.to(() =>
-                                                            SelectDateScreen(
-                                                              workExp:
-                                                                  DoneListData![
+                                                      onTap: () async {
+                                                        final sharedPreferences =
+                                                            await SharedPreferences
+                                                                .getInstance();
+                                                        if (sharedPreferences
+                                                            .containsKey(
+                                                                'role')) {
+                                                          final String? role =
+                                                              sharedPreferences
+                                                                  .getString(
+                                                                      'role');
+                                                          print(
+                                                              '==============================> Role: $role');
+
+                                                          if (role == '3') {
+                                                            // User is logged in as a doctor
+                                                            // You can show a message or take any other action here
+                                                            Fluttertoast
+                                                                .showToast(
+                                                              msg:
+                                                                  'You cant book appointments. Logged in as a doctor.',
+                                                            );
+                                                            print(
+                                                                'You are logged in as a doctor!');
+                                                          } else {
+                                                            // User is not logged in as a doctor, navigate to the appointment screen
+                                                            Get.to(() =>
+                                                                SelectDateScreen(
+                                                                  workExp: DoneListData![
                                                                           index]
                                                                       [
                                                                       'work_exp'],
-                                                              doctorId:
-                                                                  DoneListData![
-                                                                          index]
-                                                                      ['id'],
-                                                              doctorImage:
-                                                                  DoneListData![
-                                                                          index]
-                                                                      ['image'],
-                                                              doctorName: DoneListData![
-                                                                          index]
-                                                                      ['name'] +
-                                                                  DoneListData![
-                                                                          index]
-                                                                      [
-                                                                      'surname'],
-                                                              doctorSpecialization:
-                                                                  DoneListData![
-                                                                          index]
-                                                                      [
-                                                                      'specialization'],
-                                                              department_id:
-                                                                  DoneListData![
-                                                                          index]
-                                                                      [
-                                                                      'department_id'],
-                                                            ));
+                                                                  doctorId:
+                                                                      DoneListData![
+                                                                              index]
+                                                                          [
+                                                                          'id'],
+                                                                  doctorImage:
+                                                                      DoneListData![
+                                                                              index]
+                                                                          [
+                                                                          'image'],
+                                                                  doctorName: DoneListData![
+                                                                              index]
+                                                                          [
+                                                                          'name'] +
+                                                                      DoneListData![
+                                                                              index]
+                                                                          [
+                                                                          'surname'],
+                                                                  doctorSpecialization:
+                                                                      DoneListData![
+                                                                              index]
+                                                                          [
+                                                                          'specialization'],
+                                                                  department_id:
+                                                                      DoneListData![
+                                                                              index]
+                                                                          [
+                                                                          'department_id'],
+                                                                ));
+                                                          }
+                                                        } else {
+                                                          Fluttertoast
+                                                              .showToast(
+                                                            msg:
+                                                                'Oops! Something went to wrong.',
+                                                          );
+                                                        }
                                                       },
                                                       child: Center(
                                                         child: Text(
