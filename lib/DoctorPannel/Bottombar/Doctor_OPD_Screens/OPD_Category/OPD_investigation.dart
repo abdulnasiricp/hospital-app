@@ -48,7 +48,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   List<dynamic>? pathologydata = [];
   List<dynamic>? pathologyfilteredData = [];
 
-  bool isLoading = false;
+  bool isLoading = true;
   Future<void> fetchpathologyData() async {
     Uri.parse(ApiLinks.singleTableDataDetector);
 
@@ -1643,24 +1643,24 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                             ))
                           : Expanded(
                               child: ListView.builder(
-                                itemCount: otherfilteredData?.length,
+                                itemCount: pharmacyfilteredData?.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   int itemNumber = index + 1;
                                   return Card(
                                     color: Colors.white70.withOpacity(0.7),
                                     child: ListTile(
                                       title: Text(
-                                        '$itemNumber. ${otherfilteredData?[index]['name'] ?? ''}',
+                                        '$itemNumber. ${pharmacyfilteredData?[index]['medicine_name'] ?? ''}',
                                       ),
                                       onTap: () {
-                                        selectedotherdata =
-                                            otherfilteredData?[index]['name'] ??
+                                        selectedpharmacy =
+                                            pharmacyfilteredData?[index]['medicine_name'] ??
                                                 '';
-                                        selectedotherId =
-                                            otherfilteredData?[index]['id'] ??
+                                        selectedpharmacyId =
+                                            pharmacyfilteredData?[index]['id'] ??
                                                 '';
-                                        otherController.text =
-                                            '($selectedotherId) $selectedotherdata';
+                                       pharmacyController.text =
+                                            '($selectedpharmacyId) $selectedpharmacy';
 
                                         Navigator.of(context).pop();
                                       },
