@@ -48,7 +48,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   List<dynamic>? pathologydata = [];
   List<dynamic>? pathologyfilteredData = [];
 
-  bool isLoading = true;
+  bool isLoading = false;
   Future<void> fetchpathologyData() async {
     Uri.parse(ApiLinks.singleTableDataDetector);
 
@@ -140,7 +140,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   List<String> selectedpharmacyItems = [];
   List<dynamic>? pharmacydata = [];
   List<dynamic>? pharmacyfilteredData = [];
-
   Future<void> fetchPharmacyData() async {
     Uri.parse(ApiLinks.singleTableDataDetector);
 
@@ -178,7 +177,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     });
   }
 
-//=================================================================================
+//================================================================================= Radiology
   String selectedradiologyItemsId = '';
   String selectedradiologyItemsName = '';
   List<String> selectedradiologyItems = [];
@@ -223,7 +222,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     });
   }
 
-//=================================================================================
+//================================================================================= for Diagnosis
   TextEditingController DiagnosisController = TextEditingController();
   String selecteddiagnosisItemsId = '';
   String selecteddiagnosisItemsName = '';
@@ -1340,6 +1339,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           suffixIcon: Icon(Icons.search),
+                          hintText: 'Search here...',
                         ),
                       ),
                     ),
@@ -1498,6 +1498,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           suffixIcon: Icon(Icons.search),
+                          hintText: 'Search here...',
                         ),
                       ),
                     ),
@@ -1658,6 +1659,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           suffixIcon: Icon(Icons.search),
+                          hintText: 'Search here...',
                         ),
                       ),
                     ),
@@ -1818,6 +1820,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           suffixIcon: Icon(Icons.search),
+                          hintText: 'Search here...',
                         ),
                       ),
                     ),
@@ -1914,7 +1917,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
       },
     );
   }
-//==========================================================================================
+//========================================================================================== for diagnosis
 
   TextEditingController diagnosissearchController = TextEditingController();
   String selecteddiagnosisdata = '';
@@ -1972,6 +1975,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           suffixIcon: Icon(Icons.search),
+                          hintText: 'Search here...',
                         ),
                       ),
                     ),
@@ -2079,44 +2083,43 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     return Row(
       children: [
         Container(
-                    width: width / 1.25,
-                    child: Flexible(
-                      child: Center(
-                        child: InkWell(
-                          child: TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'This field is required';
-                              }
-                              return null;
-                            },
-                            readOnly: true,
-                            controller: otherController,
-                            maxLines: null, // Allow multiple lines
-                            decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                icon: const Icon(
-                                  Icons.arrow_drop_down_sharp,
-                                  size: 40,
-                                ),
-                                onPressed: () {
-                                  _showOtherSelection(context);
-                                },
-                              ),
-                              border: const OutlineInputBorder(),
-                              hintText: 'Select Other test',
-                              fillColor: Colors.white,
-                              filled: true,
-                            ),
-                            onTap: () {
-                              _showOtherSelection(context);
-                            },
-                          ),
-                        ),
+          width: width / 1.25,
+          child: Flexible(
+            child: Center(
+              child: InkWell(
+                child: TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'This field is required';
+                    }
+                    return null;
+                  },
+                  readOnly: true,
+                  controller: otherController,
+                  maxLines: null, // Allow multiple lines
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      icon: const Icon(
+                        Icons.arrow_drop_down_sharp,
+                        size: 40,
                       ),
+                      onPressed: () {
+                        _showOtherSelection(context);
+                      },
                     ),
+                    border: const OutlineInputBorder(),
+                    hintText: 'Select Other test',
+                    fillColor: Colors.white,
+                    filled: true,
                   ),
-                  
+                  onTap: () {
+                    _showOtherSelection(context);
+                  },
+                ),
+              ),
+            ),
+          ),
+        ),
         const SizedBox(
           width: 5,
         ),
@@ -2377,7 +2380,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
 
   Widget medicineBuildRow() {
     TextEditingController textFieldController = TextEditingController();
-
     return Row(
       children: [
         Container(
