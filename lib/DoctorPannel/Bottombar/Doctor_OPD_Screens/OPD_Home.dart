@@ -36,14 +36,17 @@ class _OpdHomeState extends State<OpdHome> {
                 children: [
                   Column(
                     children: [
-                      Text(
-                        'OPD ID'.tr,
-                        overflow: TextOverflow
-                            .ellipsis, // Use ellipsis to cut off the text
-                        maxLines: 1,
+                      Container(
+                        width: width / 8,
+                        child: Text(
+                          'OPD ID'.tr,
+                          overflow: TextOverflow
+                              .ellipsis, // Use ellipsis to cut off the text
+                          maxLines: 1,
 
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 15),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 15),
+                        ),
                       ),
                     ],
                   ),
@@ -75,6 +78,18 @@ class _OpdHomeState extends State<OpdHome> {
                     children: [
                       Text(
                         "Last Visit",
+                        overflow: TextOverflow
+                            .ellipsis, // Use ellipsis to cut off the text
+                        maxLines: 1,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        'status'.tr,
                         overflow: TextOverflow
                             .ellipsis, // Use ellipsis to cut off the text
                         maxLines: 1,
@@ -211,34 +226,34 @@ class _OpdHomeState extends State<OpdHome> {
                                   ),
                                 ],
                               ),
-                              // Column(
-                              //   crossAxisAlignment: CrossAxisAlignment.start,
-                              //   mainAxisAlignment: MainAxisAlignment.center,
-                              //   children: [
-                              //     Center(
-                              //         child: DropdownButton<String>(
-                              //       value: selectedItem,
-                              //       onChanged: (String? newValue) {
-                              //         setState(() {
-                              //           selectedItem = newValue!;
-                              //         });
-                              //       },
-                              //       items: <String>[
-                              //         'Registerted',
-                              //         'Pre-Checking',
-                              //         'Examination',
-                              //         'investigation',
-                              //         ' report',
-                              //         'Checkout',
-                              //       ].map((String value) {
-                              //         return DropdownMenuItem<String>(
-                              //           value: value,
-                              //           child: Text(value),
-                              //         );
-                              //       }).toList(),
-                              //     )),
-                              //   ],
-                              // ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    width: width / 4,
+                                    child: InkWell(
+                                      onTap: () {},
+                                      child: Container(
+                                        child: const Padding(
+                                          padding: EdgeInsets.all(3.0),
+                                          child: Center(
+                                            child: Text(
+                                              'Examination',
+                                              overflow: TextOverflow
+                                                  .ellipsis, // Use ellipsis to cut off the text
+                                              maxLines: 1,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 10),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
                         ),

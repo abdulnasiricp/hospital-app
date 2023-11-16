@@ -1,5 +1,3 @@
-
-
 // ignore_for_file: sized_box_for_whitespace, unnecessary_string_interpolations, unnecessary_null_comparison, file_names, unused_local_variable
 
 import 'dart:convert';
@@ -284,46 +282,48 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                   ),
                   Container(
                     width: width / 2.2,
-                    height: 50,
-                    child: Center(
-                      child: InkWell(
+                    child: Flexible(
+                      child: Center(
+                        child: InkWell(
                           child: TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'This field is required';
-                          }
-                          return null;
-                        },
-                        readOnly:
-                            true, // Set this to true to disable the keyboard
-                        controller: DiagnosisController,
-                        decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                            icon: const Icon(
-                              Icons.arrow_drop_down_sharp,
-                              size: 40,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'This field is required';
+                              }
+                              return null;
+                            },
+                            readOnly: true,
+                            controller: DiagnosisController,
+                            maxLines: null, // Allow multiple lines
+                            decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                icon: const Icon(
+                                  Icons.arrow_drop_down_sharp,
+                                  size: 40,
+                                ),
+                                onPressed: () {
+                                  _showdiagnosisSelection(context);
+                                },
+                              ),
+                              border: const OutlineInputBorder(),
+                              hintText: 'Select Diagnosis',
+                              fillColor: Colors.white,
+                              filled: true,
                             ),
-                            onPressed: () {
+                            onTap: () {
                               _showdiagnosisSelection(context);
                             },
                           ),
-                          border: const OutlineInputBorder(),
-                          hintText: 'Select Diagnosis',
-                          fillColor: Colors.white,
-                          filled: true,
                         ),
-                        onTap: () {
-                          _showdiagnosisSelection(context);
-                        },
-                      )),
+                      ),
                     ),
-                  ),
+                  )
                 ],
               ),
               const SizedBox(
                 width: 10,
               ),
-               Column(
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
@@ -359,7 +359,8 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                           }
                           return null;
                         },
-                        readOnly:true, // Set this to true to disable the keyboard
+                        readOnly:
+                            true, // Set this to true to disable the keyboard
                         controller: departmentController,
                         decoration: InputDecoration(
                           suffixIcon: IconButton(
@@ -406,11 +407,12 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                 child: const Center(
                     child: Text(
                   'Select Other Test',
-                  style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                 )),
               ),
-             const SizedBox(height: 5,),
+              const SizedBox(
+                height: 5,
+              ),
               Row(
                 children: [
                   Container(
@@ -559,7 +561,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                         readOnly: true,
                         // Set this to true to disable the keyboard
                         controller: radiologyController,
-                       decoration: InputDecoration(
+                        decoration: InputDecoration(
                           suffixIcon: IconButton(
                             icon: const Icon(
                               Icons.arrow_drop_down_sharp,
@@ -605,7 +607,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                               size: 40,
                             ),
                             onPressed: () {
-                            selectDiagnosisOptions(context);
+                              selectDiagnosisOptions(context);
                             },
                           ),
                           border: const OutlineInputBorder(),
@@ -1885,40 +1887,40 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     return Row(
       children: [
         Container(
-                    width: width / 1.3,
-                    height: 50,
-                    child: Center(
-                      child: InkWell(
-                          child: TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'This field is required';
-                          }
-                          return null;
-                        },
-                        readOnly: true,
-                        // Set this to true to disable the keyboard
-                        decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                            icon: const Icon(
-                              Icons.arrow_drop_down_sharp,
-                              size: 40,
-                            ),
-                            onPressed: () {
-                              _showOtherSelection(context);
-                            },
-                          ),
-                          border: const OutlineInputBorder(),
-                          hintText: 'Select other test',
-                          fillColor: Colors.white,
-                          filled: true,
-                        ),
-                        onTap: () {
-                          _showOtherSelection(context);
-                        },
-                      )),
-                    ),
+          width: width / 1.3,
+          height: 50,
+          child: Center(
+            child: InkWell(
+                child: TextFormField(
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'This field is required';
+                }
+                return null;
+              },
+              readOnly: true,
+              // Set this to true to disable the keyboard
+              decoration: InputDecoration(
+                suffixIcon: IconButton(
+                  icon: const Icon(
+                    Icons.arrow_drop_down_sharp,
+                    size: 40,
                   ),
+                  onPressed: () {
+                    _showOtherSelection(context);
+                  },
+                ),
+                border: const OutlineInputBorder(),
+                hintText: 'Select other test',
+                fillColor: Colors.white,
+                filled: true,
+              ),
+              onTap: () {
+                _showOtherSelection(context);
+              },
+            )),
+          ),
+        ),
         const SizedBox(
           width: 5,
         ),
@@ -1953,80 +1955,80 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     return Row(
       children: [
         Container(
-                    width: width / 3.2,
-                    height: 50,
-                    child: Center(
-                      child: InkWell(
-                          child: TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'This field is required';
-                          }
-                          return null;
-                        },
-                        readOnly: true,
-                        // Set this to true to disable the keyboard
-                        controller: radiologyController,
-                       decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                            icon: const Icon(
-                              Icons.arrow_drop_down_sharp,
-                              size: 40,
-                            ),
-                            onPressed: () {
-                              _showRadiologySelection(context);
-                            },
-                          ),
-                          border: const OutlineInputBorder(),
-                          hintText: 'Select Radiology',
-                          fillColor: Colors.white,
-                          filled: true,
-                        ),
-                        onTap: () {
-                          _showRadiologySelection(context);
-                        },
-                      )),
-                    ),
+          width: width / 3.2,
+          height: 50,
+          child: Center(
+            child: InkWell(
+                child: TextFormField(
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'This field is required';
+                }
+                return null;
+              },
+              readOnly: true,
+              // Set this to true to disable the keyboard
+              controller: radiologyController,
+              decoration: InputDecoration(
+                suffixIcon: IconButton(
+                  icon: const Icon(
+                    Icons.arrow_drop_down_sharp,
+                    size: 40,
                   ),
-                  const SizedBox(
-                    width: 5,
+                  onPressed: () {
+                    _showRadiologySelection(context);
+                  },
+                ),
+                border: const OutlineInputBorder(),
+                hintText: 'Select Radiology',
+                fillColor: Colors.white,
+                filled: true,
+              ),
+              onTap: () {
+                _showRadiologySelection(context);
+              },
+            )),
+          ),
+        ),
+        const SizedBox(
+          width: 5,
+        ),
+        Container(
+          width: width / 6,
+          height: 50,
+          child: Center(
+            child: InkWell(
+                child: TextFormField(
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'This field is required';
+                }
+                return null;
+              },
+              readOnly: true,
+              // Set this to true to disable the keyboard
+              controller: diagnosisController,
+              decoration: InputDecoration(
+                suffixIcon: IconButton(
+                  icon: const Icon(
+                    Icons.arrow_drop_down_sharp,
+                    size: 40,
                   ),
-                  Container(
-                    width: width / 6,
-                    height: 50,
-                    child: Center(
-                      child: InkWell(
-                          child: TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'This field is required';
-                          }
-                          return null;
-                        },
-                        readOnly: true,
-                        // Set this to true to disable the keyboard
-                        controller: diagnosisController,
-                        decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                            icon: const Icon(
-                              Icons.arrow_drop_down_sharp,
-                              size: 40,
-                            ),
-                            onPressed: () {
-                            selectDiagnosisOptions(context);
-                            },
-                          ),
-                          border: const OutlineInputBorder(),
-                          hintText: 'Select Qty',
-                          fillColor: Colors.white,
-                          filled: true,
-                        ),
-                        onTap: () {
-                          selectDiagnosisOptions(context);
-                        },
-                      )),
-                    ),
-                  ),
+                  onPressed: () {
+                    selectDiagnosisOptions(context);
+                  },
+                ),
+                border: const OutlineInputBorder(),
+                hintText: 'Select Qty',
+                fillColor: Colors.white,
+                filled: true,
+              ),
+              onTap: () {
+                selectDiagnosisOptions(context);
+              },
+            )),
+          ),
+        ),
         const SizedBox(
           width: 5,
         ),
