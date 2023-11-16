@@ -216,14 +216,17 @@ class _General_Opd_Tickets_FormState extends State<Opd_Check_Out> {
                     ),
                     Column(
                       children: [
-                        HtmlEditor(
-                          controller: DischargeDetailController,
-                          htmlEditorOptions: const HtmlEditorOptions(
-                            // Set initial text here
-                            initialText: "Your text here...",
-                          ),
-                          otherOptions: const OtherOptions(
-                            height: 300,
+                        Container(
+                          width: width,
+                          child: Flexible(
+                            child: HtmlEditor(
+                              controller: DischargeDetailController,
+                              htmlEditorOptions: const HtmlEditorOptions(
+                                // Set initial text here
+                                initialText: "Your text here...",
+                              ),
+                              otherOptions: const OtherOptions(),
+                            ),
                           ),
                         ),
                       ],

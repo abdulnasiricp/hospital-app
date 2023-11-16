@@ -48,7 +48,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   List<dynamic>? pathologydata = [];
   List<dynamic>? pathologyfilteredData = [];
 
-  bool isLoading = true;
+  bool isLoading = false;
   Future<void> fetchpathologyData() async {
     Uri.parse(ApiLinks.singleTableDataDetector);
 
@@ -140,7 +140,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   List<String> selectedpharmacyItems = [];
   List<dynamic>? pharmacydata = [];
   List<dynamic>? pharmacyfilteredData = [];
-
   Future<void> fetchPharmacyData() async {
     Uri.parse(ApiLinks.singleTableDataDetector);
 
@@ -178,7 +177,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     });
   }
 
-//=================================================================================
+//================================================================================= Radiology
   String selectedradiologyItemsId = '';
   String selectedradiologyItemsName = '';
   List<String> selectedradiologyItems = [];
@@ -223,7 +222,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     });
   }
 
-//=================================================================================
+//================================================================================= for Diagnosis
   TextEditingController DiagnosisController = TextEditingController();
   String selecteddiagnosisItemsId = '';
   String selecteddiagnosisItemsName = '';
@@ -1329,6 +1328,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           suffixIcon: Icon(Icons.search),
+                          hintText: 'Search here...',
                         ),
                       ),
                     ),
@@ -1489,6 +1489,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           suffixIcon: Icon(Icons.search),
+                          hintText: 'Search here...',
                         ),
                       ),
                     ),
@@ -1612,6 +1613,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           suffixIcon: Icon(Icons.search),
+                          hintText: 'Search here...',
                         ),
                       ),
                     ),
@@ -1735,6 +1737,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           suffixIcon: Icon(Icons.search),
+                          hintText: 'Search here...',
                         ),
                       ),
                     ),
@@ -1798,7 +1801,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
       },
     );
   }
-//==========================================================================================
+//========================================================================================== for diagnosis
 
   TextEditingController diagnosissearchController = TextEditingController();
   String selecteddiagnosisdata = '';
@@ -1856,6 +1859,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           suffixIcon: Icon(Icons.search),
+                          hintText: 'Search here...',
                         ),
                       ),
                     ),
@@ -2260,7 +2264,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
 
   Widget medicineBuildRow() {
     TextEditingController textFieldController = TextEditingController();
-
     return Row(
       children: [
         Container(

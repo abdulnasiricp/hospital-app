@@ -3,6 +3,7 @@
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_MainScreens.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
+import 'package:animation_search_bar/animation_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,87 +15,144 @@ class OpdHome extends StatefulWidget {
 }
 
 class _OpdHomeState extends State<OpdHome> {
+  int tappedIndex = -1;
   String selectedItem = 'Checkout'; // Default selected item
+  List<dynamic>? filteredData = [];
+  List<dynamic>? data = [];
+  TextEditingController searchController = TextEditingController();
+  void filterData(String query) {
+    setState(() {
+      filteredData = data
+          ?.where((element) =>
+              element['id'].toLowerCase().contains(query.toLowerCase()) ||
+              element['status'].toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.blue[50],
-        appBar: AppBar(
-          title: const Text('OPD Patient'),
-          centerTitle: true,
-          backgroundColor: darkYellow,
-        ),
+        backgroundColor: Colors.lightBlue[50],
+        appBar: PreferredSize(
+            preferredSize: const Size(double.infinity, 65),
+            child: SafeArea(
+                child: Container(
+              decoration: BoxDecoration(color: darkYellow, boxShadow: const [
+                BoxShadow(
+                    color: Colors.white,
+                    blurRadius: 5,
+                    spreadRadius: 0,
+                    offset: Offset(0, 5)),
+              ]),
+              alignment: Alignment.center,
+              child: AnimationSearchBar(
+                  isBackButtonVisible: false,
+                  backIconColor: whitecolor,
+                  centerTitle: "OPD Patient",
+                  centerTitleStyle: TextStyle(color: whitecolor, fontSize: 20),
+                  searchIconColor: whitecolor,
+                  searchFieldDecoration: BoxDecoration(
+                      color: whitecolor.withOpacity(0.8),
+                      borderRadius: BorderRadius.circular(10)),
+                  closeIconColor: whitecolor,
+                  onChanged: (query) => filterData(query),
+                  searchTextEditingController: searchController,
+                  horizontalPadding: 5),
+            ))),
         body: Column(children: [
           Container(
             color: Colors.grey,
             width: width,
             height: 40,
             child: Padding(
-              padding: const EdgeInsets.only(left: 10.0, top: 12, right: 10),
+              padding: const EdgeInsets.only(
+                  left: 10.0, top: 12, right: 10, bottom: 5),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     children: [
                       Container(
-                        width: width / 8,
-                        child: Text(
-                          'OPD ID'.tr,
-                          overflow: TextOverflow
-                              .ellipsis, // Use ellipsis to cut off the text
-                          maxLines: 1,
+                        width: width / 9,
+                        child: Center(
+                          child: Text(
+                            'OPD ID'.tr,
+                            overflow: TextOverflow
+                                .ellipsis, // Use ellipsis to cut off the text
+                            maxLines: 1,
 
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 15),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
                         ),
                       ),
                     ],
                   ),
                   Column(
                     children: [
-                      Text(
-                        'Patient Name'.tr,
-                        overflow: TextOverflow
-                            .ellipsis, // Use ellipsis to cut off the text
-                        maxLines: 1,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 15),
+                      Container(
+                        width: width / 4,
+                        child: Center(
+                          child: Text(
+                            'Patient Name'.tr,
+                            overflow: TextOverflow
+                                .ellipsis, // Use ellipsis to cut off the text
+                            maxLines: 1,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                        ),
                       ),
                     ],
                   ),
                   Column(
                     children: [
-                      Text(
-                        'Consultant'.tr,
-                        overflow: TextOverflow
-                            .ellipsis, // Use ellipsis to cut off the text
-                        maxLines: 1,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 15),
-                      ),
-                    ],
-                  ),
-                  const Column(
-                    children: [
-                      Text(
-                        "Last Visit",
-                        overflow: TextOverflow
-                            .ellipsis, // Use ellipsis to cut off the text
-                        maxLines: 1,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 15),
+                      Container(
+                        width: width / 4,
+                        child: Center(
+                          child: Text(
+                            'Consultant'.tr,
+                            overflow: TextOverflow
+                                .ellipsis, // Use ellipsis to cut off the text
+                            maxLines: 1,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                        ),
                       ),
                     ],
                   ),
                   Column(
                     children: [
-                      Text(
-                        'status'.tr,
-                        overflow: TextOverflow
-                            .ellipsis, // Use ellipsis to cut off the text
-                        maxLines: 1,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 15),
+                      Container(
+                        width: width / 4,
+                        child: Center(
+                          child: Text(
+                            "Last Visit",
+                            overflow: TextOverflow
+                                .ellipsis, // Use ellipsis to cut off the text
+                            maxLines: 1,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                        width: width / 12,
+                        child: Center(
+                          child: Text(
+                            'status'.tr,
+                            overflow: TextOverflow
+                                .ellipsis, // Use ellipsis to cut off the text
+                            maxLines: 1,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -109,149 +167,159 @@ class _OpdHomeState extends State<OpdHome> {
                 itemBuilder: (context, index) {
                   return Column(
                     children: [
-                      Card(
-                        color: Colors.white,
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
+                      Container(
+                        height: height / 20,
+                        child: Card(
+                          color:
+                              tappedIndex == index ? Colors.grey : Colors.white,
+                          elevation: tappedIndex == index ? 8.0 : 2.0,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  tappedIndex = index;
+                                });
+                                Get.to(() => const OpdMainScreen());
+                              },
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  InkWell(
-                                    onTap: () {
-                                      Get.to(() => const OpdMainScreen());
-                                    },
-                                    child: Container(
-                                      width: width / 8,
-                                      child: const Center(
-                                        child: Text(
-                                          "OPDN7695",
-                                          overflow: TextOverflow
-                                              .ellipsis, // Use ellipsis to cut off the text
-                                          maxLines: 1,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.blue,
-                                              fontSize: 10),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    width: width / 7,
-                                    child: InkWell(
-                                      onTap: () {},
-                                      child: Container(
-                                        child: const Padding(
-                                          padding: EdgeInsets.all(3.0),
-                                          child: Center(
-                                            child: Text(
-                                              "chhotelal ram",
-                                              overflow: TextOverflow
-                                                  .ellipsis, // Use ellipsis to cut off the text
-                                              maxLines: 1,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 10),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    width: width / 4,
-                                    child: InkWell(
-                                      onTap: () {},
-                                      child: Container(
-                                        child: const Padding(
-                                          padding: EdgeInsets.all(3.0),
-                                          child: Center(
-                                            child: Text(
-                                              'Madhurendra Tiwari (9001)',
-                                              overflow: TextOverflow
-                                                  .ellipsis, // Use ellipsis to cut off the text
-                                              maxLines: 1,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 10),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    width: width / 4,
-                                    child: InkWell(
-                                      onTap: () {},
-                                      child: Container(
-                                        child: const Padding(
-                                          padding: EdgeInsets.all(3.0),
-                                          child: Center(
-                                            child: Text(
-                                              '13/11/2023 11:58 AM',
-                                              overflow: TextOverflow
-                                                  .ellipsis, // Use ellipsis to cut off the text
-                                              maxLines: 1,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 10),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    width: width / 7,
-                                    child: InkWell(
-                                      onTap: () {},
-                                      child: Container(
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        width: width / 9,
                                         child: const Center(
                                           child: Text(
-                                            'Examination',
+                                            "OPDN7695",
                                             overflow: TextOverflow
                                                 .ellipsis, // Use ellipsis to cut off the text
                                             maxLines: 1,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
+                                                color: Colors.blue,
                                                 fontSize: 10),
                                           ),
                                         ),
                                       ),
-                                    ),
+                                    ],
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        width: width / 4,
+                                        child: Container(
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(3.0),
+                                            child: Center(
+                                              child: Text(
+                                                "chhotelal ram",
+                                                overflow: TextOverflow
+                                                    .ellipsis, // Use ellipsis to cut off the text
+                                                maxLines: 1,
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 10),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        width: width / 4,
+                                        child: Container(
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(3.0),
+                                            child: Center(
+                                              child: Text(
+                                                'Madhurendra Tiwari (9001)',
+                                                overflow: TextOverflow
+                                                    .ellipsis, // Use ellipsis to cut off the text
+                                                maxLines: 1,
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 10),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        width: width / 4,
+                                        child: Container(
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(3.0),
+                                            child: Center(
+                                              child: Text(
+                                                '13/11/2023 11:58 AM',
+                                                overflow: TextOverflow
+                                                    .ellipsis, // Use ellipsis to cut off the text
+                                                maxLines: 1,
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 10),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        width: width / 10,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.green,
+                                            borderRadius:
+                                                BorderRadius.circular(5.0),
+                                          ),
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(8.0),
+                                            child: Center(
+                                              child: Text(
+                                                'Examination',
+                                                overflow: TextOverflow
+                                                    .ellipsis, // Use ellipsis to cut off the text
+                                                maxLines: 1,
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 10),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
-                            ],
+                            ),
                           ),
                         ),
                       ),
