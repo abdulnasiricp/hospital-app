@@ -1,6 +1,4 @@
-
-
-// ignore_for_file: sized_box_for_whitespace, unnecessary_string_interpolations, unnecessary_null_comparison, file_names, unused_local_variable
+// ignore_for_file: sized_box_for_whitespace, unnecessary_string_interpolations, unnecessary_null_comparison, file_names, unused_local_variable, avoid_print, non_constant_identifier_names, unnecessary_brace_in_string_interps
 
 import 'dart:convert';
 
@@ -24,25 +22,34 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   @override
   void initState() {
     super.initState();
-    fetchDepartmentData();
+    fetchpathologyData();
     fetchotherData();
     fetchRadiologyData();
     fetchPharmacyData();
     fetchdiagnosisData();
   }
 
-  List<String> selectedDiagnosisOptions = [];
-  TextEditingController diagnosisController = TextEditingController();
   List<Widget> opdOthertestRow = [];
   List<Widget> radiologyRow = [];
   List<Widget> surgeryRow = [];
   List<Widget> medicineRow = [];
+  List<String> selectedDiagnosisOptions = [];
 
-  List<dynamic>? data = [];
-  List<dynamic>? filteredData = [];
+  TextEditingController diagnosisController = TextEditingController();
+  TextEditingController pathologyController = TextEditingController();
+  TextEditingController pharmacyController = TextEditingController();
+  TextEditingController radiologyController = TextEditingController();
+
+//==========================================================================
+  String selectedpathologyItemsId = '';
+  String selectedpathologyItemsName = '';
+  List<String> selectedpathologyItems = [];
+
+  List<dynamic>? pathologydata = [];
+  List<dynamic>? pathologyfilteredData = [];
 
   bool isLoading = true;
-  Future<void> fetchDepartmentData() async {
+  Future<void> fetchpathologyData() async {
     Uri.parse(ApiLinks.singleTableDataDetector);
 
     final body = {"table": "pathology"};
@@ -56,8 +63,8 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     if (response.statusCode == 200) {
       final dataMap = json.decode(response.body);
       setState(() {
-        data = dataMap['result'];
-        filteredData = data;
+        pathologydata = dataMap['result'];
+        pathologyfilteredData = pathologydata;
         isLoading = false;
       });
     } else {
@@ -73,9 +80,9 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   }
   ////////////////////
 
-  void filterData(String query) {
+  void pathologyfilterData(String query) {
     setState(() {
-      filteredData = data
+      pathologyfilteredData = pathologydata
           ?.where((element) =>
               element['test_name']
                   .toLowerCase()
@@ -84,8 +91,11 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
           .toList();
     });
   }
-//=================================================================================
 
+//=================================================================================
+  String selectedotherItemsId = '';
+  String selectedotherItemsName = '';
+  List<String> selectedotherItems = [];
   List<dynamic>? otherdata = [];
   List<dynamic>? otherfilteredData = [];
 
@@ -123,8 +133,11 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
           .toList();
     });
   }
-//=================================================================================
 
+//=================================================================================
+  String selectedpharmacyItemsId = '';
+  String selectedpharmacyItemsName = '';
+  List<String> selectedpharmacyItems = [];
   List<dynamic>? pharmacydata = [];
   List<dynamic>? pharmacyfilteredData = [];
 
@@ -164,7 +177,11 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
           .toList();
     });
   }
+
 //=================================================================================
+  String selectedradiologyItemsId = '';
+  String selectedradiologyItemsName = '';
+  List<String> selectedradiologyItems = [];
 
   List<dynamic>? radiologydata = [];
   List<dynamic>? radiologyfilteredData = [];
@@ -284,46 +301,48 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                   ),
                   Container(
                     width: width / 2.2,
-                    height: 50,
-                    child: Center(
-                      child: InkWell(
+                    child: Flexible(
+                      child: Center(
+                        child: InkWell(
                           child: TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'This field is required';
-                          }
-                          return null;
-                        },
-                        readOnly:
-                            true, // Set this to true to disable the keyboard
-                        controller: DiagnosisController,
-                        decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                            icon: const Icon(
-                              Icons.arrow_drop_down_sharp,
-                              size: 40,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'This field is required';
+                              }
+                              return null;
+                            },
+                            readOnly: true,
+                            controller: DiagnosisController,
+                            maxLines: null, // Allow multiple lines
+                            decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                icon: const Icon(
+                                  Icons.arrow_drop_down_sharp,
+                                  size: 40,
+                                ),
+                                onPressed: () {
+                                  _showdiagnosisSelection(context);
+                                },
+                              ),
+                              border: const OutlineInputBorder(),
+                              hintText: 'Select Diagnosis',
+                              fillColor: Colors.white,
+                              filled: true,
                             ),
-                            onPressed: () {
+                            onTap: () {
                               _showdiagnosisSelection(context);
                             },
                           ),
-                          border: const OutlineInputBorder(),
-                          hintText: 'Select Diagnosis',
-                          fillColor: Colors.white,
-                          filled: true,
                         ),
-                        onTap: () {
-                          _showdiagnosisSelection(context);
-                        },
-                      )),
+                      ),
                     ),
-                  ),
+                  )
                 ],
               ),
               const SizedBox(
                 width: 10,
               ),
-               Column(
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
@@ -349,39 +368,43 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                   ),
                   Container(
                     width: width / 2.2,
-                    height: 50,
-                    child: Center(
-                      child: InkWell(
+                    child: Flexible(
+                      child: Center(
+                        child: InkWell(
                           child: TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'This field is required';
-                          }
-                          return null;
-                        },
-                        readOnly:true, // Set this to true to disable the keyboard
-                        controller: departmentController,
-                        decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                            icon: const Icon(
-                              Icons.arrow_drop_down_sharp,
-                              size: 40,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'This field is required';
+                              }
+                              return null;
+                            },
+                            readOnly: true,
+                            controller: pathologyController,
+                            maxLines: null, // Allow multiple lines
+                            decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                icon: const Icon(
+                                  Icons.arrow_drop_down_sharp,
+                                  size: 40,
+                                ),
+                                onPressed: () {
+                                  _showPathologySelection(context);
+                                },
+                              ),
+                              border: const OutlineInputBorder(),
+                              hintText: 'Select Pathology',
+                              fillColor: Colors.white,
+                              filled: true,
                             ),
-                            onPressed: () {
-                              _showDepartmentSelection(context);
+                            onTap: () {
+                              _showPathologySelection(context);
+                              (context);
                             },
                           ),
-                          border: const OutlineInputBorder(),
-                          hintText: 'Select pathology',
-                          fillColor: Colors.white,
-                          filled: true,
                         ),
-                        onTap: () {
-                          _showDepartmentSelection(context);
-                        },
-                      )),
+                      ),
                     ),
-                  ),
+                  )
                 ],
               ),
             ],
@@ -400,52 +423,56 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                 height: 5,
               ),
               Container(
-                width: width / 1.1,
+                width: double.infinity,
                 height: 30,
                 color: Colors.green[300],
                 child: const Center(
                     child: Text(
                   'Select Other Test',
-                  style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                 )),
               ),
-             const SizedBox(height: 5,),
+              const SizedBox(
+                height: 5,
+              ),
               Row(
                 children: [
                   Container(
-                    width: width / 1.3,
-                    height: 50,
-                    child: Center(
-                      child: InkWell(
+                    width: width / 1.25,
+                    child: Flexible(
+                      child: Center(
+                        child: InkWell(
                           child: TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'This field is required';
-                          }
-                          return null;
-                        },
-                        readOnly: true,
-                        // Set this to true to disable the keyboard
-                        decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                            icon: const Icon(
-                              Icons.arrow_drop_down_sharp,
-                              size: 40,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'This field is required';
+                              }
+                              return null;
+                            },
+                            readOnly: true,
+                            controller: otherController,
+                            maxLines: null, // Allow multiple lines
+                            decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                icon: const Icon(
+                                  Icons.arrow_drop_down_sharp,
+                                  size: 40,
+                                ),
+                                onPressed: () {
+                                  _showOtherSelection(context);
+                                },
+                              ),
+                              border: const OutlineInputBorder(),
+                              hintText: 'Select Other test',
+                              fillColor: Colors.white,
+                              filled: true,
                             ),
-                            onPressed: () {
+                            onTap: () {
                               _showOtherSelection(context);
                             },
                           ),
-                          border: const OutlineInputBorder(),
-                          hintText: 'Select other test',
-                          fillColor: Colors.white,
-                          filled: true,
                         ),
-                        onTap: () {
-                          _showOtherSelection(context);
-                        },
-                      )),
+                      ),
                     ),
                   ),
                   const SizedBox(
@@ -546,38 +573,40 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                 children: [
                   Container(
                     width: width / 3.2,
-                    height: 50,
-                    child: Center(
-                      child: InkWell(
+                    child: Flexible(
+                      child: Center(
+                        child: InkWell(
                           child: TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'This field is required';
-                          }
-                          return null;
-                        },
-                        readOnly: true,
-                        // Set this to true to disable the keyboard
-                        controller: radiologyController,
-                       decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                            icon: const Icon(
-                              Icons.arrow_drop_down_sharp,
-                              size: 40,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'This field is required';
+                              }
+                              return null;
+                            },
+                            readOnly: true,
+                            controller: radiologyController,
+                            maxLines: null, // Allow multiple lines
+                            decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                icon: const Icon(
+                                  Icons.arrow_drop_down_sharp,
+                                  size: 40,
+                                ),
+                                onPressed: () {
+                                  _showRadiologySelection(context);
+                                },
+                              ),
+                              border: const OutlineInputBorder(),
+                              hintText: 'Select Radiology',
+                              fillColor: Colors.white,
+                              filled: true,
                             ),
-                            onPressed: () {
+                            onTap: () {
                               _showRadiologySelection(context);
                             },
                           ),
-                          border: const OutlineInputBorder(),
-                          hintText: 'Select Radiology',
-                          fillColor: Colors.white,
-                          filled: true,
                         ),
-                        onTap: () {
-                          _showRadiologySelection(context);
-                        },
-                      )),
+                      ),
                     ),
                   ),
                   const SizedBox(
@@ -605,7 +634,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                               size: 40,
                             ),
                             onPressed: () {
-                            selectDiagnosisOptions(context);
+                              selectDiagnosisOptions(context);
                             },
                           ),
                           border: const OutlineInputBorder(),
@@ -717,6 +746,11 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 15),
                           ),
+                          Text(
+                            ' ',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
                         ],
                       ),
                     ),
@@ -728,31 +762,40 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                     children: [
                       Container(
                         width: width / 3,
-                        height: 30,
-                        child: Center(
-                          child: InkWell(
+                        child: Flexible(
+                          child: Center(
+                            child: InkWell(
                               child: TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'This field is required';
-                              }
-                              return null;
-                            },
-                            readOnly: true,
-                            // Set this to true to disable the keyboard
-                            controller: diagnosisController,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: 'Select options',
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 10),
-                              fillColor: Colors.white,
-                              filled: true,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'This field is required';
+                                  }
+                                  return null;
+                                },
+                                readOnly: true,
+                                controller: otherController,
+                                maxLines: null, // Allow multiple lines
+                                decoration: InputDecoration(
+                                  suffixIcon: IconButton(
+                                    icon: const Icon(
+                                      Icons.arrow_drop_down_sharp,
+                                      size: 40,
+                                    ),
+                                    onPressed: () {
+                                      _showOtherSelection(context);
+                                    },
+                                  ),
+                                  border: const OutlineInputBorder(),
+                                  hintText: 'Select Other test',
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                ),
+                                onTap: () {
+                                  _showOtherSelection(context);
+                                },
+                              ),
                             ),
-                            onTap: () {
-                              selectDiagnosisOptions(context);
-                            },
-                          )),
+                          ),
                         ),
                       ),
                       const SizedBox(
@@ -760,7 +803,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                       ),
                       Container(
                         width: width / 2.2,
-                        height: 30,
+                        height: 50,
                         child: Center(
                           child: InkWell(
                               child: TextFormField(
@@ -770,8 +813,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                               }
                               return null;
                             },
-                            // Set this to true to disable the keyboard
-                            // controller: diagnosisController,
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               hintText: 'Additional note',
@@ -786,7 +827,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                       ),
                       Container(
                         width: width / 9,
-                        // height: 40,
                         child: Center(
                           child: CircleAvatar(
                             child: IconButton(
@@ -843,7 +883,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                     child: const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             'Medicine',
@@ -908,32 +948,41 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                   Row(
                     children: [
                       Container(
-                        width: width / 7,
-                        height: 30,
-                        child: Center(
-                          child: InkWell(
+                        width: width / 6,
+                        child: Flexible(
+                          child: Center(
+                            child: InkWell(
                               child: TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'This field is required';
-                              }
-                              return null;
-                            },
-                            readOnly: true,
-                            // Set this to true to disable the keyboard
-                            controller: pharmacyController,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: 'Select options',
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 10),
-                              fillColor: Colors.white,
-                              filled: true,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'This field is required';
+                                  }
+                                  return null;
+                                },
+                                readOnly: true,
+                                controller: pharmacyController,
+                                maxLines: null, // Allow multiple lines
+                                decoration: InputDecoration(
+                                  suffixIcon: IconButton(
+                                    icon: const Icon(
+                                      Icons.arrow_drop_down_sharp,
+                                      size: 40,
+                                    ),
+                                    onPressed: () {
+                                      _showPharmacySelection(context);
+                                    },
+                                  ),
+                                  border: const OutlineInputBorder(),
+                                  hintText: 'Select Medicine',
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                ),
+                                onTap: () {
+                                  _showPharmacySelection(context);
+                                },
+                              ),
                             ),
-                            onTap: () {
-                              _showPharmacySelection(context);
-                            },
-                          )),
+                          ),
                         ),
                       ),
                       const SizedBox(
@@ -941,33 +990,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                       ),
                       Container(
                         width: width / 8,
-                        height: 30,
-                        child: Center(
-                          child: InkWell(
-                              child: TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'This field is required';
-                              }
-                              return null;
-                            },
-                            // Set this to true to disable the keyboard
-                            // controller: diagnosisController,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: 'Additional note',
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 10),
-                            ),
-                          )),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 2,
-                      ),
-                      Container(
-                        width: width / 8,
-                        height: 30,
+                        height: 50,
                         child: Center(
                           child: InkWell(
                               child: TextFormField(
@@ -993,7 +1016,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                       ),
                       Container(
                         width: width / 8,
-                        height: 30,
+                        height: 50,
                         child: Center(
                           child: InkWell(
                               child: TextFormField(
@@ -1019,7 +1042,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                       ),
                       Container(
                         width: width / 8,
-                        height: 30,
+                        height: 50,
                         child: Center(
                           child: InkWell(
                               child: TextFormField(
@@ -1045,7 +1068,33 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                       ),
                       Container(
                         width: width / 8,
-                        height: 30,
+                        height: 50,
+                        child: Center(
+                          child: InkWell(
+                              child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'This field is required';
+                              }
+                              return null;
+                            },
+                            // Set this to true to disable the keyboard
+                            // controller: diagnosisController,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Additional note',
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10),
+                            ),
+                          )),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 2,
+                      ),
+                      Container(
+                        width: width / 8,
+                        height: 50,
                         child: Center(
                           child: InkWell(
                               child: TextFormField(
@@ -1235,12 +1284,11 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     );
   }
 
-  TextEditingController departmentSearchController = TextEditingController();
-  String selectedDepartment = '';
-  String selectedDepartmentId = '';
-  TextEditingController departmentController = TextEditingController();
+  TextEditingController pathologySearchController = TextEditingController();
+  String selectedPathology = '';
+  String selectedPathologyId = '';
 
-  void _showDepartmentSelection(BuildContext context) {
+  void _showPathologySelection(BuildContext context) {
     showModalBottomSheet(
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
@@ -1283,10 +1331,10 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                       width: width / 0.8,
                       height: 50,
                       child: TextFormField(
-                        controller: departmentSearchController,
+                        controller: pathologySearchController,
                         onChanged: (query) {
                           setState(() {
-                            filterData(query);
+                            pathologyfilterData(query);
                           });
                         },
                         decoration: const InputDecoration(
@@ -1307,7 +1355,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                             child: const LoadingIndicatorWidget(),
                           ),
                         ))
-                      : filteredData!.isEmpty
+                      : pathologyfilteredData!.isEmpty
                           ? Expanded(
                               child: Center(
                               child: Container(
@@ -1321,25 +1369,65 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                             ))
                           : Expanded(
                               child: ListView.builder(
-                                itemCount: filteredData?.length,
+                                itemCount: pathologyfilteredData?.length,
                                 itemBuilder: (BuildContext context, int index) {
+                                  String itemName =
+                                      pathologyfilteredData?[index]
+                                              ['test_name'] ??
+                                          '';
+                                  String itemId =
+                                      pathologyfilteredData?[index]['id'] ?? '';
+                                  bool isSelected =
+                                      selectedpathologyItems.contains(itemName);
+
                                   int itemNumber = index + 1;
                                   return Card(
-                                    color: Colors.white70.withOpacity(0.7),
+                                    color: isSelected
+                                        ? Colors.green
+                                        : Colors.white70.withOpacity(0.7),
                                     child: ListTile(
                                       title: Text(
-                                        '$itemNumber. ${filteredData?[index]['test_name'] ?? ''}',
+                                        '$itemNumber.$itemName',
+                                        style: TextStyle(
+                                          fontWeight: isSelected
+                                              ? FontWeight.bold
+                                              : FontWeight.normal,
+                                        ),
                                       ),
                                       onTap: () {
-                                        selectedDepartment =
-                                            filteredData?[index]['test_name'] ??
-                                                '';
-                                        selectedDepartmentId =
-                                            filteredData?[index]['id'] ?? '';
-                                        departmentController.text =
-                                            '($selectedDepartmentId) $selectedDepartment';
+                                        setState(() {
+                                          if (isSelected) {
+                                            selectedpathologyItems
+                                                .remove(itemName);
+                                          } else {
+                                            selectedpathologyItems
+                                                .add(itemName);
+                                          }
+                                          pathologyController.text =
+                                              selectedpathologyItems
+                                                  .map((itemName) {
+                                            var itemData = pathologyfilteredData
+                                                ?.firstWhere((data) =>
+                                                    data['test_name'] ==
+                                                    itemName);
+                                            return '(${itemData['id']}).${itemName}';
+                                          }).join(', ');
 
-                                        Navigator.of(context).pop();
+                                          // Update the selectedOtherItemsId based on selectedOtherItems
+                                          selectedpathologyItemsId =
+                                              selectedpathologyItems
+                                                  .map((itemName) =>
+                                                      pathologyfilteredData
+                                                          ?.firstWhere((data) =>
+                                                              data[
+                                                                  'test_name'] ==
+                                                              itemName)['id'])
+                                                  .join(',');
+
+                                          // Update the selectedOtherItemsName based on selectedOtherItems
+                                          selectedpathologyItemsName =
+                                              selectedpathologyItems.join(', ');
+                                        });
                                       },
                                     ),
                                   );
@@ -1357,9 +1445,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
 
 //==========================================================================================
   TextEditingController radiologySearchController = TextEditingController();
-  String selectedradiology = '';
-  String selectedradiologyId = '';
-  TextEditingController radiologyController = TextEditingController();
 
   void _showRadiologySelection(BuildContext context) {
     showModalBottomSheet(
@@ -1444,26 +1529,63 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                               child: ListView.builder(
                                 itemCount: radiologyfilteredData?.length,
                                 itemBuilder: (BuildContext context, int index) {
+                                  String itemName =
+                                      radiologyfilteredData?[index]
+                                              ['test_name'] ??
+                                          '';
+                                  String itemId =
+                                      radiologyfilteredData?[index]['id'] ?? '';
+                                  bool isSelected =
+                                      selectedradiologyItems.contains(itemName);
+
                                   int itemNumber = index + 1;
                                   return Card(
-                                    color: Colors.white70.withOpacity(0.7),
+                                    color: isSelected
+                                        ? Colors.green
+                                        : Colors.white70.withOpacity(0.7),
                                     child: ListTile(
                                       title: Text(
-                                        '$itemNumber. ${radiologyfilteredData?[index]['test_name'] ?? ''}',
+                                        '$itemNumber.$itemName',
+                                        style: TextStyle(
+                                          fontWeight: isSelected
+                                              ? FontWeight.bold
+                                              : FontWeight.normal,
+                                        ),
                                       ),
                                       onTap: () {
-                                        selectedradiology =
-                                            radiologyfilteredData?[index]
-                                                    ['test_name'] ??
-                                                '';
-                                        selectedradiologyId =
-                                            radiologyfilteredData?[index]
-                                                    ['id'] ??
-                                                '';
-                                        radiologyController.text =
-                                            '($selectedradiologyId) $selectedradiology';
+                                        setState(() {
+                                          if (isSelected) {
+                                            selectedradiologyItems
+                                                .remove(itemName);
+                                          } else {
+                                            selectedradiologyItems
+                                                .add(itemName);
+                                          }
+                                          radiologyController.text =
+                                              selectedradiologyItems
+                                                  .map((itemName) {
+                                            var itemData = radiologyfilteredData
+                                                ?.firstWhere((data) =>
+                                                    data['test_name'] ==
+                                                    itemName);
+                                            return '(${itemData['id']}).${itemName}';
+                                          }).join(', ');
 
-                                        Navigator.of(context).pop();
+                                          // Update the selectedOtherItemsId based on selectedOtherItems
+                                          selectedradiologyItemsId =
+                                              selectedradiologyItems
+                                                  .map((itemName) =>
+                                                      radiologyfilteredData
+                                                          ?.firstWhere((data) =>
+                                                              data[
+                                                                  'test_name'] ==
+                                                              itemName)['id'])
+                                                  .join(',');
+
+                                          // Update the selectedOtherItemsName based on selectedOtherItems
+                                          selectedradiologyItemsName =
+                                              selectedradiologyItems.join(', ');
+                                        });
                                       },
                                     ),
                                   );
@@ -1483,7 +1605,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   TextEditingController pharmacySearchController = TextEditingController();
   String selectedpharmacy = '';
   String selectedpharmacyId = '';
-  TextEditingController pharmacyController = TextEditingController();
 
   void _showPharmacySelection(BuildContext context) {
     showModalBottomSheet(
@@ -1568,26 +1689,61 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                               child: ListView.builder(
                                 itemCount: pharmacyfilteredData?.length,
                                 itemBuilder: (BuildContext context, int index) {
+                                  String itemName = pharmacyfilteredData?[index]
+                                          ['medicine_name'] ??
+                                      '';
+                                  String itemId =
+                                      pharmacyfilteredData?[index]['id'] ?? '';
+                                  bool isSelected =
+                                      selectedpharmacyItems.contains(itemName);
+
                                   int itemNumber = index + 1;
                                   return Card(
-                                    color: Colors.white70.withOpacity(0.7),
+                                    color: isSelected
+                                        ? Colors.green
+                                        : Colors.white70.withOpacity(0.7),
                                     child: ListTile(
                                       title: Text(
-                                        '$itemNumber. ${pharmacyfilteredData?[index]['medicine_name'] ?? ''}',
+                                        '$itemNumber.$itemName',
+                                        style: TextStyle(
+                                          fontWeight: isSelected
+                                              ? FontWeight.bold
+                                              : FontWeight.normal,
+                                        ),
                                       ),
                                       onTap: () {
-                                        selectedpharmacy =
-                                            pharmacyfilteredData?[index]
-                                                    ['medicine_name'] ??
-                                                '';
-                                        selectedpharmacyId =
-                                            pharmacyfilteredData?[index]
-                                                    ['id'] ??
-                                                '';
-                                        pharmacyController.text =
-                                            '($selectedpharmacyId) $selectedpharmacy';
+                                        setState(() {
+                                          if (isSelected) {
+                                            selectedpharmacyItems
+                                                .remove(itemName);
+                                          } else {
+                                            selectedpharmacyItems.add(itemName);
+                                          }
+                                          pharmacyController.text =
+                                              selectedpharmacyItems
+                                                  .map((itemName) {
+                                            var itemData = pharmacyfilteredData
+                                                ?.firstWhere((data) =>
+                                                    data['medicine_name'] ==
+                                                    itemName);
+                                            return '(${itemData['id']}).${itemName}';
+                                          }).join(', ');
 
-                                        Navigator.of(context).pop();
+                                          // Update the selectedOtherItemsId based on selectedOtherItems
+                                          selectedpharmacyItemsId =
+                                              selectedpharmacyItems
+                                                  .map((itemName) =>
+                                                      pharmacyfilteredData
+                                                          ?.firstWhere((data) =>
+                                                              data[
+                                                                  'medicine_name'] ==
+                                                              itemName)['id'])
+                                                  .join(',');
+
+                                          // Update the selectedOtherItemsName based on selectedOtherItems
+                                          selectedpharmacyItemsName =
+                                              selectedpharmacyItems.join(', ');
+                                        });
                                       },
                                     ),
                                   );
@@ -1693,24 +1849,57 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                               child: ListView.builder(
                                 itemCount: otherfilteredData?.length,
                                 itemBuilder: (BuildContext context, int index) {
+                                  String itemName =
+                                      otherfilteredData?[index]['name'] ?? '';
+                                  String itemId =
+                                      otherfilteredData?[index]['id'] ?? '';
+                                  bool isSelected =
+                                      selectedotherItems.contains(itemName);
+
                                   int itemNumber = index + 1;
                                   return Card(
-                                    color: Colors.white70.withOpacity(0.7),
+                                    color: isSelected
+                                        ? Colors.green
+                                        : Colors.white70.withOpacity(0.7),
                                     child: ListTile(
                                       title: Text(
-                                        '$itemNumber. ${otherfilteredData?[index]['name'] ?? ''}',
+                                        '$itemNumber.$itemName',
+                                        style: TextStyle(
+                                          fontWeight: isSelected
+                                              ? FontWeight.bold
+                                              : FontWeight.normal,
+                                        ),
                                       ),
                                       onTap: () {
-                                        selectedotherdata =
-                                            otherfilteredData?[index]['name'] ??
-                                                '';
-                                        selectedotherId =
-                                            otherfilteredData?[index]['id'] ??
-                                                '';
-                                        otherController.text =
-                                            '($selectedotherId) $selectedotherdata';
+                                        setState(() {
+                                          if (isSelected) {
+                                            selectedotherItems.remove(itemName);
+                                          } else {
+                                            selectedotherItems.add(itemName);
+                                          }
+                                          otherController.text =
+                                              selectedotherItems
+                                                  .map((itemName) {
+                                            var itemData = otherfilteredData
+                                                ?.firstWhere((data) =>
+                                                    data['name'] == itemName);
+                                            return '(${itemData['id']}).${itemName}';
+                                          }).join(', ');
 
-                                        Navigator.of(context).pop();
+                                          // Update the selectedOtherItemsId based on selectedOtherItems
+                                          selectedotherItemsId =
+                                              selectedotherItems
+                                                  .map((itemName) =>
+                                                      otherfilteredData
+                                                          ?.firstWhere((data) =>
+                                                              data['name'] ==
+                                                              itemName)['id'])
+                                                  .join(',');
+
+                                          // Update the selectedOtherItemsName based on selectedOtherItems
+                                          selectedotherItemsName =
+                                              selectedotherItems.join(', ');
+                                        });
                                       },
                                     ),
                                   );
@@ -1730,7 +1919,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   TextEditingController diagnosissearchController = TextEditingController();
   String selecteddiagnosisdata = '';
   String selecteddiagnosisId = '';
-  // TextEditingController diagnosisController = TextEditingController();
 
   void _showdiagnosisSelection(BuildContext context) {
     showModalBottomSheet(
@@ -1847,13 +2035,19 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                                 .add(itemName);
                                           }
                                           DiagnosisController.text =
-                                              selecteddiagnosisItems.join(', ');
+                                              selecteddiagnosisItems
+                                                  .map((itemName) {
+                                            var itemData = diagnosisfilteredData
+                                                ?.firstWhere((data) =>
+                                                    data['name'] == itemName);
+                                            return '(${itemData['id']}).${itemName}';
+                                          }).join(', ');
 
                                           // Update the selectedOtherItemsId based on selectedOtherItems
                                           selecteddiagnosisItemsId =
                                               selecteddiagnosisItems
                                                   .map((itemName) =>
-                                                      otherfilteredData
+                                                      diagnosisfilteredData
                                                           ?.firstWhere((data) =>
                                                               data['name'] ==
                                                               itemName)['id'])
@@ -1885,38 +2079,41 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     return Row(
       children: [
         Container(
-                    width: width / 1.3,
-                    height: 50,
-                    child: Center(
-                      child: InkWell(
+                    width: width / 1.25,
+                    child: Flexible(
+                      child: Center(
+                        child: InkWell(
                           child: TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'This field is required';
-                          }
-                          return null;
-                        },
-                        readOnly: true,
-                        // Set this to true to disable the keyboard
-                        decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                            icon: const Icon(
-                              Icons.arrow_drop_down_sharp,
-                              size: 40,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'This field is required';
+                              }
+                              return null;
+                            },
+                            readOnly: true,
+                            controller: otherController,
+                            maxLines: null, // Allow multiple lines
+                            decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                icon: const Icon(
+                                  Icons.arrow_drop_down_sharp,
+                                  size: 40,
+                                ),
+                                onPressed: () {
+                                  _showOtherSelection(context);
+                                },
+                              ),
+                              border: const OutlineInputBorder(),
+                              hintText: 'Select Other test',
+                              fillColor: Colors.white,
+                              filled: true,
                             ),
-                            onPressed: () {
+                            onTap: () {
                               _showOtherSelection(context);
                             },
                           ),
-                          border: const OutlineInputBorder(),
-                          hintText: 'Select other test',
-                          fillColor: Colors.white,
-                          filled: true,
                         ),
-                        onTap: () {
-                          _showOtherSelection(context);
-                        },
-                      )),
+                      ),
                     ),
                   ),
         const SizedBox(
@@ -1953,80 +2150,82 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     return Row(
       children: [
         Container(
-                    width: width / 3.2,
-                    height: 50,
-                    child: Center(
-                      child: InkWell(
-                          child: TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'This field is required';
-                          }
-                          return null;
-                        },
-                        readOnly: true,
-                        // Set this to true to disable the keyboard
-                        controller: radiologyController,
-                       decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                            icon: const Icon(
-                              Icons.arrow_drop_down_sharp,
-                              size: 40,
-                            ),
-                            onPressed: () {
-                              _showRadiologySelection(context);
-                            },
-                          ),
-                          border: const OutlineInputBorder(),
-                          hintText: 'Select Radiology',
-                          fillColor: Colors.white,
-                          filled: true,
-                        ),
-                        onTap: () {
-                          _showRadiologySelection(context);
-                        },
-                      )),
+          width: width / 3.2,
+          child: Flexible(
+            child: Center(
+              child: InkWell(
+                child: TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'This field is required';
+                    }
+                    return null;
+                  },
+                  readOnly: true,
+                  controller: radiologyController,
+                  maxLines: null, // Allow multiple lines
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      icon: const Icon(
+                        Icons.arrow_drop_down_sharp,
+                        size: 40,
+                      ),
+                      onPressed: () {
+                        _showRadiologySelection(context);
+                      },
                     ),
+                    border: const OutlineInputBorder(),
+                    hintText: 'Select Radiology',
+                    fillColor: Colors.white,
+                    filled: true,
                   ),
-                  const SizedBox(
-                    width: 5,
+                  onTap: () {
+                    _showRadiologySelection(context);
+                  },
+                ),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(
+          width: 5,
+        ),
+        Container(
+          width: width / 6,
+          height: 50,
+          child: Center(
+            child: InkWell(
+                child: TextFormField(
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'This field is required';
+                }
+                return null;
+              },
+              readOnly: true,
+              // Set this to true to disable the keyboard
+              controller: diagnosisController,
+              decoration: InputDecoration(
+                suffixIcon: IconButton(
+                  icon: const Icon(
+                    Icons.arrow_drop_down_sharp,
+                    size: 40,
                   ),
-                  Container(
-                    width: width / 6,
-                    height: 50,
-                    child: Center(
-                      child: InkWell(
-                          child: TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'This field is required';
-                          }
-                          return null;
-                        },
-                        readOnly: true,
-                        // Set this to true to disable the keyboard
-                        controller: diagnosisController,
-                        decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                            icon: const Icon(
-                              Icons.arrow_drop_down_sharp,
-                              size: 40,
-                            ),
-                            onPressed: () {
-                            selectDiagnosisOptions(context);
-                            },
-                          ),
-                          border: const OutlineInputBorder(),
-                          hintText: 'Select Qty',
-                          fillColor: Colors.white,
-                          filled: true,
-                        ),
-                        onTap: () {
-                          selectDiagnosisOptions(context);
-                        },
-                      )),
-                    ),
-                  ),
+                  onPressed: () {
+                    selectDiagnosisOptions(context);
+                  },
+                ),
+                border: const OutlineInputBorder(),
+                hintText: 'Select Qty',
+                fillColor: Colors.white,
+                filled: true,
+              ),
+              onTap: () {
+                selectDiagnosisOptions(context);
+              },
+            )),
+          ),
+        ),
         const SizedBox(
           width: 5,
         ),
@@ -2088,7 +2287,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
       children: [
         Container(
           width: width / 3,
-          height: 30,
+          height: 50,
           child: Center(
             child: InkWell(
                 child: TextFormField(
@@ -2101,14 +2300,22 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
               readOnly: true,
               // Set this to true to disable the keyboard
               controller: diagnosisController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Select options',
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+              decoration: InputDecoration(
+                suffixIcon: IconButton(
+                  icon: const Icon(
+                    Icons.arrow_drop_down_sharp,
+                    size: 40,
+                  ),
+                  onPressed: () {
+                    selectDiagnosisOptions(context);
+                  },
+                ),
+                border: const OutlineInputBorder(),
+                hintText: 'Select Surgery',
                 fillColor: Colors.white,
                 filled: true,
               ),
+
               onTap: () {
                 selectDiagnosisOptions(context);
               },
@@ -2120,7 +2327,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
         ),
         Container(
           width: width / 2.2,
-          height: 30,
+          height: 50,
           child: Center(
             child: InkWell(
                 child: TextFormField(
@@ -2130,8 +2337,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                 }
                 return null;
               },
-              // Set this to true to disable the keyboard
-              // controller: diagnosisController,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Additional note',
@@ -2175,32 +2380,41 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     return Row(
       children: [
         Container(
-          width: width / 7,
-          height: 30,
-          child: Center(
-            child: InkWell(
+          width: width / 6,
+          child: Flexible(
+            child: Center(
+              child: InkWell(
                 child: TextFormField(
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'This field is required';
-                }
-                return null;
-              },
-              readOnly: true,
-              // Set this to true to disable the keyboard
-              controller: diagnosisController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Select options',
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
-                fillColor: Colors.white,
-                filled: true,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'This field is required';
+                    }
+                    return null;
+                  },
+                  readOnly: true,
+                  controller: pharmacyController,
+                  maxLines: null, // Allow multiple lines
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      icon: const Icon(
+                        Icons.arrow_drop_down_sharp,
+                        size: 40,
+                      ),
+                      onPressed: () {
+                        _showPharmacySelection(context);
+                      },
+                    ),
+                    border: const OutlineInputBorder(),
+                    hintText: 'Select Medicine',
+                    fillColor: Colors.white,
+                    filled: true,
+                  ),
+                  onTap: () {
+                    _showPharmacySelection(context);
+                  },
+                ),
               ),
-              onTap: () {
-                selectDiagnosisOptions(context);
-              },
-            )),
+            ),
           ),
         ),
         const SizedBox(
@@ -2208,33 +2422,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
         ),
         Container(
           width: width / 8,
-          height: 30,
-          child: Center(
-            child: InkWell(
-                child: TextFormField(
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'This field is required';
-                }
-                return null;
-              },
-              // Set this to true to disable the keyboard
-              // controller: diagnosisController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Additional note',
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
-              ),
-            )),
-          ),
-        ),
-        const SizedBox(
-          width: 2,
-        ),
-        Container(
-          width: width / 8,
-          height: 30,
+          height: 50,
           child: Center(
             child: InkWell(
                 child: TextFormField(
@@ -2260,7 +2448,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
         ),
         Container(
           width: width / 8,
-          height: 30,
+          height: 50,
           child: Center(
             child: InkWell(
                 child: TextFormField(
@@ -2286,7 +2474,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
         ),
         Container(
           width: width / 8,
-          height: 30,
+          height: 50,
           child: Center(
             child: InkWell(
                 child: TextFormField(
@@ -2312,7 +2500,33 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
         ),
         Container(
           width: width / 8,
-          height: 30,
+          height: 50,
+          child: Center(
+            child: InkWell(
+                child: TextFormField(
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'This field is required';
+                }
+                return null;
+              },
+              // Set this to true to disable the keyboard
+              // controller: diagnosisController,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Additional note',
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+              ),
+            )),
+          ),
+        ),
+        const SizedBox(
+          width: 2,
+        ),
+        Container(
+          width: width / 8,
+          height: 50,
           child: Center(
             child: InkWell(
                 child: TextFormField(
