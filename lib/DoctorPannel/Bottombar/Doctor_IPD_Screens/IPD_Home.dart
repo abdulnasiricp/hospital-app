@@ -168,7 +168,7 @@ class _IpdHomeState extends State<IpdHome> {
                   return Column(
                     children: [
                       Container(
-                        height: height / 20,
+                        height: height / 12,
                         child: Card(
                           color:
                               tappedIndex == index ? Colors.grey : Colors.white,

@@ -168,7 +168,7 @@ class _OpdHomeState extends State<OpdHome> {
                   return Column(
                     children: [
                       Container(
-                        height: height / 20,
+                        height: height / 12,
                         child: Card(
                           color:
                               tappedIndex == index ? Colors.grey : Colors.white,
@@ -266,7 +266,7 @@ class _OpdHomeState extends State<OpdHome> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Container(
-                                        width: width / 4,
+                                        width: width / 8,
                                         child: Container(
                                           child: const Padding(
                                             padding: EdgeInsets.all(3.0),
@@ -292,25 +292,22 @@ class _OpdHomeState extends State<OpdHome> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Container(
-                                        width: width / 10,
+                                        width: width / 7,
                                         child: Container(
                                           decoration: BoxDecoration(
                                             color: Colors.green,
                                             borderRadius:
                                                 BorderRadius.circular(5.0),
                                           ),
-                                          child: const Padding(
-                                            padding: EdgeInsets.all(8.0),
-                                            child: Center(
-                                              child: Text(
-                                                'Examination',
-                                                overflow: TextOverflow
-                                                    .ellipsis, // Use ellipsis to cut off the text
-                                                maxLines: 1,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 10),
-                                              ),
+                                          child: Center(
+                                            child: Text(
+                                              'Examination',
+                                              overflow: TextOverflow
+                                                  .ellipsis, // Use ellipsis to cut off the text
+                                              maxLines: 1,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 10),
                                             ),
                                           ),
                                         ),
