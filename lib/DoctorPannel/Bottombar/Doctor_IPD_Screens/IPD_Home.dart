@@ -290,7 +290,7 @@ class _IpdHomeState extends State<IpdHome> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Container(
-                                        width: width / 4,
+                                        width: width / 5,
                                         child: Container(
                                           child: const Padding(
                                             padding: EdgeInsets.all(3.0),
