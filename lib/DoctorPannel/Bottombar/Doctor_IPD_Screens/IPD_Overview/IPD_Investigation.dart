@@ -23,25 +23,36 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
   @override
   void initState() {
     super.initState();
-    fetchDepartmentData();
     fetchotherData();
     fetchRadiologyData();
+    fetchpathologyData();
+    fetchdiagnosisData();
 
 
   }
+ List<Widget> ipdOthertestRow = [];
+  List<Widget> radiologyRow = [];
+  List<Widget> medicineRow = [];
+  List<String> selectedDiagnosisOptions = [];
 
+TextEditingController diagnosisController = TextEditingController();
+  TextEditingController pathologyController = TextEditingController();
+  TextEditingController pharmacyController = TextEditingController();
+  TextEditingController radiologyController = TextEditingController();
 
-  List<dynamic>? data = [];
-  List<dynamic>? filteredData = [];
+//==========================================================================
+  String selectedpathologyItemsId = '';
+  String selectedpathologyItemsName = '';
+  List<String> selectedpathologyItems = [];
+
+  List<dynamic>? pathologydata = [];
+  List<dynamic>? pathologyfilteredData = [];
 
   bool isLoading = true;
-  Future<void> fetchDepartmentData() async {
+  Future<void> fetchpathologyData() async {
     Uri.parse(ApiLinks.singleTableDataDetector);
 
-    final body =  {
-      "table":"pathology"
-
-    };
+    final body = {"table": "pathology"};
 
     final response = await http.post(
       Uri.parse(ApiLinks.singleTableDataDetector),
@@ -49,12 +60,11 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
       body: json.encode(body),
     );
 
-
     if (response.statusCode == 200) {
       final dataMap = json.decode(response.body);
       setState(() {
-        data = dataMap['result'];
-        filteredData = data;
+        pathologydata = dataMap['result'];
+        pathologyfilteredData = pathologydata;
         isLoading = false;
       });
     } else {
@@ -70,34 +80,35 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
   }
   ////////////////////
 
-  void filterData(String query) {
+  void pathologyfilterData(String query) {
     setState(() {
-      filteredData = data
+      pathologyfilteredData = pathologydata
           ?.where((element) =>
-      element['test_name'].toLowerCase().contains(query.toLowerCase()) ||
-          element['id'].toLowerCase().contains(query.toLowerCase()))
+              element['test_name']
+                  .toLowerCase()
+                  .contains(query.toLowerCase()) ||
+              element['id'].toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }
-//=================================================================================
 
+//=================================================================================
+  String selectedotherItemsId = '';
+  String selectedotherItemsName = '';
+  List<String> selectedotherItems = [];
   List<dynamic>? otherdata = [];
   List<dynamic>? otherfilteredData = [];
 
   Future<void> fetchotherData() async {
     Uri.parse(ApiLinks.singleTableDataDetector);
 
-    final body =  {
-      "table":"finding"
-
-    };
+    final body = {"table": "finding"};
 
     final response = await http.post(
       Uri.parse(ApiLinks.singleTableDataDetector),
       headers: ApiLinks.MainHeader,
       body: json.encode(body),
     );
-
 
     if (response.statusCode == 200) {
       final dataMap = json.decode(response.body);
@@ -111,20 +122,25 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
     }
   }
 
-
   ////////////////////
 
   void otherfilterData(String query) {
     setState(() {
       otherfilteredData = otherdata
           ?.where((element) =>
-      element['name'].toLowerCase().contains(query.toLowerCase()) ||
-          element['id'].toLowerCase().contains(query.toLowerCase()))
+              element['name'].toLowerCase().contains(query.toLowerCase()) ||
+              element['id'].toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }
+
 //=================================================================================
+
+
 //=================================================================================
+  String selectedradiologyItemsId = '';
+  String selectedradiologyItemsName = '';
+  List<String> selectedradiologyItems = [];
 
   List<dynamic>? radiologydata = [];
   List<dynamic>? radiologyfilteredData = [];
@@ -132,17 +148,13 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
   Future<void> fetchRadiologyData() async {
     Uri.parse(ApiLinks.singleTableDataDetector);
 
-    final body =  {
-      "table":"radio"
-
-    };
+    final body = {"table": "radio"};
 
     final response = await http.post(
       Uri.parse(ApiLinks.singleTableDataDetector),
       headers: ApiLinks.MainHeader,
       body: json.encode(body),
     );
-
 
     if (response.statusCode == 200) {
       final dataMap = json.decode(response.body);
@@ -156,23 +168,61 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
     }
   }
 
-
-  ////////////////////
+  //========================================
 
   void radiologyfilterData(String query) {
     setState(() {
       radiologyfilteredData = radiologydata
           ?.where((element) =>
-      element['test_name'].toLowerCase().contains(query.toLowerCase()) ||
-          element['id'].toLowerCase().contains(query.toLowerCase()))
+              element['test_name']
+                  .toLowerCase()
+                  .contains(query.toLowerCase()) ||
+              element['id'].toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }
-  List<Widget> othertestrows = [];
-  List<Widget> radiologyrows = [];
 
-  List<String> selectedDiagnosisOptions = [];
-  TextEditingController diagnosisController = TextEditingController();
+//=================================================================================
+  TextEditingController DiagnosisController = TextEditingController();
+  String selecteddiagnosisItemsId = '';
+  String selecteddiagnosisItemsName = '';
+  List<String> selecteddiagnosisItems = [];
+  List<dynamic>? diagnosisdata = [];
+  List<dynamic>? diagnosisfilteredData = [];
+
+  Future<void> fetchdiagnosisData() async {
+    Uri.parse(ApiLinks.singleTableDataDetector);
+
+    final body = {"table": "finding"};
+
+    final response = await http.post(
+      Uri.parse(ApiLinks.singleTableDataDetector),
+      headers: ApiLinks.MainHeader,
+      body: json.encode(body),
+    );
+
+    if (response.statusCode == 200) {
+      final dataMap = json.decode(response.body);
+      setState(() {
+        diagnosisdata = dataMap['result'];
+        diagnosisfilteredData = diagnosisdata;
+        isLoading = false;
+      });
+    } else {
+      handleNonJsonResponse();
+    }
+  }
+
+  void DiagnosisfilterData(String query) {
+    setState(() {
+      diagnosisfilteredData = diagnosisdata
+          ?.where((element) =>
+              element['name'].toLowerCase().contains(query.toLowerCase()) ||
+              element['id'].toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    });
+  }
+//=================================================================================
 
   @override
   Widget build(BuildContext context) {
@@ -205,33 +255,43 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
                 height: 5,
               ),
               Container(
-                height: 30,
-                width: double.infinity,
-                child: Center(
-                  child: InkWell(
-                      child: TextFormField(
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'This field is required';
-                      }
-                      return null;
-                    },
-                    readOnly: true, // Set this to true to disable the keyboard
-                    controller: diagnosisController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Select options',
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
-                      fillColor: Colors.white,
-                      filled: true,
+                    width: double.infinity,
+                    child: Flexible(
+                      child: Center(
+                        child: InkWell(
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'This field is required';
+                              }
+                              return null;
+                            },
+                            readOnly: true,
+                            controller: DiagnosisController,
+                            maxLines: null, // Allow multiple lines
+                            decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                icon: const Icon(
+                                  Icons.arrow_drop_down_sharp,
+                                  size: 40,
+                                ),
+                                onPressed: () {
+                                  _showdiagnosisSelection(context);
+                                },
+                              ),
+                              border: const OutlineInputBorder(),
+                              hintText: 'Select Diagnosis',
+                              fillColor: Colors.white,
+                              filled: true,
+                            ),
+                            onTap: () {
+                              _showdiagnosisSelection(context);
+                            },
+                          ),
+                        ),
+                      ),
                     ),
-                    onTap: () {
-                      selectDiagnosisOptions(context);
-                    },
-                  )),
-                ),
-              ),
+                  )
             ],
           ),
           const SizedBox(
@@ -263,35 +323,45 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
                   const SizedBox(
                     height: 5,
                   ),
-                  Container(
+                 Container(
                     width: width / 2.5,
-                    height: 30,
-                    child: Center(
-                      child: InkWell(
+                    child: Flexible(
+                      child: Center(
+                        child: InkWell(
                           child: TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'This field is required';
-                          }
-                          return null;
-                        },
-                        readOnly:
-                            true, // Set this to true to disable the keyboard
-                        controller: departmentController,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'Select options',
-                          contentPadding: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 10),
-                          fillColor: Colors.white,
-                          filled: true,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'This field is required';
+                              }
+                              return null;
+                            },
+                            readOnly: true,
+                            controller: pathologyController,
+                            maxLines: null, // Allow multiple lines
+                            decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                icon: const Icon(
+                                  Icons.arrow_drop_down_sharp,
+                                  size: 40,
+                                ),
+                                onPressed: () {
+                                  _showPathologySelection(context);
+                                },
+                              ),
+                              border: const OutlineInputBorder(),
+                              hintText: 'Select Pathology',
+                              fillColor: Colors.white,
+                              filled: true,
+                            ),
+                            onTap: () {
+                              _showPathologySelection(context);
+                              (context);
+                            },
+                          ),
                         ),
-                        onTap: () {
-                          _showDepartmentSelection(context);
-                        },
-                      )),
+                      ),
                     ),
-                  ),
+                  )
                 ],
               ),
               const SizedBox(
@@ -364,7 +434,7 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
                               onPressed: () {
                                 setState(() {
                                   // Add a new row when the "Add" button is clicked
-                                  othertestrows.add(dragBuildRow());
+                                  ipdOthertestRow.add(dragBuildRow());
                                 });
                               },
                               icon: Icon(
@@ -388,14 +458,14 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
 
           Container(
 
-            height: othertestrows.isNotEmpty ? null : 0,
+            height: ipdOthertestRow.isNotEmpty ? null : 0,
             child: ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
 
-              itemCount: othertestrows.length,
+              itemCount: ipdOthertestRow.length,
               itemBuilder: (context, index) {
-                return othertestrows[index];
+                return ipdOthertestRow[index];
               },
             ),
           ),
@@ -547,7 +617,7 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
                             onPressed: () {
                               setState(() {
                                 // Add a new row when the "Add" button is clicked
-                                radiologyrows.add(radiologyBuildRow());
+                                radiologyRow.add(radiologyBuildRow());
                               });
                             },
                             icon: Icon(
@@ -564,14 +634,14 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
               const SizedBox(height: 5,),
               Container(
 
-                height: radiologyrows.isNotEmpty ? null : 0,
+                height: radiologyRow.isNotEmpty ? null : 0,
                 child: ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
 
-                  itemCount: radiologyrows.length,
+                  itemCount: radiologyRow.length,
                   itemBuilder: (context, index) {
-                    return radiologyrows[index];
+                    return radiologyRow[index];
                   },
                 ),
               ),
@@ -731,7 +801,7 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
                     onPressed: () {
                       setState(() {
                         // Remove the row when the "Cancel" button is clicked
-                        othertestrows.removeLast();
+                        ipdOthertestRow.removeLast();
                       });
                     },
                     icon: Icon(
@@ -857,7 +927,7 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
                     onPressed: () {
                       setState(() {
                         // Remove the row when the "Cancel" button is clicked
-                        radiologyrows.removeLast();
+                        radiologyRow.removeLast();
                       });
                     },
                     icon: Icon(
@@ -876,13 +946,12 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
 
 
 
-  TextEditingController departmentSearchController = TextEditingController();
-  String selectedDepartment = '';
-  String selectedDepartmentId = '';
-  TextEditingController departmentController = TextEditingController();
+//==========================================================================================
+  TextEditingController pathologySearchController = TextEditingController();
+  String selectedPathology = '';
+  String selectedPathologyId = '';
 
-
-  void _showDepartmentSelection(BuildContext context) {
+  void _showPathologySelection(BuildContext context) {
     showModalBottomSheet(
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
@@ -925,14 +994,13 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
                       width: width / 0.8,
                       height: 50,
                       child: TextFormField(
-                        controller: departmentSearchController,
+                        controller: pathologySearchController,
                         onChanged: (query) {
                           setState(() {
-                            filterData(query);
+                            pathologyfilterData(query);
                           });
                         },
                         decoration: const InputDecoration(
-
                           border: OutlineInputBorder(),
                           suffixIcon: Icon(Icons.search),
                         ),
@@ -941,53 +1009,94 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
                   ),
                   isLoading
                       ? Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                          height: 50,
-                          width: 50,
-                          color: Colors.transparent,
-                          child: const LoadingIndicatorWidget(),
-                        ),
-                      ))
-                      : filteredData!.isEmpty
-                      ? Expanded(
-                      child: Center(
-                        child: Container(
-                          height: 150,
-                          width: 150,
-                          child: Lottie.asset(
-                            'assets/No_Data_Found.json',
-                            fit: BoxFit.cover,
+                          child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Container(
+                            height: 50,
+                            width: 50,
+                            color: Colors.transparent,
+                            child: const LoadingIndicatorWidget(),
                           ),
-                        ),
-                      ))
-                      : Expanded(
-                    child: ListView.builder(
-                      itemCount: filteredData?.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        int itemNumber = index + 1;
-                        return Card(
-                          color: Colors.white70.withOpacity(0.7),
-                          child: ListTile(
-                            title: Text(
-                              '$itemNumber. ${filteredData?[index]['test_name'] ?? ''}',
-                            ),
-                            onTap: () {
-                              selectedDepartment =
-                                  filteredData?[index]['test_name'] ?? '';
-                              selectedDepartmentId =
-                                  filteredData?[index]['id'] ?? '';
-                              departmentController.text =
-                              '($selectedDepartmentId) $selectedDepartment';
+                        ))
+                      : pathologyfilteredData!.isEmpty
+                          ? Expanded(
+                              child: Center(
+                              child: Container(
+                                height: 150,
+                                width: 150,
+                                child: Lottie.asset(
+                                  'assets/No_Data_Found.json',
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ))
+                          : Expanded(
+                              child: ListView.builder(
+                                itemCount: pathologyfilteredData?.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  String itemName =
+                                      pathologyfilteredData?[index]
+                                              ['test_name'] ??
+                                          '';
+                                  String itemId =
+                                      pathologyfilteredData?[index]['id'] ?? '';
+                                  bool isSelected =
+                                      selectedpathologyItems.contains(itemName);
 
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        );
-                      },
-                    ),
-                  ),
+                                  int itemNumber = index + 1;
+                                  return Card(
+                                    color: isSelected
+                                        ? Colors.green
+                                        : Colors.white70.withOpacity(0.7),
+                                    child: ListTile(
+                                      title: Text(
+                                        '$itemNumber.$itemName',
+                                        style: TextStyle(
+                                          fontWeight: isSelected
+                                              ? FontWeight.bold
+                                              : FontWeight.normal,
+                                        ),
+                                      ),
+                                      onTap: () {
+                                        setState(() {
+                                          if (isSelected) {
+                                            selectedpathologyItems
+                                                .remove(itemName);
+                                          } else {
+                                            selectedpathologyItems
+                                                .add(itemName);
+                                          }
+                                          pathologyController.text =
+                                              selectedpathologyItems
+                                                  .map((itemName) {
+                                            var itemData = pathologyfilteredData
+                                                ?.firstWhere((data) =>
+                                                    data['test_name'] ==
+                                                    itemName);
+                                            return '(${itemData['id']}).${itemName}';
+                                          }).join(', ');
+
+                                          // Update the selectedOtherItemsId based on selectedOtherItems
+                                          selectedpathologyItemsId =
+                                              selectedpathologyItems
+                                                  .map((itemName) =>
+                                                      pathologyfilteredData
+                                                          ?.firstWhere((data) =>
+                                                              data[
+                                                                  'test_name'] ==
+                                                              itemName)['id'])
+                                                  .join(',');
+
+                                          // Update the selectedOtherItemsName based on selectedOtherItems
+                                          selectedpathologyItemsName =
+                                              selectedpathologyItems.join(', ');
+                                        });
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
                 ],
               ),
             );
@@ -996,11 +1105,11 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
       },
     );
   }
+
 //==========================================================================================
   TextEditingController radiologySearchController = TextEditingController();
   String selectedradiology = '';
   String selectedradiologyId = '';
-  TextEditingController radiologyController = TextEditingController();
 
 
   void _showRadiologySelection(BuildContext context) {
@@ -1244,6 +1353,164 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
     );
   }
 //==========================================================================================
+
+//==========================================================================================
+
+  TextEditingController diagnosissearchController = TextEditingController();
+  String selecteddiagnosisdata = '';
+  String selecteddiagnosisId = '';
+
+  void _showdiagnosisSelection(BuildContext context) {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+      ),
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return Container(
+              height: MediaQuery.of(context).size.height * 0.8,
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment
+                        .spaceBetween, // Align items at the ends
+                    children: <Widget>[
+                      const Expanded(
+                        child: Center(
+                          child: Text(
+                            'Select Data',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.close), // Close icon
+                        onPressed: () {
+                          Navigator.of(context).pop(); // Close the bottom sheet
+                        },
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0, right: 8),
+                    child: Container(
+                      width: width / 0.8,
+                      height: 50,
+                      child: TextFormField(
+                        controller: diagnosissearchController,
+                        onChanged: (query) {
+                          setState(() {
+                            DiagnosisfilterData(query);
+                          });
+                        },
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          suffixIcon: Icon(Icons.search),
+                        ),
+                      ),
+                    ),
+                  ),
+                  isLoading
+                      ? Expanded(
+                          child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Container(
+                            height: 50,
+                            width: 50,
+                            color: Colors.transparent,
+                            child: const LoadingIndicatorWidget(),
+                          ),
+                        ))
+                      : diagnosisfilteredData!.isEmpty
+                          ? Expanded(
+                              child: Center(
+                              child: Container(
+                                height: 150,
+                                width: 150,
+                                child: Lottie.asset(
+                                  'assets/No_Data_Found.json',
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ))
+                          : Expanded(
+                              child: ListView.builder(
+                                itemCount: diagnosisfilteredData?.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  String itemName =
+                                      diagnosisfilteredData?[index]['name'] ??
+                                          '';
+                                  String itemId =
+                                      diagnosisfilteredData?[index]['id'] ?? '';
+                                  bool isSelected =
+                                      selecteddiagnosisItems.contains(itemName);
+
+                                  int itemNumber = index + 1;
+                                  return Card(
+                                    color: isSelected
+                                        ? Colors.green
+                                        : Colors.white70.withOpacity(0.7),
+                                    child: ListTile(
+                                      title: Text(
+                                        '$itemNumber.$itemName',
+                                        style: TextStyle(
+                                          fontWeight: isSelected
+                                              ? FontWeight.bold
+                                              : FontWeight.normal,
+                                        ),
+                                      ),
+                                      onTap: () {
+                                        setState(() {
+                                          if (isSelected) {
+                                            selecteddiagnosisItems
+                                                .remove(itemName);
+                                          } else {
+                                            selecteddiagnosisItems
+                                                .add(itemName);
+                                          }
+                                          DiagnosisController.text =
+                                              selecteddiagnosisItems
+                                                  .map((itemName) {
+                                            var itemData = diagnosisfilteredData
+                                                ?.firstWhere((data) =>
+                                                    data['name'] == itemName);
+                                            return '(${itemData['id']}).${itemName}';
+                                          }).join(', ');
+
+                                          // Update the selectedOtherItemsId based on selectedOtherItems
+                                          selecteddiagnosisItemsId =
+                                              selecteddiagnosisItems
+                                                  .map((itemName) =>
+                                                      diagnosisfilteredData
+                                                          ?.firstWhere((data) =>
+                                                              data['name'] ==
+                                                              itemName)['id'])
+                                                  .join(',');
+
+                                          // Update the selectedOtherItemsName based on selectedOtherItems
+                                          selecteddiagnosisItemsName =
+                                              selecteddiagnosisItems.join(', ');
+                                        });
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
 
 
 

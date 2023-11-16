@@ -209,7 +209,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     }
   }
 
-  ////////////////////
+  //========================================
 
   void radiologyfilterData(String query) {
     setState(() {
@@ -626,25 +626,13 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                         },
                         readOnly: true,
                         // Set this to true to disable the keyboard
-                        controller: diagnosisController,
+                        // controller: diagnosisController,
                         decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                            icon: const Icon(
-                              Icons.arrow_drop_down_sharp,
-                              size: 40,
-                            ),
-                            onPressed: () {
-                              selectDiagnosisOptions(context);
-                            },
-                          ),
                           border: const OutlineInputBorder(),
                           hintText: 'Select Qty',
                           fillColor: Colors.white,
                           filled: true,
                         ),
-                        onTap: () {
-                          selectDiagnosisOptions(context);
-                        },
                       )),
                     ),
                   ),
@@ -1284,6 +1272,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     );
   }
 
+//===============================================================================
   TextEditingController pathologySearchController = TextEditingController();
   String selectedPathology = '';
   String selectedPathologyId = '';
@@ -1445,6 +1434,8 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
 
 //==========================================================================================
   TextEditingController radiologySearchController = TextEditingController();
+  String selectedradiology = '';
+  String selectedradiologyId = '';
 
   void _showRadiologySelection(BuildContext context) {
     showModalBottomSheet(
@@ -1529,63 +1520,26 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                               child: ListView.builder(
                                 itemCount: radiologyfilteredData?.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  String itemName =
-                                      radiologyfilteredData?[index]
-                                              ['test_name'] ??
-                                          '';
-                                  String itemId =
-                                      radiologyfilteredData?[index]['id'] ?? '';
-                                  bool isSelected =
-                                      selectedradiologyItems.contains(itemName);
-
                                   int itemNumber = index + 1;
                                   return Card(
-                                    color: isSelected
-                                        ? Colors.green
-                                        : Colors.white70.withOpacity(0.7),
+                                    color: Colors.white70.withOpacity(0.7),
                                     child: ListTile(
                                       title: Text(
-                                        '$itemNumber.$itemName',
-                                        style: TextStyle(
-                                          fontWeight: isSelected
-                                              ? FontWeight.bold
-                                              : FontWeight.normal,
-                                        ),
+                                        '$itemNumber. ${radiologyfilteredData?[index]['test_name'] ?? ''}',
                                       ),
                                       onTap: () {
-                                        setState(() {
-                                          if (isSelected) {
-                                            selectedradiologyItems
-                                                .remove(itemName);
-                                          } else {
-                                            selectedradiologyItems
-                                                .add(itemName);
-                                          }
-                                          radiologyController.text =
-                                              selectedradiologyItems
-                                                  .map((itemName) {
-                                            var itemData = radiologyfilteredData
-                                                ?.firstWhere((data) =>
-                                                    data['test_name'] ==
-                                                    itemName);
-                                            return '(${itemData['id']}).${itemName}';
-                                          }).join(', ');
+                                        selectedradiology =
+                                            radiologyfilteredData?[index]
+                                                    ['test_name'] ??
+                                                '';
+                                        selectedradiologyId =
+                                            radiologyfilteredData?[index]
+                                                    ['id'] ??
+                                                '';
+                                        radiologyController.text =
+                                            '($selectedradiologyId) $selectedradiology';
 
-                                          // Update the selectedOtherItemsId based on selectedOtherItems
-                                          selectedradiologyItemsId =
-                                              selectedradiologyItems
-                                                  .map((itemName) =>
-                                                      radiologyfilteredData
-                                                          ?.firstWhere((data) =>
-                                                              data[
-                                                                  'test_name'] ==
-                                                              itemName)['id'])
-                                                  .join(',');
-
-                                          // Update the selectedOtherItemsName based on selectedOtherItems
-                                          selectedradiologyItemsName =
-                                              selectedradiologyItems.join(', ');
-                                        });
+                                        Navigator.of(context).pop();
                                       },
                                     ),
                                   );
@@ -1687,63 +1641,26 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                             ))
                           : Expanded(
                               child: ListView.builder(
-                                itemCount: pharmacyfilteredData?.length,
+                                itemCount: otherfilteredData?.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  String itemName = pharmacyfilteredData?[index]
-                                          ['medicine_name'] ??
-                                      '';
-                                  String itemId =
-                                      pharmacyfilteredData?[index]['id'] ?? '';
-                                  bool isSelected =
-                                      selectedpharmacyItems.contains(itemName);
-
                                   int itemNumber = index + 1;
                                   return Card(
-                                    color: isSelected
-                                        ? Colors.green
-                                        : Colors.white70.withOpacity(0.7),
+                                    color: Colors.white70.withOpacity(0.7),
                                     child: ListTile(
                                       title: Text(
-                                        '$itemNumber.$itemName',
-                                        style: TextStyle(
-                                          fontWeight: isSelected
-                                              ? FontWeight.bold
-                                              : FontWeight.normal,
-                                        ),
+                                        '$itemNumber. ${otherfilteredData?[index]['name'] ?? ''}',
                                       ),
                                       onTap: () {
-                                        setState(() {
-                                          if (isSelected) {
-                                            selectedpharmacyItems
-                                                .remove(itemName);
-                                          } else {
-                                            selectedpharmacyItems.add(itemName);
-                                          }
-                                          pharmacyController.text =
-                                              selectedpharmacyItems
-                                                  .map((itemName) {
-                                            var itemData = pharmacyfilteredData
-                                                ?.firstWhere((data) =>
-                                                    data['medicine_name'] ==
-                                                    itemName);
-                                            return '(${itemData['id']}).${itemName}';
-                                          }).join(', ');
+                                        selectedotherdata =
+                                            otherfilteredData?[index]['name'] ??
+                                                '';
+                                        selectedotherId =
+                                            otherfilteredData?[index]['id'] ??
+                                                '';
+                                        otherController.text =
+                                            '($selectedotherId) $selectedotherdata';
 
-                                          // Update the selectedOtherItemsId based on selectedOtherItems
-                                          selectedpharmacyItemsId =
-                                              selectedpharmacyItems
-                                                  .map((itemName) =>
-                                                      pharmacyfilteredData
-                                                          ?.firstWhere((data) =>
-                                                              data[
-                                                                  'medicine_name'] ==
-                                                              itemName)['id'])
-                                                  .join(',');
-
-                                          // Update the selectedOtherItemsName based on selectedOtherItems
-                                          selectedpharmacyItemsName =
-                                              selectedpharmacyItems.join(', ');
-                                        });
+                                        Navigator.of(context).pop();
                                       },
                                     ),
                                   );
@@ -1849,57 +1766,24 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                               child: ListView.builder(
                                 itemCount: otherfilteredData?.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  String itemName =
-                                      otherfilteredData?[index]['name'] ?? '';
-                                  String itemId =
-                                      otherfilteredData?[index]['id'] ?? '';
-                                  bool isSelected =
-                                      selectedotherItems.contains(itemName);
-
                                   int itemNumber = index + 1;
                                   return Card(
-                                    color: isSelected
-                                        ? Colors.green
-                                        : Colors.white70.withOpacity(0.7),
+                                    color: Colors.white70.withOpacity(0.7),
                                     child: ListTile(
                                       title: Text(
-                                        '$itemNumber.$itemName',
-                                        style: TextStyle(
-                                          fontWeight: isSelected
-                                              ? FontWeight.bold
-                                              : FontWeight.normal,
-                                        ),
+                                        '$itemNumber. ${otherfilteredData?[index]['name'] ?? ''}',
                                       ),
                                       onTap: () {
-                                        setState(() {
-                                          if (isSelected) {
-                                            selectedotherItems.remove(itemName);
-                                          } else {
-                                            selectedotherItems.add(itemName);
-                                          }
-                                          otherController.text =
-                                              selectedotherItems
-                                                  .map((itemName) {
-                                            var itemData = otherfilteredData
-                                                ?.firstWhere((data) =>
-                                                    data['name'] == itemName);
-                                            return '(${itemData['id']}).${itemName}';
-                                          }).join(', ');
+                                        selectedotherdata =
+                                            otherfilteredData?[index]['name'] ??
+                                                '';
+                                        selectedotherId =
+                                            otherfilteredData?[index]['id'] ??
+                                                '';
+                                        otherController.text =
+                                            '($selectedotherId) $selectedotherdata';
 
-                                          // Update the selectedOtherItemsId based on selectedOtherItems
-                                          selectedotherItemsId =
-                                              selectedotherItems
-                                                  .map((itemName) =>
-                                                      otherfilteredData
-                                                          ?.firstWhere((data) =>
-                                                              data['name'] ==
-                                                              itemName)['id'])
-                                                  .join(',');
-
-                                          // Update the selectedOtherItemsName based on selectedOtherItems
-                                          selectedotherItemsName =
-                                              selectedotherItems.join(', ');
-                                        });
+                                        Navigator.of(context).pop();
                                       },
                                     ),
                                   );
@@ -2079,44 +1963,43 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     return Row(
       children: [
         Container(
-                    width: width / 1.25,
-                    child: Flexible(
-                      child: Center(
-                        child: InkWell(
-                          child: TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'This field is required';
-                              }
-                              return null;
-                            },
-                            readOnly: true,
-                            controller: otherController,
-                            maxLines: null, // Allow multiple lines
-                            decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                icon: const Icon(
-                                  Icons.arrow_drop_down_sharp,
-                                  size: 40,
-                                ),
-                                onPressed: () {
-                                  _showOtherSelection(context);
-                                },
-                              ),
-                              border: const OutlineInputBorder(),
-                              hintText: 'Select Other test',
-                              fillColor: Colors.white,
-                              filled: true,
-                            ),
-                            onTap: () {
-                              _showOtherSelection(context);
-                            },
-                          ),
-                        ),
+          width: width / 1.25,
+          child: Flexible(
+            child: Center(
+              child: InkWell(
+                child: TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'This field is required';
+                    }
+                    return null;
+                  },
+                  readOnly: true,
+                  controller: textFieldController,
+                  maxLines: null, // Allow multiple lines
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      icon: const Icon(
+                        Icons.arrow_drop_down_sharp,
+                        size: 40,
                       ),
+                      onPressed: () {
+                        _showOtherSelection(context);
+                      },
                     ),
+                    border: const OutlineInputBorder(),
+                    hintText: 'Select Other test',
+                    fillColor: Colors.white,
+                    filled: true,
                   ),
-                  
+                  onTap: () {
+                    _showOtherSelection(context);
+                  },
+                ),
+              ),
+            ),
+          ),
+        ),
         const SizedBox(
           width: 5,
         ),

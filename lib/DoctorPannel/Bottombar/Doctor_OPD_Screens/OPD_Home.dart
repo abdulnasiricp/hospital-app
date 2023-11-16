@@ -93,7 +93,7 @@ class _OpdHomeState extends State<OpdHome> {
                         overflow: TextOverflow
                             .ellipsis, // Use ellipsis to cut off the text
                         maxLines: 1,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 15),
                       ),
                     ],
@@ -143,7 +143,7 @@ class _OpdHomeState extends State<OpdHome> {
                                 ],
                               ),
                               Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Container(
@@ -231,22 +231,19 @@ class _OpdHomeState extends State<OpdHome> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Container(
-                                    width: width / 4,
+                                    width: width / 7,
                                     child: InkWell(
                                       onTap: () {},
                                       child: Container(
-                                        child: const Padding(
-                                          padding: EdgeInsets.all(3.0),
-                                          child: Center(
-                                            child: Text(
-                                              'Examination',
-                                              overflow: TextOverflow
-                                                  .ellipsis, // Use ellipsis to cut off the text
-                                              maxLines: 1,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 10),
-                                            ),
+                                        child: const Center(
+                                          child: Text(
+                                            'Examination',
+                                            overflow: TextOverflow
+                                                .ellipsis, // Use ellipsis to cut off the text
+                                            maxLines: 1,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 10),
                                           ),
                                         ),
                                       ),

@@ -178,19 +178,18 @@ class _IPDCardexState extends State<IPDCardex> {
                       const SizedBox(
                         height: 5,
                       ),
+
                       Container(
-                        height: 80,
-                        child: Column(
-                          children: [
-                            Expanded(
-                              child: ListView.builder(
-                                itemCount: dragrows.length,
-                                itemBuilder: (context, index) {
-                                  return dragrows[index];
-                                },
-                              ),
-                            ),
-                          ],
+
+                        height: dragrows.isNotEmpty ? null : 0,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+
+                          itemCount: dragrows.length,
+                          itemBuilder: (context, index) {
+                            return dragrows[index];
+                          },
                         ),
                       ),
                       Padding(
@@ -452,7 +451,8 @@ class _IPDCardexState extends State<IPDCardex> {
                                     onPressed: () {
                                       setState(() {
                                         // Add a new row when the "Add" button is clicked
-                                        obesvationrows.add(observationBuildRow());
+                                        obesvationrows
+                                            .add(observationBuildRow());
                                       });
                                     },
                                     icon: Icon(
@@ -469,19 +469,18 @@ class _IPDCardexState extends State<IPDCardex> {
                       const SizedBox(
                         height: 5,
                       ),
+
                       Container(
-                        height: 80,
-                        child: Column(
-                          children: [
-                            Expanded(
-                              child: ListView.builder(
-                                itemCount: obesvationrows.length,
-                                itemBuilder: (context, index) {
-                                  return obesvationrows[index];
-                                },
-                              ),
-                            ),
-                          ],
+
+                        height: obesvationrows.isNotEmpty ? null : 0,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+
+                          itemCount: obesvationrows.length,
+                          itemBuilder: (context, index) {
+                            return obesvationrows[index];
+                          },
                         ),
                       ),
                       Padding(
@@ -698,7 +697,8 @@ class _IPDCardexState extends State<IPDCardex> {
                                             onPressed: () {
                                               setState(() {
                                                 // Add a new row when the "Add" button is clicked
-                                                drainagegrows.add(drainageBuildRow());
+                                                drainagegrows
+                                                    .add(drainageBuildRow());
                                               });
                                             },
                                             icon: Icon(
@@ -715,19 +715,18 @@ class _IPDCardexState extends State<IPDCardex> {
                               const SizedBox(
                                 height: 5,
                               ),
+
                               Container(
-                                height: 80,
-                                child: Column(
-                                  children: [
-                                    Expanded(
-                                      child: ListView.builder(
-                                        itemCount: drainagegrows.length,
-                                        itemBuilder: (context, index) {
-                                          return drainagegrows[index];
-                                        },
-                                      ),
-                                    ),
-                                  ],
+
+                                height: drainagegrows.isNotEmpty ? null : 0,
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+
+                                  itemCount: drainagegrows.length,
+                                  itemBuilder: (context, index) {
+                                    return drainagegrows[index];
+                                  },
                                 ),
                               ),
                               Padding(
@@ -1305,7 +1304,6 @@ class _IPDCardexState extends State<IPDCardex> {
             )),
           ),
         ),
-      
         Container(
           width: width / 7,
           height: 40,
