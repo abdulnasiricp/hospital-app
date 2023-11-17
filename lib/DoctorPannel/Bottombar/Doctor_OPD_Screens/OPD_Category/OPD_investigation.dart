@@ -1654,12 +1654,14 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                       ),
                                       onTap: () {
                                         selectedpharmacy =
-                                            pharmacyfilteredData?[index]['medicine_name'] ??
+                                            pharmacyfilteredData?[index]
+                                                    ['medicine_name'] ??
                                                 '';
                                         selectedpharmacyId =
-                                            pharmacyfilteredData?[index]['id'] ??
+                                            pharmacyfilteredData?[index]
+                                                    ['id'] ??
                                                 '';
-                                       pharmacyController.text =
+                                        pharmacyController.text =
                                             '($selectedpharmacyId) $selectedpharmacy';
 
                                         Navigator.of(context).pop();

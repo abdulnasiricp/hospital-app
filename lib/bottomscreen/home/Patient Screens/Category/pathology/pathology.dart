@@ -81,7 +81,7 @@ class _PathalogyState extends State<Pathalogy> {
 
   Future<Map<String, dynamic>> fetchData() async {
     Uri.parse(ApiLinks.pathology);
-    
+
     final body = {
       "patient_id": patient,
     };

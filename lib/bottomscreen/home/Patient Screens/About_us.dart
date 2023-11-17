@@ -221,7 +221,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                             right: width / 25,
                           ),
                           child: Container(
-                            height: height / 5.5,
+                            height: height / 4,
                             width: width,
                             child: Card(
                               // color: Colors.grey[200],
