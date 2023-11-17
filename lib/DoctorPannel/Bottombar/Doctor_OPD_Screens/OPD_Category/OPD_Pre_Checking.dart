@@ -31,9 +31,9 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.lightBlue[50],
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SingleChildScrollView(
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
             child: Container(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

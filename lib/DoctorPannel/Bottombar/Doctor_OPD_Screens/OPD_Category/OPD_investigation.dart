@@ -268,447 +268,154 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: SingleChildScrollView(
-        child: Column(children: [
-          Row(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(children: [
+              Row(
                 children: [
-                  const Text(
-                    'Diagnosis',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    width: width / 2.2,
-                    height: 30,
-                    color: Colors.green[300],
-                    child: const Center(
-                        child: Text(
-                      'Diagnosis',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                    )),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    width: width / 2.2,
-                    child: Flexible(
-                      child: Center(
-                        child: InkWell(
-                          child: TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'This field is required';
-                              }
-                              return null;
-                            },
-                            readOnly: true,
-                            controller: DiagnosisController,
-                            maxLines: null, // Allow multiple lines
-                            decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                icon: const Icon(
-                                  Icons.arrow_drop_down_sharp,
-                                  size: 40,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Diagnosis',
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        width: width / 2.2,
+                        height: 30,
+                        color: Colors.green[300],
+                        child: const Center(
+                            child: Text(
+                          'Diagnosis',
+                          style:
+                              TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                        )),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        width: width / 2.2,
+                        child: Flexible(
+                          child: Center(
+                            child: InkWell(
+                              child: TextFormField(
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'This field is required';
+                                  }
+                                  return null;
+                                },
+                                readOnly: true,
+                                controller: DiagnosisController,
+                                maxLines: null, // Allow multiple lines
+                                decoration: InputDecoration(
+                                  suffixIcon: IconButton(
+                                    icon: const Icon(
+                                      Icons.arrow_drop_down_sharp,
+                                      size: 40,
+                                    ),
+                                    onPressed: () {
+                                      _showdiagnosisSelection(context);
+                                    },
+                                  ),
+                                  border: const OutlineInputBorder(),
+                                  hintText: 'Select Diagnosis',
+                                  fillColor: Colors.white,
+                                  filled: true,
                                 ),
-                                onPressed: () {
+                                onTap: () {
                                   _showdiagnosisSelection(context);
                                 },
                               ),
-                              border: const OutlineInputBorder(),
-                              hintText: 'Select Diagnosis',
-                              fillColor: Colors.white,
-                              filled: true,
                             ),
-                            onTap: () {
-                              _showdiagnosisSelection(context);
-                            },
                           ),
                         ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Pathology',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    width: width / 2.2,
-                    height: 30,
-                    color: Colors.green[300],
-                    child: const Center(
-                        child: Text(
-                      'Pathology',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                    )),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    width: width / 2.2,
-                    child: Flexible(
-                      child: Center(
-                        child: InkWell(
-                          child: TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'This field is required';
-                              }
-                              return null;
-                            },
-                            readOnly: true,
-                            controller: pathologyController,
-                            maxLines: null, // Allow multiple lines
-                            decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                icon: const Icon(
-                                  Icons.arrow_drop_down_sharp,
-                                  size: 40,
-                                ),
-                                onPressed: () {
-                                  _showPathologySelection(context);
-                                },
-                              ),
-                              border: const OutlineInputBorder(),
-                              hintText: 'Select Pathology',
-                              fillColor: Colors.white,
-                              filled: true,
-                            ),
-                            onTap: () {
-                              _showPathologySelection(context);
-                              (context);
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Other Test',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Container(
-                width: double.infinity,
-                height: 30,
-                color: Colors.green[300],
-                child: const Center(
-                    child: Text(
-                  'Select Other Test',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                )),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Row(
-                children: [
-                  Container(
-                    width: width / 1.25,
-                    child: Flexible(
-                      child: Center(
-                        child: InkWell(
-                          child: TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'This field is required';
-                              }
-                              return null;
-                            },
-                            readOnly: true,
-                            controller: otherController,
-                            maxLines: null, // Allow multiple lines
-                            decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                icon: const Icon(
-                                  Icons.arrow_drop_down_sharp,
-                                  size: 40,
-                                ),
-                                onPressed: () {
-                                  _showOtherSelection(context);
-                                },
-                              ),
-                              border: const OutlineInputBorder(),
-                              hintText: 'Select Other test',
-                              fillColor: Colors.white,
-                              filled: true,
-                            ),
-                            onTap: () {
-                              _showOtherSelection(context);
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Container(
-                    width: width / 9,
-                    // height: 40,
-                    child: Center(
-                      child: CircleAvatar(
-                        child: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              // Add a new row when the "Add" button is clicked
-                              opdOthertestRow.add(observationBuildRow());
-                            });
-                          },
-                          icon: Icon(
-                            Icons.add,
-                            color: whitecolor,
-                          ),
-                        ),
-                        backgroundColor: Colors.green,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Container(
-            height: opdOthertestRow.isNotEmpty ? null : 0,
-            child: ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: opdOthertestRow.length,
-              itemBuilder: (context, index) {
-                return opdOthertestRow[index];
-              },
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Radiology',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Container(
-                width: double.infinity,
-                height: 30,
-                color: Colors.green[300],
-                child: const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Radiology',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 15),
-                      ),
-                      // SizedBox(width: 10,),
-                      Text(
-                        'Qty',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 15),
-                      ),
-                      // SizedBox(width: 10,),
-
-                      Text(
-                        'Radiology Note',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 15),
-                      ),
-                      Text(
-                        ' ',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 15),
-                      ),
+                      )
                     ],
                   ),
-                ),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Row(
-                children: [
-                  Container(
-                    width: width / 3.2,
-                    child: Flexible(
-                      child: Center(
-                        child: InkWell(
-                          child: TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'This field is required';
-                              }
-                              return null;
-                            },
-                            readOnly: true,
-                            controller: radiologyController,
-                            maxLines: null, // Allow multiple lines
-                            decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                icon: const Icon(
-                                  Icons.arrow_drop_down_sharp,
-                                  size: 40,
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Pathology',
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        width: width / 2.2,
+                        height: 30,
+                        color: Colors.green[300],
+                        child: const Center(
+                            child: Text(
+                          'Pathology',
+                          style:
+                              TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                        )),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        width: width / 2.2,
+                        child: Flexible(
+                          child: Center(
+                            child: InkWell(
+                              child: TextFormField(
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'This field is required';
+                                  }
+                                  return null;
+                                },
+                                readOnly: true,
+                                controller: pathologyController,
+                                maxLines: null, // Allow multiple lines
+                                decoration: InputDecoration(
+                                  suffixIcon: IconButton(
+                                    icon: const Icon(
+                                      Icons.arrow_drop_down_sharp,
+                                      size: 40,
+                                    ),
+                                    onPressed: () {
+                                      _showPathologySelection(context);
+                                    },
+                                  ),
+                                  border: const OutlineInputBorder(),
+                                  hintText: 'Select Pathology',
+                                  fillColor: Colors.white,
+                                  filled: true,
                                 ),
-                                onPressed: () {
-                                  _showRadiologySelection(context);
+                                onTap: () {
+                                  _showPathologySelection(context);
+                                  (context);
                                 },
                               ),
-                              border: const OutlineInputBorder(),
-                              hintText: 'Select Radiology',
-                              fillColor: Colors.white,
-                              filled: true,
                             ),
-                            onTap: () {
-                              _showRadiologySelection(context);
-                            },
                           ),
                         ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Container(
-                    width: width / 6,
-                    height: 50,
-                    child: Center(
-                      child: InkWell(
-                          child: TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'This field is required';
-                          }
-                          return null;
-                        },
-                        readOnly: true,
-                        // Set this to true to disable the keyboard
-                        // controller: diagnosisController,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'Select Qty',
-                          fillColor: Colors.white,
-                          filled: true,
-                        ),
-                      )),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Container(
-                    width: width / 3.5,
-                    height: 50,
-                    child: Center(
-                      child: InkWell(
-                          child: TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'This field is required';
-                          }
-                          return null;
-                        },
-                        // Set this to true to disable the keyboard
-                        // controller: diagnosisController,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'Additional note',
-                          contentPadding: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 10),
-                        ),
-                      )),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Container(
-                    width: width / 9,
-                    // height: 40,
-                    child: Center(
-                      child: CircleAvatar(
-                        child: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              // Add a new row when the "Add" button is clicked
-                              radiologyRow.add(radiologyBuildRow());
-                            });
-                          },
-                          icon: Icon(
-                            Icons.add,
-                            color: whitecolor,
-                          ),
-                        ),
-                        backgroundColor: Colors.green,
-                      ),
-                    ),
+                      )
+                    ],
                   ),
                 ],
               ),
               const SizedBox(
-                height: 5,
-              ),
-              Container(
-                height: radiologyRow.isNotEmpty ? null : 0,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: radiologyRow.length,
-                  itemBuilder: (context, index) {
-                    return radiologyRow[index];
-                  },
-                ),
-              ),
-              const SizedBox(
-                height: 10,
+                height: 20,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Surgery',
+                    'Other Test',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   const SizedBox(
@@ -718,29 +425,11 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                     width: double.infinity,
                     height: 30,
                     color: Colors.green[300],
-                    child: const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Surgery advised',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15),
-                          ),
-                          Text(
-                            'Note for surgery',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15),
-                          ),
-                          Text(
-                            ' ',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15),
-                          ),
-                        ],
-                      ),
-                    ),
+                    child: const Center(
+                        child: Text(
+                      'Select Other Test',
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    )),
                   ),
                   const SizedBox(
                     height: 5,
@@ -748,7 +437,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                   Row(
                     children: [
                       Container(
-                        width: width / 3,
+                        width: width / 1.25,
                         child: Flexible(
                           child: Center(
                             child: InkWell(
@@ -789,38 +478,15 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                         width: 5,
                       ),
                       Container(
-                        width: width / 2.2,
-                        height: 50,
-                        child: Center(
-                          child: InkWell(
-                              child: TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'This field is required';
-                              }
-                              return null;
-                            },
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: 'Additional note',
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 10),
-                            ),
-                          )),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Container(
                         width: width / 9,
+                        // height: 40,
                         child: Center(
                           child: CircleAvatar(
                             child: IconButton(
                               onPressed: () {
                                 setState(() {
                                   // Add a new row when the "Add" button is clicked
-                                  surgeryRow.add(surgeryBuildRow());
+                                  opdOthertestRow.add(observationBuildRow());
                                 });
                               },
                               icon: Icon(
@@ -840,13 +506,13 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                 height: 5,
               ),
               Container(
-                height: surgeryRow.isNotEmpty ? null : 0,
+                height: opdOthertestRow.isNotEmpty ? null : 0,
                 child: ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: surgeryRow.length,
+                  itemCount: opdOthertestRow.length,
                   itemBuilder: (context, index) {
-                    return surgeryRow[index];
+                    return opdOthertestRow[index];
                   },
                 ),
               ),
@@ -857,7 +523,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Medicine',
+                    'Radiology',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   const SizedBox(
@@ -873,52 +539,22 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Medicine',
+                            'Radiology',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 15),
                           ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            'Dose',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            'Interval',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            'Duration',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            'Route',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
+                          // SizedBox(width: 10,),
                           Text(
                             'Qty',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 15),
                           ),
-                          SizedBox(
-                            width: 5,
+                          // SizedBox(width: 10,),
+
+                          Text(
+                            'Radiology Note',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
                           ),
                           Text(
                             ' ',
@@ -935,7 +571,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                   Row(
                     children: [
                       Container(
-                        width: width / 6,
+                        width: width / 3.2,
                         child: Flexible(
                           child: Center(
                             child: InkWell(
@@ -947,7 +583,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                   return null;
                                 },
                                 readOnly: true,
-                                controller: pharmacyController,
+                                controller: radiologyController,
                                 maxLines: null, // Allow multiple lines
                                 decoration: InputDecoration(
                                   suffixIcon: IconButton(
@@ -956,16 +592,16 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                       size: 40,
                                     ),
                                     onPressed: () {
-                                      _showPharmacySelection(context);
+                                      _showRadiologySelection(context);
                                     },
                                   ),
                                   border: const OutlineInputBorder(),
-                                  hintText: 'Select Medicine',
+                                  hintText: 'Select Radiology',
                                   fillColor: Colors.white,
                                   filled: true,
                                 ),
                                 onTap: () {
-                                  _showPharmacySelection(context);
+                                  _showRadiologySelection(context);
                                 },
                               ),
                             ),
@@ -973,10 +609,10 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                         ),
                       ),
                       const SizedBox(
-                        width: 2,
+                        width: 5,
                       ),
                       Container(
-                        width: width / 8,
+                        width: width / 6,
                         height: 50,
                         child: Center(
                           child: InkWell(
@@ -987,100 +623,23 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                               }
                               return null;
                             },
+                            readOnly: true,
                             // Set this to true to disable the keyboard
                             // controller: diagnosisController,
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
-                              hintText: 'Additional note',
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 10),
+                              hintText: 'Select Qty',
+                              fillColor: Colors.white,
+                              filled: true,
                             ),
                           )),
                         ),
                       ),
                       const SizedBox(
-                        width: 2,
+                        width: 5,
                       ),
                       Container(
-                        width: width / 8,
-                        height: 50,
-                        child: Center(
-                          child: InkWell(
-                              child: TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'This field is required';
-                              }
-                              return null;
-                            },
-                            // Set this to true to disable the keyboard
-                            // controller: diagnosisController,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: 'Additional note',
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 10),
-                            ),
-                          )),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 2,
-                      ),
-                      Container(
-                        width: width / 8,
-                        height: 50,
-                        child: Center(
-                          child: InkWell(
-                              child: TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'This field is required';
-                              }
-                              return null;
-                            },
-                            // Set this to true to disable the keyboard
-                            // controller: diagnosisController,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: 'Additional note',
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 10),
-                            ),
-                          )),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 2,
-                      ),
-                      Container(
-                        width: width / 8,
-                        height: 50,
-                        child: Center(
-                          child: InkWell(
-                              child: TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'This field is required';
-                              }
-                              return null;
-                            },
-                            // Set this to true to disable the keyboard
-                            // controller: diagnosisController,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: 'Additional note',
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 10),
-                            ),
-                          )),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 2,
-                      ),
-                      Container(
-                        width: width / 8,
+                        width: width / 3.5,
                         height: 50,
                         child: Center(
                           child: InkWell(
@@ -1114,7 +673,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                               onPressed: () {
                                 setState(() {
                                   // Add a new row when the "Add" button is clicked
-                                  medicineRow.add(medicineBuildRow());
+                                  radiologyRow.add(radiologyBuildRow());
                                 });
                               },
                               icon: Icon(
@@ -1128,56 +687,497 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                       ),
                     ],
                   ),
-                ],
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Container(
-                height: medicineRow.isNotEmpty ? null : 0,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: medicineRow.length,
-                  itemBuilder: (context, index) {
-                    return medicineRow[index];
-                  },
-                ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Follow up & Advice',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  const SizedBox(
+                    height: 5,
                   ),
                   Container(
-                      height: 50,
-                      child: const TextField(
-                        decoration:
-                            InputDecoration(border: OutlineInputBorder()),
-                      ))
-                ],
-              ),
-              const SizedBox(height: 20),
-              Center(
-                child: Container(
-                  width: double.infinity,
-                  height: 40,
-                  child: ElevatedButton(
-                    child: const Text('Save'),
-                    onPressed: () {},
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(yellow),
+                    height: radiologyRow.isNotEmpty ? null : 0,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: radiologyRow.length,
+                      itemBuilder: (context, index) {
+                        return radiologyRow[index];
+                      },
                     ),
                   ),
-                ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Surgery',
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        height: 30,
+                        color: Colors.green[300],
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Surgery advised',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
+                              Text(
+                                'Note for surgery',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
+                              Text(
+                                ' ',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            width: width / 3,
+                            child: Flexible(
+                              child: Center(
+                                child: InkWell(
+                                  child: TextFormField(
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'This field is required';
+                                      }
+                                      return null;
+                                    },
+                                    readOnly: true,
+                                    controller: otherController,
+                                    maxLines: null, // Allow multiple lines
+                                    decoration: InputDecoration(
+                                      suffixIcon: IconButton(
+                                        icon: const Icon(
+                                          Icons.arrow_drop_down_sharp,
+                                          size: 40,
+                                        ),
+                                        onPressed: () {
+                                          _showOtherSelection(context);
+                                        },
+                                      ),
+                                      border: const OutlineInputBorder(),
+                                      hintText: 'Select Other test',
+                                      fillColor: Colors.white,
+                                      filled: true,
+                                    ),
+                                    onTap: () {
+                                      _showOtherSelection(context);
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Container(
+                            width: width / 2.2,
+                            height: 50,
+                            child: Center(
+                              child: InkWell(
+                                  child: TextFormField(
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'This field is required';
+                                  }
+                                  return null;
+                                },
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: 'Additional note',
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 10),
+                                ),
+                              )),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Container(
+                            width: width / 9,
+                            child: Center(
+                              child: CircleAvatar(
+                                child: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      // Add a new row when the "Add" button is clicked
+                                      surgeryRow.add(surgeryBuildRow());
+                                    });
+                                  },
+                                  icon: Icon(
+                                    Icons.add,
+                                    color: whitecolor,
+                                  ),
+                                ),
+                                backgroundColor: Colors.green,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                    height: surgeryRow.isNotEmpty ? null : 0,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: surgeryRow.length,
+                      itemBuilder: (context, index) {
+                        return surgeryRow[index];
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Medicine',
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        height: 30,
+                        color: Colors.green[300],
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Medicine',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                'Dose',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                'Interval',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                'Duration',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                'Route',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                'Qty',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                ' ',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            width: width / 6,
+                            child: Flexible(
+                              child: Center(
+                                child: InkWell(
+                                  child: TextFormField(
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'This field is required';
+                                      }
+                                      return null;
+                                    },
+                                    readOnly: true,
+                                    controller: pharmacyController,
+                                    maxLines: null, // Allow multiple lines
+                                    decoration: InputDecoration(
+                                      suffixIcon: IconButton(
+                                        icon: const Icon(
+                                          Icons.arrow_drop_down_sharp,
+                                          size: 40,
+                                        ),
+                                        onPressed: () {
+                                          _showPharmacySelection(context);
+                                        },
+                                      ),
+                                      border: const OutlineInputBorder(),
+                                      hintText: 'Select Medicine',
+                                      fillColor: Colors.white,
+                                      filled: true,
+                                    ),
+                                    onTap: () {
+                                      _showPharmacySelection(context);
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 2,
+                          ),
+                          Container(
+                            width: width / 8,
+                            height: 50,
+                            child: Center(
+                              child: InkWell(
+                                  child: TextFormField(
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'This field is required';
+                                  }
+                                  return null;
+                                },
+                                // Set this to true to disable the keyboard
+                                // controller: diagnosisController,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: 'Additional note',
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 10),
+                                ),
+                              )),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 2,
+                          ),
+                          Container(
+                            width: width / 8,
+                            height: 50,
+                            child: Center(
+                              child: InkWell(
+                                  child: TextFormField(
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'This field is required';
+                                  }
+                                  return null;
+                                },
+                                // Set this to true to disable the keyboard
+                                // controller: diagnosisController,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: 'Additional note',
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 10),
+                                ),
+                              )),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 2,
+                          ),
+                          Container(
+                            width: width / 8,
+                            height: 50,
+                            child: Center(
+                              child: InkWell(
+                                  child: TextFormField(
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'This field is required';
+                                  }
+                                  return null;
+                                },
+                                // Set this to true to disable the keyboard
+                                // controller: diagnosisController,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: 'Additional note',
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 10),
+                                ),
+                              )),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 2,
+                          ),
+                          Container(
+                            width: width / 8,
+                            height: 50,
+                            child: Center(
+                              child: InkWell(
+                                  child: TextFormField(
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'This field is required';
+                                  }
+                                  return null;
+                                },
+                                // Set this to true to disable the keyboard
+                                // controller: diagnosisController,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: 'Additional note',
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 10),
+                                ),
+                              )),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 2,
+                          ),
+                          Container(
+                            width: width / 8,
+                            height: 50,
+                            child: Center(
+                              child: InkWell(
+                                  child: TextFormField(
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'This field is required';
+                                  }
+                                  return null;
+                                },
+                                // Set this to true to disable the keyboard
+                                // controller: diagnosisController,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: 'Additional note',
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 10),
+                                ),
+                              )),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Container(
+                            width: width / 9,
+                            // height: 40,
+                            child: Center(
+                              child: CircleAvatar(
+                                child: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      // Add a new row when the "Add" button is clicked
+                                      medicineRow.add(medicineBuildRow());
+                                    });
+                                  },
+                                  icon: Icon(
+                                    Icons.add,
+                                    color: whitecolor,
+                                  ),
+                                ),
+                                backgroundColor: Colors.green,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                    height: medicineRow.isNotEmpty ? null : 0,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: medicineRow.length,
+                      itemBuilder: (context, index) {
+                        return medicineRow[index];
+                      },
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Follow up & Advice',
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      Container(
+                          height: 50,
+                          child: const TextField(
+                            decoration:
+                                InputDecoration(border: OutlineInputBorder()),
+                          ))
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Center(
+                    child: Container(
+                      width: double.infinity,
+                      height: 40,
+                      child: ElevatedButton(
+                        child: const Text('Save'),
+                        onPressed: () {},
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(yellow),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ]),
           ),
-        ]),
-      ),
-    ));
+        ));
   }
 
   void selectDiagnosisOptions(BuildContext context) {

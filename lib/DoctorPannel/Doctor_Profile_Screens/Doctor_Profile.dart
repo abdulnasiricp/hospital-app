@@ -198,11 +198,9 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
   }
 ////////////////////////////////////////////
 
-
-
   @override
   void initState() {
-   LoadData();
+    LoadData();
     super.initState();
   }
 ////////////////////////////////////////////////////////////////////////////
@@ -241,17 +239,15 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
                         padding: const EdgeInsets.only(top: 10),
                         child: Center(
                             child: CircleAvatar(
-                          backgroundImage:
-                              NetworkImage(doctorImage),
+                          backgroundImage: NetworkImage(doctorImage),
                           radius: height / 15,
                         )),
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: height / 5.5),
                         child: Center(
-                          child: Text(doctorName.isEmpty
-                                ? 'N/A'
-                                : doctorName,
+                          child: Text(
+                            doctorName.isEmpty ? 'N/A' : doctorName,
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
@@ -259,7 +255,18 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
                           ),
                         ),
                       ),
-                    
+                      Padding(
+                        padding: EdgeInsets.only(top: height / 4.7),
+                        child: Center(
+                          child: Text(
+                            "9821880761",
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                fontSize: 20),
+                          ),
+                        ),
+                      ),
                       Padding(
                         padding: EdgeInsets.only(top: height / 4),
                         child: Center(
@@ -282,13 +289,11 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
                                 SizedBox(
                                   width: width / 50,
                                 ),
-                                // Text(
-                                //   profileData.isActive == "yes"
-                                //       ? "Active"
-                                //       : "Offine",
-                                //   style: const TextStyle(
-                                //       color: Colors.green, fontSize: 20),
-                                // ),
+                                Text(
+                                  "Active",
+                                  style: const TextStyle(
+                                      color: Colors.green, fontSize: 20),
+                                ),
                               ],
                             ),
                           ),
@@ -306,7 +311,8 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
                               children: [
                                 InkWell(
                                   onTap: () {
-                                    Get.to(() => const DoctorInformationProfile());
+                                    Get.to(
+                                        () => const DoctorInformationProfile());
                                   },
                                   child: ListTile(
                                     leading: SvgPicture.asset('assets/info.svg',

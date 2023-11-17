@@ -207,47 +207,74 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                 children: [
                                   homeCard(
                                       SvgPicture.asset('assets/people.svg',
-                                          color: darkYellow),
+                                          width: 30,
+                                          height: 30,
+                                          color: Colors.white),
                                       'Total Patients Served',
                                       '1233'),
                                   homeCard(
                                       SvgPicture.asset(
                                         'assets/opd.svg',
-                                        color: darkYellow,
+                                        width: 30,
+                                        height: 30,
+                                        color: Colors.white,
                                       ),
                                       'OPD Patients',
                                       '133'),
                                   homeCard(
                                       SvgPicture.asset('assets/ipd.svg',
-                                          color: darkYellow),
+                                          width: 30,
+                                          height: 30,
+                                          color: Colors.white),
                                       'IPD Patients',
                                       '223'),
                                   homeCard(
-                                      SvgPicture.asset('assets/emergency.svg'),
+                                      SvgPicture.asset(
+                                        'assets/em.svg',
+                                        width: 30,
+                                        height: 30,
+                                        color: Colors.white,
+                                      ),
                                       'Emergency Patients',
                                       '133'),
                                   homeCard(
                                       SvgPicture.asset(
                                         'assets/surgery.svg',
-                                        color: darkYellow,
+                                        width: 30,
+                                        height: 30,
+                                        color: Colors.white,
                                       ),
                                       'Surgery Performed',
                                       '13'),
                                   homeCard(
                                       SvgPicture.asset(
                                         'assets/pathology.svg',
-                                        color: darkYellow,
+                                        width: 30,
+                                        height: 30,
+                                        color: Colors.white,
                                       ),
                                       'Pathology',
                                       '120'),
                                   homeCard(
                                       SvgPicture.asset(
                                         'assets/radiology.svg',
-                                        color: darkYellow,
+                                        width: 30,
+                                        height: 30,
+                                        color: Colors.white,
                                         fit: BoxFit.fill,
                                       ),
                                       'Radiology',
                                       '120'),
+                                  homeCard(
+                                      SvgPicture.asset(
+                                        'assets/live_consult.svg',
+                                        width: 30,
+                                        height: 30,
+                                        color: Colors.white,
+                                        fit: BoxFit.fill,
+                                      ),
+                                      'Live Consultation',
+                                      '10'),
                                 ]),
                           ]),
                     ]))));
@@ -255,32 +282,56 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
 
   Card homeCard(Iconwidget, Namewidget, itemwidget) {
     return Card(
+      elevation: 5, // Adjust the elevation for a shadow effect
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
       child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: ListTile(
-            leading:
-                Container(height: height, width: width / 8, child: Iconwidget),
-            title: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  Namewidget,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 15),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  itemwidget,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.green),
-                ),
-              ],
+        padding: const EdgeInsets.all(16), // Add padding for better spacing
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: Colors.white, // Set a background color
+        ),
+        child: ListTile(
+          contentPadding: EdgeInsets.zero, // Remove default padding
+          leading: Container(
+            width: 50,
+            height: 50,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: darkYellow,
             ),
-          )),
+            child: Align(
+              alignment: Alignment.center, // Center the Iconwidget
+              child: Iconwidget,
+            ),
+          ),
+          title: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                Namewidget,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 10, // Increase the font size
+                ),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                itemwidget,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.green,
+                  fontSize: 16, // Increase the font size
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

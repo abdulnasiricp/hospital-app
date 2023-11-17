@@ -145,6 +145,18 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
     }
   }
 
+  Future<void> _handleRefresh() async {
+    setState(() {
+      isLoading = true; // Set isLoading to true when refreshing
+    });
+
+    await fetchDepartmentData();
+
+    setState(() {
+      isLoading = false; // Set isLoading to false after data is fetched
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -173,514 +185,531 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
             )
           ],
         ),
-        body: isLoading
-            ? Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Container(
-                    height: 50,
-                    width: 50,
-                    color: Colors.transparent,
-                    child: const LoadingIndicatorWidget(),
-                  ),
-                ),
-              )
-            : SingleChildScrollView(
-                child: Padding(
+        body: RefreshIndicator(
+          onRefresh: _handleRefresh,
+          child: isLoading
+              ? Center(
+                  child: Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: Column(children: [
-                      Card(
-                        color: Colors.grey[200],
-                        child: Container(
-                          width: width,
-                          height: height / 6,
-                          child: Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  height: height / 2,
-                                  width: 100,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: Colors
-                                          .red, // You can specify the color of the border here
-                                      width:
-                                          1.0, // You can specify the width of the border here
+                    child: Container(
+                      height: 50,
+                      width: 50,
+                      color: Colors.transparent,
+                      child: const LoadingIndicatorWidget(),
+                    ),
+                  ),
+                )
+              : SingleChildScrollView(
+                  child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(children: [
+                        Card(
+                          color: Colors.grey[200],
+                          child: Container(
+                            width: width,
+                            height: height / 6,
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    height: height / 2,
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors
+                                            .red, // You can specify the color of the border here
+                                        width:
+                                            1.0, // You can specify the width of the border here
+                                      ),
+                                    ),
+                                    child: Image.network(
+                                      widget.doctorImage,
+                                      fit: BoxFit.fill,
                                     ),
                                   ),
-                                  child: Image.network(
-                                    widget.doctorImage,
-                                    fit: BoxFit.fill,
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 20),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        widget.doctorName.isNotEmpty
+                                            ? widget.doctorName
+                                            : 'N/A',
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                        height: 8,
+                                      ),
+                                      Text(
+                                        widget.doctorSpecialization.isNotEmpty
+                                            ? widget.doctorSpecialization
+                                            : 'N/A',
+                                      ),
+                                      const SizedBox(
+                                        width: 20,
+                                        height: 8,
+                                      ),
+                                      Text(
+                                        widget.doctorId.isNotEmpty
+                                            ? widget.doctorId
+                                            : 'N/A',
+                                      ),
+                                      const SizedBox(
+                                        width: 20,
+                                        height: 8,
+                                      ),
+                                      Text(
+                                        widget.workExp.isNotEmpty
+                                            ? widget.workExp
+                                            : 'N/A',
+                                      )
+                                    ],
                                   ),
                                 ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 20),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      widget.doctorName.isNotEmpty
-                                          ? widget.doctorName
-                                          : 'N/A',
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                      height: 8,
-                                    ),
-                                    Text(
-                                      widget.doctorSpecialization.isNotEmpty
-                                          ? widget.doctorSpecialization
-                                          : 'N/A',
-                                    ),
-                                    const SizedBox(
-                                      width: 20,
-                                      height: 8,
-                                    ),
-                                    Text(
-                                      widget.doctorId.isNotEmpty
-                                          ? widget.doctorId
-                                          : 'N/A',
-                                    ),
-                                    const SizedBox(
-                                      width: 20,
-                                      height: 8,
-                                    ),
-                                    Text(
-                                      widget.workExp.isNotEmpty
-                                          ? widget.workExp
-                                          : 'N/A',
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                        height: 500,
-                        child: ListView.builder(
-                            itemCount: data?.length,
-                            itemBuilder: (context, index) {
-                              final item = data?[index];
-                              String dateTimeString =
-                                  item['created_at'] as String;
-                              DateTime dateTime =
-                                  DateTime.parse(dateTimeString);
-                              String formattedDate =
-                                  DateFormat('yyyy-MM-dd').format(dateTime);
-                              NepaliDateFormat dateFormat =
-                                  NepaliDateFormat('yyyy-MM-dd');
-                              DateTime englishDate =
-                                  DateTime.parse(item['created_at']);
-                              NepaliDateTime nepaliDate =
-                                  NepaliDateTime.fromDateTime(englishDate);
-                              String convertTo12HourFormat(String time24Hour) {
-                                final parsedTime =
-                                    DateFormat('HH:mm:ss').parse(time24Hour);
-                                final formattedTime =
-                                    DateFormat('hh:mm a').format(parsedTime);
-                                return formattedTime;
-                              }
+                        Container(
+                          height: 500,
+                          child: ListView.builder(
+                              itemCount: data?.length,
+                              itemBuilder: (context, index) {
+                                final item = data?[index];
+                                String dateTimeString =
+                                    item['created_at'] as String;
+                                DateTime dateTime =
+                                    DateTime.parse(dateTimeString);
+                                String formattedDate =
+                                    DateFormat('yyyy-MM-dd').format(dateTime);
+                                NepaliDateFormat dateFormat =
+                                    NepaliDateFormat('yyyy-MM-dd');
+                                DateTime englishDate =
+                                    DateTime.parse(item['created_at']);
+                                NepaliDateTime nepaliDate =
+                                    NepaliDateTime.fromDateTime(englishDate);
+                                String convertTo12HourFormat(
+                                    String time24Hour) {
+                                  final parsedTime =
+                                      DateFormat('HH:mm:ss').parse(time24Hour);
+                                  final formattedTime =
+                                      DateFormat('hh:mm a').format(parsedTime);
+                                  return formattedTime;
+                                }
 
-                              String time24Hour = (item['start_time']);
-                              String starttime12Hour =
-                                  convertTo12HourFormat(time24Hour);
-                              String endtime24Hour = (item['end_time']);
-                              String end_time12Hour =
-                                  convertTo12HourFormat(endtime24Hour);
-                              return GestureDetector(
-                                onTap: () {
-                                  final token = item['token'];
-                                  if (token == '0' || token == null) {
-                                    // Show a snackbar message if the token is 0 or null
-                                    Fluttertoast.showToast(
-                                      msg: token == '0'
-                                          ? 'Token is 0. You cannot book this appointment.'
-                                          : 'No token information available. You cannot book this appointment.',
-                                    );
-                                  } else {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return Dialog(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                          ),
-                                          child: Container(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.7,
-                                            width: width,
-                                            child: Column(
-                                              children: <Widget>[
-                                                Container(
-                                                  decoration:
-                                                      const BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius:
-                                                        BorderRadius.only(
-                                                      topLeft:
-                                                          Radius.circular(20),
-                                                      topRight:
-                                                          Radius.circular(20),
+                                String time24Hour = (item['start_time']);
+                                String starttime12Hour =
+                                    convertTo12HourFormat(time24Hour);
+                                String endtime24Hour = (item['end_time']);
+                                String end_time12Hour =
+                                    convertTo12HourFormat(endtime24Hour);
+                                return GestureDetector(
+                                  onTap: () {
+                                    final token = item['token'];
+                                    if (token == '0' || token == null) {
+                                      // Show a snackbar message if the token is 0 or null
+                                      Fluttertoast.showToast(
+                                        msg: token == '0'
+                                            ? 'Token is 0. You cannot book this appointment.'
+                                            : 'No token information available. You cannot book this appointment.',
+                                      );
+                                    } else {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return Dialog(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                            ),
+                                            child: Container(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.7,
+                                              width: width,
+                                              child: Column(
+                                                children: <Widget>[
+                                                  Container(
+                                                    decoration:
+                                                        const BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                        topLeft:
+                                                            Radius.circular(20),
+                                                        topRight:
+                                                            Radius.circular(20),
+                                                      ),
                                                     ),
-                                                  ),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: <Widget>[
-                                                      const Padding(
-                                                        padding: EdgeInsets.all(
-                                                            20.0),
-                                                        child: Text(
-                                                          'Select Criteria',
-                                                          style: TextStyle(
-                                                            fontSize: 20,
-                                                            fontWeight:
-                                                                FontWeight.bold,
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: <Widget>[
+                                                        const Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  20.0),
+                                                          child: Text(
+                                                            'Select Criteria',
+                                                            style: TextStyle(
+                                                              fontSize: 20,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        IconButton(
+                                                          icon: const Icon(
+                                                            Icons.close,
                                                             color: Colors.black,
                                                           ),
+                                                          onPressed: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                          },
                                                         ),
-                                                      ),
-                                                      IconButton(
-                                                        icon: const Icon(
-                                                          Icons.close,
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Card(
+                                                    color: Colors.grey,
+                                                    elevation: 4,
+                                                    margin:
+                                                        const EdgeInsets.all(8),
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                    ),
+                                                    child: ListTile(
+                                                      contentPadding:
+                                                          const EdgeInsets.all(
+                                                              20),
+                                                      tileColor: Colors.yellow,
+                                                      title: const Text(
+                                                        "General Opd",
+                                                        style: TextStyle(
                                                           color: Colors.black,
+                                                          fontSize: 18,
+                                                          fontWeight: FontWeight
+                                                              .bold, // Apply a bold font weight
                                                         ),
-                                                        onPressed: () {
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                        },
                                                       ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Card(
-                                                  color: Colors.grey,
-                                                  elevation: 4,
-                                                  margin:
-                                                      const EdgeInsets.all(8),
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                  ),
-                                                  child: ListTile(
-                                                    contentPadding:
-                                                        const EdgeInsets.all(
-                                                            20),
-                                                    tileColor: Colors.yellow,
-                                                    title: const Text(
-                                                      "General Opd",
-                                                      style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 18,
-                                                        fontWeight: FontWeight
-                                                            .bold, // Apply a bold font weight
+                                                      subtitle: const Text(
+                                                        "Tap to book an appointment",
+                                                        style: TextStyle(
+                                                          color: Colors.grey,
+                                                        ),
                                                       ),
-                                                    ),
-                                                    subtitle: const Text(
-                                                      "Tap to book an appointment",
-                                                      style: TextStyle(
-                                                        color: Colors.grey,
+                                                      leading: Icon(
+                                                        Icons
+                                                            .local_hospital, // Add an icon as a leading element
+                                                        color:
+                                                            darkYellow, // Set icon color
+                                                        size:
+                                                            40, // Set icon size
                                                       ),
-                                                    ),
-                                                    leading: Icon(
-                                                      Icons
-                                                          .local_hospital, // Add an icon as a leading element
-                                                      color:
-                                                          darkYellow, // Set icon color
-                                                      size: 40, // Set icon size
-                                                    ),
-                                                    trailing: Icon(
-                                                      Icons
-                                                          .arrow_forward, // Add a forward arrow as a trailing element
-                                                      color: darkYellow,
-                                                    ),
-                                                    onTap: () {
-                                                      Navigator.pop(context);
-                                                      Get.to(() =>
-                                                          Doctor_Book_Details(
-                                                            doctorName: widget
-                                                                .doctorName,
-                                                            BloodgroupId: profileData
-                                                                        ?.bloodGroup ==
-                                                                    null
-                                                                ? '1'
-                                                                : profileData
-                                                                    ?.bloodGroup,
-                                                            Bloodgroupname: '',
-                                                            DepartmentId: widget
-                                                                .doctorSpecialization,
-                                                            bloodGroup: '',
-                                                            maritalStatus:
-                                                                profileData
-                                                                        ?.maritalStatus ??
-                                                                    'N/A',
-                                                            patientAddress:
-                                                                profileData
-                                                                        ?.address ??
-                                                                    'N/A',
-                                                            patientDOB:
-                                                                profileData
-                                                                        ?.dob ??
-                                                                    'N/A',
-                                                            patientEmail:
-                                                                profileData
-                                                                        ?.email ??
-                                                                    'N/A',
-                                                            patientGender:
-                                                                profileData
-                                                                        ?.gender ??
-                                                                    'N/A',
-                                                            patientMobile:
-                                                                profileData
-                                                                        ?.mobileNo ??
-                                                                    'N/A',
-                                                            patientName: profileData
-                                                                    ?.patientName ??
-                                                                'N/A',
-                                                            selectedDepartmentname:
-                                                                widget
-                                                                    .doctorSpecialization,
-                                                            department_id: widget
-                                                                .department_id,
-                                                            doctorId:
-                                                                widget.doctorId,
-                                                            // blood_group: profileData
-                                                            //         ?.blood_group ??
-                                                            //     'N/A',
-                                                            ticketDate:
-                                                                '$formattedDate',
-                                                            // Pass the choice here
-                                                          ));
-                                                    },
-                                                  ),
-                                                ),
-                                                const SizedBox(height: 20),
-                                                if (isLoading)
-                                                  Center(
-                                                    child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(10.0),
-                                                        child: Container(
-                                                            height: 50,
-                                                            width: 50,
-                                                            color: Colors
-                                                                .transparent,
-                                                            child:
-                                                                const LoadingIndicatorWidget())),
-                                                  )
-                                                else if (organizations.isEmpty)
-                                                  const Text(
-                                                    'No data found',
-                                                    style: TextStyle(
-                                                        fontSize: 16,
-                                                        color: Colors.black),
-                                                  )
-                                                else
-                                                  Expanded(
-                                                    child: ListView.builder(
-                                                      itemCount:
-                                                          organizations.length,
-                                                      itemBuilder:
-                                                          (context, index) {
-                                                        final organization =
-                                                            organizations[
-                                                                index];
-
-                                                        return Card(
-                                                          color: Colors
-                                                              .teal, // Set the background color of the card
-                                                          elevation:
-                                                              8, // Add a shadow to the card
-                                                          margin:
-                                                              const EdgeInsets
-                                                                  .all(8),
-                                                          shape:
-                                                              RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        10),
-                                                          ),
-                                                          child: ListTile(
-                                                            contentPadding:
-                                                                const EdgeInsets.all(
-                                                                    16),
-                                                            title: Text(
-                                                              organization
-                                                                  .organisationName,
-                                                              style: const TextStyle(
-                                                                color: Colors
-                                                                    .white, // Text color
-                                                                fontSize: 18,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold, // Make the text bold
-                                                              ),
-                                                            ),
-                                                            trailing: const Icon(
-                                                              Icons
-                                                                  .arrow_forward, // Add an arrow icon on the right side
-                                                              color: Colors
-                                                                  .white, // Icon color
-                                                            ),
-                                                            onTap: () {
-                                                              selectedInsurancetypename =
-                                                                  organization
-                                                                      .organisationName;
-                                                              selectedInsurancetypeId =
-                                                                  organization
-                                                                      .id;
-                                                              InsurancetypeController
-                                                                      .text =
-                                                                  selectedInsurancetypename;
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pop();
-                                                              print(
-                                                                  'selectedInsurancetypeId: $selectedInsurancetypeId');
-
-                                                              Get.offAll(() =>
-                                                                  Insurance_Validity(
-                                                                    doctorName:
-                                                                        widget
-                                                                            .doctorName,
-                                                                    department_id:
-                                                                        widget
-                                                                            .department_id,
-                                                                    Departmentname:
-                                                                        widget
-                                                                            .doctorSpecialization,
-                                                                    doctorId: widget
-                                                                        .doctorId,
-                                                                    ticketDate:
-                                                                        '$formattedDate',
-                                                                    selectedInsurancetypename:
-                                                                        selectedInsurancetypename,
-                                                                    selectedInsurancetypeId1:
-                                                                        selectedInsurancetypeId,
-                                                                  ));
-                                                            },
-                                                          ),
-                                                        );
+                                                      trailing: Icon(
+                                                        Icons
+                                                            .arrow_forward, // Add a forward arrow as a trailing element
+                                                        color: darkYellow,
+                                                      ),
+                                                      onTap: () {
+                                                        Navigator.pop(context);
+                                                        Get.to(() =>
+                                                            Doctor_Book_Details(
+                                                              doctorName: widget
+                                                                  .doctorName,
+                                                              BloodgroupId: profileData
+                                                                          ?.bloodGroup ==
+                                                                      null
+                                                                  ? '1'
+                                                                  : profileData
+                                                                      ?.bloodGroup,
+                                                              Bloodgroupname:
+                                                                  '',
+                                                              DepartmentId: widget
+                                                                  .doctorSpecialization,
+                                                              bloodGroup: '',
+                                                              maritalStatus:
+                                                                  profileData
+                                                                          ?.maritalStatus ??
+                                                                      'N/A',
+                                                              patientAddress:
+                                                                  profileData
+                                                                          ?.address ??
+                                                                      'N/A',
+                                                              patientDOB:
+                                                                  profileData
+                                                                          ?.dob ??
+                                                                      'N/A',
+                                                              patientEmail:
+                                                                  profileData
+                                                                          ?.email ??
+                                                                      'N/A',
+                                                              patientGender:
+                                                                  profileData
+                                                                          ?.gender ??
+                                                                      'N/A',
+                                                              patientMobile:
+                                                                  profileData
+                                                                          ?.mobileNo ??
+                                                                      'N/A',
+                                                              patientName:
+                                                                  profileData
+                                                                          ?.patientName ??
+                                                                      'N/A',
+                                                              selectedDepartmentname:
+                                                                  widget
+                                                                      .doctorSpecialization,
+                                                              department_id: widget
+                                                                  .department_id,
+                                                              doctorId: widget
+                                                                  .doctorId,
+                                                              // blood_group: profileData
+                                                              //         ?.blood_group ??
+                                                              //     'N/A',
+                                                              ticketDate:
+                                                                  '$formattedDate',
+                                                              // Pass the choice here
+                                                            ));
                                                       },
                                                     ),
                                                   ),
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  }
-                                },
-                                child: Card(
-                                  color: Colors.grey[200],
-                                  child: Container(
-                                    width: width,
-                                    height: height / 9,
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                            height: height,
-                                            width: width / 5,
-                                            decoration: BoxDecoration(
-                                              color: Colors
-                                                  .blue, // Background color
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      5), // Rounded corners
-                                              border: Border.all(
-                                                  color: Colors.red,
-                                                  width: 1), // Border
-                                              // ignore: prefer_const_constructors
-                                              gradient: LinearGradient(
-                                                colors: const [
-                                                  Colors.grey,
-                                                  Colors.white
-                                                ], // Gradient colors
-                                                begin: Alignment.topLeft,
-                                                end: Alignment.bottomRight,
+                                                  const SizedBox(height: 20),
+                                                  if (isLoading)
+                                                    Center(
+                                                      child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(10.0),
+                                                          child: Container(
+                                                              height: 50,
+                                                              width: 50,
+                                                              color: Colors
+                                                                  .transparent,
+                                                              child:
+                                                                  const LoadingIndicatorWidget())),
+                                                    )
+                                                  else if (organizations
+                                                      .isEmpty)
+                                                    const Text(
+                                                      'No data found',
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          color: Colors.black),
+                                                    )
+                                                  else
+                                                    Expanded(
+                                                      child: ListView.builder(
+                                                        itemCount: organizations
+                                                            .length,
+                                                        itemBuilder:
+                                                            (context, index) {
+                                                          final organization =
+                                                              organizations[
+                                                                  index];
+
+                                                          return Card(
+                                                            color: Colors
+                                                                .teal, // Set the background color of the card
+                                                            elevation:
+                                                                8, // Add a shadow to the card
+                                                            margin:
+                                                                const EdgeInsets
+                                                                    .all(8),
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10),
+                                                            ),
+                                                            child: ListTile(
+                                                              contentPadding:
+                                                                  const EdgeInsets
+                                                                      .all(16),
+                                                              title: Text(
+                                                                organization
+                                                                    .organisationName,
+                                                                style:
+                                                                    const TextStyle(
+                                                                  color: Colors
+                                                                      .white, // Text color
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold, // Make the text bold
+                                                                ),
+                                                              ),
+                                                              trailing:
+                                                                  const Icon(
+                                                                Icons
+                                                                    .arrow_forward, // Add an arrow icon on the right side
+                                                                color: Colors
+                                                                    .white, // Icon color
+                                                              ),
+                                                              onTap: () {
+                                                                selectedInsurancetypename =
+                                                                    organization
+                                                                        .organisationName;
+                                                                selectedInsurancetypeId =
+                                                                    organization
+                                                                        .id;
+                                                                InsurancetypeController
+                                                                        .text =
+                                                                    selectedInsurancetypename;
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                                print(
+                                                                    'selectedInsurancetypeId: $selectedInsurancetypeId');
+
+                                                                Get.offAll(() =>
+                                                                    Insurance_Validity(
+                                                                      doctorName:
+                                                                          widget
+                                                                              .doctorName,
+                                                                      department_id:
+                                                                          widget
+                                                                              .department_id,
+                                                                      Departmentname:
+                                                                          widget
+                                                                              .doctorSpecialization,
+                                                                      doctorId:
+                                                                          widget
+                                                                              .doctorId,
+                                                                      ticketDate:
+                                                                          '$formattedDate',
+                                                                      selectedInsurancetypename:
+                                                                          selectedInsurancetypename,
+                                                                      selectedInsurancetypeId1:
+                                                                          selectedInsurancetypeId,
+                                                                    ));
+                                                              },
+                                                            ),
+                                                          );
+                                                        },
+                                                      ),
+                                                    ),
+                                                ],
                                               ),
                                             ),
+                                          );
+                                        },
+                                      );
+                                    }
+                                  },
+                                  child: Card(
+                                    color: Colors.grey[200],
+                                    child: Container(
+                                      width: width,
+                                      height: height / 9,
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                              height: height,
+                                              width: width / 5,
+                                              decoration: BoxDecoration(
+                                                color: Colors
+                                                    .blue, // Background color
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        5), // Rounded corners
+                                                border: Border.all(
+                                                    color: Colors.red,
+                                                    width: 1), // Border
+                                                // ignore: prefer_const_constructors
+                                                gradient: LinearGradient(
+                                                  colors: const [
+                                                    Colors.grey,
+                                                    Colors.white
+                                                  ], // Gradient colors
+                                                  begin: Alignment.topLeft,
+                                                  end: Alignment.bottomRight,
+                                                ),
+                                              ),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text('${dateTime.day}',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: darkYellow,
+                                                          fontSize: 30)),
+                                                  Text(
+                                                    NepaliDateFormat('EEE,')
+                                                        .format(nepaliDate),
+                                                  ),
+                                                ],
+                                              )),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 8.0),
                                             child: Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
                                               children: [
-                                                Text('${dateTime.day}',
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: darkYellow,
-                                                        fontSize: 30)),
-                                                Text(
-                                                  NepaliDateFormat('EEE,')
-                                                      .format(nepaliDate),
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                      '$formattedDate/ ${NepaliDateFormat('EE, MMMM d, ' 'yyyy').format(nepaliDate)}',
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12),
+                                                    ),
+                                                  ],
                                                 ),
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Text(
+                                                  ' $starttime12Hour  To $end_time12Hour',
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Text(
+                                                  '   (${item['token'] ?? 'N/A'} token left)',
+                                                  style: const TextStyle(
+                                                      color: Colors.red),
+                                                )
                                               ],
-                                            )),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 8.0),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    '$formattedDate/ ${NepaliDateFormat('EE, MMMM d, ' 'yyyy').format(nepaliDate)}',
-                                                    style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 12),
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(
-                                                height: 5,
-                                              ),
-                                              Text(
-                                                ' $starttime12Hour  To $end_time12Hour',
-                                                style: const TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                              Text(
-                                                '   (${item['token'] ?? 'N/A'} token left)',
-                                                style: const TextStyle(
-                                                    color: Colors.red),
-                                              )
-                                            ],
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              );
-                            }),
-                      ),
-                    ])),
-              ));
+                                );
+                              }),
+                        ),
+                      ])),
+                ),
+        ));
   }
 }

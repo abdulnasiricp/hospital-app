@@ -287,8 +287,8 @@ class _OpdHomeState extends State<OpdHome> {
                                     height: height / 12,
                                     child: Card(
                                       color: tappedIndex == index
-                                          ? Colors.grey
-                                          : Colors.white,
+                                          ? Colors.green[100]
+                                          : Colors.white70.withOpacity(0.7),
                                       elevation:
                                           tappedIndex == index ? 8.0 : 2.0,
                                       child: Padding(
@@ -408,7 +408,7 @@ class _OpdHomeState extends State<OpdHome> {
                                                                         'last_visit'] !=
                                                                     null
                                                                 ? DateFormat(
-                                                                        'MM/dd/yyyy')
+                                                                        'dd/MM/yyyy')
                                                                     .format(DateTime.parse(
                                                                         radiologyfilteredData![index]
                                                                             [
@@ -450,18 +450,25 @@ class _OpdHomeState extends State<OpdHome> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Center(
-                                                        child: Text(
-                                                          getStatusText(
-                                                              radiologyfilteredData?[
-                                                                      index]
-                                                                  ['status']),
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          maxLines: 1,
-                                                          style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 10,
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(1.0),
+                                                          child: Text(
+                                                            getStatusText(
+                                                                radiologyfilteredData?[
+                                                                        index]
+                                                                    ['status']),
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            maxLines: 1,
+                                                            style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 10,
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
