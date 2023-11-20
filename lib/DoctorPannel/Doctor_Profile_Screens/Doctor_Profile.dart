@@ -257,10 +257,10 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: height / 4.7),
-                        child: Center(
+                        child: const Center(
                           child: Text(
                             "9821880761",
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
                                 fontSize: 20),
@@ -289,9 +289,9 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
                                 SizedBox(
                                   width: width / 50,
                                 ),
-                                Text(
+                                const Text(
                                   "Active",
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       color: Colors.green, fontSize: 20),
                                 ),
                               ],

@@ -20,16 +20,6 @@ class IpdInvestigation extends StatefulWidget {
 
 class _IpdInvestigationState extends State<IpdInvestigation> {
 
-  @override
-  void initState() {
-    super.initState();
-    fetchotherData();
-    fetchRadiologyData();
-    fetchpathologyData();
-    fetchdiagnosisData();
-
-
-  }
  List<Widget> ipdOthertestRow = [];
   List<Widget> radiologyRow = [];
   List<Widget> medicineRow = [];
@@ -61,11 +51,13 @@ TextEditingController diagnosisController = TextEditingController();
     );
 
     if (response.statusCode == 200) {
+
       final dataMap = json.decode(response.body);
       setState(() {
+        isLoading = false;
+
         pathologydata = dataMap['result'];
         pathologyfilteredData = pathologydata;
-        isLoading = false;
       });
     } else {
       handleNonJsonResponse();
@@ -93,9 +85,9 @@ TextEditingController diagnosisController = TextEditingController();
   }
 
 //=================================================================================
-  String selectedotherItemsId = '';
-  String selectedotherItemsName = '';
-  List<String> selectedotherItems = [];
+  // String selectedotherItemsId = '';
+  // String selectedotherItemsName = '';
+  // List<String> selectedotherItems = [];
   List<dynamic>? otherdata = [];
   List<dynamic>? otherfilteredData = [];
 
@@ -138,9 +130,7 @@ TextEditingController diagnosisController = TextEditingController();
 
 
 //=================================================================================
-  String selectedradiologyItemsId = '';
-  String selectedradiologyItemsName = '';
-  List<String> selectedradiologyItems = [];
+ 
 
   List<dynamic>? radiologydata = [];
   List<dynamic>? radiologyfilteredData = [];
@@ -395,7 +385,7 @@ TextEditingController diagnosisController = TextEditingController();
                     children: [
                       Container(
                         width: width / 2.5,
-                        height: 30,
+                        height: 50,
                         child: Center(
                           child: InkWell(
                               child: TextFormField(
@@ -417,6 +407,7 @@ TextEditingController diagnosisController = TextEditingController();
                               filled: true,
                             ),
                             onTap: () {
+
                               _showOtherSelection(context);
                             },
                           )),
@@ -434,7 +425,8 @@ TextEditingController diagnosisController = TextEditingController();
                               onPressed: () {
                                 setState(() {
                                   // Add a new row when the "Add" button is clicked
-                                  ipdOthertestRow.add(dragBuildRow());
+                                  // ipdOthertestRow.add(dragBuildRow());
+                                  addNewRowOtherTest();
                                 });
                               },
                               icon: Icon(
@@ -522,7 +514,7 @@ TextEditingController diagnosisController = TextEditingController();
                 children: [
                   Container(
                     width: width / 4,
-                    height: 30,
+                    height: 50,
                     child: Center(
                       child: InkWell(
                           child: TextFormField(
@@ -534,7 +526,7 @@ TextEditingController diagnosisController = TextEditingController();
                         },
                         readOnly:
                             true, // Set this to true to disable the keyboard
-                        controller: diagnosisController,
+                        controller: radiologyController,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'Select options',
@@ -554,7 +546,7 @@ TextEditingController diagnosisController = TextEditingController();
                   ),
                   Container(
                     width: width / 6,
-                    height: 30,
+                    height: 50,
                     child: Center(
                       child: InkWell(
                           child: TextFormField(
@@ -564,8 +556,6 @@ TextEditingController diagnosisController = TextEditingController();
                           }
                           return null;
                         },
-                        readOnly:
-                            true, // Set this to true to disable the keyboard
                         controller: diagnosisController,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
@@ -575,9 +565,7 @@ TextEditingController diagnosisController = TextEditingController();
                           fillColor: Colors.white,
                           filled: true,
                         ),
-                        onTap: () {
-                          selectDiagnosisOptions(context);
-                        },
+                       
                       )),
                     ),
                   ),
@@ -586,7 +574,7 @@ TextEditingController diagnosisController = TextEditingController();
                   ),
                   Container(
                     width: width / 3,
-                    height: 30,
+                    height: 50,
                     child: Center(
                       child: InkWell(
                           child: TextFormField(
@@ -757,8 +745,7 @@ TextEditingController diagnosisController = TextEditingController();
     );
   }
 
-  Widget dragBuildRow() {
-    TextEditingController textFieldController = TextEditingController();
+  Widget dragBuildRow(TextEditingController othertestController,) {
 
     return Padding(
       padding: const EdgeInsets.all(5.0),
@@ -767,10 +754,12 @@ TextEditingController diagnosisController = TextEditingController();
         children: [
           Container(
             width: width / 1.5,
-            height: 40,
+            height: 50,
             child: Center(
               child: InkWell(
+                
                   child: TextFormField(
+                     controller: othertestController,
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'This field is required';
@@ -823,124 +812,118 @@ TextEditingController diagnosisController = TextEditingController();
   radiologyBuildRow() {
     TextEditingController textFieldController = TextEditingController();
 
-    return Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: Row(
-        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            width: width / 4,
-            height: 30,
-            child: Center(
-              child: InkWell(
-                  child: TextFormField(
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'This field is required';
-                      }
-                      return null;
-                    },
-                    readOnly:
-                    true, // Set this to true to disable the keyboard
-                    controller: diagnosisController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Select options',
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 10),
-                      fillColor: Colors.white,
-                      filled: true,
-                    ),
-                    onTap: () {
-                      selectDiagnosisOptions(context);
-                    },
-                  )),
-            ),
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          Container(
-            width: width / 6,
-            height: 30,
-            child: Center(
-              child: InkWell(
-                  child: TextFormField(
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'This field is required';
-                      }
-                      return null;
-                    },
-                    readOnly:
-                    true, // Set this to true to disable the keyboard
-                    controller: diagnosisController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Select options',
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 10),
-                      fillColor: Colors.white,
-                      filled: true,
-                    ),
-                    onTap: () {
-                      selectDiagnosisOptions(context);
-                    },
-                  )),
-            ),
-          ),
-          const SizedBox(
-            width: 5,
-          ),
-          Container(
-            width: width / 3,
-            height: 30,
-            child: Center(
-              child: InkWell(
-                  child: TextFormField(
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'This field is required';
-                      }
-                      return null;
-                    },
-                    // Set this to true to disable the keyboard
-                    // controller: diagnosisController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Additional note',
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 10),
-                    ),
-                  )),
-            ),
-          ),
-          const SizedBox(
-            width: 5,
-          ),
-          Container(
-            width: width / 9,
-            // height: 40,
-            child: Center(
-              child: CircleAvatar(
-                child: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        // Remove the row when the "Cancel" button is clicked
-                        radiologyRow.removeLast();
-                      });
-                    },
-                    icon: Icon(
-                      Icons.cancel,
-                      color: whitecolor,
+    return Row(
+      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+       Container(
+                  width: width / 4,
+                  height: 50,
+                  child: Center(
+                    child: InkWell(
+                        child: TextFormField(
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'This field is required';
+                        }
+                        return null;
+                      },
+                      readOnly:
+                          true, // Set this to true to disable the keyboard
+                      controller: radiologyController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Select options',
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10),
+                        fillColor: Colors.white,
+                        filled: true,
+                      ),
+                      onTap: () {
+                        _showRadiologySelection(context);
+                      },
                     )),
-                // radius: 17,
-                backgroundColor: Colors.green,
-              ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Container(
+                  width: width / 6,
+                  height: 50,
+                  child: Center(
+                    child: InkWell(
+                        child: TextFormField(
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'This field is required';
+                        }
+                        return null;
+                      },
+                     
+                      controller: diagnosisController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Select options',
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10),
+                        fillColor: Colors.white,
+                        filled: true,
+                      ),
+                     
+                    )),
+                  ),
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Container(
+                  width: width / 3,
+                  height: 50,
+                  child: Center(
+                    child: InkWell(
+                        child: TextFormField(
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'This field is required';
+                        }
+                        return null;
+                      },
+                      // Set this to true to disable the keyboard
+                      // controller: diagnosisController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Additional note',
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10),
+                      ),
+                    )),
+                  ),
+                ),
+        const SizedBox(
+          width: 5,
+        ),
+        Container(
+          width: width / 9,
+          // height: 40,
+          child: Center(
+            child: CircleAvatar(
+              child: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      // Remove the row when the "Cancel" button is clicked
+                      radiologyRow.removeLast();
+                    });
+                  },
+                  icon: Icon(
+                    Icons.cancel,
+                    color: whitecolor,
+                  )),
+              // radius: 17,
+              backgroundColor: Colors.green,
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -1007,31 +990,36 @@ TextEditingController diagnosisController = TextEditingController();
                       ),
                     ),
                   ),
-                  isLoading
-                      ? Expanded(
-                          child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            height: 50,
-                            width: 50,
-                            color: Colors.transparent,
-                            child: const LoadingIndicatorWidget(),
-                          ),
-                        ))
-                      : pathologyfilteredData!.isEmpty
-                          ? Expanded(
-                              child: Center(
-                              child: Container(
-                                height: 150,
-                                width: 150,
-                                child: Lottie.asset(
-                                  'assets/No_Data_Found.json',
-                                  fit: BoxFit.cover,
+                  FutureBuilder(
+                    future: fetchpathologyData(),
+                    builder: (context, snapshot) {
+                      return  pathologyfilteredData!.isEmpty
+                        ? Expanded(
+                            child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Container(
+                              height: 50,
+                              width: 50,
+                              color: Colors.transparent,
+                              child: const LoadingIndicatorWidget(),
+                            ),
+                          ))
+                        :
+                         pathologyfilteredData!.isEmpty
+                            ? 
+                            Expanded(
+                                child: Center(
+                                child: Container(
+                                  height: 150,
+                                  width: 150,
+                                  child: Lottie.asset(
+                                    'assets/No_Data_Found.json',
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                              ),
-                            ))
-                          : Expanded(
-                              child: ListView.builder(
+                              ))
+                            : Expanded(
+                                child: ListView.builder(
                                 itemCount: pathologyfilteredData?.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   String itemName =
@@ -1042,7 +1030,7 @@ TextEditingController diagnosisController = TextEditingController();
                                       pathologyfilteredData?[index]['id'] ?? '';
                                   bool isSelected =
                                       selectedpathologyItems.contains(itemName);
-
+                                
                                   int itemNumber = index + 1;
                                   return Card(
                                     color: isSelected
@@ -1075,7 +1063,7 @@ TextEditingController diagnosisController = TextEditingController();
                                                     itemName);
                                             return '(${itemData['id']}).${itemName}';
                                           }).join(', ');
-
+                                
                                           // Update the selectedOtherItemsId based on selectedOtherItems
                                           selectedpathologyItemsId =
                                               selectedpathologyItems
@@ -1086,7 +1074,7 @@ TextEditingController diagnosisController = TextEditingController();
                                                                   'test_name'] ==
                                                               itemName)['id'])
                                                   .join(',');
-
+                                
                                           // Update the selectedOtherItemsName based on selectedOtherItems
                                           selectedpathologyItemsName =
                                               selectedpathologyItems.join(', ');
@@ -1095,8 +1083,11 @@ TextEditingController diagnosisController = TextEditingController();
                                     ),
                                   );
                                 },
-                              ),
-                            ),
+                                  ),
+                              );
+                    },
+                  
+                  ),
                 ],
               ),
             );
@@ -1169,29 +1160,34 @@ TextEditingController diagnosisController = TextEditingController();
                       ),
                     ),
                   ),
-                  isLoading
-                      ? Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                          height: 50,
-                          width: 50,
-                          color: Colors.transparent,
-                          child: const LoadingIndicatorWidget(),
-                        ),
-                      ))
-                      : radiologyfilteredData!.isEmpty
-                      ? Expanded(
-                      child: Center(
-                        child: Container(
-                          height: 150,
-                          width: 150,
-                          child: Lottie.asset(
-                            'assets/No_Data_Found.json',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ))
+                  FutureBuilder(
+                    future: fetchRadiologyData(),
+                    builder: (context, snapshot) {
+                      return  radiologyfilteredData!.isEmpty
+                        ? Expanded(
+                            child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Container(
+                              height: 50,
+                              width: 50,
+                              color: Colors.transparent,
+                              child: const LoadingIndicatorWidget(),
+                            ),
+                          ))
+                        :
+                         radiologyfilteredData!.isEmpty
+                            ? 
+                            Expanded(
+                                child: Center(
+                                child: Container(
+                                  height: 150,
+                                  width: 150,
+                                  child: Lottie.asset(
+                                    'assets/No_Data_Found.json',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ))
                       : Expanded(
                     child: ListView.builder(
                       itemCount: radiologyfilteredData?.length,
@@ -1206,10 +1202,10 @@ TextEditingController diagnosisController = TextEditingController();
                             onTap: () {
                               selectedradiology =
                                   radiologyfilteredData?[index]['test_name'] ?? '';
-                              selectedradiologyId =
+                              selectedradiology =
                                   radiologyfilteredData?[index]['id'] ?? '';
-                              radiologyController.text =
-                              '($selectedradiologyId) $selectedradiology';
+                             radiologyController.text =
+                              '($selectedradiology) $selectedradiology';
 
                               Navigator.of(context).pop();
                             },
@@ -1217,7 +1213,8 @@ TextEditingController diagnosisController = TextEditingController();
                         );
                       },
                     ),
-                  ),
+                  );
+                    })
                 ],
               ),
             );
@@ -1295,55 +1292,61 @@ TextEditingController diagnosisController = TextEditingController();
                       ),
                     ),
                   ),
-                  isLoading
-                      ? Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                          height: 50,
-                          width: 50,
-                          color: Colors.transparent,
-                          child: const LoadingIndicatorWidget(),
-                        ),
-                      ))
-                      : otherfilteredData!.isEmpty
-                      ? Expanded(
-                      child: Center(
-                        child: Container(
-                          height: 150,
-                          width: 150,
-                          child: Lottie.asset(
-                            'assets/No_Data_Found.json',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ))
+                  FutureBuilder(
+                    future: fetchotherData(),
+                    builder: (context, snapshot) {
+                      return  otherfilteredData!.isEmpty
+                        ? Expanded(
+                            child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Container(
+                              height: 50,
+                              width: 50,
+                              color: Colors.transparent,
+                              child: const LoadingIndicatorWidget(),
+                            ),
+                          ))
+                        :
+                         otherfilteredData!.isEmpty
+                            ? 
+                            Expanded(
+                                child: Center(
+                                child: Container(
+                                  height: 150,
+                                  width: 150,
+                                  child: Lottie.asset(
+                                    'assets/No_Data_Found.json',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ))
                       : Expanded(
                     child: ListView.builder(
-                      itemCount: otherfilteredData?.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        int itemNumber = index + 1;
-                        return Card(
-                          color: Colors.white70.withOpacity(0.7),
-                          child: ListTile(
-                            title: Text(
-                              '$itemNumber. ${otherfilteredData?[index]['name'] ?? ''}',
-                            ),
-                            onTap: () {
-                              selectedotherdata =
-                                  otherfilteredData?[index]['name'] ?? '';
-                              selectedotherId =
-                                  otherfilteredData?[index]['id'] ?? '';
-                              otherController.text =
-                              '($selectedotherId) $selectedotherdata';
-
-                              Navigator.of(context).pop();
-                            },
+                    itemCount: otherfilteredData?.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      int itemNumber = index + 1;
+                      return Card(
+                        color: Colors.white70.withOpacity(0.7),
+                        child: ListTile(
+                          title: Text(
+                            '$itemNumber. ${otherfilteredData?[index]['name'] ?? ''}',
                           ),
-                        );
-                      },
-                    ),
-                  ),
+                          onTap: () {
+                            selectedotherdata =
+                                otherfilteredData?[index]['name'] ?? '';
+                            selectedotherId =
+                                otherfilteredData?[index]['id'] ?? '';
+                            otherController.text =
+                            '($selectedotherId) $selectedotherdata';
+                    
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      );
+                    },
+                      ),
+                  );
+                    })
                 ],
               ),
             );
@@ -1416,29 +1419,34 @@ TextEditingController diagnosisController = TextEditingController();
                       ),
                     ),
                   ),
-                  isLoading
-                      ? Expanded(
-                          child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            height: 50,
-                            width: 50,
-                            color: Colors.transparent,
-                            child: const LoadingIndicatorWidget(),
-                          ),
-                        ))
-                      : diagnosisfilteredData!.isEmpty
-                          ? Expanded(
-                              child: Center(
-                              child: Container(
-                                height: 150,
-                                width: 150,
-                                child: Lottie.asset(
-                                  'assets/No_Data_Found.json',
-                                  fit: BoxFit.cover,
+                  FutureBuilder(
+                    future: fetchdiagnosisData(),
+                    builder: (context, snapshot) {
+                      return  diagnosisfilteredData!.isEmpty
+                        ? Expanded(
+                            child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Container(
+                              height: 50,
+                              width: 50,
+                              color: Colors.transparent,
+                              child: const LoadingIndicatorWidget(),
+                            ),
+                          ))
+                        :
+                         diagnosisfilteredData!.isEmpty
+                            ? 
+                            Expanded(
+                                child: Center(
+                                child: Container(
+                                  height: 150,
+                                  width: 150,
+                                  child: Lottie.asset(
+                                    'assets/No_Data_Found.json',
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                              ),
-                            ))
+                              ))
                           : Expanded(
                               child: ListView.builder(
                                 itemCount: diagnosisfilteredData?.length,
@@ -1502,7 +1510,7 @@ TextEditingController diagnosisController = TextEditingController();
                                   );
                                 },
                               ),
-                            ),
+                            );})
                 ],
               ),
             );
@@ -1511,6 +1519,18 @@ TextEditingController diagnosisController = TextEditingController();
       },
     );
   }
+
+
+  void addNewRowOtherTest() {
+    TextEditingController newOthertestController = TextEditingController();
+
+    setState(() {
+      ipdOthertestRow.add(dragBuildRow(newOthertestController));
+    });
+  }
+
+
+
 
 
 

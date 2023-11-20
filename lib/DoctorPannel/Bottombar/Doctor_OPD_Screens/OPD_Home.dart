@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers
+// ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers, avoid_print
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -318,7 +318,7 @@ class _OpdHomeState extends State<OpdHome> {
                                                         overflow: TextOverflow
                                                             .ellipsis, // Use ellipsis to cut off the text
                                                         maxLines: 1,
-                                                        style: TextStyle(
+                                                        style: const TextStyle(
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                             color: Colors.blue,
@@ -339,14 +339,14 @@ class _OpdHomeState extends State<OpdHome> {
                                                     child: Container(
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsets.all(3.0),
+                                                            const EdgeInsets.all(3.0),
                                                         child: Center(
                                                           child: Text(
                                                             '${radiologyfilteredData?[index]['patient_name'] ?? ''}${radiologyfilteredData?[index]['surname'] ?? ''}',
                                                             overflow: TextOverflow
                                                                 .ellipsis, // Use ellipsis to cut off the text
                                                             maxLines: 1,
-                                                            style: TextStyle(
+                                                            style: const TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
@@ -369,14 +369,14 @@ class _OpdHomeState extends State<OpdHome> {
                                                     child: Container(
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsets.all(3.0),
+                                                            const EdgeInsets.all(3.0),
                                                         child: Center(
                                                           child: Text(
                                                             '${radiologyfilteredData?[index]['name'] ?? ''}',
                                                             overflow: TextOverflow
                                                                 .ellipsis, // Use ellipsis to cut off the text
                                                             maxLines: 1,
-                                                            style: TextStyle(
+                                                            style: const TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
@@ -399,7 +399,7 @@ class _OpdHomeState extends State<OpdHome> {
                                                     child: Container(
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsets.all(3.0),
+                                                            const EdgeInsets.all(3.0),
                                                         child: Center(
                                                           child: Text(
                                                             radiologyfilteredData?[
@@ -418,7 +418,7 @@ class _OpdHomeState extends State<OpdHome> {
                                                                 TextOverflow
                                                                     .ellipsis,
                                                             maxLines: 1,
-                                                            style: TextStyle(
+                                                            style: const TextStyle(
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,
@@ -463,7 +463,7 @@ class _OpdHomeState extends State<OpdHome> {
                                                                 TextOverflow
                                                                     .ellipsis,
                                                             maxLines: 1,
-                                                            style: TextStyle(
+                                                            style: const TextStyle(
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,
@@ -514,19 +514,19 @@ class _OpdHomeState extends State<OpdHome> {
   Color getStatusColor(String? status) {
     switch (status) {
       case '1':
-        return Color(0xffe2d5d5); // Registered
+        return const Color(0xffe2d5d5); // Registered
       case '2':
-        return Color(0xff01c7f9); // Pre-checking
+        return const Color(0xff01c7f9); // Pre-checking
       case '3':
-        return Color(0xff999b97); // Examination
+        return const Color(0xff999b97); // Examination
       case '4':
-        return Color(0xffc11f7e); // Sent for investigation
+        return const Color(0xffc11f7e); // Sent for investigation
       case '5':
-        return Color(0xffadce09); // Investigation report
+        return const Color(0xffadce09); // Investigation report
       case '6':
-        return Color(0xff313e7c); // Checkout
+        return const Color(0xff313e7c); // Checkout
       default:
-        return Color(0xffe2d5d5); // Default color for unknown status
+        return const Color(0xffe2d5d5); // Default color for unknown status
     }
   }
 }

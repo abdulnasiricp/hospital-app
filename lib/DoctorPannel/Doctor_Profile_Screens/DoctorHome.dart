@@ -7,6 +7,7 @@ import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:pie_chart/pie_chart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:badges/badges.dart' as badges;
 
@@ -18,6 +19,19 @@ class Doctor_Home_Page extends StatefulWidget {
 }
 
 class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
+Map<String, double> dataMap = {
+    "Total patient": 533,
+    "OPD Patient": 133,
+    "IPD Patient": 223,
+    "Emergency": 100,
+    "Pathology": 120,
+    "Surgery Performed": 13,
+    "Radiology": 120,
+    "Live Consultation": 10,
+  };
+
+
+
   String welcomeMessage = 'Welcome to Doctor Home Page';
   String doctorRole = '';
   String employeeId = '';
@@ -81,203 +95,200 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.blue[50],
-        appBar: AppBar(
-          title: const Text(
-            EnString.hospitalTitle,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-          // centerTitle: true,
-          leading: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: InkWell(
-              onTap: () {
-                Get.to(() => const AboutUSScreen());
-              },
-              child: Image.asset(
-                'assets/hospital_logo.png',
-                width: 200,
-                height: 200,
-              ),
-            ),
-          ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: IconButton(
-                color: Colors.blue,
-                onPressed: () {
-                  // Get.to(() => const Notif());
-                },
-                icon: Stack(
-                  children: [
-                    badges.Badge(
-                      // badgeContent: Text(
-                      //   // '$unreadCount',
-                      //   // notifications.where((item) => !item.isRead).length > 90
-                      //   //     ? '99+'
-                      //   //     : notifications
-                      //   //         .where((item) => !item.isRead)
-                      //   //         .length
-                      //   // //         .toString(),
-                      //   // style: const TextStyle(
-                      //   //   fontSize: 8,
-                      //   //   fontWeight: FontWeight.bold,
-                      //   // ),
-                      // ),
-                      badgeStyle: const badges.BadgeStyle(
-                        badgeColor: Colors.orangeAccent,
-                      ),
-                      position:
-                          badges.BadgePosition.custom(start: 15, bottom: 3),
-                      child: const Icon(
-                        Icons.notifications,
-                        color: Colors.white,
-                        size: 30,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-          backgroundColor: darkYellow,
-          elevation: 0,
+      backgroundColor: Colors.blue[50],
+      appBar: AppBar(
+        title: const Text(
+          EnString.hospitalTitle,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
-        body: SingleChildScrollView(
-            child: Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+        // centerTitle: true,
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: InkWell(
+            onTap: () {
+              Get.to(() => const AboutUSScreen());
+            },
+            child: Image.asset(
+              'assets/hospital_logo.png',
+              width: 200,
+              height: 200,
+            ),
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(
+              color: Colors.blue,
+              onPressed: () {
+                // Get.to(() => const Notif());
+              },
+              icon: Stack(
+                children: [
+                  badges.Badge(
+                 
+                    badgeStyle: const badges.BadgeStyle(
+                      badgeColor: Colors.orangeAccent,
+                    ),
+                    position: badges.BadgePosition.custom(start: 15, bottom: 3),
+                    child: const Icon(
+                      Icons.notifications,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+        backgroundColor: darkYellow,
+        elevation: 0,
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment
+                    .spaceBetween, // Aligns children to the start and end of the row
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment
+                        .start, // Aligns text to the start of the column
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment
-                            .spaceBetween, // Aligns children to the start and end of the row
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment
-                                .start, // Aligns text to the start of the column
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 5.0),
-                                child: Text(
-                                  '${'welcome'.tr} $username',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              ),
-                            ],
+                      Padding(
+                        padding: const EdgeInsets.only(left: 5.0),
+                        child: Text(
+                          '${'welcome'.tr} $username',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 14,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment
-                                  .end, // Aligns text to the end of the column
-                              children: [
-                                Text(
-                                  '${'Doctor ID'.tr} $id'.isEmpty
-                                      ? "N/A"
-                                      : '${'DoctorID'.tr} $id',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                    fontFamily: 'Gilroy_Bold',
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                      const SizedBox(height: 15),
-                      Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            GridView.count(
-                                physics: const NeverScrollableScrollPhysics(),
-                                crossAxisCount: 2,
-                                childAspectRatio: 2,
-                                shrinkWrap:
-                                    true, // Set to true to make the GridView scrollable within the Column
-                                children: [
-                                  homeCard(
-                                      SvgPicture.asset('assets/people.svg',
-                                          width: 30,
-                                          height: 30,
-                                          color: Colors.white),
-                                      'Total Patients Served',
-                                      '1233'),
-                                  homeCard(
-                                      SvgPicture.asset(
-                                        'assets/opd.svg',
-                                        width: 30,
-                                        height: 30,
-                                        color: Colors.white,
-                                      ),
-                                      'OPD Patients',
-                                      '133'),
-                                  homeCard(
-                                      SvgPicture.asset('assets/ipd.svg',
-                                          width: 30,
-                                          height: 30,
-                                          color: Colors.white),
-                                      'IPD Patients',
-                                      '223'),
-                                  homeCard(
-                                      SvgPicture.asset(
-                                        'assets/em.svg',
-                                        width: 30,
-                                        height: 30,
-                                        color: Colors.white,
-                                      ),
-                                      'Emergency Patients',
-                                      '133'),
-                                  homeCard(
-                                      SvgPicture.asset(
-                                        'assets/surgery.svg',
-                                        width: 30,
-                                        height: 30,
-                                        color: Colors.white,
-                                      ),
-                                      'Surgery Performed',
-                                      '13'),
-                                  homeCard(
-                                      SvgPicture.asset(
-                                        'assets/pathology.svg',
-                                        width: 30,
-                                        height: 30,
-                                        color: Colors.white,
-                                      ),
-                                      'Pathology',
-                                      '120'),
-                                  homeCard(
-                                      SvgPicture.asset(
-                                        'assets/radiology.svg',
-                                        width: 30,
-                                        height: 30,
-                                        color: Colors.white,
-                                        fit: BoxFit.fill,
-                                      ),
-                                      'Radiology',
-                                      '120'),
-                                  homeCard(
-                                      SvgPicture.asset(
-                                        'assets/live_consult.svg',
-                                        width: 30,
-                                        height: 30,
-                                        color: Colors.white,
-                                        fit: BoxFit.fill,
-                                      ),
-                                      'Live Consultation',
-                                      '10'),
-                                ]),
-                          ]),
-                    ]))));
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment
+                          .end, // Aligns text to the end of the column
+                      children: [
+                        Text(
+                          '${'Doctor ID'.tr} $id'.isEmpty
+                              ? "N/A"
+                              : '${'DoctorID'.tr} $id',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontFamily: 'Gilroy_Bold',
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 15),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  GridView.count(
+                      physics: const NeverScrollableScrollPhysics(),
+                      crossAxisCount: 2,
+                      childAspectRatio: 2,
+                      shrinkWrap:
+                          true, // Set to true to make the GridView scrollable within the Column
+                      children: [
+                        homeCard(
+                            SvgPicture.asset('assets/people.svg',
+                                width: 30, height: 30, color: Colors.white),
+                            'Total Patients Served',
+                            '1233'),
+                        homeCard(
+                            SvgPicture.asset(
+                              'assets/opd.svg',
+                              width: 30,
+                              height: 30,
+                              color: Colors.white,
+                            ),
+                            'OPD Patients',
+                            '133'),
+                        homeCard(
+                            SvgPicture.asset('assets/ipd.svg',
+                                width: 30, height: 30, color: Colors.white),
+                            'IPD Patients',
+                            '223'),
+                        homeCard(
+                            SvgPicture.asset(
+                              'assets/em.svg',
+                              width: 30,
+                              height: 30,
+                              color: Colors.white,
+                            ),
+                            'Emergency Patients',
+                            '133'),
+                        homeCard(
+                            SvgPicture.asset(
+                              'assets/surgery.svg',
+                              width: 30,
+                              height: 30,
+                              color: Colors.white,
+                            ),
+                            'Surgery Performed',
+                            '13'),
+                        homeCard(
+                            SvgPicture.asset(
+                              'assets/pathology.svg',
+                              width: 30,
+                              height: 30,
+                              color: Colors.white,
+                            ),
+                            'Pathology',
+                            '120'),
+                        homeCard(
+                            SvgPicture.asset(
+                              'assets/radiology.svg',
+                              width: 30,
+                              height: 30,
+                              color: Colors.white,
+                              fit: BoxFit.fill,
+                            ),
+                            'Radiology',
+                            '120'),
+                        homeCard(
+                            SvgPicture.asset(
+                              'assets/live_consult.svg',
+                              width: 30,
+                              height: 30,
+                              color: Colors.white,
+                              fit: BoxFit.fill,
+                            ),
+                            'Live Consultation',
+                            '10'),
+                      ]),
+                ],
+              ),
+              Column(children: [
+                Center(child: PieChart(dataMap: dataMap,
+                chartRadius: width/1.7,
+                // legendOptions: LegendOptions(legendPosition: LegendPosition.bottom),
+                chartValuesOptions: ChartValuesOptions(showChartValuesInPercentage: true),
+
+                ),)
+
+              ],)
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   Card homeCard(Iconwidget, Namewidget, itemwidget) {

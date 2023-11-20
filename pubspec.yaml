@@ -81,6 +81,7 @@ dependencies:
   firebase_messaging: ^14.7.3
   uni_links: ^0.5.1
   html_editor_enhanced: ^2.5.1
+  pie_chart: ^5.4.0
 
 dev_dependencies:
   flutter_test:

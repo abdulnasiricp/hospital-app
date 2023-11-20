@@ -19,15 +19,15 @@ class OpdInvestigation extends StatefulWidget {
 }
 
 class _OpdInvestigationState extends State<OpdInvestigation> {
-  @override
-  void initState() {
-    super.initState();
-    fetchpathologyData();
-    fetchotherData();
-    fetchRadiologyData();
-    fetchPharmacyData();
-    fetchdiagnosisData();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   // fetchpathologyData();
+  //   // fetchotherData();
+  //   // fetchRadiologyData();
+  //   // fetchPharmacyData();
+  //   // fetchdiagnosisData();
+  // }
 
   List<Widget> opdOthertestRow = [];
   List<Widget> radiologyRow = [];
@@ -93,9 +93,9 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   }
 
 //=================================================================================
-  String selectedotherItemsId = '';
-  String selectedotherItemsName = '';
-  List<String> selectedotherItems = [];
+  // String selectedotherItemsId = '';
+  // String selectedotherItemsName = '';
+  // List<String> selectedotherItems = [];
   List<dynamic>? otherdata = [];
   List<dynamic>? otherfilteredData = [];
 
@@ -135,9 +135,9 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   }
 
 //=================================================================================
-  String selectedpharmacyItemsId = '';
-  String selectedpharmacyItemsName = '';
-  List<String> selectedpharmacyItems = [];
+  // String selectedpharmacyItemsId = '';
+  // String selectedpharmacyItemsName = '';
+  // List<String> selectedpharmacyItems = [];
   List<dynamic>? pharmacydata = [];
   List<dynamic>? pharmacyfilteredData = [];
   Future<void> fetchPharmacyData() async {
@@ -178,9 +178,9 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   }
 
 //================================================================================= Radiology
-  String selectedradiologyItemsId = '';
-  String selectedradiologyItemsName = '';
-  List<String> selectedradiologyItems = [];
+  // String selectedradiologyItemsId = '';
+  // String selectedradiologyItemsName = '';
+  // List<String> selectedradiologyItems = [];
 
   List<dynamic>? radiologydata = [];
   List<dynamic>? radiologyfilteredData = [];
@@ -1333,96 +1333,102 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                       ),
                     ),
                   ),
-                  isLoading
-                      ? Expanded(
-                          child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            height: 50,
-                            width: 50,
-                            color: Colors.transparent,
-                            child: const LoadingIndicatorWidget(),
-                          ),
-                        ))
-                      : pathologyfilteredData!.isEmpty
-                          ? Expanded(
-                              child: Center(
-                              child: Container(
-                                height: 150,
-                                width: 150,
-                                child: Lottie.asset(
-                                  'assets/No_Data_Found.json',
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ))
-                          : Expanded(
-                              child: ListView.builder(
-                                itemCount: pathologyfilteredData?.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  String itemName =
-                                      pathologyfilteredData?[index]
-                                              ['test_name'] ??
-                                          '';
-                                  String itemId =
-                                      pathologyfilteredData?[index]['id'] ?? '';
-                                  bool isSelected =
-                                      selectedpathologyItems.contains(itemName);
-
-                                  int itemNumber = index + 1;
-                                  return Card(
-                                    color: isSelected
-                                        ? Colors.green
-                                        : Colors.white70.withOpacity(0.7),
-                                    child: ListTile(
-                                      title: Text(
-                                        '$itemNumber.$itemName',
-                                        style: TextStyle(
-                                          fontWeight: isSelected
-                                              ? FontWeight.bold
-                                              : FontWeight.normal,
-                                        ),
-                                      ),
-                                      onTap: () {
-                                        setState(() {
-                                          if (isSelected) {
-                                            selectedpathologyItems
-                                                .remove(itemName);
-                                          } else {
-                                            selectedpathologyItems
-                                                .add(itemName);
-                                          }
-                                          pathologyController.text =
-                                              selectedpathologyItems
-                                                  .map((itemName) {
-                                            var itemData = pathologyfilteredData
-                                                ?.firstWhere((data) =>
-                                                    data['test_name'] ==
-                                                    itemName);
-                                            return '(${itemData['id']}).${itemName}';
-                                          }).join(', ');
-
-                                          // Update the selectedOtherItemsId based on selectedOtherItems
-                                          selectedpathologyItemsId =
-                                              selectedpathologyItems
-                                                  .map((itemName) =>
-                                                      pathologyfilteredData
-                                                          ?.firstWhere((data) =>
-                                                              data[
-                                                                  'test_name'] ==
-                                                              itemName)['id'])
-                                                  .join(',');
-
-                                          // Update the selectedOtherItemsName based on selectedOtherItems
-                                          selectedpathologyItemsName =
-                                              selectedpathologyItems.join(', ');
-                                        });
-                                      },
-                                    ),
-                                  );
-                                },
-                              ),
+                  FutureBuilder(
+                    future: fetchpathologyData(),
+                    builder: (context, snapshot) {
+                      return pathologyfilteredData!.isEmpty
+                        ? Expanded(
+                            child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Container(
+                              height: 50,
+                              width: 50,
+                              color: Colors.transparent,
+                              child: const LoadingIndicatorWidget(),
                             ),
+                          ))
+                        : pathologyfilteredData!.isEmpty
+                            ? Expanded(
+                                child: Center(
+                                child: Container(
+                                  height: 150,
+                                  width: 150,
+                                  child: Lottie.asset(
+                                    'assets/No_Data_Found.json',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ))
+                            : Expanded(
+                                child: ListView.builder(
+                                  itemCount: pathologyfilteredData?.length,
+                                  itemBuilder: (BuildContext context, int index) {
+                                    String itemName =
+                                        pathologyfilteredData?[index]
+                                                ['test_name'] ??
+                                            '';
+                                    String itemId =
+                                        pathologyfilteredData?[index]['id'] ?? '';
+                                    bool isSelected =
+                                        selectedpathologyItems.contains(itemName);
+                  
+                                    int itemNumber = index + 1;
+                                    return Card(
+                                      color: isSelected
+                                          ? Colors.green
+                                          : Colors.white70.withOpacity(0.7),
+                                      child: ListTile(
+                                        title: Text(
+                                          '$itemNumber.$itemName',
+                                          style: TextStyle(
+                                            fontWeight: isSelected
+                                                ? FontWeight.bold
+                                                : FontWeight.normal,
+                                          ),
+                                        ),
+                                        onTap: () {
+                                          setState(() {
+                                            if (isSelected) {
+                                              selectedpathologyItems
+                                                  .remove(itemName);
+                                            } else {
+                                              selectedpathologyItems
+                                                  .add(itemName);
+                                            }
+                                            pathologyController.text =
+                                                selectedpathologyItems
+                                                    .map((itemName) {
+                                              var itemData = pathologyfilteredData
+                                                  ?.firstWhere((data) =>
+                                                      data['test_name'] ==
+                                                      itemName);
+                                              return '(${itemData['id']}).${itemName}';
+                                            }).join(', ');
+                  
+                                            // Update the selectedOtherItemsId based on selectedOtherItems
+                                            selectedpathologyItemsId =
+                                                selectedpathologyItems
+                                                    .map((itemName) =>
+                                                        pathologyfilteredData
+                                                            ?.firstWhere((data) =>
+                                                                data[
+                                                                    'test_name'] ==
+                                                                itemName)['id'])
+                                                    .join(',');
+                  
+                                            // Update the selectedOtherItemsName based on selectedOtherItems
+                                            selectedpathologyItemsName =
+                                                selectedpathologyItems.join(', ');
+                                          });
+                                        },
+                                      )
+                                    );
+                                  },
+                                ),
+                              );
+                    },
+                    
+                  ),
                 ],
               ),
             );
@@ -1494,59 +1500,65 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                       ),
                     ),
                   ),
-                  isLoading
-                      ? Expanded(
-                          child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            height: 50,
-                            width: 50,
-                            color: Colors.transparent,
-                            child: const LoadingIndicatorWidget(),
-                          ),
-                        ))
-                      : radiologyfilteredData!.isEmpty
-                          ? Expanded(
-                              child: Center(
-                              child: Container(
-                                height: 150,
-                                width: 150,
-                                child: Lottie.asset(
-                                  'assets/No_Data_Found.json',
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ))
-                          : Expanded(
-                              child: ListView.builder(
-                                itemCount: radiologyfilteredData?.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  int itemNumber = index + 1;
-                                  return Card(
-                                    color: Colors.white70.withOpacity(0.7),
-                                    child: ListTile(
-                                      title: Text(
-                                        '$itemNumber. ${radiologyfilteredData?[index]['test_name'] ?? ''}',
-                                      ),
-                                      onTap: () {
-                                        selectedradiology =
-                                            radiologyfilteredData?[index]
-                                                    ['test_name'] ??
-                                                '';
-                                        selectedradiologyId =
-                                            radiologyfilteredData?[index]
-                                                    ['id'] ??
-                                                '';
-                                        radiologyController.text =
-                                            '($selectedradiologyId) $selectedradiology';
-
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  );
-                                },
-                              ),
+                  FutureBuilder(
+                    future: fetchRadiologyData(),
+                    builder: (context, snapshot) {
+                      return  radiologyfilteredData!.isEmpty
+                        ? Expanded(
+                            child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Container(
+                              height: 50,
+                              width: 50,
+                              color: Colors.transparent,
+                              child: const LoadingIndicatorWidget(),
                             ),
+                          ))
+                        : radiologyfilteredData!.isEmpty
+                            ? Expanded(
+                                child: Center(
+                                child: Container(
+                                  height: 150,
+                                  width: 150,
+                                  child: Lottie.asset(
+                                    'assets/No_Data_Found.json',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ))
+                            : Expanded(
+                                child: ListView.builder(
+                                  itemCount: radiologyfilteredData?.length,
+                                  itemBuilder: (BuildContext context, int index) {
+                                    int itemNumber = index + 1;
+                                    return Card(
+                                      color: Colors.white70.withOpacity(0.7),
+                                      child: ListTile(
+                                        title: Text(
+                                          '$itemNumber. ${radiologyfilteredData?[index]['test_name'] ?? ''}',
+                                        ),
+                                        onTap: () {
+                                          selectedradiology =
+                                              radiologyfilteredData?[index]
+                                                      ['test_name'] ??
+                                                  '';
+                                          selectedradiologyId =
+                                              radiologyfilteredData?[index]
+                                                      ['id'] ??
+                                                  '';
+                                          radiologyController.text =
+                                              '($selectedradiologyId) $selectedradiology';
+                  
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    );
+                                  },
+                                ),
+                              );
+                    },
+                    
+                  ),
                 ],
               ),
             );
@@ -1618,59 +1630,65 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                       ),
                     ),
                   ),
-                  isLoading
-                      ? Expanded(
-                          child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            height: 50,
-                            width: 50,
-                            color: Colors.transparent,
-                            child: const LoadingIndicatorWidget(),
-                          ),
-                        ))
-                      : pharmacyfilteredData!.isEmpty
-                          ? Expanded(
-                              child: Center(
-                              child: Container(
-                                height: 150,
-                                width: 150,
-                                child: Lottie.asset(
-                                  'assets/No_Data_Found.json',
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ))
-                          : Expanded(
-                              child: ListView.builder(
-                                itemCount: pharmacyfilteredData?.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  int itemNumber = index + 1;
-                                  return Card(
-                                    color: Colors.white70.withOpacity(0.7),
-                                    child: ListTile(
-                                      title: Text(
-                                        '$itemNumber. ${pharmacyfilteredData?[index]['medicine_name'] ?? ''}',
-                                      ),
-                                      onTap: () {
-                                        selectedpharmacy =
-                                            pharmacyfilteredData?[index]
-                                                    ['medicine_name'] ??
-                                                '';
-                                        selectedpharmacyId =
-                                            pharmacyfilteredData?[index]
-                                                    ['id'] ??
-                                                '';
-                                        pharmacyController.text =
-                                            '($selectedpharmacyId) $selectedpharmacy';
-
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  );
-                                },
-                              ),
+                  FutureBuilder(
+                    future: fetchPharmacyData(),
+                    builder: (context, snapshot) {
+                      return pharmacyfilteredData!.isEmpty
+                        ? Expanded(
+                            child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Container(
+                              height: 50,
+                              width: 50,
+                              color: Colors.transparent,
+                              child: const LoadingIndicatorWidget(),
                             ),
+                          ))
+                        : pharmacyfilteredData!.isEmpty
+                            ? Expanded(
+                                child: Center(
+                                child: Container(
+                                  height: 150,
+                                  width: 150,
+                                  child: Lottie.asset(
+                                    'assets/No_Data_Found.json',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ))
+                            : Expanded(
+                                child: ListView.builder(
+                                  itemCount: pharmacyfilteredData?.length,
+                                  itemBuilder: (BuildContext context, int index) {
+                                    int itemNumber = index + 1;
+                                    return Card(
+                                      color: Colors.white70.withOpacity(0.7),
+                                      child: ListTile(
+                                        title: Text(
+                                          '$itemNumber. ${pharmacyfilteredData?[index]['medicine_name'] ?? ''}',
+                                        ),
+                                        onTap: () {
+                                          selectedpharmacy =
+                                              pharmacyfilteredData?[index]
+                                                      ['medicine_name'] ??
+                                                  '';
+                                          selectedpharmacyId =
+                                              pharmacyfilteredData?[index]
+                                                      ['id'] ??
+                                                  '';
+                                          pharmacyController.text =
+                                              '($selectedpharmacyId) $selectedpharmacy';
+                  
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    );
+                                  },
+                                ),
+                              );
+                    },
+                     
+                  ),
                 ],
               ),
             );
@@ -1744,57 +1762,63 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                       ),
                     ),
                   ),
-                  isLoading
-                      ? Expanded(
-                          child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            height: 50,
-                            width: 50,
-                            color: Colors.transparent,
-                            child: const LoadingIndicatorWidget(),
-                          ),
-                        ))
-                      : otherfilteredData!.isEmpty
-                          ? Expanded(
-                              child: Center(
-                              child: Container(
-                                height: 150,
-                                width: 150,
-                                child: Lottie.asset(
-                                  'assets/No_Data_Found.json',
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ))
-                          : Expanded(
-                              child: ListView.builder(
-                                itemCount: otherfilteredData?.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  int itemNumber = index + 1;
-                                  return Card(
-                                    color: Colors.white70.withOpacity(0.7),
-                                    child: ListTile(
-                                      title: Text(
-                                        '$itemNumber. ${otherfilteredData?[index]['name'] ?? ''}',
-                                      ),
-                                      onTap: () {
-                                        selectedotherdata =
-                                            otherfilteredData?[index]['name'] ??
-                                                '';
-                                        selectedotherId =
-                                            otherfilteredData?[index]['id'] ??
-                                                '';
-                                        otherController.text =
-                                            '($selectedotherId) $selectedotherdata';
-
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  );
-                                },
-                              ),
+                  FutureBuilder(
+                    future: fetchotherData(),
+                    builder: (context, snapshot) {
+                      return otherfilteredData!.isEmpty
+                        ? Expanded(
+                            child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Container(
+                              height: 50,
+                              width: 50,
+                              color: Colors.transparent,
+                              child: const LoadingIndicatorWidget(),
                             ),
+                          ))
+                        : otherfilteredData!.isEmpty
+                            ? Expanded(
+                                child: Center(
+                                child: Container(
+                                  height: 150,
+                                  width: 150,
+                                  child: Lottie.asset(
+                                    'assets/No_Data_Found.json',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ))
+                            : Expanded(
+                                child: ListView.builder(
+                                  itemCount: otherfilteredData?.length,
+                                  itemBuilder: (BuildContext context, int index) {
+                                    int itemNumber = index + 1;
+                                    return Card(
+                                      color: Colors.white70.withOpacity(0.7),
+                                      child: ListTile(
+                                        title: Text(
+                                          '$itemNumber. ${otherfilteredData?[index]['name'] ?? ''}',
+                                        ),
+                                        onTap: () {
+                                          selectedotherdata =
+                                              otherfilteredData?[index]['name'] ??
+                                                  '';
+                                          selectedotherId =
+                                              otherfilteredData?[index]['id'] ??
+                                                  '';
+                                          otherController.text =
+                                              '($selectedotherId) $selectedotherdata';
+                  
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    );
+                                  },
+                                ),
+                              );
+                    },
+                    
+                  ),
                 ],
               ),
             );
@@ -1866,93 +1890,99 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                       ),
                     ),
                   ),
-                  isLoading
-                      ? Expanded(
-                          child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            height: 50,
-                            width: 50,
-                            color: Colors.transparent,
-                            child: const LoadingIndicatorWidget(),
-                          ),
-                        ))
-                      : diagnosisfilteredData!.isEmpty
-                          ? Expanded(
-                              child: Center(
-                              child: Container(
-                                height: 150,
-                                width: 150,
-                                child: Lottie.asset(
-                                  'assets/No_Data_Found.json',
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ))
-                          : Expanded(
-                              child: ListView.builder(
-                                itemCount: diagnosisfilteredData?.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  String itemName =
-                                      diagnosisfilteredData?[index]['name'] ??
-                                          '';
-                                  String itemId =
-                                      diagnosisfilteredData?[index]['id'] ?? '';
-                                  bool isSelected =
-                                      selecteddiagnosisItems.contains(itemName);
-
-                                  int itemNumber = index + 1;
-                                  return Card(
-                                    color: isSelected
-                                        ? Colors.green
-                                        : Colors.white70.withOpacity(0.7),
-                                    child: ListTile(
-                                      title: Text(
-                                        '$itemNumber.$itemName',
-                                        style: TextStyle(
-                                          fontWeight: isSelected
-                                              ? FontWeight.bold
-                                              : FontWeight.normal,
-                                        ),
-                                      ),
-                                      onTap: () {
-                                        setState(() {
-                                          if (isSelected) {
-                                            selecteddiagnosisItems
-                                                .remove(itemName);
-                                          } else {
-                                            selecteddiagnosisItems
-                                                .add(itemName);
-                                          }
-                                          DiagnosisController.text =
-                                              selecteddiagnosisItems
-                                                  .map((itemName) {
-                                            var itemData = diagnosisfilteredData
-                                                ?.firstWhere((data) =>
-                                                    data['name'] == itemName);
-                                            return '(${itemData['id']}).${itemName}';
-                                          }).join(', ');
-
-                                          // Update the selectedOtherItemsId based on selectedOtherItems
-                                          selecteddiagnosisItemsId =
-                                              selecteddiagnosisItems
-                                                  .map((itemName) =>
-                                                      diagnosisfilteredData
-                                                          ?.firstWhere((data) =>
-                                                              data['name'] ==
-                                                              itemName)['id'])
-                                                  .join(',');
-
-                                          // Update the selectedOtherItemsName based on selectedOtherItems
-                                          selecteddiagnosisItemsName =
-                                              selecteddiagnosisItems.join(', ');
-                                        });
-                                      },
-                                    ),
-                                  );
-                                },
-                              ),
+                  FutureBuilder(
+                    future: fetchdiagnosisData(),
+                    builder: (context, snapshot) {
+                      return  diagnosisfilteredData!.isEmpty
+                        ? Expanded(
+                            child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Container(
+                              height: 50,
+                              width: 50,
+                              color: Colors.transparent,
+                              child: const LoadingIndicatorWidget(),
                             ),
+                          ))
+                        : diagnosisfilteredData!.isEmpty
+                            ? Expanded(
+                                child: Center(
+                                child: Container(
+                                  height: 150,
+                                  width: 150,
+                                  child: Lottie.asset(
+                                    'assets/No_Data_Found.json',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ))
+                            : Expanded(
+                                child: ListView.builder(
+                                  itemCount: diagnosisfilteredData?.length,
+                                  itemBuilder: (BuildContext context, int index) {
+                                    String itemName =
+                                        diagnosisfilteredData?[index]['name'] ??
+                                            '';
+                                    String itemId =
+                                        diagnosisfilteredData?[index]['id'] ?? '';
+                                    bool isSelected =
+                                        selecteddiagnosisItems.contains(itemName);
+                  
+                                    int itemNumber = index + 1;
+                                    return Card(
+                                      color: isSelected
+                                          ? Colors.green
+                                          : Colors.white70.withOpacity(0.7),
+                                      child: ListTile(
+                                        title: Text(
+                                          '$itemNumber.$itemName',
+                                          style: TextStyle(
+                                            fontWeight: isSelected
+                                                ? FontWeight.bold
+                                                : FontWeight.normal,
+                                          ),
+                                        ),
+                                        onTap: () {
+                                          setState(() {
+                                            if (isSelected) {
+                                              selecteddiagnosisItems
+                                                  .remove(itemName);
+                                            } else {
+                                              selecteddiagnosisItems
+                                                  .add(itemName);
+                                            }
+                                            DiagnosisController.text =
+                                                selecteddiagnosisItems
+                                                    .map((itemName) {
+                                              var itemData = diagnosisfilteredData
+                                                  ?.firstWhere((data) =>
+                                                      data['name'] == itemName);
+                                              return '(${itemData['id']}).${itemName}';
+                                            }).join(', ');
+                  
+                                            // Update the selectedOtherItemsId based on selectedOtherItems
+                                            selecteddiagnosisItemsId =
+                                                selecteddiagnosisItems
+                                                    .map((itemName) =>
+                                                        diagnosisfilteredData
+                                                            ?.firstWhere((data) =>
+                                                                data['name'] ==
+                                                                itemName)['id'])
+                                                    .join(',');
+                  
+                                            // Update the selectedOtherItemsName based on selectedOtherItems
+                                            selecteddiagnosisItemsName =
+                                                selecteddiagnosisItems.join(', ');
+                                          });
+                                        },
+                                      ),
+                                    );
+                                  },
+                                ),
+                              );
+                    },
+                     
+                  ),
                 ],
               ),
             );
