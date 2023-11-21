@@ -1633,7 +1633,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                   FutureBuilder(
                     future: fetchPharmacyData(),
                     builder: (context, snapshot) {
-                      return pharmacyfilteredData!.isEmpty
+                      return isLoading
                         ? Expanded(
                             child: Padding(
                             padding: const EdgeInsets.all(10.0),
