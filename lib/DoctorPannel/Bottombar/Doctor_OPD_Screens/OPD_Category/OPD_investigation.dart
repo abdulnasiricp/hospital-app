@@ -19,7 +19,6 @@ class OpdInvestigation extends StatefulWidget {
 }
 
 class _OpdInvestigationState extends State<OpdInvestigation> {
-
   List<Widget> opdOthertestRow = [];
   List<Widget> radiologyRow = [];
   List<Widget> surgeryRow = [];
@@ -39,12 +38,9 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   List<dynamic>? pathologydata = [];
   List<dynamic>? pathologyfilteredData = [];
 
-bool isPathologyDataFetched = false; // Add this flag
+  bool isPathologyDataFetched = false; // Add this flag
   bool isLoading = true;
   Future<void> fetchpathologyData() async {
-      if (isPathologyDataFetched) {
-      return; // If data has already been fetched, return without fetching again
-    }
     Uri.parse(ApiLinks.singleTableDataDetector);
 
     final body = {"table": "pathology"};
@@ -61,7 +57,6 @@ bool isPathologyDataFetched = false; // Add this flag
         pathologydata = dataMap['result'];
         pathologyfilteredData = pathologydata;
         isLoading = false;
-        isPathologyDataFetched=true;
       });
     } else {
       handleNonJsonResponse();
@@ -76,8 +71,7 @@ bool isPathologyDataFetched = false; // Add this flag
   }
   ////////////////////
 
-
-   void pathologyfilterData(String query) {
+  void pathologyfilterData(String query) {
     setState(() {
       pathologyfilteredData = pathologydata
           ?.where((element) =>
@@ -95,9 +89,9 @@ bool isPathologyDataFetched = false; // Add this flag
   List<dynamic>? otherfilteredData = [];
 
   Future<void> fetchotherData() async {
-     if (isotherDataFetched) {
-      return; // If data has already been fetched, return without fetching again
-    }
+    // if (isotherDataFetched) {
+    //   return; // If data has already been fetched, return without fetching again
+    // }
     Uri.parse(ApiLinks.singleTableDataDetector);
 
     final body = {"table": "finding"};
@@ -114,8 +108,8 @@ bool isPathologyDataFetched = false; // Add this flag
         otherdata = dataMap['result'];
         otherfilteredData = otherdata;
         isLoading = false;
-        
-        isotherDataFetched = true; // Set the flag to true after fetching data
+
+        // isotherDataFetched = true; // Set the flag to true after fetching data
       });
     } else {
       handleNonJsonResponse();
@@ -124,14 +118,11 @@ bool isPathologyDataFetched = false; // Add this flag
 
   ////////////////////
 
-
   void otherfilterData(String query) {
     setState(() {
       otherfilteredData = otherdata
           ?.where((element) =>
-              element['name']
-                  .toLowerCase()
-                  .contains(query.toLowerCase()) ||
+              element['name'].toLowerCase().contains(query.toLowerCase()) ||
               element['id'].toLowerCase().startsWith(query.toLowerCase()))
           .toList();
     });
@@ -139,13 +130,13 @@ bool isPathologyDataFetched = false; // Add this flag
 
 //=================================================================================
   bool ispharmacyDataFetched = false; // Add this flag
-  
+
   List<dynamic>? pharmacydata = [];
   List<dynamic>? pharmacyfilteredData = [];
   Future<void> fetchPharmacyData() async {
-     if (ispharmacyDataFetched) {
-      return; // If data has already been fetched, return without fetching again
-    }
+    // if (ispharmacyDataFetched) {
+    //   return; // If data has already been fetched, return without fetching again
+    // }
     Uri.parse(ApiLinks.singleTableDataDetector);
 
     final body = {"table": "pharmacy"};
@@ -162,7 +153,7 @@ bool isPathologyDataFetched = false; // Add this flag
         pharmacydata = dataMap['result'];
         pharmacyfilteredData = pharmacydata;
         isLoading = false;
-        ispharmacyDataFetched=true;
+        // ispharmacyDataFetched = true;
       });
     } else {
       handleNonJsonResponse();
@@ -171,8 +162,7 @@ bool isPathologyDataFetched = false; // Add this flag
 
   ////////////////////
 
-
-   void pharmacyfilterData(String query) {
+  void pharmacyfilterData(String query) {
     setState(() {
       pharmacyfilteredData = pharmacydata
           ?.where((element) =>
@@ -184,18 +174,16 @@ bool isPathologyDataFetched = false; // Add this flag
     });
   }
 
-
 //================================================================================= Radiology
-    bool isRadiologyDataFetched = false; // Add this flag
-
+  bool isRadiologyDataFetched = false; // Add this flag
 
   List<dynamic>? radiologydata = [];
   List<dynamic>? radiologyfilteredData = [];
 
   Future<void> fetchRadiologyData() async {
-     if (isRadiologyDataFetched) {
-      return; // If data has already been fetched, return without fetching again
-    }
+    // if (isRadiologyDataFetched) {
+    //   return; // If data has already been fetched, return without fetching again
+    // }
     Uri.parse(ApiLinks.singleTableDataDetector);
 
     final body = {"table": "radio"};
@@ -212,8 +200,7 @@ bool isPathologyDataFetched = false; // Add this flag
         radiologydata = dataMap['result'];
         radiologyfilteredData = radiologydata;
         isLoading = false;
-        isRadiologyDataFetched=true;
-
+        // isRadiologyDataFetched = true;
       });
     } else {
       handleNonJsonResponse();
@@ -222,9 +209,7 @@ bool isPathologyDataFetched = false; // Add this flag
 
   //========================================
 
-
-
-   void radiologyfilterData(String query) {
+  void radiologyfilterData(String query) {
     setState(() {
       radiologyfilteredData = radiologydata
           ?.where((element) =>
@@ -235,7 +220,6 @@ bool isPathologyDataFetched = false; // Add this flag
           .toList();
     });
   }
-
 
 //================================================================================= for Diagnosis
   TextEditingController DiagnosisController = TextEditingController();
@@ -248,7 +232,7 @@ bool isPathologyDataFetched = false; // Add this flag
   bool isDiagnosisDataFetched = false; // Add this flag
 
   Future<void> fetchdiagnosisData() async {
-     if (isDiagnosisDataFetched) {
+    if (isDiagnosisDataFetched) {
       return; // If data has already been fetched, return without fetching again
     }
     Uri.parse(ApiLinks.singleTableDataDetector);
@@ -267,22 +251,18 @@ bool isPathologyDataFetched = false; // Add this flag
         diagnosisdata = dataMap['result'];
         diagnosisfilteredData = diagnosisdata;
         isLoading = false;
-        isDiagnosisDataFetched=true;
+        isDiagnosisDataFetched = true;
       });
     } else {
       handleNonJsonResponse();
     }
   }
 
-  
-
-   void DiagnosisfilterData(String query) {
+  void DiagnosisfilterData(String query) {
     setState(() {
       diagnosisfilteredData = diagnosisdata
           ?.where((element) =>
-              element['name']
-                  .toLowerCase()
-                  .contains(query.toLowerCase()) ||
+              element['name'].toLowerCase().contains(query.toLowerCase()) ||
               element['id'].toLowerCase().startsWith(query.toLowerCase()))
           .toList();
     });
@@ -295,153 +275,444 @@ bool isPathologyDataFetched = false; // Add this flag
   Widget build(BuildContext context) {
     return Scaffold(
         body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(children: [
-              Row(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(children: [
+          Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Diagnosis',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Container(
-                        width: width / 2.2,
-                        height: 30,
-                        color: Colors.green[300],
-                        child: const Center(
-                            child: Text(
-                          'Diagnosis',
-                          style:
-                              TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                        )),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Container(
-                        width: width / 2.2,
-                        child: Flexible(
-                          child: Center(
-                            child: InkWell(
-                              child: TextFormField(
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'This field is required';
-                                  }
-                                  return null;
-                                },
-                                readOnly: true,
-                                controller: DiagnosisController,
-                                maxLines: null, // Allow multiple lines
-                                decoration: InputDecoration(
-                                  suffixIcon: IconButton(
-                                    icon: const Icon(
-                                      Icons.arrow_drop_down_sharp,
-                                      size: 40,
-                                    ),
-                                    onPressed: () {
-                                      _showdiagnosisSelection(context);
-                                    },
-                                  ),
-                                  border: const OutlineInputBorder(),
-                                  hintText: 'Select Diagnosis',
-                                  fillColor: Colors.white,
-                                  filled: true,
-                                ),
-                                onTap: () {
-                                  _showdiagnosisSelection(context);
-                                },
-                              ),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
+                  const Text(
+                    'Diagnosis',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   const SizedBox(
-                    width: 10,
+                    height: 5,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Pathology',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Container(
-                        width: width / 2.2,
-                        height: 30,
-                        color: Colors.green[300],
-                        child: const Center(
-                            child: Text(
-                          'Pathology',
-                          style:
-                              TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                        )),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Container(
-                        width: width / 2.2,
-                        child: Flexible(
-                          child: Center(
-                            child: InkWell(
-                              child: TextFormField(
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'This field is required';
-                                  }
-                                  return null;
-                                },
-                                readOnly: true,
-                                controller: pathologyController,
-                                maxLines: null, // Allow multiple lines
-                                decoration: InputDecoration(
-                                  suffixIcon: IconButton(
-                                    icon: const Icon(
-                                      Icons.arrow_drop_down_sharp,
-                                      size: 40,
-                                    ),
-                                    onPressed: () {
-                                      _showPathologySelection(context);
-                                    },
-                                  ),
-                                  border: const OutlineInputBorder(),
-                                  hintText: 'Select Pathology',
-                                  fillColor: Colors.white,
-                                  filled: true,
-                                ),
-                                onTap: () {
-                                  _showPathologySelection(context);
-                                  (context);
-                                },
+                  Container(
+                    width: width / 2.2,
+                    height: 30,
+                    color: Colors.green[300],
+                    child: const Center(
+                        child: Text(
+                      'Diagnosis',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    )),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                    width: width / 2.2,
+                    child: Flexible(
+                      child: InkWell(
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'This field is required';
+                            }
+                            return null;
+                          },
+                          readOnly: true,
+                          controller: DiagnosisController,
+                          maxLines: null, // Allow multiple lines
+                          decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                              icon: const Icon(
+                                Icons.arrow_drop_down_sharp,
+                                size: 40,
                               ),
+                              onPressed: () {
+                                _showdiagnosisSelection(context);
+                              },
                             ),
+                            border: const OutlineInputBorder(),
+                            hintText: 'Select Diagnosis',
+                            fillColor: Colors.white,
+                            filled: true,
                           ),
+                          onTap: () {
+                            _showdiagnosisSelection(context);
+                          },
                         ),
-                      )
-                    ],
-                  ),
+                      ),
+                    ),
+                  )
                 ],
               ),
               const SizedBox(
-                height: 20,
+                width: 10,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Other Test',
+                    'Pathology',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                    width: width / 2.2,
+                    height: 30,
+                    color: Colors.green[300],
+                    child: const Center(
+                        child: Text(
+                      'Pathology',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    )),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                    width: width / 2.2,
+                    child: Flexible(
+                      child: Center(
+                        child: InkWell(
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'This field is required';
+                              }
+                              return null;
+                            },
+                            readOnly: true,
+                            controller: pathologyController,
+                            maxLines: null, // Allow multiple lines
+                            decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                icon: const Icon(
+                                  Icons.arrow_drop_down_sharp,
+                                  size: 40,
+                                ),
+                                onPressed: () {
+                                  _showPathologySelection(context);
+                                },
+                              ),
+                              border: const OutlineInputBorder(),
+                              hintText: 'Select Pathology',
+                              fillColor: Colors.white,
+                              filled: true,
+                            ),
+                            onTap: () {
+                              _showPathologySelection(context);
+                              (context);
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Other Test',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Container(
+                width: double.infinity,
+                height: 30,
+                color: Colors.green[300],
+                child: const Center(
+                    child: Text(
+                  'Select Other Test',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                )),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Row(
+                children: [
+                  Container(
+                    width: width / 1.25,
+                    child: Flexible(
+                      child: Center(
+                        child: InkWell(
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'This field is required';
+                              }
+                              return null;
+                            },
+                            readOnly: true,
+                            controller: otherController,
+                            maxLines: null, // Allow multiple lines
+                            decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                icon: const Icon(
+                                  Icons.arrow_drop_down_sharp,
+                                  size: 40,
+                                ),
+                                onPressed: () {
+                                  _showOtherSelection(context);
+                                },
+                              ),
+                              border: const OutlineInputBorder(),
+                              hintText: 'Select Other test',
+                              fillColor: Colors.white,
+                              filled: true,
+                            ),
+                            onTap: () {
+                              _showOtherSelection(context);
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Container(
+                    width: width / 9,
+                    // height: 40,
+                    child: Center(
+                      child: CircleAvatar(
+                        child: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              // Add a new row when the "Add" button is clicked
+                              opdOthertestRow.add(observationBuildRow());
+                            });
+                          },
+                          icon: Icon(
+                            Icons.add,
+                            color: whitecolor,
+                          ),
+                        ),
+                        backgroundColor: Colors.green,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Container(
+            height: opdOthertestRow.isNotEmpty ? null : 0,
+            child: ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: opdOthertestRow.length,
+              itemBuilder: (context, index) {
+                return opdOthertestRow[index];
+              },
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Radiology',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Container(
+                width: double.infinity,
+                height: 30,
+                color: Colors.green[300],
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Radiology',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                      // SizedBox(width: 10,),
+                      Text(
+                        'Qty',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                      // SizedBox(width: 10,),
+
+                      Text(
+                        'Radiology Note',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                      Text(
+                        ' ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Row(
+                children: [
+                  Container(
+                    width: width / 3.2,
+                    child: Flexible(
+                      child: Center(
+                        child: InkWell(
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'This field is required';
+                              }
+                              return null;
+                            },
+                            readOnly: true,
+                            controller: radiologyController,
+                            maxLines: null, // Allow multiple lines
+                            decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                icon: const Icon(
+                                  Icons.arrow_drop_down_sharp,
+                                  size: 40,
+                                ),
+                                onPressed: () {
+                                  _showRadiologySelection(context);
+                                },
+                              ),
+                              border: const OutlineInputBorder(),
+                              hintText: 'Select Radiology',
+                              fillColor: Colors.white,
+                              filled: true,
+                            ),
+                            onTap: () {
+                              _showRadiologySelection(context);
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Container(
+                    width: width / 6,
+                    height: 50,
+                    child: Center(
+                      child: InkWell(
+                          child: TextFormField(
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'This field is required';
+                          }
+                          return null;
+                        },
+                        readOnly: true,
+                        // Set this to true to disable the keyboard
+                        // controller: diagnosisController,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Select Qty',
+                          fillColor: Colors.white,
+                          filled: true,
+                        ),
+                      )),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Container(
+                    width: width / 3.5,
+                    height: 50,
+                    child: Center(
+                      child: InkWell(
+                          child: TextFormField(
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'This field is required';
+                          }
+                          return null;
+                        },
+                        // Set this to true to disable the keyboard
+                        // controller: diagnosisController,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Additional note',
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 10),
+                        ),
+                      )),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Container(
+                    width: width / 9,
+                    // height: 40,
+                    child: Center(
+                      child: CircleAvatar(
+                        child: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              // Add a new row when the "Add" button is clicked
+                              radiologyRow.add(radiologyBuildRow());
+                            });
+                          },
+                          icon: Icon(
+                            Icons.add,
+                            color: whitecolor,
+                          ),
+                        ),
+                        backgroundColor: Colors.green,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Container(
+                height: radiologyRow.isNotEmpty ? null : 0,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: radiologyRow.length,
+                  itemBuilder: (context, index) {
+                    return radiologyRow[index];
+                  },
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Surgery',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   const SizedBox(
@@ -451,11 +722,29 @@ bool isPathologyDataFetched = false; // Add this flag
                     width: double.infinity,
                     height: 30,
                     color: Colors.green[300],
-                    child: const Center(
-                        child: Text(
-                      'Select Other Test',
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                    )),
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Surgery advised',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                          Text(
+                            'Note for surgery',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                          Text(
+                            ' ',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                   const SizedBox(
                     height: 5,
@@ -463,7 +752,7 @@ bool isPathologyDataFetched = false; // Add this flag
                   Row(
                     children: [
                       Container(
-                        width: width / 1.25,
+                        width: width / 3,
                         child: Flexible(
                           child: Center(
                             child: InkWell(
@@ -504,15 +793,38 @@ bool isPathologyDataFetched = false; // Add this flag
                         width: 5,
                       ),
                       Container(
+                        width: width / 2.2,
+                        height: 50,
+                        child: Center(
+                          child: InkWell(
+                              child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'This field is required';
+                              }
+                              return null;
+                            },
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Additional note',
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10),
+                            ),
+                          )),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Container(
                         width: width / 9,
-                        // height: 40,
                         child: Center(
                           child: CircleAvatar(
                             child: IconButton(
                               onPressed: () {
                                 setState(() {
                                   // Add a new row when the "Add" button is clicked
-                                  opdOthertestRow.add(observationBuildRow());
+                                  surgeryRow.add(surgeryBuildRow());
                                 });
                               },
                               icon: Icon(
@@ -532,13 +844,13 @@ bool isPathologyDataFetched = false; // Add this flag
                 height: 5,
               ),
               Container(
-                height: opdOthertestRow.isNotEmpty ? null : 0,
+                height: surgeryRow.isNotEmpty ? null : 0,
                 child: ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: opdOthertestRow.length,
+                  itemCount: surgeryRow.length,
                   itemBuilder: (context, index) {
-                    return opdOthertestRow[index];
+                    return surgeryRow[index];
                   },
                 ),
               ),
@@ -549,7 +861,7 @@ bool isPathologyDataFetched = false; // Add this flag
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Radiology',
+                    'Medicine',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   const SizedBox(
@@ -565,22 +877,52 @@ bool isPathologyDataFetched = false; // Add this flag
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Radiology',
+                            'Medicine',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 15),
                           ),
-                          // SizedBox(width: 10,),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            'Dose',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            'Interval',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            'Duration',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            'Route',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
                           Text(
                             'Qty',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 15),
                           ),
-                          // SizedBox(width: 10,),
-
-                          Text(
-                            'Radiology Note',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15),
+                          SizedBox(
+                            width: 5,
                           ),
                           Text(
                             ' ',
@@ -597,7 +939,7 @@ bool isPathologyDataFetched = false; // Add this flag
                   Row(
                     children: [
                       Container(
-                        width: width / 3.2,
+                        width: width / 6,
                         child: Flexible(
                           child: Center(
                             child: InkWell(
@@ -609,7 +951,7 @@ bool isPathologyDataFetched = false; // Add this flag
                                   return null;
                                 },
                                 readOnly: true,
-                                controller: radiologyController,
+                                controller: pharmacyController,
                                 maxLines: null, // Allow multiple lines
                                 decoration: InputDecoration(
                                   suffixIcon: IconButton(
@@ -618,16 +960,16 @@ bool isPathologyDataFetched = false; // Add this flag
                                       size: 40,
                                     ),
                                     onPressed: () {
-                                      _showRadiologySelection(context);
+                                      _showPharmacySelection(context);
                                     },
                                   ),
                                   border: const OutlineInputBorder(),
-                                  hintText: 'Select Radiology',
+                                  hintText: 'Select Medicine',
                                   fillColor: Colors.white,
                                   filled: true,
                                 ),
                                 onTap: () {
-                                  _showRadiologySelection(context);
+                                  _showPharmacySelection(context);
                                 },
                               ),
                             ),
@@ -635,10 +977,10 @@ bool isPathologyDataFetched = false; // Add this flag
                         ),
                       ),
                       const SizedBox(
-                        width: 5,
+                        width: 2,
                       ),
                       Container(
-                        width: width / 6,
+                        width: width / 8,
                         height: 50,
                         child: Center(
                           child: InkWell(
@@ -649,23 +991,100 @@ bool isPathologyDataFetched = false; // Add this flag
                               }
                               return null;
                             },
-                            readOnly: true,
                             // Set this to true to disable the keyboard
                             // controller: diagnosisController,
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
-                              hintText: 'Select Qty',
-                              fillColor: Colors.white,
-                              filled: true,
+                              hintText: 'Additional note',
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10),
                             ),
                           )),
                         ),
                       ),
                       const SizedBox(
-                        width: 5,
+                        width: 2,
                       ),
                       Container(
-                        width: width / 3.5,
+                        width: width / 8,
+                        height: 50,
+                        child: Center(
+                          child: InkWell(
+                              child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'This field is required';
+                              }
+                              return null;
+                            },
+                            // Set this to true to disable the keyboard
+                            // controller: diagnosisController,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Additional note',
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10),
+                            ),
+                          )),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 2,
+                      ),
+                      Container(
+                        width: width / 8,
+                        height: 50,
+                        child: Center(
+                          child: InkWell(
+                              child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'This field is required';
+                              }
+                              return null;
+                            },
+                            // Set this to true to disable the keyboard
+                            // controller: diagnosisController,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Additional note',
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10),
+                            ),
+                          )),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 2,
+                      ),
+                      Container(
+                        width: width / 8,
+                        height: 50,
+                        child: Center(
+                          child: InkWell(
+                              child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'This field is required';
+                              }
+                              return null;
+                            },
+                            // Set this to true to disable the keyboard
+                            // controller: diagnosisController,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Additional note',
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10),
+                            ),
+                          )),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 2,
+                      ),
+                      Container(
+                        width: width / 8,
                         height: 50,
                         child: Center(
                           child: InkWell(
@@ -699,7 +1118,7 @@ bool isPathologyDataFetched = false; // Add this flag
                               onPressed: () {
                                 setState(() {
                                   // Add a new row when the "Add" button is clicked
-                                  radiologyRow.add(radiologyBuildRow());
+                                  medicineRow.add(medicineBuildRow());
                                 });
                               },
                               icon: Icon(
@@ -713,497 +1132,56 @@ bool isPathologyDataFetched = false; // Add this flag
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    height: radiologyRow.isNotEmpty ? null : 0,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: radiologyRow.length,
-                      itemBuilder: (context, index) {
-                        return radiologyRow[index];
-                      },
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Surgery',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Container(
-                        width: double.infinity,
-                        height: 30,
-                        color: Colors.green[300],
-                        child: const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Surgery advised',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
-                              ),
-                              Text(
-                                'Note for surgery',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
-                              ),
-                              Text(
-                                ' ',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            width: width / 3,
-                            child: Flexible(
-                              child: Center(
-                                child: InkWell(
-                                  child: TextFormField(
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return 'This field is required';
-                                      }
-                                      return null;
-                                    },
-                                    readOnly: true,
-                                    controller: otherController,
-                                    maxLines: null, // Allow multiple lines
-                                    decoration: InputDecoration(
-                                      suffixIcon: IconButton(
-                                        icon: const Icon(
-                                          Icons.arrow_drop_down_sharp,
-                                          size: 40,
-                                        ),
-                                        onPressed: () {
-                                          _showOtherSelection(context);
-                                        },
-                                      ),
-                                      border: const OutlineInputBorder(),
-                                      hintText: 'Select Other test',
-                                      fillColor: Colors.white,
-                                      filled: true,
-                                    ),
-                                    onTap: () {
-                                      _showOtherSelection(context);
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Container(
-                            width: width / 2.2,
-                            height: 50,
-                            child: Center(
-                              child: InkWell(
-                                  child: TextFormField(
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'This field is required';
-                                  }
-                                  return null;
-                                },
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: 'Additional note',
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 10),
-                                ),
-                              )),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Container(
-                            width: width / 9,
-                            child: Center(
-                              child: CircleAvatar(
-                                child: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      // Add a new row when the "Add" button is clicked
-                                      surgeryRow.add(surgeryBuildRow());
-                                    });
-                                  },
-                                  icon: Icon(
-                                    Icons.add,
-                                    color: whitecolor,
-                                  ),
-                                ),
-                                backgroundColor: Colors.green,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    height: surgeryRow.isNotEmpty ? null : 0,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: surgeryRow.length,
-                      itemBuilder: (context, index) {
-                        return surgeryRow[index];
-                      },
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Medicine',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Container(
-                        width: double.infinity,
-                        height: 30,
-                        color: Colors.green[300],
-                        child: const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Medicine',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                'Dose',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                'Interval',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                'Duration',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                'Route',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                'Qty',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                ' ',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            width: width / 6,
-                            child: Flexible(
-                              child: Center(
-                                child: InkWell(
-                                  child: TextFormField(
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return 'This field is required';
-                                      }
-                                      return null;
-                                    },
-                                    readOnly: true,
-                                    controller: pharmacyController,
-                                    maxLines: null, // Allow multiple lines
-                                    decoration: InputDecoration(
-                                      suffixIcon: IconButton(
-                                        icon: const Icon(
-                                          Icons.arrow_drop_down_sharp,
-                                          size: 40,
-                                        ),
-                                        onPressed: () {
-                                          _showPharmacySelection(context);
-                                        },
-                                      ),
-                                      border: const OutlineInputBorder(),
-                                      hintText: 'Select Medicine',
-                                      fillColor: Colors.white,
-                                      filled: true,
-                                    ),
-                                    onTap: () {
-                                      _showPharmacySelection(context);
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 2,
-                          ),
-                          Container(
-                            width: width / 8,
-                            height: 50,
-                            child: Center(
-                              child: InkWell(
-                                  child: TextFormField(
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'This field is required';
-                                  }
-                                  return null;
-                                },
-                                // Set this to true to disable the keyboard
-                                // controller: diagnosisController,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: 'Additional note',
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 10),
-                                ),
-                              )),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 2,
-                          ),
-                          Container(
-                            width: width / 8,
-                            height: 50,
-                            child: Center(
-                              child: InkWell(
-                                  child: TextFormField(
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'This field is required';
-                                  }
-                                  return null;
-                                },
-                                // Set this to true to disable the keyboard
-                                // controller: diagnosisController,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: 'Additional note',
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 10),
-                                ),
-                              )),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 2,
-                          ),
-                          Container(
-                            width: width / 8,
-                            height: 50,
-                            child: Center(
-                              child: InkWell(
-                                  child: TextFormField(
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'This field is required';
-                                  }
-                                  return null;
-                                },
-                                // Set this to true to disable the keyboard
-                                // controller: diagnosisController,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: 'Additional note',
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 10),
-                                ),
-                              )),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 2,
-                          ),
-                          Container(
-                            width: width / 8,
-                            height: 50,
-                            child: Center(
-                              child: InkWell(
-                                  child: TextFormField(
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'This field is required';
-                                  }
-                                  return null;
-                                },
-                                // Set this to true to disable the keyboard
-                                // controller: diagnosisController,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: 'Additional note',
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 10),
-                                ),
-                              )),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 2,
-                          ),
-                          Container(
-                            width: width / 8,
-                            height: 50,
-                            child: Center(
-                              child: InkWell(
-                                  child: TextFormField(
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'This field is required';
-                                  }
-                                  return null;
-                                },
-                                // Set this to true to disable the keyboard
-                                // controller: diagnosisController,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: 'Additional note',
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 10),
-                                ),
-                              )),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Container(
-                            width: width / 9,
-                            // height: 40,
-                            child: Center(
-                              child: CircleAvatar(
-                                child: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      // Add a new row when the "Add" button is clicked
-                                      medicineRow.add(medicineBuildRow());
-                                    });
-                                  },
-                                  icon: Icon(
-                                    Icons.add,
-                                    color: whitecolor,
-                                  ),
-                                ),
-                                backgroundColor: Colors.green,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    height: medicineRow.isNotEmpty ? null : 0,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: medicineRow.length,
-                      itemBuilder: (context, index) {
-                        return medicineRow[index];
-                      },
-                    ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Follow up & Advice',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      Container(
-                          height: 50,
-                          child: const TextField(
-                            decoration:
-                                InputDecoration(border: OutlineInputBorder()),
-                          ))
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  Center(
-                    child: Container(
-                      width: double.infinity,
-                      height: 40,
-                      child: ElevatedButton(
-                        child: const Text('Save'),
-                        onPressed: () {},
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(yellow),
-                        ),
-                      ),
-                    ),
-                  ),
                 ],
               ),
-            ]),
+              const SizedBox(
+                height: 5,
+              ),
+              Container(
+                height: medicineRow.isNotEmpty ? null : 0,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: medicineRow.length,
+                  itemBuilder: (context, index) {
+                    return medicineRow[index];
+                  },
+                ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Follow up & Advice',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Container(
+                      height: 50,
+                      child: const TextField(
+                        decoration:
+                            InputDecoration(border: OutlineInputBorder()),
+                      ))
+                ],
+              ),
+              const SizedBox(height: 20),
+              Center(
+                child: Container(
+                  width: double.infinity,
+                  height: 40,
+                  child: ElevatedButton(
+                    child: const Text('Save'),
+                    onPressed: () {},
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(yellow),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ));
+        ]),
+      ),
+    ));
   }
 
   void selectDiagnosisOptions(BuildContext context) {
@@ -1363,97 +1341,100 @@ bool isPathologyDataFetched = false; // Add this flag
                     future: fetchpathologyData(),
                     builder: (context, snapshot) {
                       return isLoading
-                        ? Expanded(
-                            child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Container(
-                              height: 50,
-                              width: 50,
-                              color: Colors.transparent,
-                              child: const LoadingIndicatorWidget(),
-                            ),
-                          ))
-                        : pathologyfilteredData!.isEmpty
-                            ? Expanded(
-                                child: Center(
-                                child: Container(
-                                  height: 150,
-                                  width: 150,
-                                  child: Lottie.asset(
-                                    'assets/No_Data_Found.json',
-                                    fit: BoxFit.cover,
+                          ? Expanded(
+                              child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Container(
+                                height: 50,
+                                width: 50,
+                                color: Colors.transparent,
+                                child: const LoadingIndicatorWidget(),
+                              ),
+                            ))
+                          : pathologyfilteredData!.isEmpty
+                              ? Expanded(
+                                  child: Center(
+                                  child: Container(
+                                    height: 150,
+                                    width: 150,
+                                    child: Lottie.asset(
+                                      'assets/No_Data_Found.json',
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                ),
-                              ))
-                            : Expanded(
-                                child: ListView.builder(
-                                  itemCount: pathologyfilteredData?.length,
-                                  itemBuilder: (BuildContext context, int index) {
-                                    String itemName =
-                                        pathologyfilteredData?[index]
-                                                ['test_name'] ??
-                                            '';
-                                    String itemId =
-                                        pathologyfilteredData?[index]['id'] ?? '';
-                                    bool isSelected =
-                                        selectedpathologyItems.contains(itemName);
-                  
-                                    int itemNumber = index + 1;
-                                    return Card(
-                                      color: isSelected
-                                          ? Colors.green
-                                          : Colors.white70.withOpacity(0.7),
-                                      child: ListTile(
-                                        title: Text(
-                                          '$itemNumber.$itemName',
-                                          style: TextStyle(
-                                            fontWeight: isSelected
-                                                ? FontWeight.bold
-                                                : FontWeight.normal,
-                                          ),
-                                        ),
-                                        onTap: () {
-                                          setState(() {
-                                            if (isSelected) {
-                                              selectedpathologyItems
-                                                  .remove(itemName);
-                                            } else {
-                                              selectedpathologyItems
-                                                  .add(itemName);
-                                            }
-                                            pathologyController.text =
-                                                selectedpathologyItems
-                                                    .map((itemName) {
-                                              var itemData = pathologyfilteredData
-                                                  ?.firstWhere((data) =>
-                                                      data['test_name'] ==
-                                                      itemName);
-                                              return '(${itemData['id']}).${itemName}';
-                                            }).join(', ');
-                  
-                                            // Update the selectedOtherItemsId based on selectedOtherItems
-                                            selectedpathologyItemsId =
-                                                selectedpathologyItems
-                                                    .map((itemName) =>
-                                                        pathologyfilteredData
-                                                            ?.firstWhere((data) =>
-                                                                data[
-                                                                    'test_name'] ==
-                                                                itemName)['id'])
-                                                    .join(',');
-                  
-                                            // Update the selectedOtherItemsName based on selectedOtherItems
-                                            selectedpathologyItemsName =
-                                                selectedpathologyItems.join(', ');
-                                          });
-                                        },
-                                      )
-                                    );
-                                  },
-                                ),
-                              );
+                                ))
+                              : Expanded(
+                                  child: ListView.builder(
+                                    itemCount: pathologyfilteredData?.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      String itemName =
+                                          pathologyfilteredData?[index]
+                                                  ['test_name'] ??
+                                              '';
+                                      String itemId =
+                                          pathologyfilteredData?[index]['id'] ??
+                                              '';
+                                      bool isSelected = selectedpathologyItems
+                                          .contains(itemName);
+
+                                      int itemNumber = index + 1;
+                                      return Card(
+                                          color: isSelected
+                                              ? Colors.green
+                                              : Colors.white70.withOpacity(0.7),
+                                          child: ListTile(
+                                            title: Text(
+                                              '$itemNumber.$itemName',
+                                              style: TextStyle(
+                                                fontWeight: isSelected
+                                                    ? FontWeight.bold
+                                                    : FontWeight.normal,
+                                              ),
+                                            ),
+                                            onTap: () {
+                                              setState(() {
+                                                if (isSelected) {
+                                                  selectedpathologyItems
+                                                      .remove(itemName);
+                                                } else {
+                                                  selectedpathologyItems
+                                                      .add(itemName);
+                                                }
+                                                pathologyController.text =
+                                                    selectedpathologyItems
+                                                        .map((itemName) {
+                                                  var itemData =
+                                                      pathologyfilteredData
+                                                          ?.firstWhere((data) =>
+                                                              data[
+                                                                  'test_name'] ==
+                                                              itemName);
+                                                  return '(${itemData['id']}).${itemName}';
+                                                }).join(', ');
+
+                                                // Update the selectedOtherItemsId based on selectedOtherItems
+                                                selectedpathologyItemsId =
+                                                    selectedpathologyItems
+                                                        .map((itemName) =>
+                                                            pathologyfilteredData
+                                                                ?.firstWhere((data) =>
+                                                                    data[
+                                                                        'test_name'] ==
+                                                                    itemName)['id'])
+                                                        .join(',');
+
+                                                // Update the selectedOtherItemsName based on selectedOtherItems
+                                                selectedpathologyItemsName =
+                                                    selectedpathologyItems
+                                                        .join(', ');
+                                              });
+                                            },
+                                          ));
+                                    },
+                                  ),
+                                );
                     },
-                    
                   ),
                 ],
               ),
@@ -1529,61 +1510,61 @@ bool isPathologyDataFetched = false; // Add this flag
                   FutureBuilder(
                     future: fetchRadiologyData(),
                     builder: (context, snapshot) {
-                      return  isLoading
-                        ? Expanded(
-                            child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Container(
-                              height: 50,
-                              width: 50,
-                              color: Colors.transparent,
-                              child: const LoadingIndicatorWidget(),
-                            ),
-                          ))
-                        : radiologyfilteredData!.isEmpty
-                            ? Expanded(
-                                child: Center(
-                                child: Container(
-                                  height: 150,
-                                  width: 150,
-                                  child: Lottie.asset(
-                                    'assets/No_Data_Found.json',
-                                    fit: BoxFit.cover,
+                      return isLoading
+                          ? Expanded(
+                              child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Container(
+                                height: 50,
+                                width: 50,
+                                color: Colors.transparent,
+                                child: const LoadingIndicatorWidget(),
+                              ),
+                            ))
+                          : radiologyfilteredData!.isEmpty
+                              ? Expanded(
+                                  child: Center(
+                                  child: Container(
+                                    height: 150,
+                                    width: 150,
+                                    child: Lottie.asset(
+                                      'assets/No_Data_Found.json',
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                ),
-                              ))
-                            : Expanded(
-                                child: ListView.builder(
-                                  itemCount: radiologyfilteredData?.length,
-                                  itemBuilder: (BuildContext context, int index) {
-                                    int itemNumber = index + 1;
-                                    return Card(
-                                      color: Colors.white70.withOpacity(0.7),
-                                      child: ListTile(
-                                        title: Text(
-                                          '$itemNumber. ${radiologyfilteredData?[index]['test_name'] ?? ''}',
+                                ))
+                              : Expanded(
+                                  child: ListView.builder(
+                                    itemCount: radiologyfilteredData?.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      int itemNumber = index + 1;
+                                      return Card(
+                                        color: Colors.white70.withOpacity(0.7),
+                                        child: ListTile(
+                                          title: Text(
+                                            '$itemNumber. ${radiologyfilteredData?[index]['test_name'] ?? ''}',
+                                          ),
+                                          onTap: () {
+                                            selectedradiology =
+                                                radiologyfilteredData?[index]
+                                                        ['test_name'] ??
+                                                    '';
+                                            selectedradiologyId =
+                                                radiologyfilteredData?[index]
+                                                        ['id'] ??
+                                                    '';
+                                            radiologyController.text =
+                                                '($selectedradiologyId) $selectedradiology';
+
+                                            Navigator.of(context).pop();
+                                          },
                                         ),
-                                        onTap: () {
-                                          selectedradiology =
-                                              radiologyfilteredData?[index]
-                                                      ['test_name'] ??
-                                                  '';
-                                          selectedradiologyId =
-                                              radiologyfilteredData?[index]
-                                                      ['id'] ??
-                                                  '';
-                                          radiologyController.text =
-                                              '($selectedradiologyId) $selectedradiology';
-                  
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    );
-                                  },
-                                ),
-                              );
+                                      );
+                                    },
+                                  ),
+                                );
                     },
-                    
                   ),
                 ],
               ),
@@ -1660,65 +1641,66 @@ bool isPathologyDataFetched = false; // Add this flag
                     future: fetchPharmacyData(),
                     builder: (context, snapshot) {
                       return isLoading
-                        ? Expanded(
-                            child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Container(
-                              height: 50,
-                              width: 50,
-                              color: Colors.transparent,
-                              child: const LoadingIndicatorWidget(),
-                            ),
-                          ))
-                        : pharmacyfilteredData!.isEmpty
-                            ? Expanded(
-                                child: Center(
-                                child: Container(
-                                  height: 150,
-                                  width: 150,
-                                  child: Lottie.asset(
-                                    'assets/No_Data_Found.json',
-                                    fit: BoxFit.cover,
+                          ? Expanded(
+                              child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Container(
+                                height: 50,
+                                width: 50,
+                                color: Colors.transparent,
+                                child: const LoadingIndicatorWidget(),
+                              ),
+                            ))
+                          : pharmacyfilteredData!.isEmpty
+                              ? Expanded(
+                                  child: Center(
+                                  child: Container(
+                                    height: 150,
+                                    width: 150,
+                                    child: Lottie.asset(
+                                      'assets/No_Data_Found.json',
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                ),
-                              ))
-                            : Expanded(
-                                child: ListView.builder(
-                                  itemCount: pharmacyfilteredData?.length,
-                                  itemBuilder: (BuildContext context, int index) {
+                                ))
+                              : Expanded(
+                                  child: ListView.builder(
+                                    itemCount: pharmacyfilteredData?.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
                                       // int itemNumber = index + 1;
-                              if (pharmacyfilteredData![index].containsKey('medicine_name')) {
-                                    
-                                    return Card(
-                                      color: Colors.white70.withOpacity(0.7),
-                                      child: ListTile(
-                                        title: Text(
-                                          // '$itemNumber.
-                                           '${pharmacyfilteredData?[index]['medicine_name'] ?? ''}',
-                                        ),
-                                        onTap: () {
-                                          selectedpharmacy =
-                                              pharmacyfilteredData?[index]
-                                                      ['medicine_name'] ??
-                                                  '';
-                                          selectedpharmacyId =
-                                              pharmacyfilteredData?[index]
-                                                      ['id'] ??
-                                                  '';
-                                          pharmacyController.text =
-                                              '($selectedpharmacyId) $selectedpharmacy';
-                  
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    );
-                              }
-                              return null;
-                                  },
-                                ),
-                              );
+                                      if (pharmacyfilteredData![index]
+                                          .containsKey('medicine_name')) {
+                                        return Card(
+                                          color:
+                                              Colors.white70.withOpacity(0.7),
+                                          child: ListTile(
+                                            title: Text(
+                                              // '$itemNumber.
+                                              '${pharmacyfilteredData?[index]['medicine_name'] ?? ''}',
+                                            ),
+                                            onTap: () {
+                                              selectedpharmacy =
+                                                  pharmacyfilteredData?[index]
+                                                          ['medicine_name'] ??
+                                                      '';
+                                              selectedpharmacyId =
+                                                  pharmacyfilteredData?[index]
+                                                          ['id'] ??
+                                                      '';
+                                              pharmacyController.text =
+                                                  '($selectedpharmacyId) $selectedpharmacy';
+
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                        );
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                );
                     },
-                     
                   ),
                 ],
               ),
@@ -1797,58 +1779,60 @@ bool isPathologyDataFetched = false; // Add this flag
                     future: fetchotherData(),
                     builder: (context, snapshot) {
                       return isLoading
-                        ? Expanded(
-                            child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Container(
-                              height: 50,
-                              width: 50,
-                              color: Colors.transparent,
-                              child: const LoadingIndicatorWidget(),
-                            ),
-                          ))
-                        : otherfilteredData!.isEmpty
-                            ? Expanded(
-                                child: Center(
-                                child: Container(
-                                  height: 150,
-                                  width: 150,
-                                  child: Lottie.asset(
-                                    'assets/No_Data_Found.json',
-                                    fit: BoxFit.cover,
+                          ? Expanded(
+                              child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Container(
+                                height: 50,
+                                width: 50,
+                                color: Colors.transparent,
+                                child: const LoadingIndicatorWidget(),
+                              ),
+                            ))
+                          : otherfilteredData!.isEmpty
+                              ? Expanded(
+                                  child: Center(
+                                  child: Container(
+                                    height: 150,
+                                    width: 150,
+                                    child: Lottie.asset(
+                                      'assets/No_Data_Found.json',
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                ),
-                              ))
-                            : Expanded(
-                                child: ListView.builder(
-                                  itemCount: otherfilteredData?.length,
-                                  itemBuilder: (BuildContext context, int index) {
-                                    int itemNumber = index + 1;
-                                    return Card(
-                                      color: Colors.white70.withOpacity(0.7),
-                                      child: ListTile(
-                                        title: Text(
-                                          '$itemNumber. ${otherfilteredData?[index]['name'] ?? ''}',
+                                ))
+                              : Expanded(
+                                  child: ListView.builder(
+                                    itemCount: otherfilteredData?.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      int itemNumber = index + 1;
+                                      return Card(
+                                        color: Colors.white70.withOpacity(0.7),
+                                        child: ListTile(
+                                          title: Text(
+                                            '$itemNumber. ${otherfilteredData?[index]['name'] ?? ''}',
+                                          ),
+                                          onTap: () {
+                                            selectedotherdata =
+                                                otherfilteredData?[index]
+                                                        ['name'] ??
+                                                    '';
+                                            selectedotherId =
+                                                otherfilteredData?[index]
+                                                        ['id'] ??
+                                                    '';
+                                            otherController.text =
+                                                '($selectedotherId) $selectedotherdata';
+
+                                            Navigator.of(context).pop();
+                                          },
                                         ),
-                                        onTap: () {
-                                          selectedotherdata =
-                                              otherfilteredData?[index]['name'] ??
-                                                  '';
-                                          selectedotherId =
-                                              otherfilteredData?[index]['id'] ??
-                                                  '';
-                                          otherController.text =
-                                              '($selectedotherId) $selectedotherdata';
-                  
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    );
-                                  },
-                                ),
-                              );
+                                      );
+                                    },
+                                  ),
+                                );
                     },
-                    
                   ),
                 ],
               ),
@@ -1924,95 +1908,101 @@ bool isPathologyDataFetched = false; // Add this flag
                   FutureBuilder(
                     future: fetchdiagnosisData(),
                     builder: (context, snapshot) {
-                      return  isLoading
-                        ? Expanded(
-                            child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Container(
-                              height: 50,
-                              width: 50,
-                              color: Colors.transparent,
-                              child: const LoadingIndicatorWidget(),
-                            ),
-                          ))
-                        : diagnosisfilteredData!.isEmpty
-                            ? Expanded(
-                                child: Center(
-                                child: Container(
-                                  height: 150,
-                                  width: 150,
-                                  child: Lottie.asset(
-                                    'assets/No_Data_Found.json',
-                                    fit: BoxFit.cover,
+                      return isLoading
+                          ? Expanded(
+                              child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Container(
+                                height: 50,
+                                width: 50,
+                                color: Colors.transparent,
+                                child: const LoadingIndicatorWidget(),
+                              ),
+                            ))
+                          : diagnosisfilteredData!.isEmpty
+                              ? Expanded(
+                                  child: Center(
+                                  child: Container(
+                                    height: 150,
+                                    width: 150,
+                                    child: Lottie.asset(
+                                      'assets/No_Data_Found.json',
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                ),
-                              ))
-                            : Expanded(
-                                child: ListView.builder(
-                                  itemCount: diagnosisfilteredData?.length,
-                                  itemBuilder: (BuildContext context, int index) {
-                                    String itemName =
-                                        diagnosisfilteredData?[index]['name'] ??
-                                            '';
-                                    String itemId =
-                                        diagnosisfilteredData?[index]['id'] ?? '';
-                                    bool isSelected =
-                                        selecteddiagnosisItems.contains(itemName);
-                  
-                                    int itemNumber = index + 1;
-                                    return Card(
-                                      color: isSelected
-                                          ? Colors.green
-                                          : Colors.white70.withOpacity(0.7),
-                                      child: ListTile(
-                                        title: Text(
-                                          '$itemNumber.$itemName',
-                                          style: TextStyle(
-                                            fontWeight: isSelected
-                                                ? FontWeight.bold
-                                                : FontWeight.normal,
+                                ))
+                              : Expanded(
+                                  child: ListView.builder(
+                                    itemCount: diagnosisfilteredData?.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      String itemName =
+                                          diagnosisfilteredData?[index]
+                                                  ['name'] ??
+                                              '';
+                                      String itemId =
+                                          diagnosisfilteredData?[index]['id'] ??
+                                              '';
+                                      bool isSelected = selecteddiagnosisItems
+                                          .contains(itemName);
+
+                                      int itemNumber = index + 1;
+                                      return Card(
+                                        color: isSelected
+                                            ? Colors.green
+                                            : Colors.white70.withOpacity(0.7),
+                                        child: ListTile(
+                                          title: Text(
+                                            '$itemNumber.$itemName',
+                                            style: TextStyle(
+                                              fontWeight: isSelected
+                                                  ? FontWeight.bold
+                                                  : FontWeight.normal,
+                                            ),
                                           ),
+                                          onTap: () {
+                                            setState(() {
+                                              if (isSelected) {
+                                                selecteddiagnosisItems
+                                                    .remove(itemName);
+                                              } else {
+                                                selecteddiagnosisItems
+                                                    .add(itemName);
+                                              }
+                                              DiagnosisController.text =
+                                                  selecteddiagnosisItems
+                                                      .map((itemName) {
+                                                var itemData =
+                                                    diagnosisfilteredData
+                                                        ?.firstWhere((data) =>
+                                                            data['name'] ==
+                                                            itemName);
+                                                return '(${itemData['id']}).${itemName}';
+                                              }).join(', ');
+
+                                              // Update the selectedOtherItemsId based on selectedOtherItems
+                                              selecteddiagnosisItemsId =
+                                                  selecteddiagnosisItems
+                                                      .map((itemName) =>
+                                                          diagnosisfilteredData
+                                                              ?.firstWhere((data) =>
+                                                                  data[
+                                                                      'name'] ==
+                                                                  itemName)['id'])
+                                                      .join(',');
+
+                                              // Update the selectedOtherItemsName based on selectedOtherItems
+                                              selecteddiagnosisItemsName =
+                                                  selecteddiagnosisItems
+                                                      .join(', ');
+                                            });
+                                          },
                                         ),
-                                        onTap: () {
-                                          setState(() {
-                                            if (isSelected) {
-                                              selecteddiagnosisItems
-                                                  .remove(itemName);
-                                            } else {
-                                              selecteddiagnosisItems
-                                                  .add(itemName);
-                                            }
-                                            DiagnosisController.text =
-                                                selecteddiagnosisItems
-                                                    .map((itemName) {
-                                              var itemData = diagnosisfilteredData
-                                                  ?.firstWhere((data) =>
-                                                      data['name'] == itemName);
-                                              return '(${itemData['id']}).${itemName}';
-                                            }).join(', ');
-                  
-                                            // Update the selectedOtherItemsId based on selectedOtherItems
-                                            selecteddiagnosisItemsId =
-                                                selecteddiagnosisItems
-                                                    .map((itemName) =>
-                                                        diagnosisfilteredData
-                                                            ?.firstWhere((data) =>
-                                                                data['name'] ==
-                                                                itemName)['id'])
-                                                    .join(',');
-                  
-                                            // Update the selectedOtherItemsName based on selectedOtherItems
-                                            selecteddiagnosisItemsName =
-                                                selecteddiagnosisItems.join(', ');
-                                          });
-                                        },
-                                      ),
-                                    );
-                                  },
-                                ),
-                              );
+                                      );
+                                    },
+                                  ),
+                                );
                     },
-                     
                   ),
                 ],
               ),

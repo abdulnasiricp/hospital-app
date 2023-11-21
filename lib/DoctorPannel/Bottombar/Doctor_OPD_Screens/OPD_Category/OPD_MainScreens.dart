@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_Examination.dart';
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_Pre_Checking.dart';
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_investigation.dart';
@@ -8,7 +6,8 @@ import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class OpdMainScreen extends StatefulWidget {
-  const OpdMainScreen({Key? key}) : super(key: key);
+  final int initialTabIndex; // Add this line to accept initial index
+  const OpdMainScreen({Key? key, this.initialTabIndex = 0}) : super(key: key);
 
   @override
   _OpdMainScreenState createState() => _OpdMainScreenState();
@@ -22,6 +21,7 @@ class _OpdMainScreenState extends State<OpdMainScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 4, vsync: this);
+    _tabController.index = widget.initialTabIndex; // Set initial index here
   }
 
   @override
