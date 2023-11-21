@@ -279,7 +279,7 @@ Map<String, double> dataMap = {
                 Center(child: PieChart(dataMap: dataMap,
                 chartRadius: width/1.7,
                 // legendOptions: LegendOptions(legendPosition: LegendPosition.bottom),
-                chartValuesOptions: ChartValuesOptions(showChartValuesInPercentage: true),
+                chartValuesOptions: const ChartValuesOptions(showChartValuesInPercentage: true),
 
                 ),)
 
