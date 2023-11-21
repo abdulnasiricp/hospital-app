@@ -236,7 +236,7 @@ bool isPathologyDataFetched = false; // Add this flag
     });
   }
 //=================================================================================
-
+//build
   @override
   Widget build(BuildContext context) {
     return Scaffold(
