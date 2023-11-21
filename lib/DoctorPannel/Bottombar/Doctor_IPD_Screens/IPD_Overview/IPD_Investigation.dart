@@ -35,11 +35,11 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
 
   List<dynamic>? pathologydata = [];
   List<dynamic>? pathologyfilteredData = [];
-bool isPathologyDataFetched = false; // Add this flag
+  bool isPathologyDataFetched = false; // Add this flag
 
   bool isLoading = true;
   Future<void> fetchpathologyData() async {
-     if (isPathologyDataFetched) {
+    if (isPathologyDataFetched) {
       return; // If data has already been fetched, return without fetching again
     }
     Uri.parse(ApiLinks.singleTableDataDetector);
@@ -55,13 +55,11 @@ bool isPathologyDataFetched = false; // Add this flag
     if (response.statusCode == 200) {
       final dataMap = json.decode(response.body);
       setState(() {
-
         pathologydata = dataMap['result'];
         pathologyfilteredData = pathologydata;
         isLoading = false;
 
-        isPathologyDataFetched=true;
-
+        isPathologyDataFetched = true;
       });
     } else {
       handleNonJsonResponse();
@@ -95,7 +93,7 @@ bool isPathologyDataFetched = false; // Add this flag
   List<dynamic>? otherfilteredData = [];
 
   Future<void> fetchotherData() async {
-     if (isotherDataFetched) {
+    if (isotherDataFetched) {
       return; // If data has already been fetched, return without fetching again
     }
     Uri.parse(ApiLinks.singleTableDataDetector);
@@ -115,7 +113,6 @@ bool isPathologyDataFetched = false; // Add this flag
         otherfilteredData = otherdata;
         isLoading = false;
         isotherDataFetched = true; // Set the flag to true after fetching data
-
       });
     } else {
       handleNonJsonResponse();
@@ -124,13 +121,11 @@ bool isPathologyDataFetched = false; // Add this flag
 
   ////////////////////
 
- void otherfilterData(String query) {
+  void otherfilterData(String query) {
     setState(() {
       otherfilteredData = otherdata
           ?.where((element) =>
-              element['name']
-                  .toLowerCase()
-                  .contains(query.toLowerCase()) ||
+              element['name'].toLowerCase().contains(query.toLowerCase()) ||
               element['id'].toLowerCase().startsWith(query.toLowerCase()))
           .toList();
     });
@@ -142,10 +137,10 @@ bool isPathologyDataFetched = false; // Add this flag
 
   List<dynamic>? radiologydata = [];
   List<dynamic>? radiologyfilteredData = [];
-    bool isRadiologyDataFetched = false; // Add this flag
+  bool isRadiologyDataFetched = false; // Add this flag
 
   Future<void> fetchRadiologyData() async {
-      if (isRadiologyDataFetched) {
+    if (isRadiologyDataFetched) {
       return; // If data has already been fetched, return without fetching again
     }
     Uri.parse(ApiLinks.singleTableDataDetector);
@@ -164,8 +159,7 @@ bool isPathologyDataFetched = false; // Add this flag
         radiologydata = dataMap['result'];
         radiologyfilteredData = radiologydata;
         isLoading = false;
-        isRadiologyDataFetched=true;
-
+        isRadiologyDataFetched = true;
       });
     } else {
       handleNonJsonResponse();
@@ -185,6 +179,7 @@ bool isPathologyDataFetched = false; // Add this flag
           .toList();
     });
   }
+
 //=================================================================================
   TextEditingController DiagnosisController = TextEditingController();
   String selecteddiagnosisItemsId = '';
@@ -194,9 +189,8 @@ bool isPathologyDataFetched = false; // Add this flag
   List<dynamic>? diagnosisfilteredData = [];
   bool isDiagnosisDataFetched = false; // Add this flag
 
-
   Future<void> fetchdiagnosisData() async {
-     if (isDiagnosisDataFetched) {
+    if (isDiagnosisDataFetched) {
       return; // If data has already been fetched, return without fetching again
     }
     Uri.parse(ApiLinks.singleTableDataDetector);
@@ -215,22 +209,18 @@ bool isPathologyDataFetched = false; // Add this flag
         diagnosisdata = dataMap['result'];
         diagnosisfilteredData = diagnosisdata;
         isLoading = false;
-        isDiagnosisDataFetched=true;
-
+        isDiagnosisDataFetched = true;
       });
     } else {
       handleNonJsonResponse();
     }
   }
 
-
-   void DiagnosisfilterData(String query) {
+  void DiagnosisfilterData(String query) {
     setState(() {
       diagnosisfilteredData = diagnosisdata
           ?.where((element) =>
-              element['name']
-                  .toLowerCase()
-                  .contains(query.toLowerCase()) ||
+              element['name'].toLowerCase().contains(query.toLowerCase()) ||
               element['id'].toLowerCase().startsWith(query.toLowerCase()))
           .toList();
     });
@@ -406,44 +396,47 @@ bool isPathologyDataFetched = false; // Add this flag
                   ),
                   Row(
                     children: [
-                      
-                       Container(
-                          width: width / 2.5,
-                          height: 55,
-                          child: Center(
-                            child: InkWell(
-                              child: TextFormField(
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'This field is required';
-                                  }
-                                  return null;
-                                },
-                                readOnly: true,
-                                controller: otherController,
-                                maxLines: null,
-                                decoration: InputDecoration(
-                                  suffixIcon: IconButton(
-                                    icon: const Icon(
-                                      Icons.arrow_drop_down_sharp,
-                                      size: 40,
-                                    ),
-                                    onPressed: () {
-                                      _showOtherSelection(context,otherController);
-                                    },
+                      Container(
+                        width: width / 2.5,
+                        height: 55,
+                        child: Center(
+                          child: InkWell(
+                            child: TextFormField(
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'This field is required';
+                                }
+                                return null;
+                              },
+                              readOnly: true,
+                              controller: otherController,
+                              maxLines: null,
+                              decoration: InputDecoration(
+                                suffixIcon: IconButton(
+                                  icon: const Icon(
+                                    Icons.arrow_drop_down_sharp,
+                                    size: 40,
                                   ),
-                                  border: const OutlineInputBorder(),
-                                  hintText: 'Select Other test',
-                                  fillColor: Colors.white,
-                                  filled: true,
+                                  onPressed: () {
+                                    _showOtherSelection(
+                                        context, otherController);
+                                  },
                                 ),
-                                onTap: () {
-                                  _showOtherSelection(context,otherController,);
-                                },
+                                border: const OutlineInputBorder(),
+                                hintText: 'Select Other test',
+                                fillColor: Colors.white,
+                                filled: true,
                               ),
+                              onTap: () {
+                                _showOtherSelection(
+                                  context,
+                                  otherController,
+                                );
+                              },
                             ),
                           ),
                         ),
+                      ),
                       const SizedBox(
                         width: 5,
                       ),
@@ -455,7 +448,6 @@ bool isPathologyDataFetched = false; // Add this flag
                             child: IconButton(
                               onPressed: () {
                                 setState(() {
-                                
                                   addNewRowOtherTest();
                                 });
                               },
@@ -540,32 +532,44 @@ bool isPathologyDataFetched = false; // Add this flag
               Row(
                 children: [
                   Container(
-                    width: width / 4,
-                    height: 50,
+                    width: width / 3.9,
+                    height: 55,
                     child: Center(
                       child: InkWell(
-                          child: TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'This field is required';
-                          }
-                          return null;
-                        },
-                        readOnly:
-                            true, // Set this to true to disable the keyboard
-                        controller: radiologyController,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'Select options',
-                          contentPadding: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 10),
-                          fillColor: Colors.white,
-                          filled: true,
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'This field is required';
+                            }
+                            return null;
+                          },
+                          readOnly: true,
+                          controller: radiologyController,
+                          maxLines: null,
+                          decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                              icon: const Icon(
+                                Icons.arrow_drop_down_sharp,
+                                size: 40,
+                              ),
+                              onPressed: () {
+                                _showRadiologySelection(
+                                    context, radiologyController);
+                              },
+                            ),
+                            border: const OutlineInputBorder(),
+                            hintText: 'Select Other test',
+                            fillColor: Colors.white,
+                            filled: true,
+                          ),
+                          onTap: () {
+                            _showRadiologySelection(
+                              context,
+                              radiologyController,
+                            );
+                          },
                         ),
-                        onTap: () {
-                          _showRadiologySelection(context);
-                        },
-                      )),
+                      ),
                     ),
                   ),
                   const SizedBox(
@@ -633,7 +637,8 @@ bool isPathologyDataFetched = false; // Add this flag
                             onPressed: () {
                               setState(() {
                                 // Add a new row when the "Add" button is clicked
-                                radiologyRow.add(radiologyBuildRow());
+                                // radiologyRow.add(radiologyBuildRow());
+                                addNewRowRadiology();
                               });
                             },
                             icon: Icon(
@@ -773,8 +778,7 @@ bool isPathologyDataFetched = false; // Add this flag
     );
   }
 
-
-   Widget dragBuildRow(TextEditingController otherController) {
+  Widget dragBuildRow(TextEditingController otherController) {
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Row(
@@ -822,8 +826,9 @@ bool isPathologyDataFetched = false; // Add this flag
               ),
             ],
           ),
-          
-          const SizedBox(width: 5,),
+          const SizedBox(
+            width: 5,
+          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -854,40 +859,51 @@ bool isPathologyDataFetched = false; // Add this flag
     );
   }
 
-
-  Widget radiologyBuildRow() {
-    TextEditingController textFieldController = TextEditingController();
-
+  Widget radiologyBuildRow(TextEditingController radiologyController) {
     return Row(
       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Container(
-          width: width / 4,
-          height: 50,
-          child: Center(
-            child: InkWell(
-                child: TextFormField(
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'This field is required';
-                }
-                return null;
-              },
-              readOnly: true, // Set this to true to disable the keyboard
-              controller: radiologyController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Select options',
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
-                fillColor: Colors.white,
-                filled: true,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: width / 4,
+              height: 55,
+              child: Center(
+                child: InkWell(
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'This field is required';
+                      }
+                      return null;
+                    },
+                    readOnly: true,
+                    controller: radiologyController,
+                    maxLines: null,
+                    decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_drop_down_sharp,
+                          size: 40,
+                        ),
+                        onPressed: () {
+                          _showRadiologySelection(context, radiologyController);
+                        },
+                      ),
+                      border: const OutlineInputBorder(),
+                      hintText: 'Select radiology',
+                      fillColor: Colors.white,
+                      filled: true,
+                    ),
+                    onTap: () {
+                      _showRadiologySelection(context, radiologyController);
+                    },
+                  ),
+                ),
               ),
-              onTap: () {
-                _showRadiologySelection(context);
-              },
-            )),
-          ),
+            ),
+          ],
         ),
         const SizedBox(
           width: 10,
@@ -904,7 +920,7 @@ bool isPathologyDataFetched = false; // Add this flag
                 }
                 return null;
               },
-              controller: diagnosisController,
+              // controller: diagnosisController,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Select options',
@@ -1144,7 +1160,11 @@ bool isPathologyDataFetched = false; // Add this flag
   String selectedradiology = '';
   String selectedradiologyId = '';
 
-  void _showRadiologySelection(BuildContext context) {
+  void _showRadiologySelection(
+      BuildContext context, TextEditingController radiologyController) {
+    TextEditingController localradiologyController = TextEditingController();
+    String localSelectedradiologydata = '';
+    String localSelectedradiologyId = '';
     showModalBottomSheet(
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
@@ -1226,7 +1246,8 @@ bool isPathologyDataFetched = false; // Add this flag
                                       ),
                                     ),
                                   ))
-                                : Expanded(
+                               
+                                :  Expanded(
                                     child: ListView.builder(
                                       itemCount: radiologyfilteredData?.length,
                                       itemBuilder:
@@ -1240,16 +1261,17 @@ bool isPathologyDataFetched = false; // Add this flag
                                               '$itemNumber. ${radiologyfilteredData?[index]['test_name'] ?? ''}',
                                             ),
                                             onTap: () {
-                                              selectedradiology =
+                                              localSelectedradiologydata =
                                                   radiologyfilteredData?[index]
                                                           ['test_name'] ??
                                                       '';
-                                              selectedradiology =
+                                              localSelectedradiologyId =
                                                   radiologyfilteredData?[index]
                                                           ['id'] ??
                                                       '';
-                                              radiologyController.text =
-                                                  '($selectedradiology) $selectedradiology';
+
+                                              localradiologyController.text =
+                                                  '($localSelectedradiologyId) $localSelectedradiologydata';
 
                                               Navigator.of(context).pop();
                                             },
@@ -1265,7 +1287,11 @@ bool isPathologyDataFetched = false; // Add this flag
           },
         );
       },
-    );
+    ).whenComplete(() {
+      setState(() {
+        radiologyController.text = localradiologyController.text;
+      });
+    });
   }
 
   //=======================================================================================
@@ -1277,7 +1303,8 @@ bool isPathologyDataFetched = false; // Add this flag
   String selectedotherId = '';
   TextEditingController otherController = TextEditingController();
 
-void _showOtherSelection(BuildContext context, TextEditingController otherController,) {
+  void _showOtherSelection(
+      BuildContext context, TextEditingController otherController) {
     TextEditingController localotherController = TextEditingController();
     String localSelectedotherdata = '';
     String localSelectedotherId = '';
@@ -1363,38 +1390,38 @@ void _showOtherSelection(BuildContext context, TextEditingController otherContro
                                     ),
                                   ))
                                 : Expanded(
-                                  child: ListView.builder(
-                                    itemCount: otherfilteredData?.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      int itemNumber = index + 1;
-                                      return Card(
-                                        color: Colors.white70.withOpacity(0.7),
-                                        child: ListTile(
-                                          title: Text(
-                                            '$itemNumber. ${otherfilteredData?[index]['name'] ?? ''}',
+                                    child: ListView.builder(
+                                      itemCount: otherfilteredData?.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        int itemNumber = index + 1;
+                                        return Card(
+                                          color:
+                                              Colors.white70.withOpacity(0.7),
+                                          child: ListTile(
+                                            title: Text(
+                                              '$itemNumber. ${otherfilteredData?[index]['name'] ?? ''}',
+                                            ),
+                                            onTap: () {
+                                              localSelectedotherdata =
+                                                  otherfilteredData?[index]
+                                                          ['name'] ??
+                                                      '';
+                                              localSelectedotherId =
+                                                  otherfilteredData?[index]
+                                                          ['id'] ??
+                                                      '';
+
+                                              localotherController.text =
+                                                  '($localSelectedotherId) $localSelectedotherdata';
+
+                                              Navigator.of(context).pop();
+                                            },
                                           ),
-                                          onTap: () {
-                                            localSelectedotherdata =
-                                                otherfilteredData?[index]
-                                                        ['name'] ??
-                                                    '';
-                                            localSelectedotherId =
-                                                otherfilteredData?[index]
-                                                        ['id'] ??
-                                                    '';
-
-                                            localotherController.text =
-                                                '($localSelectedotherId) $localSelectedotherdata';
-
-                                            Navigator.of(context).pop();
-                                          },
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                );
-
+                                        );
+                                      },
+                                    ),
+                                  );
                       })
                 ],
               ),
@@ -1582,7 +1609,7 @@ void _showOtherSelection(BuildContext context, TextEditingController otherContro
 
   List<Map<String, TextEditingController>> otherControllersList = [];
 
-    void addNewRowOtherTest() {
+  void addNewRowOtherTest() {
     TextEditingController newotherController = TextEditingController();
 
     Map<String, TextEditingController> newControllersMap = {
@@ -1590,8 +1617,27 @@ void _showOtherSelection(BuildContext context, TextEditingController otherContro
     };
 
     setState(() {
-      ipdOthertestRow.add(dragBuildRow(newotherController,));
+      ipdOthertestRow.add(dragBuildRow(
+        newotherController,
+      ));
       otherControllersList.add(newControllersMap);
+    });
+  }
+
+  List<Map<String, TextEditingController>> radiologyControllersList = [];
+
+  void addNewRowRadiology() {
+    TextEditingController newradiologyController = TextEditingController();
+
+    Map<String, TextEditingController> newRadiologyControllersMap = {
+      'radiology': newradiologyController,
+    };
+
+    setState(() {
+      radiologyRow.add(radiologyBuildRow(
+        newradiologyController,
+      ));
+      radiologyControllersList.add(newRadiologyControllersMap);
     });
   }
 }
