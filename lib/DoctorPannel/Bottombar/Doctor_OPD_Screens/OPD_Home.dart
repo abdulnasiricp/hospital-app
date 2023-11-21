@@ -1,6 +1,10 @@
 // ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers, avoid_print
 
 import 'dart:convert';
+import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_Examination.dart';
+import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_Pre_Checking.dart';
+import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_investigation.dart';
+import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OpdCheckout.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_MainScreens.dart';
@@ -295,10 +299,38 @@ class _OpdHomeState extends State<OpdHome> {
                                         padding: const EdgeInsets.all(10.0),
                                         child: InkWell(
                                           onTap: () {
+                                            String status = getStatusText(
+                                                radiologyfilteredData?[index]
+                                                    ['status']);
+                                            switch (status) {
+                                              case 'Registered':
+                                                Get.to(() => OpdPreChecking());
+                                                break;
+                                                break;
+                                              case 'Pre-checking':
+                                                Get.to(() => OpdPreChecking());
+                                                break;
+                                              case 'Examination':
+                                                Get.to(() => OpdExamination());
+                                                break;
+                                              case 'Sent for investigation':
+                                                Get.to(
+                                                    () => OpdInvestigation());
+                                                break;
+                                              case 'Investigation report':
+                                                Get.to(
+                                                    () => OpdInvestigation());
+                                                break;
+                                              case 'Checkout':
+                                                Get.to(() => Opd_Check_Out());
+                                                break;
+                                              default:
+                                                // Handle the default case or navigate to a default screen
+                                                break;
+                                            }
                                             setState(() {
                                               tappedIndex = index;
                                             });
-                                            Get.to(() => const OpdMainScreen());
                                           },
                                           child: Row(
                                             mainAxisAlignment:
@@ -339,7 +371,8 @@ class _OpdHomeState extends State<OpdHome> {
                                                     child: Container(
                                                       child: Padding(
                                                         padding:
-                                                            const EdgeInsets.all(3.0),
+                                                            const EdgeInsets
+                                                                .all(3.0),
                                                         child: Center(
                                                           child: Text(
                                                             '${radiologyfilteredData?[index]['patient_name'] ?? ''}${radiologyfilteredData?[index]['surname'] ?? ''}',
@@ -369,7 +402,8 @@ class _OpdHomeState extends State<OpdHome> {
                                                     child: Container(
                                                       child: Padding(
                                                         padding:
-                                                            const EdgeInsets.all(3.0),
+                                                            const EdgeInsets
+                                                                .all(3.0),
                                                         child: Center(
                                                           child: Text(
                                                             '${radiologyfilteredData?[index]['name'] ?? ''}',
@@ -399,7 +433,8 @@ class _OpdHomeState extends State<OpdHome> {
                                                     child: Container(
                                                       child: Padding(
                                                         padding:
-                                                            const EdgeInsets.all(3.0),
+                                                            const EdgeInsets
+                                                                .all(3.0),
                                                         child: Center(
                                                           child: Text(
                                                             radiologyfilteredData?[
@@ -408,7 +443,7 @@ class _OpdHomeState extends State<OpdHome> {
                                                                         'last_visit'] !=
                                                                     null
                                                                 ? DateFormat(
-                                                                        'dd/MM/yyyy')
+                                                                        "dd/MM/yyyy HH:mm:aa")
                                                                     .format(DateTime.parse(
                                                                         radiologyfilteredData![index]
                                                                             [
@@ -418,7 +453,8 @@ class _OpdHomeState extends State<OpdHome> {
                                                                 TextOverflow
                                                                     .ellipsis,
                                                             maxLines: 1,
-                                                            style: const TextStyle(
+                                                            style:
+                                                                const TextStyle(
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,
@@ -463,7 +499,8 @@ class _OpdHomeState extends State<OpdHome> {
                                                                 TextOverflow
                                                                     .ellipsis,
                                                             maxLines: 1,
-                                                            style: const TextStyle(
+                                                            style:
+                                                                const TextStyle(
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,

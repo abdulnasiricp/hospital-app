@@ -19,18 +19,16 @@ class Doctor_Home_Page extends StatefulWidget {
 }
 
 class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
-Map<String, double> dataMap = {
-    "Total patient": 533,
+  Map<String, double> dataMap = {
+    "Total patient": 1233,
     "OPD Patient": 133,
     "IPD Patient": 223,
-    "Emergency": 100,
+    "Emergency": 133,
     "Pathology": 120,
     "Surgery Performed": 13,
     "Radiology": 120,
     "Live Consultation": 10,
   };
-
-
 
   String welcomeMessage = 'Welcome to Doctor Home Page';
   String doctorRole = '';
@@ -127,7 +125,6 @@ Map<String, double> dataMap = {
               icon: Stack(
                 children: [
                   badges.Badge(
-                 
                     badgeStyle: const badges.BadgeStyle(
                       badgeColor: Colors.orangeAccent,
                     ),
@@ -275,15 +272,18 @@ Map<String, double> dataMap = {
                       ]),
                 ],
               ),
-              Column(children: [
-                Center(child: PieChart(dataMap: dataMap,
-                chartRadius: width/1.7,
-                // legendOptions: LegendOptions(legendPosition: LegendPosition.bottom),
-                chartValuesOptions: ChartValuesOptions(showChartValuesInPercentage: true),
-
-                ),)
-
-              ],)
+              Column(
+                children: [
+                  Center(
+                    child: PieChart(
+                      dataMap: dataMap,
+                      chartRadius: width / 1.7,
+                      chartValuesOptions:
+                          ChartValuesOptions(showChartValuesInPercentage: true),
+                    ),
+                  )
+                ],
+              )
             ],
           ),
         ),
