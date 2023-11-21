@@ -19,15 +19,6 @@ class OpdInvestigation extends StatefulWidget {
 }
 
 class _OpdInvestigationState extends State<OpdInvestigation> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   // fetchpathologyData();
-  //   // fetchotherData();
-  //   // fetchRadiologyData();
-  //   // fetchPharmacyData();
-  //   // fetchdiagnosisData();
-  // }
 
   List<Widget> opdOthertestRow = [];
   List<Widget> radiologyRow = [];
@@ -48,8 +39,12 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   List<dynamic>? pathologydata = [];
   List<dynamic>? pathologyfilteredData = [];
 
+bool isPathologyDataFetched = false; // Add this flag
   bool isLoading = true;
   Future<void> fetchpathologyData() async {
+      if (isPathologyDataFetched) {
+      return; // If data has already been fetched, return without fetching again
+    }
     Uri.parse(ApiLinks.singleTableDataDetector);
 
     final body = {"table": "pathology"};
@@ -66,6 +61,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
         pathologydata = dataMap['result'];
         pathologyfilteredData = pathologydata;
         isLoading = false;
+        isPathologyDataFetched=true;
       });
     } else {
       handleNonJsonResponse();
@@ -80,26 +76,28 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   }
   ////////////////////
 
-  void pathologyfilterData(String query) {
+
+   void pathologyfilterData(String query) {
     setState(() {
       pathologyfilteredData = pathologydata
           ?.where((element) =>
               element['test_name']
                   .toLowerCase()
                   .contains(query.toLowerCase()) ||
-              element['id'].toLowerCase().contains(query.toLowerCase()))
+              element['id'].toLowerCase().startsWith(query.toLowerCase()))
           .toList();
     });
   }
 
 //=================================================================================
-  // String selectedotherItemsId = '';
-  // String selectedotherItemsName = '';
-  // List<String> selectedotherItems = [];
+  bool isotherDataFetched = false; // Add this flag
   List<dynamic>? otherdata = [];
   List<dynamic>? otherfilteredData = [];
 
   Future<void> fetchotherData() async {
+     if (isotherDataFetched) {
+      return; // If data has already been fetched, return without fetching again
+    }
     Uri.parse(ApiLinks.singleTableDataDetector);
 
     final body = {"table": "finding"};
@@ -116,6 +114,8 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
         otherdata = dataMap['result'];
         otherfilteredData = otherdata;
         isLoading = false;
+        
+        isotherDataFetched = true; // Set the flag to true after fetching data
       });
     } else {
       handleNonJsonResponse();
@@ -124,23 +124,28 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
 
   ////////////////////
 
+
   void otherfilterData(String query) {
     setState(() {
       otherfilteredData = otherdata
           ?.where((element) =>
-              element['name'].toLowerCase().contains(query.toLowerCase()) ||
-              element['id'].toLowerCase().contains(query.toLowerCase()))
+              element['name']
+                  .toLowerCase()
+                  .contains(query.toLowerCase()) ||
+              element['id'].toLowerCase().startsWith(query.toLowerCase()))
           .toList();
     });
   }
 
 //=================================================================================
-  // String selectedpharmacyItemsId = '';
-  // String selectedpharmacyItemsName = '';
-  // List<String> selectedpharmacyItems = [];
+  bool ispharmacyDataFetched = false; // Add this flag
+  
   List<dynamic>? pharmacydata = [];
   List<dynamic>? pharmacyfilteredData = [];
   Future<void> fetchPharmacyData() async {
+     if (ispharmacyDataFetched) {
+      return; // If data has already been fetched, return without fetching again
+    }
     Uri.parse(ApiLinks.singleTableDataDetector);
 
     final body = {"table": "pharmacy"};
@@ -157,6 +162,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
         pharmacydata = dataMap['result'];
         pharmacyfilteredData = pharmacydata;
         isLoading = false;
+        ispharmacyDataFetched=true;
       });
     } else {
       handleNonJsonResponse();
@@ -165,27 +171,31 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
 
   ////////////////////
 
-  void pharmacyfilterData(String query) {
+
+   void pharmacyfilterData(String query) {
     setState(() {
       pharmacyfilteredData = pharmacydata
           ?.where((element) =>
               element['medicine_name']
                   .toLowerCase()
                   .contains(query.toLowerCase()) ||
-              element['id'].toLowerCase().contains(query.toLowerCase()))
+              element['id'].toLowerCase().startsWith(query.toLowerCase()))
           .toList();
     });
   }
 
+
 //================================================================================= Radiology
-  // String selectedradiologyItemsId = '';
-  // String selectedradiologyItemsName = '';
-  // List<String> selectedradiologyItems = [];
+    bool isRadiologyDataFetched = false; // Add this flag
+
 
   List<dynamic>? radiologydata = [];
   List<dynamic>? radiologyfilteredData = [];
 
   Future<void> fetchRadiologyData() async {
+     if (isRadiologyDataFetched) {
+      return; // If data has already been fetched, return without fetching again
+    }
     Uri.parse(ApiLinks.singleTableDataDetector);
 
     final body = {"table": "radio"};
@@ -202,6 +212,8 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
         radiologydata = dataMap['result'];
         radiologyfilteredData = radiologydata;
         isLoading = false;
+        isRadiologyDataFetched=true;
+
       });
     } else {
       handleNonJsonResponse();
@@ -210,17 +222,20 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
 
   //========================================
 
-  void radiologyfilterData(String query) {
+
+
+   void radiologyfilterData(String query) {
     setState(() {
       radiologyfilteredData = radiologydata
           ?.where((element) =>
               element['test_name']
                   .toLowerCase()
                   .contains(query.toLowerCase()) ||
-              element['id'].toLowerCase().contains(query.toLowerCase()))
+              element['id'].toLowerCase().startsWith(query.toLowerCase()))
           .toList();
     });
   }
+
 
 //================================================================================= for Diagnosis
   TextEditingController DiagnosisController = TextEditingController();
@@ -230,7 +245,12 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   List<dynamic>? diagnosisdata = [];
   List<dynamic>? diagnosisfilteredData = [];
 
+  bool isDiagnosisDataFetched = false; // Add this flag
+
   Future<void> fetchdiagnosisData() async {
+     if (isDiagnosisDataFetched) {
+      return; // If data has already been fetched, return without fetching again
+    }
     Uri.parse(ApiLinks.singleTableDataDetector);
 
     final body = {"table": "finding"};
@@ -247,21 +267,27 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
         diagnosisdata = dataMap['result'];
         diagnosisfilteredData = diagnosisdata;
         isLoading = false;
+        isDiagnosisDataFetched=true;
       });
     } else {
       handleNonJsonResponse();
     }
   }
 
-  void DiagnosisfilterData(String query) {
+  
+
+   void DiagnosisfilterData(String query) {
     setState(() {
       diagnosisfilteredData = diagnosisdata
           ?.where((element) =>
-              element['name'].toLowerCase().contains(query.toLowerCase()) ||
-              element['id'].toLowerCase().contains(query.toLowerCase()))
+              element['name']
+                  .toLowerCase()
+                  .contains(query.toLowerCase()) ||
+              element['id'].toLowerCase().startsWith(query.toLowerCase()))
           .toList();
     });
   }
+
 //=================================================================================
 
 //=================================================================================
@@ -1336,7 +1362,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                   FutureBuilder(
                     future: fetchpathologyData(),
                     builder: (context, snapshot) {
-                      return pathologyfilteredData!.isEmpty
+                      return isLoading
                         ? Expanded(
                             child: Padding(
                             padding: const EdgeInsets.all(10.0),
@@ -1503,7 +1529,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                   FutureBuilder(
                     future: fetchRadiologyData(),
                     builder: (context, snapshot) {
-                      return  radiologyfilteredData!.isEmpty
+                      return  isLoading
                         ? Expanded(
                             child: Padding(
                             padding: const EdgeInsets.all(10.0),
@@ -1660,12 +1686,15 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                 child: ListView.builder(
                                   itemCount: pharmacyfilteredData?.length,
                                   itemBuilder: (BuildContext context, int index) {
-                                    int itemNumber = index + 1;
+                                      // int itemNumber = index + 1;
+                              if (pharmacyfilteredData![index].containsKey('medicine_name')) {
+                                    
                                     return Card(
                                       color: Colors.white70.withOpacity(0.7),
                                       child: ListTile(
                                         title: Text(
-                                          '$itemNumber. ${pharmacyfilteredData?[index]['medicine_name'] ?? ''}',
+                                          // '$itemNumber.
+                                           '${pharmacyfilteredData?[index]['medicine_name'] ?? ''}',
                                         ),
                                         onTap: () {
                                           selectedpharmacy =
@@ -1683,6 +1712,8 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                         },
                                       ),
                                     );
+                              }
+                              return null;
                                   },
                                 ),
                               );
@@ -1765,7 +1796,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                   FutureBuilder(
                     future: fetchotherData(),
                     builder: (context, snapshot) {
-                      return otherfilteredData!.isEmpty
+                      return isLoading
                         ? Expanded(
                             child: Padding(
                             padding: const EdgeInsets.all(10.0),
@@ -1893,7 +1924,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                   FutureBuilder(
                     future: fetchdiagnosisData(),
                     builder: (context, snapshot) {
-                      return  diagnosisfilteredData!.isEmpty
+                      return  isLoading
                         ? Expanded(
                             child: Padding(
                             padding: const EdgeInsets.all(10.0),

@@ -374,14 +374,16 @@ class IpdOperations extends StatefulWidget {
 }
 
 class _IpdOperationsState extends State<IpdOperations> {
-  //   String selectedotherItemsId = '';
-  // String selectedotherItemsName = '';
-  // List<String> selectedotherItems = [];
+  bool isSurgeryDataFetched = false; // Add this flag
+
   List<dynamic>? surgerydata = [];
   List<dynamic>? surgeryfilteredData = [];
   bool isLoading = true;
 
   Future<void> fetchsurgeryData() async {
+    if (isSurgeryDataFetched) {
+      return; // If data has already been fetched, return without fetching again
+    }
     Uri.parse(ApiLinks.singleTableDataDetector);
 
     final body = {"table": "radio"};
@@ -398,6 +400,8 @@ class _IpdOperationsState extends State<IpdOperations> {
         surgerydata = dataMap['result'];
         surgeryfilteredData = surgerydata;
         isLoading = false;
+
+        isSurgeryDataFetched = true; // Set the flag to true after fetching data
       });
     } else {
       handleNonJsonResponse();
@@ -413,14 +417,15 @@ class _IpdOperationsState extends State<IpdOperations> {
 
   ////////////////////
 
-  void surgeryfilterData(String query) {
+ 
+ void surgeryfilterData(String query) {
     setState(() {
       surgeryfilteredData = surgerydata
           ?.where((element) =>
               element['test_name']
                   .toLowerCase()
                   .contains(query.toLowerCase()) ||
-              element['id'].toLowerCase().contains(query.toLowerCase()))
+              element['id'].toLowerCase().startsWith(query.toLowerCase()))
           .toList();
     });
   }
@@ -866,7 +871,7 @@ class _IpdOperationsState extends State<IpdOperations> {
                   FutureBuilder(
                     future: fetchsurgeryData(),
                     builder: (context, snapshot) {
-                      return surgeryfilteredData!.isEmpty
+                      return isLoading
                           ? Expanded(
                               child: Padding(
                               padding: const EdgeInsets.all(10.0),
