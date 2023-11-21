@@ -236,7 +236,7 @@ bool isPathologyDataFetched = false; // Add this flag
     });
   }
 //=================================================================================
-//build
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -406,35 +406,44 @@ bool isPathologyDataFetched = false; // Add this flag
                   ),
                   Row(
                     children: [
-                      Container(
-                        width: width / 2.5,
-                        height: 50,
-                        child: Center(
-                          child: InkWell(
+                      
+                       Container(
+                          width: width / 2.5,
+                          height: 55,
+                          child: Center(
+                            child: InkWell(
                               child: TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'This field is required';
-                              }
-                              return null;
-                            },
-                            readOnly:
-                                true, // Set this to true to disable the keyboard
-                            controller: otherController,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: 'Select options',
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 10),
-                              fillColor: Colors.white,
-                              filled: true,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'This field is required';
+                                  }
+                                  return null;
+                                },
+                                readOnly: true,
+                                controller: otherController,
+                                maxLines: null,
+                                decoration: InputDecoration(
+                                  suffixIcon: IconButton(
+                                    icon: const Icon(
+                                      Icons.arrow_drop_down_sharp,
+                                      size: 40,
+                                    ),
+                                    onPressed: () {
+                                      _showOtherSelection(context,otherController);
+                                    },
+                                  ),
+                                  border: const OutlineInputBorder(),
+                                  hintText: 'Select Other test',
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                ),
+                                onTap: () {
+                                  _showOtherSelection(context,otherController,);
+                                },
+                              ),
                             ),
-                            onTap: () {
-                              _showOtherSelection(context);
-                            },
-                          )),
+                          ),
                         ),
-                      ),
                       const SizedBox(
                         width: 5,
                       ),
@@ -446,8 +455,7 @@ bool isPathologyDataFetched = false; // Add this flag
                             child: IconButton(
                               onPressed: () {
                                 setState(() {
-                                  // Add a new row when the "Add" button is clicked
-                                  // ipdOthertestRow.add(dragBuildRow());
+                                
                                   addNewRowOtherTest();
                                 });
                               },
@@ -765,67 +773,87 @@ bool isPathologyDataFetched = false; // Add this flag
     );
   }
 
-  Widget dragBuildRow(
-    TextEditingController othertestController,
-  ) {
+
+   Widget dragBuildRow(TextEditingController otherController) {
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Row(
-        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            width: width / 1.5,
-            height: 50,
-            child: Center(
-              child: InkWell(
-                  child: TextFormField(
-                controller: othertestController,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'This field is required';
-                  }
-                  return null;
-                },
-                readOnly: true, // Set this to true to disable the keyboard
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Select options',
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
-                  fillColor: Colors.white,
-                  filled: true,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: width / 1.3,
+                height: 55,
+                child: Center(
+                  child: InkWell(
+                    child: TextFormField(
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'This field is required';
+                        }
+                        return null;
+                      },
+                      readOnly: true,
+                      controller: otherController,
+                      maxLines: null,
+                      decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                          icon: const Icon(
+                            Icons.arrow_drop_down_sharp,
+                            size: 40,
+                          ),
+                          onPressed: () {
+                            _showOtherSelection(context, otherController);
+                          },
+                        ),
+                        border: const OutlineInputBorder(),
+                        hintText: 'Select Other test',
+                        fillColor: Colors.white,
+                        filled: true,
+                      ),
+                      onTap: () {
+                        _showOtherSelection(context, otherController);
+                      },
+                    ),
+                  ),
                 ),
-              )),
-            ),
-          ),
-          const SizedBox(
-            width: 5,
-          ),
-          Container(
-            width: width / 9,
-            // height: 40,
-            child: Center(
-              child: CircleAvatar(
-                child: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        // Remove the row when the "Cancel" button is clicked
-                        ipdOthertestRow.removeLast();
-                      });
-                    },
-                    icon: Icon(
-                      Icons.cancel,
-                      color: whitecolor,
-                    )),
-                // radius: 17,
-                backgroundColor: Colors.green,
               ),
-            ),
+            ],
+          ),
+          
+          const SizedBox(width: 5,),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: width / 9,
+                child: Center(
+                  child: CircleAvatar(
+                    child: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          ipdOthertestRow.removeLast();
+                        });
+                      },
+                      icon: Icon(
+                        Icons.cancel,
+                        color: whitecolor,
+                      ),
+                    ),
+                    radius: 20,
+                    backgroundColor: Colors.green,
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
     );
   }
+
 
   Widget radiologyBuildRow() {
     TextEditingController textFieldController = TextEditingController();
@@ -1249,7 +1277,10 @@ bool isPathologyDataFetched = false; // Add this flag
   String selectedotherId = '';
   TextEditingController otherController = TextEditingController();
 
-  void _showOtherSelection(BuildContext context) {
+void _showOtherSelection(BuildContext context, TextEditingController otherController,) {
+    TextEditingController localotherController = TextEditingController();
+    String localSelectedotherdata = '';
+    String localSelectedotherId = '';
     showModalBottomSheet(
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
@@ -1332,37 +1363,38 @@ bool isPathologyDataFetched = false; // Add this flag
                                     ),
                                   ))
                                 : Expanded(
-                                    child: ListView.builder(
-                                      itemCount: otherfilteredData?.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        int itemNumber = index + 1;
-                                        return Card(
-                                          color:
-                                              Colors.white70.withOpacity(0.7),
-                                          child: ListTile(
-                                            title: Text(
-                                              '$itemNumber. ${otherfilteredData?[index]['name'] ?? ''}',
-                                            ),
-                                            onTap: () {
-                                              selectedotherdata =
-                                                  otherfilteredData?[index]
-                                                          ['name'] ??
-                                                      '';
-                                              selectedotherId =
-                                                  otherfilteredData?[index]
-                                                          ['id'] ??
-                                                      '';
-                                              otherController.text =
-                                                  '($selectedotherId) $selectedotherdata';
-
-                                              Navigator.of(context).pop();
-                                            },
+                                  child: ListView.builder(
+                                    itemCount: otherfilteredData?.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      int itemNumber = index + 1;
+                                      return Card(
+                                        color: Colors.white70.withOpacity(0.7),
+                                        child: ListTile(
+                                          title: Text(
+                                            '$itemNumber. ${otherfilteredData?[index]['name'] ?? ''}',
                                           ),
-                                        );
-                                      },
-                                    ),
-                                  );
+                                          onTap: () {
+                                            localSelectedotherdata =
+                                                otherfilteredData?[index]
+                                                        ['name'] ??
+                                                    '';
+                                            localSelectedotherId =
+                                                otherfilteredData?[index]
+                                                        ['id'] ??
+                                                    '';
+
+                                            localotherController.text =
+                                                '($localSelectedotherId) $localSelectedotherdata';
+
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                );
+
                       })
                 ],
               ),
@@ -1370,7 +1402,11 @@ bool isPathologyDataFetched = false; // Add this flag
           },
         );
       },
-    );
+    ).whenComplete(() {
+      setState(() {
+        otherController.text = localotherController.text;
+      });
+    });
   }
 //==========================================================================================
 
@@ -1544,11 +1580,18 @@ bool isPathologyDataFetched = false; // Add this flag
     );
   }
 
-  void addNewRowOtherTest() {
-    TextEditingController newOthertestController = TextEditingController();
+  List<Map<String, TextEditingController>> otherControllersList = [];
+
+    void addNewRowOtherTest() {
+    TextEditingController newotherController = TextEditingController();
+
+    Map<String, TextEditingController> newControllersMap = {
+      'otherTest': newotherController,
+    };
 
     setState(() {
-      ipdOthertestRow.add(dragBuildRow(newOthertestController));
+      ipdOthertestRow.add(dragBuildRow(newotherController,));
+      otherControllersList.add(newControllersMap);
     });
   }
 }

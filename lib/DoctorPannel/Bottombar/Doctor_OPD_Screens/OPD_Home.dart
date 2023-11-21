@@ -1,10 +1,6 @@
 // ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers, avoid_print
 
 import 'dart:convert';
-import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_Examination.dart';
-import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_Pre_Checking.dart';
-import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_investigation.dart';
-import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OpdCheckout.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_MainScreens.dart';
@@ -306,32 +302,32 @@ class _OpdHomeState extends State<OpdHome> {
                                             switch (status) {
                                               case '1':
                                                 // Navigate to Registered screen
-                                                Get.to(() => OpdMainScreen(
+                                                Get.to(() => const OpdMainScreen(
                                                     initialTabIndex: 0));
                                                 break;
                                               case '2':
                                                 // Navigate to Pre-Checking screen
-                                                Get.to(() => OpdMainScreen(
+                                                Get.to(() => const OpdMainScreen(
                                                     initialTabIndex: 0));
                                                 break;
                                               case '3':
                                                 // Navigate to Examination screen
-                                                Get.to(() => OpdMainScreen(
+                                                Get.to(() => const OpdMainScreen(
                                                     initialTabIndex: 1));
                                                 break;
                                               case '4':
                                                 // Navigate to Sent for Investigation screen
-                                                Get.to(() => OpdMainScreen(
+                                                Get.to(() => const OpdMainScreen(
                                                     initialTabIndex: 2));
                                                 break;
                                               case '5':
                                                 // Navigate to Investigation Report screen
-                                                Get.to(() => OpdMainScreen(
+                                                Get.to(() => const OpdMainScreen(
                                                     initialTabIndex: 2));
                                                 break;
                                               case '6':
                                                 // Navigate to Checkout screen
-                                                Get.to(() => OpdMainScreen(
+                                                Get.to(() => const OpdMainScreen(
                                                     initialTabIndex: 3));
                                                 break;
                                               default:
