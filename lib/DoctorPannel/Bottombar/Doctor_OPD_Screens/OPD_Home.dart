@@ -299,38 +299,44 @@ class _OpdHomeState extends State<OpdHome> {
                                         padding: const EdgeInsets.all(10.0),
                                         child: InkWell(
                                           onTap: () {
-                                            String status = getStatusText(
+                                            String? status =
                                                 radiologyfilteredData?[index]
-                                                    ['status']);
+                                                        ['status']
+                                                    .toString();
                                             switch (status) {
-                                              case 'Registered':
-                                                Get.to(() => OpdPreChecking());
+                                              case '1':
+                                                // Navigate to Registered screen
+                                                Get.to(() => OpdMainScreen(
+                                                    initialTabIndex: 0));
                                                 break;
+                                              case '2':
+                                                // Navigate to Pre-Checking screen
+                                                Get.to(() => OpdMainScreen(
+                                                    initialTabIndex: 0));
                                                 break;
-                                              case 'Pre-checking':
-                                                Get.to(() => OpdPreChecking());
+                                              case '3':
+                                                // Navigate to Examination screen
+                                                Get.to(() => OpdMainScreen(
+                                                    initialTabIndex: 1));
                                                 break;
-                                              case 'Examination':
-                                                Get.to(() => OpdExamination());
+                                              case '4':
+                                                // Navigate to Sent for Investigation screen
+                                                Get.to(() => OpdMainScreen(
+                                                    initialTabIndex: 2));
                                                 break;
-                                              case 'Sent for investigation':
-                                                Get.to(
-                                                    () => OpdInvestigation());
+                                              case '5':
+                                                // Navigate to Investigation Report screen
+                                                Get.to(() => OpdMainScreen(
+                                                    initialTabIndex: 2));
                                                 break;
-                                              case 'Investigation report':
-                                                Get.to(
-                                                    () => OpdInvestigation());
-                                                break;
-                                              case 'Checkout':
-                                                Get.to(() => Opd_Check_Out());
+                                              case '6':
+                                                // Navigate to Checkout screen
+                                                Get.to(() => OpdMainScreen(
+                                                    initialTabIndex: 3));
                                                 break;
                                               default:
-                                                // Handle the default case or navigate to a default screen
-                                                break;
+                                              // Handle unknown status
                                             }
-                                            setState(() {
-                                              tappedIndex = index;
-                                            });
                                           },
                                           child: Row(
                                             mainAxisAlignment:
