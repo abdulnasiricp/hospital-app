@@ -56,6 +56,11 @@ class _OpdExaminationState extends State<OpdExamination> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Examinaion"),
+        centerTitle: true,
+        backgroundColor: darkYellow,
+      ),
       backgroundColor: Colors.blue[50],
       body: SingleChildScrollView(
         child: Padding(

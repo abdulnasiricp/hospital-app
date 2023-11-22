@@ -30,6 +30,11 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          title: Text("Pre- Checking"),
+          centerTitle: true,
+          backgroundColor: darkYellow,
+        ),
         backgroundColor: Colors.lightBlue[50],
         body: SingleChildScrollView(
           child: Padding(

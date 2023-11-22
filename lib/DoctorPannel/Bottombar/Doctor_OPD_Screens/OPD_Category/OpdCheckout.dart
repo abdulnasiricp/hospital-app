@@ -52,6 +52,11 @@ class _General_Opd_Tickets_FormState extends State<Opd_Check_Out> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          title: Text("Check out"),
+          centerTitle: true,
+          backgroundColor: darkYellow,
+        ),
         body: Form(
       key: _formKey,
       child: SingleChildScrollView(
