@@ -129,6 +129,7 @@ class _PatientLoginState extends State<PatientLogin> {
         sp.setString('permanent_address', json['record']['permanent_address']);
         sp.setString('date_format', json['record']['date_format']);
         sp.setString('time_format', json['record']['time_format']);
+        sp.setString('dob', json['record']['dob']);
         sp.setString('currency_symbol', json['record']['currency_symbol']);
         sp.setString('timezone', json['record']['timezone']);
         sp.setString('image', json['record']['image']);
