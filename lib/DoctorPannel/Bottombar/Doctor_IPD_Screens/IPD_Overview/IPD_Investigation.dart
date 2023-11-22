@@ -558,7 +558,7 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
                               },
                             ),
                             border: const OutlineInputBorder(),
-                            hintText: 'Select Other test',
+                            hintText: 'Select radiology',
                             fillColor: Colors.white,
                             filled: true,
                           ),

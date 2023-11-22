@@ -126,7 +126,7 @@ class _IpdOperationsState extends State<IpdOperations> {
                                     },
                                   ),
                                   border: const OutlineInputBorder(),
-                                  hintText: 'Select Other test',
+                                  hintText: 'Select Surgery',
                                   fillColor: Colors.white,
                                   filled: true,
                                 ),

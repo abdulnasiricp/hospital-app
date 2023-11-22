@@ -84,14 +84,65 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   }
 
 //=================================================================================
+  List<Map<String, TextEditingController>> surgeryControllersList = [];
+  bool isSurgeryDataFetched = false;
+
+  List<dynamic>? surgerydata = [];
+  List<dynamic>? surgeryfilteredData = [];
+
+  Future<void> fetchsurgeryData() async {
+    if (isSurgeryDataFetched) {
+      return;
+    }
+
+    Uri.parse(ApiLinks.singleTableDataDetector);
+
+    final body = {"table": "radio"};
+
+    final response = await http.post(
+      Uri.parse(ApiLinks.singleTableDataDetector),
+      headers: ApiLinks.MainHeader,
+      body: json.encode(body),
+    );
+
+    if (response.statusCode == 200) {
+      final dataMap = json.decode(response.body);
+      setState(() {
+        surgerydata = dataMap['result'];
+        surgeryfilteredData = surgerydata;
+        isLoading = false;
+
+        isSurgeryDataFetched = true;
+      });
+    } else {
+      handleNonJsonResponse();
+    }
+  }
+
+  void surgeryfilterData(String query) {
+    setState(() {
+      surgeryfilteredData = surgerydata
+          ?.where((element) =>
+              element['test_name']
+                  .toLowerCase()
+                  .contains(query.toLowerCase()) ||
+              element['id'].toLowerCase().startsWith(query.toLowerCase()))
+          .toList();
+    });
+  }
+
+  TextEditingController surgeryController = TextEditingController();
+  TextEditingController noteController = TextEditingController();
+  // List<Widget> surgeryRows = [];
+//=================================================================================
   bool isotherDataFetched = false; // Add this flag
   List<dynamic>? otherdata = [];
   List<dynamic>? otherfilteredData = [];
 
   Future<void> fetchotherData() async {
-    // if (isotherDataFetched) {
-    //   return; // If data has already been fetched, return without fetching again
-    // }
+    if (isotherDataFetched) {
+      return; // If data has already been fetched, return without fetching again
+    }
     Uri.parse(ApiLinks.singleTableDataDetector);
 
     final body = {"table": "finding"};
@@ -109,7 +160,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
         otherfilteredData = otherdata;
         isLoading = false;
 
-        // isotherDataFetched = true; // Set the flag to true after fetching data
+        isotherDataFetched = true; // Set the flag to true after fetching data
       });
     } else {
       handleNonJsonResponse();
@@ -134,9 +185,9 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   List<dynamic>? pharmacydata = [];
   List<dynamic>? pharmacyfilteredData = [];
   Future<void> fetchPharmacyData() async {
-    // if (ispharmacyDataFetched) {
-    //   return; // If data has already been fetched, return without fetching again
-    // }
+    if (ispharmacyDataFetched) {
+      return; // If data has already been fetched, return without fetching again
+    }
     Uri.parse(ApiLinks.singleTableDataDetector);
 
     final body = {"table": "pharmacy"};
@@ -181,9 +232,9 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   List<dynamic>? radiologyfilteredData = [];
 
   Future<void> fetchRadiologyData() async {
-    // if (isRadiologyDataFetched) {
-    //   return; // If data has already been fetched, return without fetching again
-    // }
+    if (isRadiologyDataFetched) {
+      return; // If data has already been fetched, return without fetching again
+    }
     Uri.parse(ApiLinks.singleTableDataDetector);
 
     final body = {"table": "radio"};
@@ -200,7 +251,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
         radiologydata = dataMap['result'];
         radiologyfilteredData = radiologydata;
         isLoading = false;
-        // isRadiologyDataFetched = true;
+        isRadiologyDataFetched = true;
       });
     } else {
       handleNonJsonResponse();
@@ -442,38 +493,37 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                 children: [
                   Container(
                     width: width / 1.25,
-                    child: Flexible(
-                      child: Center(
-                        child: InkWell(
-                          child: TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'This field is required';
-                              }
-                              return null;
-                            },
-                            readOnly: true,
-                            controller: otherController,
-                            maxLines: null, // Allow multiple lines
-                            decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                icon: const Icon(
-                                  Icons.arrow_drop_down_sharp,
-                                  size: 40,
-                                ),
-                                onPressed: () {
-                                  _showOtherSelection(context);
-                                },
+                    height: 55,
+                    child: Center(
+                      child: InkWell(
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'This field is required';
+                            }
+                            return null;
+                          },
+                          readOnly: true,
+                          controller: otherController,
+                          maxLines: null,
+                          decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                              icon: const Icon(
+                                Icons.arrow_drop_down_sharp,
+                                size: 40,
                               ),
-                              border: const OutlineInputBorder(),
-                              hintText: 'Select Other test',
-                              fillColor: Colors.white,
-                              filled: true,
+                              onPressed: () {
+                                _showOtherSelection(context, otherController);
+                              },
                             ),
-                            onTap: () {
-                              _showOtherSelection(context);
-                            },
+                            border: const OutlineInputBorder(),
+                            hintText: 'Select Other test',
+                            fillColor: Colors.white,
+                            filled: true,
                           ),
+                          onTap: () {
+                            _showOtherSelection(context, otherController);
+                          },
                         ),
                       ),
                     ),
@@ -489,8 +539,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                         child: IconButton(
                           onPressed: () {
                             setState(() {
-                              // Add a new row when the "Add" button is clicked
-                              opdOthertestRow.add(observationBuildRow());
+                              addNewRowOtherTest();
                             });
                           },
                           icon: Icon(
@@ -576,38 +625,41 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                 children: [
                   Container(
                     width: width / 3.2,
-                    child: Flexible(
-                      child: Center(
-                        child: InkWell(
-                          child: TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'This field is required';
-                              }
-                              return null;
-                            },
-                            readOnly: true,
-                            controller: radiologyController,
-                            maxLines: null, // Allow multiple lines
-                            decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                icon: const Icon(
-                                  Icons.arrow_drop_down_sharp,
-                                  size: 40,
-                                ),
-                                onPressed: () {
-                                  _showRadiologySelection(context);
-                                },
+                    height: 55,
+                    child: Center(
+                      child: InkWell(
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'This field is required';
+                            }
+                            return null;
+                          },
+                          readOnly: true,
+                          controller: radiologyController,
+                          maxLines: null,
+                          decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                              icon: const Icon(
+                                Icons.arrow_drop_down_sharp,
+                                size: 30,
                               ),
-                              border: const OutlineInputBorder(),
-                              hintText: 'Select Radiology',
-                              fillColor: Colors.white,
-                              filled: true,
+                              onPressed: () {
+                                _showRadiologySelection(
+                                    context, radiologyController);
+                              },
                             ),
-                            onTap: () {
-                              _showRadiologySelection(context);
-                            },
+                            border: const OutlineInputBorder(),
+                            hintText: 'Select radiology',
+                            fillColor: Colors.white,
+                            filled: true,
                           ),
+                          onTap: () {
+                            _showRadiologySelection(
+                              context,
+                              radiologyController,
+                            );
+                          },
                         ),
                       ),
                     ),
@@ -617,7 +669,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                   ),
                   Container(
                     width: width / 6,
-                    height: 50,
+                    height: 60,
                     child: Center(
                       child: InkWell(
                           child: TextFormField(
@@ -627,12 +679,12 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                           }
                           return null;
                         },
-                        readOnly: true,
-                        // Set this to true to disable the keyboard
-                        // controller: diagnosisController,
+                        controller: diagnosisController,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
-                          hintText: 'Select Qty',
+                          hintText: 'Select options',
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 10),
                           fillColor: Colors.white,
                           filled: true,
                         ),
@@ -644,7 +696,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                   ),
                   Container(
                     width: width / 3.5,
-                    height: 50,
+                    height: 60,
                     child: Center(
                       child: InkWell(
                           child: TextFormField(
@@ -654,7 +706,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                           }
                           return null;
                         },
-                        // Set this to true to disable the keyboard
+
                         // controller: diagnosisController,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
@@ -670,21 +722,20 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                   ),
                   Container(
                     width: width / 9,
-                    // height: 40,
+                    height: 40,
                     child: Center(
                       child: CircleAvatar(
                         child: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              // Add a new row when the "Add" button is clicked
-                              radiologyRow.add(radiologyBuildRow());
-                            });
-                          },
-                          icon: Icon(
-                            Icons.add,
-                            color: whitecolor,
-                          ),
-                        ),
+                            onPressed: () {
+                              setState(() {
+                                addNewRowRadiology();
+                              });
+                            },
+                            icon: Icon(
+                              Icons.add,
+                              color: whitecolor,
+                            )),
+                        radius: 20,
                         backgroundColor: Colors.green,
                       ),
                     ),
@@ -708,52 +759,62 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
               const SizedBox(
                 height: 10,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Surgery',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    width: double.infinity,
-                    height: 30,
-                    color: Colors.green[300],
-                    child: const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Surgery advised',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15),
-                          ),
-                          Text(
-                            'Note for surgery',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15),
-                          ),
-                          Text(
-                            ' ',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Row(
+              const Text(
+                'Surgery',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Container(
+                width: double.infinity,
+                height: 30,
+                color: Colors.green[300],
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        width: width / 3,
-                        child: Flexible(
+                      Text(
+                        'Surgery advised',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                      // SizedBox(width: 10,),
+                      Text(
+                        'Note for surgery',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                      // SizedBox(width: 10,),
+
+                      Text(
+                        ' ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                      Text(
+                        ' ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Row(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: width / 3.5,
+                          height: 55,
                           child: Center(
                             child: InkWell(
                               child: TextFormField(
@@ -764,81 +825,96 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                   return null;
                                 },
                                 readOnly: true,
-                                controller: otherController,
-                                maxLines: null, // Allow multiple lines
+                                controller: surgeryController,
+                                maxLines: null,
                                 decoration: InputDecoration(
                                   suffixIcon: IconButton(
                                     icon: const Icon(
                                       Icons.arrow_drop_down_sharp,
-                                      size: 40,
+                                      size: 30,
                                     ),
                                     onPressed: () {
-                                      _showOtherSelection(context);
+                                      _showSurgerySelection(context,
+                                          surgeryController, noteController);
                                     },
                                   ),
                                   border: const OutlineInputBorder(),
-                                  hintText: 'Select Other test',
+                                  hintText: 'Select Surgery',
                                   fillColor: Colors.white,
                                   filled: true,
                                 ),
                                 onTap: () {
-                                  _showOtherSelection(context);
+                                  _showSurgerySelection(context,
+                                      surgeryController, noteController);
                                 },
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Container(
-                        width: width / 2.2,
-                        height: 50,
-                        child: Center(
-                          child: InkWell(
-                              child: TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'This field is required';
-                              }
-                              return null;
-                            },
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: 'Additional note',
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 10),
-                            ),
-                          )),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Container(
-                        width: width / 9,
-                        child: Center(
-                          child: CircleAvatar(
-                            child: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  // Add a new row when the "Add" button is clicked
-                                  surgeryRow.add(surgeryBuildRow());
-                                });
+                      ],
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: width / 2,
+                          height: 60,
+                          child: Center(
+                            child: TextFormField(
+                              controller: noteController,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'This field is required';
+                                }
+                                return null;
                               },
-                              icon: Icon(
-                                Icons.add,
-                                color: whitecolor,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.symmetric(
+                                    vertical: 10.0, horizontal: 10),
+                                fillColor: Colors.white,
+                                filled: true,
                               ),
                             ),
-                            backgroundColor: Colors.green,
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          ' ',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 12),
+                        ),
+                        Container(
+                          width: width / 9,
+                          child: Center(
+                            child: CircleAvatar(
+                              child: IconButton(
+                                onPressed: () {
+                                  addNewRow();
+                                },
+                                icon: Icon(
+                                  Icons.add,
+                                  color: whitecolor,
+                                ),
+                              ),
+                              backgroundColor: Colors.green,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(
                 height: 5,
@@ -957,10 +1033,11 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                   suffixIcon: IconButton(
                                     icon: const Icon(
                                       Icons.arrow_drop_down_sharp,
-                                      size: 40,
+                                      size: 30,
                                     ),
                                     onPressed: () {
-                                      _showPharmacySelection(context);
+                                      _showPharmacySelection(
+                                          context, pharmacyController);
                                     },
                                   ),
                                   border: const OutlineInputBorder(),
@@ -969,7 +1046,8 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                   filled: true,
                                 ),
                                 onTap: () {
-                                  _showPharmacySelection(context);
+                                  _showPharmacySelection(
+                                      context, pharmacyController);
                                 },
                               ),
                             ),
@@ -1117,8 +1195,8 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                             child: IconButton(
                               onPressed: () {
                                 setState(() {
-                                  // Add a new row when the "Add" button is clicked
-                                  medicineRow.add(medicineBuildRow());
+                                
+                                  addNewRowPharmacy();
                                 });
                               },
                               icon: Icon(
@@ -1450,7 +1528,11 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   String selectedradiology = '';
   String selectedradiologyId = '';
 
-  void _showRadiologySelection(BuildContext context) {
+  void _showRadiologySelection(
+      BuildContext context, TextEditingController radiologyController) {
+    TextEditingController localradiologyController = TextEditingController();
+    String localSelectedradiologydata = '';
+    String localSelectedradiologyId = '';
     showModalBottomSheet(
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
@@ -1502,77 +1584,81 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           suffixIcon: Icon(Icons.search),
-                          hintText: 'Search here...',
                         ),
                       ),
                     ),
                   ),
                   FutureBuilder(
-                    future: fetchRadiologyData(),
-                    builder: (context, snapshot) {
-                      return isLoading
-                          ? Expanded(
-                              child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Container(
-                                height: 50,
-                                width: 50,
-                                color: Colors.transparent,
-                                child: const LoadingIndicatorWidget(),
-                              ),
-                            ))
-                          : radiologyfilteredData!.isEmpty
-                              ? Expanded(
-                                  child: Center(
-                                  child: Container(
-                                    height: 150,
-                                    width: 150,
-                                    child: Lottie.asset(
-                                      'assets/No_Data_Found.json',
-                                      fit: BoxFit.cover,
+                      future: fetchRadiologyData(),
+                      builder: (context, snapshot) {
+                        return isLoading
+                            ? Expanded(
+                                child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Container(
+                                  height: 50,
+                                  width: 50,
+                                  color: Colors.transparent,
+                                  child: const LoadingIndicatorWidget(),
+                                ),
+                              ))
+                            : radiologyfilteredData!.isEmpty
+                                ? Expanded(
+                                    child: Center(
+                                    child: Container(
+                                      height: 150,
+                                      width: 150,
+                                      child: Lottie.asset(
+                                        'assets/No_Data_Found.json',
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
-                                  ),
-                                ))
-                              : Expanded(
-                                  child: ListView.builder(
-                                    itemCount: radiologyfilteredData?.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      int itemNumber = index + 1;
-                                      return Card(
-                                        color: Colors.white70.withOpacity(0.7),
-                                        child: ListTile(
-                                          title: Text(
-                                            '$itemNumber. ${radiologyfilteredData?[index]['test_name'] ?? ''}',
-                                          ),
-                                          onTap: () {
-                                            selectedradiology =
-                                                radiologyfilteredData?[index]
-                                                        ['test_name'] ??
-                                                    '';
-                                            selectedradiologyId =
-                                                radiologyfilteredData?[index]
-                                                        ['id'] ??
-                                                    '';
-                                            radiologyController.text =
-                                                '($selectedradiologyId) $selectedradiology';
+                                  ))
+                                : Expanded(
+                                    child: ListView.builder(
+                                      itemCount: radiologyfilteredData?.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        int itemNumber = index + 1;
+                                        return Card(
+                                          color:
+                                              Colors.white70.withOpacity(0.7),
+                                          child: ListTile(
+                                            title: Text(
+                                              '$itemNumber. ${radiologyfilteredData?[index]['test_name'] ?? ''}',
+                                            ),
+                                            onTap: () {
+                                              localSelectedradiologydata =
+                                                  radiologyfilteredData?[index]
+                                                          ['test_name'] ??
+                                                      '';
+                                              localSelectedradiologyId =
+                                                  radiologyfilteredData?[index]
+                                                          ['id'] ??
+                                                      '';
 
-                                            Navigator.of(context).pop();
-                                          },
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                );
-                    },
-                  ),
+                                              localradiologyController.text =
+                                                  '($localSelectedradiologyId) $localSelectedradiologydata';
+
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  );
+                      })
                 ],
               ),
             );
           },
         );
       },
-    );
+    ).whenComplete(() {
+      setState(() {
+        radiologyController.text = localradiologyController.text;
+      });
+    });
   }
 
   //=======================================================================================
@@ -1580,7 +1666,14 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   String selectedpharmacy = '';
   String selectedpharmacyId = '';
 
-  void _showPharmacySelection(BuildContext context) {
+  void _showPharmacySelection(
+    BuildContext context,
+    TextEditingController pharmacyController
+  ) {
+    TextEditingController localpharmacyController = TextEditingController();
+    String localSelectedpharmacydata = '';
+    String localSelectedpharmacyId = '';
+
     showModalBottomSheet(
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
@@ -1668,35 +1761,30 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                     itemCount: pharmacyfilteredData?.length,
                                     itemBuilder:
                                         (BuildContext context, int index) {
-                                      // int itemNumber = index + 1;
-                                      if (pharmacyfilteredData![index]
-                                          .containsKey('medicine_name')) {
-                                        return Card(
-                                          color:
-                                              Colors.white70.withOpacity(0.7),
-                                          child: ListTile(
-                                            title: Text(
-                                              // '$itemNumber.
-                                              '${pharmacyfilteredData?[index]['medicine_name'] ?? ''}',
-                                            ),
-                                            onTap: () {
-                                              selectedpharmacy =
-                                                  pharmacyfilteredData?[index]
-                                                          ['medicine_name'] ??
-                                                      '';
-                                              selectedpharmacyId =
-                                                  pharmacyfilteredData?[index]
-                                                          ['id'] ??
-                                                      '';
-                                              pharmacyController.text =
-                                                  '($selectedpharmacyId) $selectedpharmacy';
-
-                                              Navigator.of(context).pop();
-                                            },
+                                      int itemNumber = index + 1;
+                                      return Card(
+                                        color: Colors.white70.withOpacity(0.7),
+                                        child: ListTile(
+                                          title: Text(
+                                            '$itemNumber. ${pharmacyfilteredData?[index]['medicine_name'] ?? ''}',
                                           ),
-                                        );
-                                      }
-                                      return null;
+                                          onTap: () {
+                                            localSelectedpharmacydata =
+                                                pharmacyfilteredData?[index]
+                                                        ['medicine_name'] ??
+                                                    '';
+                                            localSelectedpharmacyId =
+                                                pharmacyfilteredData?[index]
+                                                        ['id'] ??
+                                                    '';
+
+                                            localpharmacyController.text =
+                                                '($localSelectedpharmacyId) $localSelectedpharmacydata';
+
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      );
                                     },
                                   ),
                                 );
@@ -1708,7 +1796,11 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
           },
         );
       },
-    );
+    ).whenComplete(() {
+      setState(() {
+        pharmacyController.text = localpharmacyController.text;
+      });
+    });
   }
 
   //=======================================================================================
@@ -1718,7 +1810,11 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   String selectedotherId = '';
   TextEditingController otherController = TextEditingController();
 
-  void _showOtherSelection(BuildContext context) {
+  void _showOtherSelection(
+      BuildContext context, TextEditingController otherController) {
+    TextEditingController localotherController = TextEditingController();
+    String localSelectedotherdata = '';
+    String localSelectedotherId = '';
     showModalBottomSheet(
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
@@ -1770,77 +1866,81 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           suffixIcon: Icon(Icons.search),
-                          hintText: 'Search here...',
                         ),
                       ),
                     ),
                   ),
                   FutureBuilder(
-                    future: fetchotherData(),
-                    builder: (context, snapshot) {
-                      return isLoading
-                          ? Expanded(
-                              child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Container(
-                                height: 50,
-                                width: 50,
-                                color: Colors.transparent,
-                                child: const LoadingIndicatorWidget(),
-                              ),
-                            ))
-                          : otherfilteredData!.isEmpty
-                              ? Expanded(
-                                  child: Center(
-                                  child: Container(
-                                    height: 150,
-                                    width: 150,
-                                    child: Lottie.asset(
-                                      'assets/No_Data_Found.json',
-                                      fit: BoxFit.cover,
+                      future: fetchotherData(),
+                      builder: (context, snapshot) {
+                        return isLoading
+                            ? Expanded(
+                                child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Container(
+                                  height: 50,
+                                  width: 50,
+                                  color: Colors.transparent,
+                                  child: const LoadingIndicatorWidget(),
+                                ),
+                              ))
+                            : otherfilteredData!.isEmpty
+                                ? Expanded(
+                                    child: Center(
+                                    child: Container(
+                                      height: 150,
+                                      width: 150,
+                                      child: Lottie.asset(
+                                        'assets/No_Data_Found.json',
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
-                                  ),
-                                ))
-                              : Expanded(
-                                  child: ListView.builder(
-                                    itemCount: otherfilteredData?.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      int itemNumber = index + 1;
-                                      return Card(
-                                        color: Colors.white70.withOpacity(0.7),
-                                        child: ListTile(
-                                          title: Text(
-                                            '$itemNumber. ${otherfilteredData?[index]['name'] ?? ''}',
-                                          ),
-                                          onTap: () {
-                                            selectedotherdata =
-                                                otherfilteredData?[index]
-                                                        ['name'] ??
-                                                    '';
-                                            selectedotherId =
-                                                otherfilteredData?[index]
-                                                        ['id'] ??
-                                                    '';
-                                            otherController.text =
-                                                '($selectedotherId) $selectedotherdata';
+                                  ))
+                                : Expanded(
+                                    child: ListView.builder(
+                                      itemCount: otherfilteredData?.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        int itemNumber = index + 1;
+                                        return Card(
+                                          color:
+                                              Colors.white70.withOpacity(0.7),
+                                          child: ListTile(
+                                            title: Text(
+                                              '$itemNumber. ${otherfilteredData?[index]['name'] ?? ''}',
+                                            ),
+                                            onTap: () {
+                                              localSelectedotherdata =
+                                                  otherfilteredData?[index]
+                                                          ['name'] ??
+                                                      '';
+                                              localSelectedotherId =
+                                                  otherfilteredData?[index]
+                                                          ['id'] ??
+                                                      '';
 
-                                            Navigator.of(context).pop();
-                                          },
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                );
-                    },
-                  ),
+                                              localotherController.text =
+                                                  '($localSelectedotherId) $localSelectedotherdata';
+
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  );
+                      })
                 ],
               ),
             );
           },
         );
       },
-    );
+    ).whenComplete(() {
+      setState(() {
+        otherController.text = localotherController.text;
+      });
+    });
   }
 //========================================================================================== for diagnosis
 
@@ -2014,119 +2114,126 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   }
 //==========================================================================================
 
-  Widget observationBuildRow() {
-    TextEditingController textFieldController = TextEditingController();
-
+  Widget observationBuildRow(TextEditingController otherController) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Container(
-          width: width / 1.25,
-          child: Flexible(
-            child: Center(
-              child: InkWell(
-                child: TextFormField(
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'This field is required';
-                    }
-                    return null;
-                  },
-                  readOnly: true,
-                  controller: textFieldController,
-                  maxLines: null, // Allow multiple lines
-                  decoration: InputDecoration(
-                    suffixIcon: IconButton(
-                      icon: const Icon(
-                        Icons.arrow_drop_down_sharp,
-                        size: 40,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: width / 1.25,
+              height: 55,
+              child: Center(
+                child: InkWell(
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'This field is required';
+                      }
+                      return null;
+                    },
+                    readOnly: true,
+                    controller: otherController,
+                    maxLines: null,
+                    decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_drop_down_sharp,
+                          size: 40,
+                        ),
+                        onPressed: () {
+                          _showOtherSelection(context, otherController);
+                        },
                       ),
-                      onPressed: () {
-                        _showOtherSelection(context);
-                      },
+                      border: const OutlineInputBorder(),
+                      hintText: 'Select Other test',
+                      fillColor: Colors.white,
+                      filled: true,
                     ),
-                    border: const OutlineInputBorder(),
-                    hintText: 'Select Other test',
-                    fillColor: Colors.white,
-                    filled: true,
+                    onTap: () {
+                      _showOtherSelection(context, otherController);
+                    },
                   ),
-                  onTap: () {
-                    _showOtherSelection(context);
-                  },
                 ),
               ),
             ),
-          ),
+          ],
         ),
-        const SizedBox(
-          width: 5,
-        ),
-        Container(
-          width: width / 9,
-          // height: 40,
-          child: Center(
-            child: CircleAvatar(
-              child: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      // Remove the row when the "Cancel" button is clicked
-                      opdOthertestRow.removeLast();
-                    });
-                  },
-                  icon: Icon(
-                    Icons.cancel,
-                    color: whitecolor,
-                  )),
-              // radius: 17,
-              backgroundColor: Colors.green,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: width / 9,
+              child: Center(
+                child: CircleAvatar(
+                  child: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        opdOthertestRow.removeLast();
+                      });
+                    },
+                    icon: Icon(
+                      Icons.cancel,
+                      color: whitecolor,
+                    ),
+                  ),
+                  radius: 20,
+                  backgroundColor: Colors.green,
+                ),
+              ),
             ),
-          ),
+          ],
         ),
       ],
     );
   }
 
-  Widget radiologyBuildRow() {
-    TextEditingController textFieldController = TextEditingController();
-
+  Widget radiologyBuildRow(TextEditingController radiologyController) {
     return Row(
+      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Container(
-          width: width / 3.2,
-          child: Flexible(
-            child: Center(
-              child: InkWell(
-                child: TextFormField(
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'This field is required';
-                    }
-                    return null;
-                  },
-                  readOnly: true,
-                  controller: radiologyController,
-                  maxLines: null, // Allow multiple lines
-                  decoration: InputDecoration(
-                    suffixIcon: IconButton(
-                      icon: const Icon(
-                        Icons.arrow_drop_down_sharp,
-                        size: 40,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: width / 3.2,
+              height: 55,
+              child: Center(
+                child: InkWell(
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'This field is required';
+                      }
+                      return null;
+                    },
+                    readOnly: true,
+                    controller: radiologyController,
+                    maxLines: null,
+                    decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_drop_down_sharp,
+                          size: 40,
+                        ),
+                        onPressed: () {
+                          _showRadiologySelection(context, radiologyController);
+                        },
                       ),
-                      onPressed: () {
-                        _showRadiologySelection(context);
-                      },
+                      border: const OutlineInputBorder(),
+                      hintText: 'Select radiology',
+                      fillColor: Colors.white,
+                      filled: true,
                     ),
-                    border: const OutlineInputBorder(),
-                    hintText: 'Select Radiology',
-                    fillColor: Colors.white,
-                    filled: true,
+                    onTap: () {
+                      _showRadiologySelection(context, radiologyController);
+                    },
                   ),
-                  onTap: () {
-                    _showRadiologySelection(context);
-                  },
                 ),
               ),
             ),
-          ),
+          ],
         ),
         const SizedBox(
           width: 5,
@@ -2143,27 +2250,15 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                 }
                 return null;
               },
-              readOnly: true,
-              // Set this to true to disable the keyboard
-              controller: diagnosisController,
-              decoration: InputDecoration(
-                suffixIcon: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_drop_down_sharp,
-                    size: 40,
-                  ),
-                  onPressed: () {
-                    selectDiagnosisOptions(context);
-                  },
-                ),
-                border: const OutlineInputBorder(),
-                hintText: 'Select Qty',
+              // controller: diagnosisController,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Select options',
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
                 fillColor: Colors.white,
                 filled: true,
               ),
-              onTap: () {
-                selectDiagnosisOptions(context);
-              },
             )),
           ),
         ),
@@ -2315,8 +2410,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     );
   }
 
-  Widget medicineBuildRow() {
-    TextEditingController textFieldController = TextEditingController();
+  Widget medicineBuildRow(TextEditingController pharmacyController) {
     return Row(
       children: [
         Container(
@@ -2338,10 +2432,10 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                     suffixIcon: IconButton(
                       icon: const Icon(
                         Icons.arrow_drop_down_sharp,
-                        size: 40,
+                        size: 30,
                       ),
                       onPressed: () {
-                        _showPharmacySelection(context);
+                        _showPharmacySelection(context, pharmacyController);
                       },
                     ),
                     border: const OutlineInputBorder(),
@@ -2350,7 +2444,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                     filled: true,
                   ),
                   onTap: () {
-                    _showPharmacySelection(context);
+                    _showPharmacySelection(context, pharmacyController);
                   },
                 ),
               ),
@@ -2513,5 +2607,325 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
         ),
       ],
     );
+  }
+
+  List<Map<String, TextEditingController>> otherControllersList = [];
+
+  void addNewRowOtherTest() {
+    TextEditingController newotherController = TextEditingController();
+
+    Map<String, TextEditingController> newControllersMap = {
+      'otherTest': newotherController,
+    };
+
+    setState(() {
+      opdOthertestRow.add(observationBuildRow(
+        newotherController,
+      ));
+      otherControllersList.add(newControllersMap);
+    });
+  }
+
+   List<Map<String, TextEditingController>> pharmacyControllersList = [];
+
+  void addNewRowPharmacy() {
+    TextEditingController newpharmacyController = TextEditingController();
+
+    Map<String, TextEditingController> newpharmacyControllersMap = {
+      'pharmacy': newpharmacyController,
+    };
+
+    setState(() {
+      medicineRow.add(medicineBuildRow(
+        newpharmacyController,
+      ));
+      pharmacyControllersList.add(newpharmacyControllersMap);
+    });
+  }
+
+  List<Map<String, TextEditingController>> radiologyControllersList = [];
+
+  void addNewRowRadiology() {
+    TextEditingController newradiologyController = TextEditingController();
+
+    Map<String, TextEditingController> newRadiologyControllersMap = {
+      'radiology': newradiologyController,
+    };
+
+    setState(() {
+      radiologyRow.add(radiologyBuildRow(
+        newradiologyController,
+      ));
+      radiologyControllersList.add(newRadiologyControllersMap);
+    });
+  }
+
+  Widget dragBuildRow(TextEditingController surgeryController,
+      TextEditingController noteController) {
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: width / 3.5,
+                height: 55,
+                child: Center(
+                  child: InkWell(
+                    child: TextFormField(
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'This field is required';
+                        }
+                        return null;
+                      },
+                      readOnly: true,
+                      controller: surgeryController,
+                      maxLines: null,
+                      decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                          icon: const Icon(
+                            Icons.arrow_drop_down_sharp,
+                            size: 40,
+                          ),
+                          onPressed: () {
+                            _showSurgerySelection(
+                                context, surgeryController, noteController);
+                          },
+                        ),
+                        border: const OutlineInputBorder(),
+                        hintText: 'Select Other test',
+                        fillColor: Colors.white,
+                        filled: true,
+                      ),
+                      onTap: () {
+                        _showSurgerySelection(
+                            context, surgeryController, noteController);
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            width: 5,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: width / 2,
+                height: 55,
+                child: Center(
+                  child: TextFormField(
+                    controller: noteController,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'This field is required';
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+                      fillColor: Colors.white,
+                      filled: true,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            width: 5,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: width / 9,
+                child: Center(
+                  child: CircleAvatar(
+                    child: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          surgeryRow.removeLast();
+                        });
+                      },
+                      icon: Icon(
+                        Icons.cancel,
+                        color: whitecolor,
+                      ),
+                    ),
+                    radius: 20,
+                    backgroundColor: Colors.green,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  TextEditingController surgerysearchController = TextEditingController();
+
+  void _showSurgerySelection(
+      BuildContext context,
+      TextEditingController surgeryController,
+      TextEditingController noteController) {
+    TextEditingController localSurgeryController = TextEditingController();
+    TextEditingController localNoteController = TextEditingController();
+    String localSelectedsurgerydata = '';
+    String localSelectedsurgeryId = '';
+
+    showModalBottomSheet(
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+      ),
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return Container(
+              height: MediaQuery.of(context).size.height * 0.8,
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      const Expanded(
+                        child: Center(
+                          child: Text(
+                            'Select Data',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.close),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0, right: 8),
+                    child: Container(
+                      width: width / 0.8,
+                      height: 50,
+                      child: TextFormField(
+                        controller: surgerysearchController,
+                        onChanged: (query) {
+                          setState(() {
+                            surgeryfilterData(query);
+                          });
+                        },
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          suffixIcon: Icon(Icons.search),
+                          hintText: 'Search here...',
+                        ),
+                      ),
+                    ),
+                  ),
+                  FutureBuilder(
+                    future: fetchsurgeryData(),
+                    builder: (context, snapshot) {
+                      return isLoading
+                          ? Expanded(
+                              child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Container(
+                                height: 50,
+                                width: 50,
+                                color: Colors.transparent,
+                                child: const LoadingIndicatorWidget(),
+                              ),
+                            ))
+                          : surgeryfilteredData!.isEmpty
+                              ? Expanded(
+                                  child: Center(
+                                  child: Container(
+                                    height: 150,
+                                    width: 150,
+                                    child: Lottie.asset(
+                                      'assets/No_Data_Found.json',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ))
+                              : Expanded(
+                                  child: ListView.builder(
+                                    itemCount: surgeryfilteredData?.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      int itemNumber = index + 1;
+                                      return Card(
+                                        color: Colors.white70.withOpacity(0.7),
+                                        child: ListTile(
+                                          title: Text(
+                                            '$itemNumber. ${surgeryfilteredData?[index]['test_name'] ?? ''}',
+                                          ),
+                                          onTap: () {
+                                            localSelectedsurgerydata =
+                                                surgeryfilteredData?[index]
+                                                        ['test_name'] ??
+                                                    '';
+                                            localSelectedsurgeryId =
+                                                surgeryfilteredData?[index]
+                                                        ['id'] ??
+                                                    '';
+
+                                            localSurgeryController.text =
+                                                '($localSelectedsurgeryId) $localSelectedsurgerydata';
+
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                );
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    ).whenComplete(() {
+      setState(() {
+        surgeryController.text = localSurgeryController.text;
+        noteController.text = localNoteController.text;
+      });
+    });
+  }
+
+  void addNewRow() {
+    TextEditingController newSurgeryController = TextEditingController();
+    TextEditingController newNoteController = TextEditingController();
+
+    Map<String, TextEditingController> newControllersMap = {
+      'surgery': newSurgeryController,
+      'note': newNoteController,
+    };
+
+    setState(() {
+      surgeryRow.add(dragBuildRow(newSurgeryController, newNoteController));
+      surgeryControllersList.add(newControllersMap);
+    });
   }
 }
