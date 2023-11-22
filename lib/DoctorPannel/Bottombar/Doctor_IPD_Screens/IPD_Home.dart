@@ -286,7 +286,7 @@ class _IpdHomeState extends State<IpdHome> {
                                             setState(() {
                                               tappedIndex = index;
                                             });
-                                            Get.to(() => const IpdMainScreen());
+                                            Get.to(() => IpdMainScreen(ipdid:ipdfilteredData?[index]['ipdid'] ,));
                                           },
                                           child: Row(
                                             mainAxisAlignment:

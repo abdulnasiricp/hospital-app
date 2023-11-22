@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, camel_case_types, deprecated_member_use, avoid_print, non_constant_identifier_names, prefer_typing_uninitialized_variables
+// ignore_for_file: file_names, camel_case_types, deprecated_member_use, avoid_print, non_constant_identifier_names, prefer_typing_uninitialized_variables, unnecessary_null_comparison
 
 import 'package:TezHealthCare/DoctorPannel/Doctor_Profile_Screens/Doctor_informationProfile.dart';
 import 'package:TezHealthCare/DoctorPannel/Doctor_Profile_Screens/SettingScreen.dart';
@@ -18,7 +18,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -292,7 +291,7 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
                           child: Center(
                             child: Text(
                               doctoremail.isEmpty ? 'N/A' : doctoremail,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
                                   fontSize: 20),
