@@ -1246,8 +1246,7 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
                                       ),
                                     ),
                                   ))
-                               
-                                :  Expanded(
+                                : Expanded(
                                     child: ListView.builder(
                                       itemCount: radiologyfilteredData?.length,
                                       itemBuilder:
@@ -1295,9 +1294,7 @@ class _IpdInvestigationState extends State<IpdInvestigation> {
   }
 
   //=======================================================================================
-
   //=======================================================================================
-
   TextEditingController othersearchController = TextEditingController();
   String selectedotherdata = '';
   String selectedotherId = '';
