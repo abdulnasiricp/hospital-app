@@ -116,11 +116,9 @@ class _MyAppState extends State<MyApp> {
       });
     }
   }
-
   /////////////////////////////////////////////////////
   late String NotificationData = '';
   Future<void> getpatientDetails(NotificationId) async {
-    // Set the body
     final body = {
       'table': 'system_notification',
       'where': {'id': NotificationId}

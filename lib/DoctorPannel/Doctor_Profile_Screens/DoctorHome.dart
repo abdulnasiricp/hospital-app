@@ -101,6 +101,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
     fetchPathologyperformeddata();
     fetchRadilogyperformeddata();
     fetchLiveconsultantperformeddata();
+    fetchemergrncyddata();
   }
 
 /////////////////////////////////// for dasboard data
@@ -141,7 +142,13 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
   String Liveconsultantperformeddata = '';
   Future<void> fetchLiveconsultantperformeddata() async {
     Liveconsultantperformeddata =
-        await Dasboarddataapicall.fetchData("surgery");
+        await Dasboarddataapicall.fetchData("conferences");
+    setState(() {});
+  }
+
+  String emergrncyddata = '';
+  Future<void> fetchemergrncyddata() async {
+    emergrncyddata = await Dasboarddataapicall.fetchData("emergency");
     setState(() {});
   }
 
@@ -156,6 +163,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
     await fetchPathologyperformeddata();
     await fetchRadilogyperformeddata();
     await fetchLiveconsultantperformeddata();
+    await fetchemergrncyddata();
     setState(() {
       isLoading = false; // Set isLoading to false after data is fetched
     });
@@ -165,9 +173,10 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
     try {
       int ipdCount = int.parse(Ipdpatientdata);
       int opdCount = int.parse(Opdpatientdata);
+      int emgCount = int.parse(emergrncyddata);
 
       // Perform the addition and return the result
-      return (ipdCount + opdCount).toString();
+      return (ipdCount + opdCount + emgCount).toString();
     } catch (e) {
       // Handle parsing errors, return a default value, or show an error message
       print('Error calculating total patients: $e');
@@ -334,7 +343,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                                       color: Colors.white,
                                     ),
                                     'Emergency Patients',
-                                    '133'),
+                                    emergrncyddata),
                                 homeCard(
                                     SvgPicture.asset(
                                       'assets/surgery.svg',

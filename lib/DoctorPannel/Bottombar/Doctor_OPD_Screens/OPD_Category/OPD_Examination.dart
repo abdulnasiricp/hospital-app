@@ -12,6 +12,10 @@ class OpdExamination extends StatefulWidget {
 }
 
 class _OpdExaminationState extends State<OpdExamination> {
+
+
+
+
   List<String> generalCard = [
     "Pallors",
     "lcterus",
@@ -57,11 +61,6 @@ class _OpdExaminationState extends State<OpdExamination> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue[50],
-      // appBar: AppBar(
-      //   title: const Text('Examination'),
-      //   centerTitle: true,
-      //   backgroundColor: darkYellow, // Replace with your color
-      // ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -76,7 +75,7 @@ class _OpdExaminationState extends State<OpdExamination> {
               ),
               const SizedBox(height: 10),
               Container(
-                height: height/3,
+                height: height / 3,
                 child: Expanded(
                   child: GridView.builder(
                     gridDelegate:
@@ -102,7 +101,6 @@ class _OpdExaminationState extends State<OpdExamination> {
                   ),
                 ),
               ),
-
               Container(
                 child: const Text(
                   'Systematic Examination',

@@ -379,13 +379,9 @@ class Translation extends Translations {
           //Doctor Panel
 
           //Doctor panel Bottom Bar
-          'OPD':'OPD',
-          'IPD':'IPD',
-          'DoctorID':'DoctorID:-'
-
-
-
-
+          'OPD': 'OPD',
+          'IPD': 'IPD',
+          'DoctorID': 'DoctorID'
         },
         'ne_NP': {
           //Bottom Bar

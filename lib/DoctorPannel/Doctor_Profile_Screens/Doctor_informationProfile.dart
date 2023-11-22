@@ -83,7 +83,7 @@ class _DoctorInformationProfileState extends State<DoctorInformationProfile>
                     child: Center(
                         child: CircleAvatar(
                       backgroundImage: NetworkImage(DoctorImage),
-                      radius: height / 15,
+                      radius: height / 11,
                     )),
                   ),
                 ),
@@ -119,7 +119,7 @@ class _DoctorInformationProfileState extends State<DoctorInformationProfile>
                             Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Text('patientID'.tr,
+                                Text('DoctorID'.tr,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold)),
                                 Text(
@@ -131,6 +131,17 @@ class _DoctorInformationProfileState extends State<DoctorInformationProfile>
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Text('patientGender'.tr,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold)),
+                                Text(
+                                  (DoctorGender).isEmpty ? 'N/A' : DoctorGender,
+                                ),
+                              ],
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text('age'.tr,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold)),
                                 Text(
