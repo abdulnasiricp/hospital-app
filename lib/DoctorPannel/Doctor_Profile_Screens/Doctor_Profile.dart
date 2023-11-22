@@ -257,9 +257,9 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: height / 4.7),
-                        child: const Center(
+                        child:  Center(
                           child: Text(
-                            "9821880761",
+                            doctorName.isEmpty ? 'N/A' : doctorName,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
