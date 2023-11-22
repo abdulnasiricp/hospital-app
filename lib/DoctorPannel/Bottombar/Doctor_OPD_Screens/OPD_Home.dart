@@ -29,16 +29,16 @@ class _OpdHomeState extends State<OpdHome> {
     setState(() {
       radiologyfilteredData = radiologydata
           ?.where((element) =>
-              (element['opdid']
-                      ?.toLowerCase()
-                      ?.contains(query.toLowerCase()) ??
-                  false) ||
-              (element['patient_name']
-                      ?.toLowerCase()
-                      ?.contains(query.toLowerCase()) ??
-                  false) ||
-              (element['name']?.toLowerCase()?.contains(query.toLowerCase()) ??
-                  false))
+      (element['opdid']
+          ?.toLowerCase()
+          ?.contains(query.toLowerCase()) ??
+          false) ||
+          (element['patient_name']
+              ?.toLowerCase()
+              ?.contains(query.toLowerCase()) ??
+              false) ||
+          (element['name']?.toLowerCase()?.contains(query.toLowerCase()) ??
+              false))
           .toList();
     });
   }
@@ -89,9 +89,7 @@ class _OpdHomeState extends State<OpdHome> {
   }
 
   Future<void> _handleRefresh() async {
-    setState(() {
-      isLoading = true; // Set isLoading to true when refreshing
-    });
+
 
     await fetchRadiologyData();
 
@@ -109,426 +107,425 @@ class _OpdHomeState extends State<OpdHome> {
             preferredSize: const Size(double.infinity, 65),
             child: SafeArea(
                 child: Container(
-              decoration: BoxDecoration(color: darkYellow, boxShadow: const [
-                BoxShadow(
-                    color: Colors.white,
-                    blurRadius: 5,
-                    spreadRadius: 0,
-                    offset: Offset(0, 5)),
-              ]),
-              alignment: Alignment.center,
-              child: AnimationSearchBar(
-                  isBackButtonVisible: false,
-                  backIconColor: whitecolor,
-                  centerTitle: "OPD Patient",
-                  centerTitleStyle: TextStyle(color: whitecolor, fontSize: 20),
-                  searchIconColor: whitecolor,
-                  searchFieldDecoration: BoxDecoration(
-                      color: whitecolor.withOpacity(0.8),
-                      borderRadius: BorderRadius.circular(10)),
-                  closeIconColor: whitecolor,
-                  onChanged: (query) => filterData(query),
-                  searchTextEditingController: searchController,
-                  horizontalPadding: 5),
-            ))),
-        body: RefreshIndicator(
-          onRefresh: _handleRefresh,
-          child: Column(children: [
-            Container(
-              color: Colors.grey,
-              width: width,
-              height: 40,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    left: 10.0, top: 12, right: 10, bottom: 5),
-                child: Row(
-                  children: [
-                    Column(
-                      children: [
-                        Container(
-                          width: width / 9,
-                          child: Center(
-                            child: Text(
-                              'OPD ID'.tr,
-                              overflow: TextOverflow
-                                  .ellipsis, // Use ellipsis to cut off the text
-                              maxLines: 1,
+                  decoration: BoxDecoration(color: darkYellow, boxShadow: const [
+                    BoxShadow(
+                        color: Colors.white,
+                        blurRadius: 5,
+                        spreadRadius: 0,
+                        offset: Offset(0, 5)),
+                  ]),
+                  alignment: Alignment.center,
+                  child: AnimationSearchBar(
+                      isBackButtonVisible: false,
+                      backIconColor: whitecolor,
+                      centerTitle: "OPD Patient",
+                      centerTitleStyle: TextStyle(color: whitecolor, fontSize: 20),
+                      searchIconColor: whitecolor,
+                      searchFieldDecoration: BoxDecoration(
+                          color: whitecolor.withOpacity(0.8),
+                          borderRadius: BorderRadius.circular(10)),
+                      closeIconColor: whitecolor,
+                      onChanged: (query) => filterData(query),
+                      searchTextEditingController: searchController,
+                      horizontalPadding: 5),
+                ))),
+        body: Column(children: [
+          Container(
+            color: Colors.grey,
+            width: width,
+            height: 40,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  left: 10.0, top: 12, right: 10, bottom: 5),
+              child: Row(
+                children: [
+                  Column(
+                    children: [
+                      Container(
+                        width: width / 9,
+                        child: Center(
+                          child: Text(
+                            'OPD ID'.tr,
+                            overflow: TextOverflow
+                                .ellipsis, // Use ellipsis to cut off the text
+                            maxLines: 1,
 
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15),
-                            ),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
                           ),
                         ),
-                      ],
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                        width: width / 4,
+                        child: Center(
+                          child: Text(
+                            'Patient Name'.tr,
+                            overflow: TextOverflow
+                                .ellipsis, // Use ellipsis to cut off the text
+                            maxLines: 1,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                        width: width / 4,
+                        child: Center(
+                          child: Text(
+                            'Consultant'.tr,
+                            overflow: TextOverflow
+                                .ellipsis, // Use ellipsis to cut off the text
+                            maxLines: 1,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                        width: width / 4,
+                        child: const Center(
+                          child: Text(
+                            "Last Visit",
+                            overflow: TextOverflow
+                                .ellipsis, // Use ellipsis to cut off the text
+                            maxLines: 1,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                        width: width / 12,
+                        child: Center(
+                          child: Text(
+                            'status'.tr,
+                            overflow: TextOverflow
+                                .ellipsis, // Use ellipsis to cut off the text
+                            maxLines: 1,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Container(
+            child: Expanded(
+              child: isLoading
+                  ? ListView.builder(
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return Shimmer.fromColors(
+                    baseColor: Colors.grey,
+                    highlightColor: Colors.blue.shade100,
+                    child: ListTile(
+                      leading: Container(
+                        width: 60,
+                        height: 60,
+                        color: Colors.white,
+                      ),
+                      title: Container(
+                        width: 150,
+                        height: 20,
+                        color: Colors.white,
+                      ),
+                      subtitle: Container(
+                        width: 100,
+                        height: 10,
+                        color: Colors.white,
+                      ),
+                      trailing: Container(
+                        width: 60,
+                        height: 30,
+                        color: Colors.white,
+                      ),
                     ),
-                    Column(
+                  );
+                },
+              )
+                  : radiologyfilteredData!.isEmpty
+                  ? Center(
+                child: Container(
+                  height: 150,
+                  width: 150,
+                  child: Lottie.asset(
+                    'assets/No_Data_Found.json',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              )
+                  : Expanded(
+                child: ListView.builder(
+                  itemCount: radiologyfilteredData!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Column(
                       children: [
                         Container(
-                          width: width / 4,
-                          child: Center(
-                            child: Text(
-                              'Patient Name'.tr,
-                              overflow: TextOverflow
-                                  .ellipsis, // Use ellipsis to cut off the text
-                              maxLines: 1,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15),
+                          height: height / 12,
+                          child: Card(
+                            color: tappedIndex == index
+                                ? Colors.green[100]
+                                : Colors.white70.withOpacity(0.7),
+                            elevation:
+                            tappedIndex == index ? 8.0 : 2.0,
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: InkWell(
+                                onTap: () {
+                                  String? status =
+                                  radiologyfilteredData?[index]
+                                  ['status']
+                                      .toString();
+                                  switch (status) {
+                                    case '1':
+                                    // Navigate to Registered screen
+                                      Get.to(() => const OpdMainScreen(
+                                          initialTabIndex: 0));
+                                      break;
+                                    case '2':
+                                    // Navigate to Pre-Checking screen
+                                      Get.to(() => const OpdMainScreen(
+                                          initialTabIndex: 0));
+                                      break;
+                                    case '3':
+                                    // Navigate to Examination screen
+                                      Get.to(() => const OpdMainScreen(
+                                          initialTabIndex: 1));
+                                      break;
+                                    case '4':
+                                    // Navigate to Sent for Investigation screen
+                                      Get.to(() => const OpdMainScreen(
+                                          initialTabIndex: 2));
+                                      break;
+                                    case '5':
+                                    // Navigate to Investigation Report screen
+                                      Get.to(() => const OpdMainScreen(
+                                          initialTabIndex: 2));
+                                      break;
+                                    case '6':
+                                    // Navigate to Checkout screen
+                                      Get.to(() => const OpdMainScreen(
+                                          initialTabIndex: 3));
+                                      break;
+                                    default:
+                                    // Handle unknown status
+                                  }
+                                },
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: width / 9,
+                                          child: Center(
+                                            child: Text(
+                                              '${radiologyfilteredData?[index]['opdid'] ?? ''}',
+                                              overflow: TextOverflow
+                                                  .ellipsis, // Use ellipsis to cut off the text
+                                              maxLines: 1,
+                                              style: const TextStyle(
+                                                  fontWeight:
+                                                  FontWeight.bold,
+                                                  color: Colors.blue,
+                                                  fontSize: 10),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: width / 4,
+                                          child: Container(
+                                            child: Padding(
+                                              padding:
+                                              const EdgeInsets
+                                                  .all(3.0),
+                                              child: Center(
+                                                child: Text(
+                                                  '${radiologyfilteredData?[index]['patient_name'] ?? ''}${radiologyfilteredData?[index]['surname'] ?? ''}',
+                                                  overflow: TextOverflow
+                                                      .ellipsis, // Use ellipsis to cut off the text
+                                                  maxLines: 1,
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                      FontWeight
+                                                          .bold,
+                                                      fontSize: 10),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: width / 4,
+                                          child: Container(
+                                            child: Padding(
+                                              padding:
+                                              const EdgeInsets
+                                                  .all(3.0),
+                                              child: Center(
+                                                child: Text(
+                                                  '${radiologyfilteredData?[index]['name'] ?? ''}',
+                                                  overflow: TextOverflow
+                                                      .ellipsis, // Use ellipsis to cut off the text
+                                                  maxLines: 1,
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                      FontWeight
+                                                          .bold,
+                                                      fontSize: 10),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: width / 8,
+                                          child: Container(
+                                            child: Padding(
+                                              padding:
+                                              const EdgeInsets
+                                                  .all(3.0),
+                                              child: Center(
+                                                child: Text(
+                                                  radiologyfilteredData?[
+                                                  index]
+                                                  [
+                                                  'last_visit'] !=
+                                                      null
+                                                      ? DateFormat(
+                                                      "dd/MM/yyyy HH:mm:aa")
+                                                      .format(DateTime.parse(
+                                                      radiologyfilteredData![index]
+                                                      [
+                                                      'last_visit']))
+                                                      : '',
+                                                  overflow:
+                                                  TextOverflow
+                                                      .ellipsis,
+                                                  maxLines: 1,
+                                                  style:
+                                                  const TextStyle(
+                                                    fontWeight:
+                                                    FontWeight
+                                                        .bold,
+                                                    fontSize: 10,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: width / 7,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: getStatusColor(
+                                                  radiologyfilteredData?[
+                                                  index]
+                                                  ['status']),
+                                              borderRadius:
+                                              BorderRadius
+                                                  .circular(5.0),
+                                            ),
+                                            child: Center(
+                                              child: Padding(
+                                                padding:
+                                                const EdgeInsets
+                                                    .all(1.0),
+                                                child: Text(
+                                                  getStatusText(
+                                                      radiologyfilteredData?[
+                                                      index]
+                                                      ['status']),
+                                                  overflow:
+                                                  TextOverflow
+                                                      .ellipsis,
+                                                  maxLines: 1,
+                                                  style:
+                                                  const TextStyle(
+                                                    fontWeight:
+                                                    FontWeight
+                                                        .bold,
+                                                    fontSize: 10,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ],
-                    ),
-                    Column(
-                      children: [
-                        Container(
-                          width: width / 4,
-                          child: Center(
-                            child: Text(
-                              'Consultant'.tr,
-                              overflow: TextOverflow
-                                  .ellipsis, // Use ellipsis to cut off the text
-                              maxLines: 1,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Container(
-                          width: width / 4,
-                          child: const Center(
-                            child: Text(
-                              "Last Visit",
-                              overflow: TextOverflow
-                                  .ellipsis, // Use ellipsis to cut off the text
-                              maxLines: 1,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Container(
-                          width: width / 12,
-                          child: Center(
-                            child: Text(
-                              'status'.tr,
-                              overflow: TextOverflow
-                                  .ellipsis, // Use ellipsis to cut off the text
-                              maxLines: 1,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                    );
+                  },
                 ),
               ),
             ),
-            Container(
-              child: Expanded(
-                child: isLoading
-                    ? ListView.builder(
-                        itemCount: 10,
-                        itemBuilder: (context, index) {
-                          return Shimmer.fromColors(
-                            baseColor: Colors.grey,
-                            highlightColor: Colors.blue.shade100,
-                            child: ListTile(
-                              leading: Container(
-                                width: 60,
-                                height: 60,
-                                color: Colors.white,
-                              ),
-                              title: Container(
-                                width: 150,
-                                height: 20,
-                                color: Colors.white,
-                              ),
-                              subtitle: Container(
-                                width: 100,
-                                height: 10,
-                                color: Colors.white,
-                              ),
-                              trailing: Container(
-                                width: 60,
-                                height: 30,
-                                color: Colors.white,
-                              ),
-                            ),
-                          );
-                        },
-                      )
-                    : radiologyfilteredData!.isEmpty
-                        ? Center(
-                            child: Container(
-                              height: 150,
-                              width: 150,
-                              child: Lottie.asset(
-                                'assets/No_Data_Found.json',
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          )
-                        : ListView.builder(
-                            itemCount: radiologyfilteredData!.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Column(
-                                children: [
-                                  Container(
-                                    height: height / 12,
-                                    child: Card(
-                                      color: tappedIndex == index
-                                          ? Colors.green[100]
-                                          : Colors.white70.withOpacity(0.7),
-                                      elevation:
-                                          tappedIndex == index ? 8.0 : 2.0,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: InkWell(
-                                          onTap: () {
-                                            String? status =
-                                                radiologyfilteredData?[index]
-                                                        ['status']
-                                                    .toString();
-                                            switch (status) {
-                                              case '1':
-                                                // Navigate to Registered screen
-                                                Get.to(() => const OpdMainScreen(
-                                                    initialTabIndex: 0));
-                                                break;
-                                              case '2':
-                                                // Navigate to Pre-Checking screen
-                                                Get.to(() => const OpdMainScreen(
-                                                    initialTabIndex: 0));
-                                                break;
-                                              case '3':
-                                                // Navigate to Examination screen
-                                                Get.to(() => const OpdMainScreen(
-                                                    initialTabIndex: 1));
-                                                break;
-                                              case '4':
-                                                // Navigate to Sent for Investigation screen
-                                                Get.to(() => const OpdMainScreen(
-                                                    initialTabIndex: 2));
-                                                break;
-                                              case '5':
-                                                // Navigate to Investigation Report screen
-                                                Get.to(() => const OpdMainScreen(
-                                                    initialTabIndex: 2));
-                                                break;
-                                              case '6':
-                                                // Navigate to Checkout screen
-                                                Get.to(() => const OpdMainScreen(
-                                                    initialTabIndex: 3));
-                                                break;
-                                              default:
-                                              // Handle unknown status
-                                            }
-                                          },
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    width: width / 9,
-                                                    child: Center(
-                                                      child: Text(
-                                                        '${radiologyfilteredData?[index]['opdid'] ?? ''}',
-                                                        overflow: TextOverflow
-                                                            .ellipsis, // Use ellipsis to cut off the text
-                                                        maxLines: 1,
-                                                        style: const TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Colors.blue,
-                                                            fontSize: 10),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    width: width / 4,
-                                                    child: Container(
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(3.0),
-                                                        child: Center(
-                                                          child: Text(
-                                                            '${radiologyfilteredData?[index]['patient_name'] ?? ''}${radiologyfilteredData?[index]['surname'] ?? ''}',
-                                                            overflow: TextOverflow
-                                                                .ellipsis, // Use ellipsis to cut off the text
-                                                            maxLines: 1,
-                                                            style: const TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                fontSize: 10),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    width: width / 4,
-                                                    child: Container(
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(3.0),
-                                                        child: Center(
-                                                          child: Text(
-                                                            '${radiologyfilteredData?[index]['name'] ?? ''}',
-                                                            overflow: TextOverflow
-                                                                .ellipsis, // Use ellipsis to cut off the text
-                                                            maxLines: 1,
-                                                            style: const TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                fontSize: 10),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    width: width / 8,
-                                                    child: Container(
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(3.0),
-                                                        child: Center(
-                                                          child: Text(
-                                                            radiologyfilteredData?[
-                                                                            index]
-                                                                        [
-                                                                        'last_visit'] !=
-                                                                    null
-                                                                ? DateFormat(
-                                                                        "dd/MM/yyyy HH:mm:aa")
-                                                                    .format(DateTime.parse(
-                                                                        radiologyfilteredData![index]
-                                                                            [
-                                                                            'last_visit']))
-                                                                : '',
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            maxLines: 1,
-                                                            style:
-                                                                const TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 10,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    width: width / 7,
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                        color: getStatusColor(
-                                                            radiologyfilteredData?[
-                                                                    index]
-                                                                ['status']),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                      ),
-                                                      child: Center(
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(1.0),
-                                                          child: Text(
-                                                            getStatusText(
-                                                                radiologyfilteredData?[
-                                                                        index]
-                                                                    ['status']),
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            maxLines: 1,
-                                                            style:
-                                                                const TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 10,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
-              ),
-            ),
-          ]),
-        ));
+          ),
+        ]));
   }
 
   String getStatusText(String? status) {

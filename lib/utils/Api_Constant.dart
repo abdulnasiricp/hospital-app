@@ -46,6 +46,7 @@ class ApiLinks {
    static const String duePayment="$BASE_URL/duePayment";
    static const String notifier="$BASE_URL/notifier";
   static const String singleTableDataDetector="$BASE_URL/db_table";
+  static const String getAllipdRecord="$BASE_URL/getAllipdRecord";
   static const String total_count="$BASE_URL/get_total_count";
 
 }

@@ -1,9 +1,10 @@
+// ignore_for_file: non_constant_identifier_names, avoid_print
+
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -24,7 +25,7 @@ Future api(Api_link, Body, type) async {
       throw Exception('Failed to load data from the API');
     }
   } catch (error) {
-    return Text("Badka error Agel");
+    return const Text("Badka error Agel");
   }
 }
 
@@ -32,7 +33,7 @@ class Dasboarddataapicall {
   static Future<String> fetchData(String table) async {
     try {
       final url = Uri.parse(ApiLinks.total_count);
-      final headers = ApiLinks.MainHeader;
+      const headers = ApiLinks.MainHeader;
       SharedPreferences sp = await SharedPreferences.getInstance();
       String doctorId = sp.getString('id') ?? '';
       final body = {
