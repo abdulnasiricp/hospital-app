@@ -1195,7 +1195,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                             child: IconButton(
                               onPressed: () {
                                 setState(() {
-                                
                                   addNewRowPharmacy();
                                 });
                               },
@@ -1667,9 +1666,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   String selectedpharmacyId = '';
 
   void _showPharmacySelection(
-    BuildContext context,
-    TextEditingController pharmacyController
-  ) {
+      BuildContext context, TextEditingController pharmacyController) {
     TextEditingController localpharmacyController = TextEditingController();
     String localSelectedpharmacydata = '';
     String localSelectedpharmacyId = '';
@@ -2626,7 +2623,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     });
   }
 
-   List<Map<String, TextEditingController>> pharmacyControllersList = [];
+  List<Map<String, TextEditingController>> pharmacyControllersList = [];
 
   void addNewRowPharmacy() {
     TextEditingController newpharmacyController = TextEditingController();
