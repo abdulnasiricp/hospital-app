@@ -72,30 +72,26 @@ class _OpdExaminationState extends State<OpdExamination> {
               const SizedBox(height: 10),
               Container(
                 height: height / 3,
-                child: Expanded(
-                  child: GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 4),
-                    itemCount: generalCard.length,
-                    itemBuilder: (context, index) {
-                      return SelectableCard(
-                        text: generalCard[index],
-                        isSelected:
-                            generalCardText.contains(generalCard[index]),
-                        onSelect: () {
-                          setState(() {
-                            if (generalCardText.contains(generalCard[index])) {
-                              generalCardText.remove(generalCard[index]);
-                            } else {
-                              generalCardText.add(generalCard[index]);
-                            }
-                          });
-                        },
-                      );
-                    },
-                  ),
+                child: GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4),
+                  itemCount: generalCard.length,
+                  itemBuilder: (context, index) {
+                    return SelectableCard(
+                      text: generalCard[index],
+                      isSelected: generalCardText.contains(generalCard[index]),
+                      onSelect: () {
+                        setState(() {
+                          if (generalCardText.contains(generalCard[index])) {
+                            generalCardText.remove(generalCard[index]);
+                          } else {
+                            generalCardText.add(generalCard[index]);
+                          }
+                        });
+                      },
+                    );
+                  },
                 ),
               ),
               Container(

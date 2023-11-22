@@ -85,6 +85,10 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
   getData() async {
     await LoadData();
     await loadDoctorData();
+    // api(ApiLinks.total_count,
+    //         {'table': 'pathology_billing', 'doctor_id': '153'}, '')
+    //     .then((id) => print(
+    //         "Id that was loaded++++++++++++++++++++++++++++++++++++++++++++++++++++++++: $id"));
     setState(() {
       isLoading = false;
     });

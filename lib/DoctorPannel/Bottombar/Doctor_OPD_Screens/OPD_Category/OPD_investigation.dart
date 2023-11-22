@@ -357,37 +357,35 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                   ),
                   Container(
                     width: width / 2.2,
-                    child: Flexible(
-                      child: InkWell(
-                        child: TextFormField(
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'This field is required';
-                            }
-                            return null;
-                          },
-                          readOnly: true,
-                          controller: DiagnosisController,
-                          maxLines: null, // Allow multiple lines
-                          decoration: InputDecoration(
-                            suffixIcon: IconButton(
-                              icon: const Icon(
-                                Icons.arrow_drop_down_sharp,
-                                size: 40,
-                              ),
-                              onPressed: () {
-                                _showdiagnosisSelection(context);
-                              },
+                    child: InkWell(
+                      child: TextFormField(
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'This field is required';
+                          }
+                          return null;
+                        },
+                        readOnly: true,
+                        controller: DiagnosisController,
+                        maxLines: null, // Allow multiple lines
+                        decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                            icon: const Icon(
+                              Icons.arrow_drop_down_sharp,
+                              size: 40,
                             ),
-                            border: const OutlineInputBorder(),
-                            hintText: 'Select Diagnosis',
-                            fillColor: Colors.white,
-                            filled: true,
+                            onPressed: () {
+                              _showdiagnosisSelection(context);
+                            },
                           ),
-                          onTap: () {
-                            _showdiagnosisSelection(context);
-                          },
+                          border: const OutlineInputBorder(),
+                          hintText: 'Select Diagnosis',
+                          fillColor: Colors.white,
+                          filled: true,
                         ),
+                        onTap: () {
+                          _showdiagnosisSelection(context);
+                        },
                       ),
                     ),
                   )
@@ -422,39 +420,37 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                   ),
                   Container(
                     width: width / 2.2,
-                    child: Flexible(
-                      child: Center(
-                        child: InkWell(
-                          child: TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'This field is required';
-                              }
-                              return null;
-                            },
-                            readOnly: true,
-                            controller: pathologyController,
-                            maxLines: null, // Allow multiple lines
-                            decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                icon: const Icon(
-                                  Icons.arrow_drop_down_sharp,
-                                  size: 40,
-                                ),
-                                onPressed: () {
-                                  _showPathologySelection(context);
-                                },
+                    child: Center(
+                      child: InkWell(
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'This field is required';
+                            }
+                            return null;
+                          },
+                          readOnly: true,
+                          controller: pathologyController,
+                          maxLines: null, // Allow multiple lines
+                          decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                              icon: const Icon(
+                                Icons.arrow_drop_down_sharp,
+                                size: 40,
                               ),
-                              border: const OutlineInputBorder(),
-                              hintText: 'Select Pathology',
-                              fillColor: Colors.white,
-                              filled: true,
+                              onPressed: () {
+                                _showPathologySelection(context);
+                              },
                             ),
-                            onTap: () {
-                              _showPathologySelection(context);
-                              (context);
-                            },
+                            border: const OutlineInputBorder(),
+                            hintText: 'Select Pathology',
+                            fillColor: Colors.white,
+                            filled: true,
                           ),
+                          onTap: () {
+                            _showPathologySelection(context);
+                            (context);
+                          },
                         ),
                       ),
                     ),
@@ -1016,40 +1012,38 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                     children: [
                       Container(
                         width: width / 6,
-                        child: Flexible(
-                          child: Center(
-                            child: InkWell(
-                              child: TextFormField(
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'This field is required';
-                                  }
-                                  return null;
-                                },
-                                readOnly: true,
-                                controller: pharmacyController,
-                                maxLines: null, // Allow multiple lines
-                                decoration: InputDecoration(
-                                  suffixIcon: IconButton(
-                                    icon: const Icon(
-                                      Icons.arrow_drop_down_sharp,
-                                      size: 30,
-                                    ),
-                                    onPressed: () {
-                                      _showPharmacySelection(
-                                          context, pharmacyController);
-                                    },
+                        child: Center(
+                          child: InkWell(
+                            child: TextFormField(
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'This field is required';
+                                }
+                                return null;
+                              },
+                              readOnly: true,
+                              controller: pharmacyController,
+                              maxLines: null, // Allow multiple lines
+                              decoration: InputDecoration(
+                                suffixIcon: IconButton(
+                                  icon: const Icon(
+                                    Icons.arrow_drop_down_sharp,
+                                    size: 30,
                                   ),
-                                  border: const OutlineInputBorder(),
-                                  hintText: 'Select Medicine',
-                                  fillColor: Colors.white,
-                                  filled: true,
+                                  onPressed: () {
+                                    _showPharmacySelection(
+                                        context, pharmacyController);
+                                  },
                                 ),
-                                onTap: () {
-                                  _showPharmacySelection(
-                                      context, pharmacyController);
-                                },
+                                border: const OutlineInputBorder(),
+                                hintText: 'Select Medicine',
+                                fillColor: Colors.white,
+                                filled: true,
                               ),
+                              onTap: () {
+                                _showPharmacySelection(
+                                    context, pharmacyController);
+                              },
                             ),
                           ),
                         ),
@@ -2412,38 +2406,36 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
       children: [
         Container(
           width: width / 6,
-          child: Flexible(
-            child: Center(
-              child: InkWell(
-                child: TextFormField(
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'This field is required';
-                    }
-                    return null;
-                  },
-                  readOnly: true,
-                  controller: pharmacyController,
-                  maxLines: null, // Allow multiple lines
-                  decoration: InputDecoration(
-                    suffixIcon: IconButton(
-                      icon: const Icon(
-                        Icons.arrow_drop_down_sharp,
-                        size: 30,
-                      ),
-                      onPressed: () {
-                        _showPharmacySelection(context, pharmacyController);
-                      },
+          child: Center(
+            child: InkWell(
+              child: TextFormField(
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'This field is required';
+                  }
+                  return null;
+                },
+                readOnly: true,
+                controller: pharmacyController,
+                maxLines: null, // Allow multiple lines
+                decoration: InputDecoration(
+                  suffixIcon: IconButton(
+                    icon: const Icon(
+                      Icons.arrow_drop_down_sharp,
+                      size: 30,
                     ),
-                    border: const OutlineInputBorder(),
-                    hintText: 'Select Medicine',
-                    fillColor: Colors.white,
-                    filled: true,
+                    onPressed: () {
+                      _showPharmacySelection(context, pharmacyController);
+                    },
                   ),
-                  onTap: () {
-                    _showPharmacySelection(context, pharmacyController);
-                  },
+                  border: const OutlineInputBorder(),
+                  hintText: 'Select Medicine',
+                  fillColor: Colors.white,
+                  filled: true,
                 ),
+                onTap: () {
+                  _showPharmacySelection(context, pharmacyController);
+                },
               ),
             ),
           ),

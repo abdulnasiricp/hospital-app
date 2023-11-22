@@ -19,6 +19,7 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
+
 class PatientLogin extends StatefulWidget {
   const PatientLogin({Key? key}) : super(key: key);
   @override
@@ -102,7 +103,9 @@ class _PatientLoginState extends State<PatientLogin> {
         sp.setString('NotificationToken', externalId);
         sp.setString('imagerecord', json['record']['image']);
         sp.setString('genderrecord', json['record']['gender']);
-        sp.setString('patientidrecord', json['record']['patient_id']).toString();
+        sp
+            .setString('patientidrecord', json['record']['patient_id'])
+            .toString();
         sp.setString('usernamerecord', json['record']['username']);
         sp.setString('mobilerecord', json['record']['mobile']).toString();
         sp.setString('caseId', json['record']['case_id']).toString();
@@ -248,9 +251,7 @@ class _PatientLoginState extends State<PatientLogin> {
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return EnString.enterusername;
-                              }
-                             
-                              else {
+                              } else {
                                 return null;
                               }
                             },

@@ -1,9 +1,9 @@
 // ignore_for_file: file_names
 
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_Home_Bottom_bar.dart';
+import 'package:TezHealthCare/DoctorPannel/Doctor_Profile_Screens/toast.dart';
 import 'package:TezHealthCare/bottomscreen/Profile/Setting/change_password.dart';
 import 'package:TezHealthCare/utils/colors.dart';
-import 'package:TezHealthCare/widgets/Toast_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
