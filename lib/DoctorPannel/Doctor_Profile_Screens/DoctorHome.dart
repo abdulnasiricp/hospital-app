@@ -1,8 +1,10 @@
 // ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, avoid_print, deprecated_member_use, sized_box_for_whitespace
 
+import 'dart:convert';
 
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/api_call.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -13,6 +15,7 @@ import 'package:get/get.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:http/http.dart' as http;
 
 class Doctor_Home_Page extends StatefulWidget {
   const Doctor_Home_Page({Key? key}) : super(key: key);
@@ -82,10 +85,6 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
   getData() async {
     await LoadData();
     await loadDoctorData();
-    // api(ApiLinks.total_count,
-    //         {'table': 'pathology_billing', 'doctor_id': '153'}, '')
-    //     .then((id) => print(
-    //         "Id that was loaded++++++++++++++++++++++++++++++++++++++++++++++++++++++++: $id"));
     setState(() {
       isLoading = false;
     });

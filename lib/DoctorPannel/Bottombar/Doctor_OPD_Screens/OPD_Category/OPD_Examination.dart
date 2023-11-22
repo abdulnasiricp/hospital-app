@@ -12,10 +12,6 @@ class OpdExamination extends StatefulWidget {
 }
 
 class _OpdExaminationState extends State<OpdExamination> {
-
-
-
-
   List<String> generalCard = [
     "Pallors",
     "lcterus",
@@ -78,6 +74,7 @@ class _OpdExaminationState extends State<OpdExamination> {
                 height: height / 3,
                 child: Expanded(
                   child: GridView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 4),
