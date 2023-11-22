@@ -9,7 +9,8 @@ import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class IpdMainScreen extends StatefulWidget {
-  const IpdMainScreen({Key? key}) : super(key: key);
+  final String ipdid;
+  const IpdMainScreen({Key? key, required this.ipdid}) : super(key: key);
 
   @override
   _IpdMainScreenState createState() => _IpdMainScreenState();
@@ -48,12 +49,12 @@ class _IpdMainScreenState extends State<IpdMainScreen>
       ),
       body: TabBarView(
         controller: _tabController,
-        children: const [
-          IpdOverviewMainScreen(),
-          IPDCardex(),
-          IpdMedication(),
-          IpdOperations(),
-          IpdBedHistory(),
+        children:  [
+          IpdOverviewMainScreen(ipdid: widget.ipdid),
+          const IPDCardex(),
+          const IpdMedication(),
+          const IpdOperations(),
+          const IpdBedHistory(),
         ],
       ),
     );

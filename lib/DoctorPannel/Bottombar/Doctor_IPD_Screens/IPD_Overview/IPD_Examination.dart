@@ -1,18 +1,37 @@
-// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace
+// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace, avoid_print, unnecessary_string_interpolations
 
+import 'dart:convert';
+
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
-// ... (your existing code)
+import 'package:http/http.dart' as http;
 
 class IpdExamination extends StatefulWidget {
-  const IpdExamination({Key? key}) : super(key: key);
+  final String ipdid;
+  const IpdExamination({Key? key, required this.ipdid}) : super(key: key);
 
   @override
   State<IpdExamination> createState() => _IpdExaminationState();
 }
 
 class _IpdExaminationState extends State<IpdExamination> {
+TextEditingController heightController =TextEditingController();
+TextEditingController weightController =TextEditingController();
+TextEditingController bpController =TextEditingController();
+TextEditingController pulseController =TextEditingController();
+TextEditingController temperatureController=TextEditingController();
+TextEditingController respirationController=TextEditingController();
+
+TextEditingController systemRespiratoryController=TextEditingController();
+TextEditingController systemCardiovascularController=TextEditingController();
+TextEditingController systemAbdominalController=TextEditingController();
+TextEditingController systemGenitourinaryController=TextEditingController();
+TextEditingController systemCNSController=TextEditingController();
+TextEditingController systemLocalController=TextEditingController();
+
+
   List<String> generalCard = [
     "Pallors",
     "lcterus",
@@ -24,6 +43,70 @@ class _IpdExaminationState extends State<IpdExamination> {
   ];
   List<String> generalCardText = [];
   List<String> systematicCardText = [];
+  
+
+@override
+void initState() {
+  makePostRequest();
+    super.initState();
+    print('================$generalCardText');
+  }
+
+void makePostRequest() async {
+  const String apiUrl = 'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
+
+  Map<String, dynamic> requestBody = {
+    "table": "Ipd_Examination",
+    "fields": {
+      "opd_details_id": "${widget.ipdid}",
+      "height": "$heightController",
+      "weight": "$weightController",
+      "bp": "$bpController",
+      "pulse": "$pulseController",
+      "temperature": "$temperatureController",
+      "respiration": "$respirationController",
+      "general_examination": "$generalCardText", // Add the selected options from SelectableCard
+      "systematic_examination": "$systematicCardText", // Add the selected options from SelectableCard
+      "respiratory":"$systemRespiratoryController",
+      "Cardiovascular":"$systemCardiovascularController",
+      "Abdominal":"$systemAbdominalController",
+      "Genitourinary":"$systemGenitourinaryController",
+      "CNS":"$systemCNSController",
+      "Local":"$systemLocalController",
+    
+     
+
+    }
+  };
+
+  try {
+    final response = await http.post(
+      Uri.parse(apiUrl),
+      body: jsonEncode(requestBody),
+     headers: ApiLinks.MainHeader,
+    );
+
+    if (response.statusCode == 200) {
+      // Successful response
+      print('Response: ${response.body}');
+      
+      // If you want to work with the response data as JSON, you can decode it
+      Map<String, dynamic> responseData = jsonDecode(response.body);
+      print('Status: ${responseData["staus"]}');
+      print('Message: ${responseData["message"]}');
+      print('ID: ${responseData["id"]}');
+    } else {
+      // Handle error response
+      print('Error: ${response.reasonPhrase}');
+    }
+  } catch (e) {
+    // Handle network or other errors
+    print('Error: $e');
+  }
+}
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +144,7 @@ class _IpdExaminationState extends State<IpdExamination> {
                           Container(
                             height: 45,
                             child: TextFormField(
+                              controller: heightController,
                               onTapOutside: (event) =>
                                   FocusScope.of(context).unfocus(),
                               decoration: const InputDecoration(
@@ -88,6 +172,7 @@ class _IpdExaminationState extends State<IpdExamination> {
                           Container(
                             height: 45,
                             child: TextFormField(
+                              controller: weightController,
                               onTapOutside: (event) =>
                                   FocusScope.of(context).unfocus(),
                               decoration: const InputDecoration(
@@ -115,6 +200,7 @@ class _IpdExaminationState extends State<IpdExamination> {
                           Container(
                             height: 45,
                             child: TextFormField(
+                              controller: bpController,
                               onTapOutside: (event) =>
                                   FocusScope.of(context).unfocus(),
                               decoration: const InputDecoration(
@@ -142,6 +228,7 @@ class _IpdExaminationState extends State<IpdExamination> {
                           Container(
                             height: 45,
                             child: TextFormField(
+                              controller: pulseController,
                               onTapOutside: (event) =>
                                   FocusScope.of(context).unfocus(),
                               decoration: const InputDecoration(
@@ -166,6 +253,7 @@ class _IpdExaminationState extends State<IpdExamination> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
+                          
                             ' Temperature',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
@@ -175,6 +263,7 @@ class _IpdExaminationState extends State<IpdExamination> {
                           Container(
                             height: 45,
                             child: TextFormField(
+                              controller: temperatureController,
                               onTapOutside: (event) =>
                                   FocusScope.of(context).unfocus(),
                               decoration: const InputDecoration(
@@ -204,6 +293,7 @@ class _IpdExaminationState extends State<IpdExamination> {
                           Container(
                             height: 45,
                             child: TextFormField(
+                              controller: respirationController,
                               onTapOutside: (event) =>
                                   FocusScope.of(context).unfocus(),
                               decoration: const InputDecoration(
@@ -289,8 +379,9 @@ class _IpdExaminationState extends State<IpdExamination> {
                   Container(
                     height: 40,
                     width: width / 1.5,
-                    child: const TextField(
-                      decoration: InputDecoration(
+                    child: TextField(
+                      controller: systemRespiratoryController,
+                      decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'write something'),
                     ),
@@ -321,8 +412,9 @@ class _IpdExaminationState extends State<IpdExamination> {
                   Container(
                     height: 40,
                     width: width / 1.5,
-                    child: const TextField(
-                      decoration: InputDecoration(
+                    child: TextField(
+                      controller: systemCardiovascularController,
+                      decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'write something'),
                     ),
@@ -353,8 +445,9 @@ class _IpdExaminationState extends State<IpdExamination> {
                   Container(
                     height: 40,
                     width: width / 1.5,
-                    child: const TextField(
-                      decoration: InputDecoration(
+                    child:  TextField(
+                      controller: systemAbdominalController,
+                      decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'write something'),
                     ),
@@ -385,8 +478,9 @@ class _IpdExaminationState extends State<IpdExamination> {
                   Container(
                     height: 40,
                     width: width / 1.5,
-                    child: const TextField(
-                      decoration: InputDecoration(
+                    child:  TextField(
+                      controller: systemGenitourinaryController,
+                      decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'write something'),
                     ),
@@ -418,8 +512,9 @@ class _IpdExaminationState extends State<IpdExamination> {
                   Container(
                     height: 40,
                     width: width / 1.5,
-                    child: const TextField(
-                      decoration: InputDecoration(
+                    child:  TextField(
+                      controller: systemCNSController,
+                      decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'write something'),
                     ),
@@ -450,8 +545,9 @@ class _IpdExaminationState extends State<IpdExamination> {
                   Container(
                     height: 40,
                     width: width / 1.5,
-                    child: const TextField(
-                      decoration: InputDecoration(
+                    child: TextField(
+                      controller: systemLocalController,
+                      decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'write something'),
                     ),
@@ -465,7 +561,13 @@ class _IpdExaminationState extends State<IpdExamination> {
                   height: 40,
                   child: ElevatedButton(
                     child: const Text('Save'),
-                    onPressed: () {},
+                    onPressed: () {
+                      makePostRequest();
+                      print('General================$generalCardText');
+                      print('systematic================$systematicCardText');
+                      print('systematic================$systematicCardText');
+                
+                    },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(darkYellow),
                     ),
