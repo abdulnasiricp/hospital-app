@@ -381,7 +381,7 @@ class Translation extends Translations {
           //Doctor panel Bottom Bar
           'OPD': 'OPD',
           'IPD': 'IPD',
-          'DoctorID': 'DoctorID'
+          'DoctorID': 'DoctorID', 'Emergency': 'Emergency'
         },
         'ne_NP': {
           //Bottom Bar
@@ -742,7 +742,7 @@ class Translation extends Translations {
           'Call': 'कल गर्नुहोस्',
           'Mail': 'मेल',
           'Website': 'वेबसाइट',
-          'Visit': 'भ्रमण गर्नुहोस्',
+          'Visit': 'भ्रमण गर्नुहोस्', 'Emergency': 'आपतकालि',
 
           // change password
           'Change Password': 'पासवर्ड परिवर्तन गर्नुहोस्',

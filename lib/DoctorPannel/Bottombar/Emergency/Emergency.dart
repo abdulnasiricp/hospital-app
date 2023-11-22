@@ -1,27 +1,22 @@
-// ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers, avoid_print
-
+import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_MainScreens.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:animation_search_bar/animation_search_bar.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 
-class OpdHome extends StatefulWidget {
-  const OpdHome({Key? key}) : super(key: key);
-
+class Emergency extends StatefulWidget {
   @override
-  State<OpdHome> createState() => _OpdHomeState();
+  State<Emergency> createState() => _EmergencyState();
 }
 
-class _OpdHomeState extends State<OpdHome> {
+class _EmergencyState extends State<Emergency> {
   int tappedIndex = -1;
   String selectedItem = 'Checkout'; // Default selected item
   TextEditingController searchController = TextEditingController();
@@ -39,6 +34,8 @@ class _OpdHomeState extends State<OpdHome> {
                   false) ||
               (element['name']?.toLowerCase()?.contains(query.toLowerCase()) ??
                   false))
+          .where((element) =>
+              element['is_emergency'] == '1') // Filter by is_emergency
           .toList();
     });
   }
@@ -74,7 +71,7 @@ class _OpdHomeState extends State<OpdHome> {
 
       // Filter data based on "is_emergency" equal to "1"
       radiologydata =
-          rawData?.where((element) => element['is_emergency'] == "0").toList();
+          rawData?.where((element) => element['is_emergency'] == "1").toList();
 
       setState(() {
         radiologyfilteredData = radiologydata;
@@ -125,7 +122,7 @@ class _OpdHomeState extends State<OpdHome> {
               child: AnimationSearchBar(
                   isBackButtonVisible: false,
                   backIconColor: whitecolor,
-                  centerTitle: "OPD Patient",
+                  centerTitle: 'Emergency'.tr,
                   centerTitleStyle: TextStyle(color: whitecolor, fontSize: 20),
                   searchIconColor: whitecolor,
                   searchFieldDecoration: BoxDecoration(
