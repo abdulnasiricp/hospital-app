@@ -13,6 +13,7 @@ import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -185,12 +186,14 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
   late String doctorId = '';
   late String doctorName = '';
   late String doctorImage = '';
+  late String doctoremail = '';
   LoadData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
 
     doctorId = sp.getString('id') ?? '';
     doctorName = sp.getString('username') ?? '';
     doctorImage = sp.getString('image') ?? '';
+    doctoremail = sp.getString('email') ?? '';
 
     print('==========$doctorId');
     print('============$doctorName');
@@ -211,265 +214,299 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
 
   @override
   Widget build(BuildContext context) {
-    notifier = Provider.of<ColorNotifier>(context, listen: true);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('profile'.tr),
-        centerTitle: true,
-        backgroundColor: notifier.getdarkyellow,
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: darkYellow, // Set the status bar color here
       ),
+    );
+    return Scaffold(
       backgroundColor: Colors.lightBlue[50],
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                Column(
-                  children: [
-                    Stack(children: [
-                      Container(
-                          width: width,
-                          height: height / 3,
-                          decoration: BoxDecoration(
-                              color: darkYellow,
-                              borderRadius: const BorderRadius.only(
-                                  bottomLeft: Radius.circular(60),
-                                  bottomRight: Radius.circular(60)))),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: Center(
-                            child: CircleAvatar(
-                          backgroundImage: NetworkImage(doctorImage),
-                          radius: height / 15,
-                        )),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: height / 5.5),
-                        child: Center(
-                          child: Text(
-                            doctorName.isEmpty ? 'N/A' : doctorName,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                fontSize: 20),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: height / 4.7),
-                        child:  Center(
-                          child: Text(
-                            doctorName.isEmpty ? 'N/A' : doctorName,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                fontSize: 20),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: height / 4),
-                        child: Center(
-                            child: Container(
-                          width: width / 3.5,
-                          height: height / 17,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20)),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  Column(
+                    children: [
+                      Stack(children: [
+                        Container(
+                            width: width,
+                            height: height / 3,
+                            decoration: BoxDecoration(
+                                color: darkYellow,
+                                borderRadius: const BorderRadius.only(
+                                    bottomLeft: Radius.circular(60),
+                                    bottomRight: Radius.circular(60)))),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10),
                           child: Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SvgPicture.asset(
-                                  'assets/Done1.svg',
-                                  width: width / 40,
-                                  height: height / 40,
-                                  // color: darkYellow
-                                ),
-                                SizedBox(
-                                  width: width / 50,
-                                ),
-                                const Text(
-                                  "Active",
-                                  style: TextStyle(
-                                      color: Colors.green, fontSize: 20),
-                                ),
-                              ],
+                            child: CircleAvatar(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: doctorImage != null && doctorImage != ''
+                                    ? Image.network(
+                                        doctorImage,
+                                        width: 200.0,
+                                        height: 200.0,
+                                        fit: BoxFit.cover,
+                                        loadingBuilder:
+                                            (context, child, loadingProgress) {
+                                          if (loadingProgress == null) {
+                                            return child;
+                                          } else {
+                                            return CircularProgressIndicator(
+                                              color: darkYellow,
+                                              backgroundColor: yellow,
+                                            );
+                                          }
+                                        },
+                                      )
+                                    : Center(
+                                        child: SvgPicture.asset(
+                                            'assets/Noimagedoctor.svg',
+                                            width: 200.0,
+                                            height: 200.0,
+                                            fit: BoxFit.fill,
+                                            color: darkYellow),
+                                      ),
+                              ),
+                              radius: height / 15,
                             ),
                           ),
-                        )),
-                      ),
-                    ]),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          Card(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                            child: Column(
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    Get.to(
-                                        () => const DoctorInformationProfile());
-                                  },
-                                  child: ListTile(
-                                    leading: SvgPicture.asset('assets/info.svg',
-                                        width: 30,
-                                        height: 30,
-                                        color: darkYellow),
-                                    title: Text(
-                                      'myinformation'.tr,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    subtitle: Text('myinformationsubtitle'.tr),
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Get.to(() => const AboutUSScreen());
-                                  },
-                                  child: ListTile(
-                                    leading: SvgPicture.asset(
-                                        'assets/aboutus.svg',
-                                        width: 30,
-                                        height: 30,
-                                        color: darkYellow),
-                                    title: Text(
-                                      'aboutUs'.tr,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    subtitle: Text('aboutUsSubtitle'.tr),
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    _checkForUpdate();
-                                    setState(() {
-                                      isLoading = true;
-                                    });
-                                  },
-                                  child: ListTile(
-                                    leading: SvgPicture.asset(
-                                        'assets/updatecheck.svg',
-                                        width: 30,
-                                        height: 30,
-                                        color: darkYellow),
-                                    title: Text(
-                                      'checkUpdate'.tr,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    subtitle: Text('Updatesubtitle'.tr),
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    rateUs();
-                                  },
-                                  child: ListTile(
-                                    leading: SvgPicture.asset(
-                                        'assets/rateUs.svg',
-                                        width: 30,
-                                        height: 30,
-                                        color: darkYellow),
-                                    title: Text(
-                                      'rateUs'.tr,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    subtitle: Text('Ratussubtitle'.tr),
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: () async {
-                                    Get.to(() => const TermAndConditionsScreen(
-                                          url: 'https://www.google.com/',
-                                        ));
-                                  },
-                                  child: ListTile(
-                                    leading: SvgPicture.asset(
-                                        'assets/termcondition.svg',
-                                        width: 30,
-                                        height: 30,
-                                        color: darkYellow),
-                                    title: Text(
-                                      'termsAndCondition'.tr,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    subtitle: Text('Termsconditionubtitle'.tr),
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Get.offAll(() => const SettingScreen());
-                                  },
-                                  child: ListTile(
-                                    leading: SvgPicture.asset(
-                                        'assets/setting.svg',
-                                        width: 30,
-                                        height: 30,
-                                        color: darkYellow),
-                                    title: Text(
-                                      'setting'.tr,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    subtitle: Text('settingSubtitle'.tr),
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Get.to(() => const HelpCenterPage());
-                                  },
-                                  child: ListTile(
-                                    leading: SvgPicture.asset(
-                                        'assets/helpcenter.svg',
-                                        width: 30,
-                                        height: 30,
-                                        color: darkYellow),
-                                    title: Text(
-                                      'helpCenter'.tr,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    subtitle: Text('helpCenterSubtitle'.tr),
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    performLogout(); // Call _logout with the 'context'
-                                  },
-                                  child: ListTile(
-                                    leading: SvgPicture.asset(
-                                        'assets/logout.svg',
-                                        width: 30,
-                                        height: 30,
-                                        color: darkYellow),
-                                    title: Text(
-                                      'logout'.tr,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    subtitle: Text('LogoutSubtitle'.tr),
-                                  ),
-                                ),
-                              ],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: height / 5.5),
+                          child: Center(
+                            child: Text(
+                              doctorName.isEmpty ? 'N/A' : doctorName,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontSize: 20),
                             ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                )
-              ],
-            ),
-          )
-        ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: height / 4.7),
+                          child: Center(
+                            child: Text(
+                              doctoremail.isEmpty ? 'N/A' : doctoremail,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontSize: 20),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: height / 4),
+                          child: Center(
+                              child: Container(
+                            width: width / 3.5,
+                            height: height / 17,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Center(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SvgPicture.asset(
+                                    'assets/Done1.svg',
+                                    width: width / 40,
+                                    height: height / 40,
+                                    // color: darkYellow
+                                  ),
+                                  SizedBox(
+                                    width: width / 50,
+                                  ),
+                                  const Text(
+                                    "Active",
+                                    style: TextStyle(
+                                        color: Colors.green, fontSize: 20),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )),
+                        ),
+                      ]),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Card(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)),
+                              child: Column(
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      Get.to(() =>
+                                          const DoctorInformationProfile());
+                                    },
+                                    child: ListTile(
+                                      leading: SvgPicture.asset(
+                                          'assets/info.svg',
+                                          width: 30,
+                                          height: 30,
+                                          color: darkYellow),
+                                      title: Text(
+                                        'myinformation'.tr,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      subtitle:
+                                          Text('myinformationsubtitle'.tr),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      Get.to(() => const AboutUSScreen());
+                                    },
+                                    child: ListTile(
+                                      leading: SvgPicture.asset(
+                                          'assets/aboutus.svg',
+                                          width: 30,
+                                          height: 30,
+                                          color: darkYellow),
+                                      title: Text(
+                                        'aboutUs'.tr,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      subtitle: Text('aboutUsSubtitle'.tr),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      _checkForUpdate();
+                                      setState(() {
+                                        isLoading = true;
+                                      });
+                                    },
+                                    child: ListTile(
+                                      leading: SvgPicture.asset(
+                                          'assets/updatecheck.svg',
+                                          width: 30,
+                                          height: 30,
+                                          color: darkYellow),
+                                      title: Text(
+                                        'checkUpdate'.tr,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      subtitle: Text('Updatesubtitle'.tr),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      rateUs();
+                                    },
+                                    child: ListTile(
+                                      leading: SvgPicture.asset(
+                                          'assets/rateUs.svg',
+                                          width: 30,
+                                          height: 30,
+                                          color: darkYellow),
+                                      title: Text(
+                                        'rateUs'.tr,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      subtitle: Text('Ratussubtitle'.tr),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: () async {
+                                      Get.to(
+                                          () => const TermAndConditionsScreen(
+                                                url: 'https://www.google.com/',
+                                              ));
+                                    },
+                                    child: ListTile(
+                                      leading: SvgPicture.asset(
+                                          'assets/termcondition.svg',
+                                          width: 30,
+                                          height: 30,
+                                          color: darkYellow),
+                                      title: Text(
+                                        'termsAndCondition'.tr,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      subtitle:
+                                          Text('Termsconditionubtitle'.tr),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      Get.offAll(() => const SettingScreen());
+                                    },
+                                    child: ListTile(
+                                      leading: SvgPicture.asset(
+                                          'assets/setting.svg',
+                                          width: 30,
+                                          height: 30,
+                                          color: darkYellow),
+                                      title: Text(
+                                        'setting'.tr,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      subtitle: Text('settingSubtitle'.tr),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      Get.to(() => const HelpCenterPage());
+                                    },
+                                    child: ListTile(
+                                      leading: SvgPicture.asset(
+                                          'assets/helpcenter.svg',
+                                          width: 30,
+                                          height: 30,
+                                          color: darkYellow),
+                                      title: Text(
+                                        'helpCenter'.tr,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      subtitle: Text('helpCenterSubtitle'.tr),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      performLogout(); // Call _logout with the 'context'
+                                    },
+                                    child: ListTile(
+                                      leading: SvgPicture.asset(
+                                          'assets/logout.svg',
+                                          width: 30,
+                                          height: 30,
+                                          color: darkYellow),
+                                      title: Text(
+                                        'logout'.tr,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      subtitle: Text('LogoutSubtitle'.tr),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
