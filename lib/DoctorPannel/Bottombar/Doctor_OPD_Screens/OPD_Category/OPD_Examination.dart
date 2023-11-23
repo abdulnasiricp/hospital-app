@@ -1,7 +1,4 @@
-// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace, avoid_print
-
 import 'dart:convert';
-
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_investigation.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -50,16 +47,6 @@ class _OpdExaminationState extends State<OpdExamination> {
     List<String> mergedLocal = List.from(systematicCardText6)
       ..addAll([systemLocalController.text]);
 
-    ///////////////
-    print('Merged Respiratory===========================: $mergedRespiratoryt');
-    print(
-        'Merged Cardiovascular ===========================: $mergedCardiovascular');
-    print('Merged Abdominal ===========================: $mergedAbdominal');
-    print(
-        'Merged Genitourinary ===========================: $mergedgenitourinary');
-    print('Merged CNS ===========================: $mergedCNS');
-    print('Merged Local ===========================: $mergedLocal');
-    ////////////////////
     const String apiUrl =
         'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
 
