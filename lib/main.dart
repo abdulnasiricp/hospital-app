@@ -116,6 +116,7 @@ class _MyAppState extends State<MyApp> {
       });
     }
   }
+
   /////////////////////////////////////////////////////
   late String NotificationData = '';
   Future<void> getpatientDetails(NotificationId) async {

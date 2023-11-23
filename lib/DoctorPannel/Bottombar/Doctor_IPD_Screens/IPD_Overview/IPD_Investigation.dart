@@ -1311,8 +1311,7 @@ void makePostRequest() async {
                                       ),
                                     ),
                                   ))
-                               
-                                :  Expanded(
+                                : Expanded(
                                     child: ListView.builder(
                                       itemCount: radiologyfilteredData?.length,
                                       itemBuilder:
@@ -1360,9 +1359,7 @@ void makePostRequest() async {
   }
 
   //=======================================================================================
-
   //=======================================================================================
-
   TextEditingController othersearchController = TextEditingController();
   String selectedotherdata = '';
   String selectedotherId = '';

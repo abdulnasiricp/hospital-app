@@ -2,6 +2,7 @@
 
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_IPD_Screens/IPD_Home.dart';
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Home.dart';
+import 'package:TezHealthCare/DoctorPannel/Bottombar/Emergency/Emergency.dart';
 import 'package:TezHealthCare/DoctorPannel/Doctor_Profile_Screens/Doctor_Profile.dart';
 import 'package:TezHealthCare/DoctorPannel/Doctor_Profile_Screens/DoctorHome.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
@@ -114,6 +115,18 @@ class _Doctor_Home_Bottom_barState extends State<Doctor_Home_Bottom_bar> {
                 selectedColor: notifier.getwihitecolor,
               ),
               SalomonBottomBarItem(
+                icon: SvgPicture.asset('assets/em.svg',
+                    height: 30, color: notifier.getwihitecolor),
+                title: Text(
+                  'Emergency'.tr,
+                  style: TextStyle(
+                      fontSize: 10.sp,
+                      color: notifier.getwihitecolor,
+                      fontFamily: 'Gilroy_Bold'),
+                ),
+                selectedColor: notifier.getwihitecolor,
+              ),
+              SalomonBottomBarItem(
                 icon: Image.asset("assets/profile.png",
                     height: 30, color: notifier.getwihitecolor),
                 title: Text(
@@ -138,6 +151,7 @@ class _Doctor_Home_Bottom_barState extends State<Doctor_Home_Bottom_bar> {
               _buildOffstageNavigator(1),
               _buildOffstageNavigator(2),
               _buildOffstageNavigator(3),
+              _buildOffstageNavigator(4),
             ],
           ),
           drawer: const Drawer(
@@ -155,6 +169,7 @@ class _Doctor_Home_Bottom_barState extends State<Doctor_Home_Bottom_bar> {
           const Doctor_Home_Page(),
           const OpdHome(),
           const IpdHome(),
+          Emergency(),
           const Doctor_Profile(),
         ].elementAt(index);
       },
