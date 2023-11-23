@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_Examination.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -110,12 +111,22 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
           );
         });
       } else {
-        // Handle error response
-        print('Error: ${response.reasonPhrase}');
+        setState(() {
+          Fluttertoast.showToast(
+            msg: '${response.reasonPhrase}',
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+          );
+        });
       }
     } catch (e) {
-      // Handle network or other errors
-      print('Error: $e');
+      setState(() {
+        Fluttertoast.showToast(
+          msg: '$e',
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+        );
+      });
     }
   }
 
@@ -673,6 +684,11 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                 setState(() {
                                   isLoading = false;
                                 });
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => OpdExamination()),
+                                );
                               },
                               style: ButtonStyle(
                                 backgroundColor:

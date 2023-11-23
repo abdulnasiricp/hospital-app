@@ -24,20 +24,18 @@ class Das_screen extends StatefulWidget {
   final String? totalVisit;
   final String? gender;
   final String? guardianName;
-  final String? opdid;
-
 
   const Das_screen({
     Key? key,
     this.patientName,
-    this.opdid,
     this.mobileNo,
     this.name,
     this.surname,
     this.lastVisit,
     this.totalVisit,
     this.gender,
-    this.guardianName, this.opdID,
+    this.guardianName,
+    this.opdID,
   }) : super(key: key);
 
   @override
