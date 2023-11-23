@@ -327,7 +327,9 @@ class _OpdHomeState extends State<OpdHome> {
                                                   guardianName:
                                                       radiologyfilteredData?[
                                                               index]
-                                                          ['guardian_name']??"",
+                                                          ['guardian_name'],
+                                                  opdid: radiologyfilteredData?[
+                                                      index]['opdid'],
                                                 ));
                                             // String? status =
                                             //     radiologyfilteredData?[index]
