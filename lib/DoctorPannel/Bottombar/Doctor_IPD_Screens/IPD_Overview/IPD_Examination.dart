@@ -549,6 +549,7 @@ class _IpdExaminationState extends State<IpdExamination> {
                       print('General================$generalCardText');
                       print('systematic================$systematicCardText');
                       print('systematic================$systematicCardText');
+                
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(darkYellow),
