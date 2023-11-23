@@ -21,6 +21,7 @@ class _General_Opd_Tickets_FormState extends State<Opd_Check_Out> {
   InAppWebViewController? webView; // Declare webView here
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController TicketdateController = TextEditingController();
+  TextEditingController deathController = TextEditingController();
   TextEditingController DischargeDetail = TextEditingController();
   late DateTime selectedDate;
   @override
@@ -58,18 +59,142 @@ class _General_Opd_Tickets_FormState extends State<Opd_Check_Out> {
           backgroundColor: darkYellow,
         ),
         body: Form(
-      key: _formKey,
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          key: _formKey,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: width / 2.2,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: const TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: "Select Ticket Date",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: '*',
+                                    style: TextStyle(
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            InkWell(
+                              child: TextFormField(
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'This field is required';
+                                  }
+                                  return null;
+                                },
+                                onTapOutside: (event) =>
+                                    FocusScope.of(context).unfocus(),
+                                controller: TicketdateController,
+                                decoration: InputDecoration(
+                                    suffixIcon: IconButton(
+                                        icon: const Icon(Icons.calendar_month),
+                                        onPressed: () {
+                                          _selectDischargeDate(context);
+                                        }),
+                                    border: const OutlineInputBorder(),
+                                    hintText: 'Select Ticket Date',
+                                    fillColor: Colors.white,
+                                    filled: true),
+                                readOnly: true,
+                                onTap: () => _selectDischargeDate(context),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: width / 2.2,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: const TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: "Discharge Status",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: '*',
+                                    style: TextStyle(
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                _showDischargeStatusOptions(context);
+                              },
+                              child: TextFormField(
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'This field is required';
+                                  }
+                                  return null;
+                                },
+                                readOnly: true,
+                                decoration: InputDecoration(
+                                  suffixIcon: IconButton(
+                                    icon: const Icon(
+                                      Icons.arrow_drop_down_sharp,
+                                      size: 40,
+                                    ),
+                                    onPressed: () {
+                                      _showDischargeStatusOptions(context);
+                                    },
+                                  ),
+                                  border: const OutlineInputBorder(),
+                                  hintText: 'Select discharge status',
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                ),
+                                onTap: () {
+                                  _showDischargeStatusOptions(context);
+                                },
+                                controller: TextEditingController(
+                                    text: selectedDischargeStatus),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
                   Container(
-                    width: width / 2.2,
+                    width: width,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -77,7 +202,7 @@ class _General_Opd_Tickets_FormState extends State<Opd_Check_Out> {
                           text: const TextSpan(
                             children: [
                               TextSpan(
-                                text: "Select Ticket Date",
+                                text: "DischargeDetail",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black,
@@ -95,169 +220,144 @@ class _General_Opd_Tickets_FormState extends State<Opd_Check_Out> {
                         const SizedBox(
                           height: 5,
                         ),
-                        InkWell(
-                          child: TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'This field is required';
-                              }
-                              return null;
-                            },
-                            onTapOutside: (event) =>
-                                FocusScope.of(context).unfocus(),
-                            controller: TicketdateController,
-                            decoration: InputDecoration(
-                                suffixIcon: IconButton(
-                                    icon: const Icon(Icons.calendar_month),
-                                    onPressed: () {
-                                      _selectDischargeDate(context);
-                                    }),
-                                border: const OutlineInputBorder(),
-                                hintText: 'Select Ticket Date',
-                                fillColor: Colors.white,
-                                filled: true),
-                            readOnly: true,
-                            onTap: () => _selectDischargeDate(context),
-                          ),
+                        Column(
+                          children: [
+                            Container(
+                              width: width,
+                              child: HtmlEditor(
+                                controller: DischargeDetailController,
+                                htmlEditorOptions: const HtmlEditorOptions(
+                                  // Set initial text here
+                                  initialText: "Your text here...",
+                                ),
+                                otherOptions: const OtherOptions(),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
                   ),
-                  Container(
-                    width: width / 2.2,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        RichText(
-                          text: const TextSpan(
-                            children: [
-                              TextSpan(
-                                text: "Discharge Status",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              TextSpan(
-                                text: '*',
-                                style: TextStyle(
-                                  color: Colors.red,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            _showDischargeStatusOptions(context);
-                          },
-                          child: TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'This field is required';
-                              }
-                              return null;
-                            },
-                            readOnly: true,
-                            decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                icon: const Icon(
-                                  Icons.arrow_drop_down_sharp,
-                                  size: 40,
-                                ),
-                                onPressed: () {
-                                  _showDischargeStatusOptions(context);
-                                },
-                              ),
-                              border: const OutlineInputBorder(),
-                              hintText: 'Select discharge status',
-                              fillColor: Colors.white,
-                              filled: true,
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Column(
+                    children: [
+                      if (selectedDischargeStatus == 'Death') ...{
+                        Row(
+                          children: [
+                            _deathsectiontextfield(
+                                context, 'Death Date', deathController,width / 2.2),
+                            const SizedBox(
+                              width: 10,
                             ),
-                            onTap: () {
-                              _showDischargeStatusOptions(context);
-                            },
-                            controller: TextEditingController(
-                                text: selectedDischargeStatus),
-                          ),
-                        )
-                      ],
+                            _deathsectiontextfield(
+                                context, 'Guardian Name ', deathController,width / 2.2),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        Padding(padding: EdgeInsets.only(right: 5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('Attachment',style: TextStyle(fontWeight: FontWeight.bold),),
+                            const SizedBox(width: 10),
+                            _deathsectiontextfield(
+                                context, 'Report ', deathController,width / 2.2),
+                          ],
+                        )),
+                      } else if (selectedDischargeStatus == 'Referral') ...{
+                          Row(
+                          children: [
+                            _deathsectiontextfield(
+                                context, 'Referral Date', deathController,width / 3.5),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            _deathsectiontextfield(
+                                context, 'Referral Hospital Name', deathController,width / 3.5),
+                                 const SizedBox(
+                              width: 10,
+                            ),
+                            _deathsectiontextfield(
+                                context, 'Reason For Referral', deathController,width / 3.5),
+                          ],
+                        ),
+                      } else if (selectedDischargeStatus == 'Normal') ...{
+                       
+                      } else if (selectedDischargeStatus == 'DOPR') ...{
+                        
+                      },
+                    ],
+                  ),
+                        const SizedBox(height: 20),
+
+                  Center(
+                    child: Container(
+                      width: double.infinity,
+                      height: 40,
+                      child: ElevatedButton(
+                        child: const Text('Save'),
+                        onPressed: () {},
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(yellow),
+                        ),
+                      ),
                     ),
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 5,
-              ),
-              Container(
-                width: width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    RichText(
-                      text: const TextSpan(
-                        children: [
-                          TextSpan(
-                            text: "DischargeDetail",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                          ),
-                          TextSpan(
-                            text: '*',
-                            style: TextStyle(
-                              color: Colors.red,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Column(
-                      children: [
-                        Container(
-                          width: width,
-                          child: HtmlEditor(
-                            controller: DischargeDetailController,
-                            htmlEditorOptions: const HtmlEditorOptions(
-                              // Set initial text here
-                              initialText: "Your text here...",
-                            ),
-                            otherOptions: const OtherOptions(),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Center(
-                child: Container(
-                  width: double.infinity,
-                  height: 40,
-                  child: ElevatedButton(
-                    child: const Text('Save'),
-                    onPressed: () {},
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(yellow),
-                    ),
+            ),
+          ),
+        ));
+  }
+
+  Container _deathsectiontextfield(
+      BuildContext context, title, TextEditingController controller,widthSize) {
+    return Container(
+      width:widthSize ,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
                   ),
                 ),
-              ),
-            ],
+                const TextSpan(
+                  text: '*',
+                  style: TextStyle(
+                    color: Colors.red,
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
+          const SizedBox(
+            height: 5,
+          ),
+          TextFormField(
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'This field is required';
+              }
+              return null;
+            },
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              fillColor: Colors.white,
+              filled: true,
+            ),
+            controller: controller,
+          )
+        ],
       ),
-    ));
+    );
   }
 
   void _showDischargeStatusOptions(BuildContext context) {

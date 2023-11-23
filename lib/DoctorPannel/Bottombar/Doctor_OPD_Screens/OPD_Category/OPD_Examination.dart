@@ -404,6 +404,8 @@ try {
                                   isLoading = true;
                                 });
                                 await makePostRequest();
+                                print('------------$systematicCardText');
+                                print('------------$generalCardText');
 
                                 setState(() {
                                   isLoading = false;
