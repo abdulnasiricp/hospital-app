@@ -1,3 +1,5 @@
+// ignore_for_file: sized_box_for_whitespace, avoid_print, avoid_unnecessary_containers, unused_local_variable
+
 import 'dart:convert';
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_investigation.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
@@ -162,263 +164,279 @@ class _OpdExaminationState extends State<OpdExamination> {
       ),
       backgroundColor: Colors.blue[50],
       body: isLoading
-            ? Center(
-                child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Container(
-                        height: 50,
-                        width: 50,
-                        color: Colors.transparent,
-                        child: const LoadingIndicatorWidget())),
-              )
-            : SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                child: const Text(
-                  'General Examination',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-              ),
-              const SizedBox(height: 10),
-              Container(
-                height: height / 3,
-                child: GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4),
-                  itemCount: generalCard.length,
-                  itemBuilder: (context, index) {
-                    return SelectableCard(
-                      text: generalCard[index],
-                      isSelected: generalCardText.contains(generalCard[index]),
-                      onSelect: () {
-                        setState(() {
-                          if (generalCardText.contains(generalCard[index])) {
-                            generalCardText.remove(generalCard[index]);
-                          } else {
-                            generalCardText.add(generalCard[index]);
-                          }
-                        });
-                      },
-                    );
-                  },
-                ),
-              ),
-              Container(
-                child: const Text(
-                  'Systematic Examination',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-              ),
-              const SizedBox(height: 10),
-              // Replacing Card with SelectableCard for each row
-              Row(
-                children: [
-                  Container(
-                    height: 50,
-                    width: 100,
-                    child: SelectableCard(
-                      text: 'Respiratory',
-                      isSelected: systematicCardText.contains('Respiratory'),
-                      onSelect: () {
-                        setState(() {
-                          if (systematicCardText.contains('Respiratory')) {
-                            systematicCardText.remove('Respiratory');
-                          } else {
-                            systematicCardText.add('Respiratory');
-                          }
-                        });
-                      },
+          ? Center(
+              child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                      height: 50,
+                      width: 50,
+                      color: Colors.transparent,
+                      child: const LoadingIndicatorWidget())),
+            )
+          : SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      child: const Text(
+                        'General Examination',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
                     ),
-                  ),
-                  Container(
-                    height: 40,
-                    width: width / 1.5,
-                    child: TextField(
-                      controller: systemRespiratoryController,
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'write something'),
+                    const SizedBox(height: 10),
+                    Container(
+                      height: height / 3,
+                      child: GridView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 4),
+                        itemCount: generalCard.length,
+                        itemBuilder: (context, index) {
+                          return SelectableCard(
+                            text: generalCard[index],
+                            isSelected:
+                                generalCardText.contains(generalCard[index]),
+                            onSelect: () {
+                              setState(() {
+                                if (generalCardText
+                                    .contains(generalCard[index])) {
+                                  generalCardText.remove(generalCard[index]);
+                                } else {
+                                  generalCardText.add(generalCard[index]);
+                                }
+                              });
+                            },
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  Container(
-                    height: 50,
-                    width: 100,
-                    child: SelectableCard(
-                      text: 'Cardiovascular',
-                      isSelected: systematicCardText.contains('Cardiovascular'),
-                      onSelect: () {
-                        setState(() {
-                          if (systematicCardText.contains('Cardiovascular')) {
-                            systematicCardText.remove('Cardiovascular');
-                          } else {
-                            systematicCardText.add('Cardiovascular');
-                          }
-                        });
-                      },
+                    Container(
+                      child: const Text(
+                        'Systematic Examination',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
                     ),
-                  ),
-                  Container(
-                    height: 40,
-                    width: width / 1.5,
-                    child: TextField(
-                      controller: systemCardiovascularController,
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'write something'),
+                    const SizedBox(height: 10),
+                    // Replacing Card with SelectableCard for each row
+                    Row(
+                      children: [
+                        Container(
+                          height: 50,
+                          width: 100,
+                          child: SelectableCard(
+                            text: 'Respiratory',
+                            isSelected:
+                                systematicCardText1.contains('Respiratory'),
+                            onSelect: () {
+                              setState(() {
+                                if (systematicCardText1
+                                    .contains('Respiratory')) {
+                                  systematicCardText1.remove('Respiratory');
+                                } else {
+                                  systematicCardText1.add('Respiratory');
+                                }
+                              });
+                            },
+                          ),
+                        ),
+                        Container(
+                          height: 40,
+                          width: width / 1.5,
+                          child: TextField(
+                            controller: systemRespiratoryController,
+                            decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: 'write something'),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  Container(
-                    height: 50,
-                    width: 100,
-                    child: SelectableCard(
-                      text: 'Abdominal',
-                      isSelected: systematicCardText.contains('Abdominal'),
-                      onSelect: () {
-                        setState(() {
-                          if (systematicCardText.contains('Abdominal')) {
-                            systematicCardText.remove('Abdominal');
-                          } else {
-                            systematicCardText.add('Abdominal');
-                          }
-                        });
-                      },
+
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Container(
+                          height: 50,
+                          width: 100,
+                          child: SelectableCard(
+                            text: 'Cardiovascular',
+                            isSelected:
+                                systematicCardText2.contains('Cardiovascular'),
+                            onSelect: () {
+                              setState(() {
+                                if (systematicCardText2
+                                    .contains('Cardiovascular')) {
+                                  systematicCardText2.remove('Cardiovascular');
+                                } else {
+                                  systematicCardText2.add('Cardiovascular');
+                                }
+                              });
+                            },
+                          ),
+                        ),
+                        Container(
+                          height: 40,
+                          width: width / 1.5,
+                          child: TextField(
+                            controller: systemCardiovascularController,
+                            decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: 'write something'),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  Container(
-                    height: 40,
-                    width: width / 1.5,
-                    child: TextField(
-                      controller: systemAbdominalController,
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'write something'),
+                    const SizedBox(height: 10),
+                    ///////////////////////////////////////
+                    Row(
+                      children: [
+                        Container(
+                          height: 50,
+                          width: 100,
+                          child: SelectableCard(
+                            text: 'Abdominal',
+                            isSelected:
+                                systematicCardText3.contains('Abdominal'),
+                            onSelect: () {
+                              setState(() {
+                                if (systematicCardText3.contains('Abdominal')) {
+                                  systematicCardText3.remove('Abdominal');
+                                } else {
+                                  systematicCardText3.add('Abdominal');
+                                }
+                              });
+                            },
+                          ),
+                        ),
+                        Container(
+                          height: 40,
+                          width: width / 1.5,
+                          child: TextField(
+                            controller: systemAbdominalController,
+                            decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: 'write something'),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  Container(
-                    height: 50,
-                    width: 100,
-                    child: SelectableCard(
-                      text: 'Genitourinary',
-                      isSelected: systematicCardText.contains('Genitourinary'),
-                      onSelect: () {
-                        setState(() {
-                          if (systematicCardText.contains('Genitourinary')) {
-                            systematicCardText.remove('Genitourinary');
-                          } else {
-                            systematicCardText.add('Genitourinary');
-                          }
-                        });
-                      },
+                    const SizedBox(
+                        height: 10), ///////////////////////////////////////
+                    Row(
+                      children: [
+                        Container(
+                          height: 50,
+                          width: 100,
+                          child: SelectableCard(
+                            text: 'Genitourinary',
+                            isSelected:
+                                systematicCardText4.contains('Genitourinary'),
+                            onSelect: () {
+                              setState(() {
+                                if (systematicCardText4
+                                    .contains('Genitourinary')) {
+                                  systematicCardText4.remove('Genitourinary');
+                                } else {
+                                  systematicCardText4.add('Genitourinary');
+                                }
+                              });
+                            },
+                          ),
+                        ),
+                        Container(
+                          height: 40,
+                          width: width / 1.5,
+                          child: TextField(
+                            controller: systemGenitourinaryController,
+                            decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: 'write something'),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  Container(
-                    height: 40,
-                    width: width / 1.5,
-                    child: TextField(
-                      controller: systemGenitourinaryController,
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'write something'),
+                    const SizedBox(height: 10), ////////////////////////////
+                    Row(
+                      children: [
+                        Container(
+                          height: 50,
+                          width: 100,
+                          child: SelectableCard(
+                            text: 'CNS',
+                            isSelected: systematicCardText5.contains('CNS'),
+                            onSelect: () {
+                              setState(() {
+                                if (systematicCardText5.contains('CNS')) {
+                                  systematicCardText5.remove('CNS');
+                                } else {
+                                  systematicCardText5.add('CNS');
+                                }
+                              });
+                            },
+                          ),
+                        ),
+                        Container(
+                          height: 40,
+                          width: width / 1.5,
+                          child: TextField(
+                            controller: systemCNSController,
+                            decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: 'write something'),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  Container(
-                    height: 50,
-                    width: 100,
-                    child: SelectableCard(
-                      text: 'CNS',
-                      isSelected: systematicCardText.contains('CNS'),
-                      onSelect: () {
-                        setState(() {
-                          if (systematicCardText.contains('CNS')) {
-                            systematicCardText.remove('CNS');
-                          } else {
-                            systematicCardText.add('CNS');
-                          }
-                        });
-                      },
+                    const SizedBox(
+                        height: 10), ////////////////////////////////////
+                    Row(
+                      children: [
+                        Container(
+                          height: 50,
+                          width: 100,
+                          child: SelectableCard(
+                            text: 'Local',
+                            isSelected: systematicCardText6.contains('Local'),
+                            onSelect: () {
+                              setState(() {
+                                if (systematicCardText6.contains('Local')) {
+                                  systematicCardText6.remove('Local');
+                                } else {
+                                  systematicCardText6.add('Local');
+                                }
+                              });
+                            },
+                          ),
+                        ),
+                        Container(
+                          height: 40,
+                          width: width / 1.5,
+                          child: TextField(
+                            controller: systemLocalController,
+                            decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: 'write something'),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  Container(
-                    height: 40,
-                    width: width / 1.5,
-                    child: TextField(
-                      controller: systemCNSController,
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'write something'),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  Container(
-                    height: 50,
-                    width: 100,
-                    child: SelectableCard(
-                      text: 'Local',
-                      isSelected: systematicCardText.contains('Local'),
-                      onSelect: () {
-                        setState(() {
-                          if (systematicCardText.contains('Local')) {
-                            systematicCardText.remove('Local');
-                          } else {
-                            systematicCardText.add('Local');
-                          }
-                        });
-                      },
-                    ),
-                  ),
-                  Container(
-                    height: 40,
-                    width: width / 1.5,
-                    child: TextField(
-                      controller: systemLocalController,
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'write something'),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              Center(
-                child: Container(
-                  width: double.infinity,
-                  height: 40,
-                  child: ElevatedButton(
-                    child: const Text('Save'),
-                    onPressed: () async {
-                                setState(() {
-                                  isLoading = true;
-                                });
-                                await makePostRequest();
+                    const SizedBox(height: 20), ///////////////////////
+                    Center(
+                      child: Container(
+                        width: double.infinity,
+                        height: 40,
+                        child: ElevatedButton(
+                          child: const Text('Save'),
+                          onPressed: () async {
+                            setState(() {
+                              isLoading = true;
+                            });
+                            await makePostRequest();
 
                             setState(() {
                               isLoading = false;
