@@ -662,16 +662,20 @@ class _Das_screenState extends State<Das_screen> {
                           Container(
                             height: 200,
                             child: ListView.builder(
-                                itemCount: 2,
+                                itemCount: 20,
                                 itemBuilder: (BuildContext context, int index) {
                                   return Card(
                                     child: Column(
                                       children: [
                                         ListTile(
                                             title: Text("Ramjinish Kushwaha"),
-                                            subtitle: Text("MBBS|| MD"),
+                                            subtitle: Text(
+                                              "MBBS|| MD",
+                                              style: TextStyle(
+                                                  color: Colors.blueAccent),
+                                            ),
                                             leading: CircleAvatar(
-                                              radius: 50,
+                                              radius: 30,
                                               backgroundColor:
                                                   darkYellow, // Set your desired background color
                                               child: Padding(

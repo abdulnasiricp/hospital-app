@@ -748,109 +748,109 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                       Get.to(() => const USGScreen());
                                     },
                                     SvgPicture.asset(
-                                       'assets/usg.svg',
+                                      'assets/usg.svg',
                                       width: 30,
                                       height: 30,
                                       color: Colors.white,
                                     ),
                                     'USG'.tr,
                                   ),
-                                   patientHomeCategory(
+                                  patientHomeCategory(
                                     () {
-                                     Get.to(() =>
-                                            const SurgeryPrescriptionList());
+                                      Get.to(() =>
+                                          const SurgeryPrescriptionList());
                                     },
                                     SvgPicture.asset(
-                                       'assets/surgery.svg',
+                                      'assets/surgery.svg',
                                       width: 30,
                                       height: 30,
                                       color: Colors.white,
                                     ),
                                     'surgery'.tr,
                                   ),
-                                   patientHomeCategory(
+                                  patientHomeCategory(
                                     () {
-                                    Get.to(() => const Blood_Bank());
+                                      Get.to(() => const Blood_Bank());
                                     },
                                     SvgPicture.asset(
-                                        'assets/blood_bank.svg',
+                                      'assets/blood_bank.svg',
                                       width: 30,
                                       height: 30,
                                       color: Colors.white,
                                     ),
                                     'bloodBank'.tr,
                                   ),
-                                   patientHomeCategory(
+                                  patientHomeCategory(
                                     () {
-                                    Get.to(() => const Ambulance());
+                                      Get.to(() => const Ambulance());
                                     },
                                     SvgPicture.asset(
-                                         'assets/ambulance.svg',
+                                      'assets/ambulance.svg',
                                       width: 30,
                                       height: 30,
                                       color: Colors.white,
                                     ),
                                     'ambulance'.tr,
                                   ),
-                                    patientHomeCategory(
+                                  patientHomeCategory(
                                     () {
-                                    Get.offAll(() => const Physiotherapy());
+                                      Get.offAll(() => const Physiotherapy());
                                     },
                                     SvgPicture.asset(
-                                          'assets/therapy.svg',
+                                      'assets/therapy.svg',
                                       width: 30,
                                       height: 30,
                                       color: Colors.white,
                                     ),
                                     'physioTherapy'.tr,
                                   ),
-                                    patientHomeCategory(
+                                  patientHomeCategory(
                                     () {
-                                     Get.to(() => const Certificate());
+                                      Get.to(() => const Certificate());
                                     },
                                     SvgPicture.asset(
-                                         'assets/certificate.svg',
+                                      'assets/certificate.svg',
                                       width: 30,
                                       height: 30,
                                       color: Colors.white,
                                     ),
                                     'certificates'.tr,
                                   ),
-                                    patientHomeCategory(
+                                  patientHomeCategory(
                                     () {
-                                     Get.to(() => const Bedhistory());
+                                      Get.to(() => const Bedhistory());
                                     },
                                     SvgPicture.asset(
-                                         'assets/bed_history.svg',
+                                      'assets/bed_history.svg',
                                       width: 30,
                                       height: 30,
                                       color: Colors.white,
                                     ),
                                     'bedHistory'.tr,
                                   ),
-                                     patientHomeCategory(
+                                  patientHomeCategory(
                                     () {
                                       Get.to(() => const Liveconsultation());
                                     },
                                     SvgPicture.asset(
-                                         'assets/live_consult.svg',
+                                      'assets/live_consult.svg',
                                       width: 30,
                                       height: 30,
                                       color: Colors.white,
                                     ),
                                     'liveConsultations'.tr,
                                   ),
-                                       patientHomeCategory(
+                                  patientHomeCategory(
                                     () {
-                                        Get.to(() => const Opd_History());
+                                      Get.to(() => const Opd_History());
                                     },
                                     SvgPicture.asset(
-                                         'assets/opd.svg',
+                                      'assets/opd.svg',
                                       width: 30,
                                       height: 30,
                                       color: Colors.white,
                                     ),
-                                     "opdHistory".tr,
+                                    "opdHistory".tr,
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.all(3.0),
@@ -1124,7 +1124,6 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                   ),
                                 ],
                               ),
-                         
                               Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Row(
