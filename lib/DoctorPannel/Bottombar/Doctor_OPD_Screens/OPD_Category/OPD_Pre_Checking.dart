@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class OpdPreChecking extends StatefulWidget {
-    final String? opdID;
+  final String? opdID;
 
   const OpdPreChecking({Key? key, this.opdID}) : super(key: key);
 
@@ -26,30 +26,19 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
   TextEditingController pulseController = TextEditingController();
   TextEditingController temperatureController = TextEditingController();
   TextEditingController respirationController = TextEditingController();
- //Vitals past History
+  //Vitals past History
   TextEditingController workProfileHistoryController = TextEditingController();
   TextEditingController socialHistoryController = TextEditingController();
   TextEditingController pastMedicalHistoryController = TextEditingController();
   TextEditingController currentMedicationController = TextEditingController();
- //Vitals General History
+  //Vitals General History
   TextEditingController anyKnownAllergiesController = TextEditingController();
   TextEditingController familyHistoryController = TextEditingController();
   TextEditingController recentReportController = TextEditingController();
   TextEditingController birthHistoryController = TextEditingController();
 
-
-
   final FocusNode _focusNode = FocusNode();
   final FocusNode _unUsedFocusNode = FocusNode();
-  
-
-
-
-  @override
-  void initState() {
-    makePostRequest();
-    super.initState();
-  }
 
   Future<void> makePostRequest() async {
     final String symptoms = symptomsController.text;
@@ -76,9 +65,9 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
       "fields": {
         "opd_details_id": "${widget.opdID}",
         "symptoms": symptoms,
-         "height": height,
+        "height": height,
         "weight": weidget,
-        "bp":bp,
+        "bp": bp,
         "pulse": pulse,
         "temperature": temperature,
         "respiration": respiration,
@@ -90,7 +79,6 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
         "familyHistory": familyHistory,
         "recentReport": recentReport,
         "birthHistory": birthHistory,
-      
       }
     };
 
@@ -120,9 +108,6 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
     }
   }
 
-
-
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -224,7 +209,7 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                             Container(
                               height: 45,
                               child: TextFormField(
-                                controller:weightController,
+                                controller: weightController,
                                 onTapOutside: (event) =>
                                     FocusScope.of(context).unfocus(),
                                 decoration: const InputDecoration(
@@ -252,7 +237,7 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                             Container(
                               height: 45,
                               child: TextFormField(
-                                 controller:bpController,
+                                controller: bpController,
                                 onTapOutside: (event) =>
                                     FocusScope.of(context).unfocus(),
                                 decoration: const InputDecoration(
@@ -280,7 +265,7 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                             Container(
                               height: 45,
                               child: TextFormField(
-                                controller:pulseController,
+                                controller: pulseController,
                                 onTapOutside: (event) =>
                                     FocusScope.of(context).unfocus(),
                                 decoration: const InputDecoration(
@@ -314,7 +299,7 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                             Container(
                               height: 45,
                               child: TextFormField(
-                                controller:temperatureController,
+                                controller: temperatureController,
                                 onTapOutside: (event) =>
                                     FocusScope.of(context).unfocus(),
                                 decoration: const InputDecoration(
@@ -344,7 +329,7 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                             Container(
                               height: 45,
                               child: TextFormField(
-                                controller:respirationController,
+                                controller: respirationController,
                                 onTapOutside: (event) =>
                                     FocusScope.of(context).unfocus(),
                                 decoration: const InputDecoration(
@@ -385,7 +370,7 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                             Container(
                               height: 45,
                               child: TextFormField(
-                                controller:workProfileHistoryController,
+                                controller: workProfileHistoryController,
                                 onTapOutside: (event) =>
                                     FocusScope.of(context).unfocus(),
                                 decoration: const InputDecoration(
@@ -415,7 +400,7 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                             Container(
                               height: 45,
                               child: TextFormField(
-                                controller:socialHistoryController,
+                                controller: socialHistoryController,
                                 onTapOutside: (event) =>
                                     FocusScope.of(context).unfocus(),
                                 decoration: const InputDecoration(
@@ -449,7 +434,7 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                             Container(
                               height: 45,
                               child: TextFormField(
-                                controller:pastMedicalHistoryController,
+                                controller: pastMedicalHistoryController,
                                 onTapOutside: (event) =>
                                     FocusScope.of(context).unfocus(),
                                 decoration: const InputDecoration(
@@ -479,7 +464,7 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                             Container(
                               height: 45,
                               child: TextFormField(
-                                controller:currentMedicationController,
+                                controller: currentMedicationController,
                                 onTapOutside: (event) =>
                                     FocusScope.of(context).unfocus(),
                                 decoration: const InputDecoration(
@@ -520,7 +505,7 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                             Container(
                               height: 45,
                               child: TextFormField(
-                                controller:anyKnownAllergiesController,
+                                controller: anyKnownAllergiesController,
                                 onTapOutside: (event) =>
                                     FocusScope.of(context).unfocus(),
                                 decoration: const InputDecoration(
@@ -550,7 +535,7 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                             Container(
                               height: 45,
                               child: TextFormField(
-                                controller:familyHistoryController,
+                                controller: familyHistoryController,
                                 onTapOutside: (event) =>
                                     FocusScope.of(context).unfocus(),
                                 decoration: const InputDecoration(
@@ -584,7 +569,7 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                             Container(
                               height: 45,
                               child: TextFormField(
-                                controller:recentReportController,
+                                controller: recentReportController,
                                 onTapOutside: (event) =>
                                     FocusScope.of(context).unfocus(),
                                 decoration: const InputDecoration(
@@ -614,7 +599,7 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                             Container(
                               height: 45,
                               child: TextFormField(
-                                controller:birthHistoryController,
+                                controller: birthHistoryController,
                                 keyboardType: TextInputType.text,
                                 onTapOutside: (event) =>
                                     FocusScope.of(context).unfocus(),
@@ -623,7 +608,6 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                     fillColor: Colors.white,
                                     filled: true),
                                 onFieldSubmitted: (value) {
-                           
                                   FocusScope.of(context).unfocus();
                                 },
                               ),
@@ -658,8 +642,6 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                           print('==========${familyHistoryController}');
                           print('==========${recentReportController}');
                           print('==========${birthHistoryController}');
-
-
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(yellow),

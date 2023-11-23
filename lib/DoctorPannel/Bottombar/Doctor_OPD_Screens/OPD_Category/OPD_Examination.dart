@@ -1,17 +1,82 @@
-// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace
+// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace, avoid_print
 
+import 'dart:convert';
+
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class OpdExamination extends StatefulWidget {
-  const OpdExamination({Key? key}) : super(key: key);
+  final String? opdVisitDetailsID;
+  const OpdExamination({Key? key, this.opdVisitDetailsID}) : super(key: key);
 
   @override
   State<OpdExamination> createState() => _OpdExaminationState();
 }
 
 class _OpdExaminationState extends State<OpdExamination> {
+  TextEditingController systemRespiratoryController = TextEditingController();
+  TextEditingController systemCardiovascularController =
+      TextEditingController();
+  TextEditingController systemAbdominalController = TextEditingController();
+  TextEditingController systemGenitourinaryController = TextEditingController();
+  TextEditingController systemCNSController = TextEditingController();
+  TextEditingController systemLocalController = TextEditingController();
+
+  Future<void> makePostRequest() async {
+    final String systemRespiratory = systemRespiratoryController.text;
+    final String systemCardiovascular = systemCardiovascularController.text;
+    final String systemAbdominal = systemAbdominalController.text;
+    final String systemGenitourinary = systemGenitourinaryController.text;
+    final String systemCNS = systemCNSController.text;
+    final String systemLocal = systemLocalController.text;
+
+    const String apiUrl =
+        'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
+
+    Map<String, dynamic> requestBody = {
+      "table": "Opd_Examination",
+      "fields": {
+        "opd_VisitDetails_id": "${widget.opdVisitDetailsID}",
+        "systemRespiratory": systemRespiratory,
+        "systemCardiovascular": systemCardiovascular,
+        "systemAbdominal": systemAbdominal,
+        "systemGenitourinary": systemGenitourinary,
+        "systemCNS": systemCNS,
+        "systemLocal": systemLocal,
+        "general_examination": "$generalCardText", // Add the selected options from SelectableCard
+        "systematic_examination":"$systematicCardText", // Add the selected options from SelectableCard
+      }
+    };
+
+    try {
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        body: jsonEncode(requestBody),
+        headers: ApiLinks.MainHeader,
+      );
+
+      if (response.statusCode == 200) {
+        // Successful response
+        print('Response: ${response.body}');
+
+        // If you want to work with the response data as JSON, you can decode it
+        Map<String, dynamic> responseData = jsonDecode(response.body);
+        print('Status: ${responseData["staus"]}');
+        print('Message: ${responseData["message"]}');
+        print('ID: ${responseData["id"]}');
+      } else {
+        // Handle error response
+        print('Error: ${response.reasonPhrase}');
+      }
+    } catch (e) {
+      // Handle network or other errors
+      print('Error: $e');
+    }
+  }
+
   List<String> generalCard = [
     "Pallors",
     "lcterus",
@@ -129,8 +194,9 @@ class _OpdExaminationState extends State<OpdExamination> {
                   Container(
                     height: 40,
                     width: width / 1.5,
-                    child: const TextField(
-                      decoration: InputDecoration(
+                    child: TextField(
+                      controller: systemRespiratoryController,
+                      decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'write something'),
                     ),
@@ -160,8 +226,9 @@ class _OpdExaminationState extends State<OpdExamination> {
                   Container(
                     height: 40,
                     width: width / 1.5,
-                    child: const TextField(
-                      decoration: InputDecoration(
+                    child: TextField(
+                      controller: systemCardiovascularController,
+                      decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'write something'),
                     ),
@@ -191,8 +258,9 @@ class _OpdExaminationState extends State<OpdExamination> {
                   Container(
                     height: 40,
                     width: width / 1.5,
-                    child: const TextField(
-                      decoration: InputDecoration(
+                    child: TextField(
+                      controller: systemAbdominalController,
+                      decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'write something'),
                     ),
@@ -222,8 +290,9 @@ class _OpdExaminationState extends State<OpdExamination> {
                   Container(
                     height: 40,
                     width: width / 1.5,
-                    child: const TextField(
-                      decoration: InputDecoration(
+                    child: TextField(
+                      controller: systemGenitourinaryController,
+                      decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'write something'),
                     ),
@@ -253,8 +322,9 @@ class _OpdExaminationState extends State<OpdExamination> {
                   Container(
                     height: 40,
                     width: width / 1.5,
-                    child: const TextField(
-                      decoration: InputDecoration(
+                    child: TextField(
+                      controller: systemCNSController,
+                      decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'write something'),
                     ),
@@ -284,8 +354,9 @@ class _OpdExaminationState extends State<OpdExamination> {
                   Container(
                     height: 40,
                     width: width / 1.5,
-                    child: const TextField(
-                      decoration: InputDecoration(
+                    child: TextField(
+                      controller: systemLocalController,
+                      decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'write something'),
                     ),
@@ -299,7 +370,9 @@ class _OpdExaminationState extends State<OpdExamination> {
                   height: 40,
                   child: ElevatedButton(
                     child: const Text('Save'),
-                    onPressed: () {},
+                    onPressed: () {
+                      makePostRequest();
+                    },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(yellow),
                     ),
