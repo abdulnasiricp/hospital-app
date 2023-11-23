@@ -106,11 +106,11 @@ Future<void> makePostRequest() async {
   }
 
   // Combine the main surgery data with additional rows data
-  List<Map<String, dynamic>> requestBodyList = [
-    {
-      "symptoms": mainSurgery,
-      "height": mainSurgeryNote,
-    },
+  List< dynamic> requestBodyList = [
+    
+   mainSurgery,
+     mainSurgeryNote,
+    
     ...additionalRowsData,
   ];
 

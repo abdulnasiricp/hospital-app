@@ -327,48 +327,9 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   TextEditingController surgeryNoteController = TextEditingController();
 
 
-  // List<TextEditingController> systematicCardControllers = [];
-  // List<String> systematicCardText1 = [];
-  // List<String> systematicCardText2 = [];
-  // List<String> systematicCardText3 = [];
-  // List<String> systematicCardText4 = [];
-  // List<String> systematicCardText5 = [];
-  // List<String> systematicCardText6 = [];
-  // @override
-  // void initState() {
-  //   super.initState();
-
-  //   // Initialize TextEditingControllers for each item in systematicCard
-  //   for (int i = 0; i < radiologyfilteredData!.length; i++) {
-  //     systematicCardControllers.add(TextEditingController());
-  //   }
-  // }
-
-  // @override
-  // void dispose() {
-  //   // Dispose of TextEditingControllers to avoid memory leaks
-  //   for (var controller in systematicCardControllers) {
-  //     controller.dispose();
-  //   }
-  //   super.dispose();
-  // }
 
 Future<void> makePostRequest() async {
   
-////////////////////////////////////////////// merged
-    // List<String> otherControllersList = List.from(otherControllersList)
-    //   ..addAll([radiologyQtyController.text]);
-    // List<String> mergedRadiologyNote = List.from(systematicCardText2)
-    //   ..addAll([radiologyNoteController.text]);
-    // List<String> mergedSurgeryNote = List.from(systematicCardText3)
-      // ..addAll([surgeryNoteController.text]);
-    // List<String> mergedgenitourinary = List.from(systematicCardText4)
-    //   ..addAll([systemGenitourinaryController.text]);
-    // List<String> mergedCNS = List.from(systematicCardText5)
-    //   ..addAll([systemCNSController.text]);
-    // List<String> mergedLocal = List.from(systematicCardText6)
-    //   ..addAll([systemLocalController.text]);
-// print('------------$mergedRadiologyQty');
     const String apiUrl =
         'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
 
