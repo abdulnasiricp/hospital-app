@@ -37,7 +37,10 @@ class Das_screen extends StatefulWidget {
     this.lastVisit,
     this.totalVisit,
     this.gender,
-    this.guardianName, this.opdID, this.OpdVisitDetailsID,
+    this.guardianName, 
+    this.opdID, 
+    this.OpdVisitDetailsID,
+ 
   }) : super(key: key);
 
   @override
@@ -667,7 +670,7 @@ class _Das_screenState extends State<Das_screen> {
                           Container(
                             height: 200,
                             child: ListView.builder(
-                                itemCount: 20,
+                                itemCount: 3,
                                 itemBuilder: (BuildContext context, int index) {
                                   return Card(
                                     child: Column(
