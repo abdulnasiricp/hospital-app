@@ -60,7 +60,7 @@ class _IpdHomeState extends State<IpdHome> {
 
     if (response.statusCode == 200) {
       final dataMap = json.decode(response.body);
-      print('============$dataMap');
+     
       setState(() {
         ipddata = dataMap['result'];
         ipdfilteredData = ipddata;

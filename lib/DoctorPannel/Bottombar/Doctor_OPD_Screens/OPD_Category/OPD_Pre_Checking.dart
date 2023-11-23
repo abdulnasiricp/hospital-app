@@ -684,7 +684,7 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => OpdExamination()),
+                                      builder: (context) => const OpdExamination()),
                                 );
                               },
                               style: ButtonStyle(

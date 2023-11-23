@@ -2,10 +2,13 @@
 
 import 'dart:convert';
 
+import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_investigation.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
+import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
 class OpdExamination extends StatefulWidget {
@@ -18,12 +21,13 @@ class OpdExamination extends StatefulWidget {
 
 class _OpdExaminationState extends State<OpdExamination> {
   TextEditingController systemRespiratoryController = TextEditingController();
-  TextEditingController systemCardiovascularController =
-      TextEditingController();
+  TextEditingController systemCardiovascularController =TextEditingController();
   TextEditingController systemAbdominalController = TextEditingController();
   TextEditingController systemGenitourinaryController = TextEditingController();
   TextEditingController systemCNSController = TextEditingController();
   TextEditingController systemLocalController = TextEditingController();
+  bool isLoading = false;
+
 
   Future<void> makePostRequest() async {
     final String systemRespiratory = systemRespiratoryController.text;
@@ -51,7 +55,7 @@ class _OpdExaminationState extends State<OpdExamination> {
       }
     };
 
-    try {
+try {
       final response = await http.post(
         Uri.parse(apiUrl),
         body: jsonEncode(requestBody),
@@ -61,19 +65,34 @@ class _OpdExaminationState extends State<OpdExamination> {
       if (response.statusCode == 200) {
         // Successful response
         print('Response: ${response.body}');
-
-        // If you want to work with the response data as JSON, you can decode it
         Map<String, dynamic> responseData = jsonDecode(response.body);
         print('Status: ${responseData["staus"]}');
         print('Message: ${responseData["message"]}');
         print('ID: ${responseData["id"]}');
+        setState(() {
+          Fluttertoast.showToast(
+            msg: '${responseData["message"]}',
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+          );
+        });
       } else {
-        // Handle error response
-        print('Error: ${response.reasonPhrase}');
+        setState(() {
+          Fluttertoast.showToast(
+            msg: '${response.reasonPhrase}',
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+          );
+        });
       }
     } catch (e) {
-      // Handle network or other errors
-      print('Error: $e');
+      setState(() {
+        Fluttertoast.showToast(
+          msg: '$e',
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+        );
+      });
     }
   }
 
@@ -127,7 +146,17 @@ class _OpdExaminationState extends State<OpdExamination> {
         backgroundColor: darkYellow,
       ),
       backgroundColor: Colors.blue[50],
-      body: SingleChildScrollView(
+      body: isLoading
+            ? Center(
+                child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                        height: 50,
+                        width: 50,
+                        color: Colors.transparent,
+                        child: const LoadingIndicatorWidget())),
+              )
+            : SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -370,9 +399,21 @@ class _OpdExaminationState extends State<OpdExamination> {
                   height: 40,
                   child: ElevatedButton(
                     child: const Text('Save'),
-                    onPressed: () {
-                      makePostRequest();
-                    },
+                    onPressed: () async {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                await makePostRequest();
+
+                                setState(() {
+                                  isLoading = false;
+                                });
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const OpdInvestigation()),
+                                );
+                              },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(yellow),
                     ),
