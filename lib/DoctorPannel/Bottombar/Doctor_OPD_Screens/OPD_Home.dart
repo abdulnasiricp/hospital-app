@@ -300,30 +300,43 @@ class _OpdHomeState extends State<OpdHome> {
                                         padding: const EdgeInsets.all(10.0),
                                         child: InkWell(
                                           onTap: () {
-                                            Get.to(() => Das_screen(opdID: radiologyfilteredData?[
-                                                              index]
-                                                          ['opdid']??"",
+                                            Get.to(() => Das_screen(
+                                                  opdID: radiologyfilteredData?[
+                                                          index]['opdid'] ??
+                                                      "",
                                                   patientName:
                                                       radiologyfilteredData?[
-                                                              index]
-                                                          ['patient_name']??"",
+                                                                  index][
+                                                              'patient_name'] ??
+                                                          "",
                                                   mobileNo:
                                                       radiologyfilteredData?[
-                                                          index]['mobileno']??"",
+                                                                  index]
+                                                              ['mobileno'] ??
+                                                          "",
                                                   name: radiologyfilteredData?[
-                                                      index]['name']??"",
+                                                          index]['name'] ??
+                                                      "",
                                                   surname:
                                                       radiologyfilteredData?[
-                                                          index]['surname']??"",
+                                                                  index]
+                                                              ['surname'] ??
+                                                          "",
                                                   lastVisit:
                                                       radiologyfilteredData?[
-                                                          index]['last_visit']??"",
+                                                                  index]
+                                                              ['last_visit'] ??
+                                                          "",
                                                   totalVisit:
                                                       radiologyfilteredData?[
-                                                          index]['total_visit']??"",
+                                                                  index]
+                                                              ['total_visit'] ??
+                                                          "",
                                                   gender:
                                                       radiologyfilteredData?[
-                                                          index]['gender']??"",
+                                                                  index]
+                                                              ['gender'] ??
+                                                          "",
                                                   guardianName:
                                                       radiologyfilteredData?[
                                                               index]
@@ -419,7 +432,7 @@ class _OpdHomeState extends State<OpdHome> {
                                                                 .all(3.0),
                                                         child: Center(
                                                           child: Text(
-                                                            '${radiologyfilteredData?[index]['patient_name'] ?? ''}${radiologyfilteredData?[index]['surname'] ?? ''}',
+                                                            '${radiologyfilteredData?[index]['patient_name'] ?? ''}',
                                                             overflow: TextOverflow
                                                                 .ellipsis, // Use ellipsis to cut off the text
                                                             maxLines: 1,
@@ -450,7 +463,7 @@ class _OpdHomeState extends State<OpdHome> {
                                                                 .all(3.0),
                                                         child: Center(
                                                           child: Text(
-                                                            '${radiologyfilteredData?[index]['name'] ?? ''}',
+                                                            '${radiologyfilteredData?[index]['name'] ?? ''} ${radiologyfilteredData?[index]['surname'] ?? ''}',
                                                             overflow: TextOverflow
                                                                 .ellipsis, // Use ellipsis to cut off the text
                                                             maxLines: 1,

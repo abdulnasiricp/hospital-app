@@ -667,7 +667,7 @@ class _Das_screenState extends State<Das_screen> {
                           Container(
                             height: 200,
                             child: ListView.builder(
-                                itemCount: 20,
+                                itemCount: 3,
                                 itemBuilder: (BuildContext context, int index) {
                                   return Card(
                                     child: Column(
