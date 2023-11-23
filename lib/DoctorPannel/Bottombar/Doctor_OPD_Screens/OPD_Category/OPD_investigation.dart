@@ -6,6 +6,7 @@ import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 
@@ -145,7 +146,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     }
     Uri.parse(ApiLinks.singleTableDataDetector);
 
-    final body = {"table": "finding"};
+    final body = {"table": "radio"};
 
     final response = await http.post(
       Uri.parse(ApiLinks.singleTableDataDetector),
@@ -173,7 +174,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     setState(() {
       otherfilteredData = otherdata
           ?.where((element) =>
-              element['name'].toLowerCase().contains(query.toLowerCase()) ||
+              element['test_name'].toLowerCase().contains(query.toLowerCase()) ||
               element['id'].toLowerCase().startsWith(query.toLowerCase()))
           .toList();
     });
@@ -288,7 +289,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     }
     Uri.parse(ApiLinks.singleTableDataDetector);
 
-    final body = {"table": "finding"};
+    final body = {"table": "radio"};
 
     final response = await http.post(
       Uri.parse(ApiLinks.singleTableDataDetector),
@@ -313,13 +314,115 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     setState(() {
       diagnosisfilteredData = diagnosisdata
           ?.where((element) =>
-              element['name'].toLowerCase().contains(query.toLowerCase()) ||
+              element['test_name'].toLowerCase().contains(query.toLowerCase()) ||
               element['id'].toLowerCase().startsWith(query.toLowerCase()))
           .toList();
     });
   }
 
-//=================================================================================
+//=================================================================================post data to api
+
+  TextEditingController radiologyQtyController = TextEditingController();
+  TextEditingController radiologyNoteController = TextEditingController();
+  TextEditingController surgeryNoteController = TextEditingController();
+
+
+  // List<TextEditingController> systematicCardControllers = [];
+  // List<String> systematicCardText1 = [];
+  // List<String> systematicCardText2 = [];
+  // List<String> systematicCardText3 = [];
+  // List<String> systematicCardText4 = [];
+  // List<String> systematicCardText5 = [];
+  // List<String> systematicCardText6 = [];
+  // @override
+  // void initState() {
+  //   super.initState();
+
+  //   // Initialize TextEditingControllers for each item in systematicCard
+  //   for (int i = 0; i < radiologyfilteredData!.length; i++) {
+  //     systematicCardControllers.add(TextEditingController());
+  //   }
+  // }
+
+  // @override
+  // void dispose() {
+  //   // Dispose of TextEditingControllers to avoid memory leaks
+  //   for (var controller in systematicCardControllers) {
+  //     controller.dispose();
+  //   }
+  //   super.dispose();
+  // }
+
+Future<void> makePostRequest() async {
+  
+////////////////////////////////////////////// merged
+    // List<String> otherControllersList = List.from(otherControllersList)
+    //   ..addAll([radiologyQtyController.text]);
+    // List<String> mergedRadiologyNote = List.from(systematicCardText2)
+    //   ..addAll([radiologyNoteController.text]);
+    // List<String> mergedSurgeryNote = List.from(systematicCardText3)
+      // ..addAll([surgeryNoteController.text]);
+    // List<String> mergedgenitourinary = List.from(systematicCardText4)
+    //   ..addAll([systemGenitourinaryController.text]);
+    // List<String> mergedCNS = List.from(systematicCardText5)
+    //   ..addAll([systemCNSController.text]);
+    // List<String> mergedLocal = List.from(systematicCardText6)
+    //   ..addAll([systemLocalController.text]);
+// print('------------$mergedRadiologyQty');
+    const String apiUrl =
+        'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
+
+    Map<String, dynamic> requestBody = {
+      "table": "Opd_Investigation",
+      "fields": {
+        // "opd_VisitDetails_id": "${widget.opdVisitDetailsID}",
+        "diagnosis": diagnosisController,
+        "pathology": pathologyController,
+        'otherTest': otherControllersList
+       
+       }
+    };
+
+    try {
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        body: jsonEncode(requestBody),
+        headers: ApiLinks.MainHeader,
+      );
+
+      if (response.statusCode == 200) {
+        // Successful response
+        print('Response: ${response.body}');
+        Map<String, dynamic> responseData = jsonDecode(response.body);
+        print('Status: ${responseData["staus"]}');
+        print('Message: ${responseData["message"]}');
+        print('ID: ${responseData["id"]}');
+        setState(() {
+          Fluttertoast.showToast(
+            msg: '${responseData["message"]}',
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+          );
+        });
+      } else {
+        setState(() {
+          Fluttertoast.showToast(
+            msg: '${response.reasonPhrase}',
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+          );
+        });
+      }
+    } catch (e) {
+      setState(() {
+        Fluttertoast.showToast(
+          msg: '$e',
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+        );
+      });
+    }
+  }
 
 //=================================================================================
   @override
@@ -1246,7 +1349,12 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                   height: 40,
                   child: ElevatedButton(
                     child: const Text('Save'),
-                    onPressed: () {},
+                    onPressed: () {
+                    makePostRequest();
+                    print('--------------$DiagnosisController');
+                    print('--------------$pathologyController');
+                    print('--------------$otherControllersList');
+                    },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(yellow),
                     ),

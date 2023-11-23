@@ -7,6 +7,7 @@ import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 
@@ -18,12 +19,159 @@ class IpdOperations extends StatefulWidget {
 }
 
 class _IpdOperationsState extends State<IpdOperations> {
+
+  List<Widget> surgeryRows = [];
+  TextEditingController surgeryController = TextEditingController();
+  TextEditingController surgeryNoteController = TextEditingController();
+
+  
+  bool isLoading = false;
+  // Future<void> makePostRequest() async {
+  //   final String surgery = surgeryController.text;
+  //   final String surgeryNote = surgeryNoteController.text;
+   
+
+  //   const String apiUrl =
+  //       'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
+
+  //   Map<String, dynamic> requestBody = {
+  //     "table": "Visit_details",
+  //     "fields": {
+  //       // "opd_details_id": "${widget.opdID}",
+  //       "symptoms": surgery,
+  //       "height": surgeryNote,
+       
+  //     }
+  //   };
+
+  //   try {
+  //     final response = await http.post(
+  //       Uri.parse(apiUrl),
+  //       body: jsonEncode(requestBody),
+  //       headers: ApiLinks.MainHeader,
+  //     );
+
+  //     if (response.statusCode == 200) {
+  //       // Successful response
+  //       print('Response: ${response.body}');
+  //       Map<String, dynamic> responseData = jsonDecode(response.body);
+  //       print('Status: ${responseData["staus"]}');
+  //       print('Message: ${responseData["message"]}');
+  //       print('ID: ${responseData["id"]}');
+  //       setState(() {
+  //         Fluttertoast.showToast(
+  //           msg: '${responseData["message"]}',
+  //           backgroundColor: Colors.green,
+  //           textColor: Colors.white,
+  //         );
+  //       });
+  //     } else {
+  //       setState(() {
+  //         Fluttertoast.showToast(
+  //           msg: '${response.reasonPhrase}',
+  //           backgroundColor: Colors.red,
+  //           textColor: Colors.white,
+  //         );
+  //       });
+  //     }
+  //   } catch (e) {
+  //     setState(() {
+  //       Fluttertoast.showToast(
+  //         msg: '$e',
+  //         backgroundColor: Colors.red,
+  //         textColor: Colors.white,
+  //       );
+  //     });
+  //   }
+  // }
+
+
+Future<void> makePostRequest() async {
+  final String mainSurgery = surgeryController.text;
+  final String mainSurgeryNote = surgeryNoteController.text;
+
+  // Extract data from dynamically generated rows
+  List<Map<String, dynamic>> additionalRowsData = [];
+  for (var controllerMap in surgeryControllersList) {
+    String rowSurgery = controllerMap['surgery']?.text ?? '';
+    String rowNote = controllerMap['note']?.text ?? '';
+
+    // Check if both fields in the row have data
+    if (rowSurgery.isNotEmpty && rowNote.isNotEmpty) {
+      additionalRowsData.add({
+        "symptoms": rowSurgery,
+        "height": rowNote,
+      });
+    }
+  }
+
+  // Combine the main surgery data with additional rows data
+  List<Map<String, dynamic>> requestBodyList = [
+    {
+      "symptoms": mainSurgery,
+      "height": mainSurgeryNote,
+    },
+    ...additionalRowsData,
+  ];
+
+  const String apiUrl = 'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
+
+  Map<String, dynamic> requestBody = {
+    "table": "Visit_details",
+    "fields": "$requestBodyList",
+  };
+                      print('----------------$requestBodyList');
+
+  try {
+    final response = await http.post(
+      Uri.parse(apiUrl),
+      body: jsonEncode(requestBody),
+      headers: ApiLinks.MainHeader,
+    );
+
+    if (response.statusCode == 200) {
+      // Successful response
+      print('Response: ${response.body}');
+      Map<String, dynamic> responseData = jsonDecode(response.body);
+      print('Status: ${responseData["staus"]}');
+      print('Message: ${responseData["message"]}');
+      print('ID: ${responseData["id"]}');
+      setState(() {
+        Fluttertoast.showToast(
+          msg: '${responseData["message"]}',
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+        );
+      });
+    } else {
+      setState(() {
+        Fluttertoast.showToast(
+          msg: '${response.reasonPhrase}',
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+        );
+      });
+    }
+  } catch (e) {
+    setState(() {
+      Fluttertoast.showToast(
+        msg: '$e',
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+      );
+    });
+  }
+}
+
+
+
+
+
   List<Map<String, TextEditingController>> surgeryControllersList = [];
   bool isSurgeryDataFetched = false;
 
   List<dynamic>? surgerydata = [];
   List<dynamic>? surgeryfilteredData = [];
-  bool isLoading = true;
 
   Future<void> fetchsurgeryData() async {
     if (isSurgeryDataFetched) {
@@ -73,9 +221,7 @@ class _IpdOperationsState extends State<IpdOperations> {
     });
   }
 
-  TextEditingController surgeryController = TextEditingController();
-  TextEditingController noteController = TextEditingController();
-  List<Widget> surgeryRows = [];
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +268,7 @@ class _IpdOperationsState extends State<IpdOperations> {
                                       size: 40,
                                     ),
                                     onPressed: () {
-                                      _showSurgerySelection(context,surgeryController,noteController);
+                                      _showSurgerySelection(context,surgeryController,surgeryNoteController);
                                     },
                                   ),
                                   border: const OutlineInputBorder(),
@@ -131,7 +277,7 @@ class _IpdOperationsState extends State<IpdOperations> {
                                   filled: true,
                                 ),
                                 onTap: () {
-                                  _showSurgerySelection(context,surgeryController,noteController);
+                                  _showSurgerySelection(context,surgeryController,surgeryNoteController);
                                 },
                               ),
                             ),
@@ -158,7 +304,7 @@ class _IpdOperationsState extends State<IpdOperations> {
                           height: 60,
                           child: Center(
                             child: TextFormField(
-                              controller: noteController,
+                              controller: surgeryNoteController,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return 'This field is required';
@@ -232,7 +378,7 @@ class _IpdOperationsState extends State<IpdOperations> {
                   child: ElevatedButton(
                     child: const Text('Save'),
                     onPressed: () {
-                      // Include your existing code for saving data
+                      makePostRequest();
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(yellow),

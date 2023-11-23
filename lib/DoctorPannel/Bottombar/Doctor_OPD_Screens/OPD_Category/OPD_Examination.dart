@@ -29,12 +29,7 @@ class _OpdExaminationState extends State<OpdExamination> {
   bool isLoading = false;
 
   Future<void> makePostRequest() async {
-    final String systemRespiratory = systemRespiratoryController.text;
-    final String systemCardiovascular = systemCardiovascularController.text;
-    final String systemAbdominal = systemAbdominalController.text;
-    final String systemGenitourinary = systemGenitourinaryController.text;
-    final String systemCNS = systemCNSController.text;
-    final String systemLocal = systemLocalController.text;
+  
 ////////////////////////////////////////////// merged
     List<String> mergedRespiratoryt = List.from(systematicCardText1)
       ..addAll([systemRespiratoryController.text]);
@@ -48,6 +43,8 @@ class _OpdExaminationState extends State<OpdExamination> {
       ..addAll([systemCNSController.text]);
     List<String> mergedLocal = List.from(systematicCardText6)
       ..addAll([systemLocalController.text]);
+
+      
 
     const String apiUrl =
         'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
