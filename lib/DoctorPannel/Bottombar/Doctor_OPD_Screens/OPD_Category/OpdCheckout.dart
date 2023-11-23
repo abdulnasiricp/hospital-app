@@ -53,7 +53,7 @@ class _General_Opd_Tickets_FormState extends State<Opd_Check_Out> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Check out"),
+          title: const Text("Check out"),
           centerTitle: true,
           backgroundColor: darkYellow,
         ),

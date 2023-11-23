@@ -169,7 +169,7 @@ class _Doctor_Home_Bottom_barState extends State<Doctor_Home_Bottom_bar> {
           const Doctor_Home_Page(),
           const OpdHome(),
           const IpdHome(),
-          Emergency(),
+          const Emergency(),
           const Doctor_Profile(),
         ].elementAt(index);
       },

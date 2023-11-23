@@ -42,7 +42,6 @@ class _IpdHomeState extends State<IpdHome> {
   void initState() {
     super.initState();
     fetchIPDData();
-    print('----------------$fetchIPDData()');
   }
 
   List<dynamic>? ipddata = [];

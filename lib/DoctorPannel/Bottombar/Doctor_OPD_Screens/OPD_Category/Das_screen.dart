@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types, avoid_unnecessary_containers
+
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_Examination.dart';
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_Pre_Checking.dart';
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_investigation.dart';
@@ -6,28 +8,14 @@ import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 // ignore_for_file: unnecessary_null_comparison, file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace, deprecated_member_use
 
-import 'dart:convert';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Bedhistory/Bedhistory.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/Cardex/CardexHome.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/Madication.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/Maternity.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/IPD/daignosis.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Surgery/SurgeryPrescriptionList.dart';
-import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
-import 'package:TezHealthCare/utils/notifirecolors.dart';
-import 'package:TezHealthCare/widgets/loading_widget.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Das_screen extends StatefulWidget {
+  final String? opdID;
   final String? patientName;
   final String? mobileNo;
   final String? name;
@@ -36,6 +24,7 @@ class Das_screen extends StatefulWidget {
   final String? totalVisit;
   final String? gender;
   final String? guardianName;
+
 
   const Das_screen({
     Key? key,
@@ -46,7 +35,7 @@ class Das_screen extends StatefulWidget {
     this.lastVisit,
     this.totalVisit,
     this.gender,
-    this.guardianName,
+    this.guardianName, this.opdID,
   }) : super(key: key);
 
   @override
@@ -106,6 +95,10 @@ class _Das_screenState extends State<Das_screen> {
                                   const SizedBox(
                                     height: 5,
                                   ),
+                                  Text('OPD ID: '.tr),
+                                    const SizedBox(
+                                    height: 5,
+                                  ),
                                   Text('Gender: '.tr),
                                   const SizedBox(
                                     height: 5,
@@ -134,6 +127,18 @@ class _Das_screenState extends State<Das_screen> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                   const SizedBox(
+                                    height: 5,
+                                  ),
+                                    Text(
+                                    widget.opdID!.isEmpty
+                                        ? "N/A"
+                                        : widget.opdID!,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.fade,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                   const SizedBox(
                                     height: 5,
                                   ),
                                   Text(
@@ -208,7 +213,7 @@ class _Das_screenState extends State<Das_screen> {
                             children: [
                               CardDesign(
                                 () {
-                                  Get.to(() => const OpdPreChecking());
+                                  Get.to(() =>  OpdPreChecking(opdID: widget.opdID,));
                                 },
                                 SvgPicture.asset(
                                   'assets/emergency.svg',
@@ -409,13 +414,13 @@ class _Das_screenState extends State<Das_screen> {
                                   Column(
                                     children: [
                                       Container(
-                                        child: Center(
+                                        child: const Center(
                                           child: Text(
                                             "5.5Ft",
                                             overflow: TextOverflow
                                                 .ellipsis, // Use ellipsis to cut off the text
                                             maxLines: 1,
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 15),
                                           ),
@@ -426,13 +431,13 @@ class _Das_screenState extends State<Das_screen> {
                                   Column(
                                     children: [
                                       Container(
-                                        child: Center(
+                                        child: const Center(
                                           child: Text(
                                             "50kg",
                                             overflow: TextOverflow
                                                 .ellipsis, // Use ellipsis to cut off the text
                                             maxLines: 1,
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 15),
                                           ),
@@ -460,13 +465,13 @@ class _Das_screenState extends State<Das_screen> {
                                   Column(
                                     children: [
                                       Container(
-                                        child: Center(
+                                        child: const Center(
                                           child: Text(
                                             "120",
                                             overflow: TextOverflow
                                                 .ellipsis, // Use ellipsis to cut off the text
                                             maxLines: 1,
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 15),
                                           ),
@@ -477,13 +482,13 @@ class _Das_screenState extends State<Das_screen> {
                                   Column(
                                     children: [
                                       Container(
-                                        child: Center(
+                                        child: const Center(
                                           child: Text(
                                             "98.6",
                                             overflow: TextOverflow
                                                 .ellipsis, // Use ellipsis to cut off the text
                                             maxLines: 1,
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 15),
                                           ),
@@ -494,13 +499,13 @@ class _Das_screenState extends State<Das_screen> {
                                   Column(
                                     children: [
                                       Container(
-                                        child: Center(
+                                        child: const Center(
                                           child: Text(
                                             "12",
                                             overflow: TextOverflow
                                                 .ellipsis, // Use ellipsis to cut off the text
                                             maxLines: 1,
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 15),
                                           ),
@@ -538,7 +543,7 @@ class _Das_screenState extends State<Das_screen> {
                             ),
                           ),
                           const SizedBox(height: 16),
-                          Row(
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Column(
@@ -572,7 +577,7 @@ class _Das_screenState extends State<Das_screen> {
                             ),
                           ),
                           const SizedBox(height: 16),
-                          Row(
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Column(
@@ -606,7 +611,7 @@ class _Das_screenState extends State<Das_screen> {
                             ),
                           ),
                           const SizedBox(height: 16),
-                          Row(
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Column(
@@ -634,17 +639,17 @@ class _Das_screenState extends State<Das_screen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Column(
+                              const Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     'CONSULTANT DOCTOR:',
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  const SizedBox(height: 16),
+                                  SizedBox(height: 16),
                                   // Add other widgets related to the consultant doctor here
                                 ],
                               ),
@@ -653,7 +658,7 @@ class _Das_screenState extends State<Das_screen> {
                                 onPressed: () {
                                   // Add your button click functionality here
                                 },
-                                child: Text('Add doctor'),
+                                child: const Text('Add doctor'),
                               ),
                             ],
                           ),
@@ -695,7 +700,7 @@ class _Das_screenState extends State<Das_screen> {
                                                   const SizedBox(
                                                     width: 10,
                                                   ),
-                                                  Column(
+                                                  const Column(
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment
                                                             .start,
@@ -705,12 +710,12 @@ class _Das_screenState extends State<Das_screen> {
                                                         maxLines: 1,
                                                         overflow: TextOverflow
                                                             .ellipsis,
-                                                        style: const TextStyle(
+                                                        style: TextStyle(
                                                             fontWeight:
                                                                 FontWeight
                                                                     .bold),
                                                       ),
-                                                      const SizedBox(
+                                                      SizedBox(
                                                         height: 5,
                                                       ),
                                                     ],

@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/Das_screen.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_MainScreens.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -75,7 +74,7 @@ class _OpdHomeState extends State<OpdHome> {
 
       // Filter data based on "is_emergency" equal to "1"
       radiologydata =
-          rawData?.where((element) => element['is_emergency'] == "0").toList();
+          rawData.where((element) => element['is_emergency'] == "0").toList();
 
       setState(() {
         radiologyfilteredData = radiologydata;
@@ -301,32 +300,34 @@ class _OpdHomeState extends State<OpdHome> {
                                         padding: const EdgeInsets.all(10.0),
                                         child: InkWell(
                                           onTap: () {
-                                            Get.to(() => Das_screen(
+                                            Get.to(() => Das_screen(opdID: radiologyfilteredData?[
+                                                              index]
+                                                          ['opdid']??"",
                                                   patientName:
                                                       radiologyfilteredData?[
                                                               index]
-                                                          ['patient_name'],
+                                                          ['patient_name']??"",
                                                   mobileNo:
                                                       radiologyfilteredData?[
-                                                          index]['mobileno'],
+                                                          index]['mobileno']??"",
                                                   name: radiologyfilteredData?[
-                                                      index]['name'],
+                                                      index]['name']??"",
                                                   surname:
                                                       radiologyfilteredData?[
-                                                          index]['surname'],
+                                                          index]['surname']??"",
                                                   lastVisit:
                                                       radiologyfilteredData?[
-                                                          index]['last_visit'],
+                                                          index]['last_visit']??"",
                                                   totalVisit:
                                                       radiologyfilteredData?[
-                                                          index]['total_visit'],
+                                                          index]['total_visit']??"",
                                                   gender:
                                                       radiologyfilteredData?[
-                                                          index]['gender'],
+                                                          index]['gender']??"",
                                                   guardianName:
                                                       radiologyfilteredData?[
                                                               index]
-                                                          ['guardian_name'],
+                                                          ['guardian_name']??"",
                                                 ));
                                             // String? status =
                                             //     radiologyfilteredData?[index]

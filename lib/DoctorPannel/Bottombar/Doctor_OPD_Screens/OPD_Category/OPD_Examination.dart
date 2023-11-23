@@ -57,7 +57,7 @@ class _OpdExaminationState extends State<OpdExamination> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Examinaion"),
+        title: const Text("Examinaion"),
         centerTitle: true,
         backgroundColor: darkYellow,
       ),

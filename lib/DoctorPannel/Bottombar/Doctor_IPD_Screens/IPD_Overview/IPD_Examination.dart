@@ -48,7 +48,6 @@ class _IpdExaminationState extends State<IpdExamination> {
   void initState() {
     makePostRequest();
     super.initState();
-    print('================$generalCardText');
   }
 
   void makePostRequest() async {

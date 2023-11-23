@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, avoid_print, sized_box_for_whitespace, avoid_unnecessary_containers
+
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -12,6 +14,8 @@ import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 
 class Emergency extends StatefulWidget {
+  const Emergency({Key? key}) : super(key: key);
+
   @override
   State<Emergency> createState() => _EmergencyState();
 }
@@ -71,7 +75,7 @@ class _EmergencyState extends State<Emergency> {
 
       // Filter data based on "is_emergency" equal to "1"
       radiologydata =
-          rawData?.where((element) => element['is_emergency'] == "1").toList();
+          rawData.where((element) => element['is_emergency'] == "1").toList();
 
       setState(() {
         radiologyfilteredData = radiologydata;
