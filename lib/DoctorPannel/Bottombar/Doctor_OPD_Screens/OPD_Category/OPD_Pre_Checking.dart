@@ -13,9 +13,7 @@ import 'package:http/http.dart' as http;
 
 class OpdPreChecking extends StatefulWidget {
   final String? opdID;
-
   const OpdPreChecking({Key? key, this.opdID}) : super(key: key);
-
   @override
   State<OpdPreChecking> createState() => _OpdPreCheckingState();
 }
@@ -65,7 +63,7 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
         'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
 
     Map<String, dynamic> requestBody = {
-      "table": "Opd_Pre-Checking",
+      "table": "Visit_details",
       "fields": {
         "opd_details_id": "${widget.opdID}",
         "symptoms": symptoms,

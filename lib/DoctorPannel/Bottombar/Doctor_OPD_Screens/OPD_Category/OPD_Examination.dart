@@ -1,7 +1,4 @@
-// ignore_for_file: file_names, avoid_unnecessary_containers, sized_box_for_whitespace, avoid_print
-
 import 'dart:convert';
-
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_investigation.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -21,13 +18,13 @@ class OpdExamination extends StatefulWidget {
 
 class _OpdExaminationState extends State<OpdExamination> {
   TextEditingController systemRespiratoryController = TextEditingController();
-  TextEditingController systemCardiovascularController =TextEditingController();
+  TextEditingController systemCardiovascularController =
+      TextEditingController();
   TextEditingController systemAbdominalController = TextEditingController();
   TextEditingController systemGenitourinaryController = TextEditingController();
   TextEditingController systemCNSController = TextEditingController();
   TextEditingController systemLocalController = TextEditingController();
   bool isLoading = false;
-
 
   Future<void> makePostRequest() async {
     final String systemRespiratory = systemRespiratoryController.text;
@@ -36,6 +33,19 @@ class _OpdExaminationState extends State<OpdExamination> {
     final String systemGenitourinary = systemGenitourinaryController.text;
     final String systemCNS = systemCNSController.text;
     final String systemLocal = systemLocalController.text;
+////////////////////////////////////////////// merged
+    List<String> mergedRespiratoryt = List.from(systematicCardText1)
+      ..addAll([systemRespiratoryController.text]);
+    List<String> mergedCardiovascular = List.from(systematicCardText2)
+      ..addAll([systemCardiovascularController.text]);
+    List<String> mergedAbdominal = List.from(systematicCardText3)
+      ..addAll([systemAbdominalController.text]);
+    List<String> mergedgenitourinary = List.from(systematicCardText4)
+      ..addAll([systemGenitourinaryController.text]);
+    List<String> mergedCNS = List.from(systematicCardText5)
+      ..addAll([systemCNSController.text]);
+    List<String> mergedLocal = List.from(systematicCardText6)
+      ..addAll([systemLocalController.text]);
 
     const String apiUrl =
         'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
@@ -44,18 +54,18 @@ class _OpdExaminationState extends State<OpdExamination> {
       "table": "Opd_Examination",
       "fields": {
         "opd_VisitDetails_id": "${widget.opdVisitDetailsID}",
-        "systemRespiratory": systemRespiratory,
-        "systemCardiovascular": systemCardiovascular,
-        "systemAbdominal": systemAbdominal,
-        "systemGenitourinary": systemGenitourinary,
-        "systemCNS": systemCNS,
-        "systemLocal": systemLocal,
-        "general_examination": "$generalCardText", // Add the selected options from SelectableCard
-        "systematic_examination":"$systematicCardText", // Add the selected options from SelectableCard
+        "systemRespiratory": mergedRespiratoryt,
+        "systemCardiovascular": mergedCardiovascular,
+        "systemAbdominal": mergedAbdominal,
+        "systemGenitourinary": mergedgenitourinary,
+        "systemCNS": mergedCNS,
+        "systemLocal": mergedLocal,
+        "general_examination":
+            "$generalCardText", // Add the selected options from SelectableCard
       }
     };
 
-try {
+    try {
       final response = await http.post(
         Uri.parse(apiUrl),
         body: jsonEncode(requestBody),
@@ -115,9 +125,14 @@ try {
     "CNS",
     "Local"
   ];
-  List<String> systematicCardText = [];
-  List<TextEditingController> systematicCardControllers = [];
 
+  List<TextEditingController> systematicCardControllers = [];
+  List<String> systematicCardText1 = [];
+  List<String> systematicCardText2 = [];
+  List<String> systematicCardText3 = [];
+  List<String> systematicCardText4 = [];
+  List<String> systematicCardText5 = [];
+  List<String> systematicCardText6 = [];
   @override
   void initState() {
     super.initState();
@@ -404,28 +419,28 @@ try {
                                   isLoading = true;
                                 });
                                 await makePostRequest();
-                                print('------------$systematicCardText');
-                                print('------------$generalCardText');
 
-                                setState(() {
-                                  isLoading = false;
-                                });
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const OpdInvestigation()),
-                                );
-                              },
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(yellow),
+                            setState(() {
+                              isLoading = false;
+                            });
+                            print("$generalCardText");
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const OpdInvestigation()),
+                            );
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(yellow),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }
