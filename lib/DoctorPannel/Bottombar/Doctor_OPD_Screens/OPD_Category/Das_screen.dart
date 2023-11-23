@@ -36,10 +36,12 @@ class Das_screen extends StatefulWidget {
   final String? totalVisit;
   final String? gender;
   final String? guardianName;
+  final String? opdid;
 
   const Das_screen({
     Key? key,
     this.patientName,
+    this.opdid,
     this.mobileNo,
     this.name,
     this.surname,
@@ -297,7 +299,7 @@ class _Das_screenState extends State<Das_screen> {
                                       Container(
                                         child: Center(
                                           child: Text(
-                                            'Height'.tr,
+                                            'H'.tr,
                                             overflow: TextOverflow
                                                 .ellipsis, // Use ellipsis to cut off the text
                                             maxLines: 1,
@@ -314,7 +316,7 @@ class _Das_screenState extends State<Das_screen> {
                                       Container(
                                         child: Center(
                                           child: Text(
-                                            'Weight'.tr,
+                                            'W'.tr,
                                             overflow: TextOverflow
                                                 .ellipsis, // Use ellipsis to cut off the text
                                             maxLines: 1,
@@ -348,7 +350,7 @@ class _Das_screenState extends State<Das_screen> {
                                       Container(
                                         child: Center(
                                           child: Text(
-                                            'Pulse'.tr,
+                                            'P'.tr,
                                             overflow: TextOverflow
                                                 .ellipsis, // Use ellipsis to cut off the text
                                             maxLines: 1,
@@ -365,7 +367,7 @@ class _Das_screenState extends State<Das_screen> {
                                       Container(
                                         child: Center(
                                           child: Text(
-                                            'Temperature'.tr,
+                                            'T'.tr,
                                             overflow: TextOverflow
                                                 .ellipsis, // Use ellipsis to cut off the text
                                             maxLines: 1,
@@ -382,7 +384,7 @@ class _Das_screenState extends State<Das_screen> {
                                       Container(
                                         child: Center(
                                           child: Text(
-                                            'Respiration'.tr,
+                                            'R'.tr,
                                             overflow: TextOverflow
                                                 .ellipsis, // Use ellipsis to cut off the text
                                             maxLines: 1,
@@ -658,69 +660,50 @@ class _Das_screenState extends State<Das_screen> {
                             ],
                           ),
                           Container(
-                              height: 200,
-                              child: ListView.builder(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  // itemCount: DoneListData!.length,
-                                  itemCount: 1,
-                                  itemBuilder: (context, index) {
-                                    return InkWell(
-                                      child: Container(
-                                        width: width,
-                                        child: Card(
-                                            color:
-                                                Colors.white.withOpacity(0.7),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(10.0),
-                                              child: Row(
-                                                children: [
-                                                  Container(
-                                                    width: width / 5,
-                                                    height: 100,
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                      child: Center(
-                                                        child: SvgPicture.asset(
-                                                            'assets/Noimagedoctor.svg',
-                                                            width: 200.0,
-                                                            height: 200.0,
-                                                            fit: BoxFit.fill,
-                                                            color: darkYellow),
-                                                      ),
+                            height: 200,
+                            child: ListView.builder(
+                                itemCount: 2,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Card(
+                                    child: Column(
+                                      children: [
+                                        ListTile(
+                                            title: Text("Ramjinish Kushwaha"),
+                                            subtitle: Text("MBBS|| MD"),
+                                            leading: CircleAvatar(
+                                              radius: 50,
+                                              backgroundColor:
+                                                  darkYellow, // Set your desired background color
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(
+                                                    4.0), // Adjust the padding as needed
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    border: Border.all(
+                                                      color:
+                                                          yellow, // Set your desired border color
+                                                      width:
+                                                          2.0, // Set your desired border width
                                                     ),
                                                   ),
-                                                  const SizedBox(
-                                                    width: 10,
+                                                  child: ClipOval(
+                                                    child: Image.asset(
+                                                      'assets/docTwo.jpeg',
+                                                      width:
+                                                          42.0, // Adjust the image size as needed
+                                                      height: 42.0,
+                                                      fit: BoxFit.fill,
+                                                    ),
                                                   ),
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        "Ramjinish Kushwaha",
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style: const TextStyle(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 5,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
+                                                ),
                                               ),
-                                            )),
-                                      ),
-                                    );
-                                  })),
+                                            ))
+                                      ],
+                                    ),
+                                  );
+                                }),
+                          )
                         ],
                       ),
                     ),
