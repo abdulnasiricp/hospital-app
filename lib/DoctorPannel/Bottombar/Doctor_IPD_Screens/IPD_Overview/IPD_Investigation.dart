@@ -18,6 +18,71 @@ class IpdInvestigation extends StatefulWidget {
 }
 
 class _IpdInvestigationState extends State<IpdInvestigation> {
+
+@override
+void initState() {
+  makePostRequest();
+    super.initState();
+    // print('================$generalCardText');
+  }
+
+void makePostRequest() async {
+  const String apiUrl = 'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
+
+  Map<String, dynamic> requestBody = {
+    "table": "Ipd_Examination",
+    "fields": {
+     /*  "opd_details_id": "${widget.ipdid}",
+      "height": "$heightController",
+      "weight": "$weightController",
+      "bp": "$bpController",
+      "pulse": "$pulseController",
+      "temperature": "$temperatureController",
+      "respiration": "$respirationController",
+      "general_examination": "$generalCardText", // Add the selected options from SelectableCard
+      "systematic_examination": "$systematicCardText", // Add the selected options from SelectableCard
+      "respiratory":"$systemRespiratoryController",
+      "Cardiovascular":"$systemCardiovascularController",
+      "Abdominal":"$systemAbdominalController",
+      "Genitourinary":"$systemGenitourinaryController",
+      "CNS":"$systemCNSController",
+      "Local":"$systemLocalController", */
+    
+     
+
+    }
+  };
+
+  try {
+    final response = await http.post(
+      Uri.parse(apiUrl),
+      body: jsonEncode(requestBody),
+     headers: ApiLinks.MainHeader,
+    );
+
+    if (response.statusCode == 200) {
+      // Successful response
+      print('Response: ${response.body}');
+      
+      // If you want to work with the response data as JSON, you can decode it
+      Map<String, dynamic> responseData = jsonDecode(response.body);
+      print('Status: ${responseData["staus"]}');
+      print('Message: ${responseData["message"]}');
+      print('ID: ${responseData["id"]}');
+    } else {
+      // Handle error response
+      print('Error: ${response.reasonPhrase}');
+    }
+  } catch (e) {
+    // Handle network or other errors
+    print('Error: $e');
+  }
+}
+
+
+
+
+
   List<Widget> ipdOthertestRow = [];
   List<Widget> radiologyRow = [];
   List<Widget> medicineRow = [];

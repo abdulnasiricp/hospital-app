@@ -565,7 +565,7 @@ void makePostRequest() async {
                       makePostRequest();
                       print('General================$generalCardText');
                       print('systematic================$systematicCardText');
-                      print('systematic================$systematicCardText');
+                      print('systematic================$systematicCardText');       
                 
                     },
                     style: ButtonStyle(
