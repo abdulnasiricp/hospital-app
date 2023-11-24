@@ -92,6 +92,7 @@ Future<void> makePostRequest() async {
 
   // Extract data from dynamically generated rows
   List<Map<String, dynamic>> additionalRowsData = [];
+
   for (var controllerMap in surgeryControllersList) {
     String rowSurgery = controllerMap['surgery']?.text ?? '';
     String rowNote = controllerMap['note']?.text ?? '';
@@ -99,8 +100,8 @@ Future<void> makePostRequest() async {
     // Check if both fields in the row have data
     if (rowSurgery.isNotEmpty && rowNote.isNotEmpty) {
       additionalRowsData.add({
-        "symptoms": rowSurgery,
-        "height": rowNote,
+        "surgery Advised": rowSurgery,
+        "surgery Note": rowNote,
       });
     }
   }
@@ -120,7 +121,7 @@ Future<void> makePostRequest() async {
     "table": "Visit_details",
     "fields": "$requestBodyList",
   };
-                      print('----------------$requestBodyList');
+    print('----------------$requestBodyList');
 
   try {
     final response = await http.post(

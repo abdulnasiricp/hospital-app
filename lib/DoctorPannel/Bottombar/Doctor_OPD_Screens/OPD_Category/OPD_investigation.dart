@@ -133,7 +133,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   }
 
   TextEditingController surgeryController = TextEditingController();
-  TextEditingController noteController = TextEditingController();
   // List<Widget> surgeryRows = [];
 //=================================================================================
   bool isotherDataFetched = false; // Add this flag
@@ -274,7 +273,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   }
 
 //================================================================================= for Diagnosis
-  TextEditingController DiagnosisController = TextEditingController();
+  // TextEditingController DiagnosisController = TextEditingController();
   String selecteddiagnosisItemsId = '';
   String selecteddiagnosisItemsName = '';
   List<String> selecteddiagnosisItems = [];
@@ -328,63 +327,189 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
 
 
 
-Future<void> makePostRequest() async {
+// Future<void> makePostRequest() async {
   
-    const String apiUrl =
-        'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
+//     const String apiUrl =
+//         'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
 
-    Map<String, dynamic> requestBody = {
-      "table": "Opd_Investigation",
-      "fields": {
-        // "opd_VisitDetails_id": "${widget.opdVisitDetailsID}",
-        "diagnosis": diagnosisController,
-        "pathology": pathologyController,
-        'otherTest': otherControllersList
+//     Map<String, dynamic> requestBody = {
+//       "table": "Opd_Investigation",
+//       "fields": {
+//         // "opd_VisitDetails_id": "${widget.opdVisitDetailsID}",
+//         "diagnosis": diagnosisController,
+//         "pathology": pathologyController,
+//         'otherTest': otherControllersList
        
-       }
-    };
+//        }
+//     };
 
-    try {
-      final response = await http.post(
-        Uri.parse(apiUrl),
-        body: jsonEncode(requestBody),
-        headers: ApiLinks.MainHeader,
-      );
+//     try {
+//       final response = await http.post(
+//         Uri.parse(apiUrl),
+//         body: jsonEncode(requestBody),
+//         headers: ApiLinks.MainHeader,
+//       );
 
-      if (response.statusCode == 200) {
-        // Successful response
-        print('Response: ${response.body}');
-        Map<String, dynamic> responseData = jsonDecode(response.body);
-        print('Status: ${responseData["staus"]}');
-        print('Message: ${responseData["message"]}');
-        print('ID: ${responseData["id"]}');
-        setState(() {
-          Fluttertoast.showToast(
-            msg: '${responseData["message"]}',
-            backgroundColor: Colors.green,
-            textColor: Colors.white,
-          );
-        });
-      } else {
-        setState(() {
-          Fluttertoast.showToast(
-            msg: '${response.reasonPhrase}',
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-          );
-        });
-      }
-    } catch (e) {
+//       if (response.statusCode == 200) {
+//         // Successful response
+//         print('Response: ${response.body}');
+//         Map<String, dynamic> responseData = jsonDecode(response.body);
+//         print('Status: ${responseData["staus"]}');
+//         print('Message: ${responseData["message"]}');
+//         print('ID: ${responseData["id"]}');
+//         setState(() {
+//           Fluttertoast.showToast(
+//             msg: '${responseData["message"]}',
+//             backgroundColor: Colors.green,
+//             textColor: Colors.white,
+//           );
+//         });
+//       } else {
+//         setState(() {
+//           Fluttertoast.showToast(
+//             msg: '${response.reasonPhrase}',
+//             backgroundColor: Colors.red,
+//             textColor: Colors.white,
+//           );
+//         });
+//       }
+//     } catch (e) {
+//       setState(() {
+//         Fluttertoast.showToast(
+//           msg: '$e',
+//           backgroundColor: Colors.red,
+//           textColor: Colors.white,
+//         );
+//       });
+//     }
+//   }
+
+
+
+Future<void> makePostRequest() async {
+
+  final String diagnosis = diagnosisController.text;
+  final String pathology = pathologyController.text;
+  final String mainSurgery = surgeryController.text;
+  final String mainSurgeryNote = surgeryNoteController.text;
+  final String otherTest = otherController.text;
+  final String radiology= radiologyController.text;
+  final String radiologyQty= radiologyQtyController.text;
+  final String radiologyNote= radiologyNoteController.text;
+
+  // Extract data from dynamically generated rows
+  List<Map<String, dynamic>> additionalSurgeryRowsData = [];
+  List<Map<String, dynamic>> additionalothertestRowsData = [];
+  List<Map<String, dynamic>> additionalRadiologyRowsData = [];
+
+// radiology
+for (var otherControllerMap in otherControllersList) {
+    String rowOthertest = otherControllerMap['otherTest']?.text ?? '';
+    
+
+    // Check if both fields in the row have data
+    if (rowOthertest.isNotEmpty ) {
+      additionalothertestRowsData.add({
+        '': rowOthertest,
+        
+      });
+    }
+  }
+// radiology
+for (var radiologyControllerMap in radiologyControllersList) {
+    String rowRadiology = radiologyControllerMap['radiology']?.text ?? '';
+    String rowRadiologyQty = radiologyControllerMap['radiologyQty']?.text ?? '';
+    String rowRadiologyNote = radiologyControllerMap['radiologyNote']?.text ?? '';
+
+    // Check if both fields in the row have data
+    if (rowRadiology.isNotEmpty && rowRadiologyQty.isNotEmpty&& rowRadiologyNote.isNotEmpty) {
+      additionalRadiologyRowsData.add({
+       '': rowRadiology,
+        '.': rowRadiologyQty,
+        ',': rowRadiologyNote
+      });
+    }
+  }
+
+//surgery
+  for (var surgerycontrollerMap in surgeryControllersList) {
+    String rowSurgery = surgerycontrollerMap['surgery']?.text ?? '';
+    String rowNote = surgerycontrollerMap['surgerynote']?.text ?? '';
+
+    // Check if both fields in the row have data
+    if (rowSurgery.isNotEmpty && rowNote.isNotEmpty) {
+      additionalSurgeryRowsData.add({
+       'surgery Advised':  rowSurgery,
+       'surgery Note':  rowNote,
+      });
+    }
+  }
+
+
+  // Combine the main surgery data with additional rows data
+  List< dynamic> requestBodyList = [
+    diagnosis,
+    pathology,
+    otherTest,
+    ...additionalothertestRowsData,
+    radiology,
+    radiologyQty,
+    radiologyNote,
+    ...additionalRadiologyRowsData,
+    mainSurgery,
+    mainSurgeryNote,
+    ...additionalSurgeryRowsData,
+
+  ];
+
+  const String apiUrl = 'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
+
+  Map<String, dynamic> requestBody = {
+    "table": "Visit_details",
+    "fields": "$requestBodyList",
+  };
+    print('----------------$requestBodyList');
+
+  try {
+    final response = await http.post(
+      Uri.parse(apiUrl),
+      body: jsonEncode(requestBody),
+      headers: ApiLinks.MainHeader,
+    );
+
+    if (response.statusCode == 200) {
+      // Successful response
+      print('Response: ${response.body}');
+      Map<String, dynamic> responseData = jsonDecode(response.body);
+      print('Status: ${responseData["staus"]}');
+      print('Message: ${responseData["message"]}');
+      print('ID: ${responseData["id"]}');
       setState(() {
         Fluttertoast.showToast(
-          msg: '$e',
+          msg: '${responseData["message"]}',
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+        );
+      });
+    } else {
+      setState(() {
+        Fluttertoast.showToast(
+          msg: '${response.reasonPhrase}',
           backgroundColor: Colors.red,
           textColor: Colors.white,
         );
       });
     }
+  } catch (e) {
+    setState(() {
+      Fluttertoast.showToast(
+        msg: '$e',
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+      );
+    });
   }
-
+}
 //=================================================================================
   @override
   Widget build(BuildContext context) {
@@ -435,7 +560,7 @@ Future<void> makePostRequest() async {
                           return null;
                         },
                         readOnly: true,
-                        controller: DiagnosisController,
+                        controller: diagnosisController,
                         maxLines: null, // Allow multiple lines
                         decoration: InputDecoration(
                           suffixIcon: IconButton(
@@ -744,7 +869,7 @@ Future<void> makePostRequest() async {
                           }
                           return null;
                         },
-                        controller: diagnosisController,
+                        controller: radiologyQtyController,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'Select options',
@@ -772,7 +897,7 @@ Future<void> makePostRequest() async {
                           return null;
                         },
 
-                        // controller: diagnosisController,
+                        controller: radiologyNoteController,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'Additional note',
@@ -900,7 +1025,7 @@ Future<void> makePostRequest() async {
                                     ),
                                     onPressed: () {
                                       _showSurgerySelection(context,
-                                          surgeryController, noteController);
+                                          surgeryController, surgeryNoteController);
                                     },
                                   ),
                                   border: const OutlineInputBorder(),
@@ -910,7 +1035,7 @@ Future<void> makePostRequest() async {
                                 ),
                                 onTap: () {
                                   _showSurgerySelection(context,
-                                      surgeryController, noteController);
+                                      surgeryController, surgeryNoteController);
                                 },
                               ),
                             ),
@@ -929,7 +1054,7 @@ Future<void> makePostRequest() async {
                           height: 60,
                           child: Center(
                             child: TextFormField(
-                              controller: noteController,
+                              controller: surgeryNoteController,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return 'This field is required';
@@ -1134,6 +1259,7 @@ Future<void> makePostRequest() async {
                             },
                             // Set this to true to disable the keyboard
                             // controller: diagnosisController,
+
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               hintText: 'Additional note',
@@ -1312,8 +1438,9 @@ Future<void> makePostRequest() async {
                     child: const Text('Save'),
                     onPressed: () {
                     makePostRequest();
-                    print('--------------$DiagnosisController');
+                    print('--------------$diagnosisController');
                     print('--------------$pathologyController');
+                    // print('--------------$otherControllersList');
                     print('--------------$otherControllersList');
                     },
                     style: ButtonStyle(
@@ -1972,12 +2099,12 @@ Future<void> makePostRequest() async {
                                               Colors.white70.withOpacity(0.7),
                                           child: ListTile(
                                             title: Text(
-                                              '$itemNumber. ${otherfilteredData?[index]['name'] ?? ''}',
+                                              '$itemNumber. ${otherfilteredData?[index]['test_name'] ?? ''}',
                                             ),
                                             onTap: () {
                                               localSelectedotherdata =
                                                   otherfilteredData?[index]
-                                                          ['name'] ??
+                                                          ['test_name'] ??
                                                       '';
                                               localSelectedotherId =
                                                   otherfilteredData?[index]
@@ -2103,7 +2230,7 @@ Future<void> makePostRequest() async {
                                         (BuildContext context, int index) {
                                       String itemName =
                                           diagnosisfilteredData?[index]
-                                                  ['name'] ??
+                                                  ['test_name'] ??
                                               '';
                                       String itemId =
                                           diagnosisfilteredData?[index]['id'] ??
@@ -2134,13 +2261,13 @@ Future<void> makePostRequest() async {
                                                 selecteddiagnosisItems
                                                     .add(itemName);
                                               }
-                                              DiagnosisController.text =
+                                              diagnosisController.text =
                                                   selecteddiagnosisItems
                                                       .map((itemName) {
                                                 var itemData =
                                                     diagnosisfilteredData
                                                         ?.firstWhere((data) =>
-                                                            data['name'] ==
+                                                            data['test_name'] ==
                                                             itemName);
                                                 return '(${itemData['id']}).${itemName}';
                                               }).join(', ');
@@ -2152,7 +2279,7 @@ Future<void> makePostRequest() async {
                                                           diagnosisfilteredData
                                                               ?.firstWhere((data) =>
                                                                   data[
-                                                                      'name'] ==
+                                                                      'test_name'] ==
                                                                   itemName)['id'])
                                                       .join(',');
 
@@ -2400,7 +2527,7 @@ Future<void> makePostRequest() async {
               },
               readOnly: true,
               // Set this to true to disable the keyboard
-              controller: diagnosisController,
+              controller: surgeryController,
               decoration: InputDecoration(
                 suffixIcon: IconButton(
                   icon: const Icon(
@@ -2724,7 +2851,7 @@ Future<void> makePostRequest() async {
   }
 
   Widget dragBuildRow(TextEditingController surgeryController,
-      TextEditingController noteController) {
+      TextEditingController surgeryNoteController) {
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Row(
@@ -2756,7 +2883,7 @@ Future<void> makePostRequest() async {
                           ),
                           onPressed: () {
                             _showSurgerySelection(
-                                context, surgeryController, noteController);
+                                context, surgeryController, surgeryNoteController);
                           },
                         ),
                         border: const OutlineInputBorder(),
@@ -2766,7 +2893,7 @@ Future<void> makePostRequest() async {
                       ),
                       onTap: () {
                         _showSurgerySelection(
-                            context, surgeryController, noteController);
+                            context, surgeryController, surgeryNoteController);
                       },
                     ),
                   ),
@@ -2785,7 +2912,7 @@ Future<void> makePostRequest() async {
                 height: 55,
                 child: Center(
                   child: TextFormField(
-                    controller: noteController,
+                    controller: surgeryNoteController,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'This field is required';
@@ -2842,7 +2969,7 @@ Future<void> makePostRequest() async {
   void _showSurgerySelection(
       BuildContext context,
       TextEditingController surgeryController,
-      TextEditingController noteController) {
+      TextEditingController surgeryNoteController) {
     TextEditingController localSurgeryController = TextEditingController();
     TextEditingController localNoteController = TextEditingController();
     String localSelectedsurgerydata = '';
@@ -2972,7 +3099,7 @@ Future<void> makePostRequest() async {
     ).whenComplete(() {
       setState(() {
         surgeryController.text = localSurgeryController.text;
-        noteController.text = localNoteController.text;
+        surgeryNoteController.text = localNoteController.text;
       });
     });
   }
