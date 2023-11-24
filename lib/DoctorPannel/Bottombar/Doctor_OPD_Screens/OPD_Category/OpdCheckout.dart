@@ -1,11 +1,16 @@
 // ignore_for_file: file_names, camel_case_types, duplicate_ignore, avoid_print, sized_box_for_whitespace, non_constant_identifier_names, unused_field, deprecated_member_use, unnecessary_null_comparison, unnecessary_string_interpolations, avoid_unnecessary_containers
 
+import 'dart:convert';
+
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:html_editor_enhanced/html_editor.dart';
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
+
 
 class Opd_Check_Out extends StatefulWidget {
   const Opd_Check_Out({Key? key}) : super(key: key);
@@ -17,12 +22,6 @@ class Opd_Check_Out extends StatefulWidget {
 class _General_Opd_Tickets_FormState extends State<Opd_Check_Out> {
   String selectedDischargeStatus = '';
 
-  final double _progress = 0.0; // Declare _progress here
-  InAppWebViewController? webView; // Declare webView here
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController TicketdateController = TextEditingController();
-  TextEditingController deathController = TextEditingController();
-  TextEditingController DischargeDetail = TextEditingController();
   late DateTime selectedDate;
   @override
   void initState() {
@@ -50,6 +49,93 @@ class _General_Opd_Tickets_FormState extends State<Opd_Check_Out> {
 
   HtmlEditorController DischargeDetailController = HtmlEditorController();
 
+  TextEditingController TicketdateController = TextEditingController();
+  TextEditingController deathController = TextEditingController();
+  TextEditingController guardianNameController = TextEditingController();
+  TextEditingController reportController = TextEditingController();
+  TextEditingController referralDateController = TextEditingController();
+  TextEditingController referralHospitalController = TextEditingController();
+  TextEditingController referralReasonController = TextEditingController();
+
+
+
+
+
+
+
+  bool isLoading = false;
+  
+  Future<void> makePostRequest() async {
+    final String ticketDate = TicketdateController.text;
+    final String deathDate = deathController.text;
+    final String guardianName = guardianNameController.text;
+    final String report = reportController.text;
+    final String referralDate = referralDateController.text;
+    final String referralHospital = referralHospitalController.text;
+    final String referralReason = referralReasonController.text;
+    
+    List<dynamic> requestBodyList = [
+      ticketDate,
+      deathDate,
+      guardianName,
+      report,
+      referralDate,
+      referralHospital,
+      referralReason
+
+
+    ];
+    
+    const String apiUrl =
+        'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
+
+    Map<String, dynamic> requestBody = {
+      "table": "OPD checkout",
+      "fields": "$requestBodyList"
+     
+    };
+
+print('----------------$requestBodyList');
+    try {
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        body: jsonEncode(requestBody),
+        headers: ApiLinks.MainHeader,
+      );
+
+      if (response.statusCode == 200) {
+        // Successful response
+        print('Response: ${response.body}');
+        Map<String, dynamic> responseData = jsonDecode(response.body);
+        print('Status: ${responseData["staus"]}');
+        print('Message: ${responseData["message"]}');
+        print('ID: ${responseData["id"]}');
+        setState(() {
+          Fluttertoast.showToast(
+            msg: '${responseData["message"]}',
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+          );
+        });
+      } else {
+        setState(() {
+          Fluttertoast.showToast(
+            msg: '${response.reasonPhrase}',
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+          );
+        });
+      }
+    } catch (e) {
+      setState(() {
+        Fluttertoast.showToast(
+          msg: '$e',
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+        );
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +145,7 @@ class _General_Opd_Tickets_FormState extends State<Opd_Check_Out> {
           backgroundColor: darkYellow,
         ),
         body: Form(
-          key: _formKey,
+        
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -156,6 +242,7 @@ class _General_Opd_Tickets_FormState extends State<Opd_Check_Out> {
                                 _showDischargeStatusOptions(context);
                               },
                               child: TextFormField(
+                                
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return 'This field is required';
@@ -202,7 +289,7 @@ class _General_Opd_Tickets_FormState extends State<Opd_Check_Out> {
                           text: const TextSpan(
                             children: [
                               TextSpan(
-                                text: "DischargeDetail",
+                                text: "Discharge Detail",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black,
@@ -247,40 +334,40 @@ class _General_Opd_Tickets_FormState extends State<Opd_Check_Out> {
                         Row(
                           children: [
                             _deathsectiontextfield(
-                                context, 'Death Date', deathController,width / 2.2),
+                                context, 'Death Date',TicketdateController,width / 2.2, true,),
                             const SizedBox(
                               width: 10,
                             ),
                             _deathsectiontextfield(
-                                context, 'Guardian Name ', deathController,width / 2.2),
+                                context, 'Guardian Name ', guardianNameController,width / 2.2,false),
                           ],
                         ),
                         const SizedBox(height: 10),
-                        Padding(padding: EdgeInsets.only(right: 5),
+                        Padding(padding: const EdgeInsets.only(right: 5),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Text('Attachment',style: TextStyle(fontWeight: FontWeight.bold),),
                             const SizedBox(width: 10),
                             _deathsectiontextfield(
-                                context, 'Report ', deathController,width / 2.2),
+                                context, 'Report ', reportController,width / 2.2,false),
                           ],
                         )),
                       } else if (selectedDischargeStatus == 'Referral') ...{
                           Row(
                           children: [
                             _deathsectiontextfield(
-                                context, 'Referral Date', deathController,width / 3.5),
+                                context, 'Referral Date', referralDateController,width / 3.5,false),
                             const SizedBox(
                               width: 10,
                             ),
                             _deathsectiontextfield(
-                                context, 'Referral Hospital Name', deathController,width / 3.5),
+                                context, 'Referral Hospital Name', referralHospitalController,width / 3.5,false),
                                  const SizedBox(
                               width: 10,
                             ),
                             _deathsectiontextfield(
-                                context, 'Reason For Referral', deathController,width / 3.5),
+                                context, 'Reason For Referral', referralReasonController,width / 3.5,false),
                           ],
                         ),
                       } else if (selectedDischargeStatus == 'Normal') ...{
@@ -298,7 +385,10 @@ class _General_Opd_Tickets_FormState extends State<Opd_Check_Out> {
                       height: 40,
                       child: ElevatedButton(
                         child: const Text('Save'),
-                        onPressed: () {},
+                        onPressed: () {
+                          makePostRequest();
+
+                        },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(yellow),
                         ),
@@ -313,7 +403,7 @@ class _General_Opd_Tickets_FormState extends State<Opd_Check_Out> {
   }
 
   Container _deathsectiontextfield(
-      BuildContext context, title, TextEditingController controller,widthSize) {
+      BuildContext context, title, TextEditingController controller,widthSize,readOnly) {
     return Container(
       width:widthSize ,
       child: Column(
@@ -352,7 +442,9 @@ class _General_Opd_Tickets_FormState extends State<Opd_Check_Out> {
               border: OutlineInputBorder(),
               fillColor: Colors.white,
               filled: true,
+             
             ),
+             readOnly:readOnly,
             controller: controller,
           )
         ],

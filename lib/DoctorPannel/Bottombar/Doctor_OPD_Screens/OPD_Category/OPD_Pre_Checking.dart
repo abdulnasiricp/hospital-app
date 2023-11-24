@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers, avoid_print, unnecessary_brace_in_string_interps, unnecessary_string_interpolations
+// ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers, avoid_print, unnecessary_brace_in_string_interps, unnecessary_string_interpolations, non_constant_identifier_names
 
 import 'dart:convert';
 
@@ -43,6 +43,7 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
   final FocusNode _unUsedFocusNode = FocusNode();
 
   bool isLoading = false;
+  
   Future<void> makePostRequest() async {
     final String symptoms = symptomsController.text;
     final String height = heightController.text;

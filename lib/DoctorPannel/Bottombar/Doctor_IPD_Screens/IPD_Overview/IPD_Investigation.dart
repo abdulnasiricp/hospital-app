@@ -19,12 +19,7 @@ class IpdInvestigation extends StatefulWidget {
 
 class _IpdInvestigationState extends State<IpdInvestigation> {
 
-@override
-void initState() {
-  makePostRequest();
-    super.initState();
-    // print('================$generalCardText');
-  }
+
 
 void makePostRequest() async {
   const String apiUrl = 'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
