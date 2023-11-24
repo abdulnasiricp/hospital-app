@@ -248,7 +248,11 @@ class _Das_screenState extends State<Das_screen> {
                               ),
                               CardDesign(
                                 () {
-                                  Get.to(() => const OpdInvestigation());
+                                  Get.to(() => OpdInvestigation(
+                                        opdVisitDetailsID:
+                                            widget.OpdVisitDetailsID,
+                                        status: widget.status,
+                                      ));
                                 },
                                 SvgPicture.asset(
                                   'assets/emergency.svg',
