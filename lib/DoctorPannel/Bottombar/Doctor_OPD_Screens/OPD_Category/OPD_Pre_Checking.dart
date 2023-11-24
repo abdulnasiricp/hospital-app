@@ -88,7 +88,8 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
         "status": "${widget.status}",
       }
     };
-
+    print(
+        "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++$requestBody");
     try {
       final response = await http.post(
         Uri.parse(apiUrl),
@@ -664,43 +665,41 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                 ],
                               ),
                             ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              width: double.infinity,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    ' Note',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Container(
-                                    height: 45,
-                                    child: TextFormField(
-                                      controller: NoteController,
-                                      keyboardType: TextInputType.text,
-                                      readOnly: false,
-                                      focusNode: _focusNode,
-                                      onTapOutside: (PointerDownEvent event) {
-                                        FocusScope.of(context)
-                                            .requestFocus(_unUsedFocusNode);
-                                      },
-                                      decoration: const InputDecoration(
-                                          border: OutlineInputBorder(),
-                                          fillColor: Colors.white,
-                                          filled: true),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
                           ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          width: width,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Note',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Container(
+                                height: 45,
+                                child: TextFormField(
+                                  controller: NoteController,
+                                  keyboardType: TextInputType.text,
+                                  onTapOutside: (event) =>
+                                      FocusScope.of(context).unfocus(),
+                                  decoration: const InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      fillColor: Colors.white,
+                                      filled: true),
+                                  onFieldSubmitted: (value) {
+                                    FocusScope.of(context).unfocus();
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         const SizedBox(
                           height: 20,

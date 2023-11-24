@@ -13,8 +13,11 @@ import 'package:lottie/lottie.dart';
 import '../../../../utils/Api_Constant.dart';
 
 class OpdInvestigation extends StatefulWidget {
-  const OpdInvestigation({Key? key}) : super(key: key);
-
+  final String? opdID;
+  final String? status;
+  final String? employee_id;
+  const OpdInvestigation({Key? key, this.opdID, this.status, this.employee_id})
+      : super(key: key);
   @override
   State<OpdInvestigation> createState() => _OpdInvestigationState();
 }
@@ -28,14 +31,9 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
 
   TextEditingController diagnosisController = TextEditingController();
   TextEditingController pathologyController = TextEditingController();
- 
+  TextEditingController pharmacyController = TextEditingController();
   TextEditingController radiologyController = TextEditingController();
- TextEditingController pharmacyController = TextEditingController();
- TextEditingController pharmacyDoseController = TextEditingController();
- TextEditingController pharmacyIntervalController = TextEditingController();
- TextEditingController pharmacyDurationController = TextEditingController();
- TextEditingController pharmacyRouteController = TextEditingController();
- TextEditingController pharmacyQtyController = TextEditingController();
+
 //==========================================================================
   String selectedpathologyItemsId = '';
   String selectedpathologyItemsName = '';
@@ -284,18 +282,19 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   String selecteddiagnosisItemsId = '';
   String selecteddiagnosisItemsName = '';
   List<String> selecteddiagnosisItems = [];
+  List<String> selecteddiagnosisItemsID = [];
+
   List<dynamic>? diagnosisdata = [];
   List<dynamic>? diagnosisfilteredData = [];
 
   bool isDiagnosisDataFetched = false; // Add this flag
-
   Future<void> fetchdiagnosisData() async {
     if (isDiagnosisDataFetched) {
       return; // If data has already been fetched, return without fetching again
     }
     Uri.parse(ApiLinks.singleTableDataDetector);
 
-    final body = {"table": "radio"};
+    final body = {"table": "finding"};
 
     final response = await http.post(
       Uri.parse(ApiLinks.singleTableDataDetector),
@@ -320,9 +319,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     setState(() {
       diagnosisfilteredData = diagnosisdata
           ?.where((element) =>
-              element['test_name']
-                  .toLowerCase()
-                  .contains(query.toLowerCase()) ||
+              element['name'].toLowerCase().contains(query.toLowerCase()) ||
               element['id'].toLowerCase().startsWith(query.toLowerCase()))
           .toList();
     });
@@ -333,27 +330,18 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   TextEditingController radiologyQtyController = TextEditingController();
   TextEditingController radiologyNoteController = TextEditingController();
   TextEditingController surgeryNoteController = TextEditingController();
-
   Future<void> makePostRequest() async {
-    final String diagnosis = diagnosisController.text;
-    final String pathology = pathologyController.text;
     final String mainSurgery = surgeryController.text;
     final String mainSurgeryNote = surgeryNoteController.text;
     final String otherTest = otherController.text;
     final String radiology = radiologyController.text;
     final String radiologyQty = radiologyQtyController.text;
     final String radiologyNote = radiologyNoteController.text;
-    final String pharmacy= pharmacyController.text;
-    final String pharmacyDose= pharmacyDoseController.text;
-    final String pharmacyInterval= pharmacyIntervalController.text;
-    final String pharmacyDuration= pharmacyDurationController.text;
-    final String pharmacyRoute= pharmacyRouteController.text;
-    final String pharmacyQty= pharmacyQtyController.text;
 
     // Extract data from dynamically generated rows
-
-    List<dynamic> additionalothertestRowsData = [];
-    List<dynamic> additionalMedicineRowsData = [];
+    List<Map<String, dynamic>> additionalSurgeryRowsData = [];
+    List<Map<String, dynamic>> additionalothertestRowsData = [];
+    List<Map<String, dynamic>> additionalRadiologyRowsData = [];
 
 // radiology
     for (var otherControllerMap in otherControllersList) {
@@ -362,13 +350,11 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
       // Check if both fields in the row have data
       if (rowOthertest.isNotEmpty) {
         additionalothertestRowsData.add({
-          rowOthertest,
+          '': rowOthertest,
         });
       }
     }
 // radiology
-    List<dynamic> additionalRadiologyRowsData = [];
-
     for (var radiologyControllerMap in radiologyControllersList) {
       String rowRadiology = radiologyControllerMap['radiology']?.text ?? '';
       String rowRadiologyQty =
@@ -380,63 +366,29 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
       if (rowRadiology.isNotEmpty &&
           rowRadiologyQty.isNotEmpty &&
           rowRadiologyNote.isNotEmpty) {
-        additionalRadiologyRowsData
-            .add({rowRadiology, rowRadiologyQty, rowRadiologyNote});
+        additionalRadiologyRowsData.add(
+            {'': rowRadiology, '.': rowRadiologyQty, ',': rowRadiologyNote});
       }
     }
 
-
-    // Extract data from dynamically generated rows    surgery
-    List<dynamic> additionalRowsData = [];
-
-    for (var controllerMap in surgeryControllersList) {
-      String rowSurgery = controllerMap['surgery']?.text ?? '';
-      String rowNote = controllerMap['note']?.text ?? '';
+//surgery
+    for (var surgerycontrollerMap in surgeryControllersList) {
+      String rowSurgery = surgerycontrollerMap['surgery']?.text ?? '';
+      String rowNote = surgerycontrollerMap['surgerynote']?.text ?? '';
 
       // Check if both fields in the row have data
       if (rowSurgery.isNotEmpty && rowNote.isNotEmpty) {
-        additionalRowsData.add({
-          rowSurgery,
-          rowNote,
-        });
-      }
-    }
-
-    //medicine
-    for (var medicineControllerMap in pharmacyControllersList) {
-      String rowMedicine = medicineControllerMap['pharmacy']?.text ?? '';
-      String rowMedicineDose =
-          medicineControllerMap['pharmacyDose']?.text ?? '';
-      String rowMedicineInterval =
-          medicineControllerMap['pharmacyInterval']?.text ?? '';
-      String rowMedicineDuration =
-          medicineControllerMap['pharmacyDuration']?.text ?? '';
-      String rowMedicineRoute =
-          medicineControllerMap['pharmacyRoute']?.text ?? '';
-      String rowMedicineQty = medicineControllerMap['pharmacyQty']?.text ?? '';
-
-      // Check if both fields in the row have data
-      if (rowMedicine.isNotEmpty &&
-          rowMedicineDose.isNotEmpty &&
-          rowMedicineInterval.isNotEmpty &&
-          rowMedicineDuration.isNotEmpty &&
-          rowMedicineRoute.isNotEmpty &&
-          rowMedicineQty.isNotEmpty) {
-        additionalMedicineRowsData.add({
-          rowMedicine,
-          rowMedicineDose,
-          rowMedicineInterval,
-          rowMedicineDuration,
-          rowMedicineRoute,
-          rowMedicineQty,
+        additionalSurgeryRowsData.add({
+          'surgery Advised': rowSurgery,
+          'surgery Note': rowNote,
         });
       }
     }
 
     // Combine the main surgery data with additional rows data
     List<dynamic> requestBodyList = [
-      diagnosis,
-      pathology,
+      selecteddiagnosisItemsId,
+      selectedpathologyItemsId,
       otherTest,
       ...additionalothertestRowsData,
       radiology,
@@ -445,27 +397,27 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
       ...additionalRadiologyRowsData,
       mainSurgery,
       mainSurgeryNote,
-      ...additionalRowsData,
-      pharmacy,
-      pharmacyDose,
-      pharmacyInterval,
-      pharmacyDuration,
-      pharmacyRoute,
-      pharmacyQty,
-      ...additionalMedicineRowsData
-
-
+      ...additionalSurgeryRowsData,
     ];
-
     const String apiUrl =
         'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
-
     Map<String, dynamic> requestBody = {
-      "table": "Visit_details",
-      "fields": "$requestBodyList",
+      // "table": "Visit_details",
+      "opd_id": "${widget.opdID}",
+      "generated_by": "${widget.employee_id}",
+      "fields": {
+        "status": "${widget.status}",
+        "Diagnosis": selecteddiagnosisItemsId,
+        "Pathology": selectedpathologyItemsId,
+        "Other_Test": selectedpathologyItemsId,
+        "Radiology": selectedpathologyItemsId,
+        "Surgery": selectedpathologyItemsId,
+        "Medicine": selectedpathologyItemsId,
+        "F_Advice": selectedpathologyItemsId,
+      }
     };
-    print('----------------$requestBodyList');
-
+    print(
+        '---------------++++++++++++++++++++++++++++++++++++++++++++++++++++++++-$requestBody');
     try {
       final response = await http.post(
         Uri.parse(apiUrl),
@@ -837,7 +789,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                   ),
                                   onPressed: () {
                                     _showRadiologySelection(
-                                        context, radiologyController,radiologyQtyController,radiologyNoteController);
+                                        context, radiologyController);
                                   },
                                 ),
                                 border: const OutlineInputBorder(),
@@ -848,7 +800,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                               onTap: () {
                                 _showRadiologySelection(
                                   context,
-                                  radiologyController,radiologyQtyController,radiologyNoteController
+                                  radiologyController,
                                 );
                               },
                             ),
@@ -1231,7 +1183,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                       ),
                                       onPressed: () {
                                         _showPharmacySelection(
-                                            context, pharmacyController,pharmacyDoseController,pharmacyIntervalController,pharmacyDurationController,pharmacyRouteController,pharmacyQtyController);
+                                            context, pharmacyController);
                                       },
                                     ),
                                     border: const OutlineInputBorder(),
@@ -1241,7 +1193,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                   ),
                                   onTap: () {
                                     _showPharmacySelection(
-                                        context,pharmacyController,pharmacyDoseController,pharmacyIntervalController,pharmacyDurationController,pharmacyRouteController,pharmacyQtyController);
+                                        context, pharmacyController);
                                   },
                                 ),
                               ),
@@ -1262,8 +1214,8 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                   }
                                   return null;
                                 },
-                               
-                                controller: pharmacyDoseController,
+                                // Set this to true to disable the keyboard
+                                // controller: diagnosisController,
 
                                 decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
@@ -1290,7 +1242,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                   return null;
                                 },
                                 // Set this to true to disable the keyboard
-                                controller: pharmacyIntervalController,
+                                // controller: diagnosisController,
                                 decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
                                   hintText: 'Additional note',
@@ -1316,7 +1268,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                   return null;
                                 },
                                 // Set this to true to disable the keyboard
-                                controller: pharmacyDurationController,
+                                // controller: diagnosisController,
                                 decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
                                   hintText: 'Additional note',
@@ -1342,7 +1294,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                   return null;
                                 },
                                 // Set this to true to disable the keyboard
-                                controller: pharmacyRouteController,
+                                // controller: diagnosisController,
                                 decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
                                   hintText: 'Additional note',
@@ -1368,7 +1320,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                   return null;
                                 },
                                 // Set this to true to disable the keyboard
-                                controller: pharmacyQtyController,
+                                // controller: diagnosisController,
                                 decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
                                   hintText: 'Additional note',
@@ -1444,6 +1396,10 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                         child: const Text('Save'),
                         onPressed: () {
                           makePostRequest();
+                          print('--------------$diagnosisController');
+                          print('--------------$pathologyController');
+                          // print('--------------$otherControllersList');
+                          print('--------------$otherControllersList');
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(yellow),
@@ -1725,10 +1681,8 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   String selectedradiologyId = '';
 
   void _showRadiologySelection(
-      BuildContext context, TextEditingController radiologyController,TextEditingController radiologyQtyController,TextEditingController radiologyNoteController) {
+      BuildContext context, TextEditingController radiologyController) {
     TextEditingController localradiologyController = TextEditingController();
-    TextEditingController localradiologyQtyController = TextEditingController();
-    TextEditingController localradiologyNoteController = TextEditingController();
     String localSelectedradiologydata = '';
     String localSelectedradiologyId = '';
     showModalBottomSheet(
@@ -1855,8 +1809,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     ).whenComplete(() {
       setState(() {
         radiologyController.text = localradiologyController.text;
-        radiologyQtyController.text = localradiologyQtyController.text;
-        radiologyNoteController.text = localradiologyNoteController.text;
       });
     });
   }
@@ -1867,13 +1819,8 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   String selectedpharmacyId = '';
 
   void _showPharmacySelection(
-      BuildContext context, TextEditingController pharmacyController,TextEditingController pharmacyDoseController,TextEditingController pharmacyIntervalController,TextEditingController pharmacyDurationController,TextEditingController pharmacyRouteController,TextEditingController pharmacyQtyController) {
+      BuildContext context, TextEditingController pharmacyController) {
     TextEditingController localpharmacyController = TextEditingController();
-    TextEditingController localpharmacyDoseController = TextEditingController();
-    TextEditingController localpharmacyIntervalController = TextEditingController();
-    TextEditingController localpharmacyDurationController = TextEditingController();
-    TextEditingController localpharmacyRouteController = TextEditingController();
-    TextEditingController localpharmacyQtyController = TextEditingController();
     String localSelectedpharmacydata = '';
     String localSelectedpharmacyId = '';
 
@@ -2002,11 +1949,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     ).whenComplete(() {
       setState(() {
         pharmacyController.text = localpharmacyController.text;
-        pharmacyDoseController.text = localpharmacyDoseController.text;
-        pharmacyIntervalController.text = localpharmacyIntervalController.text;
-        pharmacyDurationController.text = localpharmacyDurationController.text;
-        pharmacyRouteController.text = localpharmacyRouteController.text;
-        pharmacyQtyController.text = localpharmacyQtyController.text;
       });
     });
   }
@@ -2246,7 +2188,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                         (BuildContext context, int index) {
                                       String itemName =
                                           diagnosisfilteredData?[index]
-                                                  ['test_name'] ??
+                                                  ['name'] ??
                                               '';
                                       String itemId =
                                           diagnosisfilteredData?[index]['id'] ??
@@ -2283,7 +2225,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                                 var itemData =
                                                     diagnosisfilteredData
                                                         ?.firstWhere((data) =>
-                                                            data['test_name'] ==
+                                                            data['name'] ==
                                                             itemName);
                                                 return '(${itemData['id']}).${itemName}';
                                               }).join(', ');
@@ -2295,7 +2237,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                                           diagnosisfilteredData
                                                               ?.firstWhere((data) =>
                                                                   data[
-                                                                      'test_name'] ==
+                                                                      'name'] ==
                                                                   itemName)['id'])
                                                       .join(',');
 
@@ -2426,7 +2368,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                           size: 40,
                         ),
                         onPressed: () {
-                          _showRadiologySelection(context, radiologyController,radiologyQtyController,radiologyNoteController);
+                          _showRadiologySelection(context, radiologyController);
                         },
                       ),
                       border: const OutlineInputBorder(),
@@ -2435,7 +2377,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                       filled: true,
                     ),
                     onTap: () {
-                      _showRadiologySelection(context, radiologyController,radiologyQtyController,radiologyNoteController);
+                      _showRadiologySelection(context, radiologyController);
                     },
                   ),
                 ),
@@ -2642,7 +2584,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                       size: 30,
                     ),
                     onPressed: () {
-                      _showPharmacySelection(context, pharmacyController,pharmacyDoseController,pharmacyIntervalController,pharmacyDurationController,pharmacyRouteController,pharmacyQtyController);
+                      _showPharmacySelection(context, pharmacyController);
                     },
                   ),
                   border: const OutlineInputBorder(),
@@ -2651,7 +2593,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                   filled: true,
                 ),
                 onTap: () {
-                  _showPharmacySelection(context, pharmacyController,pharmacyDoseController,pharmacyIntervalController,pharmacyDurationController,pharmacyRouteController,pharmacyQtyController);
+                  _showPharmacySelection(context, pharmacyController);
                 },
               ),
             ),
@@ -2836,21 +2778,9 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
 
   void addNewRowPharmacy() {
     TextEditingController newpharmacyController = TextEditingController();
-    TextEditingController newpharmacyDoseController = TextEditingController();
-    TextEditingController newpharmacyIntervalController =
-        TextEditingController();
-    TextEditingController newpharmacyDurationController =
-        TextEditingController();
-    TextEditingController newpharmacyRouteController = TextEditingController();
-    TextEditingController newpharmacyQtyController = TextEditingController();
 
     Map<String, TextEditingController> newpharmacyControllersMap = {
       'pharmacy': newpharmacyController,
-      'pharmacyDose': newpharmacyController,
-      'pharmacyInterval': newpharmacyController,
-      'pharmacyDuration': newpharmacyController,
-      'pharmacyRoute': newpharmacyController,
-      'pharmacyQty': newpharmacyController,
     };
 
     setState(() {
@@ -2865,13 +2795,9 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
 
   void addNewRowRadiology() {
     TextEditingController newradiologyController = TextEditingController();
-    TextEditingController newradiologyQtyController = TextEditingController();
-    TextEditingController newradiologyNoteController = TextEditingController();
 
     Map<String, TextEditingController> newRadiologyControllersMap = {
       'radiology': newradiologyController,
-      'radiologyQty': newradiologyQtyController,
-      'radiologyNote': newradiologyNoteController,
     };
 
     setState(() {

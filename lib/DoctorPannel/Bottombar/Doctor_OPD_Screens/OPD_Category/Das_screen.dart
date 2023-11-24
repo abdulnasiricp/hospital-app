@@ -26,10 +26,12 @@ class Das_screen extends StatefulWidget {
   final String? guardianName;
   final String? OpdVisitDetailsID;
   final String? status;
+  final String? employee_id;
 
   const Das_screen({
     Key? key,
     this.patientName,
+    this.employee_id,
     this.status,
     this.mobileNo,
     this.name,
@@ -248,7 +250,11 @@ class _Das_screenState extends State<Das_screen> {
                               ),
                               CardDesign(
                                 () {
-                                  Get.to(() => const OpdInvestigation());
+                                  Get.to(() => OpdInvestigation(
+                                        opdID: widget.opdID,
+                                        status: widget.status,
+                                    employee_id: widget.employee_id,
+                                      ));
                                 },
                                 SvgPicture.asset(
                                   'assets/emergency.svg',
