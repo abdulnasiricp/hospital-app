@@ -32,6 +32,11 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   TextEditingController diagnosisController = TextEditingController();
   TextEditingController pathologyController = TextEditingController();
   TextEditingController pharmacyController = TextEditingController();
+  TextEditingController pharmacyDoseController = TextEditingController();
+  TextEditingController pharmacyIntervalController = TextEditingController();
+  TextEditingController pharmacyDurationController = TextEditingController();
+  TextEditingController pharmacyRouteController = TextEditingController();
+  TextEditingController pharmacyQtyController = TextEditingController();
   TextEditingController radiologyController = TextEditingController();
 
 //==========================================================================
@@ -330,6 +335,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   TextEditingController radiologyQtyController = TextEditingController();
   TextEditingController radiologyNoteController = TextEditingController();
   TextEditingController surgeryNoteController = TextEditingController();
+
   Future<void> makePostRequest() async {
     final String mainSurgery = surgeryController.text;
     final String mainSurgeryNote = surgeryNoteController.text;
@@ -416,8 +422,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
         "F_Advice": selectedpathologyItemsId,
       }
     };
-    print(
-        '---------------++++++++++++++++++++++++++++++++++++++++++++++++++++++++-$requestBody');
+    print('---------------+++++++++++-$requestBody');
     try {
       final response = await http.post(
         Uri.parse(apiUrl),
@@ -789,7 +794,10 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                   ),
                                   onPressed: () {
                                     _showRadiologySelection(
-                                        context, radiologyController);
+                                        context,
+                                        radiologyController,
+                                        radiologyQtyController,
+                                        radiologyNoteController);
                                   },
                                 ),
                                 border: const OutlineInputBorder(),
@@ -799,9 +807,10 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                               ),
                               onTap: () {
                                 _showRadiologySelection(
-                                  context,
-                                  radiologyController,
-                                );
+                                    context,
+                                    radiologyController,
+                                    radiologyQtyController,
+                                    radiologyNoteController);
                               },
                             ),
                           ),
@@ -1183,7 +1192,14 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                       ),
                                       onPressed: () {
                                         _showPharmacySelection(
-                                            context, pharmacyController);
+                                          context,
+                                          pharmacyController,
+                                          pharmacyDoseController,
+                                          pharmacyIntervalController,
+                                          pharmacyDurationController,
+                                          pharmacyRouteController,
+                                          pharmacyQtyController,
+                                        );
                                       },
                                     ),
                                     border: const OutlineInputBorder(),
@@ -1193,7 +1209,14 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                   ),
                                   onTap: () {
                                     _showPharmacySelection(
-                                        context, pharmacyController);
+                                      context,
+                                      pharmacyController,
+                                      pharmacyDoseController,
+                                      pharmacyIntervalController,
+                                      pharmacyDurationController,
+                                      pharmacyRouteController,
+                                      pharmacyQtyController,
+                                    );
                                   },
                                 ),
                               ),
@@ -1681,8 +1704,14 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   String selectedradiologyId = '';
 
   void _showRadiologySelection(
-      BuildContext context, TextEditingController radiologyController) {
+      BuildContext context,
+      TextEditingController radiologyController,
+      TextEditingController radiologyQtyController,
+      TextEditingController radiologyNoteController) {
     TextEditingController localradiologyController = TextEditingController();
+    TextEditingController localradiologyQtyController = TextEditingController();
+    TextEditingController localradiologyNoteController =
+        TextEditingController();
     String localSelectedradiologydata = '';
     String localSelectedradiologyId = '';
     showModalBottomSheet(
@@ -1809,6 +1838,8 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     ).whenComplete(() {
       setState(() {
         radiologyController.text = localradiologyController.text;
+        radiologyQtyController.text = localradiologyQtyController.text;
+        radiologyNoteController.text = localradiologyNoteController.text;
       });
     });
   }
@@ -1819,8 +1850,22 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   String selectedpharmacyId = '';
 
   void _showPharmacySelection(
-      BuildContext context, TextEditingController pharmacyController) {
+      BuildContext context,
+      TextEditingController pharmacyController,
+      TextEditingController pharmacyDoseController,
+      TextEditingController pharmacyIntervalController,
+      TextEditingController pharmacyDurationController,
+      TextEditingController pharmacyRouteController,
+      TextEditingController pharmacyQtyController) {
     TextEditingController localpharmacyController = TextEditingController();
+    TextEditingController localpharmacyDoseController = TextEditingController();
+    TextEditingController localpharmacyIntervalController =
+        TextEditingController();
+    TextEditingController localpharmacyDurationController =
+        TextEditingController();
+    TextEditingController localpharmacyRouteController =
+        TextEditingController();
+    TextEditingController localpharmacyQtyController = TextEditingController();
     String localSelectedpharmacydata = '';
     String localSelectedpharmacyId = '';
 
@@ -1949,6 +1994,11 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     ).whenComplete(() {
       setState(() {
         pharmacyController.text = localpharmacyController.text;
+        pharmacyDoseController.text = localpharmacyDoseController.text;
+        pharmacyIntervalController.text = localpharmacyIntervalController.text;
+        pharmacyDurationController.text = localpharmacyDurationController.text;
+        pharmacyRouteController.text = localpharmacyRouteController.text;
+        pharmacyQtyController.text = localpharmacyQtyController.text;
       });
     });
   }
@@ -2368,7 +2418,8 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                           size: 40,
                         ),
                         onPressed: () {
-                          _showRadiologySelection(context, radiologyController);
+                          _showRadiologySelection(context, radiologyController,
+                              radiologyQtyController, radiologyNoteController);
                         },
                       ),
                       border: const OutlineInputBorder(),
@@ -2377,7 +2428,8 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                       filled: true,
                     ),
                     onTap: () {
-                      _showRadiologySelection(context, radiologyController);
+                      _showRadiologySelection(context, radiologyController,
+                          radiologyQtyController, radiologyNoteController);
                     },
                   ),
                 ),
@@ -2584,7 +2636,15 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                       size: 30,
                     ),
                     onPressed: () {
-                      _showPharmacySelection(context, pharmacyController);
+                      _showPharmacySelection(
+                       context,
+                                          pharmacyController,
+                                          pharmacyDoseController,
+                                          pharmacyIntervalController,
+                                          pharmacyDurationController,
+                                          pharmacyRouteController,
+                                          pharmacyQtyController,
+                      );
                     },
                   ),
                   border: const OutlineInputBorder(),
@@ -2593,7 +2653,15 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                   filled: true,
                 ),
                 onTap: () {
-                  _showPharmacySelection(context, pharmacyController);
+                  _showPharmacySelection(
+                   context,
+                                          pharmacyController,
+                                          pharmacyDoseController,
+                                          pharmacyIntervalController,
+                                          pharmacyDurationController,
+                                          pharmacyRouteController,
+                                          pharmacyQtyController,
+                  );
                 },
               ),
             ),

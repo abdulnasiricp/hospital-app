@@ -5,21 +5,24 @@ import 'dart:convert';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:html_editor_enhanced/html_editor.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:open_file/open_file.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Opd_Check_Out extends StatefulWidget {
   const Opd_Check_Out({Key? key}) : super(key: key);
 
   @override
-  State<Opd_Check_Out> createState() => _General_Opd_Tickets_FormState();
+  State<Opd_Check_Out> createState() => _Opd_Check_OutState();
 }
 
-class _General_Opd_Tickets_FormState extends State<Opd_Check_Out> {
+class _Opd_Check_OutState extends State<Opd_Check_Out> {
   String selectedDischargeStatus = '';
 
   late DateTime selectedDate;
@@ -57,14 +60,8 @@ class _General_Opd_Tickets_FormState extends State<Opd_Check_Out> {
   TextEditingController referralHospitalController = TextEditingController();
   TextEditingController referralReasonController = TextEditingController();
 
-
-
-
-
-
-
   bool isLoading = false;
-  
+
   Future<void> makePostRequest() async {
     final String ticketDate = TicketdateController.text;
     final String deathDate = deathController.text;
@@ -73,7 +70,7 @@ class _General_Opd_Tickets_FormState extends State<Opd_Check_Out> {
     final String referralDate = referralDateController.text;
     final String referralHospital = referralHospitalController.text;
     final String referralReason = referralReasonController.text;
-    
+
     List<dynamic> requestBodyList = [
       ticketDate,
       deathDate,
@@ -82,20 +79,17 @@ class _General_Opd_Tickets_FormState extends State<Opd_Check_Out> {
       referralDate,
       referralHospital,
       referralReason
-
-
     ];
-    
+
     const String apiUrl =
         'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
 
     Map<String, dynamic> requestBody = {
       "table": "OPD checkout",
       "fields": "$requestBodyList"
-     
     };
 
-print('----------------$requestBodyList');
+    print('----------------$requestBodyList');
     try {
       final response = await http.post(
         Uri.parse(apiUrl),
@@ -136,6 +130,9 @@ print('----------------$requestBodyList');
       });
     }
   }
+
+  FilePickerResult? selectedFiles;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -145,7 +142,6 @@ print('----------------$requestBodyList');
           backgroundColor: darkYellow,
         ),
         body: Form(
-        
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -242,7 +238,6 @@ print('----------------$requestBodyList');
                                 _showDischargeStatusOptions(context);
                               },
                               child: TextFormField(
-                                
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return 'This field is required';
@@ -334,51 +329,130 @@ print('----------------$requestBodyList');
                         Row(
                           children: [
                             _deathsectiontextfield(
-                                context, 'Death Date',TicketdateController,width / 2.2, true,),
+                              context,
+                              'Death Date',
+                              TicketdateController,
+                              width / 2.2,
+                              true,
+                            ),
                             const SizedBox(
                               width: 10,
                             ),
-                            _deathsectiontextfield(
-                                context, 'Guardian Name ', guardianNameController,width / 2.2,false),
+                            _deathsectiontextfield(context, 'Guardian Name ',
+                                guardianNameController, width / 2.2, false),
                           ],
                         ),
                         const SizedBox(height: 10),
-                        Padding(padding: const EdgeInsets.only(right: 5),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text('Attachment',style: TextStyle(fontWeight: FontWeight.bold),),
-                            const SizedBox(width: 10),
-                            _deathsectiontextfield(
-                                context, 'Report ', reportController,width / 2.2,false),
-                          ],
-                        )),
+                        Padding(
+                            padding: const EdgeInsets.only(right: 5),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        const Text(
+                                          'Attachment',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        IconButton(
+                                          onPressed: () async {
+                                            FilePickerResult? result =
+                                                await FilePicker.platform
+                                                    .pickFiles(
+                                                        allowMultiple: true);
+
+                                            if (result != null) {
+                                              setState(() {
+                                                selectedFiles = result;
+                                              });
+                                            }
+                                          },
+                                          icon: const Icon(Icons.add_a_photo),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(width: 10),
+                                    _deathsectiontextfield(context, 'Report ',
+                                        reportController, width / 2.2, false),
+                                    
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                // Display selected file names
+                                Container(
+                                  width: double.infinity,
+                                      child: Card(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: selectedFiles?.files
+                                                  .map(
+                                                    (file) => GestureDetector(
+                                                      onTap: () async {
+                                                        // Check if the file path is available
+                                                        if (file.path != null) {
+                                                          // Open the file using open_file
+                                                          await OpenFile.open(
+                                                              file.path!);
+                                                        }
+                                                      },
+                                                      child: Text(
+                                                        file.name,
+                                                        style: const TextStyle(
+                                                          color: Colors
+                                                              .blue, // Change the text color to indicate it's clickable
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .underline,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  )
+                                                  .toList() ??
+                                              [],
+                                        ),
+                                      ),
+                                    )
+                              ],
+                            )),
                       } else if (selectedDischargeStatus == 'Referral') ...{
-                          Row(
+                        Row(
                           children: [
-                            _deathsectiontextfield(
-                                context, 'Referral Date', referralDateController,width / 3.5,false),
+                            _deathsectiontextfield(context, 'Referral Date',
+                                referralDateController, width / 3.5, false),
                             const SizedBox(
                               width: 10,
                             ),
                             _deathsectiontextfield(
-                                context, 'Referral Hospital Name', referralHospitalController,width / 3.5,false),
-                                 const SizedBox(
+                                context,
+                                'Referral Hospital Name',
+                                referralHospitalController,
+                                width / 3.5,
+                                false),
+                            const SizedBox(
                               width: 10,
                             ),
                             _deathsectiontextfield(
-                                context, 'Reason For Referral', referralReasonController,width / 3.5,false),
+                                context,
+                                'Reason For Referral',
+                                referralReasonController,
+                                width / 3.5,
+                                false),
                           ],
                         ),
-                      } else if (selectedDischargeStatus == 'Normal') ...{
-                       
-                      } else if (selectedDischargeStatus == 'DOPR') ...{
-                        
-                      },
+                      } else if (selectedDischargeStatus == 'Normal')
+                        ...{}
+                      else if (selectedDischargeStatus == 'DOPR')
+                        ...{},
                     ],
                   ),
-                        const SizedBox(height: 20),
-
+                  const SizedBox(height: 20),
                   Center(
                     child: Container(
                       width: double.infinity,
@@ -387,7 +461,6 @@ print('----------------$requestBodyList');
                         child: const Text('Save'),
                         onPressed: () {
                           makePostRequest();
-
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(yellow),
@@ -402,10 +475,10 @@ print('----------------$requestBodyList');
         ));
   }
 
-  Container _deathsectiontextfield(
-      BuildContext context, title, TextEditingController controller,widthSize,readOnly) {
+  Container _deathsectiontextfield(BuildContext context, title,
+      TextEditingController controller, widthSize, readOnly) {
     return Container(
-      width:widthSize ,
+      width: widthSize,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -442,9 +515,8 @@ print('----------------$requestBodyList');
               border: OutlineInputBorder(),
               fillColor: Colors.white,
               filled: true,
-             
             ),
-             readOnly:readOnly,
+            readOnly: readOnly,
             controller: controller,
           )
         ],
