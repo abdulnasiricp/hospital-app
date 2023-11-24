@@ -13,9 +13,10 @@ import 'package:lottie/lottie.dart';
 import '../../../../utils/Api_Constant.dart';
 
 class OpdInvestigation extends StatefulWidget {
-  final String? opdVisitDetailsID;
+  final String? opdID;
   final String? status;
-  const OpdInvestigation({Key? key, this.opdVisitDetailsID, this.status})
+  final String? employee_id;
+  const OpdInvestigation({Key? key, this.opdID, this.status, this.employee_id})
       : super(key: key);
   @override
   State<OpdInvestigation> createState() => _OpdInvestigationState();
@@ -398,14 +399,13 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
       mainSurgeryNote,
       ...additionalSurgeryRowsData,
     ];
-
     const String apiUrl =
         'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
-
     Map<String, dynamic> requestBody = {
-      "table": "Visit_details",
+      // "table": "Visit_details",
+      "opd_id": "${widget.opdID}",
+      "generated_by": "${widget.employee_id}",
       "fields": {
-        "visit_details_id": "${widget.opdVisitDetailsID}",
         "status": "${widget.status}",
         "Diagnosis": selecteddiagnosisItemsId,
         "Pathology": selectedpathologyItemsId,
