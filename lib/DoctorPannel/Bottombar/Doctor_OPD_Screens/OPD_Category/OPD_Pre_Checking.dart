@@ -13,7 +13,8 @@ import 'package:http/http.dart' as http;
 
 class OpdPreChecking extends StatefulWidget {
   final String? opdID;
-  const OpdPreChecking({Key? key, this.opdID}) : super(key: key);
+  final String? status;
+  const OpdPreChecking({Key? key, this.opdID, this.status}) : super(key: key);
   @override
   State<OpdPreChecking> createState() => _OpdPreCheckingState();
 }
@@ -37,9 +38,9 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
   TextEditingController familyHistoryController = TextEditingController();
   TextEditingController recentReportController = TextEditingController();
   TextEditingController birthHistoryController = TextEditingController();
+  TextEditingController NoteController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
   final FocusNode _unUsedFocusNode = FocusNode();
-
 
   bool isLoading = false;
   Future<void> makePostRequest() async {
@@ -58,6 +59,7 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
     final String birthHistory = birthHistoryController.text;
     final String pastMedicalHistory = pastMedicalHistoryController.text;
     final String socialHistory = socialHistoryController.text;
+    final String NoteController = socialHistoryController.text;
 
     const String apiUrl =
         'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
@@ -73,14 +75,16 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
         "pulse": pulse,
         "temperature": temperature,
         "respiration": respiration,
-        "workProfileHistory": workProfileHistory,
-        "socialHistory": socialHistory,
-        "pastMedicalHistory": pastMedicalHistory,
-        "currentMedication": currentMedication,
-        "anyKnownAllergies": anyKnownAllergies,
-        "familyHistory": familyHistory,
-        "recentReport": recentReport,
-        "birthHistory": birthHistory,
+        "work_profile ": workProfileHistory,
+        "social_history ": socialHistory,
+        "past_medical ": pastMedicalHistory,
+        "current_medication  ": currentMedication,
+        "known_allergies": anyKnownAllergies,
+        "family_history": familyHistory,
+        "recent_report": recentReport,
+        "birth_history": birthHistory,
+        "note": NoteController,
+        "status": "${widget.status}",
       }
     };
 
@@ -659,6 +663,42 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                 ],
                               ),
                             ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              width: double.infinity,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    ' Note',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Container(
+                                    height: 45,
+                                    child: TextFormField(
+                                      controller: NoteController,
+                                      keyboardType: TextInputType.text,
+                                      readOnly: false,
+                                      focusNode: _focusNode,
+                                      onTapOutside: (PointerDownEvent event) {
+                                        FocusScope.of(context)
+                                            .requestFocus(_unUsedFocusNode);
+                                      },
+                                      decoration: const InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          fillColor: Colors.white,
+                                          filled: true),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                         const SizedBox(
@@ -682,7 +722,8 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const OpdExamination()),
+                                      builder: (context) =>
+                                          const OpdExamination()),
                                 );
                               },
                               style: ButtonStyle(
