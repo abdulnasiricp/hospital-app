@@ -12,7 +12,9 @@ import 'package:http/http.dart' as http;
 
 class OpdExamination extends StatefulWidget {
   final String? opdVisitDetailsID;
-  const OpdExamination({Key? key, this.opdVisitDetailsID}) : super(key: key);
+  final String? status;
+  const OpdExamination({Key? key, this.opdVisitDetailsID, this.status})
+      : super(key: key);
 
   @override
   State<OpdExamination> createState() => _OpdExaminationState();
@@ -29,7 +31,6 @@ class _OpdExaminationState extends State<OpdExamination> {
   bool isLoading = false;
 
   Future<void> makePostRequest() async {
-  
 ////////////////////////////////////////////// merged
     List<String> mergedRespiratoryt = List.from(systematicCardText1)
       ..addAll([systemRespiratoryController.text]);
@@ -44,15 +45,14 @@ class _OpdExaminationState extends State<OpdExamination> {
     List<String> mergedLocal = List.from(systematicCardText6)
       ..addAll([systemLocalController.text]);
 
-      
-
     const String apiUrl =
         'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
 
     Map<String, dynamic> requestBody = {
       "table": "Opd_Examination",
       "fields": {
-        "opd_VisitDetails_id": "${widget.opdVisitDetailsID}",
+        "visit_details_id": "${widget.opdVisitDetailsID}",
+        "status": "${widget.status}",
         "systemRespiratory": mergedRespiratoryt,
         "systemCardiovascular": mergedCardiovascular,
         "systemAbdominal": mergedAbdominal,

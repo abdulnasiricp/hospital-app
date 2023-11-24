@@ -25,22 +25,21 @@ class Das_screen extends StatefulWidget {
   final String? gender;
   final String? guardianName;
   final String? OpdVisitDetailsID;
-
-
+  final String? status;
 
   const Das_screen({
     Key? key,
     this.patientName,
+    this.status,
     this.mobileNo,
     this.name,
     this.surname,
     this.lastVisit,
     this.totalVisit,
     this.gender,
-    this.guardianName, 
-    this.opdID, 
+    this.guardianName,
+    this.opdID,
     this.OpdVisitDetailsID,
- 
   }) : super(key: key);
 
   @override
@@ -101,7 +100,7 @@ class _Das_screenState extends State<Das_screen> {
                                     height: 5,
                                   ),
                                   Text('OPD ID: '.tr),
-                                    const SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                   Text('Gender: '.tr),
@@ -134,7 +133,7 @@ class _Das_screenState extends State<Das_screen> {
                                   const SizedBox(
                                     height: 5,
                                   ),
-                                    Text(
+                                  Text(
                                     widget.opdID!.isEmpty
                                         ? "N/A"
                                         : widget.opdID!,
@@ -143,7 +142,7 @@ class _Das_screenState extends State<Das_screen> {
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold),
                                   ),
-                                   const SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                   Text(
@@ -218,7 +217,10 @@ class _Das_screenState extends State<Das_screen> {
                             children: [
                               CardDesign(
                                 () {
-                                  Get.to(() =>  OpdPreChecking(opdID: widget.opdID,));
+                                  Get.to(() => OpdPreChecking(
+                                        opdID: widget.opdID,
+                                        status: widget.status,
+                                      ));
                                 },
                                 SvgPicture.asset(
                                   'assets/emergency.svg',
@@ -230,7 +232,11 @@ class _Das_screenState extends State<Das_screen> {
                               ),
                               CardDesign(
                                 () {
-                                  Get.to(() =>  OpdExamination(opdVisitDetailsID:widget.opdID ,));
+                                  Get.to(() => OpdExamination(
+                                        opdVisitDetailsID:
+                                            widget.OpdVisitDetailsID,
+                                        status: widget.status,
+                                      ));
                                 },
                                 SvgPicture.asset(
                                   'assets/emergency.svg',
@@ -676,7 +682,8 @@ class _Das_screenState extends State<Das_screen> {
                                     child: Column(
                                       children: [
                                         ListTile(
-                                            title: const Text("Ramjinish Kushwaha"),
+                                            title: const Text(
+                                                "Ramjinish Kushwaha"),
                                             subtitle: const Text(
                                               "MBBS|| MD",
                                               style: TextStyle(
