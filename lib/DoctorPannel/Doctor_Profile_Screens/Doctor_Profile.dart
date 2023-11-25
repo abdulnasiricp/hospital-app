@@ -149,7 +149,7 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
           'Auth-key': 'zbuks_ram859553467',
         },
         body: jsonEncode({
-          "patient_id": doctorId,
+          "doctorId": doctorId,
           "app_key": NotificationToken,
         }),
       );

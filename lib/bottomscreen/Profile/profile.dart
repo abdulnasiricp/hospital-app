@@ -151,7 +151,8 @@ class _ProfileState extends State<Profile> {
       if (response.statusCode == 200) {
         // Successful logout, clear user data or navigate to the login screen.
         OneSignal.logout();
-
+        print(
+            "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++$NotificationToken");
         print('Logout successful');
         _logout(context);
         Fluttertoast.showToast(
