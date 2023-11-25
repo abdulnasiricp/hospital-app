@@ -11,8 +11,11 @@ import 'package:html_editor_enhanced/html_editor.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:open_file/open_file.dart';
+import 'dart:io';
 class Opd_Check_Out extends StatefulWidget {
-  const Opd_Check_Out({Key? key}) : super(key: key);
+  final String? opdID;
+  final String? case_reference_id;
+  const Opd_Check_Out({Key? key, this.opdID, this.case_reference_id}) : super(key: key);
 
   @override
   State<Opd_Check_Out> createState() => _Opd_Check_OutState();
@@ -21,27 +24,45 @@ class Opd_Check_Out extends StatefulWidget {
 class _Opd_Check_OutState extends State<Opd_Check_Out> {
   String selectedDischargeStatus = '';
 
-  late DateTime selectedDate;
+  late DateTime selectedTicketDate;
+  late DateTime selectedDeathDate;
   @override
   void initState() {
     super.initState();
-    selectedDate = DateTime.now();
+    selectedTicketDate = DateTime.now();
+    selectedDeathDate = DateTime.now();
   }
 
 //////////////////////////////////////////////////////////////////////////// For Marital Status
-  Future<void> _selectDischargeDate(BuildContext context) async {
+  Future<void> _selectTicketDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: selectedDate,
+      initialDate: selectedTicketDate,
       firstDate: DateTime(1900),
       lastDate: DateTime(2100),
     );
 
-    if (picked != null && picked != selectedDate) {
+    if (picked != null && picked != selectedTicketDate) {
       setState(() {
-        selectedDate = picked;
+        selectedTicketDate = picked;
         TicketdateController.text =
-            DateFormat('dd-MM-yyyy').format(selectedDate);
+            DateFormat('dd-MM-yyyy').format(selectedTicketDate);
+      });
+    }
+  }
+   Future<void> _selectDischargeDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDeathDate,
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2100),
+    );
+
+    if (picked != null && picked != selectedDeathDate) {
+      setState(() {
+        selectedDeathDate = picked;
+        deathDateController.text =
+            DateFormat('dd-MM-yyyy').format(selectedDeathDate);
       });
     }
   }
@@ -49,7 +70,7 @@ class _Opd_Check_OutState extends State<Opd_Check_Out> {
   HtmlEditorController DischargeDetailController = HtmlEditorController();
 
   TextEditingController TicketdateController = TextEditingController();
-  TextEditingController deathController = TextEditingController();
+  TextEditingController deathDateController = TextEditingController();
   TextEditingController guardianNameController = TextEditingController();
   TextEditingController reportController = TextEditingController();
   TextEditingController referralDateController = TextEditingController();
@@ -60,22 +81,37 @@ class _Opd_Check_OutState extends State<Opd_Check_Out> {
 
   Future<void> makePostRequest() async {
     final String ticketDate = TicketdateController.text;
-    final String deathDate = deathController.text;
+    final String deathDate = deathDateController.text;
     final String guardianName = guardianNameController.text;
     final String report = reportController.text;
     final String referralDate = referralDateController.text;
     final String referralHospital = referralHospitalController.text;
     final String referralReason = referralReasonController.text;
+  // Get the file paths from selectedFiles
+  List<String?> filePaths = selectedFiles?.files.map((file) => file.path).toList() ?? [];
 
-    List<dynamic> requestBodyList = [
-      ticketDate,
-      deathDate,
-      guardianName,
-      report,
-      referralDate,
-      referralHospital,
-      referralReason
-    ];
+  // Convert the list of file paths to a comma-separated string
+  String attachments = filePaths.join(',');
+
+
+
+    Map<dynamic,dynamic> requestBodyList = {
+      'case_reference_id': '${widget.case_reference_id}',
+      'ticketDate': ticketDate,
+      'guardianName': guardianName,
+      'report': report,
+      'discharge_status': DischargeDetailController,
+      'discharge_date': deathDate,
+      'death_date': deathDate,
+      'refer_date': referralDate,
+      'refer_to_hospital': referralHospital,
+      'reason_for_referral': referralReason,
+      'discharge_by': '',
+      'opd_details_id': "${widget.opdID}",
+      'ipd_doetails_id': "124",
+   "Attachment":attachments
+    };
+
 
     const String apiUrl =
         'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
@@ -83,7 +119,7 @@ class _Opd_Check_OutState extends State<Opd_Check_Out> {
     Map<String, dynamic> requestBody = {
       "table": "OPD checkout",
       "fields": "$requestBodyList",
-      "Attachment": " ",
+      
     };
 
     print('----------------$requestBody');
@@ -190,14 +226,14 @@ class _Opd_Check_OutState extends State<Opd_Check_Out> {
                                     suffixIcon: IconButton(
                                         icon: const Icon(Icons.calendar_month),
                                         onPressed: () {
-                                          _selectDischargeDate(context);
+                                          _selectTicketDate(context);
                                         }),
                                     border: const OutlineInputBorder(),
                                     hintText: 'Select Ticket Date',
                                     fillColor: Colors.white,
                                     filled: true),
                                 readOnly: true,
-                                onTap: () => _selectDischargeDate(context),
+                                onTap: () => _selectTicketDate(context),
                               ),
                             ),
                           ],
@@ -325,13 +361,62 @@ class _Opd_Check_OutState extends State<Opd_Check_Out> {
                       if (selectedDischargeStatus == 'Death') ...{
                         Row(
                           children: [
-                            _deathsectiontextfield(
-                              context,
-                              'Death Date',
-                              TicketdateController,
-                              width / 2.2,
-                              true,
+                         
+                             Container(
+                        width: width / 2.2,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: const TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: "Death Date",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: '*',
+                                    style: TextStyle(
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            InkWell(
+                              child: TextFormField(
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'This field is required';
+                                  }
+                                  return null;
+                                },
+                                onTapOutside: (event) =>
+                                    FocusScope.of(context).unfocus(),
+                                controller: deathDateController,
+                                decoration: InputDecoration(
+                                    suffixIcon: IconButton(
+                                        icon: const Icon(Icons.calendar_month),
+                                        onPressed: () {
+                                          _selectDischargeDate(context);
+                                        }),
+                                    border: const OutlineInputBorder(),
+                                    hintText: 'Select death Date',
+                                    fillColor: Colors.white,
+                                    filled: true),
+                                readOnly: true,
+                                onTap: () => _selectDischargeDate(context),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                             const SizedBox(
                               width: 10,
                             ),

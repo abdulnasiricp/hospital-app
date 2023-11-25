@@ -19,17 +19,14 @@ class IpdOperations extends StatefulWidget {
 }
 
 class _IpdOperationsState extends State<IpdOperations> {
-
   List<Widget> surgeryRows = [];
   TextEditingController surgeryController = TextEditingController();
   TextEditingController surgeryNoteController = TextEditingController();
 
-  
   bool isLoading = false;
   // Future<void> makePostRequest() async {
   //   final String surgery = surgeryController.text;
   //   final String surgeryNote = surgeryNoteController.text;
-   
 
   //   const String apiUrl =
   //       'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
@@ -40,7 +37,7 @@ class _IpdOperationsState extends State<IpdOperations> {
   //       // "opd_details_id": "${widget.opdID}",
   //       "symptoms": surgery,
   //       "height": surgeryNote,
-       
+
   //     }
   //   };
 
@@ -85,50 +82,45 @@ class _IpdOperationsState extends State<IpdOperations> {
   //   }
   // }
 
+  Future<void> makePostRequest() async {
+    final String mainSurgery = surgeryController.text;
+    final String mainSurgeryNote = surgeryNoteController.text;
 
-Future<void> makePostRequest() async {
-  final String mainSurgery = surgeryController.text;
-  final String mainSurgeryNote = surgeryNoteController.text;
+    // Extract data from dynamically generated rows
+    List<dynamic> additionalRowsData = [];
 
-  // Extract data from dynamically generated rows
-  List<dynamic> additionalRowsData = [];
+    for (var controllerMap in surgeryControllersList) {
+      String rowSurgery = controllerMap['surgery']?.text ?? '';
+      String rowNote = controllerMap['note']?.text ?? '';
 
-  for (var controllerMap in surgeryControllersList) {
-    String rowSurgery = controllerMap['surgery']?.text ?? '';
-    String rowNote = controllerMap['note']?.text ?? '';
-
-    // Check if both fields in the row have data
-    if (rowSurgery.isNotEmpty && rowNote.isNotEmpty) {
-      additionalRowsData.add({
-       
-         rowSurgery,
-        rowNote,
-      });
+      // Check if both fields in the row have data
+      if (rowSurgery.isNotEmpty && rowNote.isNotEmpty) {
+        additionalRowsData.add({
+          rowSurgery,
+          rowNote,
+        });
+      }
     }
-  }
+    const String apiUrl =
+        'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
+    List<dynamic> requestBodyList = [
+      mainSurgery,
+      mainSurgeryNote,
+      ...additionalRowsData,
+    ];
 
-  // Combine the main surgery data with additional rows data
-  List< dynamic> requestBodyList = [
-    
-   mainSurgery,
-     mainSurgeryNote,
-    
-    ...additionalRowsData,
-  ];
-
-  const String apiUrl = 'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
-
-  Map<String, dynamic> requestBody = {
-    "table": "Visit_details",
-    "fields": requestBodyList,
-  };
+    Map<String, dynamic> requestBody = {
+      "table": "Visit_details",
+      "fields": requestBodyList,
+      
+    };
     print('----------------$requestBodyList');
     print('----------------$requestBody');
 
-  try {
+    // try {
     final response = await http.post(
       Uri.parse(apiUrl),
-      body: requestBody,
+      body: jsonEncode(requestBody),
       headers: ApiLinks.MainHeader,
     );
 
@@ -155,20 +147,16 @@ Future<void> makePostRequest() async {
         );
       });
     }
-  } catch (e) {
-    setState(() {
-      Fluttertoast.showToast(
-        msg: '$e',
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-      );
-    });
+    // } catch (e) {
+    //   setState(() {
+    //     Fluttertoast.showToast(
+    //       msg: '$e',
+    //       backgroundColor: Colors.red,
+    //       textColor: Colors.white,
+    //     );
+    //   });
+    // }
   }
-}
-
-
-
-
 
   List<Map<String, TextEditingController>> surgeryControllersList = [];
   bool isSurgeryDataFetched = false;
@@ -224,8 +212,6 @@ Future<void> makePostRequest() async {
     });
   }
 
- 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -271,7 +257,10 @@ Future<void> makePostRequest() async {
                                       size: 40,
                                     ),
                                     onPressed: () {
-                                      _showSurgerySelection(context,surgeryController,surgeryNoteController);
+                                      _showSurgerySelection(
+                                          context,
+                                          surgeryController,
+                                          surgeryNoteController);
                                     },
                                   ),
                                   border: const OutlineInputBorder(),
@@ -280,7 +269,8 @@ Future<void> makePostRequest() async {
                                   filled: true,
                                 ),
                                 onTap: () {
-                                  _showSurgerySelection(context,surgeryController,surgeryNoteController);
+                                  _showSurgerySelection(context,
+                                      surgeryController, surgeryNoteController);
                                 },
                               ),
                             ),
@@ -520,7 +510,8 @@ Future<void> makePostRequest() async {
                             size: 40,
                           ),
                           onPressed: () {
-                            _showSurgerySelection(context, surgeryController, noteController);
+                            _showSurgerySelection(
+                                context, surgeryController, noteController);
                           },
                         ),
                         border: const OutlineInputBorder(),
@@ -529,7 +520,8 @@ Future<void> makePostRequest() async {
                         filled: true,
                       ),
                       onTap: () {
-                        _showSurgerySelection(context, surgeryController, noteController);
+                        _showSurgerySelection(
+                            context, surgeryController, noteController);
                       },
                     ),
                   ),
@@ -567,7 +559,9 @@ Future<void> makePostRequest() async {
               ),
             ],
           ),
-          const SizedBox(width: 5,),
+          const SizedBox(
+            width: 5,
+          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -598,7 +592,6 @@ Future<void> makePostRequest() async {
     );
   }
 
-
   void addNewRow() {
     TextEditingController newSurgeryController = TextEditingController();
     TextEditingController newNoteController = TextEditingController();
@@ -616,7 +609,10 @@ Future<void> makePostRequest() async {
 
   TextEditingController surgerysearchController = TextEditingController();
 
-  void _showSurgerySelection(BuildContext context, TextEditingController surgeryController, TextEditingController noteController) {
+  void _showSurgerySelection(
+      BuildContext context,
+      TextEditingController surgeryController,
+      TextEditingController noteController) {
     TextEditingController localSurgeryController = TextEditingController();
     TextEditingController localNoteController = TextEditingController();
     String localSelectedsurgerydata = '';

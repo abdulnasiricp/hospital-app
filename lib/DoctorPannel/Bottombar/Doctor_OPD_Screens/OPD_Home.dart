@@ -347,9 +347,12 @@ class _OpdHomeState extends State<OpdHome> {
                                                           ['visit_details_id'],
                                                   status:
                                                       radiologyfilteredData?[
-                                                          index]['status'],      employee_id:
+                                                          index]['status'],  
+                                                              employee_id:
                                                       radiologyfilteredData?[
                                                           index]['employee_id'],
+                                                          case_reference_id: radiologyfilteredData?[
+                                                          index]['case_reference_id'],
                                                 ));
                                             // String? status =
                                             //     radiologyfilteredData?[index]

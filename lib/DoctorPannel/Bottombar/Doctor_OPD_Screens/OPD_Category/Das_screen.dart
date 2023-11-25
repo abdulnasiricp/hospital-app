@@ -29,6 +29,7 @@ class Das_screen extends StatefulWidget {
   final String? OpdVisitDetailsID;
   final String? status;
   final String? employee_id;
+  final String? case_reference_id;
 
   const Das_screen({
     Key? key,
@@ -43,7 +44,7 @@ class Das_screen extends StatefulWidget {
     this.gender,
     this.guardianName,
     this.opdID,
-    this.OpdVisitDetailsID,
+    this.OpdVisitDetailsID, this.case_reference_id,
   }) : super(key: key);
 
   @override
@@ -280,7 +281,7 @@ class _Das_screenState extends State<Das_screen> {
                               ),
                               CardDesign(
                                 () {
-                                  Get.to(() => const Opd_Check_Out());
+                                  Get.to(() =>  Opd_Check_Out(opdID: widget.opdID,));
                                 },
                                 SvgPicture.asset(
                                   'assets/emergency.svg',
