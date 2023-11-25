@@ -9,11 +9,9 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:html_editor_enhanced/html_editor.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:open_file/open_file.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class Opd_Check_Out extends StatefulWidget {
   const Opd_Check_Out({Key? key}) : super(key: key);
