@@ -237,7 +237,8 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
 
 //================================================================================= Radiology
   bool isRadiologyDataFetched = false; // Add this flag
-
+  String selectedradiology = '';
+  String selectedradiologyId = '';
   List<dynamic>? radiologydata = [];
   List<dynamic>? radiologyfilteredData = [];
 
@@ -344,23 +345,23 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     final String radiologyQty = radiologyQtyController.text;
     final String radiologyNote = radiologyNoteController.text;
 
-    // Extract data from dynamically generated rows
-    List<Map<String, dynamic>> additionalSurgeryRowsData = [];
-    List<Map<String, dynamic>> additionalothertestRowsData = [];
-    List<Map<String, dynamic>> additionalRadiologyRowsData = [];
+    List<dynamic> additionalMedicineRowsData = [];
+//-----------------------------------------------------------------------------othertest
+    List<dynamic> additionalothertestRowsData = [];
 
-// radiology
     for (var otherControllerMap in otherControllersList) {
       String rowOthertest = otherControllerMap['otherTest']?.text ?? '';
 
       // Check if both fields in the row have data
       if (rowOthertest.isNotEmpty) {
-        additionalothertestRowsData.add({
-          '': rowOthertest,
-        });
+        additionalothertestRowsData.add(
+          rowOthertest,
+        );
       }
     }
-// radiology
+//-----------------------------------------------------------------------------radiology
+    List<dynamic> additionalRadiologyRowsData = [];
+
     for (var radiologyControllerMap in radiologyControllersList) {
       String rowRadiology = radiologyControllerMap['radiology']?.text ?? '';
       String rowRadiologyQty =
@@ -372,21 +373,54 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
       if (rowRadiology.isNotEmpty &&
           rowRadiologyQty.isNotEmpty &&
           rowRadiologyNote.isNotEmpty) {
-        additionalRadiologyRowsData.add(
-            {'': rowRadiology, '.': rowRadiologyQty, ',': rowRadiologyNote});
+        additionalRadiologyRowsData
+            .add({rowRadiology, rowRadiologyQty, rowRadiologyNote});
       }
     }
+//-----------------------------------------------------------------------------surgery
 
-//surgery
-    for (var surgerycontrollerMap in surgeryControllersList) {
-      String rowSurgery = surgerycontrollerMap['surgery']?.text ?? '';
-      String rowNote = surgerycontrollerMap['surgerynote']?.text ?? '';
+    // 
+    List<dynamic> additionalRowsData = [];
+
+    for (var controllerMap in surgeryControllersList) {
+      String rowSurgery = controllerMap['surgery']?.text ?? '';
+      String rowNote = controllerMap['note']?.text ?? '';
 
       // Check if both fields in the row have data
       if (rowSurgery.isNotEmpty && rowNote.isNotEmpty) {
-        additionalSurgeryRowsData.add({
-          'surgery Advised': rowSurgery,
-          'surgery Note': rowNote,
+        additionalRowsData.add({
+          rowSurgery,
+          rowNote,
+        });
+      }
+    }
+    //medicine
+    for (var medicineControllerMap in pharmacyControllersList) {
+      String rowMedicine = medicineControllerMap['pharmacy']?.text ?? '';
+      String rowMedicineDose =
+          medicineControllerMap['pharmacyDose']?.text ?? '';
+      String rowMedicineInterval =
+          medicineControllerMap['pharmacyInterval']?.text ?? '';
+      String rowMedicineDuration =
+          medicineControllerMap['pharmacyDuration']?.text ?? '';
+      String rowMedicineRoute =
+          medicineControllerMap['pharmacyRoute']?.text ?? '';
+      String rowMedicineQty = medicineControllerMap['pharmacyQty']?.text ?? '';
+
+      // Check if both fields in the row have data
+      if (rowMedicine.isNotEmpty &&
+          rowMedicineDose.isNotEmpty &&
+          rowMedicineInterval.isNotEmpty &&
+          rowMedicineDuration.isNotEmpty &&
+          rowMedicineRoute.isNotEmpty &&
+          rowMedicineQty.isNotEmpty) {
+        additionalMedicineRowsData.add({
+          rowMedicine,
+          rowMedicineDose,
+          rowMedicineInterval,
+          rowMedicineDuration,
+          rowMedicineRoute,
+          rowMedicineQty,
         });
       }
     }
@@ -396,72 +430,81 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
       selecteddiagnosisItemsId,
       selectedpathologyItemsId,
       otherTest,
+      localSelectedotherId,
       ...additionalothertestRowsData,
+      selectedradiologyId,
       radiology,
       radiologyQty,
       radiologyNote,
       ...additionalRadiologyRowsData,
       mainSurgery,
       mainSurgeryNote,
-      ...additionalSurgeryRowsData,
+      ...additionalRowsData
+    ];
+    List<dynamic> requestothertestList = [
+      otherTest,
+      ...additionalothertestRowsData,
+      // selectedotherId,
+      // localSelectedotherId
     ];
     const String apiUrl =
         'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
     Map<String, dynamic> requestBody = {
       // "table": "Visit_details",
       "opd_id": "${widget.opdID}",
-      "generated_by": "${widget.employee_id}",
+      // "generated_by": "${widget.employee_id}",
       "fields": {
         "status": "${widget.status}",
         "Diagnosis": selecteddiagnosisItemsId,
         "Pathology": selectedpathologyItemsId,
-        "Other_Test": selectedpathologyItemsId,
-        "Radiology": selectedpathologyItemsId,
-        "Surgery": selectedpathologyItemsId,
-        "Medicine": selectedpathologyItemsId,
-        "F_Advice": selectedpathologyItemsId,
+        "Other_Test": requestothertestList,
+        // "Radiology": requestBodyList
+
+        // "Surgery": selectedpathologyItemsId,
+        // "Medicine": selectedpathologyItemsId,
+        // "F_Advice": selectedpathologyItemsId,
       }
     };
     print('---------------+++++++++++-$requestBody');
-    try {
-      final response = await http.post(
-        Uri.parse(apiUrl),
-        body: jsonEncode(requestBody),
-        headers: ApiLinks.MainHeader,
-      );
 
-      if (response.statusCode == 200) {
-        // Successful response
-        print('Response: ${response.body}');
-        Map<String, dynamic> responseData = jsonDecode(response.body);
-        print('Status: ${responseData["staus"]}');
-        print('Message: ${responseData["message"]}');
-        print('ID: ${responseData["id"]}');
-        setState(() {
-          Fluttertoast.showToast(
-            msg: '${responseData["message"]}',
-            backgroundColor: Colors.green,
-            textColor: Colors.white,
-          );
-        });
-      } else {
-        setState(() {
-          Fluttertoast.showToast(
-            msg: '${response.reasonPhrase}',
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-          );
-        });
-      }
-    } catch (e) {
+    final response = await http.post(
+      Uri.parse(apiUrl),
+      body: requestBody,
+      headers: ApiLinks.MainHeader,
+    );
+
+    if (response.statusCode == 200) {
+      // Successful response
+      print('Response: ${response.body}');
+      Map<String, dynamic> responseData = jsonDecode(response.body);
+      print('Status: ${responseData["staus"]}');
+      print('Message: ${responseData["message"]}');
+      print('ID: ${responseData["id"]}');
       setState(() {
         Fluttertoast.showToast(
-          msg: '$e',
+          msg: '${responseData["message"]}',
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+        );
+      });
+    } else {
+      setState(() {
+        Fluttertoast.showToast(
+          msg: '${response.reasonPhrase}',
           backgroundColor: Colors.red,
           textColor: Colors.white,
         );
       });
     }
+    // } catch (e) {
+    //   setState(() {
+    //     Fluttertoast.showToast(
+    //       msg: '$e',
+    //       backgroundColor: Colors.red,
+    //       textColor: Colors.white,
+    //     );
+    //   });
+    // }
   }
 
 //=================================================================================
@@ -1110,10 +1153,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                         child: const Text('Save'),
                         onPressed: () {
                           makePostRequest();
-                          print('--------------$diagnosisController');
-                          print('--------------$pathologyController');
-                          // print('--------------$otherControllersList');
-                          print('--------------$otherControllersList');
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(yellow),
@@ -1391,8 +1430,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
 
 //==========================================================================================
   TextEditingController radiologySearchController = TextEditingController();
-  String selectedradiology = '';
-  String selectedradiologyId = '';
 
   void _showRadiologySelection(
       BuildContext context,
@@ -1700,12 +1737,12 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   String selectedotherdata = '';
   String selectedotherId = '';
   TextEditingController otherController = TextEditingController();
-
+  String localSelectedotherdata = '';
+  String localSelectedotherId = '';
   void _showOtherSelection(
       BuildContext context, TextEditingController otherController) {
     TextEditingController localotherController = TextEditingController();
-    String localSelectedotherdata = '';
-    String localSelectedotherId = '';
+
     showModalBottomSheet(
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
@@ -1798,7 +1835,8 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                               Colors.white70.withOpacity(0.7),
                                           child: ListTile(
                                             title: Text(
-                                              '$itemNumber. ${otherfilteredData?[index]['test_name'] ?? ''}',
+                                              // '$itemNumber. ${otherfilteredData?[index]['test_name'] ?? ''}',
+                                              '${otherfilteredData?[index]['test_name'] ?? ''}',
                                             ),
                                             onTap: () {
                                               localSelectedotherdata =
@@ -1810,8 +1848,9 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                                           ['id'] ??
                                                       '';
 
+                                              // localotherController.text ='($localSelectedotherId) $localSelectedotherdata';
                                               localotherController.text =
-                                                  '($localSelectedotherId) $localSelectedotherdata';
+                                                  '$localSelectedotherId';
 
                                               Navigator.of(context).pop();
                                             },
@@ -2328,13 +2367,13 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                     ),
                     onPressed: () {
                       _showPharmacySelection(
-                       context,
-                                          pharmacyController,
-                                          pharmacyDoseController,
-                                          pharmacyIntervalController,
-                                          pharmacyDurationController,
-                                          pharmacyRouteController,
-                                          pharmacyQtyController,
+                        context,
+                        pharmacyController,
+                        pharmacyDoseController,
+                        pharmacyIntervalController,
+                        pharmacyDurationController,
+                        pharmacyRouteController,
+                        pharmacyQtyController,
                       );
                     },
                   ),
@@ -2345,13 +2384,13 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                 ),
                 onTap: () {
                   _showPharmacySelection(
-                   context,
-                                          pharmacyController,
-                                          pharmacyDoseController,
-                                          pharmacyIntervalController,
-                                          pharmacyDurationController,
-                                          pharmacyRouteController,
-                                          pharmacyQtyController,
+                    context,
+                    pharmacyController,
+                    pharmacyDoseController,
+                    pharmacyIntervalController,
+                    pharmacyDurationController,
+                    pharmacyRouteController,
+                    pharmacyQtyController,
                   );
                 },
               ),
@@ -2516,6 +2555,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     );
   }
 
+//---------------------------------------------------------------------------Other Test
   List<Map<String, TextEditingController>> otherControllersList = [];
 
   void addNewRowOtherTest() {
@@ -2532,6 +2572,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
       otherControllersList.add(newControllersMap);
     });
   }
+//---------------------------------------------------------------------------pharmacy
 
   List<Map<String, TextEditingController>> pharmacyControllersList = [];
 
@@ -2549,6 +2590,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
       pharmacyControllersList.add(newpharmacyControllersMap);
     });
   }
+//---------------------------------------------------------------------------Radiology
 
   List<Map<String, TextEditingController>> radiologyControllersList = [];
 
@@ -2566,6 +2608,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
       radiologyControllersList.add(newRadiologyControllersMap);
     });
   }
+//---------------------------------------------------------------------------Surgery
 
   Widget dragBuildRow(TextEditingController surgeryController,
       TextEditingController surgeryNoteController) {

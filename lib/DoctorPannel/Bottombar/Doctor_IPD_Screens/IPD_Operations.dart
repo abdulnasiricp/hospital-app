@@ -123,11 +123,12 @@ Future<void> makePostRequest() async {
     "fields": "$requestBodyList",
   };
     print('----------------$requestBodyList');
+    print('----------------$requestBody');
 
   try {
     final response = await http.post(
       Uri.parse(apiUrl),
-      body: jsonEncode(requestBody),
+      body: requestBody,
       headers: ApiLinks.MainHeader,
     );
 
