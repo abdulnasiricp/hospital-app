@@ -30,10 +30,12 @@ class Das_screen extends StatefulWidget {
   final String? status;
   final String? employee_id;
   final String? case_reference_id;
+  final String? patient_id;
 
   const Das_screen({
     Key? key,
     this.patientName,
+    this.patient_id,
     this.employee_id,
     this.status,
     this.mobileNo,
@@ -44,7 +46,8 @@ class Das_screen extends StatefulWidget {
     this.gender,
     this.guardianName,
     this.opdID,
-    this.OpdVisitDetailsID, this.case_reference_id,
+    this.OpdVisitDetailsID,
+    this.case_reference_id,
   }) : super(key: key);
 
   @override
@@ -225,6 +228,7 @@ class _Das_screenState extends State<Das_screen> {
                                   Get.to(() => OpdPreChecking(
                                         opdID: widget.opdID,
                                         status: widget.status,
+                                    OpdVisitDetailsID: widget.OpdVisitDetailsID,
                                       ));
                                 },
                                 SvgPicture.asset(
@@ -241,6 +245,8 @@ class _Das_screenState extends State<Das_screen> {
                                         opdVisitDetailsID:
                                             widget.OpdVisitDetailsID,
                                         status: widget.status,
+                                    patient_id: widget.patient_id,
+                                    case_reference_id: widget.case_reference_id,
                                       ));
                                 },
                                 SvgPicture.asset(
@@ -281,7 +287,9 @@ class _Das_screenState extends State<Das_screen> {
                               ),
                               CardDesign(
                                 () {
-                                  Get.to(() =>  Opd_Check_Out(opdID: widget.opdID,));
+                                  Get.to(() => Opd_Check_Out(
+                                        opdID: widget.opdID,
+                                      ));
                                 },
                                 SvgPicture.asset(
                                   'assets/emergency.svg',
@@ -300,7 +308,6 @@ class _Das_screenState extends State<Das_screen> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      padding: const EdgeInsets.all(20.0),
                       decoration: BoxDecoration(
                         border: Border.all(
                           color: Colors.grey,
@@ -311,131 +318,283 @@ class _Das_screenState extends State<Das_screen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Vitals'.tr,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          Container(
-                            color: Colors.green,
-                            width: width,
-                            height: 40,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    children: [
-                                      Container(
-                                        child: Center(
-                                          child: Text(
-                                            'H'.tr,
-                                            overflow: TextOverflow
-                                                .ellipsis, // Use ellipsis to cut off the text
-                                            maxLines: 1,
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      Container(
-                                        child: Center(
-                                          child: Text(
-                                            'W'.tr,
-                                            overflow: TextOverflow
-                                                .ellipsis, // Use ellipsis to cut off the text
-                                            maxLines: 1,
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      Container(
-                                        child: const Center(
-                                          child: Text(
-                                            "BP",
-                                            overflow: TextOverflow
-                                                .ellipsis, // Use ellipsis to cut off the text
-                                            maxLines: 1,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      Container(
-                                        child: Center(
-                                          child: Text(
-                                            'P'.tr,
-                                            overflow: TextOverflow
-                                                .ellipsis, // Use ellipsis to cut off the text
-                                            maxLines: 1,
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      Container(
-                                        child: Center(
-                                          child: Text(
-                                            'T'.tr,
-                                            overflow: TextOverflow
-                                                .ellipsis, // Use ellipsis to cut off the text
-                                            maxLines: 1,
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      Container(
-                                        child: Center(
-                                          child: Text(
-                                            'R'.tr,
-                                            overflow: TextOverflow
-                                                .ellipsis, // Use ellipsis to cut off the text
-                                            maxLines: 1,
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              'Reports'.tr,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
-                          const SizedBox(height: 16),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: GridView.count(
+                              physics: const NeverScrollableScrollPhysics(),
+                              crossAxisCount: 4,
+                              shrinkWrap: true,
+                              children: [
+                                CardDesign(
+                                  () {
+                                    Get.to(() => OpdPreChecking(
+                                          opdID: widget.opdID,
+                                          status: widget.status,
+                                        ));
+                                  },
+                                  SvgPicture.asset(
+                                    'assets/pathology.svg',
+                                    width: 30,
+                                    height: 30,
+                                    color: Colors.white,
+                                  ),
+                                  'Pathology'.tr,
+                                ),
+                                CardDesign(
+                                  () {
+                                    Get.to(() => OpdExamination(
+                                          opdVisitDetailsID:
+                                              widget.OpdVisitDetailsID,
+                                          status: widget.status,
+                                        ));
+                                  },
+                                  SvgPicture.asset(
+                                    'assets/radiology.svg',
+                                    width: 30,
+                                    height: 30,
+                                    color: Colors.white,
+                                  ),
+                                  'Radilogy'.tr,
+                                ),
+                                CardDesign(
+                                  () {
+                                    Get.to(() => OpdExamination(
+                                          opdVisitDetailsID:
+                                              widget.OpdVisitDetailsID,
+                                          status: widget.status,
+                                        ));
+                                  },
+                                  SvgPicture.asset(
+                                    'assets/Prescription.svg',
+                                    width: 30,
+                                    height: 30,
+                                    color: Colors.white,
+                                  ),
+                                  'Prescription'.tr,
+                                ),
+                                CardDesign(
+                                  () {
+                                    Get.to(() => OpdExamination(
+                                          opdVisitDetailsID:
+                                              widget.OpdVisitDetailsID,
+                                          status: widget.status,
+                                        ));
+                                  },
+                                  SvgPicture.asset(
+                                    'assets/Medication.svg',
+                                    width: 30,
+                                    height: 30,
+                                    color: Colors.white,
+                                  ),
+                                  'Medication'.tr,
+                                ),
+                                CardDesign(
+                                  () {
+                                    Get.to(() => OpdExamination(
+                                          opdVisitDetailsID:
+                                              widget.OpdVisitDetailsID,
+                                          status: widget.status,
+                                        ));
+                                  },
+                                  SvgPicture.asset(
+                                    'assets/bed_history.svg',
+                                    width: 30,
+                                    height: 30,
+                                    color: Colors.white,
+                                  ),
+                                  'Bed History'.tr,
+                                ),
+                                CardDesign(
+                                  () {
+                                    Get.to(() => OpdExamination(
+                                          opdVisitDetailsID:
+                                              widget.OpdVisitDetailsID,
+                                          status: widget.status,
+                                        ));
+                                  },
+                                  SvgPicture.asset(
+                                    'assets/surgery.svg',
+                                    width: 30,
+                                    height: 30,
+                                    color: Colors.white,
+                                  ),
+                                  'Operation'.tr,
+                                ),
+                                CardDesign(
+                                  () {
+                                    Get.to(() => OpdExamination(
+                                          opdVisitDetailsID:
+                                              widget.OpdVisitDetailsID,
+                                          status: widget.status,
+                                        ));
+                                  },
+                                  SvgPicture.asset(
+                                    'assets/cardex.svg',
+                                    width: 30,
+                                    height: 30,
+                                    color: Colors.white,
+                                  ),
+                                  'Cardex'.tr,
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.grey,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              'Vitals'.tr,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: Container(
+                              color: Colors.green,
+                              width: width,
+                              height: height / 22,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Container(
+                                          child: Center(
+                                            child: Text(
+                                              'H'.tr,
+                                              overflow: TextOverflow
+                                                  .ellipsis, // Use ellipsis to cut off the text
+                                              maxLines: 1,
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        Container(
+                                          child: Center(
+                                            child: Text(
+                                              'W'.tr,
+                                              overflow: TextOverflow
+                                                  .ellipsis, // Use ellipsis to cut off the text
+                                              maxLines: 1,
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        Container(
+                                          child: const Center(
+                                            child: Text(
+                                              "BP",
+                                              overflow: TextOverflow
+                                                  .ellipsis, // Use ellipsis to cut off the text
+                                              maxLines: 1,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        Container(
+                                          child: Center(
+                                            child: Text(
+                                              'P'.tr,
+                                              overflow: TextOverflow
+                                                  .ellipsis, // Use ellipsis to cut off the text
+                                              maxLines: 1,
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        Container(
+                                          child: Center(
+                                            child: Text(
+                                              'T'.tr,
+                                              overflow: TextOverflow
+                                                  .ellipsis, // Use ellipsis to cut off the text
+                                              maxLines: 1,
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        Container(
+                                          child: Center(
+                                            child: Text(
+                                              'R'.tr,
+                                              overflow: TextOverflow
+                                                  .ellipsis, // Use ellipsis to cut off the text
+                                              maxLines: 1,
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
@@ -556,7 +715,6 @@ class _Das_screenState extends State<Das_screen> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      padding: const EdgeInsets.all(20.0),
                       decoration: BoxDecoration(
                         border: Border.all(
                           color: Colors.grey,
@@ -567,11 +725,14 @@ class _Das_screenState extends State<Das_screen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Symptoms:'.tr,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              'Symptoms:'.tr,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                           const SizedBox(height: 16),
@@ -590,7 +751,6 @@ class _Das_screenState extends State<Das_screen> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      padding: const EdgeInsets.all(20.0),
                       decoration: BoxDecoration(
                         border: Border.all(
                           color: Colors.grey,
@@ -601,11 +761,14 @@ class _Das_screenState extends State<Das_screen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Known Allergies:'.tr,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              'Known Allergies:'.tr,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                           const SizedBox(height: 16),
@@ -624,7 +787,6 @@ class _Das_screenState extends State<Das_screen> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      padding: const EdgeInsets.all(20.0),
                       decoration: BoxDecoration(
                         border: Border.all(
                           color: Colors.grey,
@@ -635,11 +797,14 @@ class _Das_screenState extends State<Das_screen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Diagnosis:'.tr,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              'Diagnosis:'.tr,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                           const SizedBox(height: 16),
@@ -658,7 +823,6 @@ class _Das_screenState extends State<Das_screen> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      padding: const EdgeInsets.all(20.0),
                       decoration: BoxDecoration(
                         border: Border.all(
                           color: Colors.grey,
@@ -674,30 +838,37 @@ class _Das_screenState extends State<Das_screen> {
                               const Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'CONSULTANT DOCTOR:',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
+                                  Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'CONSULTANT DOCTOR:',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
                                 ],
                               ),
                               // Add a button to the right side
-                              Container(
-                                width: width / 4.1, // Set the desired width
-                                height: height / 25, // Set the desired height
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    // Add your button click functionality here
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    fixedSize: const Size(150,
-                                        30), // Adjust the Size according to your needs
-                                    primary: yellow, // Set the background color
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  width: width / 4.1, // Set the desired width
+                                  height: height / 25, // Set the desired height
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      // Add your button click functionality here
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      fixedSize: const Size(150,
+                                          30), // Adjust the Size according to your needs
+                                      primary:
+                                          yellow, // Set the background color
+                                    ),
+                                    child: const Text('Add doctor',
+                                        style: TextStyle(fontSize: 12.0)),
                                   ),
-                                  child: const Text('Add doctor',
-                                      style: TextStyle(fontSize: 12.0)),
                                 ),
                               )
                             ],
@@ -776,7 +947,7 @@ class _Das_screenState extends State<Das_screen> {
 
   Padding CardDesign(ontap, iconWidget, iconName) {
     return Padding(
-      padding: const EdgeInsets.all(1.0),
+      padding: const EdgeInsets.all(3.0),
       child: InkWell(
         onTap: ontap,
         child: Container(

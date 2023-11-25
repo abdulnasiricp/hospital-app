@@ -31,21 +31,15 @@ class _OpdInvestigationState extends State<OPD_Medication> {
   TextEditingController pharmacyRouteController = TextEditingController();
   TextEditingController pharmacyQtyController = TextEditingController();
   @override
-  void initState() {
-    super.initState();
-    // Step 1: Add a listener to pharmacyController
-    pharmacyController.addListener(() {
-      // Step 2: When the text changes, create a new row
-      addNewRowPharmacy();
-    });
-  }
-
 //=================================================================================
   bool ispharmacyDataFetched = false; // Add this flag
   bool isLoading = false; // Add this flag
 
   List<dynamic>? pharmacydata = [];
   List<dynamic>? pharmacyfilteredData = [];
+
+
+
   Future<void> fetchPharmacyData() async {
     if (ispharmacyDataFetched) {
       return; // If data has already been fetched, return without fetching again
@@ -105,6 +99,9 @@ class _OpdInvestigationState extends State<OPD_Medication> {
       }
     };
     print('---------------+++++++++++-$requestBody');
+
+
+    print('---------------+///////////////////////////////////////////////////////////////++++++++++-$pharmacyControllersList');
     try {
       final response = await http.post(
         Uri.parse(apiUrl),
@@ -171,7 +168,7 @@ class _OpdInvestigationState extends State<OPD_Medication> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 const SizedBox(
-                  height: 6,
+                  height: 5,
                 ),
                 Row(
                   children: [
@@ -205,9 +202,6 @@ class _OpdInvestigationState extends State<OPD_Medication> {
                                     pharmacyRouteController,
                                     pharmacyQtyController,
                                   );
-                                   setState(() {
-                                addNewRowPharmacy();
-                              });
                                 },
                               ),
                               border: const OutlineInputBorder(),
@@ -225,9 +219,6 @@ class _OpdInvestigationState extends State<OPD_Medication> {
                                 pharmacyRouteController,
                                 pharmacyQtyController,
                               );
-                                   setState(() {
-                                addNewRowPharmacy();
-                              });
                             },
                           ),
                         ),
@@ -239,9 +230,9 @@ class _OpdInvestigationState extends State<OPD_Medication> {
                         child: CircleAvatar(
                           child: IconButton(
                             onPressed: () {
-                              // setState(() {
-                              //   addNewRowPharmacy();
-                              // });
+                              setState(() {
+                                addNewRowPharmacy();
+                              });
                             },
                             icon: Icon(
                               Icons.add,
@@ -693,9 +684,6 @@ class _OpdInvestigationState extends State<OPD_Medication> {
                           pharmacyRouteController,
                           pharmacyQtyController,
                         );
-                             setState(() {
-                                addNewRowPharmacy();
-                              });
                       },
                     ),
                     border: const OutlineInputBorder(),
@@ -713,9 +701,6 @@ class _OpdInvestigationState extends State<OPD_Medication> {
                       pharmacyRouteController,
                       pharmacyQtyController,
                     );
-                         setState(() {
-                                addNewRowPharmacy();
-                              });
                   },
                 ),
               ),
@@ -876,7 +861,6 @@ class _OpdInvestigationState extends State<OPD_Medication> {
 
 //////////////////////////////////////////////////////////////////////
   List<Map<String, TextEditingController>> pharmacyControllersList = [];
-
   void addNewRowPharmacy() {
     TextEditingController newpharmacyController = TextEditingController();
 

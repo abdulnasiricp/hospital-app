@@ -269,7 +269,7 @@ class _IPDState extends State<IPD> {
                                               width: 40,
                                               height: 40,
                                               child: SvgPicture.asset(
-                                                  'assets/bill.svg',
+                                                  'assets/cardex.svg',
                                                   width: 15,
                                                   height: 15,
                                                   color: darkYellow),

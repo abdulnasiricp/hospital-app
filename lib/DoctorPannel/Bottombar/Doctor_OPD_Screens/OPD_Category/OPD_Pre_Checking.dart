@@ -14,7 +14,10 @@ import 'package:http/http.dart' as http;
 class OpdPreChecking extends StatefulWidget {
   final String? opdID;
   final String? status;
-  const OpdPreChecking({Key? key, this.opdID, this.status}) : super(key: key);
+  final String? OpdVisitDetailsID;
+  const OpdPreChecking(
+      {Key? key, this.opdID, this.OpdVisitDetailsID, this.status})
+      : super(key: key);
   @override
   State<OpdPreChecking> createState() => _OpdPreCheckingState();
 }
@@ -43,7 +46,7 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
   final FocusNode _unUsedFocusNode = FocusNode();
 
   bool isLoading = false;
-  
+
   Future<void> makePostRequest() async {
     final String symptoms = symptomsController.text;
     final String height = heightController.text;
@@ -64,7 +67,8 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
 
     const String apiUrl =
         'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
-
+    int currentStatus = int.parse(widget.status ?? "0");
+    int newStatus = currentStatus + 1;
     Map<String, dynamic> requestBody = {
       "table": "visit_details",
       "fields": {
@@ -85,11 +89,11 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
         "recent_report": recentReport,
         "birth_history": birthHistory,
         "note": NoteController,
-        "status": "${widget.status}",
+        "status": newStatus,
       }
     };
     print(
-        "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++$requestBody");
+        "----------------------------------------------------+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++$requestBody");
     try {
       final response = await http.post(
         Uri.parse(apiUrl),
@@ -105,6 +109,10 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
         print('Message: ${responseData["message"]}');
         print('ID: ${responseData["id"]}');
         setState(() {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const OpdExamination()),
+          );
           Fluttertoast.showToast(
             msg: '${responseData["message"]}',
             backgroundColor: Colors.green,
@@ -719,12 +727,6 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                 setState(() {
                                   isLoading = false;
                                 });
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const OpdExamination()),
-                                );
                               },
                               style: ButtonStyle(
                                 backgroundColor:

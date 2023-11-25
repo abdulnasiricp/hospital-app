@@ -12,10 +12,12 @@ import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:open_file/open_file.dart';
 import 'dart:io';
+
 class Opd_Check_Out extends StatefulWidget {
   final String? opdID;
   final String? case_reference_id;
-  const Opd_Check_Out({Key? key, this.opdID, this.case_reference_id}) : super(key: key);
+  const Opd_Check_Out({Key? key, this.opdID, this.case_reference_id})
+      : super(key: key);
 
   @override
   State<Opd_Check_Out> createState() => _Opd_Check_OutState();
@@ -50,7 +52,8 @@ class _Opd_Check_OutState extends State<Opd_Check_Out> {
       });
     }
   }
-   Future<void> _selectDischargeDate(BuildContext context) async {
+
+  Future<void> _selectDischargeDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: selectedDeathDate,
@@ -87,15 +90,14 @@ class _Opd_Check_OutState extends State<Opd_Check_Out> {
     final String referralDate = referralDateController.text;
     final String referralHospital = referralHospitalController.text;
     final String referralReason = referralReasonController.text;
-  // Get the file paths from selectedFiles
-  List<String?> filePaths = selectedFiles?.files.map((file) => file.path).toList() ?? [];
+    // Get the file paths from selectedFiles
+    List<String?> filePaths =
+        selectedFiles?.files.map((file) => file.path).toList() ?? [];
 
-  // Convert the list of file paths to a comma-separated string
-  String attachments = filePaths.join(',');
+    // Convert the list of file paths to a comma-separated string
+    String attachments = filePaths.join(',');
 
-
-
-    Map<dynamic,dynamic> requestBodyList = {
+    Map<dynamic, dynamic> requestBodyList = {
       'case_reference_id': '${widget.case_reference_id}',
       'ticketDate': ticketDate,
       'guardianName': guardianName,
@@ -109,24 +111,22 @@ class _Opd_Check_OutState extends State<Opd_Check_Out> {
       'discharge_by': '',
       'opd_details_id': "${widget.opdID}",
       'ipd_doetails_id': "124",
-   "Attachment":attachments
+      "Attachment": attachments
     };
-
 
     const String apiUrl =
         'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
 
     Map<String, dynamic> requestBody = {
-      "table": "OPD checkout",
+      "table": "OPD_checkout",
       "fields": "$requestBodyList",
-      
     };
 
     print('----------------$requestBody');
     try {
       final response = await http.post(
         Uri.parse(apiUrl),
-        body:(requestBody),
+        body: (requestBody),
         headers: ApiLinks.MainHeader,
       );
 
@@ -193,7 +193,7 @@ class _Opd_Check_OutState extends State<Opd_Check_Out> {
                               text: const TextSpan(
                                 children: [
                                   TextSpan(
-                                    text: "Select Ticket Date",
+                                    text: "Discharge Date ",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black,
@@ -361,62 +361,63 @@ class _Opd_Check_OutState extends State<Opd_Check_Out> {
                       if (selectedDischargeStatus == 'Death') ...{
                         Row(
                           children: [
-                         
-                             Container(
-                        width: width / 2.2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            RichText(
-                              text: const TextSpan(
+                            Container(
+                              width: width / 2.2,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  TextSpan(
-                                    text: "Death Date",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
+                                  RichText(
+                                    text: const TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text: "Death Date",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: '*',
+                                          style: TextStyle(
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  TextSpan(
-                                    text: '*',
-                                    style: TextStyle(
-                                      color: Colors.red,
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  InkWell(
+                                    child: TextFormField(
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'This field is required';
+                                        }
+                                        return null;
+                                      },
+                                      onTapOutside: (event) =>
+                                          FocusScope.of(context).unfocus(),
+                                      controller: deathDateController,
+                                      decoration: InputDecoration(
+                                          suffixIcon: IconButton(
+                                              icon: const Icon(
+                                                  Icons.calendar_month),
+                                              onPressed: () {
+                                                _selectDischargeDate(context);
+                                              }),
+                                          border: const OutlineInputBorder(),
+                                          hintText: 'Select death Date',
+                                          fillColor: Colors.white,
+                                          filled: true),
+                                      readOnly: true,
+                                      onTap: () =>
+                                          _selectDischargeDate(context),
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            InkWell(
-                              child: TextFormField(
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'This field is required';
-                                  }
-                                  return null;
-                                },
-                                onTapOutside: (event) =>
-                                    FocusScope.of(context).unfocus(),
-                                controller: deathDateController,
-                                decoration: InputDecoration(
-                                    suffixIcon: IconButton(
-                                        icon: const Icon(Icons.calendar_month),
-                                        onPressed: () {
-                                          _selectDischargeDate(context);
-                                        }),
-                                    border: const OutlineInputBorder(),
-                                    hintText: 'Select death Date',
-                                    fillColor: Colors.white,
-                                    filled: true),
-                                readOnly: true,
-                                onTap: () => _selectDischargeDate(context),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
                             const SizedBox(
                               width: 10,
                             ),
@@ -460,7 +461,6 @@ class _Opd_Check_OutState extends State<Opd_Check_Out> {
                                     const SizedBox(width: 10),
                                     _deathsectiontextfield(context, 'Report ',
                                         reportController, width / 2.2, false),
-                                    
                                   ],
                                 ),
                                 const SizedBox(
@@ -469,38 +469,37 @@ class _Opd_Check_OutState extends State<Opd_Check_Out> {
                                 // Display selected file names
                                 Container(
                                   width: double.infinity,
-                                      child: Card(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: selectedFiles?.files
-                                                  .map(
-                                                    (file) => GestureDetector(
-                                                      onTap: () async {
-                                                        // Check if the file path is available
-                                                        if (file.path != null) {
-                                                          // Open the file using open_file
-                                                          await OpenFile.open(
-                                                              file.path!);
-                                                        }
-                                                      },
-                                                      child: Text(
-                                                        file.name,
-                                                        style: const TextStyle(
-                                                          color: Colors
-                                                              .blue, // Change the text color to indicate it's clickable
-                                                          decoration:
-                                                              TextDecoration
-                                                                  .underline,
-                                                        ),
-                                                      ),
+                                  child: Card(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: selectedFiles?.files
+                                              .map(
+                                                (file) => GestureDetector(
+                                                  onTap: () async {
+                                                    // Check if the file path is available
+                                                    if (file.path != null) {
+                                                      // Open the file using open_file
+                                                      await OpenFile.open(
+                                                          file.path!);
+                                                    }
+                                                  },
+                                                  child: Text(
+                                                    file.name,
+                                                    style: const TextStyle(
+                                                      color: Colors
+                                                          .blue, // Change the text color to indicate it's clickable
+                                                      decoration: TextDecoration
+                                                          .underline,
                                                     ),
-                                                  )
-                                                  .toList() ??
-                                              [],
-                                        ),
-                                      ),
-                                    )
+                                                  ),
+                                                ),
+                                              )
+                                              .toList() ??
+                                          [],
+                                    ),
+                                  ),
+                                )
                               ],
                             )),
                       } else if (selectedDischargeStatus == 'Referral') ...{

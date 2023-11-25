@@ -9,11 +9,19 @@ import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OpdExamination extends StatefulWidget {
   final String? opdVisitDetailsID;
   final String? status;
-  const OpdExamination({Key? key, this.opdVisitDetailsID, this.status})
+  final String? patient_id;
+  final String? case_reference_id;
+  const OpdExamination(
+      {Key? key,
+      this.opdVisitDetailsID,
+      this.case_reference_id,
+      this.patient_id,
+      this.status})
       : super(key: key);
 
   @override
@@ -47,12 +55,12 @@ class _OpdExaminationState extends State<OpdExamination> {
 
     const String apiUrl =
         'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
-
+    int currentStatus = int.parse(widget.status ?? "0");
+    int newStatus = currentStatus + 1;
     Map<String, dynamic> requestBody = {
-      "table": "Opd_Examination",
+      "table": "ipd_prescription_basic",
       "fields": {
         "visit_details_id": "${widget.opdVisitDetailsID}",
-        "status": "${widget.status}",
         "systemRespiratory": mergedRespiratoryt,
         "systemCardiovascular": mergedCardiovascular,
         "systemAbdominal": mergedAbdominal,
@@ -61,9 +69,16 @@ class _OpdExaminationState extends State<OpdExamination> {
         "systemLocal": mergedLocal,
         "general_examination":
             "$generalCardText", // Add the selected options from SelectableCard
+        "status": newStatus,
+        "prescribe_by": id,
+        "generated_by": id,
+        "is_opd": "1",
+        "patient_id": "${widget.patient_id}",
+        "case_reference_id": "${widget.case_reference_id}",
       }
     };
-
+    print(
+        "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++$requestBody");
     try {
       final response = await http.post(
         Uri.parse(apiUrl),
@@ -75,20 +90,45 @@ class _OpdExaminationState extends State<OpdExamination> {
         // Successful response
         print('Response: ${response.body}');
         Map<String, dynamic> responseData = jsonDecode(response.body);
-        print('Status: ${responseData["staus"]}');
-        print('Message: ${responseData["message"]}');
-        print('ID: ${responseData["id"]}');
-        setState(() {
-          Fluttertoast.showToast(
-            msg: '${responseData["message"]}',
-            backgroundColor: Colors.green,
-            textColor: Colors.white,
-          );
-        });
+        print('Status: ${responseData["status"]}');
+
+        if (responseData["status"] == 1) {
+          // Status is 1, navigate to OpdInvestigation
+          setState(() {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const OpdInvestigation()),
+            );
+            Fluttertoast.showToast(
+              msg: '${responseData["message"]}',
+              backgroundColor: Colors.green,
+              textColor: Colors.white,
+            );
+          });
+        } else if (responseData["status"] == 0) {
+          // Status is 0, handle it as a special case
+          setState(() {
+            Fluttertoast.showToast(
+              msg: 'Status is 0: ${responseData["message"]}',
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+            );
+          });
+        } else {
+          // Handle other status values if needed
+          setState(() {
+            Fluttertoast.showToast(
+              msg: 'Unexpected status: ${responseData["status"]}',
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+            );
+          });
+        }
       } else {
+        // Handle other status codes (non-200) if needed
         setState(() {
           Fluttertoast.showToast(
-            msg: '${response.reasonPhrase}',
+            msg: 'Error: ${response.reasonPhrase}',
             backgroundColor: Colors.red,
             textColor: Colors.white,
           );
@@ -132,10 +172,18 @@ class _OpdExaminationState extends State<OpdExamination> {
   List<String> systematicCardText4 = [];
   List<String> systematicCardText5 = [];
   List<String> systematicCardText6 = [];
+  String id = '';
+  Future<void> loadDoctorData() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    setState(() {
+      id = sp.getString('id') ?? '';
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-
+    loadDoctorData();
     // Initialize TextEditingControllers for each item in systematicCard
     for (int i = 0; i < systematicCard.length; i++) {
       systematicCardControllers.add(TextEditingController());
@@ -439,12 +487,6 @@ class _OpdExaminationState extends State<OpdExamination> {
                               isLoading = false;
                             });
                             print("$generalCardText");
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const OpdInvestigation()),
-                            );
                           },
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(yellow),
