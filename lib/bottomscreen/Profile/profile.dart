@@ -21,6 +21,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -142,10 +143,16 @@ class _ProfileState extends State<Profile> {
         Uri.parse(apiUrl),
         headers: ApiLinks.MainHeader,
         // You may need to pass additional data in the body if required by your API.
-        body: jsonEncode({"patient_id": patientID}),
+        body: jsonEncode({
+          "patient_id": patientID,
+          "app_key": NotificationToken,
+        }),
       );
       if (response.statusCode == 200) {
         // Successful logout, clear user data or navigate to the login screen.
+        OneSignal.logout();
+        print(
+            "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++$NotificationToken");
         print('Logout successful');
         _logout(context);
         Fluttertoast.showToast(
@@ -173,14 +180,17 @@ class _ProfileState extends State<Profile> {
     }
   }
 
+//////////////////
   ////////////////////////////////////////////////////////////////////////////
   ///shared preference data
   var profileData;
   late String patientID = '';
+  late String NotificationToken = '';
   LoadData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
 
     patientID = sp.getString('patientidrecord') ?? '';
+    NotificationToken = sp.getString('NotificationToken') ?? '';
 
     print(patientID);
     setState(() {});

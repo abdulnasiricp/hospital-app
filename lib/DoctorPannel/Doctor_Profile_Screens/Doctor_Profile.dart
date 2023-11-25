@@ -18,6 +18,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -135,7 +136,7 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
     Get.offAll(() => const MainSiginScreen());
   }
 
-  String apiUrl = ApiLinks.logout; // Replace with your logout API URL
+  String apiUrl = ApiLinks.stafflogout; // Replace with your logout API URL
   Future<void> performLogout() async {
     setState(() {
       isLoggingOut = true;
@@ -147,11 +148,14 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
           'Soft-service': 'TezHealthCare',
           'Auth-key': 'zbuks_ram859553467',
         },
-        // You may need to pass additional data in the body if required by your API.
-        body: jsonEncode({"patient_id": doctorId}),
+        body: jsonEncode({
+          "doctorId": doctorId,
+          "app_key": NotificationToken,
+        }),
       );
       if (response.statusCode == 200) {
         // Successful logout, clear user data or navigate to the login screen.
+        OneSignal.logout();
         print('Logout successful');
         _logout(context);
         Fluttertoast.showToast(
@@ -183,6 +187,8 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
   ///shared preference data
   var profileData;
   late String doctorId = '';
+
+  late String NotificationToken = '';
   late String doctorName = '';
   late String doctorImage = '';
   late String doctoremail = '';
@@ -191,11 +197,13 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
 
     doctorId = sp.getString('id') ?? '';
     doctorName = sp.getString('username') ?? '';
+    NotificationToken = sp.getString('NotificationToken') ?? '';
     doctorImage = sp.getString('image') ?? '';
     doctoremail = sp.getString('email') ?? '';
-
     print('==========$doctorId');
     print('============$doctorName');
+    print(
+        '===========++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++=$NotificationToken');
     setState(() {});
   }
 ////////////////////////////////////////////
