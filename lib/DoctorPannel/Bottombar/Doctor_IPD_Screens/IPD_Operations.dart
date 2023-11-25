@@ -120,7 +120,7 @@ Future<void> makePostRequest() async {
 
   Map<String, dynamic> requestBody = {
     "table": "Visit_details",
-    "fields": "$requestBodyList",
+    "fields": requestBodyList,
   };
     print('----------------$requestBodyList');
     print('----------------$requestBody');
