@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace, unnecessary_string_interpolations, unnecessary_null_comparison, file_names, unused_local_variable, avoid_print, non_constant_identifier_names, unnecessary_brace_in_string_interps, camel_case_types
+// ignore_for_file: sized_box_for_whitespace, unnecessary_string_interpolations, unnecessary_null_comparison, file_names, unused_local_variable, avoid_print, non_constant_identifier_names, unnecessary_brace_in_string_interps
 
 import 'dart:convert';
 
@@ -30,7 +30,15 @@ class _OpdInvestigationState extends State<OPD_Medication> {
   TextEditingController pharmacyDurationController = TextEditingController();
   TextEditingController pharmacyRouteController = TextEditingController();
   TextEditingController pharmacyQtyController = TextEditingController();
- 
+  @override
+  void initState() {
+    super.initState();
+    // Step 1: Add a listener to pharmacyController
+    pharmacyController.addListener(() {
+      // Step 2: When the text changes, create a new row
+      addNewRowPharmacy();
+    });
+  }
 
 //=================================================================================
   bool ispharmacyDataFetched = false; // Add this flag
