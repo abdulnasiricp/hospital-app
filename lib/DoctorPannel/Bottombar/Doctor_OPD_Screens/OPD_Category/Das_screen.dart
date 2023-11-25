@@ -14,6 +14,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import 'OPD_Medication.dart';
+
 class Das_screen extends StatefulWidget {
   final String? opdID;
   final String? patientName;
@@ -86,7 +88,7 @@ class _Das_screenState extends State<Das_screen> {
                           Text(
                             'Patient Information'.tr,
                             style: const TextStyle(
-                              fontSize: 20,
+                              fontSize: 14,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -214,7 +216,7 @@ class _Das_screenState extends State<Das_screen> {
                           padding: const EdgeInsets.all(8.0),
                           child: GridView.count(
                             physics: const NeverScrollableScrollPhysics(),
-                            crossAxisCount: 4,
+                            crossAxisCount: 5,
                             shrinkWrap: true,
                             children: [
                               CardDesign(
@@ -253,7 +255,7 @@ class _Das_screenState extends State<Das_screen> {
                                   Get.to(() => OpdInvestigation(
                                         opdID: widget.opdID,
                                         status: widget.status,
-                                    employee_id: widget.employee_id,
+                                        employee_id: widget.employee_id,
                                       ));
                                 },
                                 SvgPicture.asset(
@@ -263,6 +265,18 @@ class _Das_screenState extends State<Das_screen> {
                                   // color: Colors.white,
                                 ),
                                 'Investigation'.tr,
+                              ),
+                              CardDesign(
+                                () {
+                                  Get.to(() => const OPD_Medication());
+                                },
+                                SvgPicture.asset(
+                                  'assets/emergency.svg',
+                                  width: 30,
+                                  height: 30,
+                                  // color: Colors.white,
+                                ),
+                                'Medication'.tr,
                               ),
                               CardDesign(
                                 () {
@@ -299,7 +313,7 @@ class _Das_screenState extends State<Das_screen> {
                           Text(
                             'Vitals'.tr,
                             style: const TextStyle(
-                              fontSize: 20,
+                              fontSize: 14,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -555,7 +569,7 @@ class _Das_screenState extends State<Das_screen> {
                           Text(
                             'Symptoms:'.tr,
                             style: const TextStyle(
-                              fontSize: 20,
+                              fontSize: 14,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -589,7 +603,7 @@ class _Das_screenState extends State<Das_screen> {
                           Text(
                             'Known Allergies:'.tr,
                             style: const TextStyle(
-                              fontSize: 20,
+                              fontSize: 14,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -623,7 +637,7 @@ class _Das_screenState extends State<Das_screen> {
                           Text(
                             'Diagnosis:'.tr,
                             style: const TextStyle(
-                              fontSize: 20,
+                              fontSize: 14,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -662,21 +676,29 @@ class _Das_screenState extends State<Das_screen> {
                                   Text(
                                     'CONSULTANT DOCTOR:',
                                     style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(height: 16),
-                                  // Add other widgets related to the consultant doctor here
                                 ],
                               ),
                               // Add a button to the right side
-                              ElevatedButton(
-                                onPressed: () {
-                                  // Add your button click functionality here
-                                },
-                                child: const Text('Add doctor'),
-                              ),
+                              Container(
+                                width: width / 4.1, // Set the desired width
+                                height: height / 25, // Set the desired height
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    // Add your button click functionality here
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    fixedSize: Size(150,
+                                        30), // Adjust the Size according to your needs
+                                    primary: yellow, // Set the background color
+                                  ),
+                                  child: const Text('Add doctor',
+                                      style: TextStyle(fontSize: 12.0)),
+                                ),
+                              )
                             ],
                           ),
                           Container(
@@ -753,33 +775,33 @@ class _Das_screenState extends State<Das_screen> {
 
   Padding CardDesign(ontap, iconWidget, iconName) {
     return Padding(
-      padding: const EdgeInsets.all(3.0),
+      padding: const EdgeInsets.all(1.0),
       child: InkWell(
         onTap: ontap,
         child: Container(
           width: 120,
-          height: 150,
+          height: 180,
           decoration: BoxDecoration(
             color: Colors.white, // Background color
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(10),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: 50,
-                height: 50,
+                width: 45,
+                height: 45,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: darkYellow,
                 ),
                 child: Center(child: iconWidget),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 3),
               Text(
                 iconName,
                 style: const TextStyle(
-                  fontSize: 10,
+                  fontSize: 8,
                   fontWeight: FontWeight.bold,
                   color: Colors.black, // Adjust the text color
                 ),

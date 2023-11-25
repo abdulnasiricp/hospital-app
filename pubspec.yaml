@@ -44,7 +44,7 @@ dependencies:
   flutter_onboarding_screen: ^2.0.2
   shared_preferences: ^2.0.13
   shimmer: ^3.0.0
-  fluttertoast:
+  fluttertoast: ^8.2.4
   http:
   lottie:
   flutter_svg:
