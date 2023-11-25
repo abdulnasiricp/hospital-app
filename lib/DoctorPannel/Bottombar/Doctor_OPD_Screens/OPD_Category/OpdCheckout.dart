@@ -82,14 +82,15 @@ class _Opd_Check_OutState extends State<Opd_Check_Out> {
 
     Map<String, dynamic> requestBody = {
       "table": "OPD checkout",
-      "fields": "$requestBodyList"
+      "fields": "$requestBodyList",
+      "Attachment": " ",
     };
 
-    print('----------------$requestBodyList');
+    print('----------------$requestBody');
     try {
       final response = await http.post(
         Uri.parse(apiUrl),
-        body: jsonEncode(requestBody),
+        body:(requestBody),
         headers: ApiLinks.MainHeader,
       );
 

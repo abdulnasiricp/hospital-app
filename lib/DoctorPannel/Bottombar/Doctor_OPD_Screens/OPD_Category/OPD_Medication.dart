@@ -197,6 +197,9 @@ class _OpdInvestigationState extends State<OPD_Medication> {
                                     pharmacyRouteController,
                                     pharmacyQtyController,
                                   );
+                                   setState(() {
+                                addNewRowPharmacy();
+                              });
                                 },
                               ),
                               border: const OutlineInputBorder(),
@@ -214,6 +217,9 @@ class _OpdInvestigationState extends State<OPD_Medication> {
                                 pharmacyRouteController,
                                 pharmacyQtyController,
                               );
+                                   setState(() {
+                                addNewRowPharmacy();
+                              });
                             },
                           ),
                         ),
@@ -225,9 +231,9 @@ class _OpdInvestigationState extends State<OPD_Medication> {
                         child: CircleAvatar(
                           child: IconButton(
                             onPressed: () {
-                              setState(() {
-                                addNewRowPharmacy();
-                              });
+                              // setState(() {
+                              //   addNewRowPharmacy();
+                              // });
                             },
                             icon: Icon(
                               Icons.add,
@@ -679,6 +685,9 @@ class _OpdInvestigationState extends State<OPD_Medication> {
                           pharmacyRouteController,
                           pharmacyQtyController,
                         );
+                             setState(() {
+                                addNewRowPharmacy();
+                              });
                       },
                     ),
                     border: const OutlineInputBorder(),
@@ -696,6 +705,9 @@ class _OpdInvestigationState extends State<OPD_Medication> {
                       pharmacyRouteController,
                       pharmacyQtyController,
                     );
+                         setState(() {
+                                addNewRowPharmacy();
+                              });
                   },
                 ),
               ),
