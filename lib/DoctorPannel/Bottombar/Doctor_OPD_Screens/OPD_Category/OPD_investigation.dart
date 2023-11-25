@@ -379,7 +379,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     }
 //-----------------------------------------------------------------------------surgery
 
-    // 
+    //
     List<dynamic> additionalRowsData = [];
 
     for (var controllerMap in surgeryControllersList) {
@@ -391,36 +391,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
         additionalRowsData.add({
           rowSurgery,
           rowNote,
-        });
-      }
-    }
-    //medicine
-    for (var medicineControllerMap in pharmacyControllersList) {
-      String rowMedicine = medicineControllerMap['pharmacy']?.text ?? '';
-      String rowMedicineDose =
-          medicineControllerMap['pharmacyDose']?.text ?? '';
-      String rowMedicineInterval =
-          medicineControllerMap['pharmacyInterval']?.text ?? '';
-      String rowMedicineDuration =
-          medicineControllerMap['pharmacyDuration']?.text ?? '';
-      String rowMedicineRoute =
-          medicineControllerMap['pharmacyRoute']?.text ?? '';
-      String rowMedicineQty = medicineControllerMap['pharmacyQty']?.text ?? '';
-
-      // Check if both fields in the row have data
-      if (rowMedicine.isNotEmpty &&
-          rowMedicineDose.isNotEmpty &&
-          rowMedicineInterval.isNotEmpty &&
-          rowMedicineDuration.isNotEmpty &&
-          rowMedicineRoute.isNotEmpty &&
-          rowMedicineQty.isNotEmpty) {
-        additionalMedicineRowsData.add({
-          rowMedicine,
-          rowMedicineDose,
-          rowMedicineInterval,
-          rowMedicineDuration,
-          rowMedicineRoute,
-          rowMedicineQty,
         });
       }
     }
@@ -443,7 +413,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     ];
     List<dynamic> requestothertestList = [
       otherTest,
-      ...additionalothertestRowsData,
+      ...selectedOtherIds,
       // selectedotherId,
       // localSelectedotherId
     ];
@@ -457,7 +427,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
         "status": "${widget.status}",
         "Diagnosis": selecteddiagnosisItemsId,
         "Pathology": selectedpathologyItemsId,
-        "Other_Test": requestothertestList,
+        "Other_Test": selectedOtherIds,
         // "Radiology": requestBodyList
 
         // "Surgery": selectedpathologyItemsId,
@@ -1128,315 +1098,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                       },
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Medicine',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Container(
-                        width: double.infinity,
-                        height: 30,
-                        color: Colors.green[300],
-                        child: const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Medicine',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                'Dose',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                'Interval',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                'Duration',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                'Route',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                'Qty',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                ' ',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            width: width / 6,
-                            child: Center(
-                              child: InkWell(
-                                child: TextFormField(
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'This field is required';
-                                    }
-                                    return null;
-                                  },
-                                  readOnly: true,
-                                  controller: pharmacyController,
-                                  maxLines: null, // Allow multiple lines
-                                  decoration: InputDecoration(
-                                    suffixIcon: IconButton(
-                                      icon: const Icon(
-                                        Icons.arrow_drop_down_sharp,
-                                        size: 30,
-                                      ),
-                                      onPressed: () {
-                                        _showPharmacySelection(
-                                          context,
-                                          pharmacyController,
-                                          pharmacyDoseController,
-                                          pharmacyIntervalController,
-                                          pharmacyDurationController,
-                                          pharmacyRouteController,
-                                          pharmacyQtyController,
-                                        );
-                                      },
-                                    ),
-                                    border: const OutlineInputBorder(),
-                                    hintText: 'Select Medicine',
-                                    fillColor: Colors.white,
-                                    filled: true,
-                                  ),
-                                  onTap: () {
-                                    _showPharmacySelection(
-                                      context,
-                                      pharmacyController,
-                                      pharmacyDoseController,
-                                      pharmacyIntervalController,
-                                      pharmacyDurationController,
-                                      pharmacyRouteController,
-                                      pharmacyQtyController,
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 2,
-                          ),
-                          Container(
-                            width: width / 8,
-                            height: 50,
-                            child: Center(
-                              child: InkWell(
-                                  child: TextFormField(
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'This field is required';
-                                  }
-                                  return null;
-                                },
-                                // Set this to true to disable the keyboard
-                                // controller: diagnosisController,
-
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: 'Additional note',
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 10),
-                                ),
-                              )),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 2,
-                          ),
-                          Container(
-                            width: width / 8,
-                            height: 50,
-                            child: Center(
-                              child: InkWell(
-                                  child: TextFormField(
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'This field is required';
-                                  }
-                                  return null;
-                                },
-                                // Set this to true to disable the keyboard
-                                // controller: diagnosisController,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: 'Additional note',
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 10),
-                                ),
-                              )),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 2,
-                          ),
-                          Container(
-                            width: width / 8,
-                            height: 50,
-                            child: Center(
-                              child: InkWell(
-                                  child: TextFormField(
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'This field is required';
-                                  }
-                                  return null;
-                                },
-                                // Set this to true to disable the keyboard
-                                // controller: diagnosisController,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: 'Additional note',
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 10),
-                                ),
-                              )),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 2,
-                          ),
-                          Container(
-                            width: width / 8,
-                            height: 50,
-                            child: Center(
-                              child: InkWell(
-                                  child: TextFormField(
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'This field is required';
-                                  }
-                                  return null;
-                                },
-                                // Set this to true to disable the keyboard
-                                // controller: diagnosisController,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: 'Additional note',
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 10),
-                                ),
-                              )),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 2,
-                          ),
-                          Container(
-                            width: width / 8,
-                            height: 50,
-                            child: Center(
-                              child: InkWell(
-                                  child: TextFormField(
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'This field is required';
-                                  }
-                                  return null;
-                                },
-                                // Set this to true to disable the keyboard
-                                // controller: diagnosisController,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: 'Additional note',
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 10),
-                                ),
-                              )),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Container(
-                            width: width / 9,
-                            // height: 40,
-                            child: Center(
-                              child: CircleAvatar(
-                                child: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      addNewRowPharmacy();
-                                    });
-                                  },
-                                  icon: Icon(
-                                    Icons.add,
-                                    color: whitecolor,
-                                  ),
-                                ),
-                                backgroundColor: Colors.green,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    height: medicineRow.isNotEmpty ? null : 0,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: medicineRow.length,
-                      itemBuilder: (context, index) {
-                        return medicineRow[index];
-                      },
-                    ),
-                  ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -2048,6 +1709,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   TextEditingController otherController = TextEditingController();
   String localSelectedotherdata = '';
   String localSelectedotherId = '';
+  List<String> selectedOtherIds = [];
   void _showOtherSelection(
       BuildContext context, TextEditingController otherController) {
     TextEditingController localotherController = TextEditingController();
@@ -2156,11 +1818,10 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                                   otherfilteredData?[index]
                                                           ['id'] ??
                                                       '';
-
-                                              localotherController.text ='($localSelectedotherId) $localSelectedotherdata';
-                                              
-                                              // localotherController.text ='$localSelectedotherId';
-
+                                              selectedOtherIds
+                                                  .add(localSelectedotherId);
+                                              localotherController.text =
+                                                  localSelectedotherdata;
                                               Navigator.of(context).pop();
                                             },
                                           ),
@@ -2299,6 +1960,9 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                                   : FontWeight.normal,
                                             ),
                                           ),
+
+
+
                                           onTap: () {
                                             setState(() {
                                               if (isSelected) {
@@ -2336,6 +2000,8 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                                       .join(', ');
                                             });
                                           },
+
+
                                         ),
                                       );
                                     },
@@ -2651,222 +2317,8 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     );
   }
 
-  Widget medicineBuildRow(TextEditingController pharmacyController) {
-    return Row(
-      children: [
-        Container(
-          width: width / 6,
-          child: Center(
-            child: InkWell(
-              child: TextFormField(
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'This field is required';
-                  }
-                  return null;
-                },
-                readOnly: true,
-                controller: pharmacyController,
-                maxLines: null, // Allow multiple lines
-                decoration: InputDecoration(
-                  suffixIcon: IconButton(
-                    icon: const Icon(
-                      Icons.arrow_drop_down_sharp,
-                      size: 30,
-                    ),
-                    onPressed: () {
-                      _showPharmacySelection(
-                        context,
-                        pharmacyController,
-                        pharmacyDoseController,
-                        pharmacyIntervalController,
-                        pharmacyDurationController,
-                        pharmacyRouteController,
-                        pharmacyQtyController,
-                      );
-                    },
-                  ),
-                  border: const OutlineInputBorder(),
-                  hintText: 'Select Medicine',
-                  fillColor: Colors.white,
-                  filled: true,
-                ),
-                onTap: () {
-                  _showPharmacySelection(
-                    context,
-                    pharmacyController,
-                    pharmacyDoseController,
-                    pharmacyIntervalController,
-                    pharmacyDurationController,
-                    pharmacyRouteController,
-                    pharmacyQtyController,
-                  );
-                },
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(
-          width: 2,
-        ),
-        Container(
-          width: width / 8,
-          height: 50,
-          child: Center(
-            child: InkWell(
-                child: TextFormField(
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'This field is required';
-                }
-                return null;
-              },
-              // Set this to true to disable the keyboard
-              // controller: diagnosisController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Additional note',
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
-              ),
-            )),
-          ),
-        ),
-        const SizedBox(
-          width: 2,
-        ),
-        Container(
-          width: width / 8,
-          height: 50,
-          child: Center(
-            child: InkWell(
-                child: TextFormField(
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'This field is required';
-                }
-                return null;
-              },
-              // Set this to true to disable the keyboard
-              // controller: diagnosisController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Additional note',
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
-              ),
-            )),
-          ),
-        ),
-        const SizedBox(
-          width: 2,
-        ),
-        Container(
-          width: width / 8,
-          height: 50,
-          child: Center(
-            child: InkWell(
-                child: TextFormField(
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'This field is required';
-                }
-                return null;
-              },
-              // Set this to true to disable the keyboard
-              // controller: diagnosisController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Additional note',
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
-              ),
-            )),
-          ),
-        ),
-        const SizedBox(
-          width: 2,
-        ),
-        Container(
-          width: width / 8,
-          height: 50,
-          child: Center(
-            child: InkWell(
-                child: TextFormField(
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'This field is required';
-                }
-                return null;
-              },
-              // Set this to true to disable the keyboard
-              // controller: diagnosisController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Additional note',
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
-              ),
-            )),
-          ),
-        ),
-        const SizedBox(
-          width: 2,
-        ),
-        Container(
-          width: width / 8,
-          height: 50,
-          child: Center(
-            child: InkWell(
-                child: TextFormField(
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'This field is required';
-                }
-                return null;
-              },
-              // Set this to true to disable the keyboard
-              // controller: diagnosisController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Additional note',
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
-              ),
-            )),
-          ),
-        ),
-        const SizedBox(
-          width: 5,
-        ),
-        Container(
-          width: width / 9,
-          // height: 40,
-          child: Center(
-            child: CircleAvatar(
-              child: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      // Remove the row when the "Cancel" button is clicked
-                      medicineRow.removeLast();
-                    });
-                  },
-                  icon: Icon(
-                    Icons.cancel,
-                    color: whitecolor,
-                  )),
-              // radius: 17,
-              backgroundColor: Colors.green,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
 //---------------------------------------------------------------------------Other Test
   List<Map<String, TextEditingController>> otherControllersList = [];
-
   void addNewRowOtherTest() {
     TextEditingController newotherController = TextEditingController();
 
@@ -2883,22 +2335,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   }
 //---------------------------------------------------------------------------pharmacy
 
-  List<Map<String, TextEditingController>> pharmacyControllersList = [];
-
-  void addNewRowPharmacy() {
-    TextEditingController newpharmacyController = TextEditingController();
-
-    Map<String, TextEditingController> newpharmacyControllersMap = {
-      'pharmacy': newpharmacyController,
-    };
-
-    setState(() {
-      medicineRow.add(medicineBuildRow(
-        newpharmacyController,
-      ));
-      pharmacyControllersList.add(newpharmacyControllersMap);
-    });
-  }
 //---------------------------------------------------------------------------Radiology
 
   List<Map<String, TextEditingController>> radiologyControllersList = [];

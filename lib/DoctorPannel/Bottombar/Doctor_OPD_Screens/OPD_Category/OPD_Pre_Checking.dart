@@ -66,7 +66,7 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
         'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
 
     Map<String, dynamic> requestBody = {
-      "table": "Visit_details",
+      "table": "visit_details",
       "fields": {
         "opd_details_id": "${widget.opdID}",
         "symptoms": symptoms,
