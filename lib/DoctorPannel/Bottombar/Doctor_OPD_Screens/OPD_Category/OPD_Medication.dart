@@ -171,7 +171,7 @@ class _OpdInvestigationState extends State<OPD_Medication> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 const SizedBox(
-                  height: 5,
+                  height: 6,
                 ),
                 Row(
                   children: [
