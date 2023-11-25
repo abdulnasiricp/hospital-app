@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, avoid_print, sized_box_for_whitespace, avoid_unnecessary_containers
+
 import 'dart:convert';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -9,7 +11,6 @@ import 'package:html_editor_enhanced/html_editor.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:open_file/open_file.dart';
-import 'package:url_launcher/url_launcher.dart';
 class Opd_Check_Out extends StatefulWidget {
   const Opd_Check_Out({Key? key}) : super(key: key);
 
