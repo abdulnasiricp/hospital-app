@@ -344,11 +344,8 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     final String radiology = radiologyController.text;
     final String radiologyQty = radiologyQtyController.text;
     final String radiologyNote = radiologyNoteController.text;
-
-    List<dynamic> additionalMedicineRowsData = [];
 //-----------------------------------------------------------------------------othertest
     List<dynamic> additionalothertestRowsData = [];
-
     for (var otherControllerMap in otherControllersList) {
       String rowOthertest = otherControllerMap['otherTest']?.text ?? '';
 
@@ -1960,9 +1957,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                                   : FontWeight.normal,
                                             ),
                                           ),
-
-
-
                                           onTap: () {
                                             setState(() {
                                               if (isSelected) {
@@ -2000,8 +1994,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                                       .join(', ');
                                             });
                                           },
-
-
                                         ),
                                       );
                                     },

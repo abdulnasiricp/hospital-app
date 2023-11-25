@@ -11,6 +11,8 @@ class ApiLinks {
       "https://uat.tez.hospital/xzy/auth/login";
   static const String logout =
       "https://uat.tez.hospital/xzy/auth/patient_logout";
+  static const String stafflogout =
+      "https://uat.tez.hospital/xzy/auth/staff_logout";
   static const String update_password =
       "https://uat.tez.hospital/xzy/auth/update_password";
   static const String forget_password =
