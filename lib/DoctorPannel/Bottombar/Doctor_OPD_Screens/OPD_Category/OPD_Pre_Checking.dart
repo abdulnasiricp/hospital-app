@@ -13,10 +13,45 @@ import 'package:http/http.dart' as http;
 
 class OpdPreChecking extends StatefulWidget {
   final String? opdID;
+  final String? height;
+  final String? temperature;
+  final String? respiration;
+  final String? weight;
   final String? status;
+  final String? bp;
+  final String? symptoms;
+  final String? pulse;
+  final String? known_allergies;
   final String? OpdVisitDetailsID;
+  final String? work_profile;
+  final String? social_history;
+  final String? past_medical;
+  final String? current_medication;
+  final String? family_history;
+  final String? note_remark;
+  final String? birth_history;
+  final String? recent_report;
   const OpdPreChecking(
-      {Key? key, this.opdID, this.OpdVisitDetailsID, this.status})
+      {Key? key,
+      this.opdID,
+      this.family_history,
+      this.birth_history,
+      this.recent_report,
+      this.note_remark,
+      this.current_medication,
+      this.past_medical,
+      this.work_profile,
+      this.social_history,
+      this.bp,
+      this.respiration,
+      this.known_allergies,
+      this.pulse,
+      this.symptoms,
+      this.temperature,
+      this.OpdVisitDetailsID,
+      this.weight,
+      this.height,
+      this.status})
       : super(key: key);
   @override
   State<OpdPreChecking> createState() => _OpdPreCheckingState();
@@ -46,6 +81,54 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
   final FocusNode _unUsedFocusNode = FocusNode();
 
   bool isLoading = false;
+  @override
+  void initState() {
+    super.initState();
+    symptomsController = TextEditingController(text: widget.symptoms);
+    heightController = TextEditingController(text: widget.height);
+    weightController = TextEditingController(text: widget.weight);
+    bpController = TextEditingController(text: widget.bp);
+    pulseController = TextEditingController(text: widget.pulse);
+    temperatureController = TextEditingController(text: widget.temperature);
+    respirationController = TextEditingController(text: widget.respiration);
+    workProfileHistoryController =
+        TextEditingController(text: widget.work_profile);
+    currentMedicationController =
+        TextEditingController(text: widget.current_medication);
+    anyKnownAllergiesController =
+        TextEditingController(text: widget.known_allergies);
+    familyHistoryController =
+        TextEditingController(text: widget.family_history);
+    recentReportController = TextEditingController(text: widget.recent_report);
+    birthHistoryController = TextEditingController(text: widget.birth_history);
+    pastMedicalHistoryController =
+        TextEditingController(text: widget.past_medical);
+    socialHistoryController =
+        TextEditingController(text: widget.social_history);
+    NoteController = TextEditingController(text: widget.note_remark);
+  }
+
+  @override
+  void dispose() {
+    // Dispose of the controller when the widget is disposed
+    NoteController.dispose();
+    socialHistoryController.dispose();
+    pastMedicalHistoryController.dispose();
+    birthHistoryController.dispose();
+    recentReportController.dispose();
+    familyHistoryController.dispose();
+    anyKnownAllergiesController.dispose();
+    currentMedicationController.dispose();
+    workProfileHistoryController.dispose();
+    respirationController.dispose();
+    temperatureController.dispose();
+    pulseController.dispose();
+    bpController.dispose();
+    symptomsController.dispose();
+    heightController.dispose();
+    weightController.dispose();
+    super.dispose();
+  }
 
   Future<void> makePostRequest() async {
     final String symptoms = symptomsController.text;
@@ -63,7 +146,7 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
     final String birthHistory = birthHistoryController.text;
     final String pastMedicalHistory = pastMedicalHistoryController.text;
     final String socialHistory = socialHistoryController.text;
-    final String NoteController = socialHistoryController.text;
+    final String NoteControllerr = NoteController.text;
 
     const String apiUrl =
         'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
@@ -88,7 +171,7 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
         "family_history": familyHistory,
         "recent_report": recentReport,
         "birth_history": birthHistory,
-        "note": NoteController,
+        "note": NoteControllerr,
         "status": newStatus,
       }
     };
