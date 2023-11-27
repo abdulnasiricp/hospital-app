@@ -336,6 +336,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   TextEditingController radiologyQtyController = TextEditingController();
   TextEditingController radiologyNoteController = TextEditingController();
   TextEditingController surgeryNoteController = TextEditingController();
+  TextEditingController followAdviceController = TextEditingController();
 
   Future<void> makePostRequest() async {
     final String mainSurgery = surgeryController.text;
@@ -346,6 +347,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     final String radiologyNote = radiologyNoteController.text;
     final String surgery = surgeryController.text;
     final String surgeryNote = surgeryNoteController.text;
+    final String followAdvice = followAdviceController.text;
 //-----------------------------------------------------------------------------othertest
     List<dynamic> additionalothertestRowsData = [];
     for (var otherControllerMap in otherControllersList) {
@@ -408,13 +410,13 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
       // "generated_by": "${widget.employee_id}",
       "fields": {
         "status": "${widget.status}",
-        "Diagnosis": selecteddiagnosisItemsId,
-        "Pathology": selectedpathologyItemsId,
-        "Other_Test": selectedOtherIds,
-        "Radiology": requestRadiologyList,
+        "Diagnosis": "$selecteddiagnosisItemsId",
+        "Pathology": "$selectedpathologyItemsId",
+        "Other_Test": "$selectedOtherIds",
+        "Radiology": "$requestRadiologyList",
 
-        "Surgery": requestSurgeryList,
-        // "F_Advice": selectedpathologyItemsId,
+        "Surgery": "$requestSurgeryList",
+        "F_Advice": "$followAdvice",
       }
     };
     print('---------------+++++++++++-$requestBody');
@@ -429,7 +431,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
       // Successful response
       print('Response: ${response.body}');
       Map<String, dynamic> responseData = jsonDecode(response.body);
-      print('Status: ${responseData["staus"]}');
+      print('Status: ${responseData["status"]}');
       print('Message: ${responseData["message"]}');
       print('ID: ${responseData["id"]}');
       setState(() {
@@ -1090,9 +1092,10 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                       ),
                       Container(
                           height: 50,
-                          child: const TextField(
+                          child:  TextField(
+                            controller: followAdviceController,
                             decoration:
-                                InputDecoration(border: OutlineInputBorder()),
+                                const InputDecoration(border: OutlineInputBorder()),
                           ))
                     ],
                   ),
