@@ -50,5 +50,6 @@ class ApiLinks {
   static const String singleTableDataDetector="$BASE_URL/db_table";
   static const String getAllipdRecord="$BASE_URL/getAllipdRecord";
   static const String total_count="$BASE_URL/get_total_count";
+  static const String getOpdIpdDoctor="$BASE_URL/getOpdIpdDoctor";
 
 }

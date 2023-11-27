@@ -171,7 +171,7 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
         "family_history": familyHistory,
         "recent_report": recentReport,
         "birth_history": birthHistory,
-        "note": NoteControllerr,
+        "note_remark": NoteControllerr,
         "status": newStatus,
       }
     };
