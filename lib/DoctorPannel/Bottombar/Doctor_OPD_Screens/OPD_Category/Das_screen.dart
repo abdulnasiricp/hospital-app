@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, avoid_unnecessary_containers
+// ignore_for_file: camel_case_types, avoid_unnecessary_containers, unused_local_variable, unnecessary_string_interpolations
 
 import 'dart:convert';
 
@@ -348,6 +348,7 @@ class _Das_screenState extends State<Das_screen> {
                                       CardDesign(
                                         () {
                                           Get.to(() => OpdPreChecking(
+                                            OpdVisitDetailsID: widget.OpdVisitDetailsID,
                                                 opdID: widget.opdID,
                                                 status: widget.status,
                                                 height:
@@ -395,11 +396,11 @@ class _Das_screenState extends State<Das_screen> {
                                         () {
                                           Get.to(() => OpdExamination(
                                                 opdVisitDetailsID:
-                                                    widget.OpdVisitDetailsID,
-                                                status: widget.status,
-                                                patient_id: widget.patient_id,
+                                                    widget.OpdVisitDetailsID??"N/A",
+                                                status: widget.status??"N/A",
+                                                patient_id: widget.patient_id??"N/A",
                                                 case_reference_id:
-                                                    widget.case_reference_id,
+                                                    widget.case_reference_id??"N/A",
                                               ));
                                         },
                                         SvgPicture.asset(
@@ -413,9 +414,9 @@ class _Das_screenState extends State<Das_screen> {
                                       CardDesign(
                                         () {
                                           Get.to(() => OpdInvestigation(
-                                                opdID: widget.opdID,
-                                                status: widget.status,
-                                                employee_id: widget.employee_id,
+                                                opdID: widget.opdID??"N/A",
+                                                status: widget.status??"N/A",
+                                                employee_id: widget.employee_id??"N/A",
                                               ));
                                         },
                                         SvgPicture.asset(
@@ -428,7 +429,7 @@ class _Das_screenState extends State<Das_screen> {
                                       ),
                                       CardDesign(
                                         () {
-                                          Get.to(() => const OPD_Medication());
+                                          Get.to(() =>  OPD_Medication(employee_id: widget.employee_id,opdID: widget.opdID,status: widget.status,));
                                         },
                                         SvgPicture.asset(
                                           'assets/emergency.svg',

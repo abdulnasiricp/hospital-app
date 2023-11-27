@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_Medication.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
@@ -38,6 +39,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   TextEditingController pharmacyRouteController = TextEditingController();
   TextEditingController pharmacyQtyController = TextEditingController();
   TextEditingController radiologyController = TextEditingController();
+  TextEditingController followAdviceController = TextEditingController();
 
 //==========================================================================
   String selectedpathologyItemsId = '';
@@ -48,7 +50,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   List<dynamic>? pathologyfilteredData = [];
 
   bool isPathologyDataFetched = false; // Add this flag
-  bool isLoading = true;
+  bool isLoading = false;
   Future<void> fetchpathologyData() async {
     Uri.parse(ApiLinks.singleTableDataDetector);
 
@@ -346,6 +348,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     final String radiologyNote = radiologyNoteController.text;
     final String surgery = surgeryController.text;
     final String surgeryNote = surgeryNoteController.text;
+    final String followAdvice= followAdviceController.text;
 //-----------------------------------------------------------------------------othertest
     List<dynamic> additionalothertestRowsData = [];
     for (var otherControllerMap in otherControllersList) {
@@ -385,17 +388,17 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
       // Check if both fields in the row have data
       if (rowSurgery.isNotEmpty && rowNote.isNotEmpty) {
         additionalRowsData.add({
-          rowSurgery,
+          
           rowNote,
         });
       }
     }
 
-    Map<String, dynamic> requestRadiologyList = {
+    Map<dynamic, dynamic> requestRadiologyList = {
       '0': selectedRadiologyIds,
       '1': {radiologyQty, radiologyNote, additionalRadiologyRowsData}
     };
-    Map<String, dynamic> requestSurgeryList = {
+    Map<dynamic, dynamic> requestSurgeryList = {
       '0': selectedSurgeryIds,
       '1': { surgeryNote, additionalRowsData}
     };
@@ -403,60 +406,64 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     const String apiUrl =
         'https://uat.tez.hospital/xzy/webservice/submit_investigation';
     Map<String, dynamic> requestBody = {
-      // "table": "Visit_details",
+      "table": "Visit_details",
       "opd_id": "${widget.opdID}",
-      // "generated_by": "${widget.employee_id}",
+      "generated_by": "${widget.employee_id}",
       "fields": {
         "status": "${widget.status}",
-        "Diagnosis": selecteddiagnosisItemsId,
-        "Pathology": selectedpathologyItemsId,
-        "Other_Test": selectedOtherIds,
-        "Radiology": requestRadiologyList,
+        "Diagnosis": "$selecteddiagnosisItemsId",
+        "Pathology": "$selectedpathologyItemsId",
+        "Other_Test": "$selectedOtherIds",
+        "Radiology": "$requestRadiologyList",
 
-        "Surgery": requestSurgeryList,
-        // "F_Advice": selectedpathologyItemsId,
+        "Surgery": "$requestSurgeryList",
+        "F_Advice": "$followAdvice",
       }
     };
     print('---------------+++++++++++-$requestBody');
 
     final response = await http.post(
       Uri.parse(apiUrl),
-      body: requestBody,
+      body: jsonEncode(requestBody),
       headers: ApiLinks.MainHeader,
     );
-
+try{
     if (response.statusCode == 200) {
       // Successful response
       print('Response: ${response.body}');
       Map<String, dynamic> responseData = jsonDecode(response.body);
-      print('Status: ${responseData["staus"]}');
+      print('Status: ${responseData["status"]}');
       print('Message: ${responseData["message"]}');
       print('ID: ${responseData["id"]}');
+    setState(() {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const OPD_Medication()),
+          );
+          Fluttertoast.showToast(
+            msg: '${responseData["message"]}',
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+          );
+        });
+      } else {
+        setState(() {
+          Fluttertoast.showToast(
+            msg: '${response.reasonPhrase}',
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+          );
+        });
+      }
+    } catch (e) {
       setState(() {
         Fluttertoast.showToast(
-          msg: '${responseData["message"]}',
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-        );
-      });
-    } else {
-      setState(() {
-        Fluttertoast.showToast(
-          msg: '${response.reasonPhrase}',
+          msg: '$e',
           backgroundColor: Colors.red,
           textColor: Colors.white,
         );
       });
     }
-    // } catch (e) {
-    //   setState(() {
-    //     Fluttertoast.showToast(
-    //       msg: '$e',
-    //       backgroundColor: Colors.red,
-    //       textColor: Colors.white,
-    //     );
-    //   });
-    // }
   }
 
 //=================================================================================
@@ -468,7 +475,17 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
           centerTitle: true,
           backgroundColor: darkYellow,
         ),
-        body: SingleChildScrollView(
+        body: isLoading
+            ? Center(
+                child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                        height: 50,
+                        width: 50,
+                        color: Colors.transparent,
+                        child: const LoadingIndicatorWidget())),
+              )
+            : SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(children: [
@@ -1090,9 +1107,10 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                       ),
                       Container(
                           height: 50,
-                          child: const TextField(
+                          child: TextField(
+                            controller: followAdviceController,
                             decoration:
-                                InputDecoration(border: OutlineInputBorder()),
+                                const InputDecoration(border: OutlineInputBorder()),
                           ))
                     ],
                   ),
@@ -1103,9 +1121,16 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                       height: 40,
                       child: ElevatedButton(
                         child: const Text('Save'),
-                        onPressed: () {
-                          makePostRequest();
-                        },
+                        onPressed: () async {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                await makePostRequest();
+
+                                setState(() {
+                                  isLoading = false;
+                                });
+                              },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(yellow),
                         ),

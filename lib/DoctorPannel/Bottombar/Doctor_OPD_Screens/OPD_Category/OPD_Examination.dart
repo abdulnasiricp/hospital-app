@@ -56,7 +56,7 @@ class _OpdExaminationState extends State<OpdExamination> {
     const String apiUrl =
         'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
     int currentStatus = int.parse(widget.status ?? "0");
-    int newStatus = currentStatus + 1;
+    int newStatus = currentStatus;
     Map<String, dynamic> requestBody = {
       "table": "ipd_prescription_basic",
       "fields": {
@@ -69,7 +69,7 @@ class _OpdExaminationState extends State<OpdExamination> {
         "systemLocal": mergedLocal,
         "general_examination":
             "$generalCardText", // Add the selected options from SelectableCard
-        "status": newStatus,
+        "staus": newStatus,
         "prescribe_by": id,
         "generated_by": id,
         "is_opd": "1",
@@ -78,8 +78,8 @@ class _OpdExaminationState extends State<OpdExamination> {
       }
     };
     print(
-        "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++$requestBody");
-    try {
+        "+++++++++$requestBody");
+    // try {
       final response = await http.post(
         Uri.parse(apiUrl),
         body: jsonEncode(requestBody),
@@ -90,9 +90,9 @@ class _OpdExaminationState extends State<OpdExamination> {
         // Successful response
         print('Response: ${response.body}');
         Map<String, dynamic> responseData = jsonDecode(response.body);
-        print('Status: ${responseData["status"]}');
+        print('Status: ${responseData["staus"]}');
 
-        if (responseData["status"] == 1) {
+        if (responseData["staus"] == 1) {
           // Status is 1, navigate to OpdInvestigation
           setState(() {
             Navigator.push(
@@ -105,7 +105,7 @@ class _OpdExaminationState extends State<OpdExamination> {
               textColor: Colors.white,
             );
           });
-        } else if (responseData["status"] == 0) {
+        } else if (responseData["staus"] == 0) {
           // Status is 0, handle it as a special case
           setState(() {
             Fluttertoast.showToast(
@@ -134,15 +134,15 @@ class _OpdExaminationState extends State<OpdExamination> {
           );
         });
       }
-    } catch (e) {
-      setState(() {
-        Fluttertoast.showToast(
-          msg: '$e',
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-        );
-      });
-    }
+    // } catch (e) {
+    //   setState(() {
+    //     Fluttertoast.showToast(
+    //       msg: '$e',
+    //       backgroundColor: Colors.red,
+    //       textColor: Colors.white,
+    //     );
+    //   });
+    // }
   }
 
   List<String> generalCard = [
@@ -203,7 +203,7 @@ class _OpdExaminationState extends State<OpdExamination> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Examinaion"),
+        title: const Text("Examination"),
         centerTitle: true,
         backgroundColor: darkYellow,
       ),
@@ -486,7 +486,7 @@ class _OpdExaminationState extends State<OpdExamination> {
                             setState(() {
                               isLoading = false;
                             });
-                            print("$generalCardText");
+                         
                           },
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(yellow),

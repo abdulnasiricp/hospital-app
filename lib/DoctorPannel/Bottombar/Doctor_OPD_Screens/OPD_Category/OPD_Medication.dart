@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_Examination.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
@@ -88,20 +89,55 @@ class _OpdInvestigationState extends State<OPD_Medication> {
   }
 
   Future<void> makePostRequest() async {
+    final String mainpharmacy = pharmacyController.text;
+    final String dosePharmacy = pharmacyDoseController.text;
+    final String intervalPharmacy = pharmacyIntervalController.text;
+    final String durationPharmacy = pharmacyDurationController.text;
+    final String routepharmacy = pharmacyRouteController.text;
+    final String qtypharmacy = pharmacyQtyController.text;
+
+        List<dynamic> additionalPharmacyRowsData = [];
+
+    for (var pharmacyControllerMap in pharmacyControllersList) {
+      String rowpharmacy = pharmacyControllerMap['pharmacy']?.text ?? '';
+      String rowDosepharmacy = pharmacyControllerMap['pharmacyDose']?.text ?? '';
+      String rowIntervalpharmacy = pharmacyControllerMap['pharmacyInterval']?.text ?? '';
+      String rowDurationpharmacy = pharmacyControllerMap['pharmacyDuration']?.text ?? '';
+      String rowRoutepharmacy = pharmacyControllerMap['pharmacyRoute']?.text ?? '';
+      String rowQtypharmacy = pharmacyControllerMap['pharmacyQty']?.text ?? '';
+     
+
+      // Check if both fields in the row have data
+      if (rowpharmacy.isNotEmpty &&
+          rowDosepharmacy.isNotEmpty &&
+          rowIntervalpharmacy.isNotEmpty &&
+          rowDurationpharmacy.isNotEmpty &&
+          rowRoutepharmacy.isNotEmpty &&
+          rowQtypharmacy.isNotEmpty) {
+        additionalPharmacyRowsData.add({rowDosepharmacy, rowIntervalpharmacy,rowDurationpharmacy,rowRoutepharmacy,rowQtypharmacy});
+      }
+    }
+
+ Map<String, dynamic> requestPharmacyList = {
+      '0': selectedPharmacyIds,
+      '1': {dosePharmacy, intervalPharmacy,durationPharmacy,routepharmacy,qtypharmacy,additionalPharmacyRowsData}
+    };
+
+
     const String apiUrl =
-        'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
+        'https://uat.tez.hospital/xzy/webservice/submit_investigation';
     Map<String, dynamic> requestBody = {
       // "table": "Visit_details",
       "opd_id": "${widget.opdID}",
       "generated_by": "${widget.employee_id}",
       "fields": {
         "status": "${widget.status}",
+        "Pharmacy": "$requestPharmacyList",
       }
     };
     print('---------------+++++++++++-$requestBody');
 
 
-    print('---------------+///////////////////////////////////////////////////////////////++++++++++-$pharmacyControllersList');
     try {
       final response = await http.post(
         Uri.parse(apiUrl),
@@ -117,6 +153,11 @@ class _OpdInvestigationState extends State<OPD_Medication> {
         print('Message: ${responseData["message"]}');
         print('ID: ${responseData["id"]}');
         setState(() {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const OpdExamination()
+            ),
+          );
           Fluttertoast.showToast(
             msg: '${responseData["message"]}',
             backgroundColor: Colors.green,
@@ -331,7 +372,7 @@ class _OpdInvestigationState extends State<OPD_Medication> {
                             return null;
                           },
                           // Set this to true to disable the keyboard
-                          // controller: diagnosisController,
+                          controller: pharmacyDoseController,
 
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
@@ -358,7 +399,7 @@ class _OpdInvestigationState extends State<OPD_Medication> {
                             return null;
                           },
                           // Set this to true to disable the keyboard
-                          // controller: diagnosisController,
+                          controller: pharmacyIntervalController,
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: 'Twice a day ',
@@ -384,7 +425,7 @@ class _OpdInvestigationState extends State<OPD_Medication> {
                             return null;
                           },
                           // Set this to true to disable the keyboard
-                          // controller: diagnosisController,
+                          controller: pharmacyDurationController,
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: '4 days',
@@ -410,7 +451,7 @@ class _OpdInvestigationState extends State<OPD_Medication> {
                             return null;
                           },
                           // Set this to true to disable the keyboard
-                          // controller: diagnosisController,
+                          controller: pharmacyRouteController,
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: ' oral',
@@ -435,6 +476,7 @@ class _OpdInvestigationState extends State<OPD_Medication> {
                             }
                             return null;
                           },
+                          controller: pharmacyQtyController,
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: ' 12 pc',
@@ -472,9 +514,16 @@ class _OpdInvestigationState extends State<OPD_Medication> {
                 height: 40,
                 child: ElevatedButton(
                   child: const Text('Save'),
-                  onPressed: () {
-                    makePostRequest();
-                  },
+                   onPressed: () async {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                await makePostRequest();
+
+                                setState(() {
+                                  isLoading = false;
+                                });
+                              },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(yellow),
                   ),
@@ -491,7 +540,7 @@ class _OpdInvestigationState extends State<OPD_Medication> {
   TextEditingController pharmacySearchController = TextEditingController();
   String selectedpharmacy = '';
   String selectedpharmacyId = '';
-
+ List<String> selectedPharmacyIds = [];
   void _showPharmacySelection(
       BuildContext context,
       TextEditingController pharmacyController,
@@ -616,8 +665,11 @@ class _OpdInvestigationState extends State<OPD_Medication> {
                                                         ['id'] ??
                                                     '';
 
-                                            localpharmacyController.text =
-                                                '($localSelectedpharmacyId) $localSelectedpharmacydata';
+                                            selectedPharmacyIds.add(
+                                                  localSelectedpharmacyId);
+
+                                              localpharmacyController.text =
+                                                  localSelectedpharmacydata;
 
                                             Navigator.of(context).pop();
                                           },
@@ -649,7 +701,7 @@ class _OpdInvestigationState extends State<OPD_Medication> {
   //=======================================================================================
 
 ////////////////////////////////////////////////////////////////////////////
-  Widget medicineBuildRow(TextEditingController pharmacyController) {
+  Widget medicineBuildRow(TextEditingController pharmacyController,TextEditingController pharmacyDoseController,TextEditingController pharmacyIntervalController,TextEditingController pharmacyDurationController,TextEditingController pharmacyRouteController,TextEditingController pharmacyQtyController) {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: Column(
@@ -726,7 +778,7 @@ class _OpdInvestigationState extends State<OPD_Medication> {
                             return null;
                           },
                           // Set this to true to disable the keyboard
-                          // controller: diagnosisController,
+                          controller: pharmacyDoseController,
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: ' 4 tab',
@@ -749,7 +801,7 @@ class _OpdInvestigationState extends State<OPD_Medication> {
                             return null;
                           },
                           // Set this to true to disable the keyboard
-                          // controller: diagnosisController,
+                          controller: pharmacyIntervalController,
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: 'Twice a day ',
@@ -772,7 +824,7 @@ class _OpdInvestigationState extends State<OPD_Medication> {
                             return null;
                           },
                           // Set this to true to disable the keyboard
-                          // controller: diagnosisController,
+                          controller: pharmacyDurationController,
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: '4 days ',
@@ -795,7 +847,7 @@ class _OpdInvestigationState extends State<OPD_Medication> {
                             return null;
                           },
                           // Set this to true to disable the keyboard
-                          // controller: diagnosisController,
+                          controller: pharmacyRouteController,
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: 'oral ',
@@ -818,7 +870,9 @@ class _OpdInvestigationState extends State<OPD_Medication> {
                             return null;
                           },
                           // Set this to true to disable the keyboard
-                          // controller: diagnosisController,
+                          controller: pharmacyQtyController,
+
+
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: '12 pc',
@@ -863,14 +917,29 @@ class _OpdInvestigationState extends State<OPD_Medication> {
   List<Map<String, TextEditingController>> pharmacyControllersList = [];
   void addNewRowPharmacy() {
     TextEditingController newpharmacyController = TextEditingController();
+    TextEditingController newpharmacyDoseController = TextEditingController();
+    TextEditingController newpharmacyIntervalController = TextEditingController();
+    TextEditingController newpharmacyDurationController = TextEditingController();
+    TextEditingController newpharmacyRouteController = TextEditingController();
+    TextEditingController newpharmacyQtyController = TextEditingController();
 
     Map<String, TextEditingController> newpharmacyControllersMap = {
       'pharmacy': newpharmacyController,
+      'pharmacyDose': newpharmacyDoseController,
+      'pharmacyInterval': newpharmacyIntervalController,
+      'pharmacyDuration': newpharmacyDurationController,
+      'pharmacyRoute': newpharmacyRouteController,
+      'pharmacyQty': newpharmacyQtyController,
     };
 
     setState(() {
       medicineRow.add(medicineBuildRow(
         newpharmacyController,
+        newpharmacyDoseController,
+        newpharmacyIntervalController,
+        newpharmacyDurationController,
+        newpharmacyRouteController,
+        newpharmacyQtyController,
       ));
       pharmacyControllersList.add(newpharmacyControllersMap);
     });
