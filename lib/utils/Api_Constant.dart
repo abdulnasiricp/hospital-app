@@ -3,10 +3,10 @@
 class ApiLinks {
   static const Map<String, String> MainHeader = {
     'Soft-service': 'TezHealthCare',
-      'Auth-key': 'zbuks_ram859553467',
+    'Auth-key': 'zbuks_ram859553467',
   };
 
-  static const String BASE_URL = "https://uat.tez.hospital/xzy/webservice";  
+  static const String BASE_URL = "https://uat.tez.hospital/xzy/webservice";
   static const String Loginapiforboth =
       "https://uat.tez.hospital/xzy/auth/login";
   static const String logout =
@@ -41,15 +41,16 @@ class ApiLinks {
   static const String getDirectDetails = "$BASE_URL/getDirectDetails";
   static const String OPDTicketList = "$BASE_URL/lists";
   static const String addopdticket = "$BASE_URL/addopdticket";
-  static const String getNotificationlistcount ="$BASE_URL/getNotificationlistcount";
-  static const String OpdHistory ="$BASE_URL/db_table";
-   static const String getliveconsult="$BASE_URL/getliveconsult";
-   static const String generateCertificate="$BASE_URL/generateCertificate";
-   static const String duePayment="$BASE_URL/duePayment";
-   static const String notifier="$BASE_URL/notifier";
-  static const String singleTableDataDetector="$BASE_URL/db_table";
-  static const String getAllipdRecord="$BASE_URL/getAllipdRecord";
-  static const String total_count="$BASE_URL/get_total_count";
-  static const String getOpdIpdDoctor="$BASE_URL/getOpdIpdDoctor";
-
+  static const String getNotificationlistcount =
+      "$BASE_URL/getNotificationlistcount";
+  static const String OpdHistory = "$BASE_URL/db_table";
+  static const String getliveconsult = "$BASE_URL/getliveconsult";
+  static const String generateCertificate = "$BASE_URL/generateCertificate";
+  static const String duePayment = "$BASE_URL/duePayment";
+  static const String notifier = "$BASE_URL/notifier";
+  static const String singleTableDataDetector = "$BASE_URL/db_table";
+  static const String getAllipdRecord = "$BASE_URL/getAllipdRecord";
+  static const String total_count = "$BASE_URL/get_total_count";
+  static const String getOpdIpdDoctor = "$BASE_URL/getOpdIpdDoctor";
+  static const String addOpdIpdDoctor = "$BASE_URL/addOpdIpdDoctor";
 }

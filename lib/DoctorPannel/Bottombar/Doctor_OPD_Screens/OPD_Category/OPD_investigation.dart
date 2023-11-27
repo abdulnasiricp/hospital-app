@@ -360,7 +360,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
 //     List<dynamic> additionalRadiologyRowsData = [];
 
 //     for (var radiologyControllerMap in radiologyControllersList) {
-     
+
 //       String rowRadiologyQty =
 //           radiologyControllerMap['radiologyQty']?.text ?? '';
 //       String rowRadiologyNote =
@@ -389,8 +389,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
       if (rowRadiology.isNotEmpty &&
           rowRadiologyQty.isNotEmpty &&
           rowRadiologyNote.isNotEmpty) {
-        additionalRadiologyRowsData
-            .add({rowRadiologyQty, rowRadiologyNote});
+        additionalRadiologyRowsData.add({rowRadiologyQty, rowRadiologyNote});
       }
     }
 //-----------------------------------------------------------------------------surgery
@@ -428,15 +427,11 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
       ...additionalRowsData
     ];
     List<dynamic> requestRadiologyList = [
-      {
-        ...selectedRadiologyIds
-
-
-      },
+      {...selectedRadiologyIds},
       radiologyQty,
       radiologyNote,
       additionalRadiologyRowsData,
-      
+
       // selectedotherId,
       // localSelectedotherId
     ];
@@ -1435,7 +1430,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
         TextEditingController();
     String localSelectedradiologydata = '';
     String localSelectedradiologyId = '';
-    
+
     showModalBottomSheet(
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
@@ -1540,8 +1535,10 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                                           ['id'] ??
                                                       '';
 
-                                               selectedRadiologyIds.add(localSelectedradiologyId);
-                                              localradiologyController.text = localSelectedradiologydata;
+                                              selectedRadiologyIds.add(
+                                                  localSelectedradiologyId);
+                                              localradiologyController.text =
+                                                  localSelectedradiologydata;
 
                                               // localradiologyController.text ='($localSelectedradiologyId) $localSelectedradiologydata';
 
@@ -1848,7 +1845,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                                   .add(localSelectedotherId);
                                               localotherController.text =
                                                   localSelectedotherdata;
-                                                  
+
                                               Navigator.of(context).pop();
                                             },
                                           ),
@@ -2116,7 +2113,11 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     );
   }
 
-  Widget radiologyBuildRow(TextEditingController radiologyController,TextEditingController radiologyQtyController,TextEditingController radiologyNoteController,) {
+  Widget radiologyBuildRow(
+    TextEditingController radiologyController,
+    TextEditingController radiologyQtyController,
+    TextEditingController radiologyNoteController,
+  ) {
     return Row(
       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

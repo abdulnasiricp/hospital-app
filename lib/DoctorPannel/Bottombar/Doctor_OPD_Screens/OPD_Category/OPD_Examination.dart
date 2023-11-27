@@ -87,38 +87,26 @@ class _OpdExaminationState extends State<OpdExamination> {
       );
 
       if (response.statusCode == 200) {
-        // Successful response
-        print('Response: ${response.body}');
         Map<String, dynamic> responseData = jsonDecode(response.body);
-        print('Status: ${responseData["status"]}');
-
-        if (responseData["status"] == 1) {
-          // Status is 1, navigate to OpdInvestigation
+        if (responseData["status"] == "1") {
           setState(() {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const OpdInvestigation()),
-            );
+            // Show success message and navigate to the next screen if needed
             Fluttertoast.showToast(
               msg: '${responseData["message"]}',
               backgroundColor: Colors.green,
               textColor: Colors.white,
             );
-          });
-        } else if (responseData["status"] == 0) {
-          // Status is 0, handle it as a special case
-          setState(() {
-            Fluttertoast.showToast(
-              msg: 'Status is 0: ${responseData["message"]}',
-              backgroundColor: Colors.red,
-              textColor: Colors.white,
-            );
+            // Example: Navigate to OpdInvestigation screen
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => const OpdInvestigation()),
+            // );
           });
         } else {
-          // Handle other status values if needed
+          // Handle other cases based on status and message
           setState(() {
             Fluttertoast.showToast(
-              msg: 'Unexpected status: ${responseData["status"]}',
+              msg: '${responseData["message"]}',
               backgroundColor: Colors.red,
               textColor: Colors.white,
             );
