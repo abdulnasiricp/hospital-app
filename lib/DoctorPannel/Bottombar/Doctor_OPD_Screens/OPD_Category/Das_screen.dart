@@ -51,7 +51,6 @@ class Das_screen extends StatefulWidget {
     this.employee_id,
     this.status,
     this.mobileNo,
-
     this.surname,
     this.lastVisit,
     this.totalVisit,
@@ -72,9 +71,9 @@ class _Das_screenState extends State<Das_screen> {
   void initState() {
     super.initState();
     fetchRadiologyData();
+    fetchConsultantData();
+    fetchDoctorlisttData();
   }
-
-  List<dynamic>? DoneListData = [];
 
   List<dynamic>? radiologydata = [];
   List<dynamic>? radiologyfilteredData = [];
@@ -118,6 +117,40 @@ class _Das_screenState extends State<Das_screen> {
       isLoading = false;
     });
   }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////// for getting consultant list
+  List<dynamic>? Data = [];
+  Future<void> fetchConsultantData() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    final Uri url = Uri.parse(ApiLinks.getOpdIpdDoctor);
+    final body = {"opd_id": widget.opdID};
+
+    final response = await http.post(
+      url,
+      headers: ApiLinks.MainHeader,
+      body: json.encode(body),
+    );
+
+    if (response.statusCode == 200) {
+      final dataMap = json.decode(response.body);
+      final List<dynamic> rawData = dataMap;
+      Data = rawData;
+      print(
+          "======++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++$Data");
+      setState(() {
+        Data = rawData;
+        isLoading = false;
+      });
+    } else {
+      handleNonJsonResponse();
+      isLoading = false;
+    }
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////////
 
   Future<void> _handleRefresh() async {
     setState(() {
@@ -317,23 +350,37 @@ class _Das_screenState extends State<Das_screen> {
                                           Get.to(() => OpdPreChecking(
                                                 opdID: widget.opdID,
                                                 status: widget.status,
-                                            height:" ${radiologydata![0]['height']?? 'N/A'}",
-                                            weight:" ${radiologydata![0]['weight']?? 'N/A'}",
-                                            pulse:" ${radiologydata![0]['pulse']?? 'N/A'}",
-                                            temperature:" ${radiologydata![0]['temperature']?? 'N/A'}",
-                                            respiration:" ${radiologydata![0]['respiration']?? 'N/A'}",
-                                            bp:" ${radiologydata![0]['bp']?? 'N/A'}",
-                                            symptoms:" ${radiologydata![0]['symptoms']?? 'N/A'}",
-                                            known_allergies:" ${radiologydata![0]['known_allergies']?? 'N/A'}",
-                                            work_profile:" ${radiologydata![0]['work_profile']?? 'N/A'}",
-                                            social_history:" ${radiologydata![0]['social_history']?? 'N/A'}",
-                                            past_medical:" ${radiologydata![0]['past_medical']?? 'N/A'}",
-                                            current_medication:" ${radiologydata![0]['current_medication']?? 'N/A'}",
-                                            family_history:" ${radiologydata![0]['family_history']?? 'N/A'}",
-                                            note_remark:" ${radiologydata![0]['note_remark']?? 'N/A'}",
-                                            recent_report:" ${radiologydata![0]['recent_report']?? 'N/A'}",
-                                            birth_history:" ${radiologydata![0]['birth_history']?? 'N/A'}",
-
+                                                height:
+                                                    " ${radiologydata![0]['height'] ?? 'N/A'}",
+                                                weight:
+                                                    " ${radiologydata![0]['weight'] ?? 'N/A'}",
+                                                pulse:
+                                                    " ${radiologydata![0]['pulse'] ?? 'N/A'}",
+                                                temperature:
+                                                    " ${radiologydata![0]['temperature'] ?? 'N/A'}",
+                                                respiration:
+                                                    " ${radiologydata![0]['respiration'] ?? 'N/A'}",
+                                                bp: " ${radiologydata![0]['bp'] ?? 'N/A'}",
+                                                symptoms:
+                                                    " ${radiologydata![0]['symptoms'] ?? 'N/A'}",
+                                                known_allergies:
+                                                    " ${radiologydata![0]['known_allergies'] ?? 'N/A'}",
+                                                work_profile:
+                                                    " ${radiologydata![0]['work_profile'] ?? 'N/A'}",
+                                                social_history:
+                                                    " ${radiologydata![0]['social_history'] ?? 'N/A'}",
+                                                past_medical:
+                                                    " ${radiologydata![0]['past_medical'] ?? 'N/A'}",
+                                                current_medication:
+                                                    " ${radiologydata![0]['current_medication'] ?? 'N/A'}",
+                                                family_history:
+                                                    " ${radiologydata![0]['family_history'] ?? 'N/A'}",
+                                                note_remark:
+                                                    " ${radiologydata![0]['note_remark'] ?? 'N/A'}",
+                                                recent_report:
+                                                    " ${radiologydata![0]['recent_report'] ?? 'N/A'}",
+                                                birth_history:
+                                                    " ${radiologydata![0]['birth_history'] ?? 'N/A'}",
                                               ));
                                         },
                                         SvgPicture.asset(
@@ -694,7 +741,7 @@ class _Das_screenState extends State<Das_screen> {
                                               Container(
                                                 child: Center(
                                                   child: Text(
-                                                    " ${radiologydata![0]['height']?? 'N/A'}",
+                                                    " ${radiologydata![0]['height'] ?? 'N/A'}",
                                                     overflow: TextOverflow
                                                         .ellipsis, // Use ellipsis to cut off the text
                                                     maxLines: 1,
@@ -712,7 +759,7 @@ class _Das_screenState extends State<Das_screen> {
                                               Container(
                                                 child: Center(
                                                   child: Text(
-                                                    " ${radiologydata![0]['weight']?? 'N/A'}",
+                                                    " ${radiologydata![0]['weight'] ?? 'N/A'}",
                                                     overflow: TextOverflow
                                                         .ellipsis, // Use ellipsis to cut off the text
                                                     maxLines: 1,
@@ -730,7 +777,7 @@ class _Das_screenState extends State<Das_screen> {
                                               Container(
                                                 child: Center(
                                                   child: Text(
-                                                    " ${radiologydata![0]['bp']?? 'N/A'}",
+                                                    " ${radiologydata![0]['bp'] ?? 'N/A'}",
                                                     overflow: TextOverflow
                                                         .ellipsis, // Use ellipsis to cut off the text
                                                     maxLines: 1,
@@ -748,7 +795,7 @@ class _Das_screenState extends State<Das_screen> {
                                               Container(
                                                 child: Center(
                                                   child: Text(
-                                                    " ${radiologydata![0]['pulse']?? 'N/A'}",
+                                                    " ${radiologydata![0]['pulse'] ?? 'N/A'}",
                                                     overflow: TextOverflow
                                                         .ellipsis, // Use ellipsis to cut off the text
                                                     maxLines: 1,
@@ -766,7 +813,7 @@ class _Das_screenState extends State<Das_screen> {
                                               Container(
                                                 child: Center(
                                                   child: Text(
-                                                    " ${radiologydata![0]['temperature']?? 'N/A'}",
+                                                    " ${radiologydata![0]['temperature'] ?? 'N/A'}",
                                                     overflow: TextOverflow
                                                         .ellipsis, // Use ellipsis to cut off the text
                                                     maxLines: 1,
@@ -785,14 +832,15 @@ class _Das_screenState extends State<Das_screen> {
                                                 child: Center(
                                                   child: Text(
                                                     "${radiologydata![0]['respiration'] ?? 'N/A'}",
-                                                    overflow: TextOverflow.ellipsis,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
                                                     maxLines: 1,
                                                     style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       fontSize: 15,
                                                     ),
                                                   ),
-
                                                 ),
                                               ),
                                             ],
@@ -838,7 +886,7 @@ class _Das_screenState extends State<Das_screen> {
                                         child: Column(
                                           children: [
                                             Text(
-                                              " ${radiologydata![0]['symptoms']?? 'N/A'}",
+                                              " ${radiologydata![0]['symptoms'] ?? 'N/A'}",
                                               style: const TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.bold,
@@ -886,7 +934,7 @@ class _Das_screenState extends State<Das_screen> {
                                         child: Column(
                                           children: [
                                             Text(
-                                              " ${radiologydata![0]['symptoms']?? 'N/A'}",
+                                              " ${radiologydata![0]['symptoms'] ?? 'N/A'}",
                                               style: const TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.bold,
@@ -934,7 +982,7 @@ class _Das_screenState extends State<Das_screen> {
                                         child: Column(
                                           children: [
                                             Text(
-                                              " ${radiologydata![0]['symptoms']?? 'N/A'}",
+                                              " ${radiologydata![0]['symptoms'] ?? 'N/A'}",
                                               style: const TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.bold,
@@ -991,7 +1039,7 @@ class _Das_screenState extends State<Das_screen> {
                                               25, // Set the desired height
                                           child: ElevatedButton(
                                             onPressed: () {
-                                              // Add your button click functionality here
+                                              _showAlldoctorSelection(context);
                                             },
                                             style: ElevatedButton.styleFrom(
                                               fixedSize: const Size(150,
@@ -1008,61 +1056,87 @@ class _Das_screenState extends State<Das_screen> {
                                     ],
                                   ),
                                   Container(
-                                    height: 200,
+                                    height: height / 7,
                                     child: ListView.builder(
-                                        itemCount: 3,
-                                        itemBuilder:
-                                            (BuildContext context, int index) {
-                                          return Card(
-                                            child: Column(
-                                              children: [
-                                                ListTile(
-                                                    title: Text(
-                                                      "${widget.name!.isEmpty ? "N/A" : widget.name!} ${widget.surname!.isEmpty ? "" : widget.surname!}",
-                                                    ),
-
-                                                    subtitle: const Text(
-                                                      "MBBS|| MD",
-                                                      style: TextStyle(
-                                                          color: Colors
-                                                              .blueAccent),
-                                                    ),
-                                                    leading: CircleAvatar(
-                                                      radius: 30,
-                                                      backgroundColor:
-                                                          darkYellow, // Set your desired background color
-                                                      child: Padding(
-                                                        padding: const EdgeInsets
-                                                            .all(
-                                                            4.0), // Adjust the padding as needed
-                                                        child: Container(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            shape:
-                                                                BoxShape.circle,
-                                                            border: Border.all(
-                                                              color:
-                                                                  yellow, // Set your desired border color
-                                                              width:
-                                                                  2.0, // Set your desired border width
-                                                            ),
-                                                          ),
-                                                          child: ClipOval(
-                                                            child: Image.asset(
-                                                              'assets/docTwo.jpeg',
-                                                              width:
-                                                                  42.0, // Adjust the image size as needed
-                                                              height: 42.0,
-                                                              fit: BoxFit.fill,
-                                                            ),
-                                                          ),
+                                      itemCount: Data!.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return Card(
+                                          child: Column(
+                                            children: [
+                                              ListTile(
+                                                title: Text(
+                                                  "${Data![index]['name'] ?? 'N/A'} ${Data![index]['surname'] ?? 'N/A'}",
+                                                ),
+                                                subtitle: Text(
+                                                  "${Data![index]['qualification'] ?? 'N/A'}",
+                                                  style: TextStyle(
+                                                      color: Colors.blueAccent),
+                                                ),
+                                                leading: CircleAvatar(
+                                                  radius: 30,
+                                                  backgroundColor: darkYellow,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            4.0),
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        border: Border.all(
+                                                          color: yellow,
+                                                          width: 2.0,
                                                         ),
                                                       ),
-                                                    ))
-                                              ],
-                                            ),
-                                          );
-                                        }),
+                                                      child: ClipOval(
+                                                        child: '${Data![index]['image']}' !=
+                                                                    null &&
+                                                                '${Data![index]['image']}' !=
+                                                                    ''
+                                                            ? Image.network(
+                                                                '${Data![index]['image']}',
+                                                                width: 42.0,
+                                                                height: 42.0,
+                                                                fit:
+                                                                    BoxFit.fill,
+                                                                loadingBuilder:
+                                                                    (context,
+                                                                        child,
+                                                                        loadingProgress) {
+                                                                  if (loadingProgress ==
+                                                                      null) {
+                                                                    return child;
+                                                                  } else {
+                                                                    return CircularProgressIndicator(
+                                                                      color:
+                                                                          darkYellow,
+                                                                      backgroundColor:
+                                                                          yellow,
+                                                                    );
+                                                                  }
+                                                                },
+                                                              )
+                                                            : Center(
+                                                                child: SvgPicture.asset(
+                                                                    'assets/Noimagedoctor.svg',
+                                                                    width: 42.0,
+                                                                    height:
+                                                                        42.0,
+                                                                    fit: BoxFit
+                                                                        .fill,
+                                                                    color:
+                                                                        darkYellow),
+                                                              ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    ),
                                   )
                                 ],
                               ),
@@ -1127,4 +1201,126 @@ class _Das_screenState extends State<Das_screen> {
       ),
     );
   }
+
+  /////////////////////////////////////////////////////////////////////////// For Getting alll doctor
+  List<dynamic>? Datalist = [];
+  Future<void> fetchDoctorlisttData() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    final Uri url = Uri.parse(ApiLinks.getAllDoctor);
+    final response = await http.get(
+      url,
+    );
+
+    if (response.statusCode == 200) {
+      final dataMap = json.decode(response.body);
+      final List<dynamic> rawData = dataMap["doctors"];
+      Datalist = rawData;
+      print(
+          "===============================++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++$Datalist");
+      setState(() {
+        Datalist = rawData;
+        isLoading = false;
+      });
+    } else {
+      handleNonJsonResponse();
+      isLoading = false;
+    }
+  }
+
+  //////////
+  void _showAlldoctorSelection(BuildContext context) {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+      ),
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            // Create a list with "Emergency" and "General" only
+            List<Map<String, dynamic>> combinedData = [
+              {"id": 1, "name": "Emergency"},
+              {"id": 0, "name": "General"},
+            ];
+
+            return Container(
+              height: MediaQuery.of(context).size.height * 0.4,
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      const Expanded(
+                        child: Center(
+                          child: Text(
+                            'Select Doctor',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.close),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  ),
+                  isLoading
+                      ? Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Center(
+                              child: Container(
+                                height: 50,
+                                width: 50,
+                                color: Colors.transparent,
+                                child: const LoadingIndicatorWidget(),
+                              ),
+                            ),
+                          ),
+                        )
+                      : Expanded(
+                          child: ListView.builder(
+                            itemCount: combinedData.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              int id = combinedData[index]["id"];
+                              String item = combinedData[index]["name"];
+                              return Card(
+                                color: Colors.white70.withOpacity(0.7),
+                                child: ListTile(
+                                  title: Text(
+                                    '$item',
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  onTap: () {
+                                    // selectedTicketTypeId =
+                                    // id != null ? id.toString() : item;
+                                    // selectedTicketType = item;
+                                    // TickettypeController.text =
+                                    // '$selectedTicketType';
+                                    // Navigator.of(context).pop();
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+  ///////////////////////////////////////////////////////////////////////////////
 }
