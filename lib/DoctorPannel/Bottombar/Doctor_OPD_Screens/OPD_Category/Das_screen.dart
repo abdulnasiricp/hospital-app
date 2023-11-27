@@ -493,7 +493,7 @@ class _Das_screenState extends State<Das_screen> {
                                       children: [
                                         CardDesign(
                                           () {
-                                            Get.to(() => Pathology_Report());
+                                            Get.to(() => const Pathology_Report());
                                           },
                                           SvgPicture.asset(
                                             'assets/pathology.svg',
@@ -505,7 +505,7 @@ class _Das_screenState extends State<Das_screen> {
                                         ),
                                         CardDesign(
                                           () {
-                                            Get.to(() => Radilogy_Report());
+                                            Get.to(() => const Radilogy_Report());
                                           },
                                           SvgPicture.asset(
                                             'assets/radiology.svg',
@@ -517,7 +517,7 @@ class _Das_screenState extends State<Das_screen> {
                                         ),
                                         CardDesign(
                                           () {
-                                            Get.to(() => Prescription());
+                                            Get.to(() => const Prescription());
                                           },
                                           SvgPicture.asset(
                                             'assets/Prescription.svg',
@@ -530,7 +530,7 @@ class _Das_screenState extends State<Das_screen> {
                                         CardDesign(
                                           () {
                                             Get.to(
-                                                () => OPD_Medication_Report());
+                                                () => const OPD_Medication_Report());
                                           },
                                           SvgPicture.asset(
                                             'assets/Medication.svg',
@@ -542,7 +542,7 @@ class _Das_screenState extends State<Das_screen> {
                                         ),
                                         CardDesign(
                                           () {
-                                            Get.to(() => Bed_History());
+                                            Get.to(() => const Bed_History());
                                           },
                                           SvgPicture.asset(
                                             'assets/bed_history.svg',
@@ -554,7 +554,7 @@ class _Das_screenState extends State<Das_screen> {
                                         ),
                                         CardDesign(
                                           () {
-                                            Get.to(() => Operation_Report());
+                                            Get.to(() => const Operation_Report());
                                           },
                                           SvgPicture.asset(
                                             'assets/surgery.svg',
@@ -566,7 +566,7 @@ class _Das_screenState extends State<Das_screen> {
                                         ),
                                         CardDesign(
                                           () {
-                                            Get.to(() => Cardex_Report());
+                                            Get.to(() => const Cardex_Report());
                                           },
                                           SvgPicture.asset(
                                             'assets/cardex.svg',
@@ -747,7 +747,7 @@ class _Das_screenState extends State<Das_screen> {
                                                     overflow: TextOverflow
                                                         .ellipsis, // Use ellipsis to cut off the text
                                                     maxLines: 1,
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         fontSize: 15),
@@ -765,7 +765,7 @@ class _Das_screenState extends State<Das_screen> {
                                                     overflow: TextOverflow
                                                         .ellipsis, // Use ellipsis to cut off the text
                                                     maxLines: 1,
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         fontSize: 15),
@@ -783,7 +783,7 @@ class _Das_screenState extends State<Das_screen> {
                                                     overflow: TextOverflow
                                                         .ellipsis, // Use ellipsis to cut off the text
                                                     maxLines: 1,
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         fontSize: 15),
@@ -801,7 +801,7 @@ class _Das_screenState extends State<Das_screen> {
                                                     overflow: TextOverflow
                                                         .ellipsis, // Use ellipsis to cut off the text
                                                     maxLines: 1,
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         fontSize: 15),
@@ -819,7 +819,7 @@ class _Das_screenState extends State<Das_screen> {
                                                     overflow: TextOverflow
                                                         .ellipsis, // Use ellipsis to cut off the text
                                                     maxLines: 1,
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         fontSize: 15),
@@ -837,9 +837,13 @@ class _Das_screenState extends State<Das_screen> {
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     maxLines: 1,
-                                                    style: TextStyle(
+
+                                                   
+
+                                                    style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
+
                                                       fontSize: 15,
                                                     ),
                                                   ),
@@ -1072,7 +1076,7 @@ class _Das_screenState extends State<Das_screen> {
                                                 ),
                                                 subtitle: Text(
                                                   "${Data![index]['qualification'] ?? 'N/A'}",
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       color: Colors.blueAccent),
                                                 ),
                                                 leading: CircleAvatar(

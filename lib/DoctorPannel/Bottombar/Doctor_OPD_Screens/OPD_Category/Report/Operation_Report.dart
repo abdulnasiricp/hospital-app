@@ -1,6 +1,10 @@
+// ignore_for_file: file_names, camel_case_types
+
 import 'package:flutter/material.dart';
 
 class Operation_Report extends StatefulWidget {
+  const Operation_Report({Key? key}) : super(key: key);
+
   //const Operation_Report({super.key});
 
   @override

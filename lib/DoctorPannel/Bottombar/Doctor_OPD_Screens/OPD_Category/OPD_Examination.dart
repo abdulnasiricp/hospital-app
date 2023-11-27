@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace, avoid_print, avoid_unnecessary_containers, unused_local_variable, file_names
+// ignore_for_file: sized_box_for_whitespace, avoid_print, avoid_unnecessary_containers, unused_local_variable, file_names, non_constant_identifier_names
 
 import 'dart:convert';
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_investigation.dart';
