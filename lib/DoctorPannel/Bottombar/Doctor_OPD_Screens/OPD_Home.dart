@@ -340,24 +340,24 @@ class _OpdHomeState extends State<OpdHome> {
                                                   guardianName:
                                                       radiologyfilteredData?[
                                                               index]
-                                                          ['guardian_name'],
+                                                          ['guardian_name']??"",
                                                   OpdVisitDetailsID:
                                                       radiologyfilteredData?[
                                                               index]
-                                                          ['visit_details_id'],
+                                                          ['visit_details_id']??"",
                                                   status:
                                                       radiologyfilteredData?[
-                                                          index]['status'],
+                                                          index]['status']??"",
                                                   patient_id:
                                                       radiologyfilteredData?[
-                                                          index]['patient_id'],
+                                                          index]['patient_id']??"",
                                                   employee_id:
                                                       radiologyfilteredData?[
-                                                          index]['employee_id'],
+                                                          index]['employee_id']??"",
                                                   case_reference_id:
                                                       radiologyfilteredData?[
                                                               index]
-                                                          ['case_reference_id'],
+                                                          ['case_reference_id']??"",
                                                 ));
                                             // String? status =
                                             //     radiologyfilteredData?[index]

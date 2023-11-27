@@ -77,13 +77,13 @@ class _Doctor_Home_Bottom_barState extends State<Doctor_Home_Bottom_bar> {
             items: [
               SalomonBottomBarItem(
                 icon: Image.asset("assets/home.png",
-                    height: 30, color: notifier.getwihitecolor),
+                    height: 25, color: notifier.getwihitecolor),
                 title: Align(
                   alignment: Alignment.topCenter,
                   child: Text(
                     'home'.tr,
                     style: TextStyle(
-                        fontSize: 10.sp,
+                        fontSize: 7.sp,
                         color: notifier.getwihitecolor,
                         fontFamily: 'Gilroy_Bold'),
                   ),
@@ -92,7 +92,7 @@ class _Doctor_Home_Bottom_barState extends State<Doctor_Home_Bottom_bar> {
               ),
               SalomonBottomBarItem(
                 icon: SvgPicture.asset('assets/opd.svg',
-                    height: 30, color: notifier.getwihitecolor),
+                    height: 25, color: notifier.getwihitecolor),
                 title: Text(
                   'OPD'.tr,
                   style: TextStyle(
@@ -104,7 +104,7 @@ class _Doctor_Home_Bottom_barState extends State<Doctor_Home_Bottom_bar> {
               ),
               SalomonBottomBarItem(
                 icon: SvgPicture.asset('assets/ipd.svg',
-                    height: 30, color: notifier.getwihitecolor),
+                    height: 25, color: notifier.getwihitecolor),
                 title: Text(
                   'IPD'.tr,
                   style: TextStyle(
@@ -116,11 +116,11 @@ class _Doctor_Home_Bottom_barState extends State<Doctor_Home_Bottom_bar> {
               ),
               SalomonBottomBarItem(
                 icon: SvgPicture.asset('assets/em.svg',
-                    height: 30, color: notifier.getwihitecolor),
+                    height: 25, color: notifier.getwihitecolor),
                 title: Text(
                   'Emergency'.tr,
                   style: TextStyle(
-                      fontSize: 10.sp,
+                      fontSize: 7.sp,
                       color: notifier.getwihitecolor,
                       fontFamily: 'Gilroy_Bold'),
                 ),
@@ -128,11 +128,11 @@ class _Doctor_Home_Bottom_barState extends State<Doctor_Home_Bottom_bar> {
               ),
               SalomonBottomBarItem(
                 icon: Image.asset("assets/profile.png",
-                    height: 30, color: notifier.getwihitecolor),
+                    height: 25, color: notifier.getwihitecolor),
                 title: Text(
                   'profile'.tr,
                   style: TextStyle(
-                      fontSize: 10.sp,
+                      fontSize: 7.sp,
                       color: notifier.getwihitecolor,
                       fontFamily: 'Gilroy_Bold'),
                 ),

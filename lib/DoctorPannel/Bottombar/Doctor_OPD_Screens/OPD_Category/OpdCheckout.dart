@@ -11,7 +11,6 @@ import 'package:html_editor_enhanced/html_editor.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:open_file/open_file.dart';
-import 'dart:io';
 
 class Opd_Check_Out extends StatefulWidget {
   final String? opdID;

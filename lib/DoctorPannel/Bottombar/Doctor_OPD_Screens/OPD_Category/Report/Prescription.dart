@@ -1,6 +1,10 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
 class Prescription extends StatefulWidget {
+  const Prescription({Key? key}) : super(key: key);
+
   @override
   State<Prescription> createState() => _PrescriptionState();
 }

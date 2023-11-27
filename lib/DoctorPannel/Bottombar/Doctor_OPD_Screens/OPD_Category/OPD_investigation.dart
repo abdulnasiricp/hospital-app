@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace, unnecessary_string_interpolations, unnecessary_null_comparison, file_names, unused_local_variable, avoid_print, non_constant_identifier_names, unnecessary_brace_in_string_interps
+// ignore_for_file: sized_box_for_whitespace, unnecessary_string_interpolations, unnecessary_null_comparison, file_names, unused_local_variable, avoid_print, non_constant_identifier_names, unnecessary_brace_in_string_interps, unused_element
 
 import 'dart:convert';
 
@@ -344,6 +344,8 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     final String radiology = radiologyController.text;
     final String radiologyQty = radiologyQtyController.text;
     final String radiologyNote = radiologyNoteController.text;
+    final String surgery = surgeryController.text;
+    final String surgeryNote = surgeryNoteController.text;
 //-----------------------------------------------------------------------------othertest
     List<dynamic> additionalothertestRowsData = [];
     for (var otherControllerMap in otherControllersList) {
@@ -357,25 +359,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
       }
     }
 // //-----------------------------------------------------------------------------radiology
-//     List<dynamic> additionalRadiologyRowsData = [];
-
-//     for (var radiologyControllerMap in radiologyControllersList) {
-     
-//       String rowRadiologyQty =
-//           radiologyControllerMap['radiologyQty']?.text ?? '';
-//       String rowRadiologyNote =
-//           radiologyControllerMap['radiologyNote']?.text ?? '';
-
-//       // Check if both fields in the row have data
-//       if (
-//           rowRadiologyQty.isNotEmpty &&
-//           rowRadiologyNote.isNotEmpty) {
-//         additionalRadiologyRowsData
-//             .add({ rowRadiologyQty, rowRadiologyNote});
-//       }
-//     }
-
-    // radiology
     List<dynamic> additionalRadiologyRowsData = [];
 
     for (var radiologyControllerMap in radiologyControllersList) {
@@ -389,13 +372,10 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
       if (rowRadiology.isNotEmpty &&
           rowRadiologyQty.isNotEmpty &&
           rowRadiologyNote.isNotEmpty) {
-        additionalRadiologyRowsData
-            .add({rowRadiologyQty, rowRadiologyNote});
+        additionalRadiologyRowsData.add({rowRadiologyQty, rowRadiologyNote});
       }
     }
 //-----------------------------------------------------------------------------surgery
-
-    //
     List<dynamic> additionalRowsData = [];
 
     for (var controllerMap in surgeryControllersList) {
@@ -411,37 +391,17 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
       }
     }
 
-    // Combine the main surgery data with additional rows data
-    List<dynamic> requestBodyList = [
-      selecteddiagnosisItemsId,
-      selectedpathologyItemsId,
-      otherTest,
-      localSelectedotherId,
-      ...additionalothertestRowsData,
-      selectedradiologyId,
-      radiology,
-      radiologyQty,
-      radiologyNote,
-      ...additionalRadiologyRowsData,
-      mainSurgery,
-      mainSurgeryNote,
-      ...additionalRowsData
-    ];
-    List<dynamic> requestRadiologyList = [
-      {
-        ...selectedRadiologyIds
+    Map<String, dynamic> requestRadiologyList = {
+      '0': selectedRadiologyIds,
+      '1': {radiologyQty, radiologyNote, additionalRadiologyRowsData}
+    };
+    Map<String, dynamic> requestSurgeryList = {
+      '0': selectedSurgeryIds,
+      '1': { surgeryNote, additionalRowsData}
+    };
 
-
-      },
-      radiologyQty,
-      radiologyNote,
-      additionalRadiologyRowsData,
-      
-      // selectedotherId,
-      // localSelectedotherId
-    ];
     const String apiUrl =
-        'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
+        'https://uat.tez.hospital/xzy/webservice/submit_investigation';
     Map<String, dynamic> requestBody = {
       // "table": "Visit_details",
       "opd_id": "${widget.opdID}",
@@ -451,10 +411,9 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
         "Diagnosis": selecteddiagnosisItemsId,
         "Pathology": selectedpathologyItemsId,
         "Other_Test": selectedOtherIds,
-        "Radiology": requestRadiologyList
+        "Radiology": requestRadiologyList,
 
-        // "Surgery": selectedpathologyItemsId,
-        // "Medicine": selectedpathologyItemsId,
+        "Surgery": requestSurgeryList,
         // "F_Advice": selectedpathologyItemsId,
       }
     };
@@ -1424,18 +1383,14 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
 //==========================================================================================
   TextEditingController radiologySearchController = TextEditingController();
   List<String> selectedRadiologyIds = [];
-  void _showRadiologySelection(
-      BuildContext context,
-      TextEditingController radiologyController,
-      TextEditingController radiologyQtyController,
+  void _showRadiologySelection(BuildContext context,TextEditingController radiologyController,TextEditingController radiologyQtyController,
       TextEditingController radiologyNoteController) {
     TextEditingController localradiologyController = TextEditingController();
     TextEditingController localradiologyQtyController = TextEditingController();
-    TextEditingController localradiologyNoteController =
-        TextEditingController();
+    TextEditingController localradiologyNoteController =TextEditingController();
     String localSelectedradiologydata = '';
     String localSelectedradiologyId = '';
-    
+
     showModalBottomSheet(
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
@@ -1540,10 +1495,11 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                                           ['id'] ??
                                                       '';
 
-                                               selectedRadiologyIds.add(localSelectedradiologyId);
-                                              localradiologyController.text = localSelectedradiologydata;
+                                              selectedRadiologyIds.add(
+                                                  localSelectedradiologyId);
 
-                                              // localradiologyController.text ='($localSelectedradiologyId) $localSelectedradiologydata';
+                                              localradiologyController.text =
+                                                  localSelectedradiologydata;
 
                                               Navigator.of(context).pop();
                                             },
@@ -1848,7 +1804,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                                   .add(localSelectedotherId);
                                               localotherController.text =
                                                   localSelectedotherdata;
-                                                  
+
                                               Navigator.of(context).pop();
                                             },
                                           ),
@@ -2116,7 +2072,10 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     );
   }
 
-  Widget radiologyBuildRow(TextEditingController radiologyController,TextEditingController radiologyQtyController,TextEditingController radiologyNoteController,) {
+  Widget radiologyBuildRow(
+      TextEditingController radiologyController,
+      TextEditingController radiologyQtyController,
+      TextEditingController radiologyNoteController) {
     return Row(
       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -2179,10 +2138,9 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                 }
                 return null;
               },
-              // controller: diagnosisController,
+              controller: radiologyQtyController,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: 'Select options',
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
                 fillColor: Colors.white,
@@ -2207,7 +2165,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                 return null;
               },
               // Set this to true to disable the keyboard
-              // controller: diagnosisController,
+              controller: radiologyNoteController,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Additional note',
@@ -2230,100 +2188,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                     setState(() {
                       // Remove the row when the "Cancel" button is clicked
                       radiologyRow.removeLast();
-                    });
-                  },
-                  icon: Icon(
-                    Icons.cancel,
-                    color: whitecolor,
-                  )),
-              // radius: 17,
-              backgroundColor: Colors.green,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget surgeryBuildRow() {
-    TextEditingController textFieldController = TextEditingController();
-
-    return Row(
-      children: [
-        Container(
-          width: width / 3,
-          height: 50,
-          child: Center(
-            child: InkWell(
-                child: TextFormField(
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'This field is required';
-                }
-                return null;
-              },
-              readOnly: true,
-              // Set this to true to disable the keyboard
-              controller: surgeryController,
-              decoration: InputDecoration(
-                suffixIcon: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_drop_down_sharp,
-                    size: 40,
-                  ),
-                  onPressed: () {
-                    selectDiagnosisOptions(context);
-                  },
-                ),
-                border: const OutlineInputBorder(),
-                hintText: 'Select Surgery',
-                fillColor: Colors.white,
-                filled: true,
-              ),
-
-              onTap: () {
-                selectDiagnosisOptions(context);
-              },
-            )),
-          ),
-        ),
-        const SizedBox(
-          width: 5,
-        ),
-        Container(
-          width: width / 2.2,
-          height: 50,
-          child: Center(
-            child: InkWell(
-                child: TextFormField(
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'This field is required';
-                }
-                return null;
-              },
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Additional note',
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
-              ),
-            )),
-          ),
-        ),
-        const SizedBox(
-          width: 5,
-        ),
-        Container(
-          width: width / 9,
-          // height: 40,
-          child: Center(
-            child: CircleAvatar(
-              child: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      // Remove the row when the "Cancel" button is clicked
-                      surgeryRow.removeLast();
                     });
                   },
                   icon: Icon(
@@ -2383,7 +2247,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   }
 //---------------------------------------------------------------------------Surgery
 
-  Widget dragBuildRow(TextEditingController surgeryController,
+  Widget surgeryBuildRow(TextEditingController surgeryController,
       TextEditingController surgeryNoteController) {
     return Padding(
       padding: const EdgeInsets.all(5.0),
@@ -2498,7 +2362,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   }
 
   TextEditingController surgerysearchController = TextEditingController();
-
+  List<String> selectedSurgeryIds = [];
   void _showSurgerySelection(
       BuildContext context,
       TextEditingController surgeryController,
@@ -2610,9 +2474,14 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                                 surgeryfilteredData?[index]
                                                         ['id'] ??
                                                     '';
+                                                    
+                                              selectedSurgeryIds.add(
+                                                  localSelectedsurgeryId);
 
-                                            localSurgeryController.text =
-                                                '($localSelectedsurgeryId) $localSelectedsurgerydata';
+                                              localSurgeryController.text =
+                                                  localSelectedsurgerydata;
+
+                                           
 
                                             Navigator.of(context).pop();
                                           },
@@ -2647,7 +2516,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     };
 
     setState(() {
-      surgeryRow.add(dragBuildRow(newSurgeryController, newNoteController));
+      surgeryRow.add(surgeryBuildRow(newSurgeryController, newNoteController));
       surgeryControllersList.add(newControllersMap);
     });
   }
