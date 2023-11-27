@@ -22,9 +22,11 @@ import 'package:flutter/material.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
+import 'package:lottie/lottie.dart';
 import 'OPD_Medication.dart';
 
 class Das_screen extends StatefulWidget {
@@ -492,7 +494,8 @@ class _Das_screenState extends State<Das_screen> {
                                       children: [
                                         CardDesign(
                                           () {
-                                            Get.to(() => const Pathology_Report());
+                                            Get.to(
+                                                () => const Pathology_Report());
                                           },
                                           SvgPicture.asset(
                                             'assets/pathology.svg',
@@ -504,7 +507,8 @@ class _Das_screenState extends State<Das_screen> {
                                         ),
                                         CardDesign(
                                           () {
-                                            Get.to(() => const Radilogy_Report());
+                                            Get.to(
+                                                () => const Radilogy_Report());
                                           },
                                           SvgPicture.asset(
                                             'assets/radiology.svg',
@@ -528,8 +532,8 @@ class _Das_screenState extends State<Das_screen> {
                                         ),
                                         CardDesign(
                                           () {
-                                            Get.to(
-                                                () => const OPD_Medication_Report());
+                                            Get.to(() =>
+                                                const OPD_Medication_Report());
                                           },
                                           SvgPicture.asset(
                                             'assets/Medication.svg',
@@ -553,7 +557,8 @@ class _Das_screenState extends State<Das_screen> {
                                         ),
                                         CardDesign(
                                           () {
-                                            Get.to(() => const Operation_Report());
+                                            Get.to(
+                                                () => const Operation_Report());
                                           },
                                           SvgPicture.asset(
                                             'assets/surgery.svg',
@@ -836,13 +841,9 @@ class _Das_screenState extends State<Das_screen> {
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     maxLines: 1,
-
-                                                   
-
                                                     style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
-
                                                       fontSize: 15,
                                                     ),
                                                   ),
@@ -1208,34 +1209,110 @@ class _Das_screenState extends State<Das_screen> {
   }
 
   /////////////////////////////////////////////////////////////////////////// For Getting alll doctor
-  List<dynamic>? Datalist = [];
-  Future<void> fetchDoctorlisttData() async {
-    setState(() {
-      isLoading = true;
-    });
+  Map<String, dynamic>? DataMap;
+  Map<String, dynamic>? DoneDataMap;
+  List<dynamic>? DoneListData = [];
+  List<dynamic>? NewListData = [];
 
-    final Uri url = Uri.parse(ApiLinks.getAllDoctor);
-    final response = await http.get(
-      url,
+  Future fetchDoctorlisttData() async {
+    final response = await http.post(
+      Uri.parse(ApiLinks.getAllDoctor),
+      headers: ApiLinks.MainHeader,
     );
-
     if (response.statusCode == 200) {
-      final dataMap = json.decode(response.body);
-      final List<dynamic> rawData = dataMap["doctors"];
-      Datalist = rawData;
-      print(
-          "===============================++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++$Datalist");
       setState(() {
-        Datalist = rawData;
+        DataMap = jsonDecode(response.body);
+        DoneListData = DataMap!['doctors'];
+        print("______________________________________________$DoneListData");
         isLoading = false;
       });
     } else {
-      handleNonJsonResponse();
-      isLoading = false;
+      print('Error getting Products: ${response.statusCode}');
+      Center(child: Text("${response.statusCode}"));
     }
   }
 
-  //////////
+  void filterData(String query) {
+    setState(() {
+      DoneListData = DataMap?['doctors']
+          ?.where((doctor) =>
+              (doctor['name'] as String)
+                  .toLowerCase()
+                  .contains(query.toLowerCase()) ||
+              (doctor['surname'] as String)
+                  .toLowerCase()
+                  .contains(query.toLowerCase()) ||
+              (doctor['id'] as String)
+                  .toLowerCase()
+                  .contains(query.toLowerCase()))
+          .toList();
+    });
+  }
+
+  TextEditingController searchController = TextEditingController();
+  List<String> selectedDoctorIds = [];
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /// For Doctor Add
+
+  Future<void> makePostRequest(Map<String, String> result) async {
+    const String apiUrl = ApiLinks.addOpdIpdDoctor;
+    Map<String, dynamic> requestBody = {
+      "visit_details_id": "${widget.OpdVisitDetailsID}",
+      "doctor_id": "$result"
+    };
+    try {
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        body: jsonEncode(requestBody),
+        headers: ApiLinks.MainHeader,
+      );
+      print(
+          "----------------------------------------------------+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++$requestBody");
+      if (response.statusCode == 200) {
+        Map<String, dynamic> responseData = jsonDecode(response.body);
+        if (responseData["status"] == "1") {
+          setState(() {
+            // Show success message and navigate to the next screen if needed
+            Fluttertoast.showToast(
+              msg: '${responseData["message"]}',
+              backgroundColor: Colors.green,
+              textColor: Colors.white,
+            );
+            Navigator.of(context).pop();
+          });
+        } else {
+          // Handle other cases based on status and message
+          setState(() {
+            Fluttertoast.showToast(
+              msg: '${responseData["message"]}',
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+            );
+          });
+        }
+      } else {
+        // Handle other status codes (non-200) if needed
+        setState(() {
+          Fluttertoast.showToast(
+            msg: 'Error: ${response.reasonPhrase}',
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+          );
+        });
+      }
+    } catch (e) {
+      setState(() {
+        Fluttertoast.showToast(
+          msg: '$e',
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+        );
+      });
+    }
+  }
+
+  /// For Doctor Add
+
   void _showAlldoctorSelection(BuildContext context) {
     showModalBottomSheet(
       isScrollControlled: true,
@@ -1246,18 +1323,13 @@ class _Das_screenState extends State<Das_screen> {
       builder: (BuildContext context) {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
-            // Create a list with "Emergency" and "General" only
-            List<Map<String, dynamic>> combinedData = [
-              {"id": 1, "name": "Emergency"},
-              {"id": 0, "name": "General"},
-            ];
-
             return Container(
-              height: MediaQuery.of(context).size.height * 0.4,
+              height: MediaQuery.of(context).size.height * 0.8,
               child: Column(
                 children: <Widget>[
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment
+                        .spaceBetween, // Align items at the ends
                     children: <Widget>[
                       const Expanded(
                         child: Center(
@@ -1271,54 +1343,176 @@ class _Das_screenState extends State<Das_screen> {
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.close),
+                        icon: const Icon(Icons.close), // Close icon
                         onPressed: () {
-                          Navigator.of(context).pop();
+                          Navigator.of(context).pop(); // Close the bottom sheet
                         },
                       ),
                     ],
                   ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0, right: 8),
+                    child: Container(
+                      width: width / 0.8,
+                      height: 50,
+                      child: TextFormField(
+                        controller: searchController,
+                        onChanged: (query) {
+                          setState(() {
+                            filterData(query);
+                          });
+                        },
+                        decoration: const InputDecoration(
+                          hintText: 'Search Doctor',
+                          border: OutlineInputBorder(),
+                          suffixIcon: Icon(Icons.search),
+                        ),
+                      ),
+                    ),
+                  ),
                   isLoading
                       ? Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Center(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Container(
+                            height: 50,
+                            width: 50,
+                            color: Colors.transparent,
+                            child: const LoadingIndicatorWidget(),
+                          ),
+                        ))
+                      : DoneListData!.isEmpty
+                          ? Expanded(
+                              child: Center(
                               child: Container(
-                                height: 50,
-                                width: 50,
-                                color: Colors.transparent,
-                                child: const LoadingIndicatorWidget(),
+                                height: 150,
+                                width: 150,
+                                child: Lottie.asset(
+                                  'assets/No_Data_Found.json',
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ))
+                          : Expanded(
+                              child: ListView.builder(
+                                itemCount: DoneListData!.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  final doctorId =
+                                      DoneListData![index]['id'] as String;
+                                  final isDoctorSelected =
+                                      selectedDoctorIds.contains(doctorId);
+                                  return Card(
+                                    color:
+                                        isDoctorSelected ? Colors.green : null,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        // Toggle the selection state of the doctor
+                                        setState(() {
+                                          if (isDoctorSelected) {
+                                            selectedDoctorIds.remove(doctorId);
+                                          } else {
+                                            selectedDoctorIds.add(doctorId);
+                                          }
+                                        });
+                                      },
+                                      child: Column(
+                                        children: [
+                                          ListTile(
+                                            title: Text(
+                                              "${DoneListData![index]['name'] ?? 'N/A'} ${DoneListData![index]['surname'] ?? 'N/A'}",
+                                            ),
+                                            subtitle: Text(
+                                              "${DoneListData![index]['qualification'] != null && DoneListData![index]['qualification'].isNotEmpty ? DoneListData![index]['qualification'] : 'N/A'}",
+                                              style: TextStyle(
+                                                  color: Colors.blueAccent),
+                                            ),
+                                            leading: CircleAvatar(
+                                              radius: 30,
+                                              backgroundColor: darkYellow,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(4.0),
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    border: Border.all(
+                                                      color: yellow,
+                                                      width: 2.0,
+                                                    ),
+                                                  ),
+                                                  child: ClipOval(
+                                                    child: '${DoneListData![index]['image']}' !=
+                                                                null &&
+                                                            '${DoneListData![index]['image']}' !=
+                                                                ''
+                                                        ? Image.network(
+                                                            '${DoneListData![index]['image']}',
+                                                            width: 42.0,
+                                                            height: 42.0,
+                                                            fit: BoxFit.fill,
+                                                            loadingBuilder:
+                                                                (context, child,
+                                                                    loadingProgress) {
+                                                              if (loadingProgress ==
+                                                                  null) {
+                                                                return child;
+                                                              } else {
+                                                                return CircularProgressIndicator(
+                                                                  color:
+                                                                      darkYellow,
+                                                                  backgroundColor:
+                                                                      yellow,
+                                                                );
+                                                              }
+                                                            },
+                                                          )
+                                                        : Center(
+                                                            child: SvgPicture.asset(
+                                                                'assets/Noimagedoctor.svg',
+                                                                width: 42.0,
+                                                                height: 42.0,
+                                                                fit:
+                                                                    BoxFit.fill,
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
                               ),
                             ),
-                          ),
-                        )
-                      : Expanded(
-                          child: ListView.builder(
-                            itemCount: combinedData.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              int id = combinedData[index]["id"];
-                              String item = combinedData[index]["name"];
-                              return Card(
-                                color: Colors.white70.withOpacity(0.7),
-                                child: ListTile(
-                                  title: Text(
-                                    '$item',
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  onTap: () {
-                                    // selectedTicketTypeId =
-                                    // id != null ? id.toString() : item;
-                                    // selectedTicketType = item;
-                                    // TickettypeController.text =
-                                    // '$selectedTicketType';
-                                    // Navigator.of(context).pop();
-                                  },
-                                ),
-                              );
+                  if (selectedDoctorIds.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                        child: Container(
+                          width: double.infinity,
+                          height: 40,
+                          child: ElevatedButton(
+                            child: const Text('Add Doctor'),
+                            onPressed: () {
+                              Map<String, String> result =
+                                  Map.from(selectedDoctorIds.asMap()).map(
+                                      (key, value) =>
+                                          MapEntry(key.toString(), value));
+
+                              makePostRequest(result);
                             },
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(yellow),
+                            ),
                           ),
                         ),
+                      ),
+                    ),
                 ],
               ),
             );
