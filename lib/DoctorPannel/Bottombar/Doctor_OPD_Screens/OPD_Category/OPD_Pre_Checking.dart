@@ -292,9 +292,10 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                           height: 10,
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              width: width / 4.7,
+                              width: width / 2.05,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -319,11 +320,8 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                 ],
                               ),
                             ),
-                            const SizedBox(
-                              width: 5,
-                            ),
                             Container(
-                              width: width / 4.7,
+                              width: width / 2.3,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -348,11 +346,16 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                 ],
                               ),
                             ),
-                            const SizedBox(
-                              width: 5,
-                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
                             Container(
-                              width: width / 4.7,
+                              width: width / 2.05,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -377,11 +380,8 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                 ],
                               ),
                             ),
-                            const SizedBox(
-                              width: 5,
-                            ),
                             Container(
-                              width: width / 4.7,
+                              width: width / 2.3,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -412,9 +412,10 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                           height: 5,
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              width: width / 2.3,
+                              width: width / 2.05,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -440,9 +441,6 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                   ),
                                 ],
                               ),
-                            ),
-                            const SizedBox(
-                              width: 10,
                             ),
                             Container(
                               width: width / 2.3,
@@ -486,9 +484,10 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                           height: 10,
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              width: width / 2.3,
+                              width: width / 2.05,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -514,9 +513,6 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                   ),
                                 ],
                               ),
-                            ),
-                            const SizedBox(
-                              width: 10,
                             ),
                             Container(
                               width: width / 2.3,
@@ -552,9 +548,10 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                           height: 5,
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              width: width / 2.3,
+                              width: width / 2.05,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -580,9 +577,6 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                   ),
                                 ],
                               ),
-                            ),
-                            const SizedBox(
-                              width: 10,
                             ),
                             Container(
                               width: width / 2.3,
@@ -626,9 +620,10 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                           height: 10,
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              width: width / 2.3,
+                              width: width / 2.05,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -654,9 +649,6 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                   ),
                                 ],
                               ),
-                            ),
-                            const SizedBox(
-                              width: 10,
                             ),
                             Container(
                               width: width / 2.3,
@@ -692,9 +684,10 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                           height: 5,
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              width: width / 2.3,
+                              width: width / 2,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -720,9 +713,6 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                   ),
                                 ],
                               ),
-                            ),
-                            const SizedBox(
-                              width: 10,
                             ),
                             Container(
                               width: width / 2.3,

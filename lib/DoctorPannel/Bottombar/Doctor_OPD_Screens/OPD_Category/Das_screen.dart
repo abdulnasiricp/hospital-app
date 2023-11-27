@@ -493,7 +493,8 @@ class _Das_screenState extends State<Das_screen> {
                                       children: [
                                         CardDesign(
                                           () {
-                                            Get.to(() => const Pathology_Report());
+                                            Get.to(
+                                                () => const Pathology_Report());
                                           },
                                           SvgPicture.asset(
                                             'assets/pathology.svg',
@@ -505,7 +506,8 @@ class _Das_screenState extends State<Das_screen> {
                                         ),
                                         CardDesign(
                                           () {
-                                            Get.to(() => const Radilogy_Report());
+                                            Get.to(
+                                                () => const Radilogy_Report());
                                           },
                                           SvgPicture.asset(
                                             'assets/radiology.svg',
@@ -529,8 +531,8 @@ class _Das_screenState extends State<Das_screen> {
                                         ),
                                         CardDesign(
                                           () {
-                                            Get.to(
-                                                () => const OPD_Medication_Report());
+                                            Get.to(() =>
+                                                const OPD_Medication_Report());
                                           },
                                           SvgPicture.asset(
                                             'assets/Medication.svg',
@@ -554,7 +556,8 @@ class _Das_screenState extends State<Das_screen> {
                                         ),
                                         CardDesign(
                                           () {
-                                            Get.to(() => const Operation_Report());
+                                            Get.to(
+                                                () => const Operation_Report());
                                           },
                                           SvgPicture.asset(
                                             'assets/surgery.svg',
@@ -837,13 +840,9 @@ class _Das_screenState extends State<Das_screen> {
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     maxLines: 1,
-
-                                                   
-
                                                     style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
-
                                                       fontSize: 15,
                                                     ),
                                                   ),
