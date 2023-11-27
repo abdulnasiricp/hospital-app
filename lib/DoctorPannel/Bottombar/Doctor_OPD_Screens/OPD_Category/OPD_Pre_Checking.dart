@@ -269,10 +269,10 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                 height: 5,
                               ),
                               Container(
-                                height: 45,
                                 child: TextFormField(
                                   controller: symptomsController,
                                   keyboardType: TextInputType.text,
+                                  maxLines: null,
                                   readOnly: false,
                                   focusNode: _focusNode,
                                   onTapOutside: (PointerDownEvent event) {
@@ -306,9 +306,9 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                     height: 5,
                                   ),
                                   Container(
-                                    height: 45,
                                     child: TextFormField(
                                       controller: heightController,
+                                      maxLines: null,
                                       onTapOutside: (event) =>
                                           FocusScope.of(context).unfocus(),
                                       decoration: const InputDecoration(
@@ -332,9 +332,9 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                     height: 5,
                                   ),
                                   Container(
-                                    height: 45,
                                     child: TextFormField(
                                       controller: weightController,
+                                      maxLines: null,
                                       onTapOutside: (event) =>
                                           FocusScope.of(context).unfocus(),
                                       decoration: const InputDecoration(
@@ -366,9 +366,9 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                     height: 5,
                                   ),
                                   Container(
-                                    height: 45,
                                     child: TextFormField(
                                       controller: bpController,
+                                      maxLines: null,
                                       onTapOutside: (event) =>
                                           FocusScope.of(context).unfocus(),
                                       decoration: const InputDecoration(
@@ -392,9 +392,9 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                     height: 5,
                                   ),
                                   Container(
-                                    height: 45,
                                     child: TextFormField(
                                       controller: pulseController,
+                                      maxLines: null,
                                       onTapOutside: (event) =>
                                           FocusScope.of(context).unfocus(),
                                       decoration: const InputDecoration(
@@ -428,9 +428,9 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                     height: 5,
                                   ),
                                   Container(
-                                    height: 45,
                                     child: TextFormField(
                                       controller: temperatureController,
+                                      maxLines: null,
                                       onTapOutside: (event) =>
                                           FocusScope.of(context).unfocus(),
                                       decoration: const InputDecoration(
@@ -456,9 +456,9 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                     height: 5,
                                   ),
                                   Container(
-                                    height: 45,
                                     child: TextFormField(
                                       controller: respirationController,
+                                      maxLines: null,
                                       onTapOutside: (event) =>
                                           FocusScope.of(context).unfocus(),
                                       decoration: const InputDecoration(
@@ -500,8 +500,8 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                     height: 5,
                                   ),
                                   Container(
-                                    height: 45,
                                     child: TextFormField(
+                                      maxLines: null,
                                       controller: workProfileHistoryController,
                                       onTapOutside: (event) =>
                                           FocusScope.of(context).unfocus(),
@@ -528,9 +528,9 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                     height: 5,
                                   ),
                                   Container(
-                                    height: 45,
                                     child: TextFormField(
                                       controller: socialHistoryController,
+                                      maxLines: null,
                                       onTapOutside: (event) =>
                                           FocusScope.of(context).unfocus(),
                                       decoration: const InputDecoration(
@@ -564,11 +564,11 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                     height: 5,
                                   ),
                                   Container(
-                                    height: 45,
                                     child: TextFormField(
                                       controller: pastMedicalHistoryController,
                                       onTapOutside: (event) =>
                                           FocusScope.of(context).unfocus(),
+                                      maxLines: null,
                                       decoration: const InputDecoration(
                                           border: OutlineInputBorder(),
                                           fillColor: Colors.white,
@@ -592,11 +592,11 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                     height: 5,
                                   ),
                                   Container(
-                                    height: 45,
                                     child: TextFormField(
                                       controller: currentMedicationController,
                                       onTapOutside: (event) =>
                                           FocusScope.of(context).unfocus(),
+                                      maxLines: null,
                                       decoration: const InputDecoration(
                                           border: OutlineInputBorder(),
                                           fillColor: Colors.white,
@@ -636,11 +636,11 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                     height: 5,
                                   ),
                                   Container(
-                                    height: 45,
                                     child: TextFormField(
                                       controller: anyKnownAllergiesController,
                                       onTapOutside: (event) =>
                                           FocusScope.of(context).unfocus(),
+                                      maxLines: null,
                                       decoration: const InputDecoration(
                                           border: OutlineInputBorder(),
                                           fillColor: Colors.white,
@@ -664,11 +664,11 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                     height: 5,
                                   ),
                                   Container(
-                                    height: 45,
                                     child: TextFormField(
                                       controller: familyHistoryController,
                                       onTapOutside: (event) =>
                                           FocusScope.of(context).unfocus(),
+                                      maxLines: null,
                                       decoration: const InputDecoration(
                                           border: OutlineInputBorder(),
                                           fillColor: Colors.white,
@@ -700,11 +700,11 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                     height: 5,
                                   ),
                                   Container(
-                                    height: 45,
                                     child: TextFormField(
                                       controller: recentReportController,
                                       onTapOutside: (event) =>
                                           FocusScope.of(context).unfocus(),
+                                      maxLines: null,
                                       decoration: const InputDecoration(
                                           border: OutlineInputBorder(),
                                           fillColor: Colors.white,
@@ -728,12 +728,12 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                     height: 5,
                                   ),
                                   Container(
-                                    height: 45,
                                     child: TextFormField(
                                       controller: birthHistoryController,
                                       keyboardType: TextInputType.text,
                                       onTapOutside: (event) =>
                                           FocusScope.of(context).unfocus(),
+                                      maxLines: null,
                                       decoration: const InputDecoration(
                                           border: OutlineInputBorder(),
                                           fillColor: Colors.white,
@@ -764,10 +764,10 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                 height: 5,
                               ),
                               Container(
-                                height: 45,
                                 child: TextFormField(
                                   controller: NoteController,
                                   keyboardType: TextInputType.text,
+                                  maxLines: null,
                                   onTapOutside: (event) =>
                                       FocusScope.of(context).unfocus(),
                                   decoration: const InputDecoration(

@@ -32,6 +32,7 @@ import 'OPD_Medication.dart';
 class Das_screen extends StatefulWidget {
   final String? opdID;
   final String? patientName;
+  final String? title;
   final String? mobileNo;
   final String? name;
   final String? surname;
@@ -48,6 +49,7 @@ class Das_screen extends StatefulWidget {
   const Das_screen({
     Key? key,
     this.patientName,
+    this.title,
     this.name,
     this.patient_id,
     this.employee_id,
@@ -102,7 +104,7 @@ class _Das_screenState extends State<Das_screen> {
       final List<dynamic> rawData = dataMap['result'];
       radiologydata = rawData;
       print(
-          "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++$radiologydata");
+          "++++ddscsd++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++$radiologydata");
       setState(() {
         radiologydata = rawData;
         isLoading = false;
@@ -122,6 +124,7 @@ class _Das_screenState extends State<Das_screen> {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////// for getting consultant list
   List<dynamic>? Data = [];
+  List<dynamic>? Doctorlist = [];
   Future<void> fetchConsultantData() async {
     setState(() {
       isLoading = true;
@@ -137,13 +140,12 @@ class _Das_screenState extends State<Das_screen> {
     );
 
     if (response.statusCode == 200) {
-      final dataMap = json.decode(response.body);
-      final List<dynamic> rawData = dataMap;
-      Data = rawData;
-      print(
-          "======++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++$Data");
+      final Data = json.decode(response.body);
+      final List<dynamic> rawData = Data['result'];
+      Doctorlist = rawData;
       setState(() {
-        Data = rawData;
+        Doctorlist = rawData;
+        print("  All Doctpor=================+++++++++++++++$Data");
         isLoading = false;
       });
     } else {
@@ -156,13 +158,14 @@ class _Das_screenState extends State<Das_screen> {
 
   Future<void> _handleRefresh() async {
     setState(() {
-      isLoading = true; // Set isLoading to true when refreshing
+      isLoading = true;
     });
 
     await fetchRadiologyData();
+    await fetchConsultantData();
 
     setState(() {
-      isLoading = false; // Set isLoading to false after data is fetched
+      isLoading = false;
     });
   }
 
@@ -350,7 +353,8 @@ class _Das_screenState extends State<Das_screen> {
                                       CardDesign(
                                         () {
                                           Get.to(() => OpdPreChecking(
-                                            OpdVisitDetailsID: widget.OpdVisitDetailsID,
+                                                OpdVisitDetailsID:
+                                                    widget.OpdVisitDetailsID,
                                                 opdID: widget.opdID,
                                                 status: widget.status,
                                                 height:
@@ -398,11 +402,14 @@ class _Das_screenState extends State<Das_screen> {
                                         () {
                                           Get.to(() => OpdExamination(
                                                 opdVisitDetailsID:
-                                                    widget.OpdVisitDetailsID??"N/A",
-                                                status: widget.status??"N/A",
-                                                patient_id: widget.patient_id??"N/A",
+                                                    widget.OpdVisitDetailsID ??
+                                                        "N/A",
+                                                status: widget.status ?? "N/A",
+                                                patient_id:
+                                                    widget.patient_id ?? "N/A",
                                                 case_reference_id:
-                                                    widget.case_reference_id??"N/A",
+                                                    widget.case_reference_id ??
+                                                        "N/A",
                                               ));
                                         },
                                         SvgPicture.asset(
@@ -416,9 +423,10 @@ class _Das_screenState extends State<Das_screen> {
                                       CardDesign(
                                         () {
                                           Get.to(() => OpdInvestigation(
-                                                opdID: widget.opdID??"N/A",
-                                                status: widget.status??"N/A",
-                                                employee_id: widget.employee_id??"N/A",
+                                                opdID: widget.opdID ?? "N/A",
+                                                status: widget.status ?? "N/A",
+                                                employee_id:
+                                                    widget.employee_id ?? "N/A",
                                               ));
                                         },
                                         SvgPicture.asset(
@@ -431,7 +439,11 @@ class _Das_screenState extends State<Das_screen> {
                                       ),
                                       CardDesign(
                                         () {
-                                          Get.to(() =>  OPD_Medication(employee_id: widget.employee_id,opdID: widget.opdID,status: widget.status,));
+                                          Get.to(() => OPD_Medication(
+                                                employee_id: widget.employee_id,
+                                                opdID: widget.opdID,
+                                                status: widget.status,
+                                              ));
                                         },
                                         SvgPicture.asset(
                                           'assets/emergency.svg',
@@ -940,7 +952,7 @@ class _Das_screenState extends State<Das_screen> {
                                         child: Column(
                                           children: [
                                             Text(
-                                              " ${radiologydata![0]['symptoms'] ?? 'N/A'}",
+                                              " ${radiologydata![0]['known_allergies'] ?? 'N/A'}",
                                               style: const TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.bold,
@@ -1064,18 +1076,18 @@ class _Das_screenState extends State<Das_screen> {
                                   Container(
                                     height: height / 7,
                                     child: ListView.builder(
-                                      itemCount: Data!.length,
+                                      itemCount: Doctorlist!.length,
                                       itemBuilder:
-                                          (BuildContext context, int index) {
+                                          (BuildContext context, index) {
                                         return Card(
-                                          child: Column(
+                                          child: Stack(
                                             children: [
                                               ListTile(
                                                 title: Text(
-                                                  "${Data![index]['name'] ?? 'N/A'} ${Data![index]['surname'] ?? 'N/A'}",
+                                                  "${Doctorlist![index]['name'] ?? 'N/A'} ${Doctorlist![index]['surname'] ?? 'N/A'}",
                                                 ),
                                                 subtitle: Text(
-                                                  "${Data![index]['qualification'] ?? 'N/A'}",
+                                                  "${Doctorlist![index]['qualification']?.isNotEmpty ?? false ? Doctorlist![index]['qualification'] : 'N/A'}",
                                                   style: const TextStyle(
                                                       color: Colors.blueAccent),
                                                 ),
@@ -1095,12 +1107,12 @@ class _Das_screenState extends State<Das_screen> {
                                                         ),
                                                       ),
                                                       child: ClipOval(
-                                                        child: '${Data![index]['image']}' !=
+                                                        child: '${Doctorlist![index]['image']}' !=
                                                                     null &&
-                                                                '${Data![index]['image']}' !=
+                                                                '${Doctorlist![index]['image']}' !=
                                                                     ''
                                                             ? Image.network(
-                                                                '${Data![index]['image']}',
+                                                                '${Doctorlist![index]['image']}',
                                                                 width: 42.0,
                                                                 height: 42.0,
                                                                 fit:
@@ -1138,6 +1150,15 @@ class _Das_screenState extends State<Das_screen> {
                                                   ),
                                                 ),
                                               ),
+                                              CornerBanner(
+                                                title: int.parse(Doctorlist![
+                                                                    index]
+                                                                ['main_doctor']
+                                                            .toString()) ==
+                                                        0
+                                                    ? 'Referral'
+                                                    : 'Consultant',
+                                              )
                                             ],
                                           ),
                                         );
@@ -1258,7 +1279,7 @@ class _Das_screenState extends State<Das_screen> {
     const String apiUrl = ApiLinks.addOpdIpdDoctor;
     Map<String, dynamic> requestBody = {
       "visit_details_id": "${widget.OpdVisitDetailsID}",
-      "doctor_id": "$result"
+      "doctor_id": selectedDoctorIds
     };
     try {
       final response = await http.post(
@@ -1270,6 +1291,7 @@ class _Das_screenState extends State<Das_screen> {
           "----------------------------------------------------+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++$requestBody");
       if (response.statusCode == 200) {
         Map<String, dynamic> responseData = jsonDecode(response.body);
+        print("+________________________________________________$responseData");
         if (responseData["status"] == "1") {
           setState(() {
             // Show success message and navigate to the next screen if needed
@@ -1402,8 +1424,9 @@ class _Das_screenState extends State<Das_screen> {
                                   final isDoctorSelected =
                                       selectedDoctorIds.contains(doctorId);
                                   return Card(
-                                    color:
-                                        isDoctorSelected ? Colors.green : null,
+                                    color: isDoctorSelected
+                                        ? Colors.green
+                                        : Colors.white70.withOpacity(0.7),
                                     child: GestureDetector(
                                       onTap: () {
                                         // Toggle the selection state of the doctor
@@ -1522,4 +1545,36 @@ class _Das_screenState extends State<Das_screen> {
     );
   }
   ///////////////////////////////////////////////////////////////////////////////
+}
+
+class CornerBanner extends StatelessWidget {
+  final String title;
+
+  const CornerBanner({Key? key, required this.title}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+        top: 30,
+        left: -30,
+        child: Transform.rotate(
+          angle: -1.5708,
+          child: Container(
+            width: 70,
+            color: title == 'Consultant'
+                ? Colors.green
+                : Colors.red, // Customize the colors as needed
+            child: Center(
+              child: Text(
+                title,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        ));
+  }
 }

@@ -106,7 +106,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
 
     Uri.parse(ApiLinks.singleTableDataDetector);
 
-    final body = {"table": "radio"};
+    final body = {"table": "surgery"};
 
     final response = await http.post(
       Uri.parse(ApiLinks.singleTableDataDetector),
@@ -132,9 +132,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     setState(() {
       surgeryfilteredData = surgerydata
           ?.where((element) =>
-              element['test_name']
-                  .toLowerCase()
-                  .contains(query.toLowerCase()) ||
+              element['name'].toLowerCase().contains(query.toLowerCase()) ||
               element['id'].toLowerCase().startsWith(query.toLowerCase()))
           .toList();
     });
@@ -153,7 +151,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     }
     Uri.parse(ApiLinks.singleTableDataDetector);
 
-    final body = {"table": "radio"};
+    final body = {"table": "direct_bill"};
 
     final response = await http.post(
       Uri.parse(ApiLinks.singleTableDataDetector),
@@ -181,9 +179,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     setState(() {
       otherfilteredData = otherdata
           ?.where((element) =>
-              element['test_name']
-                  .toLowerCase()
-                  .contains(query.toLowerCase()) ||
+              element['name'].toLowerCase().contains(query.toLowerCase()) ||
               element['id'].toLowerCase().startsWith(query.toLowerCase()))
           .toList();
     });
@@ -399,7 +395,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     };
     Map<String, dynamic> requestSurgeryList = {
       '0': selectedSurgeryIds,
-      '1': { surgeryNote, additionalRowsData}
+      '1': {surgeryNote, additionalRowsData}
     };
 
     const String apiUrl =
@@ -414,7 +410,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
         "Pathology": "$selectedpathologyItemsId",
         "Other_Test": "$selectedOtherIds",
         "Radiology": "$requestRadiologyList",
-
         "Surgery": "$requestSurgeryList",
         "F_Advice": "$followAdvice",
       }
@@ -1092,10 +1087,10 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                       ),
                       Container(
                           height: 50,
-                          child:  TextField(
+                          child: TextField(
                             controller: followAdviceController,
-                            decoration:
-                                const InputDecoration(border: OutlineInputBorder()),
+                            decoration: const InputDecoration(
+                                border: OutlineInputBorder()),
                           ))
                     ],
                   ),
@@ -1386,11 +1381,15 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
 //==========================================================================================
   TextEditingController radiologySearchController = TextEditingController();
   List<String> selectedRadiologyIds = [];
-  void _showRadiologySelection(BuildContext context,TextEditingController radiologyController,TextEditingController radiologyQtyController,
+  void _showRadiologySelection(
+      BuildContext context,
+      TextEditingController radiologyController,
+      TextEditingController radiologyQtyController,
       TextEditingController radiologyNoteController) {
     TextEditingController localradiologyController = TextEditingController();
     TextEditingController localradiologyQtyController = TextEditingController();
-    TextEditingController localradiologyNoteController =TextEditingController();
+    TextEditingController localradiologyNoteController =
+        TextEditingController();
     String localSelectedradiologydata = '';
     String localSelectedradiologyId = '';
 
@@ -1792,12 +1791,12 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                           child: ListTile(
                                             title: Text(
                                               // '$itemNumber. ${otherfilteredData?[index]['test_name'] ?? ''}',
-                                              '${otherfilteredData?[index]['test_name'] ?? ''}',
+                                              '${otherfilteredData?[index]['name'] ?? ''}',
                                             ),
                                             onTap: () {
                                               localSelectedotherdata =
                                                   otherfilteredData?[index]
-                                                          ['test_name'] ??
+                                                          ['name'] ??
                                                       '';
                                               localSelectedotherId =
                                                   otherfilteredData?[index]
@@ -2466,25 +2465,23 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                         color: Colors.white70.withOpacity(0.7),
                                         child: ListTile(
                                           title: Text(
-                                            '$itemNumber. ${surgeryfilteredData?[index]['test_name'] ?? ''}',
+                                            '$itemNumber. ${surgeryfilteredData?[index]['name'] ?? ''}',
                                           ),
                                           onTap: () {
                                             localSelectedsurgerydata =
                                                 surgeryfilteredData?[index]
-                                                        ['test_name'] ??
+                                                        ['name'] ??
                                                     '';
                                             localSelectedsurgeryId =
                                                 surgeryfilteredData?[index]
                                                         ['id'] ??
                                                     '';
-                                                    
-                                              selectedSurgeryIds.add(
-                                                  localSelectedsurgeryId);
 
-                                              localSurgeryController.text =
-                                                  localSelectedsurgerydata;
+                                            selectedSurgeryIds
+                                                .add(localSelectedsurgeryId);
 
-                                           
+                                            localSurgeryController.text =
+                                                localSelectedsurgerydata;
 
                                             Navigator.of(context).pop();
                                           },

@@ -150,7 +150,6 @@ class _OpdExaminationState extends State<OpdExamination> {
     "Dehydration"
   ];
   List<String> generalCardText = [];
-
   List<String> systematicCard = [
     "Respiratory",
     "Cardiovascular",
