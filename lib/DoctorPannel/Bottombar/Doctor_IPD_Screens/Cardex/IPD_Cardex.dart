@@ -18,6 +18,7 @@ class _IPDCardexState extends State<IPDCardex> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: const Text('Cardex'),centerTitle: true,backgroundColor: darkYellow),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(

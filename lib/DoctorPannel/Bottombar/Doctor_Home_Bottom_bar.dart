@@ -2,7 +2,7 @@
 
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_IPD_Screens/IPD_Home.dart';
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Home.dart';
-import 'package:TezHealthCare/DoctorPannel/Bottombar/Emergency/Emergency.dart';
+import 'package:TezHealthCare/DoctorPannel/Bottombar/news.dart';
 import 'package:TezHealthCare/DoctorPannel/Doctor_Profile_Screens/Doctor_Profile.dart';
 import 'package:TezHealthCare/DoctorPannel/Doctor_Profile_Screens/DoctorHome.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
@@ -169,7 +169,8 @@ class _Doctor_Home_Bottom_barState extends State<Doctor_Home_Bottom_bar> {
           const Doctor_Home_Page(),
           const OpdHome(),
           const IpdHome(),
-          const Emergency(),
+          // const Emergency(),
+          const NewsScreen(),
           const Doctor_Profile(),
         ].elementAt(index);
       },

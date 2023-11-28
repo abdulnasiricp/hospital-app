@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class IpdExamination extends StatefulWidget {
-  final String ipdid;
-  const IpdExamination({Key? key, required this.ipdid}) : super(key: key);
+  final String? ipdid;
+  const IpdExamination({Key? key,  this.ipdid}) : super(key: key);
 
   @override
   State<IpdExamination> createState() => _IpdExaminationState();

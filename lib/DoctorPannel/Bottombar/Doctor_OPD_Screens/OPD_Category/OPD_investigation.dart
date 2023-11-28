@@ -406,7 +406,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     Map<String, dynamic> requestBody = {
       // "table": "Visit_details",
       "opd_id": "${widget.opdID}",
-      "generated_by": "${widget.employee_id}",
+      "generated_by": "${widget.generated_by}",
       "fields": {
         "status": "${widget.status}",
         "Diagnosis": "$selecteddiagnosisItemsId",

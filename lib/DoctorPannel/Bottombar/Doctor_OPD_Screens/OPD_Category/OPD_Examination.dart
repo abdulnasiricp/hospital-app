@@ -17,12 +17,13 @@ class OpdExamination extends StatefulWidget {
   final String? patient_id;
   final String? case_reference_id;
   final String? generated_by;
+  final String? employee_id;
   const OpdExamination(
       {Key? key,
       this.opdVisitDetailsID,
       this.case_reference_id,
       this.patient_id,
-      this.status, this.generated_by})
+      this.status, this.generated_by, this.employee_id})
       : super(key: key);
 
   @override
@@ -94,13 +95,13 @@ class _OpdExaminationState extends State<OpdExamination> {
         print('Message: ${responseData["message"]}');
         print('id: ${responseData["id"]}');
 
-        if (responseData["staus"] == 1) {
+        // if (responseData["staus"] == 1) {
           // Status is 1, navigate to OpdInvestigation
           setState(() {
             // Show success message and navigate to the next screen if needed
               Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) =>  OpdInvestigation(opdID: widget.opdVisitDetailsID,status: widget.status,generated_by: widget.generated_by,)),
+            MaterialPageRoute(builder: (context) =>  OpdInvestigation(opdID: widget.opdVisitDetailsID,status: widget.status,generated_by: id,employee_id: widget.employee_id,)),
           );
             Fluttertoast.showToast(
               msg: '${responseData["message"]}',
@@ -108,25 +109,16 @@ class _OpdExaminationState extends State<OpdExamination> {
               textColor: Colors.white,
             );
           });
-        } else if (responseData["staus"] == 0) {
-          // Status is 0, handle it as a special case
-          setState(() {
-            Fluttertoast.showToast(
-              msg: 'Status is 0: ${responseData["message"]}',
-              backgroundColor: Colors.red,
-              textColor: Colors.white,
-            );
-          });
-        } else {
-          // Handle other cases based on status and message
-          setState(() {
-            Fluttertoast.showToast(
-              msg: '${responseData["message"]}',
-              backgroundColor: Colors.red,
-              textColor: Colors.white,
-            );
-          });
-        }
+        // } else if (responseData["staus"] == 0) {
+        //   // Status is 0, handle it as a special case
+        //   setState(() {
+        //     Fluttertoast.showToast(
+        //       msg: 'Status is 0: ${responseData["message"]}',
+        //       backgroundColor: Colors.red,
+        //       textColor: Colors.white,
+        //     );
+        //   });
+        
       } else {
         // Handle other status codes (non-200) if needed
         setState(() {

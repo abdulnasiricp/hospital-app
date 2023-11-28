@@ -2,11 +2,13 @@
 
 import 'dart:convert';
 
-import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_Examination.dart';
-import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_Medication.dart';
-import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_Pre_Checking.dart';
-import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_investigation.dart';
-import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OpdCheckout.dart';
+import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_IPD_Screens/Cardex/IPD_Cardex.dart';
+import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_IPD_Screens/IPD_Bed_History.dart';
+
+import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_IPD_Screens/IPD_Medication.dart';
+import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_IPD_Screens/IPD_Operations.dart';
+
+import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_IPD_Screens/IPD_Overview/IPD_OverviewMain.dart';
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/Report/Bed_History.dart';
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/Report/Cardex_Report.dart';
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/Report/OPD_Medication.dart';
@@ -25,7 +27,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 
@@ -88,7 +89,7 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
     final Uri url = Uri.parse(ApiLinks.singleTableDataDetector);
     final body = {
       "table": "visit_details",
-      "where": {"opd_details_id": widget.IpdID}
+      "where": {"ipd_details_id": widget.IpdID}
     };
 
     final response = await http.post(
@@ -129,7 +130,7 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
     });
 
     final Uri url = Uri.parse(ApiLinks.getOpdIpdDoctor);
-    final body = {"opd_id": widget.IpdID};
+    final body = {"ipd_id": widget.IpdID};
 
     final response = await http.post(
       url,
@@ -228,7 +229,7 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                           const SizedBox(
                                             height: 5,
                                           ),
-                                          Text('OPD ID: '.tr),
+                                          Text('IPD ID: '.tr),
                                           const SizedBox(
                                             height: 5,
                                           ),
@@ -240,11 +241,11 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                           const SizedBox(
                                             height: 5,
                                           ),
-                                          Text('Last Visit: '.tr),
-                                          const SizedBox(
-                                            height: 5,
-                                          ),
-                                          Text('Total Visit: '.tr),
+                                          // Text('Last Visit: '.tr),
+                                          // const SizedBox(
+                                          //   height: 5,
+                                          // ),
+                                          // Text('Total Visit: '.tr),
                                         ],
                                       ),
                                       Column(
@@ -300,34 +301,34 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                           const SizedBox(
                                             height: 5,
                                           ),
-                                          Text(
-                                            widget.lastVisit!.isEmpty
-                                                ? "N/A"
-                                                : DateFormat(
-                                                        "dd/MM/yyyy hh:mm a")
-                                                    .format(
-                                                    DateTime.parse(
-                                                        widget.lastVisit!),
-                                                  ),
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 5,
-                                          ),
-                                          Text(
-                                            widget.totalVisit!.isEmpty
-                                                ? "N/A"
-                                                : widget.totalVisit!,
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
+                                          // Text(
+                                          //   widget.lastVisit!.isEmpty
+                                          //       ? "N/A"
+                                          //       : DateFormat(
+                                          //               "dd/MM/yyyy hh:mm a")
+                                          //           .format(
+                                          //           DateTime.parse(
+                                          //               widget.lastVisit!),
+                                          //         ),
+                                          //   maxLines: 2,
+                                          //   overflow: TextOverflow.ellipsis,
+                                          //   style: const TextStyle(
+                                          //     fontWeight: FontWeight.bold,
+                                          //   ),
+                                          // ),
+                                          // const SizedBox(
+                                          //   height: 5,
+                                          // ),
+                                          // Text(
+                                          //   widget.totalVisit!.isEmpty
+                                          //       ? "N/A"
+                                          //       : widget.totalVisit!,
+                                          //   maxLines: 2,
+                                          //   overflow: TextOverflow.ellipsis,
+                                          //   style: const TextStyle(
+                                          //     fontWeight: FontWeight.bold,
+                                          //   ),
+                                          // ),
                                         ],
                                       ),
                                     ],
@@ -350,45 +351,7 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                     children: [
                                       CardDesign(
                                         () {
-                                          Get.to(() => OpdPreChecking(
-                                            
-
-                                                OpdVisitDetailsID:
-                                                    widget.IpdVisitDetailsID,
-                                                opdID: widget.IpdID,
-                                                status: widget.status,
-                                                height:
-                                                    " ${radiologydata![0]['height'] ?? 'N/A'}",
-                                                weight:
-                                                    " ${radiologydata![0]['weight'] ?? 'N/A'}",
-                                                pulse:
-                                                    " ${radiologydata![0]['pulse'] ?? 'N/A'}",
-                                                temperature:
-                                                    " ${radiologydata![0]['temperature'] ?? 'N/A'}",
-                                                respiration:
-                                                    " ${radiologydata![0]['respiration'] ?? 'N/A'}",
-                                                bp: " ${radiologydata![0]['bp'] ?? 'N/A'}",
-                                                symptoms:
-                                                    " ${radiologydata![0]['symptoms'] ?? 'N/A'}",
-                                                known_allergies:
-                                                    " ${radiologydata![0]['known_allergies'] ?? 'N/A'}",
-                                                work_profile:
-                                                    " ${radiologydata![0]['work_profile'] ?? 'N/A'}",
-                                                social_history:
-                                                    " ${radiologydata![0]['social_history'] ?? 'N/A'}",
-                                                past_medical:
-                                                    " ${radiologydata![0]['past_medical'] ?? 'N/A'}",
-                                                current_medication:
-                                                    " ${radiologydata![0]['current_medication'] ?? 'N/A'}",
-                                                family_history:
-                                                    " ${radiologydata![0]['family_history'] ?? 'N/A'}",
-                                                note_remark:
-                                                    " ${radiologydata![0]['note_remark'] ?? 'N/A'}",
-                                                recent_report:
-                                                    " ${radiologydata![0]['recent_report'] ?? 'N/A'}",
-                                                birth_history:
-                                                    " ${radiologydata![0]['birth_history'] ?? 'N/A'}",
-                                              ));
+                                        Get.to((const IpdOverviewMainScreen()));
                                         },
                                         SvgPicture.asset(
                                           'assets/emergency.svg',
@@ -396,21 +359,12 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                           height: 30,
                                           // color: Colors.white,
                                         ),
-                                        'Pre-Checking'.tr,
+                                        'OverView'.tr,
                                       ),
                                       CardDesign(
                                         () {
-                                          Get.to(() => OpdExamination(
-                                                opdVisitDetailsID:
-                                                    widget.IpdVisitDetailsID ??
-                                                        "N/A",
-                                                status: widget.status ?? "N/A",
-                                                patient_id:
-                                                    widget.patient_id ?? "N/A",
-                                                case_reference_id:
-                                                    widget.case_reference_id ??
-                                                        "N/A",
-                                              ));
+                                          Get.to((const IPDCardex()));
+                                      
                                         },
                                         SvgPicture.asset(
                                           'assets/emergency.svg',
@@ -418,32 +372,12 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                           height: 30,
                                           // color: Colors.white,
                                         ),
-                                        'Examination'.tr,
+                                        'Cardex'.tr,
                                       ),
                                       CardDesign(
                                         () {
-                                          Get.to(() => OpdInvestigation(
-                                                opdID: widget.IpdID ?? "N/A",
-                                                status: widget.status ?? "N/A",
-                                                employee_id:
-                                                    widget.employee_id ?? "N/A",
-                                              ));
-                                        },
-                                        SvgPicture.asset(
-                                          'assets/emergency.svg',
-                                          width: 30,
-                                          height: 30,
-                                          // color: Colors.white,
-                                        ),
-                                        'Investigation'.tr,
-                                      ),
-                                      CardDesign(
-                                        () {
-                                          Get.to(() => OPD_Medication(
-                                                employee_id: widget.employee_id,
-                                                opdID: widget.IpdID,
-                                                status: widget.status,
-                                              ));
+                                          Get.to((const IpdMedication()));
+                                       
                                         },
                                         SvgPicture.asset(
                                           'assets/emergency.svg',
@@ -455,9 +389,7 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                       ),
                                       CardDesign(
                                         () {
-                                          Get.to(() => Opd_Check_Out(
-                                                opdID: widget.IpdID,
-                                              ));
+                                        Get.to((const IpdOperations()));
                                         },
                                         SvgPicture.asset(
                                           'assets/emergency.svg',
@@ -465,7 +397,19 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                           height: 30,
                                           // color: Colors.white,
                                         ),
-                                        'Checkout'.tr,
+                                        'Operation'.tr,
+                                      ),
+                                      CardDesign(
+                                        () {
+                                        Get.to((const IpdBedHistory()));
+                                        },
+                                        SvgPicture.asset(
+                                          'assets/emergency.svg',
+                                          width: 30,
+                                          height: 30,
+                                          // color: Colors.white,
+                                        ),
+                                        'Bed History'.tr,
                                       ),
                                     ],
                                   ),
@@ -757,13 +701,13 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                           Column(
                                             children: [
                                               Container(
-                                                child: Center(
-                                                  child: Text(
-                                                    " ${radiologydata![0]['height'] ?? 'N/A'}",
+                                                child: const Center(
+                                                  child: Text('',
+                                                    // " ${radiologydata![0]['height'] ?? 'N/A'}",
                                                     overflow: TextOverflow
                                                         .ellipsis, // Use ellipsis to cut off the text
                                                     maxLines: 1,
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         fontSize: 15),
@@ -775,13 +719,13 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                           Column(
                                             children: [
                                               Container(
-                                                child: Center(
-                                                  child: Text(
-                                                    " ${radiologydata![0]['weight'] ?? 'N/A'}",
+                                                child: const Center(
+                                                  child: Text('',
+                                                    // " ${radiologydata![0]['weight'] ?? 'N/A'}",
                                                     overflow: TextOverflow
                                                         .ellipsis, // Use ellipsis to cut off the text
                                                     maxLines: 1,
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         fontSize: 15),
@@ -793,13 +737,13 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                           Column(
                                             children: [
                                               Container(
-                                                child: Center(
-                                                  child: Text(
-                                                    " ${radiologydata![0]['bp'] ?? 'N/A'}",
+                                                child: const Center(
+                                                  child: Text('',
+                                                    // " ${radiologydata![0]['bp'] ?? 'N/A'}",
                                                     overflow: TextOverflow
                                                         .ellipsis, // Use ellipsis to cut off the text
                                                     maxLines: 1,
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         fontSize: 15),
@@ -811,13 +755,13 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                           Column(
                                             children: [
                                               Container(
-                                                child: Center(
-                                                  child: Text(
-                                                    " ${radiologydata![0]['pulse'] ?? 'N/A'}",
+                                                child: const Center(
+                                                  child: Text('',
+                                                    // " ${radiologydata![0]['pulse'] ?? 'N/A'}",
                                                     overflow: TextOverflow
                                                         .ellipsis, // Use ellipsis to cut off the text
                                                     maxLines: 1,
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         fontSize: 15),
@@ -829,13 +773,13 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                           Column(
                                             children: [
                                               Container(
-                                                child: Center(
-                                                  child: Text(
-                                                    " ${radiologydata![0]['temperature'] ?? 'N/A'}",
+                                                child: const Center(
+                                                  child: Text('',
+                                                    // " ${radiologydata![0]['temperature'] ?? 'N/A'}",
                                                     overflow: TextOverflow
                                                         .ellipsis, // Use ellipsis to cut off the text
                                                     maxLines: 1,
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         fontSize: 15),
@@ -847,13 +791,13 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                           Column(
                                             children: [
                                               Container(
-                                                child: Center(
-                                                  child: Text(
-                                                    "${radiologydata![0]['respiration'] ?? 'N/A'}",
+                                                child: const Center(
+                                                  child: Text('',
+                                                    // "${radiologydata![0]['respiration'] ?? 'N/A'}",
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     maxLines: 1,
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       fontSize: 15,
@@ -894,18 +838,18 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                       ),
                                     ),
                                   ),
-                                  Row(
+                                  const Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.only(
+                                        padding: EdgeInsets.only(
                                             bottom: 8.0, left: 8),
                                         child: Column(
                                           children: [
-                                            Text(
-                                              " ${radiologydata![0]['symptoms'] ?? 'N/A'}",
-                                              style: const TextStyle(
+                                            Text('',
+                                              // " ${radiologydata![0]['symptoms'] ?? 'N/A'}",
+                                              style: TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.bold,
                                               ),
@@ -942,18 +886,18 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                       ),
                                     ),
                                   ),
-                                  Row(
+                                  const Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.only(
+                                        padding: EdgeInsets.only(
                                             bottom: 8.0, left: 8),
                                         child: Column(
                                           children: [
-                                            Text(
-                                              " ${radiologydata![0]['known_allergies'] ?? 'N/A'}",
-                                              style: const TextStyle(
+                                            Text('',
+                                              // " ${radiologydata![0]['known_allergies'] ?? 'N/A'}",
+                                              style: TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.bold,
                                               ),
@@ -990,18 +934,18 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                       ),
                                     ),
                                   ),
-                                  Row(
+                                  const Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.only(
+                                        padding: EdgeInsets.only(
                                             bottom: 8.0, left: 8),
                                         child: Column(
                                           children: [
-                                            Text(
-                                              " ${radiologydata![0]['symptoms'] ?? 'N/A'}",
-                                              style: const TextStyle(
+                                            Text('',
+                                              // " ${radiologydata![0]['symptoms'] ?? 'N/A'}",
+                                              style: TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.bold,
                                               ),

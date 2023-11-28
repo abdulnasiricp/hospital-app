@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, camel_case_types, deprecated_member_use, avoid_print, non_constant_identifier_names, prefer_typing_uninitialized_variables, unnecessary_null_comparison
+// ignore_for_file: file_names, camel_case_types, deprecated_member_use, avoid_print, non_constant_identifier_names, prefer_typing_uninitialized_variables, unnecessary_null_comparison, sized_box_for_whitespace
 
 import 'package:TezHealthCare/DoctorPannel/Doctor_Profile_Screens/Doctor_informationProfile.dart';
 import 'package:TezHealthCare/DoctorPannel/Doctor_Profile_Screens/SettingScreen.dart';

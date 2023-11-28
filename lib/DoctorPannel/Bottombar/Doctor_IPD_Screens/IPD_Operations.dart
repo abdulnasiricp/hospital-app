@@ -24,64 +24,7 @@ class _IpdOperationsState extends State<IpdOperations> {
   TextEditingController surgeryNoteController = TextEditingController();
 
   bool isLoading = false;
-  // Future<void> makePostRequest() async {
-  //   final String surgery = surgeryController.text;
-  //   final String surgeryNote = surgeryNoteController.text;
-
-  //   const String apiUrl =
-  //       'https://uat.tez.hospital/xzy/webservice/submit_opd_process';
-
-  //   Map<String, dynamic> requestBody = {
-  //     "table": "Visit_details",
-  //     "fields": {
-  //       // "opd_details_id": "${widget.opdID}",
-  //       "symptoms": surgery,
-  //       "height": surgeryNote,
-
-  //     }
-  //   };
-
-  //   try {
-  //     final response = await http.post(
-  //       Uri.parse(apiUrl),
-  //       body: jsonEncode(requestBody),
-  //       headers: ApiLinks.MainHeader,
-  //     );
-
-  //     if (response.statusCode == 200) {
-  //       // Successful response
-  //       print('Response: ${response.body}');
-  //       Map<String, dynamic> responseData = jsonDecode(response.body);
-  //       print('Status: ${responseData["staus"]}');
-  //       print('Message: ${responseData["message"]}');
-  //       print('ID: ${responseData["id"]}');
-  //       setState(() {
-  //         Fluttertoast.showToast(
-  //           msg: '${responseData["message"]}',
-  //           backgroundColor: Colors.green,
-  //           textColor: Colors.white,
-  //         );
-  //       });
-  //     } else {
-  //       setState(() {
-  //         Fluttertoast.showToast(
-  //           msg: '${response.reasonPhrase}',
-  //           backgroundColor: Colors.red,
-  //           textColor: Colors.white,
-  //         );
-  //       });
-  //     }
-  //   } catch (e) {
-  //     setState(() {
-  //       Fluttertoast.showToast(
-  //         msg: '$e',
-  //         backgroundColor: Colors.red,
-  //         textColor: Colors.white,
-  //       );
-  //     });
-  //   }
-  // }
-
+ 
   Future<void> makePostRequest() async {
     final String mainSurgery = surgeryController.text;
     final String mainSurgeryNote = surgeryNoteController.text;
@@ -215,6 +158,8 @@ class _IpdOperationsState extends State<IpdOperations> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: const Text('Operation'),centerTitle: true,backgroundColor: darkYellow),
+
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(5.0),

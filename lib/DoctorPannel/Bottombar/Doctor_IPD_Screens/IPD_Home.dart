@@ -3,7 +3,6 @@
 import 'dart:convert';
 
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_IPD_Screens/IPD_Das/IPD_Dashboard.dart';
-import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_IPD_Screens/IPD_MainScreens.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -287,7 +286,35 @@ class _IpdHomeState extends State<IpdHome> {
                                               tappedIndex = index;
                                             });
                                             // Get.to(() => IpdMainScreen(ipdid:ipdfilteredData?[index]['ipdid'] ,));
-                                            Get.to(() => IPD_Das_screen());
+                                            Get.to(() => IPD_Das_screen(
+                                               IpdID: ipdfilteredData?[index]['ipdid'] ?? '',
+                                                  patientName:
+                                                      
+                                                          ipdfilteredData?[index]['patient_name'] ?? '',
+                                                  mobileNo:
+                                                     
+                                                          ipdfilteredData?[index]['mobileno'] ?? '',
+                                                  name:  ipdfilteredData?[index]['name'] ?? '',
+                                                  surname:
+                                                      ipdfilteredData?[index]
+                                                              ['surname'] ??
+                                                          "",
+                                                  
+                                                  gender:
+                                                      ipdfilteredData?[index]
+                                                              ['gender'] ??
+                                                          "",
+                                                  guardianName:
+                                                      ipdfilteredData?[index]
+                                                          ['guardian_name']??"",
+                                                  
+                                                  
+                                                  employee_id:
+                                                     ipdfilteredData?[index]['employee_id']??"",
+                                                  case_reference_id:
+                                                      ipdfilteredData?[index]
+                                                          ['case_reference_id']??"",
+                                            ));
                                           },
                                           child: Row(
                                             mainAxisAlignment:

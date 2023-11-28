@@ -7,8 +7,8 @@ import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class IpdOverviewMainScreen extends StatefulWidget {
-  final String ipdid;
-  const IpdOverviewMainScreen({Key? key, required this.ipdid}) : super(key: key);
+  final String? ipdid;
+  const IpdOverviewMainScreen({Key? key,  this.ipdid}) : super(key: key);
 
   @override
   _IpdOverviewMainScreenState createState() => _IpdOverviewMainScreenState();
@@ -28,9 +28,11 @@ class _IpdOverviewMainScreenState extends State<IpdOverviewMainScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Text('Overview'),
+        centerTitle: true,
         backgroundColor: darkYellow,
-        automaticallyImplyLeading: false,
-        toolbarHeight: 10,
+        // automaticallyImplyLeading: false,
+        // toolbarHeight: 10,
         bottom: TabBar(
           labelColor: Colors.white,
           indicatorColor: Colors.white,

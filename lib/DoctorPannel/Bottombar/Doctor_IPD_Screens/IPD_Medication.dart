@@ -16,6 +16,8 @@ class _IpdMedicationState extends State<IpdMedication> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: const Text('Medication'),centerTitle: true,backgroundColor: darkYellow),
+
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),

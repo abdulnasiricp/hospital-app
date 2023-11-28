@@ -353,12 +353,14 @@ class _Das_screenState extends State<Das_screen> {
                                       CardDesign(
                                         () {
                                           Get.to(() => OpdPreChecking(
-                                            
+                                            employee_id: widget.employee_id,
+                                           
 
                                                 OpdVisitDetailsID:
                                                     widget.OpdVisitDetailsID,
                                                 opdID: widget.opdID,
                                                 status: widget.status,
+
                                                 height:
                                                     " ${radiologydata![0]['height'] ?? 'N/A'}",
                                                 weight:
