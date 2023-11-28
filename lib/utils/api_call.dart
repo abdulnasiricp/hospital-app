@@ -30,7 +30,7 @@ Future api(Api_link, Body, type) async {
 }
 
 class Dasboarddataapicall {
-  static Future<String> fetchData(String table) async {
+  static Future<dynamic> fetchData(dynamic table) async {
     try {
       final url = Uri.parse(ApiLinks.total_count);
       const headers = ApiLinks.MainHeader;

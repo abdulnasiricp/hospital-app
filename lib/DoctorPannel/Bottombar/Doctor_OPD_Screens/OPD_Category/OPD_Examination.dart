@@ -16,12 +16,13 @@ class OpdExamination extends StatefulWidget {
   final String? status;
   final String? patient_id;
   final String? case_reference_id;
+  final String? generated_by;
   const OpdExamination(
       {Key? key,
       this.opdVisitDetailsID,
       this.case_reference_id,
       this.patient_id,
-      this.status})
+      this.status, this.generated_by})
       : super(key: key);
 
   @override
@@ -88,12 +89,19 @@ class _OpdExaminationState extends State<OpdExamination> {
 
       if (response.statusCode == 200) {
         Map<String, dynamic> responseData = jsonDecode(response.body);
+        print('responseData: $responseData');
         print('Status: ${responseData["staus"]}');
+        print('Message: ${responseData["message"]}');
+        print('id: ${responseData["id"]}');
 
         if (responseData["staus"] == 1) {
           // Status is 1, navigate to OpdInvestigation
           setState(() {
             // Show success message and navigate to the next screen if needed
+              Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>  OpdInvestigation(opdID: widget.opdVisitDetailsID,status: widget.status,generated_by: widget.generated_by,)),
+          );
             Fluttertoast.showToast(
               msg: '${responseData["message"]}',
               backgroundColor: Colors.green,

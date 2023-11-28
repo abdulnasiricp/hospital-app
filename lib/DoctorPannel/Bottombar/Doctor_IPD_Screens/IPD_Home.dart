@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_IPD_Screens/IPD_Das/IPD_Dashboard.dart';
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_IPD_Screens/IPD_MainScreens.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -285,7 +286,8 @@ class _IpdHomeState extends State<IpdHome> {
                                             setState(() {
                                               tappedIndex = index;
                                             });
-                                            Get.to(() => IpdMainScreen(ipdid:ipdfilteredData?[index]['ipdid'] ,));
+                                            // Get.to(() => IpdMainScreen(ipdid:ipdfilteredData?[index]['ipdid'] ,));
+                                            Get.to(() => IPD_Das_screen());
                                           },
                                           child: Row(
                                             mainAxisAlignment:

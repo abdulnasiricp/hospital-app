@@ -149,7 +149,7 @@ class _OpdInvestigationState extends State<OPD_Medication> {
         // Successful response
         print('Response: ${response.body}');
         Map<String, dynamic> responseData = jsonDecode(response.body);
-        print('Status: ${responseData["staus"]}');
+        print('Status: ${responseData["status"]}');
         print('Message: ${responseData["message"]}');
         print('ID: ${responseData["id"]}');
         setState(() {

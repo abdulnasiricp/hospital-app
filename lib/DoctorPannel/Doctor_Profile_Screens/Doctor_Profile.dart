@@ -2,6 +2,7 @@
 
 import 'package:TezHealthCare/DoctorPannel/Doctor_Profile_Screens/Doctor_informationProfile.dart';
 import 'package:TezHealthCare/DoctorPannel/Doctor_Profile_Screens/SettingScreen.dart';
+import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -144,10 +145,7 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
     try {
       final response = await http.post(
         Uri.parse(apiUrl),
-        headers: {
-          'Soft-service': 'TezHealthCare',
-          'Auth-key': 'zbuks_ram859553467',
-        },
+        headers: ApiLinks.MainHeader,
         body: jsonEncode({
           "doctorId": doctorId,
           "app_key": NotificationToken,
@@ -185,7 +183,6 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
 
   ////////////////////////////////////////////////////////////////////////////
   ///shared preference data
-  var profileData;
   late String doctorId = '';
 
   late String NotificationToken = '';
@@ -231,7 +228,7 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
       body: SafeArea(
         child: Stack(
           children: [
-            SingleChildScrollView(
+           isLoggingOut?Container(): SingleChildScrollView(
               child: Column(
                 children: [
                   Column(
@@ -511,7 +508,24 @@ class _Doctor_ProfileState extends State<Doctor_Profile> {
                   )
                 ],
               ),
-            )
+            ),
+           
+              // Loading indicator
+              if (isLoggingOut)
+                Center(
+                  child: Container(
+                    height: 50,
+                    width: 100,
+                 
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: LoadingIndicatorWidget(),
+                    ),
+                  ),
+                ),
+
+            
+            
           ],
         ),
       ),

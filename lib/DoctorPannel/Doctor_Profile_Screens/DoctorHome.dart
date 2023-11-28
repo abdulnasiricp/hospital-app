@@ -32,7 +32,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
     "Live Consultation": 10,
   };
 
-  String welcomeMessage = 'Welcome to Doctor Home Page';
+  // String welcomeMessage = 'Welcome to Doctor Home Page';
   String doctorRole = '';
   String employeeId = '';
   String id = '';
@@ -82,10 +82,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
   getData() async {
     await LoadData();
     await loadDoctorData();
-    // api(ApiLinks.total_count,
-    //         {'table': 'pathology_billing', 'doctor_id': '153'}, '')
-    //     .then((id) => print(
-    //         "Id that was loaded++++++++++++++++++++++++++++++++++++++++++++++++++++++++: $id"));
+   
     setState(() {
       isLoading = false;
     });
@@ -432,7 +429,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
             ),
           ),
           title: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(

@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_Medication.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
@@ -16,7 +17,9 @@ class OpdInvestigation extends StatefulWidget {
   final String? opdID;
   final String? status;
   final String? employee_id;
-  const OpdInvestigation({Key? key, this.opdID, this.status, this.employee_id})
+  final String? generated_by;
+
+  const OpdInvestigation({Key? key, this.opdID, this.status, this.employee_id, this.generated_by})
       : super(key: key);
   @override
   State<OpdInvestigation> createState() => _OpdInvestigationState();
@@ -48,7 +51,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
   List<dynamic>? pathologyfilteredData = [];
 
   bool isPathologyDataFetched = false; // Add this flag
-  bool isLoading = true;
+  bool isLoading = false;
   Future<void> fetchpathologyData() async {
     Uri.parse(ApiLinks.singleTableDataDetector);
 
@@ -403,7 +406,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     Map<String, dynamic> requestBody = {
       // "table": "Visit_details",
       "opd_id": "${widget.opdID}",
-      // "generated_by": "${widget.employee_id}",
+      "generated_by": "${widget.employee_id}",
       "fields": {
         "status": "${widget.status}",
         "Diagnosis": "$selecteddiagnosisItemsId",
@@ -418,10 +421,10 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
 
     final response = await http.post(
       Uri.parse(apiUrl),
-      body: requestBody,
+      body: jsonEncode(requestBody),
       headers: ApiLinks.MainHeader,
     );
-
+try{
     if (response.statusCode == 200) {
       // Successful response
       print('Response: ${response.body}');
@@ -429,31 +432,35 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
       print('Status: ${responseData["status"]}');
       print('Message: ${responseData["message"]}');
       print('ID: ${responseData["id"]}');
+     setState(() {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>  OPD_Medication(employee_id: widget.employee_id,opdID: widget.opdID,status: widget.status,)),
+          );
+          Fluttertoast.showToast(
+            msg: '${responseData["message"]}',
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+          );
+        });
+      } else {
+        setState(() {
+          Fluttertoast.showToast(
+            msg: '${response.reasonPhrase}',
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+          );
+        });
+      }
+    } catch (e) {
       setState(() {
         Fluttertoast.showToast(
-          msg: '${responseData["message"]}',
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-        );
-      });
-    } else {
-      setState(() {
-        Fluttertoast.showToast(
-          msg: '${response.reasonPhrase}',
+          msg: '$e',
           backgroundColor: Colors.red,
           textColor: Colors.white,
         );
       });
     }
-    // } catch (e) {
-    //   setState(() {
-    //     Fluttertoast.showToast(
-    //       msg: '$e',
-    //       backgroundColor: Colors.red,
-    //       textColor: Colors.white,
-    //     );
-    //   });
-    // }
   }
 
 //=================================================================================
@@ -465,7 +472,17 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
           centerTitle: true,
           backgroundColor: darkYellow,
         ),
-        body: SingleChildScrollView(
+        body: isLoading
+          ? Center(
+              child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                      height: 50,
+                      width: 50,
+                      color: Colors.transparent,
+                      child: const LoadingIndicatorWidget())),
+            )
+          : SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(children: [
@@ -1101,9 +1118,17 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                       height: 40,
                       child: ElevatedButton(
                         child: const Text('Save'),
-                        onPressed: () {
-                          makePostRequest();
-                        },
+                          onPressed: () async {
+                            setState(() {
+                              isLoading = true;
+                            });
+                            await makePostRequest();
+
+                            setState(() {
+                              isLoading = false;
+                            });
+                         
+                          },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(yellow),
                         ),

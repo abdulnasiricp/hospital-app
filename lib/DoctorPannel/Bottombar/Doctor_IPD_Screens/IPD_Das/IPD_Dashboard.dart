@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_Examination.dart';
+import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_Medication.dart';
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_Pre_Checking.dart';
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_investigation.dart';
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OpdCheckout.dart';
@@ -27,10 +28,9 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
-import 'OPD_Medication.dart';
 
-class Das_screen extends StatefulWidget {
-  final String? opdID;
+class IPD_Das_screen extends StatefulWidget {
+  final String? IpdID;
   final String? patientName;
   final String? title;
   final String? mobileNo;
@@ -40,13 +40,13 @@ class Das_screen extends StatefulWidget {
   final String? totalVisit;
   final String? gender;
   final String? guardianName;
-  final String? OpdVisitDetailsID;
+  final String? IpdVisitDetailsID;
   final String? status;
   final String? employee_id;
   final String? case_reference_id;
   final String? patient_id;
 
-  const Das_screen({
+  const IPD_Das_screen({
     Key? key,
     this.patientName,
     this.title,
@@ -60,16 +60,14 @@ class Das_screen extends StatefulWidget {
     this.totalVisit,
     this.gender,
     this.guardianName,
-    this.opdID,
-    this.OpdVisitDetailsID,
-    this.case_reference_id,
+    this.case_reference_id, this.IpdID, this.IpdVisitDetailsID,
   }) : super(key: key);
 
   @override
-  State<Das_screen> createState() => _Das_screenState();
+  State<IPD_Das_screen> createState() => _IPD_Das_screenState();
 }
 
-class _Das_screenState extends State<Das_screen> {
+class _IPD_Das_screenState extends State<IPD_Das_screen> {
   late String patientID = '';
   @override
   void initState() {
@@ -90,7 +88,7 @@ class _Das_screenState extends State<Das_screen> {
     final Uri url = Uri.parse(ApiLinks.singleTableDataDetector);
     final body = {
       "table": "visit_details",
-      "where": {"opd_details_id": widget.opdID}
+      "where": {"opd_details_id": widget.IpdID}
     };
 
     final response = await http.post(
@@ -131,7 +129,7 @@ class _Das_screenState extends State<Das_screen> {
     });
 
     final Uri url = Uri.parse(ApiLinks.getOpdIpdDoctor);
-    final body = {"opd_id": widget.opdID};
+    final body = {"opd_id": widget.IpdID};
 
     final response = await http.post(
       url,
@@ -266,9 +264,9 @@ class _Das_screenState extends State<Das_screen> {
                                             height: 5,
                                           ),
                                           Text(
-                                            widget.opdID!.isEmpty
+                                            widget.IpdID!.isEmpty
                                                 ? "N/A"
-                                                : widget.opdID!,
+                                                : widget.IpdID!,
                                             maxLines: 2,
                                             overflow: TextOverflow.fade,
                                             style: const TextStyle(
@@ -356,8 +354,8 @@ class _Das_screenState extends State<Das_screen> {
                                             
 
                                                 OpdVisitDetailsID:
-                                                    widget.OpdVisitDetailsID,
-                                                opdID: widget.opdID,
+                                                    widget.IpdVisitDetailsID,
+                                                opdID: widget.IpdID,
                                                 status: widget.status,
                                                 height:
                                                     " ${radiologydata![0]['height'] ?? 'N/A'}",
@@ -404,7 +402,7 @@ class _Das_screenState extends State<Das_screen> {
                                         () {
                                           Get.to(() => OpdExamination(
                                                 opdVisitDetailsID:
-                                                    widget.OpdVisitDetailsID ??
+                                                    widget.IpdVisitDetailsID ??
                                                         "N/A",
                                                 status: widget.status ?? "N/A",
                                                 patient_id:
@@ -425,7 +423,7 @@ class _Das_screenState extends State<Das_screen> {
                                       CardDesign(
                                         () {
                                           Get.to(() => OpdInvestigation(
-                                                opdID: widget.opdID ?? "N/A",
+                                                opdID: widget.IpdID ?? "N/A",
                                                 status: widget.status ?? "N/A",
                                                 employee_id:
                                                     widget.employee_id ?? "N/A",
@@ -443,7 +441,7 @@ class _Das_screenState extends State<Das_screen> {
                                         () {
                                           Get.to(() => OPD_Medication(
                                                 employee_id: widget.employee_id,
-                                                opdID: widget.opdID,
+                                                opdID: widget.IpdID,
                                                 status: widget.status,
                                               ));
                                         },
@@ -458,7 +456,7 @@ class _Das_screenState extends State<Das_screen> {
                                       CardDesign(
                                         () {
                                           Get.to(() => Opd_Check_Out(
-                                                opdID: widget.opdID,
+                                                opdID: widget.IpdID,
                                               ));
                                         },
                                         SvgPicture.asset(
@@ -1280,7 +1278,7 @@ class _Das_screenState extends State<Das_screen> {
   Future<void> makePostRequest(Map<String, String> result) async {
     const String apiUrl = ApiLinks.addOpdIpdDoctor;
     Map<String, dynamic> requestBody = {
-      "visit_details_id": "${widget.OpdVisitDetailsID}",
+      "visit_details_id": "${widget.IpdVisitDetailsID}",
       "doctor_id": selectedDoctorIds
     };
     try {

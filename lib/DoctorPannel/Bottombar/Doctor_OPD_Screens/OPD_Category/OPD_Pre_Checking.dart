@@ -31,6 +31,8 @@ class OpdPreChecking extends StatefulWidget {
   final String? note_remark;
   final String? birth_history;
   final String? recent_report;
+  final String? patient_id;
+  // final String? patient_id;
   const OpdPreChecking(
       {Key? key,
       this.opdID,
@@ -51,7 +53,7 @@ class OpdPreChecking extends StatefulWidget {
       this.OpdVisitDetailsID,
       this.weight,
       this.height,
-      this.status})
+      this.status, this.patient_id})
       : super(key: key);
   @override
   State<OpdPreChecking> createState() => _OpdPreCheckingState();
@@ -194,7 +196,7 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
         setState(() {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const OpdExamination()),
+            MaterialPageRoute(builder: (context) =>  OpdExamination(opdVisitDetailsID: widget.OpdVisitDetailsID,status: widget.status,patient_id: widget.patient_id,)),
           );
           Fluttertoast.showToast(
             msg: '${responseData["message"]}',
