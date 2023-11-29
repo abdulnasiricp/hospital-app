@@ -1,6 +1,5 @@
 // ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, avoid_print, deprecated_member_use, sized_box_for_whitespace
 
-
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/api_call.dart';
@@ -31,7 +30,6 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
     "Radiology": 0,
     "Live Consultation": 0,
   };
- 
 
   // String welcomeMessage = 'Welcome to Doctor Home Page';
   String doctorRole = '';
@@ -83,7 +81,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
   getData() async {
     await LoadData();
     await loadDoctorData();
-   
+
     setState(() {
       isLoading = false;
     });
@@ -112,7 +110,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
         "====================================================$Surgeryperformeddata");
   }
 
-  double Opdpatientdata =0;
+  double Opdpatientdata = 0;
   Future<void> fetchOpdpatientdata() async {
     Opdpatientdata = await Dasboarddataapicall.fetchData("visit_details");
     updateDataMap();
@@ -128,7 +126,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
     setState(() {});
   }
 
-  double Pathologyperformeddata =0;
+  double Pathologyperformeddata = 0;
   Future<void> fetchPathologyperformeddata() async {
     Pathologyperformeddata =
         await Dasboarddataapicall.fetchData("pathology_billing");
@@ -163,21 +161,21 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
     setState(() {});
   }
 
+  void updateDataMap() {
+    setState(() {
+      dataMap = {
+        "Total Patients": calculateTotalPatients(),
+        "OPD Patient": Opdpatientdata,
+        "IPD Patient": Ipdpatientdata,
+        "Emergency": emergrncyddata,
+        "Pathology": Pathologyperformeddata,
+        "Surgery Performed": Surgeryperformeddata,
+        "Radiology": Radilogyperformeddata,
+        "Live Consultation": Liveconsultantperformeddata,
+      };
+    });
+  }
 
-void updateDataMap() {
-  setState(() {
-    dataMap = {
-      "Total Patients": calculateTotalPatients(),
-      "OPD Patient": Opdpatientdata,
-      "IPD Patient": Ipdpatientdata,
-      "Emergency": emergrncyddata,
-      "Pathology": Pathologyperformeddata,
-      "Surgery Performed": Surgeryperformeddata,
-      "Radiology": Radilogyperformeddata,
-      "Live Consultation": Liveconsultantperformeddata,
-    };
-  });
-}
 ////////////////////////////////////////////
   Future<void> _handleRefresh() async {
     setState(() {
@@ -413,12 +411,21 @@ void updateDataMap() {
                       ),
                       Column(
                         children: [
-                          Center(
-                            child: PieChart(
-                              dataMap: dataMap,
-                              chartRadius: width / 1.7,
-                              chartValuesOptions: const ChartValuesOptions(
-                                  showChartValuesInPercentage: true),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.rectangle,
+                                color: whitecolor,
+                              ),
+                              child: Center(
+                                child: PieChart(
+                                  dataMap: dataMap,
+                                  chartRadius: width / 1.7,
+                                  chartValuesOptions: const ChartValuesOptions(
+                                      showChartValuesInPercentage: true),
+                                ),
+                              ),
                             ),
                           )
                         ],
@@ -437,12 +444,8 @@ void updateDataMap() {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Container(
-        padding: const EdgeInsets.all(16), // Add padding for better spacing
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: Colors.white, // Set a background color
-        ),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
         child: ListTile(
           contentPadding: EdgeInsets.zero, // Remove default padding
           leading: Container(
@@ -483,6 +486,7 @@ void updateDataMap() {
           ),
         ),
       ),
+      // ),
     );
   }
 }

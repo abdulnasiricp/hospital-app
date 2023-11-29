@@ -23,7 +23,7 @@ class Pathalogy extends StatefulWidget {
   @override
   State<Pathalogy> createState() => _PathalogyState();
 
-  void fetchData() {}
+  
 }
 
 class _PathalogyState extends State<Pathalogy> {
