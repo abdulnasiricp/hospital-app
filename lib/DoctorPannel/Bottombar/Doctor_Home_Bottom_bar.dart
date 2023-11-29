@@ -3,7 +3,6 @@
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_IPD_Screens/IPD_Home.dart';
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Home.dart';
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Emergency/Emergency.dart';
-import 'package:TezHealthCare/DoctorPannel/Bottombar/news.dart';
 import 'package:TezHealthCare/DoctorPannel/Doctor_Profile_Screens/Doctor_Profile.dart';
 import 'package:TezHealthCare/DoctorPannel/Doctor_Profile_Screens/DoctorHome.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';

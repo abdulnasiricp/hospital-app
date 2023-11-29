@@ -55,58 +55,58 @@ class PatientHomePage extends StatefulWidget {
 
 class _PatientHomePageState extends State<PatientHomePage> {
 //=====================================================================
-// internet connection checker
-  late StreamSubscription subscription;
-  bool isDeviceConnected = false;
-  bool isAlertSet = false;
+// // internet connection checker
+//   late StreamSubscription subscription;
+//   bool isDeviceConnected = false;
+//   bool isAlertSet = false;
 
-  getConnectivity() =>
-      subscription = Connectivity().onConnectivityChanged.listen(
-        (ConnectivityResult result) async {
-          isDeviceConnected = await InternetConnectionChecker().hasConnection;
-          if (!isDeviceConnected && isAlertSet == false) {
-            showDialogBox();
-            setState(() => isAlertSet = true);
-          }
-        },
-      );
+//   getConnectivity() =>
+//       subscription = Connectivity().onConnectivityChanged.listen(
+//         (ConnectivityResult result) async {
+//           isDeviceConnected = await InternetConnectionChecker().hasConnection;
+//           if (!isDeviceConnected && isAlertSet == false) {
+//             showDialogBox();
+//             setState(() => isAlertSet = true);
+//           }
+//         },
+//       );
 
-  showDialogBox() => showCupertinoDialog<String>(
-        context: context,
-        builder: (BuildContext context) => CupertinoAlertDialog(
-          title: Column(
-            children: [
-              SvgPicture.asset(
-                'assets/nointernet.svg',
-                width: 30,
-                height: 30,
-              ),
-              const Text('No Connection'),
-            ],
-          ),
-          content: const Text('Please check your internet connectivity'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () async {
-                Navigator.pop(context, 'Cancel');
-                setState(() => isAlertSet = false);
-                isDeviceConnected =
-                    await InternetConnectionChecker().hasConnection;
-                if (!isDeviceConnected && isAlertSet == false) {
-                  showDialogBox();
-                  setState(() => isAlertSet = true);
-                }
-              },
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-  @override
-  void dispose() {
-    subscription.cancel();
-    super.dispose();
-  }
+//   showDialogBox() => showCupertinoDialog<String>(
+//         context: context,
+//         builder: (BuildContext context) => CupertinoAlertDialog(
+//           title: Column(
+//             children: [
+//               SvgPicture.asset(
+//                 'assets/nointernet.svg',
+//                 width: 30,
+//                 height: 30,
+//               ),
+//               const Text('No Connection'),
+//             ],
+//           ),
+//           content: const Text('Please check your internet connectivity'),
+//           actions: <Widget>[
+//             TextButton(
+//               onPressed: () async {
+//                 Navigator.pop(context, 'Cancel');
+//                 setState(() => isAlertSet = false);
+//                 isDeviceConnected =
+//                     await InternetConnectionChecker().hasConnection;
+//                 if (!isDeviceConnected && isAlertSet == false) {
+//                   showDialogBox();
+//                   setState(() => isAlertSet = true);
+//                 }
+//               },
+//               child: const Text('OK'),
+//             ),
+//           ],
+//         ),
+//       );
+//   @override
+//   void dispose() {
+//     subscription.cancel();
+//     super.dispose();
+//   }
 //=====================================================================
 
   TextEditingController InsurancetypeController = TextEditingController();
@@ -157,7 +157,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
 // init state data and dispose
 
   getdata() async {
-    await getConnectivity();
+    // await getConnectivity();
     await LoadData();
 
     await getDues();
