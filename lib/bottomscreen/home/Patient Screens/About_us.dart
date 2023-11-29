@@ -35,10 +35,11 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
   late String HospitalPhone = '';
   late String HospitalAddress = '';
   late String HospitalLocation = '';
+  late String HospitalLogo = '';
   late String SliderImages = '';
   // SliderImages
 
-  Future<void> getpatientDetails() async {
+  Future<void> getAboutUsDetails() async {
     try {
       // Make the POST request
       final response = await http.post(
@@ -56,11 +57,13 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
         HospitalEmail = data['0']['email'];
         HospitalPhone = data['0']['phone'];
         HospitalAddress = data['0']['address'];
+         HospitalLocation = data['map_link'];
+         HospitalLogo = data['0']['hospital_front'];
 
         // Parse the 'slider_image' array
         sliderImages = (data['slider_image'] as List).cast<String>();
 
-        HospitalLocation = data['map_link'];
+       
 
         // Set the state to rebuild the widget
         setState(() {});
@@ -132,7 +135,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
   ///
   @override
   void initState() {
-    getpatientDetails();
+    getAboutUsDetails();
 
     hitApi();
     super.initState();
@@ -237,7 +240,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                           height: 100,
                                           width: 100,
                                           child:
-                                              Image.asset('assets/mayao.png'),
+                                              Image.network(HospitalLogo),
                                         ),
                                       ),
                                       Padding(
@@ -248,12 +251,19 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                           children: [
                                             Text(
                                               HospitalName,
+                                               overflow: TextOverflow
+                                  .ellipsis, // Use ellipsis to cut off the text
+                              maxLines: 1,
                                               style: const TextStyle(
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                            Text(HospitalAddress),
-                                            Text(HospitalEmail),
+                                            Text(HospitalAddress, overflow: TextOverflow
+                                  .ellipsis, // Use ellipsis to cut off the text
+                              maxLines: 1,),
+                                            Text(HospitalEmail, overflow: TextOverflow
+                                  .ellipsis, // Use ellipsis to cut off the text
+                              maxLines: 1,),
                                             Container(
                                               height: height / 13,
                                               width: width / 2,

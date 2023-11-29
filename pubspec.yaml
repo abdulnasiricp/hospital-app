@@ -83,6 +83,7 @@ dependencies:
   html_editor_enhanced: ^2.5.1
   pie_chart: ^5.4.0
   file_picker: ^5.3.1
+  flutter_launcher_icons:
 
 
 dev_dependencies:

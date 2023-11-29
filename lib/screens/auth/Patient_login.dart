@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, avoid_print, sized_box_for_whitespace
+// ignore_for_file: file_names, avoid_print, sized_box_for_whitespace, non_constant_identifier_names, unnecessary_string_interpolations
 
 import 'dart:convert';
 import 'dart:io';
@@ -27,6 +27,45 @@ class PatientLogin extends StatefulWidget {
 }
 
 class _PatientLoginState extends State<PatientLogin> {
+ 
+  late String HospitalLogo = '';
+bool isLoading = true;
+
+
+  Future<void> getAboutUsDetails() async {
+    try {
+      // Make the POST request
+      final response = await http.post(
+        Uri.parse(ApiLinks.aboutUs),
+        headers: ApiLinks.MainHeader,
+      );
+
+      // Check if the response was successful
+      if (response.statusCode == 200) {
+        // Decode the JSON response
+        final data = jsonDecode(response.body);
+         HospitalLogo = data['0']['app_logo'];
+        // Set the state to rebuild the widget
+        print('--------------$HospitalLogo');
+        setState(() {
+        isLoading = false;
+
+        });
+      } else {
+        // Handle the error
+        isLoading = false;
+
+      }
+    } catch (error) {
+        isLoading = false;
+
+      print(error);
+    }
+  }
+
+
+
+
   bool _rememberMeFlag = false;
   String id = '';
   bool _isPasswordVisible = false;
@@ -183,8 +222,14 @@ class _PatientLoginState extends State<PatientLogin> {
     await prefs.setString('loginDateTime', now);
   }
 
+getdata()async{
+   
+
+}
   @override
   void initState() {
+        getAboutUsDetails();
+
     _loadLoginDateTime();
     super.initState();
   }
@@ -217,7 +262,7 @@ class _PatientLoginState extends State<PatientLogin> {
                   Container(
                     width: double.infinity,
                     height: height / 5,
-                    child: Image.asset('assets/logo.png'),
+                    child: Image.network("$HospitalLogo"),
                   ),
                   Form(
                     key: formKey,

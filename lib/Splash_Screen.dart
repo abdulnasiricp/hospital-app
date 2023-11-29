@@ -1,9 +1,12 @@
-// ignore_for_file: camel_case_types, file_names, unnecessary_new
+// ignore_for_file: camel_case_types, file_names, unnecessary_new, unnecessary_string_interpolations
 
 import 'dart:async';
+import 'dart:convert';
 import 'package:TezHealthCare/onbonding/onboarding.dart';
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class Splash_Screen extends StatefulWidget {
   const Splash_Screen({Key? key}) : super(key: key);
@@ -13,10 +16,48 @@ class Splash_Screen extends StatefulWidget {
 }
 
 class _Splash_ScreenState extends State<Splash_Screen> {
+bool isLoading = true;
+  late String HospitalLogo = '';
+
+
+  Future<void> getAboutUsDetails() async {
+    try {
+      // Make the POST request
+      final response = await http.post(
+        Uri.parse(ApiLinks.aboutUs),
+        headers: ApiLinks.MainHeader,
+      );
+
+      // Check if the response was successful
+      if (response.statusCode == 200) {
+        // Decode the JSON response
+        final data = jsonDecode(response.body);
+
+        HospitalLogo = data['0']['hospital_front'];
+print('------------$HospitalLogo');
+        // Set the state to rebuild the widget
+        setState(() {
+        isLoading = false;
+
+        });
+
+      } else {
+        isLoading = false;
+
+        // Handle the error
+      }
+    } catch (error) {
+        isLoading = false;
+
+      print(error);
+    }
+  }
+
   late Timer _timer;
 
   @override
   void initState() {
+    getAboutUsDetails();
     super.initState();
     _timer = Timer(const Duration(seconds: 3), () {
       route();
@@ -38,12 +79,12 @@ class _Splash_ScreenState extends State<Splash_Screen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: darkYellow, // Background color
-      body: Stack(
+      body:isLoading? null: Stack(
         fit: StackFit.expand,
         children: [
           Center(
-            child: Image.asset(
-              'assets/hospital_logo.png',
+            child: Image.network(
+              "$HospitalLogo",
               width: 300, // Adjust the width as needed
               height: 300, // Adjust the height as needed
             ),
