@@ -61,7 +61,9 @@ class IPD_Das_screen extends StatefulWidget {
     this.totalVisit,
     this.gender,
     this.guardianName,
-    this.case_reference_id, this.IpdID, this.IpdVisitDetailsID,
+    this.case_reference_id,
+    this.IpdID,
+    this.IpdVisitDetailsID,
   }) : super(key: key);
 
   @override
@@ -351,7 +353,8 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                     children: [
                                       CardDesign(
                                         () {
-                                        Get.to((const IpdOverviewMainScreen()));
+                                          Get.to(
+                                              (const IpdOverviewMainScreen()));
                                         },
                                         SvgPicture.asset(
                                           'assets/emergency.svg',
@@ -364,7 +367,6 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                       CardDesign(
                                         () {
                                           Get.to((const IPDCardex()));
-                                      
                                         },
                                         SvgPicture.asset(
                                           'assets/emergency.svg',
@@ -377,7 +379,6 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                       CardDesign(
                                         () {
                                           Get.to((const IpdMedication()));
-                                       
                                         },
                                         SvgPicture.asset(
                                           'assets/emergency.svg',
@@ -389,7 +390,7 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                       ),
                                       CardDesign(
                                         () {
-                                        Get.to((const IpdOperations()));
+                                          Get.to((const IpdOperations()));
                                         },
                                         SvgPicture.asset(
                                           'assets/emergency.svg',
@@ -401,7 +402,7 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                       ),
                                       CardDesign(
                                         () {
-                                        Get.to((const IpdBedHistory()));
+                                          Get.to((const IpdBedHistory()));
                                         },
                                         SvgPicture.asset(
                                           'assets/emergency.svg',
@@ -571,7 +572,7 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                     child: Container(
                                       color: Colors.green,
                                       width: width,
-                                      height: height / 22,
+                                      height: height / 20,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Row(
@@ -702,7 +703,8 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                             children: [
                                               Container(
                                                 child: const Center(
-                                                  child: Text('',
+                                                  child: Text(
+                                                    '',
                                                     // " ${radiologydata![0]['height'] ?? 'N/A'}",
                                                     overflow: TextOverflow
                                                         .ellipsis, // Use ellipsis to cut off the text
@@ -720,7 +722,8 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                             children: [
                                               Container(
                                                 child: const Center(
-                                                  child: Text('',
+                                                  child: Text(
+                                                    '',
                                                     // " ${radiologydata![0]['weight'] ?? 'N/A'}",
                                                     overflow: TextOverflow
                                                         .ellipsis, // Use ellipsis to cut off the text
@@ -738,7 +741,8 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                             children: [
                                               Container(
                                                 child: const Center(
-                                                  child: Text('',
+                                                  child: Text(
+                                                    '',
                                                     // " ${radiologydata![0]['bp'] ?? 'N/A'}",
                                                     overflow: TextOverflow
                                                         .ellipsis, // Use ellipsis to cut off the text
@@ -756,7 +760,8 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                             children: [
                                               Container(
                                                 child: const Center(
-                                                  child: Text('',
+                                                  child: Text(
+                                                    '',
                                                     // " ${radiologydata![0]['pulse'] ?? 'N/A'}",
                                                     overflow: TextOverflow
                                                         .ellipsis, // Use ellipsis to cut off the text
@@ -774,7 +779,8 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                             children: [
                                               Container(
                                                 child: const Center(
-                                                  child: Text('',
+                                                  child: Text(
+                                                    '',
                                                     // " ${radiologydata![0]['temperature'] ?? 'N/A'}",
                                                     overflow: TextOverflow
                                                         .ellipsis, // Use ellipsis to cut off the text
@@ -792,7 +798,8 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                             children: [
                                               Container(
                                                 child: const Center(
-                                                  child: Text('',
+                                                  child: Text(
+                                                    '',
                                                     // "${radiologydata![0]['respiration'] ?? 'N/A'}",
                                                     overflow:
                                                         TextOverflow.ellipsis,
@@ -838,26 +845,30 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                       ),
                                     ),
                                   ),
-                                  const Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            bottom: 8.0, left: 8),
-                                        child: Column(
-                                          children: [
-                                            Text('',
-                                              // " ${radiologydata![0]['symptoms'] ?? 'N/A'}",
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold,
+                                  Container(
+                                    width: width,
+                                    child: const Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              bottom: 8.0, left: 8),
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                '',
+                                                // " ${radiologydata![0]['symptoms'] ?? 'N/A'}",
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
@@ -886,26 +897,30 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                       ),
                                     ),
                                   ),
-                                  const Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            bottom: 8.0, left: 8),
-                                        child: Column(
-                                          children: [
-                                            Text('',
-                                              // " ${radiologydata![0]['known_allergies'] ?? 'N/A'}",
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold,
+                                  Container(
+                                    width: width,
+                                    child: const Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              bottom: 8.0, left: 8),
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                '',
+                                                // " ${radiologydata![0]['known_allergies'] ?? 'N/A'}",
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
@@ -934,26 +949,30 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                       ),
                                     ),
                                   ),
-                                  const Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            bottom: 8.0, left: 8),
-                                        child: Column(
-                                          children: [
-                                            Text('',
-                                              // " ${radiologydata![0]['symptoms'] ?? 'N/A'}",
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold,
+                                  Container(
+                                    width: width,
+                                    child: const Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              bottom: 8.0, left: 8),
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                '',
+                                                // " ${radiologydata![0]['symptoms'] ?? 'N/A'}",
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
@@ -996,9 +1015,8 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                         padding: const EdgeInsets.all(8.0),
                                         child: Container(
                                           width: width /
-                                              4.1, // Set the desired width
-                                          height: height /
-                                              25, // Set the desired height
+                                              3.4, // Set the desired width
+                                          height: height / 25,
                                           child: ElevatedButton(
                                             onPressed: () {
                                               _showAlldoctorSelection(context);
