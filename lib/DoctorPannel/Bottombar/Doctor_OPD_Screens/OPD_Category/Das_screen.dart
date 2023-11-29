@@ -951,8 +951,7 @@ class _Das_screenState extends State<Das_screen> {
                                   Container(
                                     width: width,
                                     child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.only(
@@ -1002,8 +1001,7 @@ class _Das_screenState extends State<Das_screen> {
                                   Container(
                                     width: width,
                                     child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.only(
