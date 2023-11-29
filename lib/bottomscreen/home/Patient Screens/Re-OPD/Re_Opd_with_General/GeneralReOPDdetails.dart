@@ -54,7 +54,6 @@ class _ReOPDTicketDetailsState extends State<ReOPDTicketDetails> {
 
   Future<void> ProfileApi() async {
     const apiUrl = ApiLinks.getPatientprofile;
-  
 
     final requestBody = jsonEncode({"patientId": Patient_id});
 
@@ -119,10 +118,10 @@ class _ReOPDTicketDetailsState extends State<ReOPDTicketDetails> {
       onWillPop: () async {
         // Navigate to the previous page when the back button is pressed
         Get.to(() => ReOPDTicketDetails(
-          selectedTicketType: widget.selectedTicketType,
-          ticketDate: widget.ticketDate,
-          selectedDepartment: widget.selectedDepartment,
-        ));
+              selectedTicketType: widget.selectedTicketType,
+              ticketDate: widget.ticketDate,
+              selectedDepartment: widget.selectedDepartment,
+            ));
         return false; // Return true to allow the back button press, or false to intercept it
       },
       child: Scaffold(

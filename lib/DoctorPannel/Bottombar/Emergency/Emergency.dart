@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, avoid_print, sized_box_for_whitespace, avoid_unnecessary_containers
 
+import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/Das_screen.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -301,50 +302,118 @@ class _EmergencyState extends State<Emergency> {
                                         padding: const EdgeInsets.all(10.0),
                                         child: InkWell(
                                           onTap: () {
-                                            String? status =
-                                                radiologyfilteredData?[index]
-                                                        ['status']
-                                                    .toString();
-                                            switch (status) {
-                                              case '1':
-                                                // Navigate to Registered screen
-                                                Get.to(() =>
-                                                    const OpdMainScreen(
-                                                        initialTabIndex: 0));
-                                                break;
-                                              case '2':
-                                                // Navigate to Pre-Checking screen
-                                                Get.to(() =>
-                                                    const OpdMainScreen(
-                                                        initialTabIndex: 0));
-                                                break;
-                                              case '3':
-                                                // Navigate to Examination screen
-                                                Get.to(() =>
-                                                    const OpdMainScreen(
-                                                        initialTabIndex: 1));
-                                                break;
-                                              case '4':
-                                                // Navigate to Sent for Investigation screen
-                                                Get.to(() =>
-                                                    const OpdMainScreen(
-                                                        initialTabIndex: 2));
-                                                break;
-                                              case '5':
-                                                // Navigate to Investigation Report screen
-                                                Get.to(() =>
-                                                    const OpdMainScreen(
-                                                        initialTabIndex: 2));
-                                                break;
-                                              case '6':
-                                                // Navigate to Checkout screen
-                                                Get.to(() =>
-                                                    const OpdMainScreen(
-                                                        initialTabIndex: 3));
-                                                break;
-                                              default:
-                                              // Handle unknown status
-                                            }
+                                            Get.to(() => Das_screen(
+                                                  opdID: radiologyfilteredData?[
+                                                          index]['opdid'] ??
+                                                      "",
+                                                  patientName:
+                                                      radiologyfilteredData?[
+                                                                  index][
+                                                              'patient_name'] ??
+                                                          "",
+                                                  mobileNo:
+                                                      radiologyfilteredData?[
+                                                                  index]
+                                                              ['mobileno'] ??
+                                                          "",
+                                                  name: radiologyfilteredData?[
+                                                          index]['name'] ??
+                                                      "",
+                                                  surname:
+                                                      radiologyfilteredData?[
+                                                                  index]
+                                                              ['surname'] ??
+                                                          "",
+                                                  lastVisit:
+                                                      radiologyfilteredData?[
+                                                                  index]
+                                                              ['last_visit'] ??
+                                                          "",
+                                                  totalVisit:
+                                                      radiologyfilteredData?[
+                                                                  index]
+                                                              ['total_visit'] ??
+                                                          "",
+                                                  gender:
+                                                      radiologyfilteredData?[
+                                                                  index]
+                                                              ['gender'] ??
+                                                          "",
+                                                  guardianName:
+                                                      radiologyfilteredData?[
+                                                                  index][
+                                                              'guardian_name'] ??
+                                                          "",
+                                                  OpdVisitDetailsID:
+                                                      radiologyfilteredData?[
+                                                                  index][
+                                                              'visit_details_id'] ??
+                                                          "",
+                                                  status:
+                                                      radiologyfilteredData?[
+                                                                  index]
+                                                              ['status'] ??
+                                                          "",
+                                                  patient_id:
+                                                      radiologyfilteredData?[
+                                                                  index]
+                                                              ['patient_id'] ??
+                                                          "",
+                                                  employee_id:
+                                                      radiologyfilteredData?[
+                                                                  index]
+                                                              ['employee_id'] ??
+                                                          "",
+                                                  case_reference_id:
+                                                      radiologyfilteredData?[
+                                                                  index][
+                                                              'case_reference_id'] ??
+                                                          "",
+                                                ));
+                                            // String? status =
+                                            //     radiologyfilteredData?[index]
+                                            //             ['status']
+                                            //         .toString();
+                                            // switch (status) {
+                                            //   case '1':
+                                            //     // Navigate to Registered screen
+                                            //     Get.to(() =>
+                                            //         const OpdMainScreen(
+                                            //             initialTabIndex: 0));
+                                            //     break;
+                                            //   case '2':
+                                            //     // Navigate to Pre-Checking screen
+                                            //     Get.to(() =>
+                                            //         const OpdMainScreen(
+                                            //             initialTabIndex: 0));
+                                            //     break;
+                                            //   case '3':
+                                            //     // Navigate to Examination screen
+                                            //     Get.to(() =>
+                                            //         const OpdMainScreen(
+                                            //             initialTabIndex: 1));
+                                            //     break;
+                                            //   case '4':
+                                            //     // Navigate to Sent for Investigation screen
+                                            //     Get.to(() =>
+                                            //         const OpdMainScreen(
+                                            //             initialTabIndex: 2));
+                                            //     break;
+                                            //   case '5':
+                                            //     // Navigate to Investigation Report screen
+                                            //     Get.to(() =>
+                                            //         const OpdMainScreen(
+                                            //             initialTabIndex: 2));
+                                            //     break;
+                                            //   case '6':
+                                            //     // Navigate to Checkout screen
+                                            //     Get.to(() =>
+                                            //         const OpdMainScreen(
+                                            //             initialTabIndex: 3));
+                                            //     break;
+                                            //   default:
+                                            //   // Handle unknown status
+                                            // }
                                           },
                                           child: Row(
                                             mainAxisAlignment:

@@ -433,29 +433,79 @@ class _Opd_Check_OutState extends State<Opd_Check_Out> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Column(
-                                      children: [
-                                        const Text(
-                                          'Attachment',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        IconButton(
-                                          onPressed: () async {
-                                            FilePickerResult? result =
-                                                await FilePicker.platform
-                                                    .pickFiles(
-                                                        allowMultiple: true);
+                                    Container(
+                                      width: width / 2.2,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          RichText(
+                                            text: TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text: 'Attachment ',
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                                const TextSpan(
+                                                  text: '*',
+                                                  style: TextStyle(
+                                                    color: Colors.red,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          InkWell(
+                                            onTap: () async {
+                                              FilePickerResult? result =
+                                                  await FilePicker.platform
+                                                      .pickFiles(
+                                                          allowMultiple: true);
 
-                                            if (result != null) {
-                                              setState(() {
-                                                selectedFiles = result;
-                                              });
-                                            }
-                                          },
-                                          icon: const Icon(Icons.add_a_photo),
-                                        ),
-                                      ],
+                                              if (result != null) {
+                                                setState(() {
+                                                  selectedFiles = result;
+                                                });
+                                              }
+                                            },
+                                            child: Container(
+                                              height: height / 12,
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                  color: Colors
+                                                      .black, // You can customize the border color
+                                                  width:
+                                                      1.0, // You can customize the border width
+                                                ),
+                                                borderRadius: BorderRadius.circular(
+                                                    3.0), // You can customize the border radius
+                                              ),
+                                              child: Row(
+                                                children: [
+                                                  Icon(Icons.attach_file,
+                                                      color: Colors.grey),
+                                                  SizedBox(
+                                                      width:
+                                                          8.0), // Add some space between the icon and text
+                                                  Text(
+                                                    'Attach a file',
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 16.0,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
                                     const SizedBox(width: 10),
                                     _deathsectiontextfield(context, 'Report ',
