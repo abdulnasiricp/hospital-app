@@ -1,14 +1,19 @@
 // ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, avoid_print, deprecated_member_use, sized_box_for_whitespace
 
+import 'dart:async';
+
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/api_call.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:badges/badges.dart' as badges;
@@ -20,6 +25,59 @@ class Doctor_Home_Page extends StatefulWidget {
 }
 
 class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
+  // internet connection checker
+  late StreamSubscription subscription;
+  bool isDeviceConnected = false;
+  bool isAlertSet = false;
+
+  getConnectivity() =>
+      subscription = Connectivity().onConnectivityChanged.listen(
+        (ConnectivityResult result) async {
+          isDeviceConnected = await InternetConnectionChecker().hasConnection;
+          if (!isDeviceConnected && isAlertSet == false) {
+            showDialogBox();
+            setState(() => isAlertSet = true);
+          }
+        },
+      );
+
+  showDialogBox() => showCupertinoDialog<String>(
+        context: context,
+        builder: (BuildContext context) => CupertinoAlertDialog(
+          title: Column(
+            children: [
+              SvgPicture.asset(
+                'assets/nointernet.svg',
+                width: 30,
+                height: 30,
+              ),
+              const Text('No Connection'),
+            ],
+          ),
+          content: const Text('Please check your internet connectivity'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () async {
+                Navigator.pop(context, 'Cancel');
+                setState(() => isAlertSet = false);
+                isDeviceConnected =
+                    await InternetConnectionChecker().hasConnection;
+                if (!isDeviceConnected && isAlertSet == false) {
+                  showDialogBox();
+                  setState(() => isAlertSet = true);
+                }
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+  @override
+  void dispose() {
+    subscription.cancel();
+    super.dispose();
+  }
+
   late Map<String, double> dataMap = {
     "Total Patients": 0,
     "OPD Patient": 0,
@@ -90,6 +148,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
   @override
   void initState() {
     getData();
+    getConnectivity();
     super.initState();
     fetchSurgeryData();
     fetchOpdpatientdata();
@@ -410,34 +469,49 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                               ]),
                         ],
                       ),
-                      Column(
+                      Stack(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                color: whitecolor,
-                                border: Border.all()
+                          Container(
+                            margin: EdgeInsets.fromLTRB(20, 20, 20, 10),
+                            padding: EdgeInsets.only(bottom: 10),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Color.fromARGB(255, 51, 204, 255),
+                                width: 1,
                               ),
-                              child: Center(
-                                child: Column(
-                                  children: [
-                          const Text('Pie Chart',style: TextStyle(fontWeight: FontWeight.bold),),
-
-                                    PieChart(
-                                      dataMap: dataMap,
-                                      chartRadius: width / 1.7,
-                                      chartValuesOptions: const ChartValuesOptions(
-                                          showChartValuesInPercentage: true),
-                                    ),
-                                  ],
-                                ),
+                              color: whitecolor,
+                              borderRadius: BorderRadius.circular(5),
+                              shape: BoxShape.rectangle,
+                            ),
+                            child: Center(
+                              child: PieChart(
+                                dataMap: dataMap,
+                                chartRadius: width / 1.7,
+                                chartValuesOptions: const ChartValuesOptions(
+                                    showChartValuesInPercentage: true),
                               ),
                             ),
-                          )
+                          ),
+                          Positioned(
+                            left: 140,
+                            top: 12,
+                            child: Container(
+                              decoration: BoxDecoration(border: Border.all(),
+                              color: Colors.white,
+
+                              ),
+                              padding: EdgeInsets.only(
+                                  bottom: 5, left: 10, right: 10, top: 5),
+                              child: Text(
+                                'Pie Chart',
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 12),
+                              ),
+                            ),
+                          ),
                         ],
-                      )
+                      ),
+                     
                     ],
                   ),
                 ),

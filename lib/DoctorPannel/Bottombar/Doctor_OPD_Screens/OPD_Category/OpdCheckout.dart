@@ -440,16 +440,16 @@ class _Opd_Check_OutState extends State<Opd_Check_Out> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           RichText(
-                                            text: TextSpan(
+                                            text: const TextSpan(
                                               children: [
                                                 TextSpan(
                                                   text: 'Attachment ',
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     color: Colors.black,
                                                   ),
                                                 ),
-                                                const TextSpan(
+                                                TextSpan(
                                                   text: '*',
                                                   style: TextStyle(
                                                     color: Colors.red,
@@ -486,7 +486,7 @@ class _Opd_Check_OutState extends State<Opd_Check_Out> {
                                                 borderRadius: BorderRadius.circular(
                                                     3.0), // You can customize the border radius
                                               ),
-                                              child: Row(
+                                              child: const Row(
                                                 children: [
                                                   Icon(Icons.attach_file,
                                                       color: Colors.grey),
