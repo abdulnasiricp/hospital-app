@@ -471,11 +471,11 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                       Stack(
                         children: [
                           Container(
-                            margin: EdgeInsets.fromLTRB(20, 20, 20, 10),
-                            padding: EdgeInsets.only(bottom: 10),
+                            margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+                            padding: const EdgeInsets.only(bottom: 10),
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: Color.fromARGB(255, 51, 204, 255),
+                                color: const Color.fromARGB(255, 51, 204, 255),
                                 width: 1,
                               ),
                               color: whitecolor,
@@ -499,9 +499,9 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                               color: Colors.white,
 
                               ),
-                              padding: EdgeInsets.only(
+                              padding: const EdgeInsets.only(
                                   bottom: 5, left: 10, right: 10, top: 5),
-                              child: Text(
+                              child: const Text(
                                 'Pie Chart',
                                 style: TextStyle(
                                     color: Colors.black, fontSize: 12),
