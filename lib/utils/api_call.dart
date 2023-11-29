@@ -30,7 +30,7 @@ Future api(Api_link, Body, type) async {
 }
 
 class Dasboarddataapicall {
-  static Future<dynamic> fetchData(dynamic table) async {
+  static Future<double> fetchData(String table) async {
     try {
       final url = Uri.parse(ApiLinks.total_count);
       const headers = ApiLinks.MainHeader;
@@ -43,12 +43,18 @@ class Dasboarddataapicall {
 
       final response =
           await http.post(url, headers: headers, body: json.encode(body));
-      final responseData = json.decode(response.body);
-
-      return responseData.toString();
+      
+      if (response.statusCode == 200) {
+        final responseData = json.decode(response.body);
+        
+        // Use double.parse to convert the response data to double
+        return double.parse(responseData.toString());
+      } else {
+        throw Exception('Failed to load data from the API');
+      }
     } catch (error) {
       print('Error fetching data: $error');
-      return ''; // Handle error appropriately in your application
+      return 0; // Set a default value or handle the error appropriately
     }
   }
 }

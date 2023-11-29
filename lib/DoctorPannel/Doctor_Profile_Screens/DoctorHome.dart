@@ -21,16 +21,17 @@ class Doctor_Home_Page extends StatefulWidget {
 }
 
 class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
-  Map<String, double> dataMap = {
-    "Total patient": 1233,
-    "OPD Patient": 133,
-    "IPD Patient": 223,
-    "Emergency": 133,
-    "Pathology": 120,
-    "Surgery Performed": 13,
-    "Radiology": 120,
-    "Live Consultation": 10,
+  late Map<String, double> dataMap = {
+    "Total Patients": 0,
+    "OPD Patient": 0,
+    "IPD Patient": 0,
+    "Emergency": 0,
+    "Pathology": 0,
+    "Surgery Performed": 0,
+    "Radiology": 0,
+    "Live Consultation": 0,
   };
+ 
 
   // String welcomeMessage = 'Welcome to Doctor Home Page';
   String doctorRole = '';
@@ -102,53 +103,81 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
   }
 
 /////////////////////////////////// for dasboard data
-  String Surgeryperformeddata = '';
+  double Surgeryperformeddata = 0;
   Future<void> fetchSurgeryData() async {
     Surgeryperformeddata = await Dasboarddataapicall.fetchData("surgery");
+    updateDataMap();
     setState(() {});
     print(
         "====================================================$Surgeryperformeddata");
   }
 
-  String Opdpatientdata = '';
+  double Opdpatientdata =0;
   Future<void> fetchOpdpatientdata() async {
     Opdpatientdata = await Dasboarddataapicall.fetchData("visit_details");
+    updateDataMap();
+
     setState(() {});
   }
 
-  String Ipdpatientdata = '';
+  double Ipdpatientdata = 0;
   Future<void> fetchIpdpatientdata() async {
     Ipdpatientdata = await Dasboarddataapicall.fetchData("ipd_details");
+    updateDataMap();
+
     setState(() {});
   }
 
-  String Pathologyperformeddata = '';
+  double Pathologyperformeddata =0;
   Future<void> fetchPathologyperformeddata() async {
     Pathologyperformeddata =
         await Dasboarddataapicall.fetchData("pathology_billing");
+    updateDataMap();
+
     setState(() {});
   }
 
-  String Radilogyperformeddata = '';
+  double Radilogyperformeddata = 0;
   Future<void> fetchRadilogyperformeddata() async {
     Radilogyperformeddata =
         await Dasboarddataapicall.fetchData("radiology_billing");
+    updateDataMap();
+
     setState(() {});
   }
 
-  String Liveconsultantperformeddata = '';
+  double Liveconsultantperformeddata = 0;
   Future<void> fetchLiveconsultantperformeddata() async {
     Liveconsultantperformeddata =
         await Dasboarddataapicall.fetchData("conferences");
+    updateDataMap();
+
     setState(() {});
   }
 
-  String emergrncyddata = '';
+  double emergrncyddata = 0;
   Future<void> fetchemergrncyddata() async {
     emergrncyddata = await Dasboarddataapicall.fetchData("emergency");
+    updateDataMap();
+
     setState(() {});
   }
 
+
+void updateDataMap() {
+  setState(() {
+    dataMap = {
+      "Total Patients": calculateTotalPatients(),
+      "OPD Patient": Opdpatientdata,
+      "IPD Patient": Ipdpatientdata,
+      "Emergency": emergrncyddata,
+      "Pathology": Pathologyperformeddata,
+      "Surgery Performed": Surgeryperformeddata,
+      "Radiology": Radilogyperformeddata,
+      "Live Consultation": Liveconsultantperformeddata,
+    };
+  });
+}
 ////////////////////////////////////////////
   Future<void> _handleRefresh() async {
     setState(() {
@@ -166,18 +195,18 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
     });
   }
 
-  String calculateTotalPatients() {
+  double calculateTotalPatients() {
     try {
-      int ipdCount = int.parse(Ipdpatientdata);
-      int opdCount = int.parse(Opdpatientdata);
-      int emgCount = int.parse(emergrncyddata);
+      double ipdCount = double.parse("$Ipdpatientdata");
+      double opdCount = double.parse("$Opdpatientdata");
+      double emgCount = double.parse("$emergrncyddata");
 
       // Perform the addition and return the result
-      return (ipdCount + opdCount + emgCount).toString();
+      return (ipdCount + opdCount + emgCount).toDouble();
     } catch (e) {
       // Handle parsing errors, return a default value, or show an error message
       print('Error calculating total patients: $e');
-      return 'N/A';
+      return 0;
     }
   }
 
@@ -443,7 +472,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                 height: 5,
               ),
               Text(
-                itemwidget,
+                itemwidget.toString(),
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.green,

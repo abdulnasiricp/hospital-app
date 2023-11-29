@@ -13,6 +13,7 @@ class _NewsScreenState extends State<NewsScreen> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.0),
       ),
@@ -27,11 +28,11 @@ class _NewsScreenState extends State<NewsScreen> {
       children: [
         Container(
           padding: const EdgeInsets.only(
-            top: 20,
+            top: 40,
             left: 20,
             right: 20,
           ),
-          margin: const EdgeInsets.only(top: 35),
+          margin: const EdgeInsets.only(top: 50),
           decoration: BoxDecoration(
               shape: BoxShape.rectangle,
               color: Colors.blue[100],
