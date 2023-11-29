@@ -41,6 +41,15 @@ Future<void> main() async {
   ));
 }
 
+class AppTheme {
+  static final AppTheme _instance = AppTheme._internal();
+  factory AppTheme() => _instance;
+
+  AppTheme._internal();
+
+  Color appBarTextColor = Colors.black;
+}
+
 Future<String?> _isLoggedIn() async {
   final sharedPreferences = await SharedPreferences.getInstance();
   if (sharedPreferences.containsKey('username') &&

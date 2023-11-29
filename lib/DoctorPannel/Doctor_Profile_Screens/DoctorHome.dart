@@ -218,6 +218,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
           EnString.hospitalTitle,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
+          style: TextStyle(color: Colors.white),
         ),
         // centerTitle: true,
         leading: Padding(
