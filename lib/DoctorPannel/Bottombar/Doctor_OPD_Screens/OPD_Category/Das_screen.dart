@@ -631,7 +631,7 @@ class _Das_screenState extends State<Das_screen> {
                                     child: Container(
                                       color: Colors.green,
                                       width: width,
-                                      height: height / 22,
+                                      height: height / 20,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Row(
@@ -898,26 +898,28 @@ class _Das_screenState extends State<Das_screen> {
                                       ),
                                     ),
                                   ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            bottom: 8.0, left: 8),
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                              " ${radiologydata![0]['symptoms'] ?? 'N/A'}",
-                                              style: const TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold,
+                                  Container(
+                                    width:width ,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              bottom: 8.0, left: 8),
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                " ${radiologydata![0]['symptoms'] ?? 'N/A'}",
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
@@ -946,26 +948,29 @@ class _Das_screenState extends State<Das_screen> {
                                       ),
                                     ),
                                   ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            bottom: 8.0, left: 8),
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                              " ${radiologydata![0]['known_allergies'] ?? 'N/A'}",
-                                              style: const TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold,
+                                  Container(
+                                    width: width,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              bottom: 8.0, left: 8),
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                " ${radiologydata![0]['known_allergies'] ?? 'N/A'}",
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
@@ -994,26 +999,29 @@ class _Das_screenState extends State<Das_screen> {
                                       ),
                                     ),
                                   ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            bottom: 8.0, left: 8),
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                              " ${radiologydata![0]['symptoms'] ?? 'N/A'}",
-                                              style: const TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold,
+                                  Container(
+                                    width: width,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              bottom: 8.0, left: 8),
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                " ${radiologydata![0]['symptoms'] ?? 'N/A'}",
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
@@ -1056,7 +1064,7 @@ class _Das_screenState extends State<Das_screen> {
                                         padding: const EdgeInsets.all(8.0),
                                         child: Container(
                                           width: width /
-                                              4.1, // Set the desired width
+                                              3.4, // Set the desired width
                                           height: height /
                                               25, // Set the desired height
                                           child: ElevatedButton(
