@@ -353,14 +353,11 @@ class _Das_screenState extends State<Das_screen> {
                                       CardDesign(
                                         () {
                                           Get.to(() => OpdPreChecking(
-                                            employee_id: widget.employee_id,
-                                           
-
+                                                employee_id: widget.employee_id,
                                                 OpdVisitDetailsID:
                                                     widget.OpdVisitDetailsID,
                                                 opdID: widget.opdID,
                                                 status: widget.status,
-
                                                 height:
                                                     " ${radiologydata![0]['height'] ?? 'N/A'}",
                                                 weight:
@@ -899,9 +896,10 @@ class _Das_screenState extends State<Das_screen> {
                                     ),
                                   ),
                                   Container(
-                                    width:width ,
+                                    width: width,
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.only(
@@ -951,7 +949,8 @@ class _Das_screenState extends State<Das_screen> {
                                   Container(
                                     width: width,
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.only(
@@ -1001,7 +1000,8 @@ class _Das_screenState extends State<Das_screen> {
                                   Container(
                                     width: width,
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.only(

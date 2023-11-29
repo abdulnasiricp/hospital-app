@@ -277,6 +277,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
           EnString.hospitalTitle,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
+          style: TextStyle(color: Colors.white),
         ),
         // centerTitle: true,
         leading: Padding(
@@ -471,46 +472,56 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                       Stack(
                         children: [
                           Container(
-                            margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
-                            padding: const EdgeInsets.only(bottom: 10),
+                            margin: EdgeInsets.fromLTRB(5, 15, 5, 5),
+                            padding: EdgeInsets.only(bottom: 10),
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: const Color.fromARGB(255, 51, 204, 255),
-                                width: 1,
+                                color: darkYellow,
+                                width: 2,
                               ),
                               color: whitecolor,
                               borderRadius: BorderRadius.circular(5),
                               shape: BoxShape.rectangle,
                             ),
-                            child: Center(
-                              child: PieChart(
-                                dataMap: dataMap,
-                                chartRadius: width / 1.7,
-                                chartValuesOptions: const ChartValuesOptions(
-                                    showChartValuesInPercentage: true),
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: Center(
+                                child: PieChart(
+                                  dataMap: dataMap,
+                                  chartRadius: width / 1.7,
+                                  chartValuesOptions: const ChartValuesOptions(
+                                      showChartValuesInPercentage: true),
+                                ),
                               ),
                             ),
                           ),
                           Positioned(
-                            left: 140,
-                            top: 12,
+                            left: width / 3, // Adjust this value as needed
+                            right: width / 3,
                             child: Container(
-                              decoration: BoxDecoration(border: Border.all(),
-                              color: Colors.white,
-
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: yellow, // Set the border color to red
+                                  width: 2, // Set the border width to 2
+                                ),
+                                borderRadius: BorderRadius.circular(
+                                    10), // Set the border radius to make it circular
+                                color: Colors.white,
                               ),
-                              padding: const EdgeInsets.only(
-                                  bottom: 5, left: 10, right: 10, top: 5),
-                              child: const Text(
-                                'Pie Chart',
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 12),
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Text(
+                                    'Pie Chart',
+                                    style: TextStyle(
+                                        color: darkYellow, fontSize: 12),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
                         ],
                       ),
-                     
                     ],
                   ),
                 ),
