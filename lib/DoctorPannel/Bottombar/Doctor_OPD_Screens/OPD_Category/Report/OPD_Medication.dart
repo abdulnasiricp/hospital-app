@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, camel_case_types
+// ignore_for_file: file_names, camel_case_types, duplicate_ignore
 // ignore_for_file: non_constant_identifier_names, avoid_print, sized_box_for_whitespace, file_names
 
 import 'dart:convert';

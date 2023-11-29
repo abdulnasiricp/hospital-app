@@ -418,13 +418,20 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                               decoration: BoxDecoration(
                                 shape: BoxShape.rectangle,
                                 color: whitecolor,
+                                border: Border.all()
                               ),
                               child: Center(
-                                child: PieChart(
-                                  dataMap: dataMap,
-                                  chartRadius: width / 1.7,
-                                  chartValuesOptions: const ChartValuesOptions(
-                                      showChartValuesInPercentage: true),
+                                child: Column(
+                                  children: [
+                          const Text('Pie Chart',style: TextStyle(fontWeight: FontWeight.bold),),
+
+                                    PieChart(
+                                      dataMap: dataMap,
+                                      chartRadius: width / 1.7,
+                                      chartValuesOptions: const ChartValuesOptions(
+                                          showChartValuesInPercentage: true),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),

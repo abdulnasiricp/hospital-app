@@ -1,10 +1,7 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, non_constant_identifier_names, avoid_print, avoid_unnecessary_containers, sized_box_for_whitespace
 import 'dart:async';
 
-import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_Home_Bottom_bar.dart';
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/Das_screen.dart';
-import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Home.dart';
-import 'package:TezHealthCare/DoctorPannel/Doctor_Profile_Screens/DoctorHome.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Billview.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Reportview.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
