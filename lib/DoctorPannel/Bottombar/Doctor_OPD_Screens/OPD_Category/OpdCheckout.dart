@@ -109,7 +109,7 @@ class _Opd_Check_OutState extends State<Opd_Check_Out> {
       'reason_for_referral': referralReason,
       'discharge_by': '',
       'opd_details_id': "${widget.opdID}",
-      'ipd_doetails_id': "124",
+      'ipd_doetails_id': "",
       "Attachment": attachments
     };
 
