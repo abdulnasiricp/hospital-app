@@ -133,8 +133,9 @@ class _OpdInvestigationState extends State<OPD_Medication> {
         durationPharmacy,
         routepharmacy,
         qtypharmacy,
-        additionalPharmacyRowsData
-      }
+        
+      },
+      '2':additionalPharmacyRowsData
     };
 
     const String apiUrl =

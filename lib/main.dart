@@ -258,7 +258,7 @@ class _MyAppState extends State<MyApp> {
           builder: (context, navKey) {
             return GetMaterialApp(
               theme: ThemeData(
-                appBarTheme: AppBarTheme(
+                appBarTheme: const AppBarTheme(
                   titleTextStyle: TextStyle(
                     color: Colors.white, // Set your desired text color here
                     fontSize: 20, // You can set other text styles as well
