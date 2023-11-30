@@ -81,7 +81,7 @@ class MyApp extends StatefulWidget {
 
 @override
 class _MyAppState extends State<MyApp> {
- // internet connection checker
+  // internet connection checker
   late StreamSubscription subscription;
   bool isDeviceConnected = false;
   bool isAlertSet = false;
@@ -128,8 +128,6 @@ class _MyAppState extends State<MyApp> {
           ],
         ),
       );
-
-
 
   String _latestLink = 'Unknown';
   Uri? _initialUri;

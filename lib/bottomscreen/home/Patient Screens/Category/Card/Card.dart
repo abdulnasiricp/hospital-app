@@ -128,10 +128,7 @@ class _CardScreenState extends State<CardScreen> {
                             child: const LoadingIndicatorWidget())),
                   )),
             )
-          :
-
-  
-          Container(
+          : Container(
               color: darkYellow,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
