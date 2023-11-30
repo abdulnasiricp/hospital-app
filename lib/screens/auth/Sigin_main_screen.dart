@@ -1,12 +1,19 @@
 // ignore_for_file: file_names, sized_box_for_whitespace
 
+import 'dart:async';
+
 import 'package:TezHealthCare/bottomscreen/home/General_Opd_Tickets/Opd_Main_Screen.dart';
 import 'package:TezHealthCare/screens/auth/Patient_login.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
+import 'package:TezHealthCare/widgets/No_internet_screen.dart';
 import 'package:buttons_tabbar/buttons_tabbar.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/route_manager.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shimmer/shimmer.dart';
 
 class MainSiginScreen extends StatefulWidget {
@@ -16,6 +23,60 @@ class MainSiginScreen extends StatefulWidget {
 }
 
 class _MainSiginScreenState extends State<MainSiginScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    getConnectivity();
+  }
+   // internet connection checker
+  late StreamSubscription subscription;
+  bool isDeviceConnected = false;
+  bool isAlertSet = false;
+
+  getConnectivity() =>
+      subscription = Connectivity().onConnectivityChanged.listen(
+        (ConnectivityResult result) async {
+          isDeviceConnected = await InternetConnectionChecker().hasConnection;
+          if (!isDeviceConnected && isAlertSet == false) {
+            // showDialogBox();
+           Get.to(()=> NoInternetScreen());
+            setState(() => isAlertSet = true);
+          }
+        },
+      );
+
+  // showDialogBox() => showCupertinoDialog<String>(
+  //       context: context,
+  //       builder: (BuildContext context) => CupertinoAlertDialog(
+  //         title: Column(
+  //           children: [
+  //             SvgPicture.asset(
+  //               'assets/nointernet.svg',
+  //               width: 30,
+  //               height: 30,
+  //             ),
+  //             const Text('No Connection'),
+  //           ],
+  //         ),
+  //         content: const Text('Please check your internet connectivity'),
+  //         actions: <Widget>[
+  //           TextButton(
+  //             onPressed: () async {
+  //               Navigator.pop(context, 'Cancel');
+  //               setState(() => isAlertSet = false);
+  //               isDeviceConnected =
+  //                   await InternetConnectionChecker().hasConnection;
+  //               if (!isDeviceConnected && isAlertSet == false) {
+  //                 showDialogBox();
+  //                 setState(() => isAlertSet = true);
+  //               }
+  //             },
+  //             child: const Text('OK'),
+  //           ),
+  //         ],
+  //       ),
+  //     );
   @override
   Widget build(BuildContext context) {
     return SafeArea(

@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, file_names, unnecessary_new, unnecessary_string_interpolations
+// ignore_for_file: camel_case_types, file_names, unnecessary_new, unnecessary_string_interpolations, non_constant_identifier_names, avoid_print
 
 import 'dart:async';
 import 'dart:convert';
@@ -55,7 +55,7 @@ class _Splash_ScreenState extends State<Splash_Screen> {
   void initState() {
     getAboutUsDetails();
     super.initState();
-    _timer = Timer(const Duration(seconds: 5), () {
+    _timer = Timer(const Duration(seconds: 7), () {
       route();
     });
   }
@@ -81,26 +81,17 @@ class _Splash_ScreenState extends State<Splash_Screen> {
               fit: StackFit.expand,
               children: [
                 Center(
-                  child: Image.network(
+                  child:HospitalLogo.isEmpty
+                ? Container():
+                 Image.network(
                     '$HospitalLogo',
                     width: 300.0,
                     height: 300.0,
                     fit: BoxFit.fill,
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress == null && HospitalLogo.isEmpty) {
-                        return CircularProgressIndicator(
-                          color: darkYellow,
-                          backgroundColor: yellow,
-                        );
-                      } else {
-                        return child;
-                      }
-                    },
+                   
                   ),
                 ),
-                //
-                //
-                // "Powered by" logo at the bottom
+               
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(

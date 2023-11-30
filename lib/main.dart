@@ -6,9 +6,12 @@ import 'dart:io';
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_Home_Bottom_bar.dart';
 import 'package:TezHealthCare/language_Services/translation.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:TezHealthCare/Splash_Screen.dart';
@@ -17,6 +20,7 @@ import 'package:TezHealthCare/themeService.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:TezHealthCare/utils/notifirecolors.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -77,6 +81,56 @@ class MyApp extends StatefulWidget {
 
 @override
 class _MyAppState extends State<MyApp> {
+ // internet connection checker
+  late StreamSubscription subscription;
+  bool isDeviceConnected = false;
+  bool isAlertSet = false;
+
+  getConnectivity() =>
+      subscription = Connectivity().onConnectivityChanged.listen(
+        (ConnectivityResult result) async {
+          isDeviceConnected = await InternetConnectionChecker().hasConnection;
+          if (!isDeviceConnected && isAlertSet == false) {
+            showDialogBox();
+            setState(() => isAlertSet = true);
+          }
+        },
+      );
+
+  showDialogBox() => showCupertinoDialog<String>(
+        context: context,
+        builder: (BuildContext context) => CupertinoAlertDialog(
+          title: Column(
+            children: [
+              SvgPicture.asset(
+                'assets/nointernet.svg',
+                width: 30,
+                height: 30,
+              ),
+              const Text('No Connection'),
+            ],
+          ),
+          content: const Text('Please check your internet connectivity'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () async {
+                Navigator.pop(context, 'Cancel');
+                setState(() => isAlertSet = false);
+                isDeviceConnected =
+                    await InternetConnectionChecker().hasConnection;
+                if (!isDeviceConnected && isAlertSet == false) {
+                  showDialogBox();
+                  setState(() => isAlertSet = true);
+                }
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+
+
+
   String _latestLink = 'Unknown';
   Uri? _initialUri;
   Uri? _latestUri;
@@ -89,6 +143,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    getConnectivity();
     _handleIncomingLinks();
     _handleInitialUri();
   }

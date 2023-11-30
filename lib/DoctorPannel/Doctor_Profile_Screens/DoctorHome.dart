@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, avoid_print, deprecated_member_use, sized_box_for_whitespace
+// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, avoid_print, deprecated_member_use, sized_box_for_whitespace, unnecessary_string_interpolations
 
 import 'dart:async';
 import 'dart:convert';
@@ -326,21 +326,14 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
             onTap: () {
               Get.to(() => const AboutUSScreen());
             },
-            child: Image.network(
+            child: HospitalLogo.isEmpty
+                ?Container():
+             Image.network(
               '$HospitalLogo',
               width: 200.0,
               height: 200.0,
               fit: BoxFit.fill,
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null && HospitalLogo.isEmpty) {
-                  return CircularProgressIndicator(
-                    color: darkYellow,
-                    backgroundColor: yellow,
-                  );
-                } else {
-                  return child;
-                }
-              },
+            
             ),
           ),
         ),
@@ -522,8 +515,8 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                       Stack(
                         children: [
                           Container(
-                            margin: EdgeInsets.fromLTRB(5, 15, 5, 5),
-                            padding: EdgeInsets.only(bottom: 10),
+                            margin: const EdgeInsets.fromLTRB(5, 15, 5, 5),
+                            padding: const EdgeInsets.only(bottom: 10),
                             decoration: BoxDecoration(
                               border: Border.all(
                                 color: darkYellow,
@@ -588,7 +581,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
       ),
       child: Center(
         child: ListTile(
-          contentPadding: EdgeInsets.all(16), // Adjust padding as needed
+          contentPadding: const EdgeInsets.all(16), // Adjust padding as needed
           leading: Container(
             width: 50,
             height: 50,

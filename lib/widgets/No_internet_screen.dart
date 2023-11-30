@@ -1,8 +1,12 @@
 // ignore_for_file: file_names
 
+import 'dart:async';
+
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class NoInternetScreen extends StatefulWidget {
   // final void callback;
@@ -15,6 +19,10 @@ class NoInternetScreen extends StatefulWidget {
 }
 
 class _NoInternetScreenState extends State<NoInternetScreen> {
+   // internet connection checker
+  late StreamSubscription subscription;
+  bool isDeviceConnected = false;
+  bool isAlertSet = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +76,20 @@ class _NoInternetScreenState extends State<NoInternetScreen> {
                         color: Colors.white),
                   )),
                 ),
-              )
+              ),
+              TextButton(
+              onPressed: () async {
+                Navigator.pop(context, 'Cancel');
+                setState(() => isAlertSet = false);
+                isDeviceConnected =
+                    await InternetConnectionChecker().hasConnection;
+                if (!isDeviceConnected && isAlertSet == false) {
+                 Get.to(()=> NoInternetScreen());
+                  setState(() => isAlertSet = true);
+                }
+              },
+              child: const Text('OK'),
+            ),
             ],
           ),
         ),

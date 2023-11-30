@@ -27,6 +27,8 @@ class PatientLogin extends StatefulWidget {
 }
 
 class _PatientLoginState extends State<PatientLogin> {
+
+  
   late String HospitalLogo = '';
   bool isLoading = true;
 
@@ -252,21 +254,13 @@ class _PatientLoginState extends State<PatientLogin> {
                   Container(
                     width: double.infinity,
                     height: height / 5,
-                    child: Image.network(
+                    child:HospitalLogo.isEmpty
+                
+                ? Container():
+                  Image.network(
                       '$HospitalLogo',
                       fit: BoxFit.fill,
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null &&
-                            HospitalLogo.isEmpty &&
-                            isLoading == true) {
-                          return CircularProgressIndicator(
-                            color: darkYellow,
-                            backgroundColor: yellow,
-                          );
-                        } else {
-                          return child;
-                        }
-                      },
+                     
                     ),
                   ),
                   Form(

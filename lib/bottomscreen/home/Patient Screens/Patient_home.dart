@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace, deprecated_member_use, avoid_unnecessary_containers, unused_element, unnecessary_null_comparison, prefer_collection_literals, unused_local_variable
+// ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace, deprecated_member_use, avoid_unnecessary_containers, unused_element, unnecessary_null_comparison, prefer_collection_literals, unused_local_variable, unnecessary_string_interpolations
 
 import 'dart:async';
 import 'dart:convert';
@@ -473,21 +473,13 @@ class _PatientHomePageState extends State<PatientHomePage> {
               onTap: () {
                 Get.to(() => const AboutUSScreen());
               },
-              child: Image.network(
+              child: HospitalLogo.isEmpty
+                ? Container(): Image.network(
                 '$HospitalLogo',
                 width: 200.0,
                 height: 200.0,
                 fit: BoxFit.fill,
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null && HospitalLogo.isEmpty) {
-                    return CircularProgressIndicator(
-                      color: darkYellow,
-                      backgroundColor: yellow,
-                    );
-                  } else {
-                    return child;
-                  }
-                },
+               
               ),
             ),
           ),

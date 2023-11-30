@@ -84,8 +84,6 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
   TextEditingController recentReportController = TextEditingController();
   TextEditingController birthHistoryController = TextEditingController();
   TextEditingController NoteController = TextEditingController();
-  final FocusNode _focusNode = FocusNode();
-  final FocusNode _unUsedFocusNode = FocusNode();
 
   bool isLoading = false;
   @override
