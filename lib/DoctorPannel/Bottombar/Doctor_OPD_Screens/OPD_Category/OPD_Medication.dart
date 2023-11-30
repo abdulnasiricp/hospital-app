@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_Examination.dart';
+import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OpdCheckout.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
@@ -38,8 +39,6 @@ class _OpdInvestigationState extends State<OPD_Medication> {
 
   List<dynamic>? pharmacydata = [];
   List<dynamic>? pharmacyfilteredData = [];
-
-
 
   Future<void> fetchPharmacyData() async {
     if (ispharmacyDataFetched) {
@@ -96,16 +95,19 @@ class _OpdInvestigationState extends State<OPD_Medication> {
     final String routepharmacy = pharmacyRouteController.text;
     final String qtypharmacy = pharmacyQtyController.text;
 
-        List<dynamic> additionalPharmacyRowsData = [];
+    List<dynamic> additionalPharmacyRowsData = [];
 
     for (var pharmacyControllerMap in pharmacyControllersList) {
       String rowpharmacy = pharmacyControllerMap['pharmacy']?.text ?? '';
-      String rowDosepharmacy = pharmacyControllerMap['pharmacyDose']?.text ?? '';
-      String rowIntervalpharmacy = pharmacyControllerMap['pharmacyInterval']?.text ?? '';
-      String rowDurationpharmacy = pharmacyControllerMap['pharmacyDuration']?.text ?? '';
-      String rowRoutepharmacy = pharmacyControllerMap['pharmacyRoute']?.text ?? '';
+      String rowDosepharmacy =
+          pharmacyControllerMap['pharmacyDose']?.text ?? '';
+      String rowIntervalpharmacy =
+          pharmacyControllerMap['pharmacyInterval']?.text ?? '';
+      String rowDurationpharmacy =
+          pharmacyControllerMap['pharmacyDuration']?.text ?? '';
+      String rowRoutepharmacy =
+          pharmacyControllerMap['pharmacyRoute']?.text ?? '';
       String rowQtypharmacy = pharmacyControllerMap['pharmacyQty']?.text ?? '';
-     
 
       // Check if both fields in the row have data
       if (rowpharmacy.isNotEmpty &&
@@ -114,15 +116,27 @@ class _OpdInvestigationState extends State<OPD_Medication> {
           rowDurationpharmacy.isNotEmpty &&
           rowRoutepharmacy.isNotEmpty &&
           rowQtypharmacy.isNotEmpty) {
-        additionalPharmacyRowsData.add({rowDosepharmacy, rowIntervalpharmacy,rowDurationpharmacy,rowRoutepharmacy,rowQtypharmacy});
+        additionalPharmacyRowsData.add({
+          rowDosepharmacy,
+          rowIntervalpharmacy,
+          rowDurationpharmacy,
+          rowRoutepharmacy,
+          rowQtypharmacy
+        });
       }
     }
 
- Map<String, dynamic> requestPharmacyList = {
+    Map<String, dynamic> requestPharmacyList = {
       '0': selectedPharmacyIds,
-      '1': {dosePharmacy, intervalPharmacy,durationPharmacy,routepharmacy,qtypharmacy,additionalPharmacyRowsData}
+      '1': {
+        dosePharmacy,
+        intervalPharmacy,
+        durationPharmacy,
+        routepharmacy,
+        qtypharmacy,
+        additionalPharmacyRowsData
+      }
     };
-
 
     const String apiUrl =
         'https://uat.tez.hospital/xzy/webservice/submit_investigation';
@@ -135,8 +149,7 @@ class _OpdInvestigationState extends State<OPD_Medication> {
         "Pharmacy": "$requestPharmacyList",
       }
     };
-    print('---------------+++++++++++-$requestBody');
-
+    print('---------------++fgfghfghnfghhy+++++++++-$requestBody');
 
     try {
       final response = await http.post(
@@ -155,8 +168,7 @@ class _OpdInvestigationState extends State<OPD_Medication> {
         setState(() {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const OpdExamination()
-            ),
+            MaterialPageRoute(builder: (context) => const Opd_Check_Out()),
           );
           Fluttertoast.showToast(
             msg: '${responseData["message"]}',
@@ -514,16 +526,16 @@ class _OpdInvestigationState extends State<OPD_Medication> {
                 height: 40,
                 child: ElevatedButton(
                   child: const Text('Save'),
-                   onPressed: () async {
-                                setState(() {
-                                  isLoading = true;
-                                });
-                                await makePostRequest();
+                  onPressed: () async {
+                    setState(() {
+                      isLoading = true;
+                    });
+                    await makePostRequest();
 
-                                setState(() {
-                                  isLoading = false;
-                                });
-                              },
+                    setState(() {
+                      isLoading = false;
+                    });
+                  },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(yellow),
                   ),
@@ -540,7 +552,7 @@ class _OpdInvestigationState extends State<OPD_Medication> {
   TextEditingController pharmacySearchController = TextEditingController();
   String selectedpharmacy = '';
   String selectedpharmacyId = '';
- List<String> selectedPharmacyIds = [];
+  List<String> selectedPharmacyIds = [];
   void _showPharmacySelection(
       BuildContext context,
       TextEditingController pharmacyController,
@@ -665,11 +677,11 @@ class _OpdInvestigationState extends State<OPD_Medication> {
                                                         ['id'] ??
                                                     '';
 
-                                            selectedPharmacyIds.add(
-                                                  localSelectedpharmacyId);
+                                            selectedPharmacyIds
+                                                .add(localSelectedpharmacyId);
 
-                                              localpharmacyController.text =
-                                                  localSelectedpharmacydata;
+                                            localpharmacyController.text =
+                                                localSelectedpharmacydata;
 
                                             Navigator.of(context).pop();
                                           },
@@ -701,7 +713,13 @@ class _OpdInvestigationState extends State<OPD_Medication> {
   //=======================================================================================
 
 ////////////////////////////////////////////////////////////////////////////
-  Widget medicineBuildRow(TextEditingController pharmacyController,TextEditingController pharmacyDoseController,TextEditingController pharmacyIntervalController,TextEditingController pharmacyDurationController,TextEditingController pharmacyRouteController,TextEditingController pharmacyQtyController) {
+  Widget medicineBuildRow(
+      TextEditingController pharmacyController,
+      TextEditingController pharmacyDoseController,
+      TextEditingController pharmacyIntervalController,
+      TextEditingController pharmacyDurationController,
+      TextEditingController pharmacyRouteController,
+      TextEditingController pharmacyQtyController) {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: Column(
@@ -872,7 +890,6 @@ class _OpdInvestigationState extends State<OPD_Medication> {
                           // Set this to true to disable the keyboard
                           controller: pharmacyQtyController,
 
-
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: '12 pc',
@@ -918,8 +935,10 @@ class _OpdInvestigationState extends State<OPD_Medication> {
   void addNewRowPharmacy() {
     TextEditingController newpharmacyController = TextEditingController();
     TextEditingController newpharmacyDoseController = TextEditingController();
-    TextEditingController newpharmacyIntervalController = TextEditingController();
-    TextEditingController newpharmacyDurationController = TextEditingController();
+    TextEditingController newpharmacyIntervalController =
+        TextEditingController();
+    TextEditingController newpharmacyDurationController =
+        TextEditingController();
     TextEditingController newpharmacyRouteController = TextEditingController();
     TextEditingController newpharmacyQtyController = TextEditingController();
 

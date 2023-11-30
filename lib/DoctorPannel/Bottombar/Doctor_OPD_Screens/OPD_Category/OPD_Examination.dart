@@ -23,7 +23,9 @@ class OpdExamination extends StatefulWidget {
       this.opdVisitDetailsID,
       this.case_reference_id,
       this.patient_id,
-      this.status, this.generated_by, this.employee_id})
+      this.status,
+      this.generated_by,
+      this.employee_id})
       : super(key: key);
 
   @override
@@ -79,56 +81,60 @@ class _OpdExaminationState extends State<OpdExamination> {
         "case_reference_id": "${widget.case_reference_id}",
       }
     };
-    print(
-        "+++++++++$requestBody");
+    print("cfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfg===========================$requestBody");
     // try {
-      final response = await http.post(
-        Uri.parse(apiUrl),
-        body: jsonEncode(requestBody),
-        headers: ApiLinks.MainHeader,
-      );
+    final response = await http.post(
+      Uri.parse(apiUrl),
+      body: jsonEncode(requestBody),
+      headers: ApiLinks.MainHeader,
+    );
 
-      if (response.statusCode == 200) {
-        Map<String, dynamic> responseData = jsonDecode(response.body);
-        print('responseData: $responseData');
-        print('Status: ${responseData["staus"]}');
-        print('Message: ${responseData["message"]}');
-        print('id: ${responseData["id"]}');
+    if (response.statusCode == 200) {
+      Map<String, dynamic> responseData = jsonDecode(response.body);
+      print('responseData: $responseData');
+      print('Status: ${responseData["staus"]}');
+      print('Message: ${responseData["message"]}');
+      print('id: ${responseData["id"]}');
 
-        // if (responseData["staus"] == 1) {
-          // Status is 1, navigate to OpdInvestigation
-          setState(() {
-            // Show success message and navigate to the next screen if needed
-              Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) =>  OpdInvestigation(opdID: widget.opdVisitDetailsID,status: widget.status,generated_by: id,employee_id: widget.employee_id,)),
-          );
-            Fluttertoast.showToast(
-              msg: '${responseData["message"]}',
-              backgroundColor: Colors.green,
-              textColor: Colors.white,
-            );
-          });
-        // } else if (responseData["staus"] == 0) {
-        //   // Status is 0, handle it as a special case
-        //   setState(() {
-        //     Fluttertoast.showToast(
-        //       msg: 'Status is 0: ${responseData["message"]}',
-        //       backgroundColor: Colors.red,
-        //       textColor: Colors.white,
-        //     );
-        //   });
-        
-      } else {
-        // Handle other status codes (non-200) if needed
-        setState(() {
-          Fluttertoast.showToast(
-            msg: 'Error: ${response.reasonPhrase}',
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-          );
-        });
-      }
+      // if (responseData["staus"] == 1) {
+      // Status is 1, navigate to OpdInvestigation
+      setState(() {
+        // Show success message and navigate to the next screen if needed
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => OpdInvestigation(
+                    opdID: widget.opdVisitDetailsID,
+                    status: widget.status,
+                    generated_by: id,
+                    employee_id: widget.employee_id,
+                  )),
+        );
+        Fluttertoast.showToast(
+          msg: '${responseData["message"]}',
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+        );
+      });
+      // } else if (responseData["staus"] == 0) {
+      //   // Status is 0, handle it as a special case
+      //   setState(() {
+      //     Fluttertoast.showToast(
+      //       msg: 'Status is 0: ${responseData["message"]}',
+      //       backgroundColor: Colors.red,
+      //       textColor: Colors.white,
+      //     );
+      //   });
+    } else {
+      // Handle other status codes (non-200) if needed
+      setState(() {
+        Fluttertoast.showToast(
+          msg: 'Error: ${response.reasonPhrase}',
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+        );
+      });
+    }
     // } catch (e) {
     //   setState(() {
     //     Fluttertoast.showToast(
@@ -480,7 +486,6 @@ class _OpdExaminationState extends State<OpdExamination> {
                             setState(() {
                               isLoading = false;
                             });
-                         
                           },
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(yellow),

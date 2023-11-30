@@ -55,7 +55,10 @@ class OpdPreChecking extends StatefulWidget {
       this.OpdVisitDetailsID,
       this.weight,
       this.height,
-      this.status, this.patient_id, this.employee_id, this.generated_by})
+      this.status,
+      this.patient_id,
+      this.employee_id,
+      this.generated_by})
       : super(key: key);
   @override
   State<OpdPreChecking> createState() => _OpdPreCheckingState();
@@ -198,7 +201,13 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
         setState(() {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) =>  OpdExamination(opdVisitDetailsID: widget.OpdVisitDetailsID,status: widget.status,patient_id: widget.patient_id,employee_id: widget.employee_id,)),
+            MaterialPageRoute(
+                builder: (context) => OpdExamination(
+                      opdVisitDetailsID: widget.OpdVisitDetailsID,
+                      status: widget.status,
+                      patient_id: widget.patient_id,
+                      employee_id: widget.employee_id,
+                    )),
           );
           Fluttertoast.showToast(
             msg: '${responseData["message"]}',
@@ -275,14 +284,9 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                               Container(
                                 child: TextFormField(
                                   controller: symptomsController,
-                                  keyboardType: TextInputType.text,
                                   maxLines: null,
-                                  readOnly: false,
-                                  focusNode: _focusNode,
-                                  onTapOutside: (PointerDownEvent event) {
-                                    FocusScope.of(context)
-                                        .requestFocus(_unUsedFocusNode);
-                                  },
+                                  onTapOutside: (event) =>
+                                      FocusScope.of(context).unfocus(),
                                   decoration: const InputDecoration(
                                       border: OutlineInputBorder(),
                                       fillColor: Colors.white,

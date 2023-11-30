@@ -19,7 +19,8 @@ class OpdInvestigation extends StatefulWidget {
   final String? employee_id;
   final String? generated_by;
 
-  const OpdInvestigation({Key? key, this.opdID, this.status, this.employee_id, this.generated_by})
+  const OpdInvestigation(
+      {Key? key, this.opdID, this.status, this.employee_id, this.generated_by})
       : super(key: key);
   @override
   State<OpdInvestigation> createState() => _OpdInvestigationState();
@@ -417,25 +418,30 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
         "F_Advice": "$followAdvice",
       }
     };
-    print('---------------+++++++++++-$requestBody');
+    print('-------------dgrtgtrfgtgtgttgtgtgtgtgtgtgg--+++++++++++-$requestBody');
 
     final response = await http.post(
       Uri.parse(apiUrl),
       body: jsonEncode(requestBody),
       headers: ApiLinks.MainHeader,
     );
-try{
-    if (response.statusCode == 200) {
-      // Successful response
-      print('Response: ${response.body}');
-      Map<String, dynamic> responseData = jsonDecode(response.body);
-      print('Status: ${responseData["status"]}');
-      print('Message: ${responseData["message"]}');
-      print('ID: ${responseData["id"]}');
-     setState(() {
+    try {
+      if (response.statusCode == 200) {
+        // Successful response
+        print('Response: ${response.body}');
+        Map<String, dynamic> responseData = jsonDecode(response.body);
+        print('Status: ${responseData["status"]}');
+        print('Message: ${responseData["message"]}');
+        print('ID: ${responseData["id"]}');
+        setState(() {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) =>  OPD_Medication(employee_id: widget.employee_id,opdID: widget.opdID,status: widget.status,)),
+            MaterialPageRoute(
+                builder: (context) => OPD_Medication(
+                      employee_id: widget.employee_id,
+                      opdID: widget.opdID,
+                      status: widget.status,
+                    )),
           );
           Fluttertoast.showToast(
             msg: '${responseData["message"]}',
@@ -473,507 +479,183 @@ try{
           backgroundColor: darkYellow,
         ),
         body: isLoading
-          ? Center(
-              child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Container(
-                      height: 50,
-                      width: 50,
-                      color: Colors.transparent,
-                      child: const LoadingIndicatorWidget())),
-            )
-          : SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(children: [
-              Row(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Diagnosis',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Container(
-                        width: width / 2.2,
-                        height: 30,
-                        color: Colors.green[300],
-                        child: const Center(
-                            child: Text(
-                          'Diagnosis',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 15),
-                        )),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Container(
-                        width: width / 2.2,
-                        child: InkWell(
-                          child: TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'This field is required';
-                              }
-                              return null;
-                            },
-                            readOnly: true,
-                            controller: diagnosisController,
-                            maxLines: null, // Allow multiple lines
-                            decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                icon: const Icon(
-                                  Icons.arrow_drop_down_sharp,
-                                  size: 40,
-                                ),
-                                onPressed: () {
-                                  _showdiagnosisSelection(context);
-                                },
-                              ),
-                              border: const OutlineInputBorder(),
-                              hintText: 'Select Diagnosis',
-                              fillColor: Colors.white,
-                              filled: true,
-                            ),
-                            onTap: () {
-                              _showdiagnosisSelection(context);
-                            },
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Pathology',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Container(
-                        width: width / 2.2,
-                        height: 30,
-                        color: Colors.green[300],
-                        child: const Center(
-                            child: Text(
-                          'Pathology',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 15),
-                        )),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Container(
-                        width: width / 2.2,
-                        child: Center(
-                          child: InkWell(
-                            child: TextFormField(
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'This field is required';
-                                }
-                                return null;
-                              },
-                              readOnly: true,
-                              controller: pathologyController,
-                              maxLines: null, // Allow multiple lines
-                              decoration: InputDecoration(
-                                suffixIcon: IconButton(
-                                  icon: const Icon(
-                                    Icons.arrow_drop_down_sharp,
-                                    size: 40,
-                                  ),
-                                  onPressed: () {
-                                    _showPathologySelection(context);
-                                  },
-                                ),
-                                border: const OutlineInputBorder(),
-                                hintText: 'Select Pathology',
-                                fillColor: Colors.white,
-                                filled: true,
-                              ),
-                              onTap: () {
-                                _showPathologySelection(context);
-                                (context);
-                              },
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Other Test',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    width: double.infinity,
-                    height: 30,
-                    color: Colors.green[300],
-                    child: const Center(
-                        child: Text(
-                      'Select Other Test',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                    )),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        width: width / 1.25,
-                        height: 55,
-                        child: Center(
-                          child: InkWell(
-                            child: TextFormField(
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'This field is required';
-                                }
-                                return null;
-                              },
-                              readOnly: true,
-                              controller: otherController,
-                              maxLines: null,
-                              decoration: InputDecoration(
-                                suffixIcon: IconButton(
-                                  icon: const Icon(
-                                    Icons.arrow_drop_down_sharp,
-                                    size: 40,
-                                  ),
-                                  onPressed: () {
-                                    _showOtherSelection(
-                                        context, otherController);
-                                  },
-                                ),
-                                border: const OutlineInputBorder(),
-                                hintText: 'Select Other test',
-                                fillColor: Colors.white,
-                                filled: true,
-                              ),
-                              onTap: () {
-                                _showOtherSelection(context, otherController);
-                              },
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Container(
-                        width: width / 9,
-                        // height: 40,
-                        child: Center(
-                          child: CircleAvatar(
-                            child: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  addNewRowOtherTest();
-                                });
-                              },
-                              icon: Icon(
-                                Icons.add,
-                                color: whitecolor,
-                              ),
-                            ),
-                            backgroundColor: Colors.green,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Container(
-                height: opdOthertestRow.isNotEmpty ? null : 0,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: opdOthertestRow.length,
-                  itemBuilder: (context, index) {
-                    return opdOthertestRow[index];
-                  },
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Radiology',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    width: double.infinity,
-                    height: 30,
-                    color: Colors.green[300],
-                    child: const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Radiology',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15),
-                          ),
-                          // SizedBox(width: 10,),
-                          Text(
-                            'Qty',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15),
-                          ),
-                          // SizedBox(width: 10,),
-
-                          Text(
-                            'Radiology Note',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15),
-                          ),
-                          Text(
-                            ' ',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        width: width / 3.2,
-                        height: 55,
-                        child: Center(
-                          child: InkWell(
-                            child: TextFormField(
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'This field is required';
-                                }
-                                return null;
-                              },
-                              readOnly: true,
-                              controller: radiologyController,
-                              maxLines: null,
-                              decoration: InputDecoration(
-                                suffixIcon: IconButton(
-                                  icon: const Icon(
-                                    Icons.arrow_drop_down_sharp,
-                                    size: 30,
-                                  ),
-                                  onPressed: () {
-                                    _showRadiologySelection(
-                                        context,
-                                        radiologyController,
-                                        radiologyQtyController,
-                                        radiologyNoteController);
-                                  },
-                                ),
-                                border: const OutlineInputBorder(),
-                                hintText: 'Select radiology',
-                                fillColor: Colors.white,
-                                filled: true,
-                              ),
-                              onTap: () {
-                                _showRadiologySelection(
-                                    context,
-                                    radiologyController,
-                                    radiologyQtyController,
-                                    radiologyNoteController);
-                              },
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Container(
-                        width: width / 6,
-                        height: 60,
-                        child: Center(
-                          child: InkWell(
-                              child: TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'This field is required';
-                              }
-                              return null;
-                            },
-                            controller: radiologyQtyController,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: 'Select options',
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 10),
-                              fillColor: Colors.white,
-                              filled: true,
-                            ),
-                          )),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Container(
-                        width: width / 3.5,
-                        height: 60,
-                        child: Center(
-                          child: InkWell(
-                              child: TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'This field is required';
-                              }
-                              return null;
-                            },
-                            controller: radiologyNoteController,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: 'Additional note',
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 10),
-                            ),
-                          )),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Container(
-                        width: width / 9,
-                        height: 40,
-                        child: Center(
-                          child: CircleAvatar(
-                            child: IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    addNewRowRadiology();
-                                  });
-                                },
-                                icon: Icon(
-                                  Icons.add,
-                                  color: whitecolor,
-                                )),
-                            radius: 20,
-                            backgroundColor: Colors.green,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    height: radiologyRow.isNotEmpty ? null : 0,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: radiologyRow.length,
-                      itemBuilder: (context, index) {
-                        return radiologyRow[index];
-                      },
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Text(
-                    'Surgery',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    width: double.infinity,
-                    height: 30,
-                    color: Colors.green[300],
-                    child: const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Surgery advised',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15),
-                          ),
-                          // SizedBox(width: 10,),
-                          Text(
-                            'Note for surgery',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15),
-                          ),
-                          // SizedBox(width: 10,),
-
-                          Text(
-                            ' ',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15),
-                          ),
-                          Text(
-                            ' ',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Row(
+            ? Center(
+                child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                        height: 50,
+                        width: 50,
+                        color: Colors.transparent,
+                        child: const LoadingIndicatorWidget())),
+              )
+            : SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(children: [
+                    Row(
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            const Text(
+                              'Diagnosis',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
                             Container(
-                              width: width / 3.5,
+                              width: width / 2.2,
+                              height: 30,
+                              color: Colors.green[300],
+                              child: const Center(
+                                  child: Text(
+                                'Diagnosis',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              )),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Container(
+                              width: width / 2.2,
+                              child: InkWell(
+                                child: TextFormField(
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'This field is required';
+                                    }
+                                    return null;
+                                  },
+                                  readOnly: true,
+                                  controller: diagnosisController,
+                                  maxLines: null, // Allow multiple lines
+                                  decoration: InputDecoration(
+                                    suffixIcon: IconButton(
+                                      icon: const Icon(
+                                        Icons.arrow_drop_down_sharp,
+                                        size: 40,
+                                      ),
+                                      onPressed: () {
+                                        _showdiagnosisSelection(context);
+                                      },
+                                    ),
+                                    border: const OutlineInputBorder(),
+                                    hintText: 'Select Diagnosis',
+                                    fillColor: Colors.white,
+                                    filled: true,
+                                  ),
+                                  onTap: () {
+                                    _showdiagnosisSelection(context);
+                                  },
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Pathology',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Container(
+                              width: width / 2.2,
+                              height: 30,
+                              color: Colors.green[300],
+                              child: const Center(
+                                  child: Text(
+                                'Pathology',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              )),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Container(
+                              width: width / 2.2,
+                              child: Center(
+                                child: InkWell(
+                                  child: TextFormField(
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'This field is required';
+                                      }
+                                      return null;
+                                    },
+                                    readOnly: true,
+                                    controller: pathologyController,
+                                    maxLines: null, // Allow multiple lines
+                                    decoration: InputDecoration(
+                                      suffixIcon: IconButton(
+                                        icon: const Icon(
+                                          Icons.arrow_drop_down_sharp,
+                                          size: 40,
+                                        ),
+                                        onPressed: () {
+                                          _showPathologySelection(context);
+                                        },
+                                      ),
+                                      border: const OutlineInputBorder(),
+                                      hintText: 'Select Pathology',
+                                      fillColor: Colors.white,
+                                      filled: true,
+                                    ),
+                                    onTap: () {
+                                      _showPathologySelection(context);
+                                      (context);
+                                    },
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Other Test',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Container(
+                          width: double.infinity,
+                          height: 30,
+                          color: Colors.green[300],
+                          child: const Center(
+                              child: Text(
+                            'Select Other Test',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          )),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          children: [
+                            Container(
+                              width: width / 1.25,
                               height: 55,
                               child: Center(
                                 child: InkWell(
@@ -985,86 +667,45 @@ try{
                                       return null;
                                     },
                                     readOnly: true,
-                                    controller: surgeryController,
+                                    controller: otherController,
                                     maxLines: null,
                                     decoration: InputDecoration(
                                       suffixIcon: IconButton(
                                         icon: const Icon(
                                           Icons.arrow_drop_down_sharp,
-                                          size: 30,
+                                          size: 40,
                                         ),
                                         onPressed: () {
-                                          _showSurgerySelection(
-                                              context,
-                                              surgeryController,
-                                              surgeryNoteController);
+                                          _showOtherSelection(
+                                              context, otherController);
                                         },
                                       ),
                                       border: const OutlineInputBorder(),
-                                      hintText: 'Select Surgery',
+                                      hintText: 'Select Other test',
                                       fillColor: Colors.white,
                                       filled: true,
                                     ),
                                     onTap: () {
-                                      _showSurgerySelection(
-                                          context,
-                                          surgeryController,
-                                          surgeryNoteController);
+                                      _showOtherSelection(
+                                          context, otherController);
                                     },
                                   ),
                                 ),
                               ),
                             ),
-                          ],
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: width / 2,
-                              height: 60,
-                              child: Center(
-                                child: TextFormField(
-                                  controller: surgeryNoteController,
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'This field is required';
-                                    }
-                                    return null;
-                                  },
-                                  decoration: const InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    contentPadding: EdgeInsets.symmetric(
-                                        vertical: 10.0, horizontal: 10),
-                                    fillColor: Colors.white,
-                                    filled: true,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              ' ',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 12),
+                            const SizedBox(
+                              width: 5,
                             ),
                             Container(
                               width: width / 9,
+                              // height: 40,
                               child: Center(
                                 child: CircleAvatar(
                                   child: IconButton(
                                     onPressed: () {
-                                      addNewRow();
+                                      setState(() {
+                                        addNewRowOtherTest();
+                                      });
                                     },
                                     icon: Icon(
                                       Icons.add,
@@ -1079,67 +720,445 @@ try{
                         ),
                       ],
                     ),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    height: surgeryRow.isNotEmpty ? null : 0,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: surgeryRow.length,
-                      itemBuilder: (context, index) {
-                        return surgeryRow[index];
-                      },
+                    const SizedBox(
+                      height: 5,
                     ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Follow up & Advice',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                    Container(
+                      height: opdOthertestRow.isNotEmpty ? null : 0,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: opdOthertestRow.length,
+                        itemBuilder: (context, index) {
+                          return opdOthertestRow[index];
+                        },
                       ),
-                      Container(
-                          height: 50,
-                          child: TextField(
-                            controller: followAdviceController,
-                            decoration: const InputDecoration(
-                                border: OutlineInputBorder()),
-                          ))
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  Center(
-                    child: Container(
-                      width: double.infinity,
-                      height: 40,
-                      child: ElevatedButton(
-                        child: const Text('Save'),
-                          onPressed: () async {
-                            setState(() {
-                              isLoading = true;
-                            });
-                            await makePostRequest();
-
-                            setState(() {
-                              isLoading = false;
-                            });
-                         
-                          },
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(yellow),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Radiology',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
                         ),
-                      ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Container(
+                          width: double.infinity,
+                          height: 30,
+                          color: Colors.green[300],
+                          child: const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Radiology',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                                // SizedBox(width: 10,),
+                                Text(
+                                  'Qty',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                                // SizedBox(width: 10,),
+
+                                Text(
+                                  'Radiology Note',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                                Text(
+                                  ' ',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          children: [
+                            Container(
+                              width: width / 3.2,
+                              height: 55,
+                              child: Center(
+                                child: InkWell(
+                                  child: TextFormField(
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'This field is required';
+                                      }
+                                      return null;
+                                    },
+                                    readOnly: true,
+                                    controller: radiologyController,
+                                    maxLines: null,
+                                    decoration: InputDecoration(
+                                      suffixIcon: IconButton(
+                                        icon: const Icon(
+                                          Icons.arrow_drop_down_sharp,
+                                          size: 30,
+                                        ),
+                                        onPressed: () {
+                                          _showRadiologySelection(
+                                              context,
+                                              radiologyController,
+                                              radiologyQtyController,
+                                              radiologyNoteController);
+                                        },
+                                      ),
+                                      border: const OutlineInputBorder(),
+                                      hintText: 'Select radiology',
+                                      fillColor: Colors.white,
+                                      filled: true,
+                                    ),
+                                    onTap: () {
+                                      _showRadiologySelection(
+                                          context,
+                                          radiologyController,
+                                          radiologyQtyController,
+                                          radiologyNoteController);
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Container(
+                              width: width / 6,
+                              height: 60,
+                              child: Center(
+                                child: InkWell(
+                                    child: TextFormField(
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'This field is required';
+                                    }
+                                    return null;
+                                  },
+                                  controller: radiologyQtyController,
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    hintText: 'Select options',
+                                    contentPadding: EdgeInsets.symmetric(
+                                        vertical: 10.0, horizontal: 10),
+                                    fillColor: Colors.white,
+                                    filled: true,
+                                  ),
+                                )),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Container(
+                              width: width / 3.5,
+                              height: 60,
+                              child: Center(
+                                child: InkWell(
+                                    child: TextFormField(
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'This field is required';
+                                    }
+                                    return null;
+                                  },
+                                  controller: radiologyNoteController,
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    hintText: 'Additional note',
+                                    contentPadding: EdgeInsets.symmetric(
+                                        vertical: 10.0, horizontal: 10),
+                                  ),
+                                )),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Container(
+                              width: width / 9,
+                              height: 40,
+                              child: Center(
+                                child: CircleAvatar(
+                                  child: IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          addNewRowRadiology();
+                                        });
+                                      },
+                                      icon: Icon(
+                                        Icons.add,
+                                        color: whitecolor,
+                                      )),
+                                  radius: 20,
+                                  backgroundColor: Colors.green,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Container(
+                          height: radiologyRow.isNotEmpty ? null : 0,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: radiologyRow.length,
+                            itemBuilder: (context, index) {
+                              return radiologyRow[index];
+                            },
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Text(
+                          'Surgery',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Container(
+                          width: double.infinity,
+                          height: 30,
+                          color: Colors.green[300],
+                          child: const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Surgery advised',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                                // SizedBox(width: 10,),
+                                Text(
+                                  'Note for surgery',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                                // SizedBox(width: 10,),
+
+                                Text(
+                                  ' ',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                                Text(
+                                  ' ',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Row(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width: width / 3.5,
+                                    height: 55,
+                                    child: Center(
+                                      child: InkWell(
+                                        child: TextFormField(
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return 'This field is required';
+                                            }
+                                            return null;
+                                          },
+                                          readOnly: true,
+                                          controller: surgeryController,
+                                          maxLines: null,
+                                          decoration: InputDecoration(
+                                            suffixIcon: IconButton(
+                                              icon: const Icon(
+                                                Icons.arrow_drop_down_sharp,
+                                                size: 30,
+                                              ),
+                                              onPressed: () {
+                                                _showSurgerySelection(
+                                                    context,
+                                                    surgeryController,
+                                                    surgeryNoteController);
+                                              },
+                                            ),
+                                            border: const OutlineInputBorder(),
+                                            hintText: 'Select Surgery',
+                                            fillColor: Colors.white,
+                                            filled: true,
+                                          ),
+                                          onTap: () {
+                                            _showSurgerySelection(
+                                                context,
+                                                surgeryController,
+                                                surgeryNoteController);
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width: width / 2,
+                                    height: 60,
+                                    child: Center(
+                                      child: TextFormField(
+                                        controller: surgeryNoteController,
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'This field is required';
+                                          }
+                                          return null;
+                                        },
+                                        decoration: const InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          contentPadding: EdgeInsets.symmetric(
+                                              vertical: 10.0, horizontal: 10),
+                                          fillColor: Colors.white,
+                                          filled: true,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    ' ',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12),
+                                  ),
+                                  Container(
+                                    width: width / 9,
+                                    child: Center(
+                                      child: CircleAvatar(
+                                        child: IconButton(
+                                          onPressed: () {
+                                            addNewRow();
+                                          },
+                                          icon: Icon(
+                                            Icons.add,
+                                            color: whitecolor,
+                                          ),
+                                        ),
+                                        backgroundColor: Colors.green,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Container(
+                          height: surgeryRow.isNotEmpty ? null : 0,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: surgeryRow.length,
+                            itemBuilder: (context, index) {
+                              return surgeryRow[index];
+                            },
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Follow up & Advice',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                            Container(
+                                height: 50,
+                                child: TextField(
+                                  controller: followAdviceController,
+                                  decoration: const InputDecoration(
+                                      border: OutlineInputBorder()),
+                                ))
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        Center(
+                          child: Container(
+                            width: double.infinity,
+                            height: 40,
+                            child: ElevatedButton(
+                              child: const Text('Save'),
+                              onPressed: () async {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                await makePostRequest();
+
+                                setState(() {
+                                  isLoading = false;
+                                });
+                              },
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(yellow),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-            ]),
-          ),
-        ));
+                  ]),
+                ),
+              ));
   }
 
   void selectDiagnosisOptions(BuildContext context) {
