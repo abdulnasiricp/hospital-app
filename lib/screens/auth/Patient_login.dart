@@ -27,10 +27,8 @@ class PatientLogin extends StatefulWidget {
 }
 
 class _PatientLoginState extends State<PatientLogin> {
- 
   late String HospitalLogo = '';
-bool isLoading = true;
-
+  bool isLoading = true;
 
   Future<void> getAboutUsDetails() async {
     try {
@@ -44,27 +42,22 @@ bool isLoading = true;
       if (response.statusCode == 200) {
         // Decode the JSON response
         final data = jsonDecode(response.body);
-         HospitalLogo = data['0']['app_logo'];
+        HospitalLogo = data['0']['app_logo'];
         // Set the state to rebuild the widget
         print('--------------$HospitalLogo');
         setState(() {
-        isLoading = false;
-
+          isLoading = false;
         });
       } else {
         // Handle the error
         isLoading = false;
-
       }
     } catch (error) {
-        isLoading = false;
+      isLoading = false;
 
       print(error);
     }
   }
-
-
-
 
   bool _rememberMeFlag = false;
   String id = '';
@@ -222,13 +215,10 @@ bool isLoading = true;
     await prefs.setString('loginDateTime', now);
   }
 
-getdata()async{
-   
-
-}
+  getdata() async {}
   @override
   void initState() {
-        getAboutUsDetails();
+    getAboutUsDetails();
 
     _loadLoginDateTime();
     super.initState();
@@ -262,7 +252,22 @@ getdata()async{
                   Container(
                     width: double.infinity,
                     height: height / 5,
-                    child: Image.network("$HospitalLogo"),
+                    child: Image.network(
+                      '$HospitalLogo',
+                      fit: BoxFit.fill,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null &&
+                            HospitalLogo.isEmpty &&
+                            isLoading == true) {
+                          return CircularProgressIndicator(
+                            color: darkYellow,
+                            backgroundColor: yellow,
+                          );
+                        } else {
+                          return child;
+                        }
+                      },
+                    ),
                   ),
                   Form(
                     key: formKey,

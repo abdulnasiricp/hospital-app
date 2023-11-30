@@ -1,9 +1,11 @@
 // ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, avoid_print, deprecated_member_use, sized_box_for_whitespace
 
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/About_us.dart';
 import 'package:TezHealthCare/stringfile/All_string.dart';
+import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/api_call.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -17,6 +19,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:http/http.dart' as http;
 
 class Doctor_Home_Page extends StatefulWidget {
   const Doctor_Home_Page({Key? key}) : super(key: key);
@@ -157,6 +160,7 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
     fetchRadilogyperformeddata();
     fetchLiveconsultantperformeddata();
     fetchemergrncyddata();
+    getAboutUsDetails();
   }
 
 /////////////////////////////////// for dasboard data
@@ -247,6 +251,8 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
     await fetchRadilogyperformeddata();
     await fetchLiveconsultantperformeddata();
     await fetchemergrncyddata();
+    await getAboutUsDetails();
+
     setState(() {
       isLoading = false; // Set isLoading to false after data is fetched
     });
@@ -268,6 +274,40 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
   }
 
   //////////////////////////////////
+
+  late String HospitalLogo = '';
+
+  Future<void> getAboutUsDetails() async {
+    try {
+      // Make the POST request
+      final response = await http.post(
+        Uri.parse(ApiLinks.aboutUs),
+        headers: ApiLinks.MainHeader,
+      );
+
+      // Check if the response was successful
+      if (response.statusCode == 200) {
+        // Decode the JSON response
+        final data = jsonDecode(response.body);
+
+        HospitalLogo = data['0']['mini_logo'];
+        print('------------$HospitalLogo');
+        // Set the state to rebuild the widget
+        setState(() {
+          isLoading = false;
+        });
+      } else {
+        isLoading = false;
+
+        // Handle the error
+      }
+    } catch (error) {
+      isLoading = false;
+
+      print(error);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -286,10 +326,21 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
             onTap: () {
               Get.to(() => const AboutUSScreen());
             },
-            child: Image.asset(
-              'assets/hospital_logo.png',
-              width: 200,
-              height: 200,
+            child: Image.network(
+              '$HospitalLogo',
+              width: 200.0,
+              height: 200.0,
+              fit: BoxFit.fill,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null && HospitalLogo.isEmpty) {
+                  return CircularProgressIndicator(
+                    color: darkYellow,
+                    backgroundColor: yellow,
+                  );
+                } else {
+                  return child;
+                }
+              },
             ),
           ),
         ),
@@ -392,7 +443,6 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
                           GridView.count(
                               physics: const NeverScrollableScrollPhysics(),
                               crossAxisCount: 2,
-                              childAspectRatio: 2,
                               shrinkWrap:
                                   true, // Set to true to make the GridView scrollable within the Column
                               children: [
@@ -536,10 +586,9 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
+      child: Center(
         child: ListTile(
-          contentPadding: EdgeInsets.zero, // Remove default padding
+          contentPadding: EdgeInsets.all(16), // Adjust padding as needed
           leading: Container(
             width: 50,
             height: 50,
@@ -548,13 +597,14 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
               color: darkYellow,
             ),
             child: Align(
-              alignment: Alignment.center, // Center the Iconwidget
+              alignment: Alignment.center,
               child: Iconwidget,
             ),
           ),
           title: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center, // Center vertically
+            crossAxisAlignment:
+                CrossAxisAlignment.start, // Align from the start horizontally
             children: [
               Text(
                 Namewidget,
@@ -578,7 +628,6 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
           ),
         ),
       ),
-      // ),
     );
   }
 }

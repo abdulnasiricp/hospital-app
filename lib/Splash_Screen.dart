@@ -16,9 +16,8 @@ class Splash_Screen extends StatefulWidget {
 }
 
 class _Splash_ScreenState extends State<Splash_Screen> {
-bool isLoading = true;
+  bool isLoading = true;
   late String HospitalLogo = '';
-
 
   Future<void> getAboutUsDetails() async {
     try {
@@ -33,33 +32,30 @@ bool isLoading = true;
         // Decode the JSON response
         final data = jsonDecode(response.body);
 
-        HospitalLogo = data['0']['hospital_front'];
-print('------------$HospitalLogo');
+        HospitalLogo = data['0']['app_logo'];
+        print('------------$HospitalLogo');
         // Set the state to rebuild the widget
         setState(() {
-        isLoading = false;
-
+          isLoading = false;
         });
-
       } else {
         isLoading = false;
 
         // Handle the error
       }
     } catch (error) {
-        isLoading = false;
+      isLoading = false;
 
       print(error);
     }
   }
 
   late Timer _timer;
-
   @override
   void initState() {
     getAboutUsDetails();
     super.initState();
-    _timer = Timer(const Duration(seconds: 3), () {
+    _timer = Timer(const Duration(seconds: 5), () {
       route();
     });
   }
@@ -79,45 +75,60 @@ print('------------$HospitalLogo');
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: darkYellow, // Background color
-      body:isLoading? null: Stack(
-        fit: StackFit.expand,
-        children: [
-          Center(
-            child: Image.network(
-              "$HospitalLogo",
-              width: 300, // Adjust the width as needed
-              height: 300, // Adjust the height as needed
+      body: isLoading
+          ? null
+          : Stack(
+              fit: StackFit.expand,
+              children: [
+                Center(
+                  child: Image.network(
+                    '$HospitalLogo',
+                    width: 300.0,
+                    height: 300.0,
+                    fit: BoxFit.fill,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null && HospitalLogo.isEmpty) {
+                        return CircularProgressIndicator(
+                          color: darkYellow,
+                          backgroundColor: yellow,
+                        );
+                      } else {
+                        return child;
+                      }
+                    },
+                  ),
+                ),
+                //
+                //
+                // "Powered by" logo at the bottom
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 60.0),
+                    child: Text(
+                      'Powered by:',
+                      style: TextStyle(
+                          fontSize: 8,
+                          fontWeight: FontWeight.bold,
+                          color: yellow),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        bottom: 1.0), // Adjust the bottom padding as needed
+                    child: Image.asset(
+                      'assets/Tezashlogo'
+                      '.png',
+                      width: 100, // Adjust the width as needed
+                      height: 80, // Adjust the height as needed
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-          //
-          //
-          // "Powered by" logo at the bottom
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 60.0),
-              child: Text(
-                'Powered by:',
-                style: TextStyle(
-                    fontSize: 8, fontWeight: FontWeight.bold, color: yellow),
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  bottom: 1.0), // Adjust the bottom padding as needed
-              child: Image.asset(
-                'assets/Tezashlogo'
-                '.png',
-                width: 100, // Adjust the width as needed
-                height: 80, // Adjust the height as needed
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

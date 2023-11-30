@@ -173,6 +173,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
     getdata();
     hitApi();
     fetchData();
+    getAboutUsDetails();
   }
 
 ///////////////////////////////////////////////////////////////////
@@ -290,6 +291,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
     await hitApi();
     await getDues();
+    await getAboutUsDetails();
     setState(() {
       isLoading = false; // Set isLoading to false after data is fetched
     });
@@ -419,7 +421,40 @@ class _PatientHomePageState extends State<PatientHomePage> {
       setState(() {});
     }
   }
+
 //////////////////////////////////////////////////////////////////////////////////
+  late String HospitalLogo = '';
+
+  Future<void> getAboutUsDetails() async {
+    try {
+      // Make the POST request
+      final response = await http.post(
+        Uri.parse(ApiLinks.aboutUs),
+        headers: ApiLinks.MainHeader,
+      );
+
+      // Check if the response was successful
+      if (response.statusCode == 200) {
+        // Decode the JSON response
+        final data = jsonDecode(response.body);
+
+        HospitalLogo = data['0']['mini_logo'];
+        print('------------$HospitalLogo');
+        // Set the state to rebuild the widget
+        setState(() {
+          isLoading = false;
+        });
+      } else {
+        isLoading = false;
+
+        // Handle the error
+      }
+    } catch (error) {
+      isLoading = false;
+
+      print(error);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -438,10 +473,21 @@ class _PatientHomePageState extends State<PatientHomePage> {
               onTap: () {
                 Get.to(() => const AboutUSScreen());
               },
-              child: Image.asset(
-                'assets/hospital_logo.png',
-                width: 200,
-                height: 200,
+              child: Image.network(
+                '$HospitalLogo',
+                width: 200.0,
+                height: 200.0,
+                fit: BoxFit.fill,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null && HospitalLogo.isEmpty) {
+                    return CircularProgressIndicator(
+                      color: darkYellow,
+                      backgroundColor: yellow,
+                    );
+                  } else {
+                    return child;
+                  }
+                },
               ),
             ),
           ),
