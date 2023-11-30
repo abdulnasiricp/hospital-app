@@ -133,8 +133,9 @@ class _OpdInvestigationState extends State<OPD_Medication> {
         durationPharmacy,
         routepharmacy,
         qtypharmacy,
-        additionalPharmacyRowsData
-      }
+        
+      },
+      '2':additionalPharmacyRowsData
     };
 
     const String apiUrl =
@@ -906,8 +907,8 @@ class _OpdInvestigationState extends State<OPD_Medication> {
                           child: IconButton(
                               onPressed: () {
                                 setState(() {
-                                  // Remove the row when the "Cancel" button is clicked
-                                  medicineRow.removeLast();
+                                  
+                                   removeLastRowPharmacy();
                                 });
                               },
                               icon: Icon(
@@ -962,5 +963,14 @@ class _OpdInvestigationState extends State<OPD_Medication> {
       pharmacyControllersList.add(newpharmacyControllersMap);
     });
   }
-////////////////////////////////////////////////////////////////////////
+
+   void removeLastRowPharmacy() {
+    if (medicineRow.isNotEmpty) {
+      setState(() {
+        medicineRow.removeLast();
+        pharmacyControllersList.removeLast();
+        selectedPharmacyIds.removeLast();
+      });
+    }
+  }
 }

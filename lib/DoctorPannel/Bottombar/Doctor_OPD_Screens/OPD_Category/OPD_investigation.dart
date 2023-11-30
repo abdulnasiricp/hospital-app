@@ -387,7 +387,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
       // Check if both fields in the row have data
       if (rowSurgery.isNotEmpty && rowNote.isNotEmpty) {
         additionalRowsData.add({
-          rowSurgery,
+         
           rowNote,
         });
       }
@@ -395,11 +395,13 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
 
     Map<String, dynamic> requestRadiologyList = {
       '0': selectedRadiologyIds,
-      '1': {radiologyQty, radiologyNote, additionalRadiologyRowsData}
+      '1': {radiologyQty, radiologyNote,},
+      '2': additionalRadiologyRowsData
     };
     Map<String, dynamic> requestSurgeryList = {
       '0': selectedSurgeryIds,
-      '1': {surgeryNote, additionalRowsData}
+      '1': {surgeryNote},
+      '2': {additionalRowsData}
     };
 
     const String apiUrl =
@@ -2100,7 +2102,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                   child: IconButton(
                     onPressed: () {
                       setState(() {
-                        opdOthertestRow.removeLast();
+                        removeLastRowOtherTest();
                       });
                     },
                     icon: Icon(
@@ -2234,7 +2236,8 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                   onPressed: () {
                     setState(() {
                       // Remove the row when the "Cancel" button is clicked
-                      radiologyRow.removeLast();
+                     
+                      removeLastRowRadiology();
                     });
                   },
                   icon: Icon(
@@ -2266,6 +2269,15 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
       otherControllersList.add(newControllersMap);
     });
   }
+  void removeLastRowOtherTest() {
+    if (opdOthertestRow.isNotEmpty) {
+      setState(() {
+        opdOthertestRow.removeLast();
+        otherControllersList.removeLast();
+        selectedOtherIds.removeLast();
+      });
+    }
+  }
 //---------------------------------------------------------------------------pharmacy
 
 //---------------------------------------------------------------------------Radiology
@@ -2291,6 +2303,15 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
       ));
       radiologyControllersList.add(newRadiologyControllersMap);
     });
+  }
+   void removeLastRowRadiology() {
+    if (radiologyRow.isNotEmpty) {
+      setState(() {
+        radiologyRow.removeLast();
+        radiologyControllersList.removeLast();
+        selectedRadiologyIds.removeLast();
+      });
+    }
   }
 //---------------------------------------------------------------------------Surgery
 
@@ -2388,7 +2409,8 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                     child: IconButton(
                       onPressed: () {
                         setState(() {
-                          surgeryRow.removeLast();
+                          
+                          removeLastRowSurgery();
                         });
                       },
                       icon: Icon(
@@ -2564,5 +2586,15 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
       surgeryRow.add(surgeryBuildRow(newSurgeryController, newNoteController));
       surgeryControllersList.add(newControllersMap);
     });
+  }
+
+   void removeLastRowSurgery() {
+    if (surgeryRow.isNotEmpty) {
+      setState(() {
+        surgeryRow.removeLast();
+        surgeryControllersList.removeLast();
+        selectedSurgeryIds.removeLast();
+      });
+    }
   }
 }

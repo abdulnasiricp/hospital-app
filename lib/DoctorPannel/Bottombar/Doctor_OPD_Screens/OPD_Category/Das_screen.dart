@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, avoid_unnecessary_containers, unused_local_variable, unnecessary_string_interpolations
+// ignore_for_file: camel_case_types, avoid_unnecessary_containers, unused_local_variable, unnecessary_string_interpolations, unnecessary_null_comparison, file_names, non_constant_identifier_names, avoid_print, deprecated_member_use, sized_box_for_whitespace
 
 import 'dart:convert';
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_Examination.dart';

@@ -220,6 +220,7 @@ class _PatientLoginState extends State<PatientLogin> {
   getdata() async {}
   @override
   void initState() {
+    
     getAboutUsDetails();
 
     _loadLoginDateTime();

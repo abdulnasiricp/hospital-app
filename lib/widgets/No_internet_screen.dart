@@ -60,7 +60,18 @@ class _NoInternetScreenState extends State<NoInternetScreen> {
                 height: 20,
               ),
               InkWell(
-                onTap: () {},
+                onTap: ()async {
+                  
+                Navigator.pop(context, 'Cancel');
+                setState(() => isAlertSet = false);
+                isDeviceConnected =
+                    await InternetConnectionChecker().hasConnection;
+                if (!isDeviceConnected && isAlertSet == false) {
+                 Get.to(()=> const NoInternetScreen());
+                  setState(() => isAlertSet = true);
+                }
+              
+                },
                 child: Container(
                   width: width / 1.2,
                   height: height / 15,
@@ -77,19 +88,7 @@ class _NoInternetScreenState extends State<NoInternetScreen> {
                   )),
                 ),
               ),
-              TextButton(
-              onPressed: () async {
-                Navigator.pop(context, 'Cancel');
-                setState(() => isAlertSet = false);
-                isDeviceConnected =
-                    await InternetConnectionChecker().hasConnection;
-                if (!isDeviceConnected && isAlertSet == false) {
-                 Get.to(()=> NoInternetScreen());
-                  setState(() => isAlertSet = true);
-                }
-              },
-              child: const Text('OK'),
-            ),
+            
             ],
           ),
         ),
