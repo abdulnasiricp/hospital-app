@@ -208,6 +208,7 @@ class _MyAppState extends State<MyApp> {
       print(error);
     }
   }
+
   ////////////////////////////////////////////
   Future<void> _handleInitialUri() async {
     if (!_initialUriIsHandled) {
@@ -258,10 +259,21 @@ class _MyAppState extends State<MyApp> {
           enabledDebugging: true, // Set to false in production
           builder: (context, navKey) {
             return GetMaterialApp(
+              theme: ThemeData(
+                appBarTheme: AppBarTheme(
+                  titleTextStyle: TextStyle(
+                    color: Colors.white, // Set your desired text color here
+                    fontSize: 20, // You can set other text styles as well
+                  ),
+                  iconTheme: IconThemeData(
+                    color:
+                        Colors.white, // Set your desired back icon color here
+                  ),
+                ),
+              ),
               locale: Locale(widget.defaultLanguage),
               translations: Translation(),
               debugShowCheckedModeBanner: false,
-              theme: Themes().lightTheme,
               darkTheme: Themes().darkTheme,
               home: _buildInitialScreen(),
               navigatorKey: navKey,
