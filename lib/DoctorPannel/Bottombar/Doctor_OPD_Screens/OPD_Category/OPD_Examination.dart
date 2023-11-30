@@ -65,6 +65,7 @@ class _OpdExaminationState extends State<OpdExamination> {
       "table": "ipd_prescription_basic",
       "fields": {
         "visit_details_id": "${widget.opdVisitDetailsID}",
+
         "systemRespiratory": mergedRespiratoryt,
         "systemCardiovascular": mergedCardiovascular,
         "systemAbdominal": mergedAbdominal,
