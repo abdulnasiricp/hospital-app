@@ -69,7 +69,8 @@ class _OpdExaminationState extends State<OpdExamination> {
         "systemCardiovascular": mergedCardiovascular,
         "systemAbdominal": mergedAbdominal,
         "systemGenitourinary": mergedgenitourinary,
-        "systemCNS": mergedCNS,
+        "systemCNS": mergedCNS, /////// centran n s
+
         "systemLocal": mergedLocal,
         "general_examination":
             "$generalCardText", // Add the selected options from SelectableCard
@@ -81,7 +82,8 @@ class _OpdExaminationState extends State<OpdExamination> {
         "case_reference_id": "${widget.case_reference_id}",
       }
     };
-    print("cfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfg===========================$requestBody");
+    print(
+        "cfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfgfg===========================$requestBody");
     // try {
     final response = await http.post(
       Uri.parse(apiUrl),

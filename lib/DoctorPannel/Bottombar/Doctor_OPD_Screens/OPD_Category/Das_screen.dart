@@ -543,56 +543,56 @@ class _Das_screenState extends State<Das_screen> {
                                           ),
                                           'Prescription'.tr,
                                         ),
-                                        CardDesign(
-                                          () {
-                                            Get.to(() =>
-                                                const OPD_Medication_Report());
-                                          },
-                                          SvgPicture.asset(
-                                            'assets/Medication.svg',
-                                            width: 30,
-                                            height: 30,
-                                            color: Colors.white,
-                                          ),
-                                          'Medication'.tr,
-                                        ),
-                                        CardDesign(
-                                          () {
-                                            Get.to(() => const Bed_History());
-                                          },
-                                          SvgPicture.asset(
-                                            'assets/bed_history.svg',
-                                            width: 30,
-                                            height: 30,
-                                            color: Colors.white,
-                                          ),
-                                          'Bed History'.tr,
-                                        ),
-                                        CardDesign(
-                                          () {
-                                            Get.to(
-                                                () => const Operation_Report());
-                                          },
-                                          SvgPicture.asset(
-                                            'assets/surgery.svg',
-                                            width: 30,
-                                            height: 30,
-                                            color: Colors.white,
-                                          ),
-                                          'Operation'.tr,
-                                        ),
-                                        CardDesign(
-                                          () {
-                                            Get.to(() => const Cardex_Report());
-                                          },
-                                          SvgPicture.asset(
-                                            'assets/cardex.svg',
-                                            width: 30,
-                                            height: 30,
-                                            color: Colors.white,
-                                          ),
-                                          'Cardex'.tr,
-                                        ),
+                                        // CardDesign(
+                                        //   () {
+                                        //     Get.to(() =>
+                                        //         const OPD_Medication_Report());
+                                        //   },
+                                        //   SvgPicture.asset(
+                                        //     'assets/Medication.svg',
+                                        //     width: 30,
+                                        //     height: 30,
+                                        //     color: Colors.white,
+                                        //   ),
+                                        //   'Medication'.tr,
+                                        // ),
+                                        // CardDesign(
+                                        //   () {
+                                        //     Get.to(() => const Bed_History());
+                                        //   },
+                                        //   SvgPicture.asset(
+                                        //     'assets/bed_history.svg',
+                                        //     width: 30,
+                                        //     height: 30,
+                                        //     color: Colors.white,
+                                        //   ),
+                                        //   'Bed History'.tr,
+                                        // ),
+                                        // CardDesign(
+                                        //   () {
+                                        //     Get.to(
+                                        //         () => const Operation_Report());
+                                        //   },
+                                        //   SvgPicture.asset(
+                                        //     'assets/surgery.svg',
+                                        //     width: 30,
+                                        //     height: 30,
+                                        //     color: Colors.white,
+                                        //   ),
+                                        //   'Operation'.tr,
+                                        // ),
+                                        // CardDesign(
+                                        //   () {
+                                        //     Get.to(() => const Cardex_Report());
+                                        //   },
+                                        //   SvgPicture.asset(
+                                        //     'assets/cardex.svg',
+                                        //     width: 30,
+                                        //     height: 30,
+                                        //     color: Colors.white,
+                                        //   ),
+                                        //   'Cardex'.tr,
+                                        // ),
                                       ],
                                     ),
                                   )
