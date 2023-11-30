@@ -1,7 +1,6 @@
 // ignore_for_file: camel_case_types, avoid_unnecessary_containers, unused_local_variable, unnecessary_string_interpolations
 
 import 'dart:convert';
-
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_Examination.dart';
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_Pre_Checking.dart';
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/OPD_investigation.dart';
@@ -13,8 +12,6 @@ import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
-// ignore_for_file: unnecessary_null_comparison, file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace, deprecated_member_use
-
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -73,6 +70,7 @@ class _Das_screenState extends State<Das_screen> {
     fetchRadiologyData();
     fetchConsultantData();
     fetchDoctorlisttData();
+    fetchDiagnosislistData();
   }
 
   List<dynamic>? radiologydata = [];
@@ -151,6 +149,44 @@ class _Das_screenState extends State<Das_screen> {
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////
+
+  List<dynamic>? Datas = [];
+  List<dynamic>? Diagnosislist = [];
+  Future<void> fetchDiagnosislistData() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    final Uri url = Uri.parse(ApiLinks.singleTableDataDetector);
+    final body = {
+      "table": "ipd_prescription_basic",
+      "where": {"visit_details_id": "${widget.OpdVisitDetailsID}"}
+    };
+    print(
+        "    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++${widget.OpdVisitDetailsID}");
+    final response = await http.post(
+      url,
+      headers: ApiLinks.MainHeader,
+      body: json.encode(body),
+    );
+
+    if (response.statusCode == 200) {
+      final Datas = json.decode(response.body);
+      final List<dynamic> rawData = Datas['result'];
+      Diagnosislist = rawData;
+      print("  Adiagnosis=================+++++++++++++++$Diagnosislist");
+      setState(() {
+        Diagnosislist = rawData;
+
+        isLoading = false;
+      });
+    } else {
+      handleNonJsonResponse();
+      isLoading = false;
+    }
+  }
+
+  // ////////////////////////////////////////////////////////////////////////////////////////
 
   Future<void> _handleRefresh() async {
     setState(() {
@@ -539,56 +575,6 @@ class _Das_screenState extends State<Das_screen> {
                                           ),
                                           'Prescription'.tr,
                                         ),
-                                        // CardDesign(
-                                        //   () {
-                                        //     Get.to(() =>
-                                        //         const OPD_Medication_Report());
-                                        //   },
-                                        //   SvgPicture.asset(
-                                        //     'assets/Medication.svg',
-                                        //     width: 30,
-                                        //     height: 30,
-                                        //     color: Colors.white,
-                                        //   ),
-                                        //   'Medication'.tr,
-                                        // ),
-                                        // CardDesign(
-                                        //   () {
-                                        //     Get.to(() => const Bed_History());
-                                        //   },
-                                        //   SvgPicture.asset(
-                                        //     'assets/bed_history.svg',
-                                        //     width: 30,
-                                        //     height: 30,
-                                        //     color: Colors.white,
-                                        //   ),
-                                        //   'Bed History'.tr,
-                                        // ),
-                                        // CardDesign(
-                                        //   () {
-                                        //     Get.to(
-                                        //         () => const Operation_Report());
-                                        //   },
-                                        //   SvgPicture.asset(
-                                        //     'assets/surgery.svg',
-                                        //     width: 30,
-                                        //     height: 30,
-                                        //     color: Colors.white,
-                                        //   ),
-                                        //   'Operation'.tr,
-                                        // ),
-                                        // CardDesign(
-                                        //   () {
-                                        //     Get.to(() => const Cardex_Report());
-                                        //   },
-                                        //   SvgPicture.asset(
-                                        //     'assets/cardex.svg',
-                                        //     width: 30,
-                                        //     height: 30,
-                                        //     color: Colors.white,
-                                        //   ),
-                                        //   'Cardex'.tr,
-                                        // ),
                                       ],
                                     ),
                                   )
@@ -1005,7 +991,11 @@ class _Das_screenState extends State<Das_screen> {
                                           child: Column(
                                             children: [
                                               Text(
-                                                " ${radiologydata![0]['symptoms'] ?? 'N/A'}",
+                                                Diagnosislist != null &&
+                                                        Diagnosislist!
+                                                            .isNotEmpty
+                                                    ? " ${Diagnosislist![0]['finding_description'] ?? 'N/A'}"
+                                                    : 'N/A',
                                                 style: const TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.bold,
