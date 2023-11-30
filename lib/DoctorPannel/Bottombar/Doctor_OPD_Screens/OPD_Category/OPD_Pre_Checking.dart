@@ -736,7 +736,6 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                   Container(
                                     child: TextFormField(
                                       controller: birthHistoryController,
-                                      keyboardType: TextInputType.text,
                                       onTapOutside: (event) =>
                                           FocusScope.of(context).unfocus(),
                                       maxLines: null,
@@ -744,9 +743,6 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                                           border: OutlineInputBorder(),
                                           fillColor: Colors.white,
                                           filled: true),
-                                      onFieldSubmitted: (value) {
-                                        FocusScope.of(context).unfocus();
-                                      },
                                     ),
                                   ),
                                 ],
@@ -772,17 +768,13 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                               Container(
                                 child: TextFormField(
                                   controller: NoteController,
-                                  keyboardType: TextInputType.text,
-                                  maxLines: null,
                                   onTapOutside: (event) =>
                                       FocusScope.of(context).unfocus(),
+                                  maxLines: null,
                                   decoration: const InputDecoration(
                                       border: OutlineInputBorder(),
                                       fillColor: Colors.white,
                                       filled: true),
-                                  onFieldSubmitted: (value) {
-                                    FocusScope.of(context).unfocus();
-                                  },
                                 ),
                               ),
                             ],

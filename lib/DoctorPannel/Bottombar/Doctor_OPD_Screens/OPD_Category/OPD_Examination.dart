@@ -235,7 +235,7 @@ class _OpdExaminationState extends State<OpdExamination> {
                     ),
                     const SizedBox(height: 10),
                     Container(
-                      height: height / 3,
+                      height: height / 3.5,
                       child: GridView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         gridDelegate:
@@ -273,7 +273,7 @@ class _OpdExaminationState extends State<OpdExamination> {
                     Row(
                       children: [
                         Container(
-                          height: 50,
+                          height: height / 10,
                           width: 100,
                           child: SelectableCard(
                             text: 'Respiratory',
@@ -292,13 +292,16 @@ class _OpdExaminationState extends State<OpdExamination> {
                           ),
                         ),
                         Container(
-                          height: 40,
                           width: width / 1.5,
-                          child: TextField(
+                          child: TextFormField(
                             controller: systemRespiratoryController,
+                            maxLines: null,
+                            onTapOutside: (event) =>
+                                FocusScope.of(context).unfocus(),
                             decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
-                                hintText: 'write something'),
+                                hintText: 'write something',
+                                filled: true),
                           ),
                         ),
                       ],
@@ -308,7 +311,7 @@ class _OpdExaminationState extends State<OpdExamination> {
                     Row(
                       children: [
                         Container(
-                          height: 50,
+                          height: height / 10,
                           width: 100,
                           child: SelectableCard(
                             text: 'Cardiovascular',
@@ -327,13 +330,16 @@ class _OpdExaminationState extends State<OpdExamination> {
                           ),
                         ),
                         Container(
-                          height: 40,
                           width: width / 1.5,
-                          child: TextField(
+                          child: TextFormField(
                             controller: systemCardiovascularController,
+                            maxLines: null,
+                            onTapOutside: (event) =>
+                                FocusScope.of(context).unfocus(),
                             decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
-                                hintText: 'write something'),
+                                hintText: 'write something',
+                                filled: true),
                           ),
                         ),
                       ],
@@ -343,7 +349,7 @@ class _OpdExaminationState extends State<OpdExamination> {
                     Row(
                       children: [
                         Container(
-                          height: 50,
+                          height: height / 10,
                           width: 100,
                           child: SelectableCard(
                             text: 'Abdominal',
@@ -361,13 +367,16 @@ class _OpdExaminationState extends State<OpdExamination> {
                           ),
                         ),
                         Container(
-                          height: 40,
                           width: width / 1.5,
-                          child: TextField(
+                          child: TextFormField(
                             controller: systemAbdominalController,
+                            maxLines: null,
+                            onTapOutside: (event) =>
+                                FocusScope.of(context).unfocus(),
                             decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
-                                hintText: 'write something'),
+                                hintText: 'write something',
+                                filled: true),
                           ),
                         ),
                       ],
@@ -377,7 +386,7 @@ class _OpdExaminationState extends State<OpdExamination> {
                     Row(
                       children: [
                         Container(
-                          height: 50,
+                          height: height / 10,
                           width: 100,
                           child: SelectableCard(
                             text: 'Genitourinary',
@@ -396,13 +405,16 @@ class _OpdExaminationState extends State<OpdExamination> {
                           ),
                         ),
                         Container(
-                          height: 40,
                           width: width / 1.5,
-                          child: TextField(
+                          child: TextFormField(
                             controller: systemGenitourinaryController,
+                            maxLines: null,
+                            onTapOutside: (event) =>
+                                FocusScope.of(context).unfocus(),
                             decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
-                                hintText: 'write something'),
+                                hintText: 'write something',
+                                filled: true),
                           ),
                         ),
                       ],
@@ -411,7 +423,7 @@ class _OpdExaminationState extends State<OpdExamination> {
                     Row(
                       children: [
                         Container(
-                          height: 50,
+                          height: height / 10,
                           width: 100,
                           child: SelectableCard(
                             text: 'CNS',
@@ -428,13 +440,16 @@ class _OpdExaminationState extends State<OpdExamination> {
                           ),
                         ),
                         Container(
-                          height: 40,
                           width: width / 1.5,
-                          child: TextField(
+                          child: TextFormField(
                             controller: systemCNSController,
+                            maxLines: null,
+                            onTapOutside: (event) =>
+                                FocusScope.of(context).unfocus(),
                             decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
-                                hintText: 'write something'),
+                                hintText: 'write something',
+                                filled: true),
                           ),
                         ),
                       ],
@@ -444,7 +459,7 @@ class _OpdExaminationState extends State<OpdExamination> {
                     Row(
                       children: [
                         Container(
-                          height: 50,
+                          height: height / 10,
                           width: 100,
                           child: SelectableCard(
                             text: 'Local',
@@ -461,13 +476,16 @@ class _OpdExaminationState extends State<OpdExamination> {
                           ),
                         ),
                         Container(
-                          height: 40,
                           width: width / 1.5,
-                          child: TextField(
+                          child: TextFormField(
                             controller: systemLocalController,
+                            maxLines: null,
+                            onTapOutside: (event) =>
+                                FocusScope.of(context).unfocus(),
                             decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
-                                hintText: 'write something'),
+                                hintText: 'write something',
+                                filled: true),
                           ),
                         ),
                       ],

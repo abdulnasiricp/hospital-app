@@ -54,7 +54,6 @@ class PatientHomePage extends StatefulWidget {
 }
 
 class _PatientHomePageState extends State<PatientHomePage> {
-
 //=====================================================================
 
   TextEditingController InsurancetypeController = TextEditingController();
@@ -115,11 +114,12 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
   @override
   void initState() {
-        checkConnectivity(); // Check connectivity when the app starts
-    subscription =
-        Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-      checkConnectivity(); 
-        });
+    checkConnectivity(); // Check connectivity when the app starts
+    subscription = Connectivity()
+        .onConnectivityChanged
+        .listen((ConnectivityResult result) {
+      checkConnectivity();
+    });
     super.initState();
     // Create a timer to check for an increase in the data length every 1 minute.
     Timer timer = Timer.periodic(const Duration(minutes: 1), (_) async {
@@ -410,7 +410,8 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
       print(error);
     }
-  }  // internet connection checker
+  } // internet connection checker
+
   late StreamSubscription subscription;
   bool isDeviceConnected = false;
   bool isAlertSet = false;
@@ -443,13 +444,13 @@ class _PatientHomePageState extends State<PatientHomePage> {
                 Get.to(() => const AboutUSScreen());
               },
               child: HospitalLogo.isEmpty
-                ? Container(): Image.network(
-                '$HospitalLogo',
-                width: 200.0,
-                height: 200.0,
-                fit: BoxFit.fill,
-               
-              ),
+                  ? Container()
+                  : Image.network(
+                      '$HospitalLogo',
+                      width: 200.0,
+                      height: 200.0,
+                      fit: BoxFit.fill,
+                    ),
             ),
           ),
           actions: [
@@ -1188,6 +1189,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                                               ['image'],
                                                       doctorName: DoneListData![
                                                               index]['name'] +
+                                                          ' ' +
                                                           DoneListData![index]
                                                               ['surname'],
                                                       doctorSpecialization:
