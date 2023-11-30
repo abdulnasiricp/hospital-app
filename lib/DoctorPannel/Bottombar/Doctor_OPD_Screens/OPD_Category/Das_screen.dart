@@ -936,7 +936,8 @@ class _Das_screenState extends State<Das_screen> {
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.only(
-                                              bottom: 8.0, left: 8),
+                                            bottom: 8.0,
+                                          ),
                                           child: Column(
                                             children: [
                                               Text(

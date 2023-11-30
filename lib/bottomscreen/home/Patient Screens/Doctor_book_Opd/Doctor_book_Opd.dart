@@ -131,7 +131,7 @@ class _Doctor_Book_DetailsState extends State<Doctor_Book_Details> {
                     ),
                     Container(
                       width: width,
-                      height: height / 9,
+                      height: height / 6,
                       child: Card(
                         color: Colors.white,
                         child: Row(

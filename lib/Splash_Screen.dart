@@ -10,15 +10,12 @@ import 'package:http/http.dart' as http;
 
 class Splash_Screen extends StatefulWidget {
   const Splash_Screen({Key? key}) : super(key: key);
-
   @override
   State<Splash_Screen> createState() => _Splash_ScreenState();
 }
-
 class _Splash_ScreenState extends State<Splash_Screen> {
   bool isLoading = true;
   late String HospitalLogo = '';
-
   Future<void> getAboutUsDetails() async {
     try {
       // Make the POST request
@@ -81,17 +78,15 @@ class _Splash_ScreenState extends State<Splash_Screen> {
               fit: StackFit.expand,
               children: [
                 Center(
-                  child:HospitalLogo.isEmpty
-                ? Container():
-                 Image.network(
-                    '$HospitalLogo',
-                    width: 300.0,
-                    height: 300.0,
-                    fit: BoxFit.fill,
-                   
-                  ),
+                  child: HospitalLogo.isEmpty
+                      ? Container()
+                      : Image.network(
+                          '$HospitalLogo',
+                          width: 300.0,
+                          height: 300.0,
+                          fit: BoxFit.fill,
+                        ),
                 ),
-               
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(

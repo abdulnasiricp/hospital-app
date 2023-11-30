@@ -30,7 +30,6 @@ class _Opd_Main_ScreenState extends State<Opd_Main_Screen> {
             IconButton(
               onPressed: () {
                 _opdTicketInfo(context);
-                
               },
               icon: SvgPicture.asset(
                 'assets/info1.svg',
