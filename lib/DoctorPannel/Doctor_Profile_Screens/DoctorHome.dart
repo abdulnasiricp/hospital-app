@@ -9,6 +9,7 @@ import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/api_call.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
+import 'package:TezHealthCare/widgets/No_internet_screen.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,53 +29,22 @@ class Doctor_Home_Page extends StatefulWidget {
 }
 
 class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
-  // internet connection checker
+
+   // internet connection checker
   late StreamSubscription subscription;
   bool isDeviceConnected = false;
   bool isAlertSet = false;
+  // Check connectivity function
+  Future<void> checkConnectivity() async {
+    isDeviceConnected = await InternetConnectionChecker().hasConnection;
+    if (!isDeviceConnected && !isAlertSet) {
+      Get.to(() => const NoInternetScreen());
+      setState(() => isAlertSet = true);
+    } else {
+      setState(() => isAlertSet = false);
+    }
+  }
 
-  getConnectivity() =>
-      subscription = Connectivity().onConnectivityChanged.listen(
-        (ConnectivityResult result) async {
-          isDeviceConnected = await InternetConnectionChecker().hasConnection;
-          if (!isDeviceConnected && isAlertSet == false) {
-            showDialogBox();
-            setState(() => isAlertSet = true);
-          }
-        },
-      );
-
-  showDialogBox() => showCupertinoDialog<String>(
-        context: context,
-        builder: (BuildContext context) => CupertinoAlertDialog(
-          title: Column(
-            children: [
-              SvgPicture.asset(
-                'assets/nointernet.svg',
-                width: 30,
-                height: 30,
-              ),
-              const Text('No Connection'),
-            ],
-          ),
-          content: const Text('Please check your internet connectivity'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () async {
-                Navigator.pop(context, 'Cancel');
-                setState(() => isAlertSet = false);
-                isDeviceConnected =
-                    await InternetConnectionChecker().hasConnection;
-                if (!isDeviceConnected && isAlertSet == false) {
-                  showDialogBox();
-                  setState(() => isAlertSet = true);
-                }
-              },
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
   @override
   void dispose() {
     subscription.cancel();
@@ -151,7 +121,11 @@ class _Doctor_Home_PageState extends State<Doctor_Home_Page> {
   @override
   void initState() {
     getData();
-    getConnectivity();
+    checkConnectivity(); // Check connectivity when the app starts
+    subscription =
+        Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+      checkConnectivity(); 
+        });
     super.initState();
     fetchSurgeryData();
     fetchOpdpatientdata();

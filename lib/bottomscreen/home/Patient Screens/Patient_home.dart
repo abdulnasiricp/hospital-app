@@ -30,11 +30,14 @@ import 'package:TezHealthCare/stringfile/All_string.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
+import 'package:TezHealthCare/widgets/No_internet_screen.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -51,59 +54,7 @@ class PatientHomePage extends StatefulWidget {
 }
 
 class _PatientHomePageState extends State<PatientHomePage> {
-//=====================================================================
-// // internet connection checker
-//   late StreamSubscription subscription;
-//   bool isDeviceConnected = false;
-//   bool isAlertSet = false;
 
-//   getConnectivity() =>
-//       subscription = Connectivity().onConnectivityChanged.listen(
-//         (ConnectivityResult result) async {
-//           isDeviceConnected = await InternetConnectionChecker().hasConnection;
-//           if (!isDeviceConnected && isAlertSet == false) {
-//             showDialogBox();
-//             setState(() => isAlertSet = true);
-//           }
-//         },
-//       );
-
-//   showDialogBox() => showCupertinoDialog<String>(
-//         context: context,
-//         builder: (BuildContext context) => CupertinoAlertDialog(
-//           title: Column(
-//             children: [
-//               SvgPicture.asset(
-//                 'assets/nointernet.svg',
-//                 width: 30,
-//                 height: 30,
-//               ),
-//               const Text('No Connection'),
-//             ],
-//           ),
-//           content: const Text('Please check your internet connectivity'),
-//           actions: <Widget>[
-//             TextButton(
-//               onPressed: () async {
-//                 Navigator.pop(context, 'Cancel');
-//                 setState(() => isAlertSet = false);
-//                 isDeviceConnected =
-//                     await InternetConnectionChecker().hasConnection;
-//                 if (!isDeviceConnected && isAlertSet == false) {
-//                   showDialogBox();
-//                   setState(() => isAlertSet = true);
-//                 }
-//               },
-//               child: const Text('OK'),
-//             ),
-//           ],
-//         ),
-//       );
-//   @override
-//   void dispose() {
-//     subscription.cancel();
-//     super.dispose();
-//   }
 //=====================================================================
 
   TextEditingController InsurancetypeController = TextEditingController();
@@ -164,6 +115,11 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
   @override
   void initState() {
+        checkConnectivity(); // Check connectivity when the app starts
+    subscription =
+        Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+      checkConnectivity(); 
+        });
     super.initState();
     // Create a timer to check for an increase in the data length every 1 minute.
     Timer timer = Timer.periodic(const Duration(minutes: 1), (_) async {
@@ -453,6 +409,19 @@ class _PatientHomePageState extends State<PatientHomePage> {
       isLoading = false;
 
       print(error);
+    }
+  }  // internet connection checker
+  late StreamSubscription subscription;
+  bool isDeviceConnected = false;
+  bool isAlertSet = false;
+  // Check connectivity function
+  Future<void> checkConnectivity() async {
+    isDeviceConnected = await InternetConnectionChecker().hasConnection;
+    if (!isDeviceConnected && !isAlertSet) {
+      Get.to(() => const NoInternetScreen());
+      setState(() => isAlertSet = true);
+    } else {
+      setState(() => isAlertSet = false);
     }
   }
 
