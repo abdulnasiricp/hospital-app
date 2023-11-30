@@ -991,7 +991,11 @@ class _Das_screenState extends State<Das_screen> {
                                           child: Column(
                                             children: [
                                               Text(
-                                                " ${Diagnosislist![0]['finding_description'] ?? 'N/A'}",
+                                                Diagnosislist != null &&
+                                                        Diagnosislist!
+                                                            .isNotEmpty
+                                                    ? " ${Diagnosislist![0]['finding_description'] ?? 'N/A'}"
+                                                    : 'N/A',
                                                 style: const TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.bold,
