@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, avoid_print, sized_box_for_whitespace
+// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, avoid_print, sized_box_for_whitespace, deprecated_member_use
 import 'dart:async';
 
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/Das_screen.dart';

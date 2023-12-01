@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names, avoid_print, sized_box_for_whitespace, avoid_unnecessary_containers, camel_case_types, file_names
+// ignore_for_file: non_constant_identifier_names, avoid_print, sized_box_for_whitespace, avoid_unnecessary_containers, camel_case_types, file_names, deprecated_member_use
 
 import 'dart:async';
 import 'dart:convert';

@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable, non_constant_identifier_names, sized_box_for_whitespace, avoid_print, file_names, prefer_typing_uninitialized_variables
+// ignore_for_file: unused_local_variable, non_constant_identifier_names, sized_box_for_whitespace, avoid_print, file_names, prefer_typing_uninitialized_variables, deprecated_member_use
 
 import 'dart:convert';
 import 'package:TezHealthCare/bottomscreen/Profile/profile_model.dart';

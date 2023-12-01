@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, camel_case_types, sized_box_for_whitespace, unused_import, non_constant_identifier_names, avoid_print, avoid_unnecessary_containers
+// ignore_for_file: file_names, camel_case_types, sized_box_for_whitespace, unused_import, non_constant_identifier_names, avoid_print, avoid_unnecessary_containers, deprecated_member_use
 import 'dart:async';
 import 'dart:convert';
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_Home_Bottom_bar.dart';

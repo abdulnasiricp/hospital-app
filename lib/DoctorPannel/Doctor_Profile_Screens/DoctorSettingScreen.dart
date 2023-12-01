@@ -1,8 +1,8 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, deprecated_member_use
 
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_Home_Bottom_bar.dart';
+import 'package:TezHealthCare/DoctorPannel/Doctor_Profile_Screens/DoctorChange_Password.dart';
 import 'package:TezHealthCare/DoctorPannel/Doctor_Profile_Screens/toast.dart';
-import 'package:TezHealthCare/bottomscreen/Profile/Setting/change_password.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -44,7 +44,7 @@ class _SettingScreenState extends State<SettingScreen> {
           children: [
             InkWell(
               onTap: () {
-                Get.to(() => const Change_Password());
+                Get.to(() => const Doctor_Change_Password());
               },
               child: Card(
                 child: ListTile(
