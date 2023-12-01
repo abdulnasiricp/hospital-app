@@ -22,8 +22,7 @@ class Certificate extends StatefulWidget {
 }
 
 class _CertificateState extends State<Certificate> {
-
-   late String patient = '';
+  late String patient = '';
   LoadData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     patient = sp.getString('patientidrecord') ?? '';
@@ -47,14 +46,15 @@ class _CertificateState extends State<Certificate> {
 
   Future<void> fetchData() async {
     final url = Uri.parse(
-        ApiLinks.generateCertificate,);
-  
+      ApiLinks.generateCertificate,
+    );
+
     final body = jsonEncode({'patient_id': patient});
 
-    final response = await http.post(url, headers: ApiLinks.MainHeader, body: body);
+    final response =
+        await http.post(url, headers: ApiLinks.MainHeader, body: body);
 
     if (response.statusCode == 200) {
-
       final data = jsonDecode(response.body);
       print(data);
       setState(() {

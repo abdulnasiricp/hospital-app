@@ -295,9 +295,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
 
   bool isDiagnosisDataFetched = false; // Add this flag
   Future<void> fetchdiagnosisData() async {
-    if (isDiagnosisDataFetched) {
-      return; // If data has already been fetched, return without fetching again
-    }
+    isLoading = false;
     Uri.parse(ApiLinks.singleTableDataDetector);
 
     final body = {"table": "finding"};
@@ -314,7 +312,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
         diagnosisdata = dataMap['result'];
         diagnosisfilteredData = diagnosisdata;
         isLoading = false;
-        isDiagnosisDataFetched = true;
       });
     } else {
       handleNonJsonResponse();
@@ -387,7 +384,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
       // Check if both fields in the row have data
       if (rowSurgery.isNotEmpty && rowNote.isNotEmpty) {
         additionalRowsData.add({
-         
           rowNote,
         });
       }
@@ -395,7 +391,10 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
 
     Map<String, dynamic> requestRadiologyList = {
       '0': selectedRadiologyIds,
-      '1': {radiologyQty, radiologyNote,},
+      '1': {
+        radiologyQty,
+        radiologyNote,
+      },
       '2': additionalRadiologyRowsData
     };
     Map<String, dynamic> requestSurgeryList = {
@@ -659,19 +658,12 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                           children: [
                             Container(
                               width: width / 1.25,
-                              height: 55,
                               child: Center(
                                 child: InkWell(
                                   child: TextFormField(
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return 'This field is required';
-                                      }
-                                      return null;
-                                    },
+                                    maxLines: null,
                                     readOnly: true,
                                     controller: otherController,
-                                    maxLines: null,
                                     decoration: InputDecoration(
                                       suffixIcon: IconButton(
                                         icon: const Icon(
@@ -701,7 +693,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                             ),
                             Container(
                               width: width / 9,
-                              // height: 40,
                               child: Center(
                                 child: CircleAvatar(
                                   child: IconButton(
@@ -753,7 +744,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                         ),
                         Container(
                           width: double.infinity,
-                          height: 30,
                           color: Colors.green[300],
                           child: const Padding(
                             padding: EdgeInsets.all(8.0),
@@ -798,16 +788,9 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                           children: [
                             Container(
                               width: width / 3.2,
-                              height: 55,
                               child: Center(
                                 child: InkWell(
                                   child: TextFormField(
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return 'This field is required';
-                                      }
-                                      return null;
-                                    },
                                     readOnly: true,
                                     controller: radiologyController,
                                     maxLines: null,
@@ -850,12 +833,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                               child: Center(
                                 child: InkWell(
                                     child: TextFormField(
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'This field is required';
-                                    }
-                                    return null;
-                                  },
                                   controller: radiologyQtyController,
                                   decoration: const InputDecoration(
                                     border: OutlineInputBorder(),
@@ -873,7 +850,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                             ),
                             Container(
                               width: width / 3.5,
-                              height: 60,
                               child: Center(
                                 child: InkWell(
                                     child: TextFormField(
@@ -898,7 +874,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                             ),
                             Container(
                               width: width / 9,
-                              height: 40,
                               child: Center(
                                 child: CircleAvatar(
                                   child: IconButton(
@@ -945,7 +920,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                         ),
                         Container(
                           width: double.infinity,
-                          height: 30,
                           color: Colors.green[300],
                           child: const Padding(
                             padding: EdgeInsets.all(8.0),
@@ -995,16 +969,9 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                 children: [
                                   Container(
                                     width: width / 3.5,
-                                    height: 55,
                                     child: Center(
                                       child: InkWell(
                                         child: TextFormField(
-                                          validator: (value) {
-                                            if (value!.isEmpty) {
-                                              return 'This field is required';
-                                            }
-                                            return null;
-                                          },
                                           readOnly: true,
                                           controller: surgeryController,
                                           maxLines: null,
@@ -1046,7 +1013,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                 children: [
                                   Container(
                                     width: width / 2,
-                                    height: 60,
                                     child: Center(
                                       child: TextFormField(
                                         controller: surgeryNoteController,
@@ -1125,12 +1091,11 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                             Container(
-                                height: 50,
                                 child: TextField(
-                                  controller: followAdviceController,
-                                  decoration: const InputDecoration(
-                                      border: OutlineInputBorder()),
-                                ))
+                              controller: followAdviceController,
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder()),
+                            ))
                           ],
                         ),
                         const SizedBox(height: 20),
@@ -1320,7 +1285,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                   FutureBuilder(
                     future: fetchpathologyData(),
                     builder: (context, snapshot) {
-                      return isLoading
+                      return pathologyfilteredData!.isEmpty
                           ? Expanded(
                               child: Padding(
                               padding: const EdgeInsets.all(10.0),
@@ -1498,7 +1463,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                   FutureBuilder(
                       future: fetchRadiologyData(),
                       builder: (context, snapshot) {
-                        return isLoading
+                        return radiologyfilteredData!.isEmpty
                             ? Expanded(
                                 child: Padding(
                                 padding: const EdgeInsets.all(10.0),
@@ -1657,7 +1622,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                   FutureBuilder(
                     future: fetchPharmacyData(),
                     builder: (context, snapshot) {
-                      return isLoading
+                      return pharmacyfilteredData!.isEmpty
                           ? Expanded(
                               child: Padding(
                               padding: const EdgeInsets.all(10.0),
@@ -1803,7 +1768,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                   FutureBuilder(
                       future: fetchotherData(),
                       builder: (context, snapshot) {
-                        return isLoading
+                        return otherfilteredData!.isEmpty
                             ? Expanded(
                                 child: Padding(
                                 padding: const EdgeInsets.all(10.0),
@@ -1891,7 +1856,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
             return Container(
-              height: MediaQuery.of(context).size.height * 0.8,
+              height: MediaQuery.of(context).size.height * 0.9,
               child: Column(
                 children: <Widget>[
                   Row(
@@ -1940,7 +1905,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                   FutureBuilder(
                     future: fetchdiagnosisData(),
                     builder: (context, snapshot) {
-                      return isLoading
+                      return diagnosisfilteredData!.isEmpty
                           ? Expanded(
                               child: Padding(
                               padding: const EdgeInsets.all(10.0),
@@ -2055,7 +2020,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
           children: [
             Container(
               width: width / 1.25,
-              height: 55,
               child: Center(
                 child: InkWell(
                   child: TextFormField(
@@ -2133,7 +2097,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
           children: [
             Container(
               width: width / 3.2,
-              height: 55,
               child: Center(
                 child: InkWell(
                   child: TextFormField(
@@ -2177,7 +2140,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
         ),
         Container(
           width: width / 6,
-          height: 50,
           child: Center(
             child: InkWell(
                 child: TextFormField(
@@ -2203,7 +2165,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
         ),
         Container(
           width: width / 3.5,
-          height: 50,
           child: Center(
             child: InkWell(
                 child: TextFormField(
@@ -2229,14 +2190,13 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
         ),
         Container(
           width: width / 9,
-          // height: 40,
           child: Center(
             child: CircleAvatar(
               child: IconButton(
                   onPressed: () {
                     setState(() {
                       // Remove the row when the "Cancel" button is clicked
-                     
+
                       removeLastRowRadiology();
                     });
                   },
@@ -2269,6 +2229,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
       otherControllersList.add(newControllersMap);
     });
   }
+
   void removeLastRowOtherTest() {
     if (opdOthertestRow.isNotEmpty) {
       setState(() {
@@ -2304,7 +2265,8 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
       radiologyControllersList.add(newRadiologyControllersMap);
     });
   }
-   void removeLastRowRadiology() {
+
+  void removeLastRowRadiology() {
     if (radiologyRow.isNotEmpty) {
       setState(() {
         radiologyRow.removeLast();
@@ -2327,7 +2289,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
             children: [
               Container(
                 width: width / 3.5,
-                height: 55,
                 child: Center(
                   child: InkWell(
                     child: TextFormField(
@@ -2374,7 +2335,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
             children: [
               Container(
                 width: width / 2,
-                height: 55,
                 child: Center(
                   child: TextFormField(
                     controller: surgeryNoteController,
@@ -2409,7 +2369,6 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                     child: IconButton(
                       onPressed: () {
                         setState(() {
-                          
                           removeLastRowSurgery();
                         });
                       },
@@ -2499,7 +2458,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                   FutureBuilder(
                     future: fetchsurgeryData(),
                     builder: (context, snapshot) {
-                      return isLoading
+                      return surgeryfilteredData!.isEmpty
                           ? Expanded(
                               child: Padding(
                               padding: const EdgeInsets.all(10.0),
@@ -2588,7 +2547,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
     });
   }
 
-   void removeLastRowSurgery() {
+  void removeLastRowSurgery() {
     if (surgeryRow.isNotEmpty) {
       setState(() {
         surgeryRow.removeLast();
