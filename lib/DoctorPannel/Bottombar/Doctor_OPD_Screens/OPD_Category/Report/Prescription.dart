@@ -3,7 +3,6 @@ import 'dart:async';
 
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/Das_screen.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Billview.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Reportview.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -365,19 +364,22 @@ class _PrescriptionState extends State<Prescription> {
                                                           'Paid') {
                                                         Get.to(
                                                           () =>
-                                                              pathologyBillview(
+                                                              Billview(
                                                             bill_pdf:
                                                                 "${Pathologybill['bill_pdf']}",
                                                             id: "${Pathologybill['id']}",
+                                                            bill_name: 'Tez_Health_Care-Pathology-report-$patient.pdf',
+
                                                           ),
                                                         );
                                                       } else {
                                                         Get.to(
                                                           () =>
-                                                              pathologyBillview(
+                                                              Billview(
                                                             bill_pdf:
                                                                 "${Pathologybill['bill_pdf']}",
-                                                            id: "${Pathologybill['id']}",
+                                                            id: "${Pathologybill['id']}", 
+                                                            bill_name: 'Tez_Health_Care-Pathology-report-$patient.pdf',
                                                           ),
                                                         );
                                                       }
@@ -434,10 +436,12 @@ class _PrescriptionState extends State<Prescription> {
                                                               'is_printed'] ==
                                                           '1') {
                                                         Get.to(
-                                                          () => pathologyReport(
-                                                            report_pdf:
+                                                          () => Billview(
+                                                            bill_pdf:
                                                                 "${Pathologybill['report_pdf']}",
                                                             id: "${Pathologybill['id']}",
+                                                            bill_name: 'Tez_Health_Care-presciption-report-$patient.pdf',
+
                                                           ),
                                                         );
                                                       } else {

@@ -1,6 +1,6 @@
 // ignore_for_file: file_names, non_constant_identifier_names, avoid_print, sized_box_for_whitespace, deprecated_member_use
 
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Surgery/ViewReport.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Billview.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
@@ -212,10 +212,13 @@ class _SurgeryPrescriptionListState extends State<SurgeryPrescriptionList> {
                             ),
                             onPressed: () {
                               Get.to(
-                                () => Surgeryreport(
-                                  prescripton_id: "${item['prescripton_id']}",
-                                  prescription_report:
-                                      "${item['prescription_report']}",
+                                () => Billview(
+                                  bill_name: 'Tez_Health_Care-Surgery-Prescription-$patientID.pdf',
+                                  bill_pdf:"${item['prescription_report']}", 
+                                  id: "${item['prescripton_id']}",
+                                
+                               
+                                      
                                 ),
                               );
                             },

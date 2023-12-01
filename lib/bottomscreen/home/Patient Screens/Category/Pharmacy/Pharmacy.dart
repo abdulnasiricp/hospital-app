@@ -3,7 +3,7 @@
 import 'dart:async';
 
 import 'package:TezHealthCare/bottombar/bottombar.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pharmacy/Pharmacybillprint.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Billview.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -334,10 +334,11 @@ class _PharmacyState extends State<Pharmacy> {
                                                   child: InkWell(
                                                     onTap: () {
                                                       Get.to(
-                                                        () => Pharmacybillprint(
+                                                        () => Billview(
                                                           bill_pdf:
                                                               "${Pharmacybill['bill_pdf']}", // Use 'id' as the Pharmacybill ID
                                                           id: "${Pharmacybill['id']}",
+                                                          bill_name: 'Tez_Health_Care-pharmacy-$patient.pdf',
                                                         ),
                                                       );
                                                     },

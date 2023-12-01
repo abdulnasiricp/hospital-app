@@ -3,8 +3,7 @@
 import 'dart:async';
 
 import 'package:TezHealthCare/bottombar/bottombar.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Radiology/Billview.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Radiology/Reportbiew.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Billview.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -181,7 +180,7 @@ class _RadiologyState extends State<Radiology> {
               Container(
                 color: Colors.grey,
                 width: width,
-                height: 40,
+                height: 45,
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Row(
@@ -195,6 +194,8 @@ class _RadiologyState extends State<Radiology> {
                             width: width / 8,
                             child: Text(
                               'billno'.tr,
+                              maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 15),
                             ),
@@ -209,6 +210,8 @@ class _RadiologyState extends State<Radiology> {
                             width: width / 5,
                             child: Text(
                               'Payment'.tr,
+                              maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 15),
                             ),
@@ -223,6 +226,8 @@ class _RadiologyState extends State<Radiology> {
                             width: width / 5,
                             child: Text(
                               'Report'.tr,
+                              maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 15),
                             ),
@@ -238,6 +243,8 @@ class _RadiologyState extends State<Radiology> {
                             child: Center(
                               child: Text(
                                 'amount'.tr,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 15),
                               ),
@@ -331,20 +338,23 @@ class _RadiologyState extends State<Radiology> {
                                                           'Paid') {
                                                         Get.to(
                                                           () =>
-                                                              RadiologyBillview(
+                                                              Billview(
                                                             bill_pdf:
                                                                 "${Radiologybill['bill_pdf']}", // Use 'id' as the Pathologybill ID
                                                             id: "${Radiologybill['id']}",
+                                                           bill_name: 'Tez_Health_Care-Radiology-Bill-$patient.pdf',
                                                           ),
                                                         );
                                                       } else {
                                                         // Handle the tap event for 'UnPaid' status
                                                         Get.to(
                                                           () =>
-                                                              RadiologyBillview(
+                                                           Billview(
                                                             bill_pdf:
                                                                 "${Radiologybill['bill_pdf']}", // Use 'id' as the Pathologybill ID
                                                             id: "${Radiologybill['id']}",
+                                                           bill_name: 'Tez_Health_Care-Radiology-Bill-$patient.pdf',
+
                                                           ),
                                                         );
                                                       }
@@ -400,10 +410,11 @@ class _RadiologyState extends State<Radiology> {
                                                           '1') {
                                                         Get.to(
                                                           () =>
-                                                              RadiologyReportview(
-                                                            report_pdf:
+                                                              Billview(
+                                                            bill_pdf:
                                                                 "${Radiologybill['report_pdf']}",
                                                             id: "${Radiologybill['id']}",
+                                                            bill_name:'Tez_Health_Care-Radiology-Report-$patient.pdf',
                                                           ),
                                                         );
                                                       } else {

@@ -2,8 +2,7 @@
 import 'dart:async';
 
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/Das_screen.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Radiology/Billview.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Radiology/Reportbiew.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Billview.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -331,20 +330,23 @@ class _Radilogy_ReportState extends State<Radilogy_Report> {
                                                           'Paid') {
                                                         Get.to(
                                                           () =>
-                                                              RadiologyBillview(
+                                                              Billview(
                                                             bill_pdf:
                                                                 "${Radiologybill['bill_pdf']}", // Use 'id' as the Pathologybill ID
                                                             id: "${Radiologybill['id']}",
+                                                            bill_name: 'Tez_Health_Care-Radiology-Report-$patient.pdf',
                                                           ),
                                                         );
                                                       } else {
                                                         // Handle the tap event for 'UnPaid' status
                                                         Get.to(
                                                           () =>
-                                                              RadiologyBillview(
+                                                            Billview(
                                                             bill_pdf:
                                                                 "${Radiologybill['bill_pdf']}", // Use 'id' as the Pathologybill ID
                                                             id: "${Radiologybill['id']}",
+                                                            bill_name: 'Tez_Health_Care-Radiology-Report-$patient.pdf',
+
                                                           ),
                                                         );
                                                       }
@@ -400,10 +402,12 @@ class _Radilogy_ReportState extends State<Radilogy_Report> {
                                                           '1') {
                                                         Get.to(
                                                           () =>
-                                                              RadiologyReportview(
-                                                            report_pdf:
+                                                              Billview(
+                                                            bill_pdf:
                                                                 "${Radiologybill['report_pdf']}",
                                                             id: "${Radiologybill['id']}",
+                                                            bill_name: 'Tez_Health_Care-Radiology-Report-$patient.pdf',
+
                                                           ),
                                                         );
                                                       } else {

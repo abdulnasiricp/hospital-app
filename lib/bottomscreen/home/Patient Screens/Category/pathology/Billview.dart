@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, avoid_print, deprecated_member_use
+// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, avoid_print, deprecated_member_use, unnecessary_string_interpolations
 
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/widgets/loading_widget.dart';
@@ -7,25 +7,25 @@ import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:open_file/open_file.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:url_launcher/url_launcher.dart'; // Import the url_launcher package
 
-class pathologyBillview extends StatefulWidget {
+class Billview extends StatefulWidget {
   
   final String id;
   final String bill_pdf;
-  const pathologyBillview(
-      {Key? key, required this.id, required this.bill_pdf,})
+  final String bill_name;
+  const Billview(
+      {Key? key, required this.id, required this.bill_pdf, required this.bill_name,})
       : super(key: key);
 
   @override
-  State<pathologyBillview> createState() => _pathologyBillviewState();
+  State<Billview> createState() => _BillviewState();
 }
 
-class _pathologyBillviewState extends State<pathologyBillview> {
+class _BillviewState extends State<Billview> {
   late PDFViewController pdfController;
   double? _progress;
   String PatientId = '';
@@ -34,7 +34,7 @@ class _pathologyBillviewState extends State<pathologyBillview> {
     SharedPreferences sp = await SharedPreferences.getInstance();
     PatientId = sp.getString('patientidrecord') ?? '';
     print(PatientId);
-    print('--------------PDF URL: ${widget.bill_pdf}');
+   
     setState(() {});
   }
 
@@ -90,7 +90,7 @@ class _pathologyBillviewState extends State<pathologyBillview> {
             onPressed: () async {
               // final status = await Permission.storage.request();
             FileDownloader.downloadFile(
-                  name: 'Tez_Health_Care-Pathology-Bill-$PatientId.pdf',
+                  name: widget.bill_name,
                   url: widget.bill_pdf,
                   onProgress: (name, progress) {
                     setState(() {
@@ -110,31 +110,7 @@ class _pathologyBillviewState extends State<pathologyBillview> {
                     _openDownloadedFile(path);
                   },
                 );
-              // if (status.isGranted) {
-                // FileDownloader.downloadFile(
-                //   name: 'Tez_Health_Care-Pathology-Bill-$PatientId.pdf',
-                //   url: widget.bill_pdf,
-                //   onProgress: (name, progress) {
-                //     setState(() {
-                //       _progress = progress;
-                //     });
-                //   },
-                //   onDownloadCompleted: (path) {
-                //     print('Downloaded path: $path');
-                //     setState(() {
-                //       _progress = null;
-                //       _downloadedFilePath =
-                //           path; // Store the downloaded file path
-                //     });
-
-                //     // Automatically open the downloaded file
-                //     _openDownloadedFile(path);
-                //   },
-                // );
-              // } else {
-              //   print('Permission denied');
-              //   // Handle permission denial here
-              // }
+           
             },
             icon: const Icon(Icons.download),
           )

@@ -2,10 +2,9 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Directbill/Directbillview.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Billview.dart';
 import 'package:flutter/services.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Reportview.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -33,14 +32,13 @@ class _Direct_billState extends State<Direct_bill> {
 ////////////////////////////////////////////////////////////////////////////////////////////
 // get Shared prefernce data
 
-  late String patient = '';
+  late String patientId = '';
   LoadData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
-    patient = sp.getString('patientidrecord') ?? '';
-    print(patient);
+    patientId = sp.getString('patientidrecord') ?? '';
+    print(patientId);
     setState(() {});
   }
-
 
 // ///////////////////////////////////////////////////////////////////////////////////////////////
 //calculate total amount
@@ -60,8 +58,6 @@ class _Direct_billState extends State<Direct_bill> {
     await LoadData();
     await fetchData();
 
-  
-
     calculateTotalAmount();
 
     isLoading = false;
@@ -73,9 +69,6 @@ class _Direct_billState extends State<Direct_bill> {
     getData();
   }
 
- 
-  
-
   ////////////////////////////////////////////////////////////////////////////////////////////
 // Get pathology data
   Map<String, dynamic>? DataMap;
@@ -84,9 +77,9 @@ class _Direct_billState extends State<Direct_bill> {
 
   Future<Map<String, dynamic>> fetchData() async {
     Uri.parse(ApiLinks.getDirectDetails);
-  
+
     final body = {
-      "patient_id": patient,
+      "patient_id": patientId,
     };
     try {
       final response = await http.post(
@@ -101,7 +94,6 @@ class _Direct_billState extends State<Direct_bill> {
           data = DataMap!['result'];
           filteredData = data;
           isLoading = false; // Set isLoading to false when data is loaded
-          
         });
       } else {
         throw Exception('Failed to load data');
@@ -168,7 +160,6 @@ class _Direct_billState extends State<Direct_bill> {
         appBar: PreferredSize(
             preferredSize: const Size(double.infinity, 65),
             child: SafeArea(
-
                 child: Container(
               decoration: BoxDecoration(color: darkYellow, boxShadow: const [
                 BoxShadow(
@@ -213,6 +204,8 @@ class _Direct_billState extends State<Direct_bill> {
                             child: Center(
                               child: Text(
                                 'billno'.tr,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 15),
                               ),
@@ -226,6 +219,8 @@ class _Direct_billState extends State<Direct_bill> {
                             width: width / 7,
                             child: Text(
                               'Payment'.tr,
+                              maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 15),
                             ),
@@ -238,6 +233,8 @@ class _Direct_billState extends State<Direct_bill> {
                             width: width / 7,
                             child: Text(
                               'Report'.tr,
+                              maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 15),
                             ),
@@ -250,6 +247,8 @@ class _Direct_billState extends State<Direct_bill> {
                             width: width / 7,
                             child: Text(
                               'amount'.tr,
+                              maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 15),
                             ),
@@ -353,18 +352,22 @@ class _Direct_billState extends State<Direct_bill> {
                                                               'status'] ==
                                                           'Paid') {
                                                         Get.to(
-                                                          () => Directbillview(
+                                                          () => Billview(
                                                             bill_pdf:
                                                                 "${Pathologybill['bill_pdf']}",
                                                             id: "${Pathologybill['id']}",
+                                                            bill_name:
+                                                                'Tez_Health_Care-Direct-Bill-$patientId.pdf',
                                                           ),
                                                         );
                                                       } else {
                                                         Get.to(
-                                                          () => Directbillview(
+                                                          () => Billview(
                                                             bill_pdf:
                                                                 "${Pathologybill['bill_pdf']}",
                                                             id: "${Pathologybill['id']}",
+                                                            bill_name:
+                                                                'Tez_Health_Care-Direct-Bill-$patientId.pdf',
                                                           ),
                                                         );
                                                       }
@@ -387,7 +390,10 @@ class _Direct_billState extends State<Direct_bill> {
                                                         child: Center(
                                                           child: Text(
                                                             // listName,
-                                                            "${Pathologybill['status']}".isEmpty?'N/A':"${Pathologybill['status']}",
+                                                            "${Pathologybill['status']}"
+                                                                    .isEmpty
+                                                                ? 'N/A'
+                                                                : "${Pathologybill['status']}",
                                                             style:
                                                                 const TextStyle(
                                                               fontWeight:
@@ -416,11 +422,13 @@ class _Direct_billState extends State<Direct_bill> {
                                                               'is_printed'] ==
                                                           '1') {
                                                         Get.to(
-                                                          () => pathologyReport(
-                                                            report_pdf:
-                                                                "${Pathologybill['report_pdf']}",
-                                                            id: "${Pathologybill['id']}",
-                                                          ),
+                                                          () => Billview(
+                                                              bill_pdf:
+                                                                  "${Pathologybill['report_pdf']}",
+                                                              id:
+                                                                  "${Pathologybill['id']}",
+                                                              bill_name:
+                                                                  'Tez_Health_Care-Direct-Bill-$patientId.pdf'),
                                                         );
                                                       } else {
                                                         ScaffoldMessenger.of(
@@ -482,7 +490,10 @@ class _Direct_billState extends State<Direct_bill> {
                                                   width: width / 7,
                                                   child: Center(
                                                     child: Text(
-                                                      "${Pathologybill['net_amount']}".isEmpty?'N/A':"${Pathologybill['net_amount']}",
+                                                      "${Pathologybill['net_amount']}"
+                                                              .isEmpty
+                                                          ? 'N/A'
+                                                          : "${Pathologybill['net_amount']}",
                                                       style: const TextStyle(
                                                         color: Colors.red,
                                                         fontWeight:

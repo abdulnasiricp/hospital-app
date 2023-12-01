@@ -1,10 +1,9 @@
-import 'dart:convert';
-import 'dart:typed_data';
+
+// ignore_for_file: non_constant_identifier_names, avoid_print
 
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:http/http.dart' as http;
 
 class PdfViewerScreen extends StatefulWidget {
   final String? bill_pdf;
@@ -25,7 +24,7 @@ class _PdfViewerScreenState extends State<PdfViewerScreen> {
     print('------------${widget.bill_pdf}');
     return Scaffold(
       appBar: AppBar(
-        title: Text('PDF Viewer'),
+        title: const Text('PDF Viewer'),
         backgroundColor: darkYellow,
       ),
       body:PDFView(
@@ -45,7 +44,7 @@ onError: (error) {
             ),
       bottomNavigationBar: BottomAppBar(
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 10.0),
+          padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: Text(
             'Page $currentPage of $pages',
             textAlign: TextAlign.center,

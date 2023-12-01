@@ -1,8 +1,7 @@
 // ignore_for_file: sized_box_for_whitespace, avoid_unnecessary_containers, avoid_print, non_constant_identifier_names
 
 import 'dart:convert';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/USG/BillReport.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/USG/ScanReport.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Billview.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -124,6 +123,8 @@ class _USGScreenState extends State<USGScreen> {
                           child: Center(
                             child: Text(
                               'billno'.tr,
+                              maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 15),
                             ),
@@ -137,6 +138,8 @@ class _USGScreenState extends State<USGScreen> {
                           width: width / 7,
                           child: Text(
                             'Scan'.tr,
+                            maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 15),
                           ),
@@ -149,6 +152,8 @@ class _USGScreenState extends State<USGScreen> {
                           width: width / 7,
                           child: Text(
                             'Report'.tr,
+                            maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 15),
                           ),
@@ -161,6 +166,8 @@ class _USGScreenState extends State<USGScreen> {
                           width: width / 7,
                           child: Text(
                             'amount'.tr,
+                            maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 15),
                           ),
@@ -241,11 +248,12 @@ class _USGScreenState extends State<USGScreen> {
                                               if (USGbill['is_scan_entry'] ==
                                                   '1') {
                                                 Get.to(
-                                                  () => USGScanreportview(
-                                                    scan_report_link: USGbill[
+                                                  () => Billview(
+                                                    bill_pdf: USGbill[
                                                             'direct_charge_details']
                                                         [0]['scan_report_link'],
                                                     id: "${USGbill['id']}",
+                                                    bill_name: 'Tez_Health_Care-usg-Scan$patient.pdf',
                                                   ),
                                                 );
                                               } else {
@@ -294,12 +302,13 @@ class _USGScreenState extends State<USGScreen> {
                                               if (USGbill['is_report_entry'] ==
                                                   '1') {
                                                 Get.to(
-                                                  () => USGBillview(
-                                                    finding_report_link: USGbill[
+                                                  () => Billview(
+                                                    bill_pdf: USGbill[
                                                             'direct_charge_details']
                                                         [
                                                         0]['finding_report_link'],
                                                     id: "${USGbill['id']}",
+                                                    bill_name: 'Tez_Health_Care_Report-$patient.pdf',
                                                   ),
                                                 );
                                               } else {

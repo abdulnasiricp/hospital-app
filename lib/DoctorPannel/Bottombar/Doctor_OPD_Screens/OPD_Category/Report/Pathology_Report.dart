@@ -8,7 +8,6 @@ import 'package:TezHealthCare/DoctorPannel/Doctor_Profile_Screens/DoctorHome.dar
 import 'package:flutter/services.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Billview.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Reportview.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -371,19 +370,21 @@ class _Pathology_ReportState extends State<Pathology_Report> {
                                                           'Paid') {
                                                         Get.to(
                                                           () =>
-                                                              pathologyBillview(
+                                                              Billview(
                                                             bill_pdf:
                                                                 "${Pathologybill['bill_pdf']}",
                                                             id: "${Pathologybill['id']}",
+                                                             bill_name: 'Tez_Health_Care-Pathology-report-$patient.pdf',
                                                           ),
                                                         );
                                                       } else {
                                                         Get.to(
                                                           () =>
-                                                              pathologyBillview(
+                                                            Billview(
                                                             bill_pdf:
                                                                 "${Pathologybill['bill_pdf']}",
                                                             id: "${Pathologybill['id']}",
+                                                            bill_name: 'Tez_Health_Care-Pathology-report-$patient.pdf',
                                                           ),
                                                         );
                                                       }
@@ -440,10 +441,11 @@ class _Pathology_ReportState extends State<Pathology_Report> {
                                                               'is_printed'] ==
                                                           '1') {
                                                         Get.to(
-                                                          () => pathologyReport(
-                                                            report_pdf:
+                                                          () => Billview(
+                                                            bill_pdf:
                                                                 "${Pathologybill['report_pdf']}",
                                                             id: "${Pathologybill['id']}",
+                                                            bill_name: 'Tez_Health_Care-Pathology-report-$patient.pdf',
                                                           ),
                                                         );
                                                       } else {

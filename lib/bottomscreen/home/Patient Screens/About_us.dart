@@ -238,9 +238,10 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                         padding: const EdgeInsets.all(10.0),
                                         child: Container(
                                           height: 100,
-                                          width: 100,
+                                          width: 70,
                                           child:
                                               Image.network(HospitalLogo),
+                                              
                                         ),
                                       ),
                                       Padding(
@@ -251,57 +252,27 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
                                           children: [
                                             Text(
                                               HospitalName,
-                                               overflow: TextOverflow
-                                  .ellipsis, // Use ellipsis to cut off the text
-                              maxLines: 1,
+                                              maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                           
                                               style: const TextStyle(
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                            Text(HospitalAddress, overflow: TextOverflow
-                                  .ellipsis, // Use ellipsis to cut off the text
-                              maxLines: 1,),
-                                            Text(HospitalEmail, overflow: TextOverflow
-                                  .ellipsis, // Use ellipsis to cut off the text
-                              maxLines: 1,),
-                                            Container(
-                                              height: height / 13,
-                                              width: width / 2,
-                                              child: const Card(
-                                                elevation: 2,
-                                                child: Row(
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsets.all(8.0),
-                                                      child: Text(
-                                                        '     200 \n General',
-                                                        style: TextStyle(
-                                                            fontSize: 10),
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsets.all(8.0),
-                                                      child: Text(
-                                                        '      20 \n ICU/CCU',
-                                                        style: TextStyle(
-                                                            fontSize: 10),
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsets.all(8.0),
-                                                      child: Text(
-                                                        '      20 \n Emergency',
-                                                        style: TextStyle(
-                                                            fontSize: 10),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
+                                            Text(HospitalAddress,
+                                            style: const TextStyle(
+                                                fontSize: 12
                                               ),
-                                            )
+                                             overflow: TextOverflow
+                                  .ellipsis, // Use ellipsis to cut off the text
+                              maxLines: 1,),
+                                            Text(HospitalEmail,
+                                            style: const TextStyle(
+                                                fontSize: 12
+                                              ), overflow: TextOverflow
+                                  .ellipsis, // Use ellipsis to cut off the text
+                              maxLines: 1,),
+                                       
                                           ],
                                         ),
                                       )

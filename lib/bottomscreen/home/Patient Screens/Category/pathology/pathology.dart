@@ -2,11 +2,9 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'package:TezHealthCare/check.dart';
+import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Billview.dart';
 import 'package:flutter/services.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Billview.dart';
-import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Reportview.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -36,11 +34,11 @@ class _PathalogyState extends State<Pathalogy> {
 ////////////////////////////////////////////////////////////////////////////////////////////
 // get Shared prefernce data
 
-  late String patient = '';
+  late String patientId = '';
   LoadData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
-    patient = sp.getString('patientidrecord') ?? '';
-    print(patient);
+    patientId = sp.getString('patientidrecord') ?? '';
+    print(patientId);
     setState(() {});
   }
 
@@ -84,7 +82,7 @@ class _PathalogyState extends State<Pathalogy> {
     Uri.parse(ApiLinks.pathology);
 
     final body = {
-      "patient_id": patient,
+      "patient_id": patientId,
     };
     try {
       final response = await http.post(
@@ -369,24 +367,25 @@ class _PathalogyState extends State<Pathalogy> {
                                                           'Paid') {
                                                         Get.to(
                                                           () =>
-                                                              pathologyBillview(
+                                                              Billview(
                                                             bill_pdf:
                                                                 "${Pathologybill['bill_pdf']}",
                                                             id: "${Pathologybill['id']}",
+                                                            bill_name: 'Tez_Health_Care-Pathology-Bill-$patientId.pdf',
                                                           ),
                                                         );
                                                       } else {
                                                         Get.to(
                                                           () =>
-                                                              pathologyBillview(
+                                                              Billview(
                                                             bill_pdf:
                                                                 "${Pathologybill['bill_pdf']}",
                                                             id: "${Pathologybill['id']}",
+                                                            bill_name: 'Tez_Health_Care-Pathology-Bill-$patientId.pdf',
                                                           ),
                                                         );
                                                       }
-                                                      // Get.to(()=>PdfViewerScreen(bill_pdf:
-                                                      //           "${Pathologybill['bill_pdf']}",));
+                                                     
                                                     },
                                                     child: Container(
                                                       decoration: BoxDecoration(
@@ -440,10 +439,11 @@ class _PathalogyState extends State<Pathalogy> {
                                                               'is_printed'] ==
                                                           '1') {
                                                         Get.to(
-                                                          () => pathologyReport(
-                                                            report_pdf:
+                                                          () => Billview(
+                                                            bill_pdf:
                                                                 "${Pathologybill['report_pdf']}",
                                                             id: "${Pathologybill['id']}",
+                                                            bill_name: 'Tez_Health_Care-Pathology-report-$patientId.pdf',
                                                           ),
                                                         );
                                                       } else {

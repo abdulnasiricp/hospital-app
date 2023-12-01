@@ -1404,7 +1404,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
               Text(
                 iconName,
                 style: const TextStyle(
-                  fontSize: 10,
+                  fontSize: 8,
                   fontWeight: FontWeight.bold,
                   color: Colors.black, // Adjust the text color
                 ),
