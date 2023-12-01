@@ -5,12 +5,16 @@ import 'package:TezHealthCare/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:open_file/open_file.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:url_launcher/url_launcher.dart'; // Import the url_launcher package
 
 class pathologyBillview extends StatefulWidget {
+  
   final String id;
   final String bill_pdf;
   const pathologyBillview(
@@ -22,14 +26,15 @@ class pathologyBillview extends StatefulWidget {
 }
 
 class _pathologyBillviewState extends State<pathologyBillview> {
+  late PDFViewController pdfController;
   double? _progress;
   String PatientId = '';
   String? _downloadedFilePath; // Store the downloaded file path
-
   LoadData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     PatientId = sp.getString('patientidrecord') ?? '';
     print(PatientId);
+    print('--------------PDF URL: ${widget.bill_pdf}');
     setState(() {});
   }
 
@@ -83,9 +88,8 @@ class _pathologyBillviewState extends State<pathologyBillview> {
         actions: [
           IconButton(
             onPressed: () async {
-              final status = await Permission.storage.request();
-              if (status.isGranted) {
-                FileDownloader.downloadFile(
+              // final status = await Permission.storage.request();
+            FileDownloader.downloadFile(
                   name: 'Tez_Health_Care-Pathology-Bill-$PatientId.pdf',
                   url: widget.bill_pdf,
                   onProgress: (name, progress) {
@@ -99,16 +103,38 @@ class _pathologyBillviewState extends State<pathologyBillview> {
                       _progress = null;
                       _downloadedFilePath =
                           path; // Store the downloaded file path
+                          Fluttertoast.showToast(msg: '$path');
                     });
 
                     // Automatically open the downloaded file
                     _openDownloadedFile(path);
                   },
                 );
-              } else {
-                print('Permission denied');
-                // Handle permission denial here
-              }
+              // if (status.isGranted) {
+                // FileDownloader.downloadFile(
+                //   name: 'Tez_Health_Care-Pathology-Bill-$PatientId.pdf',
+                //   url: widget.bill_pdf,
+                //   onProgress: (name, progress) {
+                //     setState(() {
+                //       _progress = progress;
+                //     });
+                //   },
+                //   onDownloadCompleted: (path) {
+                //     print('Downloaded path: $path');
+                //     setState(() {
+                //       _progress = null;
+                //       _downloadedFilePath =
+                //           path; // Store the downloaded file path
+                //     });
+
+                //     // Automatically open the downloaded file
+                //     _openDownloadedFile(path);
+                //   },
+                // );
+              // } else {
+              //   print('Permission denied');
+              //   // Handle permission denial here
+              // }
             },
             icon: const Icon(Icons.download),
           )
@@ -136,11 +162,8 @@ class _pathologyBillviewState extends State<pathologyBillview> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Center(
-            child: const PDF(
-              swipeHorizontal: true,
-            ).cachedFromUrl(
-                widget.bill_pdf// Use the provided PDF URL here
-            ),
+            child: SfPdfViewer.network(widget.bill_pdf)
+          
           ),
         ),
       ),

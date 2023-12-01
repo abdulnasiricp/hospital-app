@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'package:TezHealthCare/check.dart';
 import 'package:flutter/services.dart';
 import 'package:TezHealthCare/bottombar/bottombar.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Billview.dart';
@@ -384,6 +385,8 @@ class _PathalogyState extends State<Pathalogy> {
                                                           ),
                                                         );
                                                       }
+                                                      // Get.to(()=>PdfViewerScreen(bill_pdf:
+                                                      //           "${Pathologybill['bill_pdf']}",));
                                                     },
                                                     child: Container(
                                                       decoration: BoxDecoration(

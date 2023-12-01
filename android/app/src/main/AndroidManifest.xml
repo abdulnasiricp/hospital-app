@@ -16,6 +16,7 @@ xmlns:tools="http://schemas.android.com/tools"
 	<uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 	<uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
 	<uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+	<uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
 
 	<application tools:replace="android:label" android:label="Tez Helth Care" android:name="${applicationName}" android:icon="@mipmap/ic_launcher"  android:requestLegacyExternalStorage="true" android:enableOnBackInvokedCallback="true">
 		<activity android:name=".MainActivity" android:showWhenLocked="true" android:turnScreenOn="true" android:exported="true" android:launchMode="singleTop" android:theme="@style/LaunchTheme" android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode" android:hardwareAccelerated="true" android:windowSoftInputMode="adjustResize">
