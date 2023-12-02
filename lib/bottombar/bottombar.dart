@@ -155,7 +155,8 @@ class _BottomhomeState extends State<Bottomhome> {
           const PatientHomePage(payload: ''),
           const HomeTransactionBill(payload: 'payload'),
           const CardScreen(),
-          // NotificationCount(),
+        //  const Radilogy_Report(),
+          // const Pathology_Report(),
           const Profile(),
         ].elementAt(index);
       },

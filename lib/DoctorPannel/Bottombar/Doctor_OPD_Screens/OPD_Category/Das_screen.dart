@@ -25,7 +25,6 @@ import 'OPD_Medication.dart';
 class Das_screen extends StatefulWidget {
   final String? opdID;
   final String? patientName;
-  final String? title;
   final String? mobileNo;
   final String? name;
   final String? surname;
@@ -42,7 +41,6 @@ class Das_screen extends StatefulWidget {
   const Das_screen({
     Key? key,
     this.patientName,
-    this.title,
     this.name,
     this.patient_id,
     this.employee_id,
@@ -98,7 +96,7 @@ class _Das_screenState extends State<Das_screen> {
       final List<dynamic> rawData = dataMap['result'];
       radiologydata = rawData;
       print(
-          "++++ddscsd++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++$radiologydata");
+          "++++$radiologydata");
       setState(() {
         radiologydata = rawData;
         isLoading = false;
@@ -203,6 +201,20 @@ class _Das_screenState extends State<Das_screen> {
 
   @override
   Widget build(BuildContext context) {
+    print('1 ${widget.opdID}');
+    print('2 ${widget.patientName}');
+    print('4 ${widget.mobileNo}');
+    print('5 ${widget.name}');
+    print('6 ${widget.surname}');
+    print('7 ${widget.gender}');
+    print('8 ${widget.totalVisit}');
+    print('9 ${widget.OpdVisitDetailsID}');
+    print('10 ${widget.guardianName}');
+    print('11 ${widget.status}');
+    print('12 ${widget.employee_id}');
+    print('13 ${widget.case_reference_id}');
+    print('14 ${widget.patient_id}');
+ 
     return ScreenUtilInit(
         builder: (_, child) => Scaffold(
             appBar: AppBar(
@@ -540,7 +552,7 @@ class _Das_screenState extends State<Das_screen> {
                                         CardDesign(
                                           () {
                                             Get.to(
-                                                () => const Pathology_Report());
+                                                () =>  Pathology_Report(case_reference_id: widget.case_reference_id,));
                                           },
                                           SvgPicture.asset(
                                             'assets/pathology.svg',
@@ -553,7 +565,7 @@ class _Das_screenState extends State<Das_screen> {
                                         CardDesign(
                                           () {
                                             Get.to(
-                                                () => const Radilogy_Report());
+                                                () => Radilogy_Report(case_reference_id: widget.case_reference_id,));
                                           },
                                           SvgPicture.asset(
                                             'assets/radiology.svg',
@@ -1063,6 +1075,8 @@ class _Das_screenState extends State<Das_screen> {
                                                   yellow, // Set the background color
                                             ),
                                             child: const Text('Add doctor',
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
                                                 style:
                                                     TextStyle(fontSize: 12.0)),
                                           ),

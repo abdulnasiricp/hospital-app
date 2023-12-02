@@ -49,13 +49,10 @@ class _NoInternetScreenState extends State<NoInternetScreen> {
                 height: 5,
               ),
               const Text(
-                "Couldn't connect to server at the moment.",
+                "Couldn't connect to server at the moment,Please try again.",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
-              const Text(
-                "Please try again.",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-              ),
+            
               const SizedBox(
                 height: 20,
               ),

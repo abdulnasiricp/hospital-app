@@ -111,12 +111,15 @@ class _OpdHomeState extends State<OpdHome> {
     return Scaffold(
         backgroundColor: Colors.lightBlue[50],
         appBar: PreferredSize(
+        
             preferredSize: const Size(double.infinity, 65),
             child: SafeArea(
+              
                 child: Container(
               decoration: BoxDecoration(color: darkYellow, boxShadow: const [
                 BoxShadow(
                     color: Colors.white,
+
                     blurRadius: 5,
                     spreadRadius: 0,
                     offset: Offset(0, 5)),
@@ -137,6 +140,7 @@ class _OpdHomeState extends State<OpdHome> {
                   horizontalPadding: 5),
             ))),
         body: RefreshIndicator(
+          
           onRefresh: _handleRefresh,
           child: Column(children: [
             Container(
@@ -301,6 +305,7 @@ class _OpdHomeState extends State<OpdHome> {
                                         child: InkWell(
                                           onTap: () {
                                             Get.to(() => Das_screen(
+                                              
                                                   opdID: radiologyfilteredData?[
                                                           index]['opdid'] ??
                                                       "",

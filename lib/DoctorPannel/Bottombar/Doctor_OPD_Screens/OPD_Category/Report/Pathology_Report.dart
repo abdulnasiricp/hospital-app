@@ -19,9 +19,10 @@ import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 class Pathology_Report extends StatefulWidget {
-  const Pathology_Report({Key? key}) : super(key: key);
+  final String? case_reference_id;
 
- // const Pathology_Report({super.key});
+  const Pathology_Report({Key? key, this.case_reference_id}) : super(key: key);
+
 
   @override
   State<Pathology_Report> createState() => _Pathology_ReportState();
@@ -31,39 +32,12 @@ class _Pathology_ReportState extends State<Pathology_Report> {
   /////////////////////////////////////////////////////////////////////////////////////
 
   bool isLoading = true;
-  late String totalAmount = "0.00"; // Initialize with a default value
 
-////////////////////////////////////////////////////////////////////////////////////////////
-// get Shared prefernce data
-
-  late String patient = '';
-  LoadData() async {
-    SharedPreferences sp = await SharedPreferences.getInstance();
-    patient = sp.getString('patientidrecord') ?? '';
-    print(patient);
-    setState(() {});
-  }
-
-// ///////////////////////////////////////////////////////////////////////////////////////////////
-//calculate total amount
-  void calculateTotalAmount() {
-    double total = 0.0;
-    for (var item in filteredData!) {
-      total += double.tryParse(item['net_amount']) ?? 0.0;
-    }
-    setState(() {
-      totalAmount =
-          total.toStringAsFixed(2); // Format as a string with 2 decimal places
-    });
-  }
 
   //////////////////////////////////////////////////////////////////////////////////////////
   getData() async {
-    await LoadData();
     await fetchData();
-    ///////////////////////////////////////////////////////////////////////
 
-    calculateTotalAmount();
 
     isLoading = false;
   }
@@ -79,17 +53,21 @@ class _Pathology_ReportState extends State<Pathology_Report> {
   Map<String, dynamic>? DataMap;
   List<dynamic>? data = [];
   List<dynamic>? filteredData = [];
+  TextEditingController searchController = TextEditingController();
+
 
   Future<Map<String, dynamic>> fetchData() async {
-    Uri.parse(ApiLinks.pathology);
+   
 
     final body = {
-      // "patient_id": patient,
-      "patient_id": 10909,
+      
+    "case_id":'${widget.case_reference_id}'
+    // "case_id":'11632'
+
     };
     try {
       final response = await http.post(
-        Uri.parse(ApiLinks.pathology),
+        Uri.parse(ApiLinks.getPathologyReport),
         headers: ApiLinks.MainHeader,
         body: json.encode(body),
       );
@@ -126,11 +104,6 @@ class _Pathology_ReportState extends State<Pathology_Report> {
       isLoading = false; // Set isLoading to false after data is fetched
     });
   }
-
-  /////////////////////////////////////////////////////////////////////////////////////
-
-  TextEditingController searchController = TextEditingController();
-
 ////////////////////////////////////////////////////////////////////////////////////////
 // filter data
 
@@ -139,7 +112,7 @@ class _Pathology_ReportState extends State<Pathology_Report> {
       filteredData = data
           ?.where((element) =>
               element['id'].toLowerCase().contains(query.toLowerCase()) ||
-              element['status'].toLowerCase().contains(query.toLowerCase()))
+              element['patient_name'].toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }
@@ -157,7 +130,7 @@ class _Pathology_ReportState extends State<Pathology_Report> {
       onWillPop: () async {
         // Navigate to the Home Screen when the back button is pressed
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const Das_screen()),
+          MaterialPageRoute(builder: (context) => const OpdHome()),
         );
         return false; // Prevent default back button behavior
       },
@@ -176,7 +149,7 @@ class _Pathology_ReportState extends State<Pathology_Report> {
               ]),
               alignment: Alignment.center,
               child: AnimationSearchBar(
-                  previousScreen: const Das_screen(),
+                  previousScreen: const OpdHome(),
                   isBackButtonVisible: true,
                   backIconColor: whitecolor,
                   centerTitle: 'pathology'.tr,
@@ -209,7 +182,7 @@ class _Pathology_ReportState extends State<Pathology_Report> {
                             // width: width/7,
                             child: Center(
                               child: Text(
-                                'billno'.tr,
+                                'OPD ID'.tr,
                                 overflow: TextOverflow
                                     .ellipsis, // Use ellipsis to cut off the text
                                 maxLines: 1,
@@ -226,7 +199,7 @@ class _Pathology_ReportState extends State<Pathology_Report> {
                           Container(
                             width: width / 7,
                             child: Text(
-                              'Payment'.tr,
+                              'Patient Name'.tr,
                               overflow: TextOverflow
                                   .ellipsis, // Use ellipsis to cut off the text
                               maxLines: 1,
@@ -256,7 +229,7 @@ class _Pathology_ReportState extends State<Pathology_Report> {
                           Container(
                             width: width / 7,
                             child: Text(
-                              'amount'.tr,
+                              'Date'.tr,
                               overflow: TextOverflow
                                   .ellipsis, // Use ellipsis to cut off the text
                               maxLines: 1,
@@ -317,7 +290,7 @@ class _Pathology_ReportState extends State<Pathology_Report> {
                         : ListView.builder(
                             itemCount: filteredData!.length,
                             itemBuilder: (context, index) {
-                              final Pathologybill = filteredData![index];
+                              final Pathologybill = filteredData?[index];
                               if (Pathologybill.containsKey('id')) {
                                 return Column(
                                   children: [
@@ -374,7 +347,7 @@ class _Pathology_ReportState extends State<Pathology_Report> {
                                                             bill_pdf:
                                                                 "${Pathologybill['bill_pdf']}",
                                                             id: "${Pathologybill['id']}",
-                                                             bill_name: 'Tez_Health_Care-Pathology-report-$patient.pdf',
+                                                             bill_name: 'Tez_Health_Care-Pathology-report-${widget.case_reference_id}.pdf',
                                                           ),
                                                         );
                                                       } else {
@@ -384,41 +357,29 @@ class _Pathology_ReportState extends State<Pathology_Report> {
                                                             bill_pdf:
                                                                 "${Pathologybill['bill_pdf']}",
                                                             id: "${Pathologybill['id']}",
-                                                            bill_name: 'Tez_Health_Care-Pathology-report-$patient.pdf',
+                                                            bill_name: 'Tez_Health_Care-Pathology-report-${widget.case_reference_id}.pdf',
                                                           ),
                                                         );
                                                       }
                                                     },
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                        color: Pathologybill[
-                                                                    'status'] ==
-                                                                'Paid'
-                                                            ? Colors.green
-                                                            : Colors.red,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(3.0),
-                                                        child: Center(
-                                                          child: Text(
-                                                            "${Pathologybill['status']}"
-                                                                    .isEmpty
-                                                                ? 'N/A'
-                                                                : "${Pathologybill['status']}",
-                                                            overflow: TextOverflow
-                                                                .ellipsis, // Use ellipsis to cut off the text
-                                                            maxLines: 1,
-                                                            style:
-                                                                const TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                            ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets
+                                                              .all(3.0),
+                                                      child: Center(
+                                                        child: Text(
+                                                          "${Pathologybill['patient_name']}"
+                                                                  .isEmpty
+                                                              ? 'N/A'
+                                                              : "${Pathologybill['patient_name']}",
+                                                          overflow: TextOverflow
+                                                              .ellipsis, // Use ellipsis to cut off the text
+                                                          maxLines: 1,
+                                                          style:
+                                                              const TextStyle(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold,
                                                           ),
                                                         ),
                                                       ),
@@ -445,7 +406,7 @@ class _Pathology_ReportState extends State<Pathology_Report> {
                                                             bill_pdf:
                                                                 "${Pathologybill['report_pdf']}",
                                                             id: "${Pathologybill['id']}",
-                                                            bill_name: 'Tez_Health_Care-Pathology-report-$patient.pdf',
+                                                            bill_name: 'Tez_Health_Care-Pathology-report-${widget.case_reference_id}.pdf',
                                                           ),
                                                         );
                                                       } else {
@@ -511,10 +472,13 @@ class _Pathology_ReportState extends State<Pathology_Report> {
                                                   width: width / 7,
                                                   child: Center(
                                                     child: Text(
-                                                      "${Pathologybill['net_amount']}"
+                                                      "${Pathologybill['date']}"
                                                               .isEmpty
                                                           ? 'N/A'
-                                                          : "${Pathologybill['net_amount']}",
+                                                          : "${Pathologybill['date']}",
+                                                          overflow: TextOverflow
+                                                          .ellipsis, // Use ellipsis to cut off the text
+                                                      maxLines: 1,
                                                       style: const TextStyle(
                                                         color: Colors.red,
                                                         fontWeight:
@@ -539,37 +503,7 @@ class _Pathology_ReportState extends State<Pathology_Report> {
             ],
           ),
         ),
-        bottomSheet: data!.isEmpty
-            ? null // Set bottomSheet to null when apiData is empty
-            : Card(
-                child: Container(
-                  height: 50,
-                  width: width,
-                  color: darkYellow,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'total'.tr,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
-                        ),
-                        Shimmer.fromColors(
-                          baseColor: Colors.red,
-                          highlightColor: Colors.yellow,
-                          child: Text("Rs.$totalAmount",
-                              style: const TextStyle(
-                                  color: Colors.red, fontSize: 20)),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+        // 
       ),
     );
   }

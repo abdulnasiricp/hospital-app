@@ -45,9 +45,9 @@ import 'package:shimmer/shimmer.dart';
 import 'package:badges/badges.dart' as badges;
 
 class PatientHomePage extends StatefulWidget {
-  final String payload;
+  final String? payload;
   final String? patientId;
-  const PatientHomePage({Key? key, this.patientId, required this.payload})
+  const PatientHomePage({Key? key, this.patientId, this.payload})
       : super(key: key);
   @override
   State<PatientHomePage> createState() => _PatientHomePageState();
@@ -63,7 +63,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
 
   Future<void> fetchData() async {
     final response = await http.post(
-      Uri.parse('https://uat.tez.hospital/xzy/webservice/db_table'),
+      Uri.parse(ApiLinks.organization),
       headers: ApiLinks.MainHeader,
       body: jsonEncode({
         "table": "organisation",

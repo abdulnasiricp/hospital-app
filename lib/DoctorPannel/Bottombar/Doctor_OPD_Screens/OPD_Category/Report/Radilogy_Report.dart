@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Category/Das_screen.dart';
+import 'package:TezHealthCare/DoctorPannel/Bottombar/Doctor_OPD_Screens/OPD_Home.dart';
 import 'package:TezHealthCare/bottomscreen/home/Patient%20Screens/Category/Pathology/Billview.dart';
 import 'package:TezHealthCare/utils/Api_Constant.dart';
 import 'package:TezHealthCare/utils/colors.dart';
@@ -11,54 +12,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-class Radilogy_Report extends StatefulWidget {
-  const Radilogy_Report({Key? key}) : super(key: key);
 
-  //const Radilogy_Report({super.key});
+class Radilogy_Report extends StatefulWidget {
+  final String? case_reference_id;
+  const Radilogy_Report({Key? key, this.case_reference_id}) : super(key: key);
 
   @override
   State<Radilogy_Report> createState() => _Radilogy_ReportState();
 }
 
 class _Radilogy_ReportState extends State<Radilogy_Report> {
-   bool isLoading = true;
-
-  //////////////////////////////////////////////////////////////////////////////////////////////////
-  // get shared preference data
-  late String patient = '';
-  LoadData() async {
-    SharedPreferences sp = await SharedPreferences.getInstance();
-    patient = sp.getString('patientidrecord') ?? '';
-    print(patient);
-    setState(() {});
-  }
-
-// ///////////////////////////////////////////////////////////////////////////////////////////////
-//calculate total amount
-
-  late String totalAmount = "0.00"; // Initialize with a default value
-
-  void calculateTotalAmount() {
-    double total = 0.0;
-    for (var item in filteredData!) {
-      total += double.tryParse(item['net_amount']) ?? 0.0;
-    }
-    setState(() {
-      totalAmount =
-          total.toStringAsFixed(2); // Format as a string with 2 decimal places
-    });
-  }
+  bool isLoading = true;
 
   ////////////////////////////////////////////////////////////////////////////////////////////////
   getData() async {
-    await LoadData();
     await fetchData();
-
-    calculateTotalAmount();
   }
 
   @override
@@ -73,14 +44,14 @@ class _Radilogy_ReportState extends State<Radilogy_Report> {
   List<dynamic>? data = [];
   List<dynamic>? filteredData = [];
   Future<Map<String, dynamic>> fetchData() async {
-    Uri.parse(ApiLinks.radiology);
-   
     final body = {
-      "patient_id": 10909,
+      "case_id": '${widget.case_reference_id}',
+    // "case_id":'11632'
+
     };
 
     final response = await http.post(
-      Uri.parse(ApiLinks.radiology),
+      Uri.parse(ApiLinks.getRadiologyReport),
       headers: ApiLinks.MainHeader,
       body: json.encode(body),
     );
@@ -112,10 +83,8 @@ class _Radilogy_ReportState extends State<Radilogy_Report> {
     });
   }
 
-////////////////////////////////////////////////////////////////////////////////////
   TextEditingController searchController = TextEditingController();
 
-////////////////////////////////////////////////////////////////////////////////////////
 // filter data
 
   void filterData(String query) {
@@ -123,7 +92,9 @@ class _Radilogy_ReportState extends State<Radilogy_Report> {
       filteredData = data
           ?.where((element) =>
               element['id'].toLowerCase().contains(query.toLowerCase()) ||
-              element['status'].toLowerCase().contains(query.toLowerCase()))
+              element['patient_name']
+                  .toLowerCase()
+                  .contains(query.toLowerCase()))
           .toList();
     });
   }
@@ -140,7 +111,7 @@ class _Radilogy_ReportState extends State<Radilogy_Report> {
       onWillPop: () async {
         // Navigate to the Home Screen when the back button is pressed
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const Das_screen()),
+          MaterialPageRoute(builder: (context) => const OpdHome()),
         );
         return false; // Prevent default back button behavior
       },
@@ -159,7 +130,7 @@ class _Radilogy_ReportState extends State<Radilogy_Report> {
               ]),
               alignment: Alignment.center,
               child: AnimationSearchBar(
-                  previousScreen: const Das_screen(),
+                  previousScreen: const OpdHome(),
                   isBackButtonVisible: true,
                   backIconColor: whitecolor,
                   centerTitle: 'radiology'.tr,
@@ -180,7 +151,7 @@ class _Radilogy_ReportState extends State<Radilogy_Report> {
               Container(
                 color: Colors.grey,
                 width: width,
-                height: 40,
+                height: 45,
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Row(
@@ -193,7 +164,10 @@ class _Radilogy_ReportState extends State<Radilogy_Report> {
                           Container(
                             width: width / 8,
                             child: Text(
-                              'billno'.tr,
+                              'OPD ID'.tr,
+                              overflow: TextOverflow
+                                  .ellipsis, // Use ellipsis to cut off the text
+                              maxLines: 1,
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 15),
                             ),
@@ -207,7 +181,10 @@ class _Radilogy_ReportState extends State<Radilogy_Report> {
                           Container(
                             width: width / 5,
                             child: Text(
-                              'Payment'.tr,
+                              'Patient Name'.tr,
+                              overflow: TextOverflow
+                                  .ellipsis, // Use ellipsis to cut off the text
+                              maxLines: 1,
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 15),
                             ),
@@ -222,6 +199,9 @@ class _Radilogy_ReportState extends State<Radilogy_Report> {
                             width: width / 5,
                             child: Text(
                               'Report'.tr,
+                              overflow: TextOverflow
+                                  .ellipsis, // Use ellipsis to cut off the text
+                              maxLines: 1,
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 15),
                             ),
@@ -236,7 +216,10 @@ class _Radilogy_ReportState extends State<Radilogy_Report> {
                             width: width / 5,
                             child: Center(
                               child: Text(
-                                'amount'.tr,
+                                'Date'.tr,
+                                overflow: TextOverflow
+                                    .ellipsis, // Use ellipsis to cut off the text
+                                maxLines: 1,
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 15),
                               ),
@@ -311,6 +294,10 @@ class _Radilogy_ReportState extends State<Radilogy_Report> {
                                               "${Radiologybill['id']}".isEmpty
                                                   ? 'N/A'
                                                   : "${Radiologybill['id']}",
+                                              overflow: TextOverflow
+                                                  .ellipsis, // Use ellipsis to cut off the text
+                                              maxLines: 1,
+
                                               style: const TextStyle(
                                                 fontWeight: FontWeight.bold,
                                               ),
@@ -329,56 +316,45 @@ class _Radilogy_ReportState extends State<Radilogy_Report> {
                                                               'status'] ==
                                                           'Paid') {
                                                         Get.to(
-                                                          () =>
-                                                              Billview(
+                                                          () => Billview(
                                                             bill_pdf:
                                                                 "${Radiologybill['bill_pdf']}", // Use 'id' as the Pathologybill ID
                                                             id: "${Radiologybill['id']}",
-                                                            bill_name: 'Tez_Health_Care-Radiology-Report-$patient.pdf',
+                                                            bill_name:
+                                                                'Tez_Health_Care-Radiology-Report-${widget.case_reference_id}.pdf',
                                                           ),
                                                         );
                                                       } else {
                                                         // Handle the tap event for 'UnPaid' status
                                                         Get.to(
-                                                          () =>
-                                                            Billview(
+                                                          () => Billview(
                                                             bill_pdf:
                                                                 "${Radiologybill['bill_pdf']}", // Use 'id' as the Pathologybill ID
                                                             id: "${Radiologybill['id']}",
-                                                            bill_name: 'Tez_Health_Care-Radiology-Report-$patient.pdf',
-
+                                                            bill_name:
+                                                                'Tez_Health_Care-Radiology-Report-${widget.case_reference_id}.pdf',
                                                           ),
                                                         );
                                                       }
                                                     },
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                        color: Radiologybill[
-                                                                    'status'] ==
-                                                                'Paid'
-                                                            ? Colors.green
-                                                            : Colors.red,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(3.0),
-                                                        child: Center(
-                                                          child: Text(
-                                                            // listName,
-                                                            "${Radiologybill['status']}"
-                                                                    .isEmpty
-                                                                ? 'N/A'
-                                                                : "${Radiologybill['status']}",
-                                                            style:
-                                                                const TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                            ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              3.0),
+                                                      child: Center(
+                                                        child: Text(
+                                                          // listName,
+                                                          "${Radiologybill['patient_name']}"
+                                                                  .isEmpty
+                                                              ? 'N/A'
+                                                              : "${Radiologybill['patient_name']}",
+                                                          overflow: TextOverflow
+                                                              .ellipsis, // Use ellipsis to cut off the text
+                                                          maxLines: 1,
+                                                          style:
+                                                              const TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
                                                           ),
                                                         ),
                                                       ),
@@ -401,13 +377,12 @@ class _Radilogy_ReportState extends State<Radilogy_Report> {
                                                               'is_printed'] ==
                                                           '1') {
                                                         Get.to(
-                                                          () =>
-                                                              Billview(
+                                                          () => Billview(
                                                             bill_pdf:
                                                                 "${Radiologybill['report_pdf']}",
                                                             id: "${Radiologybill['id']}",
-                                                            bill_name: 'Tez_Health_Care-Radiology-Report-$patient.pdf',
-
+                                                            bill_name:
+                                                                'Tez_Health_Care-Radiology-Report-${widget.case_reference_id}.pdf',
                                                           ),
                                                         );
                                                       } else {
@@ -446,6 +421,10 @@ class _Radilogy_ReportState extends State<Radilogy_Report> {
                                                                     '1'
                                                                 ? 'Report Printed'
                                                                 : 'Processing',
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            maxLines: 1,
                                                             style:
                                                                 const TextStyle(
                                                               fontWeight:
@@ -471,10 +450,13 @@ class _Radilogy_ReportState extends State<Radilogy_Report> {
                                                   child: Center(
                                                     child: Text(
                                                       // 'Rs.${item.total}',
-                                                      "${Radiologybill['net_amount']}"
+                                                      "${Radiologybill['date']}"
                                                               .isEmpty
                                                           ? 'N/A'
-                                                          : "${Radiologybill['net_amount']}", // Use 'net_amount' for the amount
+                                                          : "${Radiologybill['date']}",
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      maxLines: 1,
                                                       style: const TextStyle(
                                                         color: Colors.red,
                                                         fontWeight:
@@ -499,37 +481,6 @@ class _Radilogy_ReportState extends State<Radilogy_Report> {
             ],
           ),
         ),
-        bottomSheet: data!.isEmpty
-            ? null // Set bottomSheet to null when apiData is empty
-            : Card(
-                child: Container(
-                  height: 50,
-                  width: width,
-                  color: darkYellow,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'total'.tr,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
-                        ),
-                        Shimmer.fromColors(
-                          baseColor: Colors.red,
-                          highlightColor: Colors.yellow,
-                          child: Text("Rs.$totalAmount",
-                              style: const TextStyle(
-                                  color: Colors.red, fontSize: 20)),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
       ),
     );
   }
