@@ -133,9 +133,8 @@ class _OpdInvestigationState extends State<OPD_Medication> {
         durationPharmacy,
         routepharmacy,
         qtypharmacy,
-        
       },
-      '2':additionalPharmacyRowsData
+      '2': additionalPharmacyRowsData
     };
 
     const String apiUrl =
@@ -537,6 +536,7 @@ class _OpdInvestigationState extends State<OPD_Medication> {
                     });
                   },
                   style: ButtonStyle(
+                    // ignore: deprecated_member_use
                     backgroundColor: MaterialStateProperty.all(yellow),
                   ),
                 ),
@@ -907,8 +907,7 @@ class _OpdInvestigationState extends State<OPD_Medication> {
                           child: IconButton(
                               onPressed: () {
                                 setState(() {
-                                  
-                                   removeLastRowPharmacy();
+                                  removeLastRowPharmacy();
                                 });
                               },
                               icon: Icon(
@@ -964,7 +963,7 @@ class _OpdInvestigationState extends State<OPD_Medication> {
     });
   }
 
-   void removeLastRowPharmacy() {
+  void removeLastRowPharmacy() {
     if (medicineRow.isNotEmpty) {
       setState(() {
         medicineRow.removeLast();

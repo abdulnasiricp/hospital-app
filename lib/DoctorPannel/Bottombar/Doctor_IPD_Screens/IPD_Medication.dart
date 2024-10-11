@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace, file_names, unused_local_variable
+// ignore_for_file: sized_box_for_whitespace, file_names, unused_local_variable, deprecated_member_use
 
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -16,8 +16,10 @@ class _IpdMedicationState extends State<IpdMedication> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Medication'),centerTitle: true,backgroundColor: darkYellow),
-
+      appBar: AppBar(
+          title: const Text('Medication'),
+          centerTitle: true,
+          backgroundColor: darkYellow),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -33,8 +35,8 @@ class _IpdMedicationState extends State<IpdMedication> {
                     children: [
                       const Text(
                         'Add Medication Dose',
-                        style:
-                            TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
                       ),
                       const SizedBox(
                         height: 10,
@@ -122,7 +124,9 @@ class _IpdMedicationState extends State<IpdMedication> {
                               children: [
                                 const Text(
                                   'Medicine Name',
-                                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12),
                                 ),
                                 Container(
                                   width: width / 4,
@@ -152,7 +156,9 @@ class _IpdMedicationState extends State<IpdMedication> {
                               children: [
                                 const Text(
                                   'Dosage',
-                                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12),
                                 ),
                                 Container(
                                   width: width / 7,
@@ -182,7 +188,9 @@ class _IpdMedicationState extends State<IpdMedication> {
                               children: [
                                 const Text(
                                   'Friquency',
-                                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12),
                                 ),
                                 Container(
                                   width: width / 7,
@@ -212,7 +220,9 @@ class _IpdMedicationState extends State<IpdMedication> {
                               children: [
                                 const Text(
                                   'No of Days',
-                                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12),
                                 ),
                                 Container(
                                   width: width / 7,
@@ -242,7 +252,9 @@ class _IpdMedicationState extends State<IpdMedication> {
                               children: [
                                 const Text(
                                   'Qty',
-                                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12),
                                 ),
                                 Container(
                                   width: width / 7,
@@ -272,7 +284,9 @@ class _IpdMedicationState extends State<IpdMedication> {
                               children: [
                                 const Text(
                                   ' ',
-                                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12),
                                 ),
                                 Container(
                                   width: width / 9,
@@ -280,20 +294,19 @@ class _IpdMedicationState extends State<IpdMedication> {
                                   child: Center(
                                     child: CircleAvatar(
                                       child: IconButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              // Add a new row when the "Add" button is clicked
-                                              addMedicationrows
-                                                  .add(observationBuildRow());
-                                            });
-                                          },
-                                          icon: Icon(
-                                            Icons.add,
-                                            color: whitecolor,
-                                          ),
-                                          ),
-                              backgroundColor: Colors.green,
-
+                                        onPressed: () {
+                                          setState(() {
+                                            // Add a new row when the "Add" button is clicked
+                                            addMedicationrows
+                                                .add(observationBuildRow());
+                                          });
+                                        },
+                                        icon: Icon(
+                                          Icons.add,
+                                          color: whitecolor,
+                                        ),
+                                      ),
+                                      backgroundColor: Colors.green,
                                     ),
                                   ),
                                 ),
@@ -302,28 +315,20 @@ class _IpdMedicationState extends State<IpdMedication> {
                           ],
                         ),
                       ),
-                       const SizedBox(
-                          height: 5,
-                        ),
-                  
-
+                      const SizedBox(
+                        height: 5,
+                      ),
                       Container(
-
                         height: addMedicationrows.isNotEmpty ? null : 0,
                         child: ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-
                           itemCount: addMedicationrows.length,
                           itemBuilder: (context, index) {
                             return addMedicationrows[index];
                           },
                         ),
                       ),
-
-
-
-                     
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -349,7 +354,7 @@ class _IpdMedicationState extends State<IpdMedication> {
                                   child: const Text('Save'),
                                   style: ButtonStyle(
                                     foregroundColor:
-                                        MaterialStateProperty.all(Colors.white),
+                                        WidgetStateProperty.all(Colors.white),
                                     backgroundColor:
                                         MaterialStateProperty.all(darkYellow),
                                   ),
@@ -363,7 +368,8 @@ class _IpdMedicationState extends State<IpdMedication> {
                                 Text(
                                   'Medication Reports',
                                   style: TextStyle(
-                                      fontWeight: FontWeight.bold, fontSize: 20),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
                                 ),
                                 SizedBox(
                                   height: 10,
@@ -374,18 +380,18 @@ class _IpdMedicationState extends State<IpdMedication> {
                                   children: [
                                     Text(
                                       'S.No',
-                                      style:
-                                          TextStyle(fontWeight: FontWeight.bold),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
                                     ),
                                     Text(
                                       'MID No',
-                                      style:
-                                          TextStyle(fontWeight: FontWeight.bold),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
                                     ),
                                     Text(
                                       'View',
-                                      style:
-                                          TextStyle(fontWeight: FontWeight.bold),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
                                     ),
                                   ],
                                 ),
@@ -435,8 +441,9 @@ class _IpdMedicationState extends State<IpdMedication> {
             )),
           ),
         ),
-       const SizedBox(width: 2,),
-       
+        const SizedBox(
+          width: 2,
+        ),
         Container(
           width: width / 7,
           height: 30,
@@ -458,9 +465,10 @@ class _IpdMedicationState extends State<IpdMedication> {
             )),
           ),
         ),
-       const SizedBox(width: 2,),
-       
-       Container(
+        const SizedBox(
+          width: 2,
+        ),
+        Container(
           width: width / 7,
           height: 30,
           child: Center(
@@ -481,9 +489,10 @@ class _IpdMedicationState extends State<IpdMedication> {
             )),
           ),
         ),
-       const SizedBox(width: 2,),
-      
-       Container(
+        const SizedBox(
+          width: 2,
+        ),
+        Container(
           width: width / 7,
           height: 30,
           child: Center(
@@ -504,7 +513,9 @@ class _IpdMedicationState extends State<IpdMedication> {
             )),
           ),
         ),
-       const SizedBox(width: 2,),
+        const SizedBox(
+          width: 2,
+        ),
         Container(
           width: width / 7,
           height: 30,

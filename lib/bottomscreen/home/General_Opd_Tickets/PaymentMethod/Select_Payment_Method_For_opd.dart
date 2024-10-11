@@ -1,5 +1,3 @@
-
-
 // ignore_for_file: non_constant_identifier_names, sized_box_for_whitespace, avoid_unnecessary_containers, file_names
 
 import 'package:TezHealthCare/Payment_gateway/cancel_payment.dart';
@@ -15,8 +13,8 @@ import 'package:get/get.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 
 class CheckSelectPaymentMethod extends StatefulWidget {
-  final int totalAmountInRs;
-  final int total_AmountPaisa;
+  final dynamic totalAmountInRs;
+  final dynamic total_AmountPaisa;
   final String patientName;
   final String DepartmentId;
   final String BloodgroupId;
@@ -187,8 +185,8 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
           ticketDate: widget.ticketDate.isEmpty ? "N/A" : widget.ticketDate,
           totalAmountInRs: widget.totalAmountInRs,
           total_AmountPaisa: widget.total_AmountPaisa,
-      selectedTicketType: widget.selectedTicketType,
-      selectedTicketTypeId: widget.selectedTicketTypeId,
+          selectedTicketType: widget.selectedTicketType,
+          selectedTicketTypeId: widget.selectedTicketTypeId,
         ));
   }
 
@@ -281,7 +279,7 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                   Padding(
+                                  Padding(
                                     padding: const EdgeInsets.all(10.0),
                                     child: Column(
                                       crossAxisAlignment:
@@ -325,7 +323,7 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                   Padding(
+                                  Padding(
                                     padding: const EdgeInsets.only(left: 10.0),
                                     child: Column(
                                       crossAxisAlignment:
@@ -400,7 +398,8 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
                                             child: Column(
                                               children: [
                                                 Padding(
-                                                  padding: const EdgeInsets.all(8.0),
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
                                                   child: Text(
                                                     'Terms and Conditions'.tr,
                                                     style: const TextStyle(
@@ -413,7 +412,8 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
                                                   height: 5,
                                                 ),
                                                 Text(
-                                                    '1.Payment Responsibility: Your responsibility includes the prompt settlement of all hospital dues through our mobile app.\n\n2. Accepted Payment Methods: The app offers multiple secure payment options for your convenience.\n\n3. Dispute Resolution: If you encounter any billing issues, please report them within 1 hour.'.tr,
+                                                    '1.Payment Responsibility: Your responsibility includes the prompt settlement of all hospital dues through our mobile app.\n\n2. Accepted Payment Methods: The app offers multiple secure payment options for your convenience.\n\n3. Dispute Resolution: If you encounter any billing issues, please report them within 1 hour.'
+                                                        .tr,
                                                     style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -441,7 +441,7 @@ class _SelectPaymentMethodState extends State<CheckSelectPaymentMethod> {
                             await navigateToSelectedPage();
                           },
                           style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(yellow),
+                            backgroundColor: WidgetStateProperty.all(yellow),
                           ),
                         ),
                       ),

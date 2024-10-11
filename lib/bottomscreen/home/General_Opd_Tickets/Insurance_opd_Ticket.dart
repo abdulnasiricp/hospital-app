@@ -79,7 +79,7 @@ class _Insurance_opd_TicketState extends State<Insurance_opd_Ticket> {
   Future<void> fetchData() async {
     final response = await http.post(
       Uri.parse(ApiLinks.OpdHistory),
-      headers:ApiLinks.MainHeader,
+      headers: ApiLinks.MainHeader,
       body: jsonEncode({
         "table": "organisation",
       }),
@@ -283,7 +283,7 @@ class _Insurance_opd_TicketState extends State<Insurance_opd_Ticket> {
                               },
                               style: ButtonStyle(
                                 backgroundColor:
-                                    MaterialStateProperty.all(yellow),
+                                    WidgetStateProperty.all(yellow),
                               ),
                             ),
                           ),
@@ -332,7 +332,7 @@ class _Insurance_opd_TicketState extends State<Insurance_opd_Ticket> {
                               },
                               style: ButtonStyle(
                                 backgroundColor:
-                                    MaterialStateProperty.all(yellow),
+                                    WidgetStateProperty.all(yellow),
                               ),
                             ),
                           ),
@@ -486,7 +486,8 @@ class _Insurance_opd_TicketState extends State<Insurance_opd_Ticket> {
 class InsuranceDetailsWidget extends StatelessWidget {
   final Map<String, dynamic> insuranceDetails;
 
-  const InsuranceDetailsWidget({Key? key, required this.insuranceDetails}) : super(key: key);
+  const InsuranceDetailsWidget({Key? key, required this.insuranceDetails})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

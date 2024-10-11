@@ -207,18 +207,16 @@ class _SurgeryPrescriptionListState extends State<SurgeryPrescriptionList> {
                           right: 0,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              primary:
+                              backgroundColor:
                                   yellow, // Change the background color here
                             ),
                             onPressed: () {
                               Get.to(
                                 () => Billview(
-                                  bill_name: 'Tez_Health_Care-Surgery-Prescription-$patientID.pdf',
-                                  bill_pdf:"${item['prescription_report']}", 
+                                  bill_name:
+                                      'Tez_Health_Care-Surgery-Prescription-$patientID.pdf',
+                                  bill_pdf: "${item['prescription_report']}",
                                   id: "${item['prescripton_id']}",
-                                
-                               
-                                      
                                 ),
                               );
                             },

@@ -19,7 +19,7 @@ import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SelectPaymentMethod extends StatefulWidget {
-  final int totalAmountInRs;
+  final dynamic totalAmountInRs;
   final int totalAmountInpaisa;
   final num path_Amount;
   final num total_Amount;
@@ -63,7 +63,6 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
 
   Future<void> ProfileApi() async {
     const apiUrl = ApiLinks.getPatientprofile;
-   
 
     final requestBody = jsonEncode({"patientId": patientID});
 
@@ -315,7 +314,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsets.all(10.0),
+                                              padding:
+                                                  const EdgeInsets.all(10.0),
                                               child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
@@ -359,8 +359,9 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                             Padding(
-                                              padding: const EdgeInsets.all(10.0),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(10.0),
                                               child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
@@ -405,7 +406,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsets.all(10.0),
+                                              padding:
+                                                  const EdgeInsets.all(10.0),
                                               child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
@@ -450,8 +452,9 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                           Padding(
-                                              padding: const EdgeInsets.all(10.0),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(10.0),
                                               child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
@@ -496,7 +499,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsets.all(10.0),
+                                              padding:
+                                                  const EdgeInsets.all(10.0),
                                               child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
@@ -542,7 +546,8 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsets.all(10.0),
+                                              padding:
+                                                  const EdgeInsets.all(10.0),
                                               child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
@@ -672,17 +677,19 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                                               topRight: Radius
                                                                   .circular(
                                                                       10))),
-                                                  child:  Padding(
+                                                  child: Padding(
                                                     padding:
-                                                        const EdgeInsets.all(8.0),
+                                                        const EdgeInsets.all(
+                                                            8.0),
                                                     child: Column(
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              const EdgeInsets.all(
-                                                                  8.0),
+                                                              const EdgeInsets
+                                                                  .all(8.0),
                                                           child: Text(
-                                                            'Terms and Conditions'.tr,
+                                                            'Terms and Conditions'
+                                                                .tr,
                                                             style: const TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
@@ -694,8 +701,10 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                                                           height: 5,
                                                         ),
                                                         Text(
-                                                            '1.Payment Responsibility: Your responsibility includes the prompt settlement of all hospital dues through our mobile app.\n\n2. Accepted Payment Methods: The app offers multiple secure payment options for your convenience.\n\n3. Dispute Resolution: If you encounter any billing issues, please report them within 1 hour.'.tr,
-                                                            style: const TextStyle(
+                                                            '1.Payment Responsibility: Your responsibility includes the prompt settlement of all hospital dues through our mobile app.\n\n2. Accepted Payment Methods: The app offers multiple secure payment options for your convenience.\n\n3. Dispute Resolution: If you encounter any billing issues, please report them within 1 hour.'
+                                                                .tr,
+                                                            style:
+                                                                const TextStyle(
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,

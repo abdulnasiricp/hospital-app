@@ -1117,7 +1117,7 @@ class _OpdInvestigationState extends State<OpdInvestigation> {
                               },
                               style: ButtonStyle(
                                 backgroundColor:
-                                    MaterialStateProperty.all(yellow),
+                                    WidgetStateProperty.all(yellow),
                               ),
                             ),
                           ),

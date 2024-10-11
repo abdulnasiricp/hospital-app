@@ -7,28 +7,19 @@ class MyButton extends StatelessWidget {
   final Widget title;
   final VoidCallback onPressed;
 
-  const MyButton({Key? key, required this.title, required this.onPressed}) : super(key: key);
+  const MyButton({Key? key, required this.title, required this.onPressed})
+      : super(key: key);
   // const MyButton( {super.key, required this.title, required this.onPressed,});
 
   @override
   Widget build(BuildContext context) {
-
-
-    
     return ElevatedButton(
-      
-
-      
       onPressed: onPressed,
       style: ButtonStyle(
-        
-        
-        foregroundColor: MaterialStateProperty.all(Colors.white),
-          backgroundColor: MaterialStateProperty.all(darkYellow),
-          ),
-
+        foregroundColor: WidgetStateProperty.all(Colors.white),
+        backgroundColor: WidgetStateProperty.all(darkYellow),
+      ),
       child: title,
-      
     );
   }
 }

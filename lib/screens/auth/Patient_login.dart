@@ -27,8 +27,6 @@ class PatientLogin extends StatefulWidget {
 }
 
 class _PatientLoginState extends State<PatientLogin> {
-
-  
   late String HospitalLogo = '';
   bool isLoading = true;
 
@@ -220,7 +218,6 @@ class _PatientLoginState extends State<PatientLogin> {
   getdata() async {}
   @override
   void initState() {
-    
     getAboutUsDetails();
 
     _loadLoginDateTime();
@@ -255,14 +252,12 @@ class _PatientLoginState extends State<PatientLogin> {
                   Container(
                     width: double.infinity,
                     height: height / 5,
-                    child:HospitalLogo.isEmpty
-                
-                ? Container():
-                  Image.network(
-                      '$HospitalLogo',
-                      fit: BoxFit.fill,
-                     
-                    ),
+                    child: HospitalLogo.isEmpty
+                        ? Container()
+                        : Image.network(
+                            '$HospitalLogo',
+                            fit: BoxFit.fill,
+                          ),
                   ),
                   Form(
                     key: formKey,
@@ -421,8 +416,7 @@ class _PatientLoginState extends State<PatientLogin> {
                           height: 50,
                           child: ElevatedButton(
                             style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(yellow),
+                              backgroundColor: WidgetStateProperty.all(yellow),
                             ),
                             child: const Text(EnString.login),
                             onPressed: () {

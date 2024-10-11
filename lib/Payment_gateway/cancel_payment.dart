@@ -75,8 +75,7 @@ class CancelPaymentScreen extends StatelessWidget {
                         },
                         child: Text(btnnName),
                         style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(darkYellow),
+                          backgroundColor: WidgetStateProperty.all(darkYellow),
                         )),
                   )
                 ],

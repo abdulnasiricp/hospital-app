@@ -95,8 +95,7 @@ class _Das_screenState extends State<Das_screen> {
       final dataMap = json.decode(response.body);
       final List<dynamic> rawData = dataMap['result'];
       radiologydata = rawData;
-      print(
-          "++++$radiologydata");
+      print("++++$radiologydata");
       setState(() {
         radiologydata = rawData;
         isLoading = false;
@@ -214,7 +213,7 @@ class _Das_screenState extends State<Das_screen> {
     print('12 ${widget.employee_id}');
     print('13 ${widget.case_reference_id}');
     print('14 ${widget.patient_id}');
- 
+
     return ScreenUtilInit(
         builder: (_, child) => Scaffold(
             appBar: AppBar(
@@ -551,8 +550,10 @@ class _Das_screenState extends State<Das_screen> {
                                       children: [
                                         CardDesign(
                                           () {
-                                            Get.to(
-                                                () =>  Pathology_Report(case_reference_id: widget.case_reference_id,));
+                                            Get.to(() => Pathology_Report(
+                                                  case_reference_id:
+                                                      widget.case_reference_id,
+                                                ));
                                           },
                                           SvgPicture.asset(
                                             'assets/pathology.svg',
@@ -564,8 +565,10 @@ class _Das_screenState extends State<Das_screen> {
                                         ),
                                         CardDesign(
                                           () {
-                                            Get.to(
-                                                () => Radilogy_Report(case_reference_id: widget.case_reference_id,));
+                                            Get.to(() => Radilogy_Report(
+                                                  case_reference_id:
+                                                      widget.case_reference_id,
+                                                ));
                                           },
                                           SvgPicture.asset(
                                             'assets/radiology.svg',
@@ -1069,14 +1072,13 @@ class _Das_screenState extends State<Das_screen> {
                                               _showAlldoctorSelection(context);
                                             },
                                             style: ElevatedButton.styleFrom(
-                                              fixedSize: const Size(150,
-                                                  30), // Adjust the Size according to your needs
-                                              primary:
+                                              fixedSize: const Size(150, 30),
+                                              backgroundColor:
                                                   yellow, // Set the background color
                                             ),
                                             child: const Text('Add doctor',
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 1,
                                                 style:
                                                     TextStyle(fontSize: 12.0)),
                                           ),

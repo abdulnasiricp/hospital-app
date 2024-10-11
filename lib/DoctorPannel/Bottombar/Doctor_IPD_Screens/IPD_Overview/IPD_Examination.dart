@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 
 class IpdExamination extends StatefulWidget {
   final String? ipdid;
-  const IpdExamination({Key? key,  this.ipdid}) : super(key: key);
+  const IpdExamination({Key? key, this.ipdid}) : super(key: key);
 
   @override
   State<IpdExamination> createState() => _IpdExaminationState();
@@ -548,10 +548,9 @@ class _IpdExaminationState extends State<IpdExamination> {
                       print('General================$generalCardText');
                       print('systematic================$systematicCardText');
                       print('systematic================$systematicCardText');
-                
                     },
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(darkYellow),
+                      backgroundColor: WidgetStateProperty.all(darkYellow),
                     ),
                   ),
                 ),

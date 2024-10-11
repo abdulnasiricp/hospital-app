@@ -13,8 +13,8 @@ import 'package:get/get.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 
 class SelectPaymentmethodfordoctorbooking extends StatefulWidget {
-  final int totalAmountInRs;
-  final int total_AmountPaisa;
+  final dynamic totalAmountInRs;
+  final dynamic total_AmountPaisa;
   final String patientName;
   final String DepartmentId;
   final String BloodgroupId;
@@ -433,7 +433,7 @@ class _SelectPaymentmethodfordoctorbookingState
                             await navigateToSelectedPage();
                           },
                           style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(yellow),
+                            backgroundColor: WidgetStateProperty.all(yellow),
                           ),
                         ),
                       ),

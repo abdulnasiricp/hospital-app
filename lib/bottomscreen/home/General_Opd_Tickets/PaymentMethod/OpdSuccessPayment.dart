@@ -19,8 +19,8 @@ import 'package:http/http.dart' as http;
 
 class OpdPaymentSuccessfullScreen extends StatefulWidget {
   final String paymentMethod;
-  final int opdchargeAmount;
-  final int totalAmountInRs;
+  final dynamic opdchargeAmount;
+  final dynamic totalAmountInRs;
   final int total_AmountPaisa;
   final String patientName;
   final String DepartmentId;
@@ -71,7 +71,6 @@ class _OpdPaymentSuccessfullScreenState
 
   Future<void> makePostRequest() async {
     final url = Uri.parse(ApiLinks.addopdticket);
-  
 
     final Map<String, String> body = {
       "name": "${widget.patientName}".isEmpty ? "N/A" : "${widget.patientName}",

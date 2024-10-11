@@ -1022,9 +1022,8 @@ class _IPD_Das_screenState extends State<IPD_Das_screen> {
                                               _showAlldoctorSelection(context);
                                             },
                                             style: ElevatedButton.styleFrom(
-                                              fixedSize: const Size(150,
-                                                  30), // Adjust the Size according to your needs
-                                              primary:
+                                              fixedSize: const Size(150, 30),
+                                              backgroundColor:
                                                   yellow, // Set the background color
                                             ),
                                             child: const Text('Add doctor',

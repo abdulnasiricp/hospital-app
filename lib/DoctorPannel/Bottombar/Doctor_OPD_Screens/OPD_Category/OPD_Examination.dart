@@ -509,7 +509,7 @@ class _OpdExaminationState extends State<OpdExamination> {
                             });
                           },
                           style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(yellow),
+                            backgroundColor: WidgetStateProperty.all(yellow),
                           ),
                         ),
                       ),

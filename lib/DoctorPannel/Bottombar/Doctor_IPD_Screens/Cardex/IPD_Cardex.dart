@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace, file_names, dead_code, unused_local_variable
+// ignore_for_file: sized_box_for_whitespace, file_names, dead_code, unused_local_variable, deprecated_member_use
 
 import 'package:TezHealthCare/utils/colors.dart';
 import 'package:TezHealthCare/utils/mediaqury.dart';
@@ -18,7 +18,10 @@ class _IPDCardexState extends State<IPDCardex> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Cardex'),centerTitle: true,backgroundColor: darkYellow),
+      appBar: AppBar(
+          title: const Text('Cardex'),
+          centerTitle: true,
+          backgroundColor: darkYellow),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
@@ -179,14 +182,11 @@ class _IPDCardexState extends State<IPDCardex> {
                       const SizedBox(
                         height: 5,
                       ),
-
                       Container(
-
                         height: dragrows.isNotEmpty ? null : 0,
                         child: ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-
                           itemCount: dragrows.length,
                           itemBuilder: (context, index) {
                             return dragrows[index];
@@ -470,14 +470,11 @@ class _IPDCardexState extends State<IPDCardex> {
                       const SizedBox(
                         height: 5,
                       ),
-
                       Container(
-
                         height: obesvationrows.isNotEmpty ? null : 0,
                         child: ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-
                           itemCount: obesvationrows.length,
                           itemBuilder: (context, index) {
                             return obesvationrows[index];
@@ -716,14 +713,11 @@ class _IPDCardexState extends State<IPDCardex> {
                               const SizedBox(
                                 height: 5,
                               ),
-
                               Container(
-
                                 height: drainagegrows.isNotEmpty ? null : 0,
                                 child: ListView.builder(
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
-
                                   itemCount: drainagegrows.length,
                                   itemBuilder: (context, index) {
                                     return drainagegrows[index];

@@ -801,7 +801,7 @@ class _OpdPreCheckingState extends State<OpdPreChecking> {
                               },
                               style: ButtonStyle(
                                 backgroundColor:
-                                    MaterialStateProperty.all(yellow),
+                                    WidgetStateProperty.all(yellow),
                               ),
                             ),
                           ),

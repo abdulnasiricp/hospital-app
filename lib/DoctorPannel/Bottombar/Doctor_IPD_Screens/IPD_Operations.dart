@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, avoid_print, sized_box_for_whitespace
+// ignore_for_file: file_names, avoid_print, sized_box_for_whitespace, deprecated_member_use
 
 import 'dart:convert';
 
@@ -24,7 +24,7 @@ class _IpdOperationsState extends State<IpdOperations> {
   TextEditingController surgeryNoteController = TextEditingController();
 
   bool isLoading = false;
- 
+
   Future<void> makePostRequest() async {
     final String mainSurgery = surgeryController.text;
     final String mainSurgeryNote = surgeryNoteController.text;
@@ -55,7 +55,6 @@ class _IpdOperationsState extends State<IpdOperations> {
     Map<String, dynamic> requestBody = {
       "table": "Visit_details",
       "fields": requestBodyList,
-      
     };
     print('----------------$requestBodyList');
     print('----------------$requestBody');
@@ -158,8 +157,10 @@ class _IpdOperationsState extends State<IpdOperations> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Operation'),centerTitle: true,backgroundColor: darkYellow),
-
+      appBar: AppBar(
+          title: const Text('Operation'),
+          centerTitle: true,
+          backgroundColor: darkYellow),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(5.0),

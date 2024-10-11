@@ -17,18 +17,18 @@ class AddNewMemberScreen extends StatefulWidget {
 class _AddNewMemberScreenState extends State<AddNewMemberScreen> {
   late DateTime selectedDate;
   TextEditingController dateController = TextEditingController();
-  TextEditingController firstNameController=TextEditingController();
-  TextEditingController lastNameController=TextEditingController();
-  TextEditingController ageController=TextEditingController();
-  TextEditingController dobController=TextEditingController();
-  TextEditingController phoneController=TextEditingController();
-  TextEditingController emailController=TextEditingController();
-  TextEditingController relationshipController=TextEditingController();
-  TextEditingController districtController=TextEditingController();
-  TextEditingController vdcMunicipalityController=TextEditingController();
-  TextEditingController wardController=TextEditingController();
-  TextEditingController toleController=TextEditingController();
-  
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
+  TextEditingController dobController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController relationshipController = TextEditingController();
+  TextEditingController districtController = TextEditingController();
+  TextEditingController vdcMunicipalityController = TextEditingController();
+  TextEditingController wardController = TextEditingController();
+  TextEditingController toleController = TextEditingController();
+
   String selectedGender = ''; // Stores the selected gender.
 
   // Function to handle gender selection.
@@ -103,12 +103,10 @@ class _AddNewMemberScreenState extends State<AddNewMemberScreen> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-             backgroundColor: Colors.lightBlue[50],
-
+        backgroundColor: Colors.lightBlue[50],
         appBar: AppBar(
           title: const Text('Add New Member'),
           centerTitle: true,
@@ -453,18 +451,21 @@ class _AddNewMemberScreenState extends State<AddNewMemberScreen> {
                     )
                   ],
                 ),
-                const SizedBox(height: 20,),
+                const SizedBox(
+                  height: 20,
+                ),
                 Center(
-                    child: Container(width: width/1.7,
-                    height: height/15,
-                      child: ElevatedButton(
-                                      child: const Text('Save'),
-                                      onPressed: () {},
-                                      style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(darkYellow),
-                                      ),
-                                    ),
-                    ))
+                    child: Container(
+                  width: width / 1.7,
+                  height: height / 15,
+                  child: ElevatedButton(
+                    child: const Text('Save'),
+                    onPressed: () {},
+                    style: ButtonStyle(
+                      backgroundColor: WidgetStateProperty.all(darkYellow),
+                    ),
+                  ),
+                ))
               ],
             ),
           ),
